@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <!--
+==============================================
+Budget compare base view
+==============================================
+-->
+    <!--
+==============================================
+Budget compare period 
+==============================================
+-->
+    <record model="ir.ui.view" id="chricar_budget_compare_period_list">
+      <field name="name">chricar.budget.compare.period.list</field>
+      <field name="model">chricar.budget.compare.period</field>
+      <field name="priority">16</field>
+      <field name="type">tree</field>
+      <field name="arch" type="xml">
+        <tree string="Budget Compare Period">
+          <field name="period_id"/>
+          <field name="parent_id"/>
+          <field name="item_id"/>
+          <field name="budget_current" sum="Budget Current"/>
+          <field name="budget_last" sum="Budget Last"/>
+          <field name="real_current" sum="Real Current"/>
+          <field name="real_last" sum="Real Last"/>
+          <field name="type"/>
+          <field name="company_id"/>
+        </tree>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="chricar_budget_compare_period_form">
+      <field name="name">chricar.budget.compare.period.form</field>
+      <field name="model">chricar.budget.compare.period</field>
+      <field name="priority">16</field>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <form string="Budget Compare Period">
+          <field name="period_id" select="1"/>
+          <field name="parent_id" select="1"/>
+          <field name="item_id" select="1"/>
+          <field name="budget_current" select="2"/>
+          <field name="budget_last" select="2"/>
+          <field name="real_current" select="2"/>
+          <field name="real_last" select="2"/>
+          <field name="type" select="2"/>
+          <field name="company_id" select="1"/>
+        </form>
+      </field>
+    </record>
+    <record model="ir.actions.act_window" id="chricar_budget_compare_period_act1">
+      <field name="name">Budget Compare Period</field>
+      <field name="res_model">chricar.budget.compare.period</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="view_id" ref="chricar_budget_compare_period_list"/>
+    </record>
+    <record model="ir.actions.act_window.view" id="chricar_budget_compare_period_act1_view2">
+      <field name="sequence" eval="1"/>
+      <field name="view_mode">tree</field>
+      <field name="view_id" ref="chricar_budget_compare_period_list"/>
+      <field name="act_window_id" ref="chricar_budget_compare_period_act1"/>
+    </record>
+    <record model="ir.actions.act_window.view" id="chricar_budget_compare_period_act1_view1">
+      <field name="sequence" eval="2"/>
+      <field name="view_mode">form</field>
+      <field name="view_id" ref="chricar_budget_compare_period_form"/>
+      <field name="act_window_id" ref="chricar_budget_compare_period_act1"/>
+    </record>
+    <menuitem
+      action="chricar_budget_compare_period_act1"
+      id="menu_chricar_budget_compare_period_list"
+      parent="c2c_budget.menu_budget_c2c"
+      sequence="150"/>
+    <act_window
+      domain="[('budget_item_id', '=', item_id),('period_id','=',period_id)]"
+      id="act_compare_period_2_line"
+      name="Budget Lines"
+      res_model="c2c_budget.line"
+      src_model="chricar.budget.compare.period"
+      view_mode="tree,form"
+      view_type="form"/>
+    <!--
+==============================================
+Budget compare year
+==============================================
+-->
+    <record model="ir.ui.view" id="chricar_budget_compare_year_list">
+      <field name="name">chricar.budget.compare.year.list</field>
+      <field name="model">chricar.budget.compare.year</field>
+      <field name="priority">16</field>
+      <field name="type">tree</field>
+      <field name="arch" type="xml">
+        <tree string="Budget Compare Year">
+          <field name="fiscalyear_id"/>
+          <field name="parent_id"/>
+          <field name="item_id"/>
+          <field name="budget_current" sum="Budget Current"/>
+          <field name="budget_last" sum="Budget Last"/>
+          <field name="real_current" sum="Real Current"/>
+          <field name="real_last" sum="Real Last"/>
+          <field name="type"/>
+          <field name="company_id"/>
+        </tree>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="chricar_budget_compare_year_form">
+      <field name="name">chricar.budget.compare.year.form</field>
+      <field name="model">chricar.budget.compare.year</field>
+      <field name="priority">16</field>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <form string="Budget Compare Year">
+          <field name="fiscalyear_id" select="1"/>
+          <field name="parent_id" select="1"/>
+          <field name="item_id" select="1"/>
+          <field name="budget_current" select="2"/>
+          <field name="budget_last" select="2"/>
+          <field name="real_current" select="2"/>
+          <field name="real_last" select="2"/>
+          <field name="type" select="2"/>
+          <field name="company_id" select="1"/>
+        </form>
+      </field>
+    </record>
+    <record model="ir.actions.act_window" id="chricar_budget_compare_year_act1">
+      <field name="name">Budget Compare Year</field>
+      <field name="res_model">chricar.budget.compare.year</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="view_id" ref="chricar_budget_compare_year_list"/>
+    </record>
+    <record model="ir.actions.act_window.view" id="chricar_budget_compare_year_act1_view2">
+      <field name="sequence" eval="1"/>
+      <field name="view_mode">tree</field>
+      <field name="view_id" ref="chricar_budget_compare_year_list"/>
+      <field name="act_window_id" ref="chricar_budget_compare_year_act1"/>
+    </record>
+    <record model="ir.actions.act_window.view" id="chricar_budget_compare_year_act1_view1">
+      <field name="sequence" eval="2"/>
+      <field name="view_mode">form</field>
+      <field name="view_id" ref="chricar_budget_compare_year_form"/>
+      <field name="act_window_id" ref="chricar_budget_compare_year_act1"/>
+    </record>
+    <menuitem
+      action="chricar_budget_compare_year_act1"
+      id="menu_chricar_budget_compare_year_list"
+      parent="c2c_budget.menu_budget_c2c"
+      sequence="150"/>
+    <act_window
+      domain="[('fiscalyear_id', '=', fiscalyear_id),('item_id', '=', item_id),('company_id','=',company_id)]"
+      id="act_compare_year_2_period"
+      name="Budget Compare Period"
+      res_model="chricar.budget.compare.period"
+      src_model="chricar.budget.compare.year"
+      view_mode="tree,form"
+      view_type="form"/>
+    <act_window
+      domain="[('budget_item_id', '=', item_id)]"
+      id="act_compare_year_2_line"
+      name="Budget Lines"
+      res_model="c2c_budget.line"
+      src_model="chricar.budget.compare.year"
+      view_mode="tree,form"
+      view_type="form"/>
+  </data>
+</openerp>

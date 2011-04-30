@@ -1,0 +1,763 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <!--
+==============================================
+Budget Products Production (budget_lines_production > budget_lines)
+generated 2009-08-21 15:12:07+02
+==============================================
+-->
+    <!--
+Production
+-->
+    <record model="ir.ui.view" id="chricar_budget_lines_production_form">
+      <field name="name">chricar.budget_lines_production.form</field>
+      <field name="model">chricar.budget_lines_production</field>
+      <field name="priority">1</field>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <form string="Budget Products Production">
+          <group colspan="4" col="6">
+            <field name="budget_id" select="1" colspan="6"/>
+            <group colspan="4" col="4">
+              <separator string="Dates" colspan="4"/>
+              <field
+                colspan="4"
+                name="date_planning"
+                on_change="on_change_date(parent.budget_version_id,date_planning,payment_term_id)"
+                required="1"
+                select="1"/>
+              <field name="payment_term_id" select="1"/>
+              <field name="date_due" select="1" required="1"/>
+              <separator string="Values" colspan="4"/>
+              <field name="product_id" select="1" colspan="4"/>
+              <field name="name" select="1" colspan="4"/>
+              <field
+                name="quantity_base"
+                on_change="on_change_quantity_base(quantity_base, parent.surface, parent.product_qty, price_unit,price_unit_id,price_factor,amount_bom)"
+                select="1"/>
+              <field
+                name="quantity"
+                on_change="on_change_quantity(quantity,price_unit,price_unit_id,price_factor,amount_bom)"
+                select="1"/>
+              <field
+                name="price_unit"
+                on_change="on_change_quantity(quantity,price_unit,price_unit_id,price_factor,amount_bom)"/>
+              <field
+                name="price_unit_id"
+                on_change="on_change_quantity(quantity,price_unit,price_unit_id,price_factor,amount_bom)"/>
+              <field name="amount_production" select="1"/>
+              <field name="state" select="2"/>
+              <field name="bom_id" select="1" colspan="4"/>
+              <field
+                name="amount_bom"
+                on_change="on_change_bom(amount_production,price_factor,amount_bom)"
+                select="1"/>
+              <field
+                name="price_factor"
+                on_change="on_change_bom(amount_production,price_factor,amount_bom)"
+                select="1"/>
+              <field name="amount_cost" select="1"/>
+              <field name="currency_id" select="2"/>
+            </group>
+            <group colspan="2" col="2">
+              <separator string="Other Info" colspan="2"/>
+              <field
+                domain="[('usage'),'=','production')]"
+                name="location_id"
+                select="1"/>
+              <field name="partner_id" select="1"/>
+              <field
+                domain="[('type','=','normal')]"
+                name="budget_item_id"
+                select="1"/>
+              <field name="budget_version_id" select="1"/>
+            </group>
+          </group>
+          <notebook colspan="4">
+            <page string="Notes">
+              <field name="notes" select="1"/>
+            </page>
+          </notebook>
+        </form>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="chricar_budget_lines_production_list">
+      <field name="name">chricar.budget_lines_production.list</field>
+      <field name="model">chricar.budget_lines_production</field>
+      <field name="priority">1</field>
+      <field name="type">tree</field>
+      <field name="arch" type="xml">
+        <tree string="Budget Products Production">
+          <field name="budget_id" select="1"/>
+          <field name="date_planning" select="1"/>
+          <field name="date_due" select="1"/>
+          <field name="name" select="1"/>
+          <field
+            name="quantity_base"
+            on_change="on_change_quantity_base(quantity_base,price_unit,price_unit_id,price_factor,amount_bom)"
+            select="1"/>
+          <field name="product_id" select="1"/>
+          <field
+            name="quantity"
+            on_change="on_change_quantity(quantity,price_unit,price_unit_id,price_factor,amount_bom)"
+            select="1"/>
+          <field
+            name="price_unit"
+            on_change="on_change_quantity(quantity,price_unit,price_unit_id,price_factor,amount_bom)"/>
+          <field name="price_unit_id"/>
+          <field name="amount_production" select="1" sum="Cost"/>
+          <field name="bom_id" select="1"/>
+          <field
+            name="price_factor"
+            on_change="on_change_bom(amount_production,price_factor,amount_bom)"
+            select="1"/>
+          <field
+            name="amount_bom"
+            on_change="on_change_bom(amount_production,price_factor,amount_bom)"
+            select="1"/>
+          <field name="amount_cost" select="1" sum="Subtotal"/>
+          <field name="location_id" select="1"/>
+          <field name="partner_id" select="1"/>
+          <field name="state" select="1"/>
+        </tree>
+      </field>
+    </record>
+    <record model="ir.actions.act_window" id="chricar_budget_lines_production_act1">
+      <field name="name">Product Production</field>
+      <field name="res_model">chricar.budget_lines_production</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="view_id" ref="chricar_budget_lines_production_list"/>
+    </record>
+    <record model="ir.actions.act_window.view" id="chricar_budget_lines_production_act1_view2">
+      <field name="sequence" eval="1"/>
+      <field name="view_mode">tree</field>
+      <field name="view_id" ref="chricar_budget_lines_production_list"/>
+      <field name="act_window_id" ref="chricar_budget_lines_production_act1"/>
+    </record>
+    <record model="ir.actions.act_window.view" id="chricar_budget_lines_production_act1_view1">
+      <field name="sequence" eval="2"/>
+      <field name="view_mode">form</field>
+      <field name="view_id" ref="chricar_budget_lines_production_form"/>
+      <field name="act_window_id" ref="chricar_budget_lines_production_act1"/>
+    </record>
+    <menuitem
+      action="chricar_budget_lines_production_act1"
+      id="menu_chricar_budget_lines_production_list"
+      parent="c2c_budget.menu_budget_c2c"
+      sequence="150"/>
+    <!--
+Sales
+-->
+    <record model="ir.ui.view" id="chricar_budget_lines_sales_form">
+      <field name="name">chricar.budget_lines_sales.form</field>
+      <field name="model">chricar.budget_lines_sales</field>
+      <field name="priority">1</field>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <form string="Budget Products Production">
+          <field name="budget_id" select="1" colspan="4"/>
+          <group colspan="2" col="4">
+            <separator string="Dates" colspan="4"/>
+            <field
+              colspan="4"
+              name="date_planning"
+              on_change="on_change_date(parent.budget_version_id,parent.product_id,parent.price_unit_id,date_planning,payment_term_id)"
+              select="1"/>
+            <field name="payment_term_id" select="1" colspan="4"/>
+            <field name="date_due" select="1" colspan="4"/>
+            <separator string="Values" colspan="4"/>
+            <field name="name" select="1"/>
+            <field
+              colspan="4"
+              name="quantity"
+              on_change="on_change_quantity(quantity,price_unit,price_unit_id, amount_bom)"
+              select="1"/>
+            <field
+              name="price_unit"
+              on_change="on_change_quantity(quantity,price_unit,price_unit_id, amount_bom)"/>
+            <field
+              name="price_unit_id"
+              on_change="on_change_quantity(quantity,price_unit,price_unit_id, amount_bom)"/>
+            <field name="amount_sales" select="1"/>
+            <field name="state" select="2"/>
+            <field
+              name="amount_bom"
+              on_change="on_change_bom(amount_sales, amount_bom)"
+              select="1"/>
+            <field name="bom_id" select="1"/>
+            <field name="amount" select="1"/>
+          </group>
+          <group colspan="2" col="2">
+            <separator string="Other Info" colspan="2"/>
+            <!--
+            <field name="location_id" select="1"/>
+            -->
+            <field name="partner_id" select="1"/>
+            <!-- FIXME
+                             <field name="product_id" select="1" />
+                             -->
+            <field name="analytic_account_id" select="1"/>
+            <field name="budget_version_id" select="1"/>
+            <field
+              domain="[('type','=','normal')]"
+              name="budget_item_id"
+              select="1"/>
+          </group>
+          <notebook colspan="4">
+            <page string="Notes">
+              <field name="notes" select="1"/>
+            </page>
+          </notebook>
+        </form>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="chricar_budget_lines_sales_list">
+      <field name="name">chricar.budget_lines_sales.list</field>
+      <field name="model">chricar.budget_lines_sales</field>
+      <field name="priority">1</field>
+      <field name="type">tree</field>
+      <field name="arch" type="xml">
+        <tree string="Budget Products Production" editable="bottom">
+          <field
+            name="date_planning"
+            on_change="on_change_date(parent.budget_version_id,date_planning,payment_term_id)"
+            select="1"/>
+          <field name="date_due" select="1"/>
+          <field name="partner_id" select="1"/>
+          <field
+            colspan="4"
+            name="quantity"
+            on_change="on_change_quantity(quantity,price_unit,price_unit_id, amount_bom)"
+            select="1"/>
+          <field
+            name="price_unit"
+            on_change="on_change_quantity(quantity,price_unit,price_unit_id, amount_bom)"/>
+          <field
+            name="price_unit_id"
+            on_change="on_change_quantity(quantity,price_unit,price_unit_id, amount_bom)"/>
+          <field name="amount_sales" select="1" sum="Amount Sales"/>
+          <field name="bom_id" select="1"/>
+          <field
+            name="amount_bom"
+            on_change="on_change_bom(amount_sales, amount_bom)"
+            select="1"/>
+          <field name="amount" select="1" sum="Amount"/>
+          <field name="name" select="1"/>
+          <field name="state" select="2"/>
+        </tree>
+      </field>
+    </record>
+    <record model="ir.actions.act_window" id="chricar_budget_lines_sales_act1">
+      <field name="name">Product Sales</field>
+      <field name="res_model">chricar.budget_lines_sales</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="view_id" ref="chricar_budget_lines_sales_list"/>
+    </record>
+    <record model="ir.actions.act_window.view" id="chricar_budget_lines_sales_act1_view2">
+      <field name="sequence" eval="1"/>
+      <field name="view_mode">tree</field>
+      <field name="view_id" ref="chricar_budget_lines_sales_list"/>
+      <field name="act_window_id" ref="chricar_budget_lines_sales_act1"/>
+    </record>
+    <record model="ir.actions.act_window.view" id="chricar_budget_lines_sales_act1_view1">
+      <field name="sequence" eval="2"/>
+      <field name="view_mode">form</field>
+      <field name="view_id" ref="chricar_budget_lines_sales_form"/>
+      <field name="act_window_id" ref="chricar_budget_lines_sales_act1"/>
+    </record>
+    <menuitem
+      action="chricar_budget_lines_sales_act1"
+      id="menu_chricar_budget_lines_sales_list"
+      parent="c2c_budget.menu_budget_c2c"
+      sequence="150"/>
+    <!--
+==============================================
+Modification of Parents (only for matching table prefixes)
+==============================================
+-->
+    <record model="ir.ui.view" id="chricar_budget_budget_lines_production_form1">
+      <field name="name">chricar.budget.form1</field>
+      <field name="model">chricar.budget</field>
+      <field name="inherit_id" ref="chricar_budget.chricar_budget_form"/>
+      <field name="arch" type="xml">
+        <xpath expr="/form/notebook/page[@string='Notes']" position="before">
+          <page string="Sales">
+            <field name="budget_lines_sales_ids" widget="one2many_list" colspan="4" nolabel="1">
+              <tree string="Sales">
+                <field
+                  name="date_planning"
+                  on_change="on_change_date(parent.budget_version_id,parent.product_id,parent.price_unit_id,date_planning,payment_term_id)"
+                  select="1"/>
+                <field name="date_due" select="1"/>
+                <field name="partner_id" select="1"/>
+                <field
+                  colspan="4"
+                  name="quantity"
+                  on_change="on_change_quantity(quantity,price_unit,price_unit_id, amount_bom)"
+                  select="1"/>
+                <field
+                  name="price_unit"
+                  on_change="on_change_quantity(quantity,price_unit,price_unit_id, amount_bom)"/>
+                <field
+                  name="price_unit_id"
+                  on_change="on_change_quantity(quantity,price_unit,price_unit_id, amount_bom)"/>
+                <field name="amount_sales" select="1" sum="Sum Amount Sales"/>
+                <field name="bom_id" select="1"/>
+                <field
+                  name="amount_bom"
+                  on_change="on_change_bom(amount_sales, amount_bom)"
+                  select="1"/>
+                <field name="amount" select="1" sum="Sum Amount"/>
+                <field name="name" select="1"/>
+                <field name="state" select="1"/>
+              </tree>
+              <form string="Sales">
+                <group colspan="2" col="4">
+                  <separator string="Dates" colspan="4"/>
+                  <field
+                    name="date_planning"
+                    on_change="on_change_date(parent.budget_version_id,parent.product_id,parent.price_unit_id,date_planning,payment_term_id)"
+                    required="1"
+                    select="1"/>
+                  <field name="period_id" select="1" required="1"/>
+                  <field name="date_due" select="1" required="1"/>
+                  <field name="payment_term_id" select="1"/>
+                  <separator string="Values" colspan="4"/>
+                  <field name="name" select="1" colspan="4"/>
+                  <field
+                    name="quantity"
+                    on_change="on_change_quantity(quantity,price_unit,price_unit_id, amount_bom)"
+                    select="1"/>
+                  <newline/>
+                  <field
+                    name="price_unit"
+                    on_change="on_change_quantity(quantity,price_unit,price_unit_id, amount_bom)"/>
+                  <field
+                    name="price_unit_id"
+                    on_change="on_change_quantity(quantity,price_unit,price_unit_id, amount_bom)"/>
+                  <field name="amount_sales" select="1"/>
+                  <field name="state" select="2"/>
+                  <newline/>
+                  <field
+                    name="amount_bom"
+                    on_change="on_change_bom(amount_sales, amount_bom)"
+                    select="1"/>
+                  <field name="bom_id" select="1"/>
+                  <field name="amount" select="1"/>
+                  <field name="currency_id" select="1"/>
+                </group>
+                <group colspan="2" col="2">
+                  <field name="partner_id" select="1"/>
+                  <field name="analytic_account_id" select="1"/>
+                  <field name="budget_version_id" select="1"/>
+                  <field
+                    domain="[('type','=','normal')]"
+                    name="budget_item_id"
+                    select="1"/>
+                  <separator string="Notes" colspan="2"/>
+                  <field name="notes" select="2" nolabel="1" colspan="2"/>
+                </group>
+              </form>
+            </field>
+          </page>
+          <page string="Production">
+            <field name="budget_lines_production_ids" widget="one2many_list" colspan="4" nolabel="1">
+              <tree string="Production Costs">
+                <field
+                  name="date_planning"
+                  on_change="on_change_date(parent.budget_version_id,date_planning,payment_term_id)"
+                  required="1"
+                  select="1"/>
+                <field name="date_due" select="1" required="1"/>
+                <field name="name" select="1"/>
+                <field
+                  name="quantity_base"
+                  on_change="on_change_quantity_base(quantity_base, parent.surface, parent.product_qty, price_unit,price_unit_id,price_factor,amount_bom)"
+                  select="1"/>
+                <field name="product_id"/>
+                <field
+                  name="quantity"
+                  on_change="on_change_quantity(quantity,price_unit,price_unit_id,price_factor,amount_bom)"
+                  select="1"/>
+                <field
+                  name="price_unit"
+                  on_change="on_change_quantity(quantity,price_unit,price_unit_id,price_factor,amount_bom)"/>
+                <field
+                  name="price_unit_id"
+                  on_change="on_change_quantity(quantity,price_unit,price_unit_id,price_factor,amount_bom)"/>
+                <field name="amount_production" select="1" sum="Amount Production"/>
+                <field name="bom_id" select="1"/>
+                <field
+                  name="price_factor"
+                  on_change="on_change_bom(amount_production,price_factor,amount_bom)"
+                  select="1"/>
+                <field
+                  name="amount_bom"
+                  on_change="on_change_bom(amount_production,price_factor,amount_bom)"
+                  select="1"/>
+                <field name="amount_cost" select="1" sum="Amount Cost"/>
+                <field name="location_id" select="1"/>
+                <field name="partner_id" select="1"/>
+                <field name="state" select="2"/>
+              </tree>
+              <form string="Production Costs">
+                <group colspan="2" col="4">
+                  <separator string="Dates" colspan="4"/>
+                  <field
+                    name="date_planning"
+                    on_change="on_change_date(parent.budget_version_id,date_planning,payment_term_id)"
+                    select="1"/>
+                  <field name="period_id" select="1"/>
+                  <field name="date_due" select="1"/>
+                  <field name="payment_term_id" select="1"/>
+                  <separator string="Values" colspan="4"/>
+                  <field name="product_id" select="1" colspan="4"/>
+                  <field name="name" select="1" colspan="4"/>
+                  <field
+                    name="quantity"
+                    on_change="on_change_quantity(quantity,price_unit,price_unit_id,price_factor,amount_bom)"
+                    select="1"/>
+                  <field
+                    name="quantity_base"
+                    on_change="on_change_quantity_base(quantity_base, parent.surface, parent.product_qty, price_unit,price_unit_id,price_factor,amount_bom)"
+                    select="1"/>
+                  <field
+                    name="price_unit"
+                    on_change="on_change_quantity(quantity,price_unit,price_unit_id,price_factor,amount_bom)"/>
+                  <field name="price_unit_id"/>
+                  <field name="amount_production" select="1"/>
+                  <field name="state" select="1"/>
+                  <newline/>
+                  <field name="bom_id" select="1" colspan="4"/>
+                  <field
+                    name="amount_bom"
+                    on_change="on_change_bom(amount_production,price_factor,amount_bom)"
+                    select="1"/>
+                  <field
+                    name="price_factor"
+                    on_change="on_change_bom(amount_production,price_factor,amount_bom)"
+                    select="1"/>
+                  <field name="amount_cost" select="1"/>
+                  <field name="currency_id" select="1"/>
+                  <field name="amount" invisible="1"/>
+                </group>
+                <group colspan="2" col="2">
+                  <field name="location_id" select="1"/>
+                  <field name="partner_id" select="1"/>
+                  <field name="analytic_account_id" select="1"/>
+                  <field name="budget_version_id" select="1"/>
+                  <field
+                    domain="[('type','=','normal')]"
+                    name="budget_item_id"
+                    select="1"/>
+                  <separator string="Notes" colspan="2"/>
+                  <field name="notes" select="2" nolabel="1" colspan="2"/>
+                </group>
+              </form>
+            </field>
+          </page>
+        </xpath>
+      </field>
+    </record>
+    <!--
+==============================================
+Modification of chricar_budget
+==============================================
+-->
+    <record model="ir.ui.view" id="chricar_budget_budget_lines_production_form2">
+      <field name="name">chricar.budget.form2</field>
+      <field name="model">chricar.budget</field>
+      <field name="inherit_id" ref="chricar_budget_budget_lines_production_form1"/>
+      <field name="arch" type="xml">
+        <field name="yield_sale" position="after">
+          <group colspan="4" col="4">
+            <field name="amount_contribution_total" colspan="2"/>
+            <newline/>
+            <separator string="Planned Contribution (Sales Detail)" colspan="2"/>
+            <separator string="To be Planned" colspan="2"/>
+            <field name="amount_sales"/>
+            <field name="amount_sales_open"/>
+            <field name="amount_costs"/>
+            <field name="qty_sales_open"/>
+            <field name="amount_contribution"/>
+            <button
+              colspan="1"
+              name="button_delete_auto_generate_sale_lines"
+              string="Delete Generated Sale Lines"
+              type="object"/>
+            <button
+              colspan="1"
+              name="button_auto_generate_sale_lines"
+              string="Generate Sale Lines"
+              type="object"/>
+          </group>
+        </field>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="chricar_budget_budget_lines_production_list2">
+      <field name="name">chricar.budget.list2</field>
+      <field name="model">chricar.budget</field>
+      <field name="inherit_id" ref="chricar_budget.chricar_budget_list"/>
+      <field name="arch" type="xml">
+        <field name="yield_sale" position="after">
+          <field name="qty_sales_open"/>
+          <field name="amount_sales_open" sum="Sales to be Planned"/>
+          <field name="amount_sales" sum="Sum Sales"/>
+          <field name="amount_costs" sum="Sum Costs"/>
+          <field name="amount_contribution" sum="Sum Contribution"/>
+        </field>
+      </field>
+    </record>
+    <!--
+==============================================
+Modification of c2c_budget versions
+==============================================
+-->
+    <record model="ir.ui.view" id="chricar_view_budget_version_form">
+      <field name="name">chricar.view.budget.version.form</field>
+      <field name="model">c2c_budget.version</field>
+      <field name="inherit_id" ref="c2c_budget.view_budget_version_form"/>
+      <field name="arch" type="xml">
+        <field name="create_date" position="after">
+          <newline/>
+          <field name="budget_version_prev_id"/>
+          <field name="budget_version_next_id"/>
+          <newline/>
+          <field name="is_current"/>
+        </field>
+      </field>
+    </record>
+    <!--
+==============================================
+Modification of c2c_budget lines
+==============================================
+-->
+    <record model="ir.ui.view" id="chricar_view_budget_line_list_in_budget_version">
+      <field name="name">chricar.view.budget.line.list.in.budget.version</field>
+      <field name="model">c2c_budget.line</field>
+      <field name="inherit_id" ref="c2c_budget.view_budget_line_list_in_budget_version"/>
+      <field name="arch" type="xml">
+        <field name="period_id" position="before">
+          <field
+            name="date_planning"
+            on_change="on_change_date( date_planning)"/>
+          <field name="date_due"/>
+          <field name="state"/>
+        </field>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="chricar_view_budget_line_list">
+      <field name="name">chricar.view.budget.line.list</field>
+      <field name="model">c2c_budget.line</field>
+      <field name="inherit_id" ref="c2c_budget.view_budget_line_list"/>
+      <field name="arch" type="xml">
+        <field name="period_id" position="before">
+          <field
+            name="date_planning"
+            on_change="on_change_date( date_planning)"/>
+          <field name="date_due" select="1"/>
+          <field name="state"/>
+        </field>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="chricar_view_budget_line_list2">
+      <field name="name">chricar.view.budget.line.list</field>
+      <field name="model">c2c_budget.line</field>
+      <field name="inherit_id" ref="chricar_view_budget_line_list"/>
+      <field name="arch" type="xml">
+        <field name="amount" position="after">
+          <field name="amount_cash" sum="Total Cash"/>
+          <field name="amount_cash_cum"/>
+          <field name="amount_p_l" sum="Total PL"/>
+          <field name="is_current" select="1"/>
+        </field>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="chricar_view_budget_line_form">
+      <field name="name">chricar.view.budget.line.form</field>
+      <field name="model">c2c_budget.line</field>
+      <field name="inherit_id" ref="c2c_budget.view_budget_line_form"/>
+      <field name="arch" type="xml">
+        <field name="period_id" position="before">
+          <newline/>
+          <field
+            name="date_planning"
+            on_change="on_change_date( date_planning)"/>
+          <field name="date_due"/>
+          <field name="state" select="2"/>
+        </field>
+      </field>
+    </record>
+    <act_window
+      domain="[('budget_version_id', '=', active_id)]"
+      id="act_budget_version_2_lines"
+      name="Budget Lines"
+      res_model="c2c_budget.line"
+      src_model="c2c_budget.version"
+      view_mode="tree,form"
+      view_type="form"/>
+    <act_window
+      domain="[('is_current', '=', True)]"
+      id="act_budget_version_2_cashflow"
+      name="CashFlow Lines"
+      res_model="c2c_budget.line"
+      src_model="c2c_budget.version"
+      view_mode="tree,form"
+      view_type="form"/>
+    <!--
+==============================================
+Modification of c2c_budget items
+==============================================
+-->
+    <record model="ir.ui.view" id="chricar_view_budget_item_list">
+      <field name="name">chricar.view.budget.item.list</field>
+      <field name="model">c2c_budget.item</field>
+      <field name="inherit_id" ref="c2c_budget.view_budget_item_list"/>
+      <field name="arch" type="xml">
+        <field name="active" position="before">
+          <field name="is_cash"/>
+          <field name="is_p_l"/>
+        </field>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="chricar_view_budget_item_tree">
+      <field name="name">chricar.view.budget.item.tree</field>
+      <field name="model">c2c_budget.item</field>
+      <field name="inherit_id" ref="c2c_budget.view_budget_item_tree"/>
+      <field name="arch" type="xml">
+        <field name="type" position="after">
+          <field name="is_cash"/>
+          <field name="is_p_l"/>
+        </field>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="chricar_view_budget_item_form">
+      <field name="name">chricar.view.budget.item.form</field>
+      <field name="model">c2c_budget.item</field>
+      <field name="inherit_id" ref="c2c_budget.view_budget_item_form"/>
+      <field name="arch" type="xml">
+        <field name="active" position="before">
+          <field name="is_cash"/>
+          <field name="is_p_l"/>
+        </field>
+      </field>
+    </record>
+    <!--
+==============================================
+chricar_budget lines_share
+==============================================
+-->
+    <record model="ir.ui.view" id="chricar_budget_line_share_list">
+      <field name="name">chricar.budget.line.share.list</field>
+      <field name="model">chricar.budget.line.share</field>
+      <field name="priority">1</field>
+      <field name="type">tree</field>
+      <field name="arch" type="xml">
+        <tree string="Budget Lines Owner Share">
+          <field name="cal_year" select="1"/>
+          <field name="budget_version_id"/>
+          <field name="budget_item_id"/>
+          <field name="analytic_account_id"/>
+          <field name="period_id"/>
+          <field name="date_planning"/>
+          <field name="date_due"/>
+          <field name="partner_id"/>
+          <field name="partner_parent_id"/>
+          <field name="level"/>
+          <field name="amount_orig"/>
+          <field name="percentage"/>
+          <field name="valid_from"/>
+          <field name="valid_until"/>
+          <field name="pl_quote" sum="PL Quote"/>
+          <field name="cash_quote" sum="Cash Quote"/>
+          <field name="cash_quote_future" sum="Cash Quote Future"/>
+          <field name="name"/>
+          <field name="state"/>
+          <field name="consolidation"/>
+          <field name="partner_parent2_id"/>
+          <field name="consolidation2"/>
+          <field name="partner_parent3_id"/>
+          <field name="consolidation3"/>
+          <field name="consolidation_only"/>
+        </tree>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="chricar_budget_line_share_form">
+      <field name="name">chricar.budget.line.share.form</field>
+      <field name="model">chricar.budget.line.share</field>
+      <field name="priority">1</field>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <form string="Budget Lines Owner Share">
+          <field name="cal_year" select="1"/>
+          <field name="budget_version_id" select="1"/>
+          <field name="budget_item_id" select="1"/>
+          <field name="analytic_account_id" select="1"/>
+          <field name="period_id" select="1"/>
+          <field name="date_planning" select="1"/>
+          <field name="date_due" select="1"/>
+          <field name="partner_id" select="1"/>
+          <field name="partner_parent_id" select="1"/>
+          <field name="level" select="2"/>
+          <field name="amount_orig" select="2"/>
+          <field name="percentage" select="2"/>
+          <field name="valid_from" select="2"/>
+          <field name="valid_until" select="2"/>
+          <field name="cash_quote" select="2"/>
+          <field name="cash_quote_future" select="2"/>
+          <field name="pl_quote" select="2"/>
+          <field name="name" select="1"/>
+          <field name="state" select="1"/>
+          <field name="consolidation" select="2"/>
+          <field name="partner_parent2_id" select="2"/>
+          <field name="consolidation2" select="2"/>
+          <field name="partner_parent3_id" select="2"/>
+          <field name="consolidation3" select="2"/>
+          <field name="consolidation_only" select="1"/>
+        </form>
+      </field>
+    </record>
+    <record model="ir.actions.act_window" id="chricar_budget_line_share_act1">
+      <field name="name">Budget per Owner</field>
+      <field name="res_model">chricar.budget.line.share</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="view_id" ref="chricar_budget_line_share_list"/>
+    </record>
+    <record model="ir.actions.act_window.view" id="chricar_budget_line_share_act1_view2">
+      <field name="sequence" eval="1"/>
+      <field name="view_mode">tree</field>
+      <field name="view_id" ref="chricar_budget_line_share_list"/>
+      <field name="act_window_id" ref="chricar_budget_line_share_act1"/>
+    </record>
+    <record model="ir.actions.act_window.view" id="chricar_budget_line_share_act1_view1">
+      <field name="sequence" eval="2"/>
+      <field name="view_mode">form</field>
+      <field name="view_id" ref="chricar_budget_line_share_form"/>
+      <field name="act_window_id" ref="chricar_budget_line_share_act1"/>
+    </record>
+    <menuitem
+      action="chricar_budget_line_share_act1"
+      id="menu_chricar_budget_line_share_list"
+      parent="c2c_budget.menu_budget_c2c"
+      sequence="150"/>
+    <!--
+==============================================
+Modification of c2c_budget versions
+==============================================
+-->
+    <record model="ir.ui.view" id="chricar_view_budget_version_2_form">
+      <field name="name">chricar.view.budget.version_2.form</field>
+      <field name="model">c2c_budget.version</field>
+      <field name="inherit_id" ref="chricar_budget_lines.chricar_view_budget_version_form"/>
+      <field name="arch" type="xml">
+        <field name="is_current" position="after">
+          <field name="budget_production_id"/>
+        </field>
+      </field>
+    </record>
+  </data>
+</openerp>

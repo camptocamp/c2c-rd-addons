@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <record model="ir.ui.view" id="c2c_res_partner_address_label_form">
+      <field name="name">c2c.res.partner.address.label.form</field>
+      <field name="model">res.partner.address</field>
+      <field name="inherit_id" ref="base.view_partner_address_form1"/>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <field name="state_id" position="after">
+          <field name="address_label" height="150"/>
+        </field>
+      </field>
+    </record>
+    <!-- Country -->
+    <record model="ir.ui.view" id="c2c_res_country_label_form">
+      <field name="name">c2c.res.country.label.form</field>
+      <field name="model">res.country</field>
+      <field name="inherit_id" ref="base.view_country_form"/>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <field name="code" position="after">
+          <field name="zip_position"/>
+        </field>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="c2c_res_country_label_tree">
+      <field name="name">c2c.res.country.label.tree</field>
+      <field name="model">res.country</field>
+      <field name="inherit_id" ref="base.view_country_tree"/>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <field name="code" position="after">
+          <field name="zip_position"/>
+        </field>
+      </field>
+    </record>
+    <!-- Company -->
+    <record model="ir.ui.view" id="c2c_res_company_label_form">
+      <field name="name">c2c.res.company.label.form</field>
+      <field name="model">res.company</field>
+      <field name="inherit_id" ref="base.view_company_form"/>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <page string="Configuration" position="inside">
+          <group col="2">
+            <separator string="Address Window Position" colspan="2"/>
+            <field name="address_label_position"/>
+          </group>
+        </page>
+      </field>
+    </record>
+  </data>
+</openerp>

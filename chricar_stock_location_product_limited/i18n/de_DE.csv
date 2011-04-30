@@ -1,0 +1,27 @@
+"module","type","name","res_id","src","value"
+"chricar_stock_location_product_limited","model","ir.module.module,description","chricar_stock_location_product_limited.module_name_translation","
+This module is funded by
+ChriCar Beteiligungs- und Beratungs- GmbH
+http://www.chricar.at/ChriCar/index.html
+
+Developed by
+Z-Beanz Technologies
+http://www.zbeanztech.com/
+					","
+Dieses Module ist gesponsort von ChriCar Beteiligungs- und Beratungs- GmbH
+http://www.chricar.at/ChriCar/index.html
+
+Entwickelt von
+Z-Beanz Technologies
+http://www.zbeanztech.com/
+					"
+"chricar_stock_location_product_limited","wizard_view","stock.location.products.modified,init",0,"(Keep empty to open the current situation)","(Leer lassen, um die aktuelle Situation zu zeigen)"
+"chricar_stock_location_product_limited","wizard_button","stock.location.products.modified,init,end",0,"Cancel","Abbruch"
+"chricar_stock_location_product_limited","wizard_field","stock.location.products.modified,init,display_with_zero_qty",0,"Display products with 0 qty","Zeige Produkte mit 0 Bestand"
+"chricar_stock_location_product_limited","wizard_field","stock.location.products.modified,init,from_date",0,"From","Von"
+"chricar_stock_location_product_limited","wizard_button","stock.location.products.modified,init,open",0,"Open Products","Öffne Produktliste"
+"chricar_stock_location_product_limited","model","ir.actions.wizard,name","chricar_stock_location_product_limited.location_product","Products by Location without 0 Quantity","Produkte ohne 0 Bestand je Lager"
+"chricar_stock_location_product_limited","wizard_view","stock.location.products.modified,init",0,"Stock Location Analysis","Lagerbestandsanalyse"
+"chricar_stock_location_product_limited","wizard_field","stock.location.products.modified,init,to_date",0,"To","Bis"
+"chricar_stock_location_product_limited","wizard_view","stock.location.products.modified,init",0,"View Stock of Products","Anzeige Lagerbestände"
+"chricar_stock_location_product_limited","model","ir.module.module,shortdesc","chricar_stock_location_product_limited.module_name_translation","chricar_stock_location_product_limited",

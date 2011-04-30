@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <!--
+==============================================
+Stock Weighing
+Modification of picking out
+==============================================
+-->
+    <record id="view_picking_out_weighing_form" model="ir.ui.view">
+      <field name="name">stock.picking.out.weighing.form</field>
+      <field name="model">stock.picking</field>
+      <field name="type">form</field>
+      <field name="inherit_id" ref="stock.view_picking_out_form"/>
+      <field name="arch" type="xml">
+        <notebook position="inside">
+          <page string="Weighing" attrs="{'readonly':[('state','=','done')]}">
+            <field name="date_weighing"/>
+            <field name="number_weighing"/>
+            <field name="sample"/>
+            <field name="seal"/>
+            <field name="consignment_note"/>
+            <newline/>
+            <group string="Tractor" colspan="2" col="2">
+              <field name="tractor_number"/>
+              <field
+                name="tractor_gross"
+                on_change="on_change_weight(tractor_gross,tractor_tare,trailer_gross,trailer_tare,number_weighing)"/>
+              <field
+                name="tractor_tare"
+                on_change="on_change_weight(tractor_gross,tractor_tare,trailer_gross,trailer_tare,number_weighing)"/>
+              <field name="tractor_net"/>
+            </group>
+            <group string="Trailer" colspan="2" col="2">
+              <field name="trailer_number"/>
+              <field
+                name="trailer_gross"
+                on_change="on_change_weight(tractor_gross,tractor_tare,trailer_gross,trailer_tare,number_weighing)"/>
+              <field
+                name="trailer_tare"
+                on_change="on_change_weight(tractor_gross,tractor_tare,trailer_gross,trailer_tare,number_weighing)"/>
+              <field name="trailer_net"/>
+            </group>
+            <field name="total_net"/>
+            <field name="total_gross"/>
+          </page>
+        </notebook>
+      </field>
+    </record>
+    <!--
+==============================================
+Stock Weighing
+Modification of picking
+==============================================
+-->
+    <record id="view_picking_weighing_form" model="ir.ui.view">
+      <field name="name">stock.picking.weighing.form</field>
+      <field name="model">stock.picking</field>
+      <field name="type">form</field>
+      <field name="inherit_id" ref="stock.view_picking_form"/>
+      <field name="arch" type="xml">
+        <notebook position="inside">
+          <page string="Weighing" attrs="{'readonly':[('state','=','done')]}">
+            <field name="date_weighing"/>
+            <field name="number_weighing"/>
+            <field name="sample"/>
+            <field name="seal"/>
+            <field name="consignment_note"/>
+            <newline/>
+            <group string="Tractor" colspan="2" col="2">
+              <field name="tractor_number"/>
+              <field
+                name="tractor_gross"
+                on_change="on_change_weight(tractor_gross,tractor_tare,trailer_gross,trailer_tare,number_weighing)"/>
+              <field
+                name="tractor_tare"
+                on_change="on_change_weight(tractor_gross,tractor_tare,trailer_gross,trailer_tare,number_weighing)"/>
+              <field name="tractor_net"/>
+            </group>
+            <group string="Trailer" colspan="2" col="2">
+              <field name="trailer_number"/>
+              <field
+                name="trailer_gross"
+                on_change="on_change_weight(tractor_gross,tractor_tare,trailer_gross,trailer_tare,number_weighing)"/>
+              <field
+                name="trailer_tare"
+                on_change="on_change_weight(tractor_gross,tractor_tare,trailer_gross,trailer_tare,number_weighing)"/>
+              <field name="trailer_net"/>
+            </group>
+            <field name="total_net"/>
+            <field name="total_gross"/>
+          </page>
+        </notebook>
+      </field>
+    </record>
+    <!-- FIXME form does not exist>
+    <record id="view_picking_delivery_weighing_form" model="ir.ui.view">
+      <field name="name">stock.picking.delivery_weighing.form</field>
+      <field name="model">stock.picking</field>
+      <field name="type">form</field>
+      <field name="inherit_id" ref="stock.view_picking_delivery_form"/>
+      <field name="arch" type="xml">
+        <notebook position="inside">
+          <page string="Weighing" attrs="{'readonly':[('state','=','done')]}">
+            <field name="date_weighing"/>
+            <field name="number_weighing"/>
+            <field name="sample"/>
+            <field name="seal"/>
+            <field name="consignment_note"/>
+            <newline/>
+            <group string="Tractor" colspan="2" col="2">
+              <field name="tractor_number"/>
+              <field
+                name="tractor_gross"
+                on_change="on_change_weight(tractor_gross,tractor_tare,trailer_gross,trailer_tare,number_weighing)"/>
+              <field
+                name="tractor_tare"
+                on_change="on_change_weight(tractor_gross,tractor_tare,trailer_gross,trailer_tare,number_weighing)"/>
+              <field name="tractor_net"/>
+            </group>
+            <group string="Trailer" colspan="2" col="2">
+              <field name="trailer_number"/>
+              <field
+                name="trailer_gross"
+                on_change="on_change_weight(tractor_gross,tractor_tare,trailer_gross,trailer_tare,number_weighing)"/>
+              <field
+                name="trailer_tare"
+                on_change="on_change_weight(tractor_gross,tractor_tare,trailer_gross,trailer_tare,number_weighing)"/>
+              <field name="trailer_net"/>
+            </group>
+            <field name="total_net"/>
+            <field name="total_gross"/>
+          </page>
+        </notebook>
+      </field>
+    </record>
+    -->
+    <menuitem
+      id="menu_chricar_farm_stock_out"
+      name="Outgoing Products"
+      parent="chricar_stock_care.menu_chricar_farm_stock"
+      sequence="20"/>
+    <menuitem
+      action="stock.action_picking_tree6"
+      id="menu_chricar_weighing_picking_m6"
+      parent="menu_chricar_farm_stock_out"/>
+    <!--
+    <menuitem
+      action="stock.action_picking_tree7"
+      id="menu_chricar_weighing_picking_m7"
+      parent="menu_chricar_farm_stock_out"/>
+        -->
+    <menuitem
+      action="stock.action_picking_tree"
+      id="menu_chricar_weighing_picking_out"
+      parent="menu_chricar_farm_stock_out"/>
+    <!--
+    <menuitem
+      action="stock.action_picking_tree2"
+      id="menu_chricar_picking_waiting"
+      parent="menu_chricar_farm_stock_out"/>
+        -->
+    <!--
+    <menuitem
+      action="stock.action_picking_tree3"
+      id="menu_chricar_action_picking_tree3"
+      parent="menu_chricar_farm_stock_out"/>
+        -->
+    <record id="action_picking_tree6d" model="ir.actions.act_window">
+      <field name="name">Draft Internal Move</field>
+      <field name="res_model">stock.picking</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form,calendar</field>
+      <field name="domain">[('state','=','draft'),('type','=','internal')]</field>
+    </record>
+    <record id="action_internal_tree6_view1" model="ir.actions.act_window.view">
+      <field eval="1" name="sequence"/>
+      <field name="view_mode">tree</field>
+      <field name="view_id" ref="stock.vpicktree"/>
+      <field name="act_window_id" ref="action_picking_tree6d"/>
+    </record>
+    <record id="action_internal_tree6_view2" model="ir.actions.act_window.view">
+      <field eval="2" name="sequence"/>
+      <field name="view_mode">form</field>
+      <field name="view_id" ref="stock.view_picking_form"/>
+      <field name="act_window_id" ref="action_picking_tree6d"/>
+    </record>
+    <menuitem
+      action="action_picking_tree6d"
+      id="menu_chricar_weighing_picking_m7d"
+      parent="menu_chricar_farm_stock_out"/>
+  </data>
+</openerp>

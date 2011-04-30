@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <record model="ir.ui.view" id="c2c_view_tax_tree">
+      <field name="name">c2c.account.tax.tree</field>
+      <field name="model">account.tax</field>
+      <field name="inherit_id" ref="account.view_tax_tree"/>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <field name="name" position="after">
+          <field name="line_precision"/>
+        </field>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="c2c_view_tax_form">
+      <field name="name">c2c.account.tax.form</field>
+      <field name="model">account.tax</field>
+      <field name="inherit_id" ref="account.view_tax_form"/>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <field name="name" position="after">
+          <field name="line_precision"/>
+        </field>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="c2c_view_account_tax_template_form">
+      <field name="name">c2c.account.tax.template.form</field>
+      <field name="model">account.tax.template</field>
+      <field name="inherit_id" ref="account.view_account_tax_template_form"/>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <field name="name" position="after">
+          <field name="line_precision"/>
+        </field>
+      </field>
+    </record>
+  </data>
+</openerp>

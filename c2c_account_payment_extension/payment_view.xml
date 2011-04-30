@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <record id="c2c_invoice_supplier_form" model="ir.ui.view">
+      <field name="name">c2c.account.invoice.supplier.form.inherit</field>
+      <field name="model">account.invoice</field>
+      <field name="type">form</field>
+      <field name="inherit_id" ref="account_payment_extension.invoice_supplier_form2"/>
+      <field name="arch" type="xml">
+        <field name="payment_type" position="after">
+          <field name="payment_block"/>
+          <newline/>
+        </field>
+      </field>
+    </record>
+    <record id="c2c_view_partner_property_payment_form" model="ir.ui.view">
+      <field name="name">c2c.account.view.partner.property.payment.form.inherit</field>
+      <field name="model">res.partner</field>
+      <field name="type">form</field>
+      <field name="inherit_id" ref="account_payment_extension.view_payment_type_res_partner_form2"/>
+      <field name="arch" type="xml">
+        <field name="payment_type_supplier" position="before">
+          <field name="payment_block"/>
+        </field>
+      </field>
+    </record>
+    <record id="c2c_view_payment_type_form" model="ir.ui.view">
+      <field name="name">c2c.payment.type.form</field>
+      <field name="model">payment.type</field>
+      <field name="type">form</field>
+      <field name="inherit_id" ref="account_payment_extension.view_payment_type_form"/>
+      <field name="arch" type="xml">
+        <field name="active" position="before">
+          <field name="amount_partner_min"/>
+        </field>
+      </field>
+    </record>
+  </data>
+</openerp>

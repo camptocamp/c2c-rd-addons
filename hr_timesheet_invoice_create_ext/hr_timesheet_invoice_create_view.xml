@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <record id="view_hr_timesheet_invoice_create_ext" model="ir.ui.view">
+      <field name="name">hr.timesheet.invoice.create.ext.form</field>
+      <field name="model">hr.timesheet.invoice.create</field>
+      <field name="type">form</field>
+      <field name="inherit_id" ref="hr_timesheet_invoice.view_hr_timesheet_invoice_create"/>
+      <field name="arch" type="xml">
+        <field name="product" position="after">
+          <field name="date_invoice"/>
+          <field name="description"/>
+        </field>
+      </field>
+    </record>
+  </data>
+</openerp>

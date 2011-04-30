@@ -1,0 +1,383 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* c2c_managment_board
+#
+# Ferdinand Gassauer <f.gassauer@chricar.at>, 2010.
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 5.0.12\n"
+"Report-Msgid-Bugs-To: support@openerp.com\n"
+"POT-Creation-Date: 2010-10-17 12:29:57+0000\n"
+"PO-Revision-Date: 2010-10-17 14:50+0200\n"
+"Last-Translator: Ferdinand Gassauer <f.gassauer@chricar.at>\n"
+"Language-Team: German <kde-i18n-doc@kde.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+"X-Generator: Lokalize 1.1\n"
+
+#. module: c2c_managment_board
+#: field:report.invoice.board,in_refund_residual:0
+msgid "In Refund Residual"
+msgstr "Lieferanten Gutschrift OP"
+
+#. module: c2c_managment_board
+#: model:ir.actions.act_window,name:c2c_managment_board.open_board_manager
+#: model:ir.ui.menu,name:c2c_managment_board.menu_board_manager
+msgid "Manager Dashboard"
+msgstr "Manager Anzeigetafel"
+
+#. module: c2c_managment_board
+#: constraint:ir.model:0
+msgid "The Object name must start with x_ and not contain any special character !"
+msgstr "Der Objekt Name muss mit einem x_ starten und darf keine Sonderzeichen beinhalten"
+
+#. module: c2c_managment_board
+#: model:ir.module.module,shortdesc:c2c_managment_board.module_meta_information
+msgid "Dashboard for Management"
+msgstr "Anzeigetafeln für Management"
+
+#. module: c2c_managment_board
+#: field:report.finance.base.board,bank_balance_change:0
+#: field:report.finance.board,bank_balance_change:0
+msgid "Bank Balance change"
+msgstr "Banksaldoveränderung"
+
+#. module: c2c_managment_board
+#: model:ir.actions.act_window,name:c2c_managment_board.action_report_purchase_order_board_tree
+#: model:ir.ui.menu,name:c2c_managment_board.menu_action_report_purchase_order_board_tree
+msgid "Weekly Purchase Orders"
+msgstr "Wöchentliche Einkaufsaufträge"
+
+#. module: c2c_managment_board
+#: view:board.board:0
+#: model:ir.ui.menu,name:c2c_managment_board.board_manager
+msgid "Manager Board"
+msgstr "Manager Tafel"
+
+#. module: c2c_managment_board
+#: help:report.finance.base.board,receivable_balance_change:0
+#: help:report.finance.board,receivable_balance_change:0
+msgid "Receivable balance change per ISO Week"
+msgstr "Veränderunge der Forderungen je ISO Woche"
+
+#. module: c2c_managment_board
+#: help:report.invoice.board,out_refund_residual:0
+msgid "Untaxed Out refund residual per ISO Week"
+msgstr "Netto Kundengutschriften je ISO Woche"
+
+#. module: c2c_managment_board
+#: help:report.invoice.board,in_refund_untaxed:0
+msgid "Untaxed In refund untaxed per ISO Week"
+msgstr "Netto Lieferantengutschriften je ISO Woche"
+
+#. module: c2c_managment_board
+#: model:ir.model,name:c2c_managment_board.model_report_purchase_order_board
+msgid "New Purchase Orders per ISO week"
+msgstr "Neue Einkaufsaufträge je ISO Woche"
+
+#. module: c2c_managment_board
+#: field:report.purchase.order.board,po_untaxed_done:0
+#: field:report.sale.order.board,so_untaxed_done:0
+msgid "done"
+msgstr "Fertig"
+
+#. module: c2c_managment_board
+#: field:report.purchase.order.board,po_untaxed_progress:0
+#: field:report.sale.order.board,so_untaxed_progress:0
+msgid "progress"
+msgstr "in Bearbeitung"
+
+#. module: c2c_managment_board
+#: model:ir.model,name:c2c_managment_board.model_report_finance_base_board
+msgid "Financial changes per ISO week"
+msgstr "Änderung des Finanzstatus je ISO Woche"
+
+#. module: c2c_managment_board
+#: help:report.invoice.board,out_invoice_residual:0
+msgid "Untaxed Out invoice residual per ISO Week"
+msgstr "Netto Kundenrechnungen OP je ISO Woche"
+
+#. module: c2c_managment_board
+#: model:ir.model,name:c2c_managment_board.model_report_sale_order_board
+msgid "New Sale Orders per ISO week"
+msgstr "Neue Verkaufsaufträge je ISO Woche"
+
+#. module: c2c_managment_board
+#: constraint:ir.actions.act_window:0
+msgid "Invalid model name in the action definition."
+msgstr "Ungültiger Modellname in der Aktionsdefinition."
+
+#. module: c2c_managment_board
+#: help:report.finance.board,liquid_balance:0
+#: help:report.finance.board,receivable_balance:0
+msgid "Receivable balance per ISO Week"
+msgstr "Saldo Forderungen je ISO Woche"
+
+#. module: c2c_managment_board
+#: model:ir.module.module,description:c2c_managment_board.module_meta_information
+msgid ""
+"\n"
+"This module implements a dashboard for management\n"
+"    * financial development last 13 weeks\n"
+"    ** Sale orders \n"
+"    ** Purchase Orders\n"
+"    ** Invoices\n"
+"    ** Financial status (For short term bank+cash accounts use user_type.code = cash)\n"
+"\n"
+"    ToDo: make it  multicompany ready\n"
+"    "
+msgstr ""
+"\n"
+"Dieses Module installiert ein Anzeigetafel für das Manangement\n"
+"    * FInanzielle Entwicklung der letzten 13 Wochen\n"
+"    ** Verkaufsaufträges \n"
+"    ** Einkaufsaufträge\n"
+"    ** Rechnungen\n"
+"    ** Finanzstatus (Für kurzfrstige Bank+Kassa Konten: user_type.code = cash)\n"
+"\n"
+"    ToDo: Multicompany\n"
+"    "
+
+#. module: c2c_managment_board
+#: field:report.finance.base.board,week:0
+#, fuzzy
+#: field:report.finance.board,week:0
+#: field:report.invoice.board,week:0
+#: field:report.purchase.order.board,week:0
+#: field:report.sale.order.board,week:0
+msgid "Week"
+msgstr "Woche"
+
+#. module: c2c_managment_board
+#: view:report.invoice.board:0
+msgid "Weekly Invoices Untaxed"
+msgstr "Wöchentliche Rechungen Netto"
+
+#. module: c2c_managment_board
+#: help:report.finance.board,payable_balance:0
+msgid "Payable balance per ISO Week"
+msgstr "Saldo Verbindlichkeiten je ISO Woche"
+
+#. module: c2c_managment_board
+#: view:board.board:0
+msgid "Finance"
+msgstr "Finanzen"
+
+#. module: c2c_managment_board
+#: help:report.purchase.order.board,po_untaxed_progress:0
+msgid "Untaxed progress purchase order per ISO Week"
+msgstr "Netto Einkaufsaufträge in Bearbeitung je ISO Woche"
+
+#. module: c2c_managment_board
+#: help:report.finance.base.board,payable_balance_change:0
+#: help:report.finance.board,payable_balance_change:0
+msgid "Payable balance change per ISO Week"
+msgstr "Veränderung Verbindlichkeiten je ISO Woche"
+
+#. module: c2c_managment_board
+#: field:report.invoice.board,in_invoice_residual:0
+msgid "In Invoice Residual"
+msgstr "EIngangsrechnung OP"
+
+#. module: c2c_managment_board
+#: help:report.purchase.order.board,po_untaxed_done:0
+msgid "Untaxed done purchase order per ISO Week"
+msgstr "Netto Einkaufsaufträge erledigt je ISO Woche"
+
+#. module: c2c_managment_board
+#: help:report.finance.base.board,bank_balance_change:0
+#: help:report.finance.board,bank_balance_change:0
+msgid "Bank balance change per ISO Week"
+msgstr "Veränderung Banksaldo je ISO Woche"
+
+#. module: c2c_managment_board
+#: field:report.invoice.board,in_invoice_untaxed:0
+msgid "In Invoice Untaxed"
+msgstr "Netto Eingangsrechnung"
+
+#. module: c2c_managment_board
+#: field:report.purchase.order.board,po_untaxed_draft:0
+#, fuzzy
+#: field:report.sale.order.board,so_untaxed_draft:0
+msgid "draft"
+msgstr "Entwurf"
+
+#. module: c2c_managment_board
+#: view:report.purchase.order.board:0
+msgid "Weekly Purchase Orders Untaxed"
+msgstr "wöchentliche Netto Einkaufsaufträge"
+
+#. module: c2c_managment_board
+#: help:report.sale.order.board,so_untaxed_done:0
+msgid "Untaxed sale order done per ISO Week"
+msgstr "Netto Verkaufsaufträge erledigt je ISO Woche"
+
+#. module: c2c_managment_board
+#: help:report.invoice.board,in_invoice_residual:0
+msgid "Untaxed In invoice residual per ISO Week"
+msgstr "Netto EIngangsrechnung OP je ISO Woche"
+
+#. module: c2c_managment_board
+#: field:report.invoice.board,out_refund_untaxed:0
+msgid "Out Refund Untaxed"
+msgstr "Netto Kundengutschrift"
+
+#. module: c2c_managment_board
+#: constraint:ir.ui.view:0
+msgid "Invalid XML for View Architecture!"
+msgstr "Fehlerhafter xml Code für diese Ansicht!"
+
+#. module: c2c_managment_board
+#: model:ir.model,name:c2c_managment_board.model_report_finance_board
+msgid "Financial changes and state per ISO week"
+msgstr "Finanzstatus und Veränderungen je ISO Woche"
+
+#. module: c2c_managment_board
+#: help:report.purchase.order.board,po_untaxed_draft:0
+msgid "Untaxed draft purchase order per ISO Week"
+msgstr "Netto Einkaufsaufträge je ISO Woche"
+
+#. module: c2c_managment_board
+#: model:ir.actions.act_window,name:c2c_managment_board.action_report_invoice_board_tree
+#: model:ir.ui.menu,name:c2c_managment_board.menu_action_report_invoice_board_tree
+msgid "Weekly Invoices"
+msgstr "Wöchenliche Rechnungen"
+
+#. module: c2c_managment_board
+#: view:report.sale.order.board:0
+msgid "Weekly Sale Orders Untaxed"
+msgstr "wöchentliche Verkaufsaufträge netto"
+
+#. module: c2c_managment_board
+#: help:report.finance.board,bank_balance:0
+msgid "Bank balance per ISO Week"
+msgstr "Banksaldo je ISO Woche"
+
+#. module: c2c_managment_board
+#: field:report.invoice.board,out_invoice_untaxed:0
+msgid "Out Invoice Untaxed"
+msgstr "Netto Ausgangsrechnung"
+
+#. module: c2c_managment_board
+#: field:report.finance.board,receivable_balance:0
+msgid "Receivable Balance"
+msgstr "Saldo Forderungen"
+
+#. module: c2c_managment_board
+#: field:report.finance.base.board,receivable_balance_change:0
+#: field:report.finance.board,receivable_balance_change:0
+msgid "Receivable Balance change"
+msgstr "Forderungen Veränderungen"
+
+#. module: c2c_managment_board
+#: help:report.invoice.board,out_refund_untaxed:0
+msgid "Untaxed Out refund untaxed per ISO Week"
+msgstr "Netto Kundengutschriften je ISO Woche"
+
+#. module: c2c_managment_board
+#: field:report.finance.board,bank_balance:0
+msgid "Bank Balance"
+msgstr "Bank Saldo"
+
+#. module: c2c_managment_board
+#: help:report.invoice.board,in_invoice_untaxed:0
+msgid "Untaxed In invoice untaxed per ISO Week"
+msgstr "Netto Eingangsrechnung je ISO Woche"
+
+#. module: c2c_managment_board
+#: help:report.sale.order.board,so_untaxed_draft:0
+msgid "Untaxed sale order draft per ISO Week"
+msgstr "Netto Verkaufsauftrag Entwurf je ISO Woche"
+
+#. module: c2c_managment_board
+#: model:ir.model,name:c2c_managment_board.model_report_invoice_board
+msgid "New Invoices per ISO week"
+msgstr "Netto Rechnungen je ISO Woche"
+
+#. module: c2c_managment_board
+#: field:report.invoice.board,out_refund_residual:0
+msgid "Out Refund Residual"
+msgstr "Kundengutschrift OP"
+
+#. module: c2c_managment_board
+#: field:report.invoice.board,out_invoice_residual:0
+msgid "Out Invoice Residual"
+msgstr "Kundenrechnung OP"
+
+#. module: c2c_managment_board
+#: help:report.sale.order.board,so_untaxed_progress:0
+msgid "Untaxed sale order progress per ISO Week"
+msgstr "Netto Verkaufsauftrag in Bearbeitung je ISO Woche"
+
+#. module: c2c_managment_board
+#: view:board.board:0
+msgid "Invoices"
+msgstr "Rechnungen"
+
+#. module: c2c_managment_board
+#: model:ir.actions.act_window,name:c2c_managment_board.action_report_finance_board_tree
+#: model:ir.ui.menu,name:c2c_managment_board.menu_action_report_finance_board_tree
+#: view:report.finance.board:0
+msgid "Weekly Balances"
+msgstr "Wächentlichen Salden"
+
+#. module: c2c_managment_board
+#: field:report.invoice.board,in_refund_untaxed:0
+msgid "In Refund Untaxed"
+msgstr "Netto Lieferantengutschrift"
+
+#. module: c2c_managment_board
+#: help:report.invoice.board,in_refund_residual:0
+msgid "Untaxed In refund residual per ISO Week"
+msgstr "Netto Lieferantengutschriften je ISO Woche"
+
+#. module: c2c_managment_board
+#: field:report.finance.board,payable_balance:0
+msgid "Payable Balance"
+msgstr "Saldo Verbindlichkeiten"
+
+#. module: c2c_managment_board
+#: field:report.finance.board,liquid_balance:0
+msgid "Liquid Balance"
+msgstr "Liquidität"
+
+#. module: c2c_managment_board
+#: help:report.finance.base.board,week:0
+#: help:report.finance.board,week:0
+#: help:report.invoice.board,week:0
+#: help:report.purchase.order.board,week:0
+#: help:report.sale.order.board,week:0
+msgid "ISO-Week"
+msgstr "ISO-Woche"
+
+#. module: c2c_managment_board
+#: help:report.invoice.board,out_invoice_untaxed:0
+msgid "Untaxed Out invoice untaxed per ISO Week"
+msgstr "Netto Kundenrechnungen je ISO Woche"
+
+#. module: c2c_managment_board
+#: model:ir.actions.act_window,name:c2c_managment_board.action_report_sale_order_board_tree
+#: model:ir.ui.menu,name:c2c_managment_board.menu_action_report_sale_order_board_tree
+msgid "Weekly Sale Orders"
+msgstr "wöchenltiche Verkaufsaufträge"
+
+#. module: c2c_managment_board
+#: field:report.finance.base.board,payable_balance_change:0
+#: field:report.finance.board,payable_balance_change:0
+msgid "Payable Balance change"
+msgstr "Verbindlichkeiten Veränderung"
+
+#. module: c2c_managment_board
+#: view:board.board:0
+msgid "Sale Orders"
+msgstr "Verkaufsaufträge"
+
+#. module: c2c_managment_board
+#: view:board.board:0
+#, fuzzy
+msgid "Purchase Orders"
+msgstr "Beschaffungsaufträge"
+
+

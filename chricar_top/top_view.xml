@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <!--
+==============================================
+Real Estate Top (top > top)
+generated 2009-07-09 16:17:22+02
+==============================================
+-->
+    <menuitem
+      id="menu_chricar_real_estate"
+      name="Real Estate"
+      sequence="80"/>
+    <record model="ir.ui.view" id="chricar_top_form">
+      <field name="name">chricar.top.form</field>
+      <field name="model">chricar.top</field>
+      <field name="priority">1</field>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <form string="Real Estate Top">
+          <group colspan="2" col="2">
+            <field name="location_id" select="1"/>
+            <field name="sort"/>
+          </group>
+          <group colspan="2" col="2">
+            <field name="partner_id" select="1"/>
+            <group colspan="2" col="4">
+              <field name="partner_from"/>
+              <field name="partner_to"/>
+            </group>
+          </group>
+          <group colspan="4" col="6">
+            <field name="account_analytic_id" colspan="6"/>
+          </group>
+          <group colspan="4" col="5">
+            <group string="General" colspan="1" col="2">
+              <field name="name" select="1"/>
+              <field name="staircase" select="2"/>
+              <field name="floor" select="2"/>
+              <field name="surface" select="2"/>
+              <field name="usage" select="1"/>
+              <field name="category" select="1"/>
+              <field name="rooms" select="1"/>
+            </group>
+            <group string="Calculation" colspan="1" col="2">
+              <field name="ref_top" invisible="1"/>
+              <field name="old_building" select="1"/>
+              <field name="operating_cost"/>
+              <field name="lease_target"/>
+            </group>
+            <group string="Technical" colspan="1" col="2">
+              <field name="heating" select="2"/>
+              <field name="heating_source" select="2"/>
+              <field name="solar_heating" select="2"/>
+              <field name="solar_electric" select="2"/>
+              <field name="alarm" select="2"/>
+              <field name="lift" select="1"/>
+              <field name="constructed" select="2"/>
+            </group>
+            <group string="Communication" colspan="1" col="2">
+              <field name="telephon" select="2"/>
+              <field name="tv_cable" select="2"/>
+              <field name="tv_sat" select="2"/>
+              <field name="internet" select="2"/>
+            </group>
+            <group string="Other" colspan="1" col="2">
+              <field name="garage" select="2"/>
+              <field name="carport" select="2"/>
+              <field name="parking_place_rentable" select="1"/>
+              <field name="balcony" select="2"/>
+              <field name="terrace" select="2"/>
+              <field name="garden" select="2"/>
+              <field name="handicap" select="2"/>
+            </group>
+          </group>
+          <notebook colspan="4">
+            <page string="invisible" attrs="{'invisible':[]}"/>
+            <page string="Notes">
+              <field name="note" colspan="4" nolabel="1"/>
+              <separator string="Notes Sales Folder" colspan="1"/>
+              <field name="note_sales" colspan="4" nolabel="1"/>
+            </page>
+            <page string="Blueprint">
+              <!--
+                              <field name="blueprint"  colspan="4" nolabel="1" width="600" height="600" widget="image" />
+                  -->
+              <group colspan="1">
+                <field name="blueprint" colspan="3" nolabel="1" img_width="550" img_height="550" width="550" height="550" widget="image"/>
+              </group>
+              <group colspan="1" col="1">
+                <separator string="Description" colspan="1"/>
+                <field name="description" colspan="1" nolabel="1"/>
+              </group>
+            </page>
+            <page string="Costs">
+              <field name="top_cost_ids" widget="one2many_list" colspan="2" nolabel="1">
+                <tree string="Costs" editable="bottom">
+                  <field name="seq"/>
+                  <field name="account_id"/>
+                  <field name="account_tax_id"/>
+                  <field name="name" sum="Sum Net"/>
+                  <field name="amount_tax" sum="Sum Tax"/>
+                  <field name="amount" sum="Total"/>
+                </tree>
+                <form string="Costs" editable="bottom">
+                  <field name="account_id"/>
+                  <field name="account_tax_id"/>
+                  <field name="name" sum="Sum Net"/>
+                  <field name="amount_tax" sum="Sum Tax"/>
+                  <field name="amount" sum="Total"/>
+                </form>
+                <group colspan="2">
+                  <label/>
+                </group>
+              </field>
+            </page>
+            <page string="Analytics">
+              <field name="analytic_line_ids" widget="one2many_list" colspan="4" nolabel="1">
+                <tree string="Invoice lines">
+                  <field name="date"/>
+                  <field name="name"/>
+                  <field name="amount" sum="Total"/>
+                  <field name="general_account_id"/>
+                </tree>
+                <form string="Invoice lines">
+                  <field name="date"/>
+                  <field name="name"/>
+                  <field name="amount"/>
+                  <field name="general_account_id"/>
+                </form>
+              </field>
+            </page>
+          </notebook>
+        </form>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="chricar_top_list">
+      <field name="name">chricar.top.list</field>
+      <field name="model">chricar.top</field>
+      <field name="priority">1</field>
+      <field name="type">tree</field>
+      <field name="arch" type="xml">
+        <tree string="Real Estate Top" editable="top">
+          <field name="location_id"/>
+          <field name="sort"/>
+          <field name="name"/>
+          <field name="partner_id"/>
+          <field name="usage"/>
+          <field name="surface" sum="Total Surface"/>
+          <field name="operating_cost"/>
+          <field name="lease_target"/>
+          <field name="staircase"/>
+          <field name="floor"/>
+          <field name="lift"/>
+          <field name="category"/>
+          <field name="old_building"/>
+          <field name="handicap"/>
+          <field name="parking_place_rentable"/>
+        </tree>
+      </field>
+    </record>
+    <record id="chricar_top_filter" model="ir.ui.view">
+      <field name="name">chricar.top.list.filter</field>
+      <field name="model">chricar.top</field>
+      <field name="type">search</field>
+      <field name="arch" type="xml">
+        <search string="Top">
+          <field name="location_id" select="1"/>
+          <field name="partner_id" select="1"/>
+          <newline/>
+          <group expand="0" string="Group By..." colspan="11" col="11">
+            <!--
+            <filter string="State" icon="terp-stock_effects-object-colorize" domain="[]" context="{'group_by':'state'}"/>
+            -->
+            <filter string="Location" icon="terp-stock_effects-object-colorize" domain="[]" context="{'group_by':'location_id'}"/>
+          </group>
+        </search>
+      </field>
+    </record>
+    <record model="ir.actions.act_window" id="chricar_top_act1">
+      <field name="name">Top</field>
+      <field name="res_model">chricar.top</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="view_id" ref="chricar_top_list"/>
+    </record>
+    <record model="ir.actions.act_window.view" id="chricar_top_act1_view2">
+      <field name="sequence" eval="1"/>
+      <field name="view_mode">tree</field>
+      <field name="view_id" ref="chricar_top_list"/>
+      <field name="act_window_id" ref="chricar_top_act1"/>
+    </record>
+    <record model="ir.actions.act_window.view" id="chricar_top_act1_view1">
+      <field name="sequence" eval="2"/>
+      <field name="view_mode">form</field>
+      <field name="view_id" ref="chricar_top_form"/>
+      <field name="act_window_id" ref="chricar_top_act1"/>
+    </record>
+    <menuitem
+      action="chricar_top_act1"
+      id="menu_chricar_top_list"
+      parent="chricar_top.menu_chricar_real_estate"
+      sequence="10"/>
+    <!-- FIXME
+    <act_window
+      domain="[('ref_ref2', 'like', '-' + 'chricar.top,' + str(active_id) + '-'),('state','&lt;&gt;','done'),('state','&lt;&gt;','cancel'),('state','&lt;&gt;','pending')]"
+      id="act_crm_top_crm_case_open"
+      name="Open Cases"
+      res_model="crm.case"
+      src_model="chricar.top"
+      view_mode="tree,form,calendar"
+      view_type="form"/>
+        -->
+    <act_window
+      domain="[('location_id', '=', active_id)]"
+      id="act_location_2_top"
+      name="Real Estate"
+      res_model="chricar.top"
+      src_model="stock.location"
+      view_mode="tree,form"
+      view_type="form"/>
+    <!-- temporary workaround -->
+    <record model="ir.ui.view" id="chricar_top_list_web">
+      <field name="name">chricar.top.list_web</field>
+      <field name="model">chricar.top</field>
+      <field name="priority">1</field>
+      <field name="type">tree</field>
+      <field name="arch" type="xml">
+        <tree string="Real Estate Top" editable="top">
+          <field name="location_id"/>
+          <field name="sort"/>
+          <field name="name"/>
+          <field name="partner_id"/>
+          <field name="usage"/>
+          <field name="surface" sum="Total Surface"/>
+          <field name="lease_target"/>
+          <field name="staircase"/>
+          <field name="floor"/>
+          <field name="lift"/>
+          <field name="category"/>
+          <field name="old_building"/>
+          <field name="handicap"/>
+          <field name="parking_place_rentable"/>
+        </tree>
+      </field>
+    </record>
+    <record model="ir.actions.act_window" id="chricar_top_act1_web">
+      <field name="name">Top (Test)</field>
+      <field name="res_model">chricar.top</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="search_view_id" ref="chricar_top_filter"/>
+      <field name="view_id" ref="chricar_top_list_web"/>
+    </record>
+    <record model="ir.actions.act_window.view" id="chricar_top_act1_view2_web">
+      <field name="sequence" eval="1"/>
+      <field name="view_mode">tree</field>
+      <field name="view_id" ref="chricar_top_list_web"/>
+      <field name="act_window_id" ref="chricar_top_act1_web"/>
+    </record>
+    <record model="ir.actions.act_window.view" id="chricar_top_act1_view1_web">
+      <field name="sequence" eval="2"/>
+      <field name="view_mode">form</field>
+      <field name="view_id" ref="chricar_top_form"/>
+      <field name="act_window_id" ref="chricar_top_act1_web"/>
+    </record>
+    <!--
+    <menuitem
+      action="chricar_top_act1_web"
+      id="menu_chricar_top_list_web"
+      parent="chricar_top.menu_chricar_real_estate"
+          sequence="10"/>
+              -->
+    <act_window
+      domain="[('partner_id', '=', active_id)]"
+      id="act_partner_chricar_top_owner"
+      name="Tops Owned"
+      res_model="chricar.top"
+      src_model="res.partner"
+      view_mode="tree,form"
+      view_type="form"/>
+    <!--
+        <wizard
+            string="Make Case"
+            model="chricar.top"
+            name="chricar_top.make_case"
+            keyword="client_action_multi"
+            id="chricar_top_make_case_wizard"/>
+-->
+    <record model="ir.ui.view" id="view_partner_top_form">
+      <field name="name">res.partner.top.form</field>
+      <field name="model">res.partner</field>
+      <field name="inherit_id" ref="base.view_partner_form"/>
+      <field name="arch" type="xml">
+        <notebook position="inside">
+          <page string="Real Estate">
+            <field name="lease_current_sum"/>
+            <field name="lease_potential_sum"/>
+            <field name="lease_current_participation_sum"/>
+          </page>
+        </notebook>
+      </field>
+    </record>
+    <!--
+==============================================
+Modification of Parents (only for matching table prefixes)
+==============================================
+
+-->
+    <record id="view_location_form_blueprint" model="ir.ui.view">
+      <field name="name">stock.location.form.blueprint</field>
+      <field name="model">stock.location</field>
+      <field name="type">form</field>
+      <field name="inherit_id" ref="stock.view_location_form"/>
+      <field name="arch" type="xml">
+        <field colspan="4" name="comment" nolabel="1" position="replace">
+          <group colspan="4" col="5">
+            <separator colspan="2" string="Map"/>
+            <separator colspan="2" string="Image"/>
+            <separator colspan="1" string="Comment"/>
+            <field colspan="2" name="blueprint" nolabel="1" img_width="550" img_height="550" width="550" height="550" widget="image"/>
+            <field colspan="2" name="image" nolabel="1" img_width="550" img_height="550" width="550" height="550" widget="image"/>
+            <field colspan="1" name="comment" nolabel="1"/>
+          </group>
+        </field>
+      </field>
+    </record>
+    <record id="view_location_form_blueprint2" model="ir.ui.view">
+      <field name="name">stock.location.form.blueprint2</field>
+      <field name="model">stock.location</field>
+      <field name="type">form</field>
+      <field name="inherit_id" ref="view_location_form_blueprint"/>
+      <field name="arch" type="xml">
+        <separator string="Additional Information" colspan="4" position="replace"/>
+      </field>
+    </record>
+    <record id="view_location_form_blueprint3" model="ir.ui.view">
+      <field name="name">stock.location.form.blueprint3</field>
+      <field name="model">stock.location</field>
+      <field name="type">form</field>
+      <field name="inherit_id" ref="view_location_form_blueprint2"/>
+      <field name="arch" type="xml">
+        <field name="icon" position="after">
+          <field name="operating_cost"/>
+        </field>
+      </field>
+    </record>
+    <act_window
+      domain="[('ref','=',ref_top)]"
+      id="act_top_2_helpdesk"
+      name="Helpdesk Top"
+      res_model="crm.helpdesk"
+      src_model="chricar.top"
+      view_mode="tree,form"
+      view_type="form"/>
+    <menuitem
+      action="stock.action_location_tree"
+      id="menu_action_location_tree_chricar"
+      parent="chricar_top.menu_chricar_real_estate"
+      sequence="20"/>
+  </data>
+</openerp>

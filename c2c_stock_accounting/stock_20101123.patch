@@ -1,0 +1,98 @@
+=== modified file 'stock/product.py'
+--- stock/product.py	2010-11-19 12:20:03 +0000
++++ stock/product.py	2010-11-22 21:35:54 +0000
+@@ -22,6 +22,7 @@
+ from osv import fields, osv
+ from tools.translate import _
+ import decimal_precision as dp
++import sys
+ 
+ class product_product(osv.osv):
+     _inherit = "product.product"
+@@ -253,7 +254,7 @@
+         if 'in' in what:
+             # all moves from a location out of the set to a location in the set
+             cr.execute(
+-                'select sum(product_qty), product_id, product_uom '\
++                'select sum(product_qty), product_id, product_uom, sum(coalesce(move_value_cost,0)), sum(coalesce(move_value_sale,0)) '\
+                 'from stock_move '\
+                 'where location_id NOT IN %s'\
+                 'and location_dest_id IN %s'\
+@@ -264,7 +265,7 @@
+         if 'out' in what:
+             # all moves from a location in the set to a location out of the set
+             cr.execute(
+-                'select sum(product_qty), product_id, product_uom '\
++                'select sum(product_qty), product_id, product_uom, sum(coalesce(move_value_cost,0)), sum(coalesce(move_value_sale,0)) '\
+                 'from stock_move '\
+                 'where location_id IN %s'\
+                 'and location_dest_id NOT IN %s '\
+@@ -282,14 +283,21 @@
+             uoms = uom_obj.browse(cr, uid, list(set(uoms)), context=context)
+         for o in uoms:
+             uoms_o[o.id] = o
+-        for amount, prod_id, prod_uom in results:
+-            amount = uom_obj._compute_qty_obj(cr, uid, uoms_o[prod_uom], amount,
+-                    uoms_o[context.get('uom', False) or product2uom[prod_id]])
+-            res[prod_id] += amount
+-        for amount, prod_id, prod_uom in results2:
+-            amount = uom_obj._compute_qty_obj(cr, uid, uoms_o[prod_uom], amount,
+-                    uoms_o[context.get('uom', False) or product2uom[prod_id]])
+-            res[prod_id] -= amount
++	f = 'amount'
++	if context.get('field'):
++	    f = context.get('field')
++        for amount, prod_id, prod_uom, move_value_cost, move_value_sale in results:
++            amount = uom_obj._compute_qty_obj(cr, uid, uoms_o[prod_uom], amount,
++                    uoms_o[context.get('uom', False) or product2uom[prod_id]])
++	    if f == 'move_value_cost': res[prod_id] += move_value_cost
++	    if f == 'move_value_sale': res[prod_id] += move_value_sale
++            else: res[prod_id] += amount
++        for amount, prod_id, prod_uom, move_value_cost, move_value_sale in results2:
++            amount = uom_obj._compute_qty_obj(cr, uid, uoms_o[prod_uom], amount,
++                    uoms_o[context.get('uom', False) or product2uom[prod_id]])
++	    if f == 'move_value_cost': res[prod_id] += move_value_cost
++	    if f == 'move_value_sale': res[prod_id] += move_value_sale
++            if f == 'amount' : res[prod_id] += amount
+         return res
+ 
+     def _product_available(self, cr, uid, ids, field_names=None, arg=False, context=None):
+@@ -313,7 +321,12 @@
+                 c.update({ 'states': ('confirmed','waiting','assigned'), 'what': ('in',) })
+             if f == 'outgoing_qty':
+                 c.update({ 'states': ('confirmed','waiting','assigned'), 'what': ('out',) })
++            if f == 'move_value_cost':
++		    c.update({ 'states': ('done',), 'what': ('in', 'out'), 'field':'move_value_cost' })
++            if f == 'move_value_sale':
++		    c.update({ 'states': ('done',), 'what': ('in', 'out'), 'field':'move_value_sale' })
+             stock = self.get_product_available(cr, uid, ids, context=c)
++	    print >> sys.stderr, 'stock ',f, stock
+             for id in ids:
+                 res[id][f] = stock.get(id, 0.0)
+         return res
+@@ -332,8 +345,9 @@
+                                         help="If real-time valuation is enabled for a product, the system will automatically write journal entries corresponding to stock moves." \
+                                              "The inventory variation account set on the product category will represent the current inventory value, and the stock input and stock output account will hold the counterpart moves for incoming and outgoing products."
+                                         , required=True),
++	'move_value_cost'  : fields.function(_product_available, method=True, type='float', string='Cost Value', help="Cost values  of products in selected locations or all internal if none have been selected.", multi='qty_available', digits_compute=dp.get_precision('Account')),
++	'move_value_sale'  : fields.function(_product_available, method=True, type='float', string='Sale Value', help="Sale values  of products in selected locations or all internal if none have been selected.", multi='qty_available', digits_compute=dp.get_precision('Account')),
+     }
+-
+     _defaults = {
+         'valuation': lambda *a: 'manual_periodic',
+     }
+
+=== modified file 'stock/stock.py'
+--- stock/stock.py	2010-11-19 12:20:03 +0000
++++ stock/stock.py	2010-11-23 08:12:13 +0000
+@@ -1494,6 +1494,9 @@
+ 
+         # used for colors in tree views:
+         'scrapped': fields.related('location_dest_id','scrap_location',type='boolean',relation='stock.location',string='Scrapped'),
++	'move_value_cost'  :  fields.float('Move Value Cost', digits_compute=dp.get_precision('Account') ),
++	'move_value_sale'  :  fields.float('Move Value Sale', digits_compute=dp.get_precision('Account') ),
++
+     }
+     _constraints = [
+         (_check_tracking,
+

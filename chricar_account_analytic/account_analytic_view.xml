@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <!--
+==============================================
+Modification of Account
+==============================================
+-->
+    <record model="ir.ui.view" id="account_analytic_form">
+      <field name="name">account.account.analytic.form</field>
+      <field name="inherit_id" ref="account.view_account_form"/>
+      <field name="model">account.account</field>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <separator string="Default Taxes" position="before">
+          <group col="2" colspan="2">
+            <separator string="Analytic" colspan="2"/>
+            <field name="account_analytic_usage" select="2"/>
+            <field
+              domain="[('type','&lt;&gt;','view')]"
+              name="analytic_account_id"
+              select="2"/>
+          </group>
+        </separator>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="account_analytic_tree">
+      <field name="name">account.account.analytic.tree</field>
+      <field name="inherit_id" ref="account.view_account_tree"/>
+      <field name="model">account.account</field>
+      <field name="type">tree</field>
+      <field name="arch" type="xml">
+        <field name="type" position="after">
+          <field name="account_analytic_usage"/>
+          <field
+            domain="[('type','&lt;&gt;','view')]"
+            name="analytic_account_id"/>
+        </field>
+      </field>
+    </record>
+    <!--
+==============================================
+Modification of Entries Encoding by Move
+==============================================
+-->
+    <record model="ir.ui.view" id="chricar_view_move_analytic_form1">
+      <field name="name">chricar.account.move.account.analytic.form1</field>
+      <field name="inherit_id" ref="account.view_move_form"/>
+      <field name="model">account.move</field>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <xpath expr="/form/notebook/page[@string='Journal Items']/field/form/notebook/page[@string='Information']/group/field[@name='account_id']" position="replace">
+          <field
+            domain="[('type','&lt;&gt;','view'),('type','&lt;&gt;','view'),('company_id','=',parent.company_id)]"
+            name="account_id"
+            on_change="onchange_account(account_id,tax_id, amount, partner_id)"/>
+        </xpath>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="chricar_view_move_analytic_form2">
+      <field name="name">chricar.account.move.account.analytic.form2</field>
+      <field name="inherit_id" ref="account.view_move_form"/>
+      <field name="model">account.move</field>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <!-- not nice, should be after partner_id but partner_id is defined twice-->
+        <xpath expr="/form/notebook/page[@string='Journal Items']/field/tree/field[@name='account_id']" position="replace">
+          <field
+            domain="[('type','&lt;&gt;','view'),('type','&lt;&gt;','view'),('company_id','=',parent.company_id)]"
+            name="account_id"
+            on_change="onchange_account(account_id,tax_id, amount, partner_id)"/>
+        </xpath>
+      </field>
+    </record>
+    <!--
+==============================================
+Modification of Invoice Line - change trigger
+==============================================
+-->
+    <record model="ir.ui.view" id="view_invoice_line_analytic_form">
+      <field name="name">account.invoice.line.analytic.form</field>
+      <field name="inherit_id" ref="account.view_invoice_line_form"/>
+      <field name="model">account.invoice.line</field>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <field name="account_id" position="replace">
+          <field
+            domain="[('company_id', '=', parent.company_id), ('journal_id', '=', parent.journal_id), ('type', '&lt;&gt;', 'view')]"
+            groups="base.group_user"
+            name="account_id"
+            on_change="onchange_account(parent.fiscal_position,account_id,account_analytic_id)"/>
+        </field>
+      </field>
+    </record>
+    <!--
+==============================================
+Modification of Bank statement - change trigger
+==============================================
+-->
+    <record model="ir.ui.view" id="chricar_view_bank_statement_analytic_form3">
+      <field name="name">account.bank.statement.analytic.form3</field>
+      <field name="inherit_id" ref="chricar_bank_vat.chricar_view_bank_statement_vat_form3"/>
+      <field name="model">account.bank.statement</field>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <xpath expr="/form/notebook/page[@string='Transaction']/field/tree/field[@name='account_id']" position="replace">
+          <field
+            domain="[('journal_id','=',parent.journal_id), ('type', '&lt;&gt;', 'view')]"
+            name="account_id"
+            on_change="onchange_account(account_id,tax_id, amount, partner_id)"/>
+        </xpath>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="view_bank_statement_analytic_form4">
+      <field name="name">account.bank.statement.analytic.form4</field>
+      <field name="inherit_id" ref="chricar_bank_vat.chricar_view_bank_statement_vat_form4"/>
+      <field name="model">account.bank.statement</field>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <xpath expr="/form/notebook/page[@string='Transaction']/field/form/field[@name='account_id']" position="replace">
+          <field
+            domain="[('journal_id','=',parent.journal_id), ('type', '&lt;&gt;', 'view')]"
+            name="account_id"
+            on_change="onchange_account(account_id,tax_id, amount, partner_id)"/>
+        </xpath>
+      </field>
+    </record>
+  </data>
+</openerp>

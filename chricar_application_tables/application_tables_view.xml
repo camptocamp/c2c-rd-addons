@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <!--
+==============================================
+Application Tables (terp_tabelle > application_tables) 
+generated 2009-03-27 16:17:42+01
+==============================================
+-->
+    <record model="ir.ui.view" id="chricar_application_tables_form">
+      <field name="name">chricar.application_tables.form</field>
+      <field name="model">chricar.application_tables</field>
+      <field name="priority">1</field>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <form string="Application Tables">
+          <field name="application_id"/>
+          <field name="name" select="1"/>
+          <field name="table_name" select="1"/>
+          <field name="table_name_source" select="2"/>
+          <notebook colspan="4">
+            <page string="Application Tables">
+              <field name="author"/>
+              <field name="category" select="2"/>
+              <field name="depends"/>
+              <field name="description"/>
+              <field name="version"/>
+              <field name="website"/>
+              <field name="prefix" select="1"/>
+              <field name="migrate" select="1"/>
+              <field name="installable" select="1"/>
+              <field name="import_data" select="2"/>
+              <field name="main_menu" select="2"/>
+              <field name="menu" select="1"/>
+              <field name="menu_seq"/>
+              <field name="tree_editable"/>
+              <field name="inherit_method" select="2"/>
+              <field name="inherit_module_name"/>
+              <field name="inherit_table" select="1"/>
+              <field name="state"/>
+              <field name="init_xml"/>
+              <field name="update_xml"/>
+              <field name="demo_xml"/>
+            </page>
+          </notebook>
+        </form>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="chricar_application_tables_list">
+      <field name="name">chricar.application_tables.list</field>
+      <field name="model">chricar.application_tables</field>
+      <field name="priority">1</field>
+      <field name="type">tree</field>
+      <field name="arch" type="xml">
+        <tree string="Application Tables" editable="top">
+          <field name="application_id"/>
+          <field name="author"/>
+          <field name="category" select="2"/>
+          <field name="depends"/>
+          <field name="description"/>
+          <field name="version"/>
+          <field name="website"/>
+          <field name="name" select="1"/>
+          <field name="prefix" select="1"/>
+          <field name="table_name" select="1"/>
+          <field name="table_name_source" select="2"/>
+          <field name="migrate" select="1"/>
+          <field name="installable" select="1"/>
+          <field name="import_data" select="2"/>
+          <field name="main_menu" select="2"/>
+          <field name="menu" select="1"/>
+          <field name="menu_seq"/>
+          <field name="tree_editable"/>
+          <field name="inherit_method" select="2"/>
+          <field name="inherit_module_name"/>
+          <field name="inherit_table" select="1"/>
+          <field name="state"/>
+          <field name="init_xml"/>
+          <field name="update_xml"/>
+          <field name="demo_xml"/>
+        </tree>
+      </field>
+    </record>
+    <record model="ir.actions.act_window" id="chricar_application_tables_act1">
+      <field name="name">Application Tables</field>
+      <field name="res_model">chricar.application_tables</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="view_id" ref="chricar_application_tables_list"/>
+    </record>
+    <record model="ir.actions.act_window.view" id="chricar_application_tables_act1_view2">
+      <field name="sequence" eval="1"/>
+      <field name="view_mode">tree</field>
+      <field name="view_id" ref="chricar_application_tables_list"/>
+      <field name="act_window_id" ref="chricar_application_tables_act1"/>
+    </record>
+    <record model="ir.actions.act_window.view" id="chricar_application_tables_act1_view1">
+      <field name="sequence" eval="2"/>
+      <field name="view_mode">form</field>
+      <field name="view_id" ref="chricar_application_tables_form"/>
+      <field name="act_window_id" ref="chricar_application_tables_act1"/>
+    </record>
+    <menuitem
+      action="chricar_application_tables_act1"
+      id="menu_chricar_application_tables_list"
+      parent="chricar_application.menu_chricar_application_list"
+      sequence="20"/>
+    <!--
+==============================================
+Modification of Parents (only for matching table prefixes)
+==============================================
+-->
+    <record model="ir.ui.view" id="chricar_application_application_tables_form1">
+      <field name="name">chricar.application.form1</field>
+      <field name="model">chricar.application</field>
+      <field name="inherit_id" ref="chricar_application.chricar_application_form"/>
+      <field name="arch" type="xml">
+        <notebook colspan="4" position="inside">
+          <page string="Application Tables">
+            <field name="application_tables_ids" widget="one2many_list" colspan="4" nolabel="1">
+              <tree string="Application Tables" editable="top">
+                <field name="author"/>
+                <field name="category" select="2"/>
+                <field name="depends"/>
+                <field name="description"/>
+                <field name="version"/>
+                <field name="website"/>
+                <field name="name" select="1"/>
+                <field name="prefix" select="1"/>
+                <field name="table_name" select="1"/>
+                <field name="table_name_source" select="2"/>
+                <field name="migrate" select="1"/>
+                <field name="installable" select="1"/>
+                <field name="import_data" select="2"/>
+                <field name="main_menu" select="2"/>
+                <field name="menu" select="1"/>
+                <field name="menu_seq"/>
+                <field name="tree_editable"/>
+                <field name="inherit_method" select="2"/>
+                <field name="inherit_module_name"/>
+                <field name="inherit_table" select="1"/>
+                <field name="state"/>
+                <field name="init_xml"/>
+                <field name="update_xml"/>
+                <field name="demo_xml"/>
+              </tree>
+            </field>
+          </page>
+        </notebook>
+      </field>
+    </record>
+  </data>
+</openerp>

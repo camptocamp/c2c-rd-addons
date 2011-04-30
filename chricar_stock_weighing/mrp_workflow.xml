@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <!-- Harvest -->
+    <record id="prod_trans_ready_in_production_harvest" model="workflow.transition">
+      <field name="act_from" ref="mrp.prod_act_draft"/>
+      <field name="act_to" ref="mrp.prod_act_in_production"/>
+      <field name="signal">button_start_harvest</field>
+    </record>
+    <record id="prod_trans_in_production_done_harvest" model="workflow.transition">
+      <field name="act_from" ref="mrp.prod_act_in_production"/>
+      <field name="act_to" ref="mrp.prod_act_done"/>
+      <field name="signal">button_produce_done_harvest</field>
+    </record>
+  </data>
+</openerp>

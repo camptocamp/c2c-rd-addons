@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <!-- location -->
+    <record model="ir.ui.view" id="view_wiki_model_form">
+      <field name="name">wiki.wiki.model.form</field>
+      <field name="model">wiki.wiki</field>
+      <field name="inherit_id" ref="wiki.view_wiki_form"/>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <field name="toc" position="after">
+          <field name="model_ids" colspan="2"/>
+          <button
+            name="subscribe"
+            string="Link"
+            type="object"/>
+          <button
+            name="unsubscribe"
+            string="UnLink"
+            type="object"/>
+        </field>
+      </field>
+    </record>
+  </data>
+</openerp>

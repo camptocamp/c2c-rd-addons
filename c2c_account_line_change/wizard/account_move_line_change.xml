@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <record id="view_account_move_line_change" model="ir.ui.view">
+      <field name="name">account.move.line.change.form</field>
+      <field name="model">account.move.line.change</field>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <form string="Change Account">
+          <separator colspan="4" string="Do you really want to change the account ?"/>
+          <field name="account_id" colspan="4" readonly="1"/>
+          <newline/>
+          <field name="account_type" readonly="1"/>
+          <field name="account_user_type" readonly="1"/>
+          <field name="period_id" readonly="1"/>
+          <field name="period_state" readonly="1"/>
+          <newline/>
+          <label colspan="4" nolabel="1" string="We restrict the selection of new accounts to accounts of the same Account Type."/>
+          <label colspan="4" nolabel="1" string="No further checks (VAT, analytic account etc) are made."/>
+          <label colspan="4" nolabel="1" string="Please choose new accounts carefully"/>
+          <field
+            colspan="4"
+            domain="[('id','!=',account_id),('type','=',account_type),('user_type','=',account_user_type)]"
+            name="account_new_id"/>
+          <separator string="" colspan="4"/>
+          <button
+            icon="gtk-cancel"
+            special="cancel"
+            string="Cancel"/>
+          <button
+            icon="terp-gtk-go-back-rtl"
+            name="update_account_move_line"
+            string="Change Account"
+            type="object"/>
+        </form>
+      </field>
+    </record>
+    <!--
+    <record id="action_account_move_line_change_wizard" model="ir.actions.act_window">
+      <field name="name">Change Account</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">account.move.line</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">form</field>
+      <field name="view_id" ref="view_account_move_line_change"/>
+      <field name="target">new</field>
+      <field name="multi">True</field>
+    </record>
+    <record model="ir.values" id="account_move_line_change_wizard">
+      <field name="model_id" ref="model_account_move_line_change"/>
+      <field name="object" eval="1"/>
+      <field name="name">Change Account</field>
+      <field name="key2">client_action_multi</field>
+      <field name="value" eval="'ir.actions.act_window,' + str(ref('action_account_move_line_change_wizard'))"/>
+      <field name="key">action</field>
+      <field name="model">account.move.line</field>
+    </record>
+    -->
+    <!-- this does not workas described in the manual
+    <act_window
+      id="act_account_move_line_change_wizard"
+      key2="client_action_multi"
+      multi="true"
+      name="Change Account"
+      res_model="account.move.line.change"
+      src_model="account.move.line"
+      target="new"
+      view_mode="form"
+      view_type="form"/>
+	-->
+    <act_window
+      id="act_account_move_line_change_wizard"
+      name="Change Account"
+      res_model="account.move.line.change"
+      src_model="account.move.line"
+      target="new"
+      view_mode="form"
+      view_type="form"/>
+  </data>
+</openerp>

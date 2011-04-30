@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <!-- Price Units in Invoice Form-->
+    <record model="ir.ui.view" id="c2c_purchase_account_invoice_line_form_view">
+      <field name="name">c2c_product.account_invoice_line_form.view</field>
+      <field name="model">account.invoice.line</field>
+      <field name="inherit_id" ref="account.view_invoice_line_form"/>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <field name="price_unit" position="replace">
+          <group col="4" colspan="2">
+            <field
+              name="price_unit_pu"
+              on_change="onchange_price_unit('price_unit',price_unit_pu,price_unit_id)"
+              required="1"/>
+            <field
+              name="price_unit_id"
+              on_change="onchange_price_unit('price_unit',price_unit_pu,price_unit_id)"
+              required="1"
+              widget="selection"/>
+          </group>
+          <field name="price_unit" groups="c2c_product_price_unit.group_c2c_product_price_unit_manager"/>
+        </field>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="c2c_purchase_account_invoice_line_form_product_view">
+      <field name="name">c2c_product.account_invoice_line_form_product.view</field>
+      <field name="model">account.invoice.line</field>
+      <field name="inherit_id" ref="account.view_invoice_line_form"/>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <field name="product_id" position="replace">
+          <field
+            name="product_id"
+            on_change="product_id_change_c2c_pu(product_id, uos_id, quantity, name, parent.type, parent.partner_id, parent.fiscal_position, price_unit_pu, parent.address_invoice_id, parent.currency_id, {'company_id': parent.company_id}, price_unit_id)"/>
+        </field>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="c2c_purchase_account_invoice_line_tree_view">
+      <field name="name">c2c_product.account_invoice_line_tree.view</field>
+      <field name="model">account.invoice.line</field>
+      <field name="inherit_id" ref="account.view_invoice_line_tree"/>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <field name="price_unit" position="replace">
+          <field name="price_unit_pu"/>
+          <field name="price_unit_id"/>
+          <field name="price_unit" groups="c2c_product_price_unit.group_c2c_product_price_unit_manager"/>
+        </field>
+      </field>
+    </record>
+    <!-- Supplier -->
+    <record model="ir.ui.view" id="c2c_product_invoice_supplier_form_view">
+      <field name="name">c2c_product.invoice_supplier_form.view</field>
+      <field name="model">account.invoice</field>
+      <field name="inherit_id" ref="account.invoice_supplier_form"/>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <field name="price_unit" position="replace">
+          <field
+            name="price_unit_pu"
+            on_change="onchange_price_unit('price_unit',price_unit_pu,price_unit_id)"
+            required="1"/>
+          <field
+            name="price_unit_id"
+            on_change="onchange_price_unit('price_unit',price_unit_pu,price_unit_id)"
+            required="1"/>
+          <field name="price_unit" groups="c2c_product_price_unit.group_c2c_product_price_unit_manager"/>
+        </field>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="c2c_product_invoice_supplier_form_product_view">
+      <field name="name">c2c_product.invoice_supplier_form_product.view</field>
+      <field name="model">account.invoice</field>
+      <field name="inherit_id" ref="account.invoice_supplier_form"/>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <field name="product_id" position="replace">
+          <field
+            name="product_id"
+            on_change="product_id_change_c2c_pu(product_id, uos_id, quantity, name, parent.type, parent.partner_id, parent.fiscal_position, price_unit_pu, parent.address_invoice_id, parent.currency_id, {'company_id': parent.company_id},price_unit_id)"/>
+        </field>
+      </field>
+    </record>
+  </data>
+</openerp>

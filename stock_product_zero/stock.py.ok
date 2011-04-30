@@ -1,0 +1,88 @@
+# -*- coding: utf-8 -*-
+##############################################################################
+#
+#    OpenERP, Open Source Management Solution
+#    Copyright (C) 2004-2010 Tiny SPRL (<http://tiny.be>).
+#    Copyright (C) 2010-2010 Camptocamp Austria (<http://www.camptocamp.at>)
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU Affero General Public License as
+#    published by the Free Software Foundation, either version 3 of the
+#    License, or (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU Affero General Public License for more details.
+#
+#    You should have received a copy of the GNU Affero General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+##############################################################################
+
+
+from osv import fields, osv
+import sys
+
+class stock_location_product(osv.osv_memory):
+    _name = "stock.location.product"
+    _description = "Products by Location"
+    _columns = {
+        'from_date': fields.datetime('From'),
+        'to_date': fields.datetime('To'),
+        'display_with_zero_qty' : fields.boolean('Display lines with zero'),
+    }
+
+    def action_open_window(self, cr, uid, ids, context=None):
+        """ To open location wise product information specific to given duration
+         @param self: The object pointer.
+         @param cr: A database cursor
+         @param uid: ID of the user currently logged in
+         @param ids: An ID or list of IDs if we want more than one 
+         @param context: A standard dictionary 
+         @return: Invoice type
+        """
+        mod_obj = self.pool.get('ir.model.data')
+        for location_obj in self.read(cr, uid, ids, ['from_date', 'to_date','display_with_zero_qty']):
+            return {
+                'name': False,
+                'view_type': 'form',
+                'view_mode': 'tree,form',
+                'res_model': 'product.product',
+                'type': 'ir.actions.act_window',
+                'context': {'location': context['active_id'],
+                       'from_date': location_obj['from_date'],
+                       'to_date': location_obj['to_date'],
+                       'display_with_zero_qty': location_obj['display_with_zero_qty'],
+                },
+                'domain': [('type', '<>', 'service')],
+            }
+
+stock_location_product()
+
+
+class product_product(osv.osv):
+    _inherit = "product.product"
+
+
+    # FIXME this returns correct records, but group by catagory ignores this and uses all results for grouping 
+    # opening a category crashes
+    def read(self,cr, uid, ids, fields=None, context=None, load='_classic_read'):
+        res_all = super(product_product, self).read(cr,uid, ids, fields, context, load='_classic_read')
+        res = []
+        #if not context.get('display_with_zero_qty') or  \
+        #      (context.get('display_with_zero_qty')  and context.get('display_with_zero_qty') == True):
+        if context.get('display_with_zero_qty') == False:
+          for prod in res_all:
+            qty = prod.get('qty_available')
+            vir = prod.get('virtual_available')
+            if qty <> 0.0 or vir <> 0.0:
+               res.append(prod) 
+        else: 
+            res = res_all
+        # FIXME - result should be sorted by name 
+        # http://wiki.python.org/moin/SortingListsOfDictionaries - returns (unicode?) error on name  
+        return res
+
+      
+product_product()

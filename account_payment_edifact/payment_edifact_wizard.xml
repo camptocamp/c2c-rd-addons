@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <wizard id="wizard_payment_edifact" model="payment.order" name="payment.order.payment_generate_edifact" string="Generate EDIFACT"/>
+    <wizard id="wizard_construct_iban" model="res.bank" name="res.bank.construct_iban" string="Convert to IBAN"/>
+  </data>
+</openerp>

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <!-- move values internal Form-->
+    <record model="ir.ui.view" id="picking_values_view">
+      <field name="name">view_picking_values.view</field>
+      <field name="model">stock.picking</field>
+      <field name="inherit_id" ref="stock.view_picking_form"/>
+      <field name="arch" type="xml">
+        <xpath expr="/form/notebook/page[@string='Products']/field[@name='move_lines']/form[@string='Stock Moves']" position="inside">
+          <group colspan="2" col="2" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant">
+            <separator string="Values" colspan="2"/>
+            <field name="move_value_cost" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant"/>
+            <field name="move_value_sale" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant"/>
+            <field name="period_id"/>
+          </group>
+        </xpath>
+      </field>
+    </record>
+    <!-- move values Incoming-->
+    <record model="ir.ui.view" id="picking_in_values_view">
+      <field name="name">view_picking_in_values.view</field>
+      <field name="model">stock.picking</field>
+      <field name="inherit_id" ref="stock.view_picking_in_form"/>
+      <field name="arch" type="xml">
+        <xpath expr="/form/notebook/page[@string='General Information']/field[@name='move_lines']/form[@string='Stock Moves']" position="inside">
+          <group colspan="2" col="2" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant">
+            <separator string="Values" colspan="2"/>
+            <field name="move_value_cost" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant"/>
+            <field name="move_value_sale" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant"/>
+            <field name="period_id"/>
+          </group>
+        </xpath>
+      </field>
+    </record>
+    <!-- move values Outgoing -->
+    <record model="ir.ui.view" id="picking_out_values_view">
+      <field name="name">view_picking_out_values.view</field>
+      <field name="model">stock.picking</field>
+      <field name="inherit_id" ref="stock.view_picking_out_form"/>
+      <field name="arch" type="xml">
+        <xpath expr="/form/notebook/page[@string='Products']/field[@name='move_lines']/form[@string='Stock Moves']" position="inside">
+          <group colspan="2" col="2" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant">
+            <separator string="Values" colspan="2"/>
+            <field name="move_value_cost" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant"/>
+            <field name="move_value_sale" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant"/>
+            <field name="price_unit_sale"/>
+            <field name="period_id"/>
+          </group>
+        </xpath>
+      </field>
+    </record>
+    <!-- move  list  -->
+    <record model="ir.ui.view" id="view_move_tree_values">
+      <field name="name">move_tree_view_values.view</field>
+      <field name="model">stock.move</field>
+      <field name="inherit_id" ref="stock.view_move_tree"/>
+      <field name="type">tree</field>
+      <field name="arch" type="xml">
+        <field name="product_uom" position="after">
+          <field name="move_value_cost" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant"/>
+          <field name="move_value_sale" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant"/>
+          <field name="period_id"/>
+        </field>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="move_tree_values_view">
+      <field name="name">move_tree_view_values.view</field>
+      <field name="model">stock.move</field>
+      <field name="inherit_id" ref="stock.stock_move_tree"/>
+      <field name="type">tree</field>
+      <field name="arch" type="xml">
+        <field name="product_uom" position="after">
+          <field name="move_value_cost" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant"/>
+          <field name="move_value_sale" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant"/>
+          <field name="period_id"/>
+        </field>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="move_tree2_values_view">
+      <field name="name">move_tree2_view_values.view</field>
+      <field name="model">stock.move</field>
+      <field name="inherit_id" ref="stock.stock_move_tree2"/>
+      <field name="type">tree</field>
+      <field name="arch" type="xml">
+        <field name="product_uom" position="after">
+          <field name="move_value_cost" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant"/>
+          <field name="move_value_sale" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant"/>
+          <field name="period_id"/>
+        </field>
+      </field>
+    </record>
+    <!-- move  form-->
+    <record model="ir.ui.view" id="move_form_values_view">
+      <field name="name">move_form_view_values.view</field>
+      <field name="model">stock.move</field>
+      <field name="inherit_id" ref="stock.view_move_form"/>
+      <field name="arch" type="xml">
+        <xpath expr="/form[@string='Stock Moves']" position="inside">
+          <group colspan="2" col="2" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant">
+            <separator string="Values" colspan="2"/>
+            <field name="move_value_cost"/>
+            <field name="move_value_sale"/>
+            <field name="period_id"/>
+          </group>
+        </xpath>
+      </field>
+    </record>
+  </data>
+</openerp>

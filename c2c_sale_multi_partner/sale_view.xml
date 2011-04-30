@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <record model="ir.ui.view" id="c2c_view_order_form_shipping_id">
+      <field name="name">sale.order.form.c2c_shipping_id</field>
+      <field name="model">sale.order</field>
+      <field name="inherit_id" ref="sale.view_order_form"/>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <field name="partner_shipping_id" position="replace">
+          <field name="partner_shipping_p_id" readonly="1"/>
+        </field>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="c2c_view_order_form_shipping_id_1">
+      <field name="name">sale.order.form.c2c_shipping_id_1</field>
+      <field name="model">sale.order</field>
+      <field name="inherit_id" ref="sale.view_order_form"/>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <field name="pricelist_id" position="after">
+          <field name="partner_shipping_id"/>
+        </field>
+      </field>
+    </record>
+  </data>
+</openerp>

@@ -1,0 +1,337 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* chricar_stock_weighing
+#
+# Ferdinand Gassauer <f.gassauer@chricar.at>, 2010.
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 5.0.12\n"
+"Report-Msgid-Bugs-To: support@openerp.com\n"
+"POT-Creation-Date: 2010-10-04 20:39:27+0000\n"
+"PO-Revision-Date: 2010-10-04 22:42+0200\n"
+"Last-Translator: Ferdinand Gassauer <f.gassauer@chricar.at>\n"
+"Language-Team: German <kde-i18n-doc@kde.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+"X-Generator: Lokalize 1.1\n"
+
+#. module: chricar_stock_weighing
+#: field:stock.picking,trailer_tare:0
+msgid "Trailer Tare Weight"
+msgstr "Hänger Tara"
+
+#. module: chricar_stock_weighing
+#: field:stock.move,weighing_slip:0
+msgid "Weighing Slip Number"
+msgstr "Wiege Nr"
+
+#. module: chricar_stock_weighing
+#: selection:stock.move,activity:0
+msgid "Aspirate"
+msgstr "Aspirieren"
+
+#. module: chricar_stock_weighing
+#: field:stock.picking,date_weighing:0
+msgid "Date Weighing"
+msgstr "Datum Wiegung"
+
+#. module: chricar_stock_weighing
+#: field:stock.move,specific_weight:0
+msgid "Specific Weight"
+msgstr "Spez.  Gewicht"
+
+#. module: chricar_stock_weighing
+#: model:ir.actions.act_window,name:chricar_stock_weighing.action_picking_tree6d
+#: model:ir.ui.menu,name:chricar_stock_weighing.menu_chricar_weighing_picking_m7d
+msgid "Draft Internal Move"
+msgstr "Umlagerung Entwurf"
+
+#. module: chricar_stock_weighing
+#: model:ir.module.module,description:chricar_stock_weighing.module_meta_information
+msgid ""
+"Stock Weighing\n"
+"Extension to carrier\n"
+"* allows to records weights of the vehicle etc\n"
+"Extension to Production\n"
+"* allows simplified data entry for harvest\n"
+"* quality attributes for stock_moves\n"
+msgstr ""
+
+#. module: chricar_stock_weighing
+#: field:stock.picking,number_weighing:0
+msgid "Number Weighing"
+msgstr "Wiegenummer"
+
+#. module: chricar_stock_weighing
+#: field:stock.picking,trailer_number:0
+msgid "License Number Trailer"
+msgstr "Kennzeichen Hänger"
+
+#. module: chricar_stock_weighing
+#: field:stock.picking,trailer_gross:0
+msgid "Trailer Gross Weight"
+msgstr "Hänger Brutto"
+
+#. module: chricar_stock_weighing
+#: help:stock.move,product_packaging_id:0
+msgid "Product wich is used to store the main product"
+msgstr ""
+
+#. module: chricar_stock_weighing
+#: help:stock.picking,consignment_note:0
+msgid "Number of Consignement Note (AWB,CIM,CMR,CDT,MDT)  http://www.tis-gdv.de/tis/bedingungen/trpdoku/inhalt.htm#1"
+msgstr "Nummer der Konsignation (AWB,CIM,CMR,CDT,MDT)  http://www.tis-gdv.de/tis/bedingungen/trpdoku/inhalt.htm#1"
+
+#. module: chricar_stock_weighing
+#: view:mrp.production:0
+msgid "Field"
+msgstr "Feld"
+
+#. module: chricar_stock_weighing
+#: field:stock.picking,tractor_gross:0
+msgid "Tractor Gross Weight"
+msgstr "Zugmaschine Brutto"
+
+#. module: chricar_stock_weighing
+#: model:ir.ui.menu,name:chricar_stock_weighing.menu_chricar_picking_waiting
+#: model:ir.ui.menu,name:chricar_stock_weighing.menu_chricar_weighing_picking_m7
+msgid "Available Packing"
+msgstr "verfügbare Lieferungen"
+
+#. module: chricar_stock_weighing
+#: constraint:ir.actions.act_window:0
+msgid "Invalid model name in the action definition."
+msgstr "Ungültiger Modellname in der Aktionsdefinition."
+
+#. module: chricar_stock_weighing
+#: field:stock.move,factor:0
+msgid "Factor"
+msgstr "Faktor"
+
+#. module: chricar_stock_weighing
+#: model:ir.actions.act_window,name:chricar_stock_weighing.mrp_production_harvest_action_open
+#: model:ir.ui.menu,name:chricar_stock_weighing.menu_mrp_production_harvest_action_open
+msgid "Harvest Open"
+msgstr "Ernte Offen"
+
+#. module: chricar_stock_weighing
+#: field:stock.move,aspirates:0
+msgid "Aspirates"
+msgstr "Aspiriert"
+
+#. module: chricar_stock_weighing
+#: model:ir.ui.menu,name:chricar_stock_weighing.menu_chricar_action_picking_tree3
+msgid "Confirmed Packing Waiting Availability"
+msgstr "bestätigte Lieferungen - nicht verfügbar"
+
+#. module: chricar_stock_weighing
+#: field:stock.move,temperature:0
+msgid "Temperature"
+msgstr "Temperatur"
+
+#. module: chricar_stock_weighing
+#: field:stock.picking,tractor_number:0
+msgid "License Number Tractor"
+msgstr "Kennzeichen Zugmaschine"
+
+#. module: chricar_stock_weighing
+#: model:ir.actions.act_window,name:chricar_stock_weighing.chricar_weighing
+#: model:ir.ui.menu,name:chricar_stock_weighing.menu_chricar_weighing
+#: view:stock.picking:0
+msgid "Weighing"
+msgstr "Wiegebuch"
+
+#. module: chricar_stock_weighing
+#: view:mrp.production:0
+msgid "Start Production"
+msgstr "Starte Fertigungsauftrag"
+
+#. module: chricar_stock_weighing
+#: view:mrp.production:0
+msgid "Production orders"
+msgstr "Fertigungsaufträge"
+
+#. module: chricar_stock_weighing
+#: view:stock.picking:0
+msgid "Trailer"
+msgstr "Hänger"
+
+#. module: chricar_stock_weighing
+#: view:mrp.production:0
+msgid "Post Moves Daily!"
+msgstr "Verbuche Mengen. Täglich!"
+
+#. module: chricar_stock_weighing
+#: field:stock.picking,consignment_note:0
+msgid "Consignement Note Number"
+msgstr "Frachtbriefnummer"
+
+#. module: chricar_stock_weighing
+#: field:stock.picking,tractor_tare:0
+msgid "Tractor Tare Weight"
+msgstr "Zugmaschine Tara"
+
+#. module: chricar_stock_weighing
+#: constraint:ir.ui.view:0
+msgid "Invalid XML for View Architecture!"
+msgstr "Fehlerhafter xml Code für diese Ansicht!"
+
+#. module: chricar_stock_weighing
+#: field:stock.move,humidity_dest:0
+msgid "Humidity Destination"
+msgstr "Feuchtigkeit Ziel"
+
+#. module: chricar_stock_weighing
+#: view:mrp.production:0
+msgid "Total Qty"
+msgstr "Gesamt Anz."
+
+#. module: chricar_stock_weighing
+#: view:mrp.production:0
+msgid "Harvest Orders"
+msgstr "Ernte Aufträge"
+
+#. module: chricar_stock_weighing
+#: model:ir.actions.act_window,name:chricar_stock_weighing.mrp_production_harvest_action
+#: model:ir.ui.menu,name:chricar_stock_weighing.menu_mrp_production_harvest_action
+msgid "Harvest All"
+msgstr "Ernte Alle"
+
+#. module: chricar_stock_weighing
+#: selection:stock.move,activity:0
+msgid "Purify"
+msgstr "Reinigen"
+
+#. module: chricar_stock_weighing
+#: field:mrp.production,prodlot_id:0
+msgid "Production Lot"
+msgstr "Produktionslos"
+
+#. module: chricar_stock_weighing
+#: field:stock.move,water_content:0
+msgid "Humidity"
+msgstr "Feuchtigkeit"
+
+#. module: chricar_stock_weighing
+#: field:stock.picking,total_net:0
+msgid "Total Net"
+msgstr "Summe Netto"
+
+#. module: chricar_stock_weighing
+#: model:ir.module.module,shortdesc:chricar_stock_weighing.module_meta_information
+msgid "Stock Weighing"
+msgstr "Lager Wiegung"
+
+#. module: chricar_stock_weighing
+#: field:stock.picking,total_gross:0
+msgid "Total Gross"
+msgstr "Summe Brutto"
+
+#. module: chricar_stock_weighing
+#: field:stock.picking,trailer_net:0
+msgid "Trailer Net Weight"
+msgstr "Hänger Netto"
+
+#. module: chricar_stock_weighing
+#: field:stock.move,activity:0
+msgid "Activity"
+msgstr "Aktivität"
+
+#. module: chricar_stock_weighing
+#: field:mrp.production,packaging_qty:0
+#: field:stock.move,packaging_qty:0
+msgid "Packaging Qty"
+msgstr "Verpackung Menge"
+
+#. module: chricar_stock_weighing
+#: view:mrp.production:0
+msgid "Storage Location"
+msgstr "Lagerort"
+
+#. module: chricar_stock_weighing
+#: view:stock.picking:0
+msgid "Tractor"
+msgstr "Zugmaschine"
+
+#. module: chricar_stock_weighing
+#: field:stock.picking,tractor_net:0
+msgid "Tractor Net Weight"
+msgstr "Zugmaschine Netto"
+
+#. module: chricar_stock_weighing
+#: view:mrp.production:0
+msgid "Production done"
+msgstr "Beende Fertigung"
+
+#. module: chricar_stock_weighing
+#: selection:stock.move,activity:0
+msgid "Restore"
+msgstr "Umlagern"
+
+#. module: chricar_stock_weighing
+#: selection:stock.move,activity:0
+msgid "Dehumidify"
+msgstr "Trocknen"
+
+#. module: chricar_stock_weighing
+#: model:ir.ui.menu,name:chricar_stock_weighing.menu_chricar_weighing_picking_out
+msgid "Outgoing Products"
+msgstr "Warenausgang"
+
+#. module: chricar_stock_weighing
+#: model:ir.ui.menu,name:chricar_stock_weighing.menu_chricar_weighing_picking_m6
+msgid "Internal Moves"
+msgstr "Umlagerungen"
+
+#. module: chricar_stock_weighing
+#: help:mrp.production,prodlot_id:0
+msgid "Production lot is used to adminster production lots"
+msgstr "Produktionslos"
+
+#. module: chricar_stock_weighing
+#: field:stock.move,sample:0
+#: field:stock.picking,sample:0
+msgid "Sample Number"
+msgstr "Muster Nummer"
+
+#. module: chricar_stock_weighing
+#: help:stock.move,factor:0
+#: help:stock.move,humidity:0
+#: help:stock.move,humidity_dest:0
+msgid "If In and Out are measured and a factor exists the quantity will be reduced"
+msgstr "Wenn Ein- und Ausgang gemessen wird und ein faktor exisitert, wird die Menge reduziert"
+
+#. module: chricar_stock_weighing
+#: field:stock.picking,seal:0
+msgid "Seals"
+msgstr "Plomben"
+
+#. module: chricar_stock_weighing
+#: field:mrp.production,product_packaging:0
+#: field:stock.move,product_packaging_id:0
+msgid "Packaging"
+msgstr "Verpackung"
+
+#. module: chricar_stock_weighing
+#: field:stock.move,humidity:0
+msgid "Humidity Source"
+msgstr "Feuchtigkeit Quelle"
+
+#. module: chricar_stock_weighing
+#: view:mrp.production:0
+msgid "Cancel"
+msgstr "Abbrechen"
+
+#. module: chricar_stock_weighing
+#: field:stock.move,protein:0
+msgid "Protein"
+msgstr "Protein"
+
+#. module: chricar_stock_weighing
+#: selection:stock.move,activity:0
+msgid "Check"
+msgstr "Kontrollieren"
+
+

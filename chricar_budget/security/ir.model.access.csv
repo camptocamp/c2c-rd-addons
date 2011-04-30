@@ -1,0 +1,7 @@
+"id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
+"access_chricar_budget_production_manager",“chricar.budget_production“,"model_chricar_budget_production","account.group_account_manager",1,1,1,1
+"access_chricar_budget_manager",“chricar.budget“,"model_chricar_budget","account.group_account_manager",1,1,1,1
+"access_chricar_budget_surface_manager",“chricar.budget.surface“,"model_chricar_budget_surface","account.group_account_manager",1,1,1,1
+"access_chricar_budget_production_user",“chricar.budget.production“,"model_chricar_budget_production","account.group_account_user",1,0,0,0
+"access_chricar_budget_user",“chricar.budget“,"model_chricar_budget","account.group_account_user",1,0,0,0
+"access_chricar_budget_surface_user",“chricar.budget.surface“,"model_chricar_budget_surface","account.group_account_user",1,0,0,0

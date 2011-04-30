@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <report
+      auto="False"
+      file="report_crm_helpdesk/report/report_crm_helpdesk.mako"
+      id="report_crm_helpdesk"
+      model="crm.helpdesk"
+      name="report.crm_helpdesk"
+      report_type="webkit"
+      string="CRM Helpdesk"/>
+  </data>
+</openerp>

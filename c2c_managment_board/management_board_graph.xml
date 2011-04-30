@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <record id="board_manager_form" model="ir.ui.view">
+      <field name="name">board.manager.form</field>
+      <field name="model">board.board</field>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <form string="Manager Board">
+          <hpaned position="100">
+            <child1>
+              <action colspan="4" name="%(action_report_sale_order_board_tree)d" string="Sales Orders" view_mode="graph,tree"/>
+              <action colspan="4" name="%(action_report_invoice_board_tree)d" string="Invoices" view_mode="graph,tree"/>
+            </child1>
+            <child2>
+              <action colspan="4" name="%(action_report_purchase_order_board_tree)d" string="Purchase Orders" view_mode="graph,tree"/>
+              <action colspan="4" name="%(action_report_finance_board_tree)d" string="Finance" view_mode="graph,tree"/>
+            </child2>
+          </hpaned>
+        </form>
+      </field>
+    </record>
+    <record id="open_board_manager" model="ir.actions.act_window">
+      <field name="name">Manager Dashboard</field>
+      <field name="res_model">board.board</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">form</field>
+      <field name="view_id" ref="board_manager_form"/>
+    </record>
+    <menuitem
+      id="board_manager"
+      name="Manager Board"
+      parent="account.menu_dashboard_acc"/>
+    <menuitem
+      action="open_board_manager"
+      icon="terp-graph"
+      id="menu_board_manager"
+      parent="board_manager"
+      sequence="1"/>
+  </data>
+</openerp>

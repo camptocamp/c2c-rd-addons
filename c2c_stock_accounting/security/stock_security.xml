@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data noupdate="1">
+    <record id="group_c2c_stock_accounting_accountant" model="res.groups">
+      <field name="name">Stock Accountant</field>
+    </record>
+  </data>
+</openerp>

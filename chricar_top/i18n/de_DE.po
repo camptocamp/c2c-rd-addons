@@ -1,0 +1,528 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* chricar_top
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 6.0.1\n"
+"Report-Msgid-Bugs-To: support@openerp.com\n"
+"POT-Creation-Date: 2011-02-20 11:11+0000\n"
+"PO-Revision-Date: 2011-02-20 11:11+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: chricar_top
+#: selection:chricar.top,heating_source:0
+msgid "District Heating"
+msgstr "Fernwärme"
+
+#. module: chricar_top
+#: model:ir.actions.act_window,name:chricar_top.act_top_2_helpdesk
+msgid "Helpdesk Top 2"
+msgstr "Helpdesk Top 2"
+
+#. module: chricar_top
+#: help:stock.location,operating_cost:0
+msgid "Operating Costs for Real Estate, will be calculated per m² for each Top"
+msgstr "Operating Costs for Real Estate, will be calculated per m² for each Top"
+
+#. module: chricar_top
+#: field:chricar.top,constructed:0
+msgid "Construction Year"
+msgstr "BAujahr"
+
+#. module: chricar_top
+#: field:chricar.top,note_sales:0
+msgid "Note Sales Folder"
+msgstr "Anmerkungen Verkaufsfolder"
+
+#. module: chricar_top
+#: selection:chricar.top,heating:0
+msgid "central heating"
+msgstr "Zentralheizung"
+
+#. module: chricar_top
+#: view:chricar.top:0
+msgid "Group By..."
+msgstr "Gruppiert ..."
+
+#. module: chricar_top
+#: field:chricar.top,parking_place_rentable:0
+msgid "Parking rentable"
+msgstr "Parkmöglichkeit mietbar"
+
+#. module: chricar_top
+#: field:chricar.top,internet:0
+msgid "Internet"
+msgstr "Internet"
+
+#. module: chricar_top
+#: field:chricar.top,usage:0
+msgid "Usage"
+msgstr "Verwendung"
+
+#. module: chricar_top
+#: model:ir.actions.act_window,name:chricar_top.act_partner_chricar_top_owner
+msgid "Tops Owned"
+msgstr "Tops Eigentum "
+
+#. module: chricar_top
+#: field:stock.location,operating_cost:0
+msgid "Monthly Operating Costs"
+msgstr "monatl. BK"
+
+#. module: chricar_top
+#: selection:chricar.top,heating_source:0
+msgid "Gas"
+msgstr "Gas"
+
+#. module: chricar_top
+#: model:ir.module.module,description:chricar_top.module_meta_information
+msgid "defines the top (inherits location)\n"
+"generated 2009-07-09 16:17:22+02"
+msgstr "defines the top (inherits location)\n"
+"generated 2009-07-09 16:17:22+02"
+
+#. module: chricar_top
+#: selection:chricar.top,heating:0
+msgid "stove"
+msgstr "Herd"
+
+#. module: chricar_top
+#: field:chricar.top.cost,account_id:0
+msgid "Account"
+msgstr "Konto"
+
+#. module: chricar_top
+#: view:chricar.top:0
+#: field:chricar.top,note:0
+msgid "Notes"
+msgstr "Notizen"
+
+#. module: chricar_top
+#: selection:chricar.top,usage:0
+msgid "unlimited"
+msgstr "unbegrenzt"
+
+#. module: chricar_top
+#: field:chricar.top,tv_cable:0
+msgid "Cable TV"
+msgstr "Kabel TV"
+
+#. module: chricar_top
+#: view:chricar.top:0
+msgid "Sum Tax"
+msgstr "Summe Steuer"
+
+#. module: chricar_top
+#: field:res.partner,lease_current_sum:0
+msgid "Current Lease Sum"
+msgstr "Summe laufende Miete"
+
+#. module: chricar_top
+#: selection:chricar.top,usage:0
+msgid "Shop"
+msgstr "Geschäft"
+
+#. module: chricar_top
+#: field:chricar.top,telephon:0
+msgid "Telephon"
+msgstr "Telefon"
+
+#. module: chricar_top
+#: view:chricar.top:0
+msgid "Calculation"
+msgstr "Kalkulation"
+
+#. module: chricar_top
+#: field:chricar.top.cost,account_tax_id:0
+msgid "Tax"
+msgstr "Steuer"
+
+#. module: chricar_top
+#: field:chricar.top,surface:0
+msgid "Surface"
+msgstr "Fläche"
+
+#. module: chricar_top
+#: field:chricar.top,account_analytic_id:0
+msgid "Analytic Account"
+msgstr "Analse Konto"
+
+#. module: chricar_top
+#: field:chricar.top,terrace:0
+msgid "Terraces m²"
+msgstr "Terraces m²"
+
+#. module: chricar_top
+#: model:ir.model,name:chricar_top.model_res_partner
+msgid "Partner"
+msgstr "Partner"
+
+#. module: chricar_top
+#: view:chricar.top:0
+#: model:ir.module.module,shortdesc:chricar_top.module_meta_information
+#: field:res.partner,top_ids:0
+#: field:stock.location,top_ids:0
+msgid "Real Estate Top"
+msgstr "Immobilie Top"
+
+#. module: chricar_top
+#: field:chricar.top.cost,amount:0
+msgid "Amount Total"
+msgstr "Betrag Gesamt"
+
+#. module: chricar_top
+#: constraint:res.partner:0
+msgid "Error: Invalid EAN code"
+msgstr "Fehler: ungültiger EAN Code"
+
+#. module: chricar_top
+#: view:chricar.top:0
+#: field:chricar.top,location_id:0
+#: model:ir.model,name:chricar_top.model_stock_location
+msgid "Location"
+msgstr "Objekt"
+
+#. module: chricar_top
+#: field:chricar.top,garden:0
+msgid "Garden m²"
+msgstr "Garden m²"
+
+#. module: chricar_top
+#: help:chricar.top,parking_place_rentable:0
+msgid "Parking rentable in the location if available"
+msgstr "Parkmöglichkeit - Miete ggf möglich"
+
+#. module: chricar_top
+#: selection:chricar.top,usage:0
+msgid "Flat"
+msgstr "Wohnung"
+
+#. module: chricar_top
+#: field:res.partner,lease_potential_sum:0
+msgid "Potential Lease Sum"
+msgstr "Summe Mietpotential"
+
+#. module: chricar_top
+#: field:chricar.top,staircase:0
+msgid "Staircase"
+msgstr "Stiege"
+
+#. module: chricar_top
+#: field:chricar.top,operating_cost:0
+msgid "Monthly operating costs"
+msgstr "monatl. Betriebskosten"
+
+#. module: chricar_top
+#: field:chricar.top,solar_heating:0
+msgid "Solar Heating System"
+msgstr "Solarheizung"
+
+#. module: chricar_top
+#: field:chricar.top,lift:0
+msgid "Lift"
+msgstr "Lift"
+
+#. module: chricar_top
+#: field:chricar.top,handicap:0
+msgid "Handicap Accessible"
+msgstr "Behindertengerecht"
+
+#. module: chricar_top
+#: field:chricar.top,solar_electric:0
+msgid "Solar Electric System"
+msgstr "Solarstrom"
+
+#. module: chricar_top
+#: field:chricar.top,carport:0
+msgid "Carport included"
+msgstr "Abstellplatz inkl."
+
+#. module: chricar_top
+#: field:chricar.top,heating:0
+msgid "Heating"
+msgstr "Heizung"
+
+#. module: chricar_top
+#: field:chricar.top.cost,amount_tax:0
+msgid "Amount Tax"
+msgstr "Betrag Steuer"
+
+#. module: chricar_top
+#: view:chricar.top:0
+msgid "invisible"
+msgstr "unsichtbar"
+
+#. module: chricar_top
+#: field:chricar.top,ref_top:0
+msgid "Ref Top"
+msgstr "Ref Top"
+
+#. module: chricar_top
+#: view:stock.location:0
+msgid "Comment"
+msgstr "Kommentar"
+
+#. module: chricar_top
+#: view:chricar.top:0
+msgid "Communication"
+msgstr "Kommunikation"
+
+#. module: chricar_top
+#: view:stock.location:0
+#: field:stock.location,image:0
+msgid "Image"
+msgstr "BIld"
+
+#. module: chricar_top
+#: model:ir.actions.act_window,name:chricar_top.act_location_2_top
+#: model:ir.ui.menu,name:chricar_top.menu_chricar_real_estate
+#: view:res.partner:0
+msgid "Real Estate"
+msgstr "Real Estate"
+
+#. module: chricar_top
+#: field:chricar.top,partner_id:0
+msgid "Owner"
+msgstr "Eigentümer"
+
+#. module: chricar_top
+#: view:chricar.top:0
+msgid "Sum Net"
+msgstr "Summe Netto"
+
+#. module: chricar_top
+#: view:stock.location:0
+msgid "Additional Information"
+msgstr "Weitere Informationen"
+
+#. module: chricar_top
+#: field:chricar.top,category:0
+msgid "Category"
+msgstr "Kategorie"
+
+#. module: chricar_top
+#: selection:chricar.top,heating_source:0
+msgid "Electricity"
+msgstr "Strom"
+
+#. module: chricar_top
+#: view:chricar.top:0
+#: field:chricar.top,name:0
+#: field:chricar.top.cost,top_id:0
+#: model:ir.actions.act_window,name:chricar_top.chricar_top_act1
+#: model:ir.ui.menu,name:chricar_top.menu_chricar_top_list
+msgid "Top"
+msgstr "Top"
+
+#. module: chricar_top
+#: field:chricar.top,lease_target:0
+msgid "Target Lease"
+msgstr "Zielmiete"
+
+#. module: chricar_top
+#: view:chricar.top:0
+#: field:chricar.top,blueprint:0
+#: field:stock.location,blueprint:0
+msgid "Blueprint"
+msgstr "Plan"
+
+#. module: chricar_top
+#: view:chricar.top:0
+msgid "Total Surface"
+msgstr "Gesamtfläche"
+
+#. module: chricar_top
+#: field:chricar.top,partner_to:0
+msgid "Sale Date"
+msgstr "Verkaufsdatum"
+
+#. module: chricar_top
+#: selection:chricar.top,heating:0
+#: selection:chricar.top,heating_source:0
+msgid "unknown"
+msgstr "unbekannt"
+
+#. module: chricar_top
+#: field:chricar.top,balcony:0
+msgid "Balconies m²"
+msgstr "Balconies m²"
+
+#. module: chricar_top
+#: model:ir.ui.menu,name:chricar_top.menu_action_location_tree_chricar
+msgid "Location Structure"
+msgstr "Objekt Struktur"
+
+#. module: chricar_top
+#: model:ir.model,name:chricar_top.model_chricar_top_cost
+msgid "chricar.top.cost"
+msgstr "chricar.top.cost"
+
+#. module: chricar_top
+#: selection:chricar.top,heating:0
+msgid "tiled stove"
+msgstr "Kachelofen"
+
+#. module: chricar_top
+#: selection:chricar.top,heating:0
+msgid "none"
+msgstr "kein"
+
+#. module: chricar_top
+#: selection:chricar.top,usage:0
+msgid "Office"
+msgstr "Büro"
+
+#. module: chricar_top
+#: view:chricar.top:0
+msgid "General"
+msgstr "Allgemein"
+
+#. module: chricar_top
+#: view:chricar.top:0
+msgid "Notes Sales Folder"
+msgstr "Notiz Verkaufsfolder"
+
+#. module: chricar_top
+#: selection:chricar.top,usage:0
+msgid "Parking"
+msgstr "Stellplätze"
+
+#. module: chricar_top
+#: field:chricar.top.cost,name:0
+msgid "Amount Net"
+msgstr "Betrag Netto"
+
+#. module: chricar_top
+#: field:chricar.top,partner_from:0
+msgid "Purchase Date"
+msgstr "Kaufdatum"
+
+#. module: chricar_top
+#: field:chricar.top,garage:0
+msgid "Garage included"
+msgstr "Garage inkl."
+
+#. module: chricar_top
+#: field:chricar.top,floor:0
+msgid "Floor"
+msgstr "Stock"
+
+#. module: chricar_top
+#: model:ir.actions.act_window,name:chricar_top.chricar_top_act1_web
+#: model:ir.ui.menu,name:chricar_top.menu_chricar_top_list_web
+msgid "Top (Test)"
+msgstr "Top (Test)"
+
+#. module: chricar_top
+#: selection:chricar.top,heating:0
+msgid "self-contained central heating"
+msgstr "Zentralheizung"
+
+#. module: chricar_top
+#: view:chricar.top:0
+msgid "Other"
+msgstr "andere"
+
+#. module: chricar_top
+#: field:chricar.top,sort:0
+#: field:chricar.top.cost,seq:0
+msgid "Sort"
+msgstr "Sort"
+
+#. module: chricar_top
+#: view:stock.location:0
+msgid "Map"
+msgstr "Plan"
+
+#. module: chricar_top
+#: field:chricar.top,product_product_id:0
+msgid "Product"
+msgstr "Produkt"
+
+#. module: chricar_top
+#: selection:chricar.top,heating_source:0
+msgid "Oil"
+msgstr "Öl"
+
+#. module: chricar_top
+#: model:ir.model,name:chricar_top.model_chricar_top
+msgid "chricar.top"
+msgstr "chricar.top"
+
+#. module: chricar_top
+#: view:chricar.top:0
+#: field:chricar.top,description:0
+msgid "Description"
+msgstr "Beschreibung"
+
+#. module: chricar_top
+#: selection:chricar.top,heating_source:0
+msgid "Wood"
+msgstr "Holz"
+
+#. module: chricar_top
+#: view:chricar.top:0
+msgid "Technical"
+msgstr "Techik"
+
+#. module: chricar_top
+#: field:chricar.top,alarm:0
+msgid "Alarm"
+msgstr "Alarm"
+
+#. module: chricar_top
+#: field:chricar.top,top_cost_ids:0
+msgid "Top Costs"
+msgstr "Top Kosten"
+
+#. module: chricar_top
+#: view:chricar.top:0
+msgid "Costs"
+msgstr "Kosten"
+
+#. module: chricar_top
+#: selection:chricar.top,heating_source:0
+msgid "Pellets"
+msgstr "Pellets"
+
+#. module: chricar_top
+#: field:chricar.top,old_building:0
+msgid "Old Building"
+msgstr "Altbau"
+
+#. module: chricar_top
+#: field:chricar.top,heating_source:0
+msgid "Heating Source"
+msgstr "Heizungsart"
+
+#. module: chricar_top
+#: field:chricar.top,sequence:0
+msgid "Sequence"
+msgstr "Sequenz"
+
+#. module: chricar_top
+#: field:chricar.top,tv_sat:0
+msgid "SAT TV"
+msgstr "SAT TV"
+
+#. module: chricar_top
+#: field:chricar.top,rooms:0
+msgid "Rooms"
+msgstr "Zimmer"
+
+#. module: chricar_top
+#: field:res.partner,lease_current_participation_sum:0
+msgid "Current Lease Participation Sum (wrong!!)"
+msgstr "Current Lease Participation Sum (wrong!!)"
+
+#. module: chricar_top
+#: view:chricar.top:0
+msgid "Total"
+msgstr "Total"
+

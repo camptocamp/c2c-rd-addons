@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <!--
+	 Journal
+	-->
+    <record id="chricar_report_location_moves_search" model="ir.ui.view">
+      <field name="name">chricar.report.location.moves.search</field>
+      <field name="model">chricar.report.location.moves</field>
+      <field name="type">search</field>
+      <field eval="3" name="priority"/>
+      <field name="arch" type="xml">
+        <search string="Stock Moves by Location">
+          <group col="14" colspan="4">
+            <filter icon="terp-go-today" string="Today" domain="[('date','&lt;=',time.strftime('%%Y-%%m-%%d 23:59:59')),('date','&gt;=',time.strftime('%%Y-%%m-%%d 00:00:00'))]" help="Orders processed Today or planned for Today"/>
+            <separator orientation="vertical"/>
+            <filter icon="terp-dialog-close" string="Done" name="done" domain="[('state','=','done')]" help="Stock moves that have been processed"/>
+            <filter icon="terp-stock" string="Future" name="future" domain="[('state','in',('assigned','confirmed','waiting'))]" help="Stock moves that are Confirmed, Available or Waiting"/>
+            <filter icon="terp-camera_test" string="Ready" name="ready" domain="[('state','=','assigned')]" help="Stock moves that are Available (Ready to process)"/>
+            <separator orientation="vertical"/>
+            <field name="product_id"/>
+            <field name="location_id" string="Location" filter_domain="['|',('location_id','ilike',self),('location_dest_id','ilike',self)]"/>
+            <field name="partner_id" string="Partner"/>
+            <field name="period_id"/>
+            <field name="date"/>
+          </group>
+          <newline/>
+          <group expand="0" string="Extended Filters..." colspan="4" col="8">
+            <field name="categ_id"/>
+            <field name="picking_id"/>
+            <field name="prodlot_id"/>
+            <field name="state"/>
+          </group>
+          <newline/>
+          <group expand="0" string="Group By..." colspan="4" col="8">
+            <filter string="(Category)" name="by_category" icon="terp-accessories-archiver" domain="[]" context="{'group_by':'categ_id'}"/>
+            <filter string="Product" name="by_product" icon="terp-accessories-archiver" domain="[]" context="{'group_by':'product_id'}"/>
+            <filter string="Picking" name="groupby_picking_id" icon="terp-accessories-archiver" domain="[]" context="{'group_by':'picking_id'}"/>
+            <filter string="Lot" name="groupby_prodlot_id" icon="terp-accessories-archiver" domain="[]" context="{'group_by':'prodlot_id'}"/>
+            <separator orientation="vertical"/>
+            <filter string="Location" name="groupby_location_id" icon="terp-gtk-jump-to-rtl" domain="[]" context="{'group_by':'location_id'}"/>
+            <separator orientation="vertical"/>
+            <filter icon="terp-stock_effects-object-colorize" string="State" domain="[]" context="{'group_by':'state'}"/>
+            <separator orientation="vertical"/>
+            <filter string="Expected" name="groupby_date" icon="terp-go-month" domain="[]" context="{'group_by':'date'}"/>
+            <filter string="Period" name="groupby_period" icon="terp-go-month" domain="[]" context="{'group_by':'period_id'}"/>
+          </group>
+        </search>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="view_chricar_location_moves_tree">
+      <field name="name">chricar.report_location_moves.tree</field>
+      <field name="model">chricar.report.location.moves</field>
+      <field name="type">tree</field>
+      <field name="priority">1</field>
+      <field name="arch" type="xml">
+        <tree string="Location Moves" colors="grey:state=='cancel';blue:state not in ('cancel','done') ">
+          <field name="picking_id"/>
+          <field name="categ_id" select="1"/>
+          <field name="product_id" select="1"/>
+          <field name="variants" select="1" invisible="1"/>
+          <field name="location_id" select="1"/>
+          <field name="usage" select="1"/>
+          <field name="partner_id" select="1"/>
+          <field name="period_id" select="1"/>
+          <field name="date" select="1"/>
+          <field name="product_qty" sum="Sum Quantity"/>
+          <field name="move_value_cost" groups="base.group_extended" sum="Sum Cost Value"/>
+          <field name="cost_price" groups="base.group_extended"/>
+          <field name="move_value_sale" groups="base.group_extended" sum="Sum Sale Value"/>
+          <field name="sale_price" groups="base.group_extended"/>
+          <field name="prodlot_id" select="1"/>
+          <field name="state" select="1"/>
+        </tree>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="view_chricar_location_moves_form">
+      <field name="name">chricar.report_location_moves.form</field>
+      <field name="model">chricar.report.location.moves</field>
+      <field name="type">form</field>
+      <field name="priority">1</field>
+      <field name="arch" type="xml">
+        <form string="Location Moves">
+          <field name="picking_id"/>
+          <field name="product_id" select="1"/>
+          <field name="categ_id" select="1"/>
+          <field name="location_id" select="1"/>
+          <field name="usage" select="1"/>
+          <field name="partner_id" select="1"/>
+          <field name="period_id" select="1"/>
+          <field name="date" select="1"/>
+          <field name="product_qty" sum="Sum Quantity" select="2"/>
+          <field name="move_value_cost" sum="Sum Cost Value" select="2"/>
+          <field name="cost_price" groups="base.group_extended" select="2"/>
+          <field name="move_value_sale" groups="base.group_extended" sum="Sum Sale Value" select="2"/>
+          <field name="sale_price" groups="base.group_extended" select="2"/>
+          <field name="prodlot_id" select="1"/>
+          <field name="state" select="1"/>
+        </form>
+      </field>
+    </record>
+    <record model="ir.actions.act_window" id="action_chricar_location_tree">
+      <field name="name">Product Location Moves</field>
+      <field name="res_model">chricar.report.location.moves</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="view_id" ref="view_chricar_location_moves_tree"/>
+    </record>
+    <record model="ir.actions.act_window.view" id="farm_sheet_detail_act1_view2">
+      <field name="sequence" eval="1"/>
+      <field name="view_mode">tree</field>
+      <field name="view_id" ref="view_chricar_location_moves_tree"/>
+      <field name="act_window_id" ref="action_chricar_location_tree"/>
+    </record>
+    <record model="ir.actions.act_window.view" id="farm_sheet_detail_act1_view1">
+      <field name="sequence" eval="2"/>
+      <field name="view_mode">form</field>
+      <field name="view_id" ref="view_chricar_location_moves_form"/>
+      <field name="act_window_id" ref="action_chricar_location_tree"/>
+    </record>
+    <menuitem
+      action="action_chricar_location_tree"
+      id="menu_action_chricar_location_tree"
+      parent="stock.next_id_61"/>
+    <!--
+      only internal
+        -->
+    <record model="ir.actions.act_window" id="action_chricar_location_tree_intern">
+      <field name="name">Product Moves Internal Locations</field>
+      <field name="res_model">chricar.report.location.moves</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="view_id" ref="view_chricar_location_moves_tree"/>
+      <field name="domain">[('usage','=','internal')]</field>
+      <field name="search_view_id" ref="chricar_report_location_moves_search"/>
+      <field name="context">{'search_default_Available':1}</field>
+    </record>
+    <menuitem
+      action="action_chricar_location_tree_intern"
+      id="menu_action_chricar_location_tree_intern"
+      parent="stock.next_id_61"/>
+    <!--
+	 Journal
+	-->
+    <!--
+    <menuitem
+      name="Blaustauden/Lager/Quantity"
+      sequence="1"/>
+        -->
+    <record model="ir.ui.view" id="view_chricar_location_product_location_sum_tree">
+      <field name="name">chricar.report_location_moves_sum.tree</field>
+      <field name="model">chricar.report.location.moves.sum</field>
+      <field name="type">tree</field>
+      <field name="arch" type="xml">
+        <tree string="Location Product Quantities">
+          <field name="categ_id" select="1"/>
+          <field name="product_id" select="1"/>
+          <field name="location_id" select="1"/>
+          <field name="usage" select="1"/>
+          <field name="product_qty"/>
+          <field name="move_value_cost" groups="base.group_extended" sum="Sum Cost Value" select="2"/>
+          <field name="cost_price" groups="base.group_extended" select="2"/>
+          <field name="move_value_sale" groups="base.group_extended" sum="Sum Sale Value" select="2"/>
+          <field name="sale_price" groups="base.group_extended" select="2"/>
+        </tree>
+      </field>
+    </record>
+    <record model="ir.actions.act_window" id="action_chricar_location_product_location_sum_tree">
+      <field name="name">Product Location Moves Sum</field>
+      <field name="res_model">chricar.report.location.moves.sum</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+    <record model="ir.actions.act_window" id="action_chricar_location_product_location_sum_tree_intern">
+      <field name="name">Product Location Moves Sum intern</field>
+      <field name="res_model">chricar.report.location.moves.sum</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="domain">[('usage','=','internal')]</field>
+    </record>
+    <menuitem
+      action="action_chricar_location_product_location_sum_tree"
+      id="menu_action_chricar_location_product_location_sum_tree"
+      parent="stock.next_id_61"/>
+    <menuitem
+      action="action_chricar_location_product_location_sum_tree_intern"
+      id="menu_action_chricar_location_product_location_sum_tree_intern"
+      parent="stock.next_id_61"/>
+    <!--
+      act windows
+	-->
+    <act_window
+      domain="[('product_id', '=', active_id)]"
+      id="act_chricar_product_stock_open"
+      name="Stock Moves by Product"
+      res_model="chricar.report.location.moves"
+      src_model="product.product"
+      view_mode="tree,form"
+      view_type="form"/>
+    <act_window
+      domain="[('location_id', '=', active_id)]"
+      id="act_chricar_location_stock_open"
+      name="Stock Moves by Location"
+      res_model="chricar.report.location.moves"
+      src_model="stock.location"
+      view_mode="tree,form"
+      view_type="form"/>
+    <act_window
+      domain="[('prodlot_id', '=', active_id)]"
+      id="act_chricar_lot_stock_open"
+      name="Stock Moves by Prod Lot"
+      res_model="chricar.report.location.moves"
+      src_model="stock.production.lot"
+      view_mode="tree,form"
+      view_type="form"/>
+    <!-- FIXME
+    <act_window
+      domain="[('location_id', '=', location_id),('product_id', '=', product_id)]"
+      id="act_chricar_product_location_stock_open"
+      name="Stock Moves by Product and Location"
+      res_model="chricar.report.location.moves"
+      src_model="chricar.report.location.moves.sum"
+      view_mode="tree,form"
+      view_type="form"/>
+        -->
+    <!--FIXME    <act_window
+      domain="[('product_id', '=', product_id),('usage','=','production')]"
+      id="act_chricar_product_budget_stock_open"
+      name="Stock Moves by Product"
+      res_model="chricar.report.location.moves"
+      src_model="chricar.budget"
+      view_mode="tree,form"
+      view_type="form"/>
+        -->
+  </data>
+</openerp>

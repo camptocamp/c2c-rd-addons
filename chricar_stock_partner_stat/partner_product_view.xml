@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <!--
+==============================================
+Stock Partner Products
+generated 2009-08-01
+==============================================
+-->
+    <record model="ir.ui.view" id="chricar_stock_product_partner_form">
+      <field name="name">chricar.stock.product.partner.form</field>
+      <field name="model">chricar.stock.product.partner</field>
+      <field name="priority">1</field>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <form string="Partner Product Moves">
+          <field name="type" invisible="1" select="1"/>
+          <field name="partner_id" select="1"/>
+          <field name="product_id" select="1"/>
+          <field name="period_id" select="1"/>
+          <field name="product_qty"/>
+          <field name="move_value_cost" sum="Total at Cost"/>
+          <field name="avg_price"/>
+          <field name="move_value_sale" sum="Total Sale"/>
+          <field name="avg_sale_price"/>
+          <notebook colspan="4">
+            <page string="invisible" attrs="{'invisible':[]}"/>
+          </notebook>
+        </form>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="chricar_stock_product_partner_list">
+      <field name="name">chricar.stock.product.partner.list</field>
+      <field name="model">chricar.stock.product.partner</field>
+      <field name="priority">1</field>
+      <field name="type">tree</field>
+      <field name="arch" type="xml">
+        <tree string="Partner Product Moves" editable="top">
+          <field name="type" invisible="1"/>
+          <field name="partner_id"/>
+          <field name="product_id"/>
+          <field name="period_id"/>
+          <field name="product_qty"/>
+          <field name="move_value_cost" sum="Total at Cost"/>
+          <field name="avg_price"/>
+          <field name="move_value_sale" sum="Total Sale"/>
+          <field name="avg_sale_price"/>
+        </tree>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="chricar_stock_product_partner_graph">
+      <field name="name">chricar.stock.product.partner.list</field>
+      <field name="model">chricar.stock.product.partner</field>
+      <field name="type">graph</field>
+      <field name="arch" type="xml">
+        <graph string="Product Partner" type="bar">
+          <field name="product_id"/>
+          <field name="product_qty"/>
+        </graph>
+      </field>
+    </record>
+    <record model="ir.actions.act_window" id="chricar_stock_product_partner_act1">
+      <field name="name">Partner Products Sending</field>
+      <field name="res_model">chricar.stock.product.partner</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,graph,form</field>
+      <field name="view_id" ref="chricar_stock_product_partner_list"/>
+      <field name="domain">[('type', '=', 'out')]</field>
+    </record>
+    <record model="ir.actions.act_window" id="chricar_stock_product_partner_act2">
+      <field name="name">Partner Products Receiving</field>
+      <field name="res_model">chricar.stock.product.partner</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,graph,form</field>
+      <field name="view_id" ref="chricar_stock_product_partner_list"/>
+      <field name="domain">[('type', '=', 'in')]</field>
+    </record>
+    <record model="ir.actions.act_window.view" id="chricar_stock_product_partner_act1_view3">
+      <field name="sequence" eval="2"/>
+      <field name="view_mode">graph</field>
+      <field name="view_id" ref="chricar_stock_product_partner_graph"/>
+      <field name="act_window_id" ref="chricar_stock_product_partner_act1"/>
+    </record>
+    <record model="ir.actions.act_window.view" id="chricar_stock_product_partner_act1_view2">
+      <field name="sequence" eval="1"/>
+      <field name="view_mode">tree</field>
+      <field name="view_id" ref="chricar_stock_product_partner_list"/>
+      <field name="act_window_id" ref="chricar_stock_product_partner_act1"/>
+    </record>
+    <record model="ir.actions.act_window.view" id="chricar_stock_product_partner_act1_view1">
+      <field name="sequence" eval="3"/>
+      <field name="view_mode">form</field>
+      <field name="view_id" ref="chricar_stock_product_partner_form"/>
+      <field name="act_window_id" ref="chricar_stock_product_partner_act1"/>
+    </record>
+    <menuitem
+      action="chricar_stock_product_partner_act1"
+      id="menu_chricar_stock_product_partner_list"
+      parent="stock.next_id_61"
+      sequence="1"/>
+    <menuitem
+      action="chricar_stock_product_partner_act2"
+      id="menu_chricar_stock_product_partner_list2"
+      parent="stock.next_id_61"
+      sequence="1"/>
+    <!--
+Actions
+-->
+    <act_window
+      domain="[('partner_id', '=', active_id),('type', '=', 'in')]"
+      id="act_partner_stock_moves_in"
+      name="Stock Moves In"
+      res_model="chricar.stock.product.partner"
+      src_model="res.partner"
+      view_mode="tree,form"
+      view_type="form"/>
+    <act_window
+      domain="[('partner_id', '=', active_id),('type', '=', 'out')]"
+      id="act_partner_stock_moves_out"
+      name="Stock Moves Out"
+      res_model="chricar.stock.product.partner"
+      src_model="res.partner"
+      view_mode="tree,form"
+      view_type="form"/>
+    <act_window
+      domain="[('product_id','=', product_id), ('partner_id', '=', partner_id), ('state' , '!=' ,'cancel' ), ('picking_id.type','=', type ),('period_id' , '=' , period_id)]"
+      id="act_partner_stock_moves_detail"
+      name="Move Details"
+      res_model="stock.move"
+      src_model="chricar.stock.product.partner"
+      view_mode="tree,form"
+      view_type="form"/>
+    <!--
+add fields to stock move
+-->
+    <!--
+    <record model="ir.ui.view" id="view_move_form_chricar_prod_1">
+      <field name="name">stock.move.form.chricar_prod_1</field>
+      <field name="model">stock.move</field>
+      <field name="inherit_id" ref="stock.view_move_form"/>
+      <field name="arch" type="xml">
+        <field name="product_id" position="before">
+          <field name="partner_name" select="1" colspan="4"/>
+        </field>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="view_move_tree_chricar_prod_1">
+      <field name="name">stock.move.list.chricar_prod_1</field>
+      <field name="model">stock.move</field>
+      <field name="inherit_id" ref="stock.view_move_tree"/>
+      <field name="arch" type="xml">
+        <field name="product_id" position="before">
+          <field name="partner_id" select="1" invisible="1"/>
+          <field name="partner_name" select="1"/>
+        </field>
+      </field>
+    </record>
+-->
+  </data>
+</openerp>

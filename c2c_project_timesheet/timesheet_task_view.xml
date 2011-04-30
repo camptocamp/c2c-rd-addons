@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <!--
+==============================================
+work per task
+==============================================
+-->
+    <record id="project_task_work_c2c_list" model="ir.ui.view">
+      <field name="name">project.task.work.c2c.tree</field>
+      <field name="model">project.task.work</field>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <tree string="Task Work" editable="bottom">
+          <field name="project_id" readonly="1"/>
+          <field name="task_id"/>
+          <field name="name"/>
+          <field name="hours" sum="Hours"/>
+          <field name="date"/>
+          <field name="user_id"/>
+          <field name="company_id" groups="base.group_multi_company"/>
+          <field name="hr_analytic_timesheet_id" readonly="1" invisible="1"/>
+        </tree>
+      </field>
+    </record>
+    <record id="project_task_work_c2c_form" model="ir.ui.view">
+      <field name="name">project.task.work.c2c.form</field>
+      <field name="model">project.task.work</field>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <form string="Task Work">
+          <field name="project_id" readonly="1"/>
+          <field name="task_id"/>
+          <field name="name"/>
+          <field name="hours"/>
+          <field name="date"/>
+          <field name="user_id"/>
+          <field name="company_id" groups="base.group_multi_company"/>
+          <field name="hr_analytic_timesheet_id" groups="base.group_extended" readonly="1"/>
+        </form>
+      </field>
+    </record>
+    <record id="c2_cproject_task_search" model="ir.ui.view">
+      <field name="name">project.task.work.search</field>
+      <field name="model">project.task.work</field>
+      <field name="type">search</field>
+      <field eval="3" name="priority"/>
+      <field name="arch" type="xml">
+        <search string="Task Work Search">
+          <group col="14" colspan="4">
+            <filter
+              domain="[('date','&lt;=',time.strftime('%%Y-%%m-%%d 23:59:59')),('date','&gt;=',time.strftime('%%Y-%%m-%%d 00:00:00'))]"
+              help="Todays work"
+              icon="terp-go-today"
+              name="today"
+              string="Today"/>
+            <filter
+              domain="[('date','&lt;=',(datetime.date.today() + relativedelta(days=-1)).strftime('%%Y-%%m-%%d 23:59:59')),('date','&gt;=',(datetime.date.today() + relativedelta(days=-1)).strftime('%%Y-%%m-%%d 00:00:00'))]"
+              help="Yesterdays Work"
+              icon="terp-go-today"
+              string="Yesterday"/>
+            <filter
+              domain="[('date','&lt;',(datetime.date.today() + relativedelta(months=1)).strftime('%%Y-%%m-01 00:00:00')),('date','&gt;=',time.strftime('%%Y-%%m-01 00:00:00')) ]"
+              help="This month work"
+              icon="terp-go-month"
+              string="This Mo"/>
+            <filter
+              domain="[('date','&lt;',(datetime.date.today().strftime('%%Y-%%m-01 00:00:00'))) , ('date','&gt;=', ((datetime.date.today() + relativedelta(months=-1)).strftime('%%Y-%%m-01 00:00:00'))) ]"
+              help="Last month work"
+              icon="terp-go-month"
+              string="Last Mo"/>
+            <filter
+              domain="[('date','&gt;=', (datetime.date.today().strftime('%%Y-'+ str((((datetime.date.today().month/4)+1)*3-2)).zfill(2) +'-01 00:00:00')))]"
+              help="This Quarter work"
+              icon="terp-go-month"
+              string="This Qu"/>
+            <filter
+              domain="[('date','&lt;', (datetime.date.today().strftime('%%Y-'+ str((((datetime.date.today().month/4)+1)*3-2)).zfill(2) +'-01 00:00:00'))) ,  ('date','&gt;=', ((datetime.datetime.now() + relativedelta(months=-3)).strftime('%%Y-'+ str(((( (datetime.datetime.now() + relativedelta(months=-3)).month/4)+1)*3-2)).zfill(2) +'-01 00:00:00'))) ] "
+              help="Last quarters work"
+              icon="terp-go-month"
+              string="Last Qu"/>
+            <filter
+              domain="[('date','&gt;=',time.strftime('%%Y-01-01 00:00:00')) ]"
+              help="This year work"
+              icon="terp-go-year"
+              string="This Yr"/>
+            <filter
+              domain="[('date','&lt;',time.strftime('%%Y-01-01 00:00:00')) ,('date','&gt;=',(datetime.date.today() + relativedelta(years=-1)).strftime('%%Y-01-01 00:00:00')) ]"
+              help="Last year work"
+              icon="terp-go-year"
+              string="Last Yr"/>
+            <separator orientation="vertical"/>
+            <field name="project_id"/>
+            <field name="task_id"/>
+            <field name="user_id"/>
+            <field name="name"/>
+            <field name="company_id"/>
+          </group>
+          <newline/>
+          <group expand="0" string="Extended Filters..." colspan="4" col="8">
+            <field name="hours"/>
+            <field name="date"/>
+          </group>
+          <newline/>
+          <group expand="0" string="Group By..." colspan="4" col="8">
+            <filter
+              context="{'group_by':'project_id'}"
+              domain="[]"
+              icon="terp-accessories-archiver"
+              name="by_project"
+              string="Project"/>
+            <filter
+              context="{'group_by':'task_id'}"
+              domain="[]"
+              icon="terp-accessories-archiver"
+              name="by_task"
+              string="Task"/>
+            <filter
+              context="{'group_by':'user_id'}"
+              domain="[]"
+              icon="terp-accessories-archiver"
+              name="by_user"
+              string="User"/>
+            <filter
+              context="{'group_by':'date'}"
+              domain="[]"
+              icon="terp-accessories-archiver"
+              name="by_date"
+              string="Date"/>
+          </group>
+        </search>
+      </field>
+    </record>
+    <record model="ir.actions.act_window" id="c2c_project_task_work">
+      <field name="name">Task Work</field>
+      <field name="res_model">project.task.work</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="context">{ 'search_default_today':1}</field>
+      <field name="search_view_id" ref="c2_cproject_task_search"/>
+      <field name="view_id" ref="project_task_work_c2c_form"/>
+    </record>
+    <record model="ir.actions.act_window.view" id="c2c_project_task_work_view2">
+      <field name="sequence" eval="1"/>
+      <field name="view_mode">tree</field>
+      <field name="view_id" ref="project_task_work_c2c_list"/>
+      <field name="act_window_id" ref="c2c_project_task_work"/>
+    </record>
+    <record model="ir.actions.act_window.view" id="c2c_project_task_work_view1">
+      <field name="sequence" eval="2"/>
+      <field name="view_mode">form</field>
+      <field name="view_id" ref="project_task_work_c2c_form"/>
+      <field name="act_window_id" ref="c2c_project_task_work"/>
+    </record>
+    <menuitem
+      action="c2c_project_task_work"
+      id="menu_c2c_project_task_work"
+      parent="base.menu_project_management_time_tracking"
+      sequence="150"/>
+  </data>
+</openerp>

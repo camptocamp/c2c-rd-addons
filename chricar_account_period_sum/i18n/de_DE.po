@@ -1,0 +1,241 @@
+# translation of de_DE.po to Deutsch
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* chricar_account_period_sum
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: de_DE\n"
+"Report-Msgid-Bugs-To: support@openerp.com\n"
+"POT-Creation-Date: 2009-09-24 21:29:29+0000\n"
+"PO-Revision-Date: 2009-09-24 23:31+0200\n"
+"Last-Translator: \n"
+"Language-Team: Deutsch\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"X-Generator: KBabel 1.11.4\n"
+
+#. module: chricar_account_period_sum
+#: field:account.account_fy_period_sum,move_line_ids:0
+msgid "Account_moves"
+msgstr "Konto Buchungen"
+
+#. module: chricar_account_period_sum
+#: constraint:ir.model:0
+msgid "The Object name must start with x_ and not contain any special character !"
+msgstr "Der Objekt Name muss mit einem x_ starten und darf keine Sonderzeichen beinhalten"
+
+#. module: chricar_account_period_sum
+#: field:account.account_with_postings,sum_fiscalyear_ids:0
+msgid "Sum Fiscal Years"
+msgstr "Summe Geschäftsjahr"
+
+#. module: chricar_account_period_sum
+#: constraint:ir.ui.view:0
+msgid "Invalid XML for View Architecture!"
+msgstr "Fehlerhafter xml Code für diese Ansicht!"
+
+#. module: chricar_account_period_sum
+#: field:account.account_with_postings,shortcut:0
+msgid "Shortcut"
+msgstr "Kürzel"
+
+#. module: chricar_account_period_sum
+#: view:account.account_with_postings:0
+msgid "Fiscal Year Sums"
+msgstr "Summe Geschäftsjahr"
+
+#. module: chricar_account_period_sum
+#: constraint:ir.actions.act_window:0
+msgid "Invalid model name in the action definition."
+msgstr "Ungültiger Modell Name in.der Aktion Definition "
+
+#. module: chricar_account_period_sum
+#: field:account.account_fiscalyear_sum,debit:0
+#: field:account.account_fy_period_sum,debit:0
+#: field:account.account_period_sum,debit:0
+msgid "Debit"
+msgstr "Soll"
+
+#. module: chricar_account_period_sum
+#: field:account.account_with_postings,type:0
+msgid "Account Type"
+msgstr "Kontoart"
+
+#. module: chricar_account_period_sum
+#: view:account.account_with_postings:0
+msgid "Move Lines"
+msgstr "Buchungen"
+
+#. module: chricar_account_period_sum
+#: field:account.account_fiscalyear_sum,date_stop:0
+#: field:account.account_fy_period_sum,date_stop:0
+msgid "Date Stop"
+msgstr "Enddatum"
+
+#. module: chricar_account_period_sum
+#: view:account.account_with_postings:0
+msgid "Chart of accounts"
+msgstr "Kontenplan"
+
+#. module: chricar_account_period_sum
+#: view:account.account_with_postings:0
+msgid "Period Sums"
+msgstr "Summe Perioden"
+
+#. module: chricar_account_period_sum
+#: field:account.account_fiscalyear_sum,account_id:0
+#: field:account.account_fy_period_sum,account_id:0
+#: field:account.account_period_sum,account_id:0
+msgid "Account"
+msgstr "Konto"
+
+#. module: chricar_account_period_sum
+#: model:ir.module.module,description:chricar_account_period_sum.module_meta_information
+#, fuzzy
+msgid ""
+"This module adds period sums for moves_lines\n"
+"        of account_moves with state posted\n"
+"        *) on update from draft to posted\n"
+"           hence: account_move_lines must NOT be added to account_moves with state posted.\n"
+"        *) balance carried forward is calculated for all subsequent fiscal years\n"
+"           no account_move_lines are generated for these sums\n"
+"           these sums always represent the balance of the preceding fiscal year.\n"
+"        *) on creation of new fiscal years -> balance carried forward\n"
+"        *) on change of deferral_method in general accounts\n"
+"           it's subject to another check if and when changes of this field are allowed.\n"
+"           IMHO not if at least one fiscal year is closed.\n"
+"        *) the name of fiscal years not ending on Dec 31st is year-period (YYYY-MM) of the end of the fiscal year\n"
+"        *) for every fiscal year beginning in the same calendar year a period sum with the name YYYY00 will be created,\n"
+"           but associated to the correct fiscal year.\n"
+"        *) the period sums will be deleted if the matching account_periods are deleted.\n"
+"\n"
+"    standardizes account_period name generation to comply with this naming.\n"
+"\n"
+"    In respect of functinality of the sums it's feature complete but must be tested\n"
+"\n"
+"    Things to come:\n"
+"    * place get_id function in a separate general module\n"
+"    * eventually - adapting the accounting reporting to use this sums (2c2?)\n"
+"    "
+msgstr ""
+"für Zeilen\n"
+" von Zugang\n"
+" Entwurf до\n"
+" Zugang Zeilen до Zugang\n"
+" vorwärts ist für alle\n"
+" Zugang Zeilen für\n"
+" von Jahr\n"
+" von neu vorwärts\n"
+" von Methode in\n"
+" s до wenn und von\n"
+" nicht wenn в eins|/|$[Eigenschaft stunde+1 zwei] Jahr ist abgeschlossen\n"
+" Name von nicht Dez 31. ist Jahr JJJJ MM von von Jahr\n"
+" für Jahr in Jahr a Name creat\n"
+" до Jahr\n"
+" gelöscht wenn Zugang gelöscht\n"
+" Zugang Name до\n"
+" In von von s\n"
+" до\n"
+" get ID in a\n"
+" до "
+
+#. module: chricar_account_period_sum
+#: field:account.account_with_postings,name:0
+msgid "Name"
+msgstr "Name"
+
+#. module: chricar_account_period_sum
+#: field:account.move.line,account_period_sum_id:0
+msgid "Period Sum"
+msgstr "Summe Periode"
+
+#. module: chricar_account_period_sum
+#: field:account.account_with_postings,sum_period_ids:0
+msgid "Sum Periods"
+msgstr "Summe Perioden"
+
+#. module: chricar_account_period_sum
+#: field:account.account_fiscalyear_sum,credit:0
+#: field:account.account_fy_period_sum,credit:0
+#: field:account.account_period_sum,credit:0
+msgid "Credit"
+msgstr "Haben"
+
+#. module: chricar_account_period_sum
+#: field:account.account_fiscalyear_sum,fiscalyear_id:0
+#: field:account.account_fiscalyear_sum,name:0
+msgid "Fiscal Year"
+msgstr "Geschäftsjahr"
+
+#. module: chricar_account_period_sum
+#: model:ir.model,name:chricar_account_period_sum.model_triggger
+msgid "triggger"
+msgstr "Trigger"
+
+#. module: chricar_account_period_sum
+#: field:account.account_fiscalyear_sum,sum_fy_period_ids:0
+msgid "Fiscal Year Period Sum"
+msgstr "Summe Geschäftsjahr Periode"
+
+#. module: chricar_account_period_sum
+#: model:ir.model,name:chricar_account_period_sum.model_account_account_fy_period_sum
+msgid "Account Fiscalyear Period Sum"
+msgstr "Summe Konto Geschäftsjahr Periode "
+
+#. module: chricar_account_period_sum
+#: field:account.account_fiscalyear_sum,balance:0
+#: field:account.account_fy_period_sum,balance:0
+msgid "Balance"
+msgstr "Saldo"
+
+#. module: chricar_account_period_sum
+#: field:account.account_fiscalyear_sum,date_start:0
+#: field:account.account_fy_period_sum,date_start:0
+msgid "Date Start"
+msgstr "Anfangsdatum"
+
+#. module: chricar_account_period_sum
+#: model:ir.actions.act_window,name:chricar_account_period_sum.action_account_tree_chricar
+#: model:ir.model,name:chricar_account_period_sum.model_account_account_with_postings
+#: model:ir.ui.menu,name:chricar_account_period_sum.menu_action_account_tree_chricar
+msgid "Accounts with Postings"
+msgstr "Konten mit Buchungen"
+
+#. module: chricar_account_period_sum
+#: model:ir.model,name:chricar_account_period_sum.model_account_account_fiscalyear_sum
+msgid "Account Fiscalyear Sum"
+msgstr "Summe Konto Geschäftsjahr"
+
+#. module: chricar_account_period_sum
+#: field:account.account_with_postings,code:0
+msgid "Code"
+msgstr "Code"
+
+#. module: chricar_account_period_sum
+#: field:account.account_fy_period_sum,name:0
+#: field:account.account_fy_period_sum,period_id:0
+#: field:account.account_period_sum,name:0
+#: field:account.account_period_sum,period_id:0
+msgid "Period"
+msgstr "Periode"
+
+#. module: chricar_account_period_sum
+#: model:ir.model,name:chricar_account_period_sum.model_account_account_period_sum
+#: model:ir.module.module,shortdesc:chricar_account_period_sum.module_meta_information
+msgid "Account Period Sum"
+msgstr "Summe Konto Periode"
+
+#. module: chricar_account_period_sum
+#: field:account.account_with_postings,sum_fy_period_ids:0
+msgid "Sum Fiscal Year Periods"
+msgstr "Summe Geschäftsjahr Període"
+
+#. module: chricar_account_period_sum
+#: field:account.account_fy_period_sum,sum_fy_period_id:0
+#: field:account.account_period_sum,sum_fy_period_id:0
+msgid "Account FY id"
+msgstr "Konto GJ-ID"
+

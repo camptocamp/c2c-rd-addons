@@ -1,0 +1,76 @@
+# -*- coding: utf-8 -*-
+##############################################################################
+#
+#    OpenERP, Open Source Management Solution
+#    Copyright (C) 2004-2010 Tiny SPRL (<http://tiny.be>).
+#    Copyright (C) 2010-2010 Camptocamp Austria (<http://www.camptocamp.at>)
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU Affero General Public License as
+#    published by the Free Software Foundation, either version 3 of the
+#    License, or (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU Affero General Public License for more details.
+#
+#    You should have received a copy of the GNU Affero General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+##############################################################################
+
+from osv import osv, fields
+import decimal_precision as dp
+
+import math
+#from _common import rounding
+import re  
+from tools.translate import _
+        
+import sys
+
+#----------------------------------------------------------
+#  Account Invoice Line INHERIT
+#----------------------------------------------------------
+class hr_expense_line(osv.osv):
+    _inherit = "hr.expense.line"
+
+    def _get_price_unit_id(self, cr, uid, context):
+        print >> sys.stderr, context
+        return 
+
+    _columns = { 
+        'price_unit_id'    : fields.many2one('c2c_product.price_unit','Price Unit'),
+        'price_unit_pu'    : fields.float(string='Unit Price',digits_compute=dp.get_precision('Cost Price'),  \
+                            help='Price using "Price Units"') ,
+        'unit_amount'      : fields.float(string='Unit Price internal',  digits=(16, 8), \
+                            help="""Cost internal amount"""),
+    }
+
+    _defaults = {
+        'price_unit_id'   : _get_price_unit_id,
+#        'price_unit_pu'   : _get_price_unit_pu,
+#        'price_unit'      : _get_price_unit,
+    }
+
+    def init(self, cr):
+      cr.execute("""
+          update hr_expense_line set price_unit_pu = unit_amount  where price_unit_pu is null;
+      """)
+      cr.execute("""
+          update hr_expense_line set price_unit_id = (select min(id) from c2c_product_price_unit where coefficient=1) where price_unit_id is null;
+      """)
+
+    def onchange_price_unit(self, cr, uid, ids, field_name,price_pu, price_unit_id):
+        if  price_pu and  price_unit_id:
+           pu = self.pool.get('c2c_product.price_unit').browse(cr, uid, price_unit_id)
+           price = price_pu / pu.coefficient
+           return {'value': {field_name : price}}
+        return False
+        
+
+hr_expense_line()
+
+
+

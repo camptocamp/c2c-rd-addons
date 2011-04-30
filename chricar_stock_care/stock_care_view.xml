@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- <?xml version="1.0" encoding="UTF-8"?> -->
+<openerp>
+  <data>
+    <!--
+==============================================
+Stock Care (Stock Care > stock_care)
+generated 2010-04-03 21:47:30+02
+==============================================
+-->
+    <record id="chricar_stock_care_list" model="ir.ui.view">
+      <field name="name">stock.picking.care.tree</field>
+      <field name="model">stock.picking</field>
+      <field name="type">tree</field>
+      <field eval="17" name="priority"/>
+      <field name="arch" type="xml">
+        <tree color="red:state=='cancel'" string="Stock Care">
+          <field name="name"/>
+          <field name="type" select="1" required="1"/>
+          <field name="origin" groups="base.group_extended"/>
+          <field name="partner_id" select="1" groups="base.group_extended"/>
+          <field
+            attrs="{'readonly':[('state','!=','draft')]}"
+            groups="base.group_extended"
+            name="address_id"
+            select="2"/>
+          <field name="date"/>
+          <field name="min_date" groups="base.group_extended"/>
+          <field name="state"/>
+        </tree>
+      </field>
+    </record>
+    <record id="chricar_stock_care_form" model="ir.ui.view">
+      <field name="name">stock.picking.care.form</field>
+      <field name="model">stock.picking</field>
+      <field name="type">form</field>
+      <field eval="17" name="priority"/>
+      <field name="arch" type="xml">
+        <form string="Stock Care">
+          <group colspan="4" col="6" attrs="{'readonly':[('state','!=','draft')]}">
+            <field
+              domain="('type', 'in', ['internal','production'])"
+              name="type"/>
+            <field name="name" readonly="1"/>
+            <field name="partner_id" select="1" colspan="6"/>
+            <field name="address_id" select="2" colspan="6"/>
+            <field name="date" select="1"/>
+            <field name="min_date" select="2" groups="base.group_extended"/>
+          </group>
+          <field
+            attrs="{'readonly':[('state','!=','draft')]}"
+            colspan="4"
+            name="move_lines"
+            nolabel="1"
+            widget="one2many_list"/>
+          <group col="10" colspan="4">
+            <field name="state" readonly="1"/>
+            <button
+              name="draft_validate_care"
+              states="draft"
+              string="Process Now"
+              type="object"/>
+            <button
+              name="button_cancel"
+              states="assigned,confirmed,draft"
+              string="Cancel"/>
+          </group>
+        </form>
+      </field>
+    </record>
+    <record model="ir.actions.act_window" id="chricar_stock_care_act1">
+      <field name="name">Stock Care</field>
+      <field name="res_model">stock.picking</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="view_id" ref="chricar_stock_care_list"/>
+      <field name="domain">[('type', 'in', ['internal','production'])]</field>
+    </record>
+    <record model="ir.actions.act_window.view" id="chricar_stock_care_act1_view2">
+      <field name="sequence" eval="1"/>
+      <field name="view_mode">tree</field>
+      <field name="view_id" ref="chricar_stock_care_list"/>
+      <field name="act_window_id" ref="chricar_stock_care_act1"/>
+    </record>
+    <record model="ir.actions.act_window.view" id="chricar_stock_care_act1_view1">
+      <field name="sequence" eval="2"/>
+      <field name="view_mode">form</field>
+      <field name="view_id" ref="chricar_stock_care_form"/>
+      <field name="act_window_id" ref="chricar_stock_care_act1"/>
+    </record>
+    <menuitem
+      id="menu_chricar_farm"
+      name="Farm"
+      sequence="80"/>
+    <menuitem
+      id="menu_chricar_farm_stock"
+      name="Stock"
+      parent="menu_chricar_farm"
+      sequence="20"/>
+    <menuitem
+      action="chricar_stock_care_act1"
+      id="menu_chricar_stock_care_list"
+      parent="menu_chricar_farm_stock"
+      sequence="20"/>
+    <record model="ir.actions.act_window" id="chricar_stock_care_act2">
+      <field name="name">Stock Care Draft</field>
+      <field name="res_model">stock.picking</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="view_id" ref="chricar_stock_care_list"/>
+      <field name="domain">[('state','=','draft'),('type', 'in', ['internal','production'])]</field>
+    </record>
+    <menuitem
+      action="chricar_stock_care_act2"
+      id="menu_chricar_stock_care_list2"
+      parent="menu_chricar_farm_stock"
+      sequence="20"/>
+    <!--
+==============================================
+Modification of Parents (only for matching table prefixes)
+==============================================
+-->
+  </data>
+</openerp>

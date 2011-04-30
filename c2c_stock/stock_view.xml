@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <!-- location -->
+    <record model="ir.ui.view" id="view_move_tree_values">
+      <field name="name">move_tree_view_values.view</field>
+      <field name="model">stock.move</field>
+      <field name="inherit_id" ref="stock.view_move_tree"/>
+      <field name="type">tree</field>
+      <field name="arch" type="xml">
+        <field name="posz" position="after">
+          <field name="capacity"/>
+          <field name="uom_id"/>
+        </field>
+      </field>
+    </record>
+  </data>
+</openerp>

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <!-- account closing text -->
+    <record model="ir.ui.view" id="c2c_account_closing_text_tree">
+      <field name="name">c2c_account.closing.text.tree</field>
+      <field name="model">account.closing.text</field>
+      <field name="type">tree</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="company_id"/>
+          <field name="account_id"/>
+          <field name="fiscalyear_id"/>
+          <field name="closing_text"/>
+        </tree>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="c2c_account_closing_text_form">
+      <field name="name">c2c_account.closing.text.form</field>
+      <field name="model">account.closing.text</field>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <form>
+          <field name="account_id" colspan="4"/>
+          <field name="fiscalyear_id"/>
+          <field name="company_id"/>
+          <newline/>
+          <field name="closing_text" colspan="4" nolabel="1"/>
+        </form>
+      </field>
+    </record>
+    <record id="view_account_closing_text_search" model="ir.ui.view">
+      <field name="name">account.closing.text.search</field>
+      <field name="model">account.closing.text</field>
+      <field name="type">search</field>
+      <field name="arch" type="xml">
+        <search string="Accounts">
+          <group col="10" colspan="4">
+            <field name="account_id"/>
+            <field name="fiscalyear_id"/>
+            <!--
+                        <filter icon="terp-sale" string="Receivable Accounts" domain="[('type','=','receivable')]"/>
+                        <filter icon="terp-purchase" string="Payable Accounts" domain="[('type','=','payable')]"/>
+                        <separator orientation="vertical"/>
+                        
+                        <field name="code"/>
+                        
+                        <field name="user_type"/>
+                        <field name="type"/>
+                        -->
+          </group>
+          <newline/>
+          <!--
+                    <group expand="0" string="Group By...">
+                        <filter string="Parent Account" icon="terp-folder-orange" domain="" context="{'group_by':'parent_id'}"/>
+                        <separator orientation="vertical"/>
+                        <filter string="Account Type" icon="terp-stock_symbol-selection" domain="" context="{'group_by':'user_type'}"/>
+                        <filter string="Internal Type" icon="terp-stock_symbol-selection" domain="" context="{'group_by':'type'}"/>
+                    </group>
+                    -->
+        </search>
+      </field>
+    </record>
+    <record id="action_account_closing_text" model="ir.actions.act_window">
+      <field name="name">Closing Text</field>
+      <field name="res_model">account.closing.text</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="view_id" ref="c2c_account_closing_text_tree"/>
+      <field name="search_view_id" ref="view_account_closing_text_search"/>
+      <field name="help">Closing text per fiscal year</field>
+    </record>
+    <menuitem
+      action="action_account_closing_text"
+      id="menu_action_account_closing_text"
+      parent="account.account_account_menu"/>
+    <!-- account notebook tab -->
+    <record model="ir.ui.view" id="c2c_account_closing_text_form2">
+      <field name="name">c2c_account.closing.text.form2</field>
+      <field name="model">account.account</field>
+      <field name="inherit_id" ref="account.view_account_form"/>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <notebook position="inside">
+          <page string="Closing text">
+            <field colspan="4" name="account_closing_remark_ids" nolabel="1">
+              <form>
+                <field name="company_id"/>
+                <field name="fiscalyear_id"/>
+                <newline/>
+                <field name="closing_text" colspan="4" nolabel="1"/>
+              </form>
+              <tree>
+                <field name="company_id"/>
+                <field name="fiscalyear_id"/>
+                <field name="closing_text"/>
+              </tree>
+            </field>
+          </page>
+        </notebook>
+      </field>
+    </record>
+  </data>
+</openerp>

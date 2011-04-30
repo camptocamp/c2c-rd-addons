@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <report id="stock.report_picking_list" model="stock.picking" name="stock.picking.list" string="Packing list" rml="c2c_sale_multi_partner/report/picking.rml"/>
+    <report id="delivery.report_shipping" model="stock.picking" name="sale.shipping" multi="True" rml="c2c_sale_multi_partner/report/shipping.rml" string="Delivery order"/>
+  </data>
+</openerp>

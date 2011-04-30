@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <!--
+==============================================
+Tenant (tenant > tenant)
+generated 2009-07-09 18:08:09+02
+==============================================
+-->
+    <record model="ir.ui.view" id="chricar_tenant_form">
+      <field name="name">chricar.tenant.form</field>
+      <field name="model">chricar.tenant</field>
+      <field name="priority">1</field>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <form string="Tenant">
+          <field name="location_id" select="1"/>
+          <field name="top_id" select="1"/>
+          <field name="surface" select="1"/>
+          <field name="partner_id" select="1"/>
+          <field name="name" select="1"/>
+          <field name="to_date" select="1"/>
+          <field name="state"/>
+          <field name="contract" select="2"/>
+          <field name="date_contract" select="2"/>
+          <field name="lease" select="2"/>
+          <field name="price"/>
+          <field name="limited" select="1"/>
+          <field name="lease_free"/>
+          <field name="waiver_of_termination"/>
+          <field name="termination_date"/>
+          <field name="notice_period"/>
+          <field name="note" select="2" colspan="4"/>
+          <field name="ref_top"/>
+          <notebook colspan="4">
+            <page string="invisible" attrs="{'invisible':[]}"/>
+          </notebook>
+        </form>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="chricar_tenant_list">
+      <field name="name">chricar.tenant.list</field>
+      <field name="model">chricar.tenant</field>
+      <field name="priority">1</field>
+      <field name="type">tree</field>
+      <field name="arch" type="xml">
+        <tree string="Tenant" editable="top" colors="grey:state=='past';blue:state=='future'">
+          <field name="location_id"/>
+          <field name="top_id"/>
+          <field name="surface" select="1"/>
+          <field name="sort"/>
+          <field name="partner_id"/>
+          <field name="name"/>
+          <field name="to_date"/>
+          <field name="state"/>
+          <field name="lease" sum="Total lease"/>
+          <field name="price"/>
+          <field name="limited"/>
+          <field name="contract"/>
+          <field name="date_contract"/>
+          <field name="lease_free"/>
+          <field name="waiver_of_termination"/>
+          <field name="termination_date"/>
+          <field name="notice_period"/>
+        </tree>
+      </field>
+    </record>
+    <record id="chricar_tenant_filter" model="ir.ui.view">
+      <field name="name">chricar.tenant.list.select</field>
+      <field name="model">chricar.tenant</field>
+      <field name="type">search</field>
+      <field name="arch" type="xml">
+        <search string="Tenants">
+          <group col="10" colspan="4">
+            <filter name="to_date" icon="terp-document-new" string="Current" domain="['|',('to_date','=',False),('to_date','&gt;=', time.strftime('%%Y-%%m-%%d')) ]" help="Current Tenants"/>
+            <separator orientation="vertical"/>
+            <filter name="limited" icon="terp-check" string="Limited" domain="[('limited','=',True)]"/>
+            <filter name="unlimited" icon="terp-check" string="Unlimited" domain="[('limited','=',False)]"/>
+            <filter name="empty" icon="terp-check" string="Empty" domain="[('partner_id' ,'in' , [255,364]), ('to_date' ,'=', False) ]"/>
+            <separator orientation="vertical"/>
+            <field name="location_id"/>
+            <field name="top_id"/>
+            <field name="partner_id"/>
+            <!--
+            <field name="name"/>
+            
+            <field name="to_date"/>
+            -->
+          </group>
+          <newline/>
+          <group expand="0" string="Group By..." colspan="4" col="2">
+            <filter string="Location" icon="terp-stock_effects-object-colorize" domain="[]" context="{'group_by':'location_id'}"/>
+          </group>
+        </search>
+      </field>
+    </record>
+    <record model="ir.actions.act_window" id="chricar_tenant_act1">
+      <field name="name">Tenants</field>
+      <field name="res_model">chricar.tenant</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="search_view_id" ref="chricar_tenant_filter"/>
+      <field name="context">{"search_default_to_date":1}</field>
+      <field name="view_id" ref="chricar_tenant_list"/>
+    </record>
+    <record model="ir.actions.act_window.view" id="chricar_tenant_act1_view2">
+      <field name="sequence" eval="1"/>
+      <field name="view_mode">tree</field>
+      <field name="view_id" ref="chricar_tenant_list"/>
+      <field name="act_window_id" ref="chricar_tenant_act1"/>
+    </record>
+    <record model="ir.actions.act_window.view" id="chricar_tenant_act1_view1">
+      <field name="sequence" eval="2"/>
+      <field name="view_mode">form</field>
+      <field name="view_id" ref="chricar_tenant_form"/>
+      <field name="act_window_id" ref="chricar_tenant_act1"/>
+    </record>
+    <menuitem
+      action="chricar_tenant_act1"
+      id="menu_chricar_tenant_list"
+      parent="chricar_top.menu_chricar_real_estate"
+      sequence="1"/>
+    <act_window
+      domain="[('partner_id', '=', active_id)]"
+      id="act_partner_chricar_top_open"
+      name="Tenant"
+      res_model="chricar.tenant"
+      src_model="res.partner"
+      view_mode="tree,form"
+      view_type="form"/>
+    <!--
+==============================================
+Modification of Parents (only for matching table prefixes)
+==============================================
+-->
+    <record model="ir.ui.view" id="chricar_top_tenant_form1">
+      <field name="name">chricar.top.form1</field>
+      <field name="model">chricar.top</field>
+      <field name="inherit_id" ref="chricar_top.chricar_top_form"/>
+      <field name="arch" type="xml">
+        <notebook colspan="4" position="inside">
+          <page string="Tenants">
+            <field name="tenant_ids" widget="one2many_list" colspan="4" nolabel="1">
+              <tree string="Tenant" editable="top" colors="grey:state=='past';blue:state=='future'">
+                <field name="partner_id"/>
+                <field name="name"/>
+                <field name="to_date"/>
+                <field name="state"/>
+                <field name="contract"/>
+                <field name="date_contract"/>
+                <field name="lease"/>
+                <field name="limited"/>
+                <field name="termination_date"/>
+                <field name="notice_period"/>
+                <field name="waiver_of_termination"/>
+                <newline/>
+                <field name="note" select="2" colspan="4"/>
+              </tree>
+              <form string="Tenant">
+                <field name="partner_id" colspan="4"/>
+                <field name="name"/>
+                <field name="contract"/>
+                <field name="to_date"/>
+                <field name="date_contract"/>
+                <field name="lease"/>
+                <field name="limited"/>
+                <field name="lease_free"/>
+                <field name="waiver_of_termination"/>
+                <field name="termination_date"/>
+                <field name="notice_period"/>
+                <field name="note" colspan="4"/>
+              </form>
+            </field>
+          </page>
+        </notebook>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="chricar_top_tenant_form2">
+      <field name="name">chricar.top.form2</field>
+      <field name="model">chricar.top</field>
+      <field name="inherit_id" ref="chricar_top_tenant_form1"/>
+      <field name="arch" type="xml">
+        <field name="lease_target" position="after">
+          <field name="lease_current"/>
+          <field name="lease_current_m2"/>
+          <field name="lease_potential"/>
+        </field>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="chricar_top_tenant_list2">
+      <field name="name">chricar.top.list2</field>
+      <field name="model">chricar.top</field>
+      <field name="inherit_id" ref="chricar_top.chricar_top_list"/>
+      <field name="arch" type="xml">
+        <field name="lease_target" position="after">
+          <field name="lease_current_m2"/>
+          <field name="lease_current" sum="Sum Current"/>
+          <field name="lease_potential" sum="Sum Potential"/>
+          <field name="tenant_id" select="1"/>
+        </field>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="chricar_top_tenant_list2_web">
+      <field name="name">chricar.top.list2_web</field>
+      <field name="model">chricar.top</field>
+      <field name="inherit_id" ref="chricar_top.chricar_top_list_web"/>
+      <field name="arch" type="xml">
+        <field name="lease_target" position="after">
+          <field name="lease_current_m2"/>
+          <field name="lease_current" sum="Sum Current"/>
+          <field name="lease_potential" sum="Sum Potential"/>
+          <!--
+                    <field name="tenant_id" select="1"/>
+-->
+        </field>
+      </field>
+    </record>
+    <!--
+links to helpdesk
+   -->
+    <act_window
+      domain="[('partner_id', '=', partner_id)]"
+      id="act_tenant_helpdesk_partner"
+      name="Helpdesk Partner"
+      res_model="crm.helpdesk"
+      src_model="chricar.tenant"
+      view_mode="tree,form"
+      view_type="form"/>
+    <act_window
+      domain="[('ref', '=', ref_top)]"
+      id="act_tenant_2_helpdesk"
+      name="Helpdesk Top"
+      res_model="crm.helpdesk"
+      src_model="chricar.tenant"
+      view_mode="tree,form"
+      view_type="form"/>
+  </data>
+</openerp>

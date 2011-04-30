@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <!-- Price Units in Purchase Form-->
+    <record model="ir.ui.view" id="c2c_purchase_oder_line_view">
+      <field name="name">c2c_product.purchase_order_line.view</field>
+      <field name="model">purchase.order.line</field>
+      <field name="inherit_id" ref="purchase.purchase_order_line_form"/>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <field name="price_unit" position="replace">
+          <group col="4" colspan="2">
+            <field
+              name="price_unit_pu"
+              on_change="onchange_price_unit('price_unit',price_unit_pu,price_unit_id)"/>
+            <field
+              name="price_unit_id"
+              on_change="onchange_price_unit('price_unit',price_unit_pu,price_unit_id)"
+              widget="selection"/>
+          </group>
+          <field name="price_unit" groups="c2c_product_price_unit.group_c2c_product_price_unit_manager"/>
+        </field>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="c2c_purchase_oder_line_pu_view">
+      <field name="name">c2c_product.purchase_order_line_pu.view</field>
+      <field name="model">purchase.order.line</field>
+      <field name="inherit_id" ref="purchase.purchase_order_line_form"/>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <field name="product_id" position="replace">
+          <field
+            colspan="4"
+            context="partner_id=parent.partner_id,quantity=product_qty,pricelist=parent.pricelist_id,uom=product_uom,warehouse=parent.warehouse_id"
+            name="product_id"
+            on_change="product_id_change_2c2_pu(parent.pricelist_id,product_id,product_qty,product_uom,parent.partner_id, parent.date_order,parent.fiscal_position,date_planned,name,price_unit_pu,notes,price_unit_id)"/>
+        </field>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="c2c_purchase_oder_line_pu_view2">
+      <field name="name">c2c_product.purchase_order_line_pu.view2</field>
+      <field name="model">purchase.order.line</field>
+      <field name="inherit_id" ref="purchase.purchase_order_line_form"/>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <field name="product_qty" position="replace">
+          <field
+            context="partner_id=parent.partner_id,quantity=product_qty,pricelist=parent.pricelist_id,uom=product_uom,warehouse=parent.warehouse_id"
+            name="product_qty"
+            on_change="product_id_change_2c2_pu(parent.pricelist_id,product_id,product_qty,product_uom,parent.partner_id, parent.date_order,parent.fiscal_position,date_planned,name,price_unit_pu,notes,price_unit_id)"/>
+        </field>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="c2c_purchase_oder_line_tree_view">
+      <field name="name">c2c_product.purchase_order_line_tree.view</field>
+      <field name="model">purchase.order</field>
+      <field name="inherit_id" ref="purchase.purchase_order_form"/>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <field name="price_unit" position="replace">
+          <field name="price_unit_pu"/>
+          <field name="price_unit_id"/>
+          <field name="price_unit" groups="c2c_product_price_unit.group_c2c_product_price_unit_manager"/>
+        </field>
+      </field>
+    </record>
+  </data>
+</openerp>

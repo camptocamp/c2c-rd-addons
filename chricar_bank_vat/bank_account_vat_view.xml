@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <!-- Bank statement Tree-->
+    <record id="chricar_view_bank_statement_vat_form1" model="ir.ui.view">
+      <field name="name">chricar.account.bank.statement.vat.form</field>
+      <field name="model">account.bank.statement</field>
+      <field name="inherit_id" ref="account.view_bank_statement_form"/>
+      <field name="arch" type="xml">
+        <xpath expr="/form/notebook/page[@string='Transaction']/field/tree/field[@name='amount']" position="replace">
+          <field
+            name="amount"
+            on_change="onchange_amount(tax_id,amount, partner_id)"/>
+          <field
+            name="tax_id"
+            on_change="onchange_tax(tax_id,amount,partner_id)"/>
+          <field
+            attrs="{'invisible':[('partner_id','=', True)]}"
+            name="amount_tax"/>
+          <field
+            attrs="{'invisible':[('partner_id','=', True)]}"
+            name="amount_net"/>
+        </xpath>
+      </field>
+    </record>
+    <!-- Bank statement form-->
+    <record id="chricar_view_bank_statement_vat_form2" model="ir.ui.view">
+      <field name="name">chricar.account.bank.statement.vat.form2</field>
+      <field name="model">account.bank.statement</field>
+      <field name="inherit_id" ref="account.view_bank_statement_form"/>
+      <field name="arch" type="xml">
+        <xpath expr="/form/notebook/page[@string='Transaction']/field/form/field[@name='amount']" position="replace">
+          <field
+            name="amount"
+            on_change="onchange_amount(tax_id,amount, partner_id)"/>
+          <field
+            name="tax_id"
+            on_change="onchange_tax(tax_id,amount,partner_id)"/>
+          <field
+            attrs="{'invisible':[('partner_id','=', True)]}"
+            name="amount_tax"/>
+          <field
+            attrs="{'invisible':[('partner_id','=', True)]}"
+            name="amount_net"/>
+        </xpath>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="chricar_view_bank_statement_vat_form3">
+      <field name="name">chricar.account.bank.statement.vat.form3</field>
+      <field name="inherit_id" ref="account.view_bank_statement_form"/>
+      <field name="model">account.bank.statement</field>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <xpath expr="/form/notebook/page[@string='Transaction']/field/tree/field[@name='account_id']" position="replace">
+          <field
+            domain="[('journal_id','=',parent.journal_id), ('type', '&lt;&gt;', 'view')]"
+            name="account_id"
+            on_change="onchange_account(account_id,tax_id, amount, partner_id)"/>
+        </xpath>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="chricar_view_bank_statement_vat_form4">
+      <field name="name">chricar.account.bank.statement.vat.form4</field>
+      <field name="inherit_id" ref="account.view_bank_statement_form"/>
+      <field name="model">account.bank.statement</field>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <xpath expr="/form/notebook/page[@string='Transaction']/field/form/field[@name='account_id']" position="replace">
+          <field
+            domain="[('journal_id','=',parent.journal_id), ('type', '&lt;&gt;', 'view')]"
+            name="account_id"
+            on_change="onchange_account(account_id,tax_id, amount, partner_id)"/>
+        </xpath>
+      </field>
+    </record>
+    <!-- 
+==============================================
+Modification of Cash statement - account - change trigger
+==============================================
+-->
+    <record id="chricar_view_bank_statement_vat_form5" model="ir.ui.view">
+      <field name="name">chricar.account.bank.statement.vat.form5</field>
+      <field name="model">account.bank.statement</field>
+      <field name="inherit_id" ref="account.view_bank_statement_form2"/>
+      <field name="arch" type="xml">
+        <xpath expr="/form/notebook/page[@string='Cash Transactions']/field/tree/field[@name='amount']" position="replace">
+          <field
+            name="amount"
+            on_change="onchange_amount(tax_id,amount, partner_id)"/>
+          <field
+            name="tax_id"
+            on_change="onchange_tax(tax_id,amount,partner_id)"/>
+          <field
+            attrs="{'invisible':[('partner_id','=', True)]}"
+            name="amount_tax"/>
+          <field
+            attrs="{'invisible':[('partner_id','=', True)]}"
+            name="amount_net"/>
+        </xpath>
+      </field>
+    </record>
+    <!-- Cash statement  form -->
+    <record id="chricar_view_bank_statement_vat_form6" model="ir.ui.view">
+      <field name="name">chricar.account.bank.statement.vat.form6</field>
+      <field name="model">account.bank.statement</field>
+      <field name="inherit_id" ref="account.view_bank_statement_form2"/>
+      <field name="arch" type="xml">
+        <xpath expr="/form/notebook/page[@string='Cash Transactions']/field/form/field[@name='amount']" position="replace">
+          <field
+            name="amount"
+            on_change="onchange_amount(tax_id,amount, partner_id)"/>
+          <field
+            name="tax_id"
+            on_change="onchange_tax(tax_id,amount,partner_id)"/>
+          <field
+            attrs="{'invisible':[('partner_id','=', True)]}"
+            name="amount_tax"/>
+          <field
+            attrs="{'invisible':[('partner_id','=', True)]}"
+            name="amount_net"/>
+        </xpath>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="chricar_view_bank_statement_vat_form7">
+      <field name="name">chricar.account.bank.statement.vat.form7</field>
+      <field name="inherit_id" ref="account.view_bank_statement_form2"/>
+      <field name="model">account.bank.statement</field>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <xpath expr="/form/notebook/page[@string='Cash Transactions']/field/tree/field[@name='account_id']" position="replace">
+          <field
+            domain="[('journal_id','=',parent.journal_id), ('type', '&lt;&gt;', 'view')]"
+            name="account_id"
+            on_change="onchange_account(account_id,tax_id, amount, partner_id)"/>
+        </xpath>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="chricar_view_bank_statement_vat_form8">
+      <field name="name">chricar.account.bank.statement.vat.form8</field>
+      <field name="inherit_id" ref="account.view_bank_statement_form2"/>
+      <field name="model">account.bank.statement</field>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <xpath expr="/form/notebook/page[@string='Cash Transactions']/field/form/field[@name='account_id']" position="replace">
+          <field
+            domain="[('journal_id','=',parent.journal_id), ('type', '&lt;&gt;', 'view')]"
+            name="account_id"
+            on_change="onchange_account(account_id,tax_id, amount, partner_id)"/>
+        </xpath>
+      </field>
+    </record>
+  </data>
+</openerp>

@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <!--
+==============================================
+Budget Produktion 
+==============================================
+-->
+    <record model="ir.ui.view" id="chricar_budget_production_list">
+      <field name="name">chricar.budget.production.list</field>
+      <field name="model">chricar.budget.production</field>
+      <field name="priority">1</field>
+      <field name="type">tree</field>
+      <field name="arch" type="xml">
+        <tree string="Budget Products" editable="bottom">
+          <field name="fiscalyear_id"/>
+          <field name="name" select="1"/>
+        </tree>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="chricar_budget_production_form">
+      <field name="name">chricar.budget.production.form</field>
+      <field name="model">chricar.budget.production</field>
+      <field name="priority">1</field>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <form string="Budget Products" editable="bottom">
+          <field name="fiscalyear_id"/>
+          <field name="name" select="1"/>
+          <field name="budget_version_ids" widget="many2many" nolabel="1" select="1" colspan="4">
+            <tree string="Budget Version" editable="bottom">
+              <field name="name" select="1"/>
+              <field name="is_current" select="1"/>
+              <field name="budget_id" select="1"/>
+            </tree>
+            <form string="Budget Versions">
+              <field name="name" select="1"/>
+              <field name="is_current" select="1"/>
+              <field name="budget_id" select="1" readonly="1"/>
+            </form>
+          </field>
+        </form>
+      </field>
+    </record>
+    <record model="ir.actions.act_window" id="chricar_budget_production_list">
+      <field name="res_model">chricar.budget.production</field>
+      <field name="name">Budget Production</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem
+      action="chricar_budget_production_list"
+      id="menu_chricar_budget_production_list"
+      parent="c2c_budget.menu_budget_c2c"
+      sequence="150"/>
+    <!--
+==============================================
+Budget Products (budget > budget)
+generated 2009-08-18 23:44:30+02
+==============================================
+-->
+    <record model="ir.ui.view" id="chricar_budget_form">
+      <field name="name">chricar.budget.form</field>
+      <field name="model">chricar.budget</field>
+      <field name="priority">1</field>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <form string="Budget Products">
+          <group colspan="4">
+            <field
+              colspan="4"
+              domain="[('supply_method' ,'=', 'produce')]"
+              name="product_id"
+              select="1"/>
+          </group>
+          <group string="Accounting" colspan="2" col="4">
+            <field name="surface" select="1"/>
+            <field name="date_cultivation"/>
+            <field name="yield_qty" select="1"/>
+            <field name="harvest_period_id"/>
+            <field name="sale_from"/>
+            <field name="sale_to"/>
+            <field name="product_qty" select="1"/>
+            <field name="product_uom"/>
+            <field name="harvest"/>
+            <field name="harvest_soil"/>
+            <field name="harvest_net"/>
+            <field name="harvest_yield"/>
+            <field name="price" select="1"/>
+            <field name="price_unit_id" select="1"/>
+            <field name="amount" select="1"/>
+            <field name="yield_sale" select="1"/>
+          </group>
+          <group string="Other Info" colspan="2" col="2">
+            <!--
+                             <field name="partner_id" select="1" />
+                             -->
+            <field name="budget_version_id" select="1"/>
+            <field name="location_ids" widget="one2many_list" nolabel="1" colspan="2">
+              <tree string="Fields" editable="bottom">
+                <field
+                  domain="[('usage','=','production')]"
+                  name="location_id"
+                  on_change="on_change_location(location_id,name,surface_location)"
+                  select="1"/>
+                <field name="surface_location" select="1" sum="Sum ha"/>
+                <field
+                  name="name"
+                  on_change="on_change_location(location_id,name,surface_location)"
+                  select="1"
+                  sum="Sum ha used"/>
+                <field name="harvest" sum="Sum Harvest"/>
+                <field name="harvest_yield"/>
+                <field name="product_id"/>
+                <field name="prodlot_id"/>
+              </tree>
+              <form string="Fields">
+                <field
+                  domain="[('usage','=','production')]"
+                  name="location_id"
+                  on_change="on_change_location(location_id,name,surface_location)"
+                  select="1"/>
+                <field name="surface_location" select="1"/>
+                <field
+                  name="name"
+                  on_change="on_change_location(location_id,name,surface_location)"
+                  select="1"/>
+                <field name="harvest"/>
+                <field name="harvest_yield"/>
+                <field name="product_id"/>
+                <field name="prodlot_id"/>
+              </form>
+            </field>
+            <!--
+            <separator string="Notes" colspan="2"/>
+            <field name="name" select="2" nolabel="1" colspan="2"/>
+            -->
+          </group>
+          <notebook colspan="4">
+            <!--
+            <page string="invisible" attrs="{'invisible':[]}"/>
+            -->
+            <page string="Notes">
+              <field name="name" select="2" nolabel="1" colspan="4"/>
+            </page>
+          </notebook>
+        </form>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="chricar_budget_list">
+      <field name="name">chricar.budget.list</field>
+      <field name="model">chricar.budget</field>
+      <field name="priority">1</field>
+      <field name="type">tree</field>
+      <field name="arch" type="xml">
+        <tree string="Budget Products" editable="bottom" colors="red:harvest_yield_diff&lt;0.0">
+          <field name="budget_version_id" select="1"/>
+          <field name="date_cultivation"/>
+          <field name="sale_from"/>
+          <field name="sale_to"/>
+          <field
+            domain="[('supply_method' ,'=', 'produce')]"
+            name="product_id"
+            select="1"/>
+          <field name="product_uom"/>
+          <field name="surface" select="1" sum="Sum Surface"/>
+          <field name="yield_qty" select="1"/>
+          <field name="product_qty" select="1" sum="Sum Quantity"/>
+          <field name="harvest" sum="Sum Harvest"/>
+          <field name="harvest_yield"/>
+          <field name="harvest_soil"/>
+          <field name="harvest_net" sum="Sum Harvest Net"/>
+          <field name="harvest_yield_diff"/>
+          <field name="price" select="1"/>
+          <field name="price_unit_id" select="1"/>
+          <field name="amount" select="1" sum="Sum Amount"/>
+          <field name="yield_sale" select="1"/>
+          <!--
+                             <field name="partner_id" select="1" />
+                             <field name="name" select="1" />
+                             -->
+        </tree>
+      </field>
+    </record>
+    <record model="ir.actions.act_window" id="chricar_budget_act1">
+      <field name="name">Budget Products</field>
+      <field name="res_model">chricar.budget</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="view_id" ref="chricar_budget_list"/>
+    </record>
+    <record model="ir.actions.act_window.view" id="chricar_budget_act1_view2">
+      <field name="sequence" eval="1"/>
+      <field name="view_mode">tree</field>
+      <field name="view_id" ref="chricar_budget_list"/>
+      <field name="act_window_id" ref="chricar_budget_act1"/>
+    </record>
+    <record model="ir.actions.act_window.view" id="chricar_budget_act1_view1">
+      <field name="sequence" eval="2"/>
+      <field name="view_mode">form</field>
+      <field name="view_id" ref="chricar_budget_form"/>
+      <field name="act_window_id" ref="chricar_budget_act1"/>
+    </record>
+    <menuitem
+      action="chricar_budget_act1"
+      id="menu_chricar_budget_list"
+      parent="c2c_budget.menu_budget_c2c"
+      sequence="150"/>&#xA;&#xA;==============================================&#xA;Modification of Parents&#xA;==============================================&#xA;--&gt;&#xA;    &#xA;    &#xA;    &#xA;    &#xA;    &#xA;    &#xA;    &#xA;    &#xA;    &#xA;    &#xA;    
+    <act_window
+      domain="[('budget_version_id', '=', active_id)]"
+      id="act_budget_version_2_product_plan"
+      name="Product Budget"
+      res_model="chricar.budget"
+      src_model="c2c_budget.version"
+      view_mode="tree,form"
+      view_type="form"/>
+    <act_window
+      domain="[('product_id', '=', active_id)]"
+      id="act_product_2_product_plan"
+      name="Product Budget"
+      res_model="chricar.budget"
+      src_model="product.product"
+      view_mode="tree,form"
+      view_type="form"/>
+    <!-- test to add budget name to tab - does not work-->
+    <record id="ir_act_budget_version_product" model="ir.values">
+      <field name="key2">tree_but_open</field>
+      <field name="model">c2c_budget.version</field>
+      <field name="name">Products</field>
+      <field eval="'ir.actions.act_window,%d'%act_budget_version_2_product_plan" name="value"/>
+      <field eval="True" name="object"/>
+    </record>
+    <!-- fails with partner_id
+       <record model="ir.ui.view" id="view_budget_version_form_product">
+            <field name="name">c2c_budget.version.form</field>
+            <field name="model">c2c_budget.version</field>
+            <field name="inherit_id" ref="c2c_budget.view_budget_version_form"/>
+            <field name="arch" type="xml">
+                      <page string="Budget Lines" position="before">
+                          <page string="Products">
+                            <field name="budget_ids" widget="one2many_list" colspan="4" nolabel="1" >
+                              <form string="Budget Products">
+                                <field name="product_id" select="1" colspan="4" />
+                                 <group string="Accounting" colspan="2" col="4">
+                                  <field name="surface" select="1" colspan="4"/>
+                                  <field name="yield_qty" select="1" colspan="4" />
+                                  <field name="product_qty" select="1" />
+                                  <field name="product_uom"/>
+                                  <field name="price" select="1" colspan="2"/>
+                                  <field name="price_unit_id" select="1" colspan="2"/>
+                                  <field name="amount" select="1" colspan="4" />
+                                  <field name="yield_sale" select="1" colspan="4"/>
+                                 </group>
+                                 <group string="Other Info" colspan="2" col="2">
+
+                                   <field name="name" select="1" />
+                                 </group>
+                                 <notebook colspan="4">
+                                 <page string="invisible" attrs="{'invisible':[]}"/>
+
+                                 </notebook>
+                             </form>
+                             <tree string="Budget Products" editable="bottom">
+                               <field name="product_id" select="1" />
+                               <field name="product_uom"/>
+                               <field name="surface" select="1" sum="Sum Surface"/>
+                               <field name="yield_qty" select="1" />
+                               <field name="product_qty" select="1" sum="Sum Quantity"/>
+                               <field name="price" select="1" />
+                               <field name="price_unit_id" select="1" />
+                               <field name="amount" select="1" sum="Sum Amount"/>
+                               <field name="yield_sale" select="1" />
+
+                               <field name="name" select="1" />
+
+                            </tree>
+                           </field>
+                          </page>
+                        </page>
+           </field>
+        </record>
+
+        -->
+  </data>
+</openerp>

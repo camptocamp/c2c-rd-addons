@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <record model="ir.ui.view" id="c2c_view_stock_picking_partner_id">
+      <field name="name">stock.picking.form.c2c_shipping_id</field>
+      <field name="model">stock.picking</field>
+      <field name="inherit_id" ref="stock.view_picking_out_form"/>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <field name="address_id" position="replace">
+          <field name="partner_customer_id" colspan="4"/>
+          <field name="partner_id" string="Shipping Partner" colspan="4"/>
+          <field
+            colspan="4"
+            context="{'contact_display':'partner'}"
+            name="address_id"
+            on_change="onchange_partner_in(address_id)"
+            string="Shipping Address"/>
+        </field>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="c2c_view_stock_picking_note_print">
+      <field name="name">stock.picking.form.c2c_note_print</field>
+      <field name="model">stock.picking</field>
+      <field name="inherit_id" ref="stock.view_picking_out_form"/>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <page string="Notes" position="after">
+          <page string="Notes Printed">
+            <field colspan="4" name="note_print" nolabel="1"/>
+          </page>
+        </page>
+      </field>
+    </record>
+  </data>
+</openerp>

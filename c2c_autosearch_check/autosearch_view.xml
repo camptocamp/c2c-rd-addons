@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <!--
+==============================================
+auto search check
+==============================================
+-->
+    <record id="view_window_action_c2c_form" model="ir.ui.view">
+      <field name="name">ir.actions.windows.c2c.form</field>
+      <field name="model">ir.actions.act_window</field>
+      <field name="type">form</field>
+      <field name="inherit_id" ref="base.view_window_action_form"/>
+      <field name="arch" type="xml">
+        <field name="auto_search" position="after">
+          <field name="auto_search_check"/>
+        </field>
+      </field>
+    </record>
+  </data>
+</openerp>

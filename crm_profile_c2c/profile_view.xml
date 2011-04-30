@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <!-- question sequence -->
+    <record model="ir.ui.view" id="view_question_enhanced_tree">
+      <field name="name">crm_profiling.question.enhanced.tree</field>
+      <field name="model">crm_profiling.question</field>
+      <field name="inherit_id" ref="crm_profiling.view_question_tree"/>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <field name="name" position="before">
+          <field name="sequence"/>
+        </field>
+      </field>
+    </record>
+    <!-- answer sequence -->
+    <record model="ir.ui.view" id="view_answer_enhanced_tree">
+      <field name="name">crm_profiling.answer.enhanced.tree</field>
+      <field name="model">crm_profiling.answer</field>
+      <field name="inherit_id" ref="crm_profiling.view_answer"/>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <field name="name" position="after">
+          <field name="sequence"/>
+        </field>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="view_question_enhanced_form">
+      <field name="name">crm_profiling.question.enhanced.form</field>
+      <field name="model">crm_profiling.question</field>
+      <field name="inherit_id" ref="crm_profiling.view_question_form"/>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <field name="answers_ids" position="replace">
+          <field name="answers_ids" colspan="4" nolabel="1" editable="bottom">
+            <tree string="Answers" editable="bottom">
+              <field name="sequence"/>
+              <field name="name" select="1"/>
+            </tree>
+            <form string="Answers">
+              <field name="sequence"/>
+              <field name="name" select="1"/>
+            </form>
+          </field>
+        </field>
+      </field>
+    </record>
+    <!-- regroup questionaire form -->
+    <record model="ir.ui.view" id="view_questionnaire_enhanced_form">
+      <field name="name">crm_profiling.questionnaire.enhanced.form</field>
+      <field name="model">crm_profiling.questionnaire</field>
+      <field name="inherit_id" ref="crm_profiling.view_questionnaire_form"/>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <form string="Questionnaires" position="replace">
+          <form string="Questionnaires">
+            <field name="name" select="1" colspan="2"/>
+            <newline/>
+            <separator string="Description" colspan="2"/>
+            <separator string="Questions List" colspan="2"/>
+            <field name="description" colspan="2" select="1" nolabel="1"/>
+            <field name="questions_ids" colspan="2" nolabel="1"/>
+          </form>
+        </form>
+      </field>
+    </record>
+    <!-- fix partner question form  -->
+    <record model="ir.ui.view" id="view_partner_enhanced_form">
+      <field name="name">res.partner.profile.enhanced.form</field>
+      <field name="model">res.partner</field>
+      <field name="type">form</field>
+      <field name="inherit_id" ref="crm_profiling.view_partner_form"/>
+      <field name="arch" type="xml">
+        <xpath expr="/form/notebook/page[@string='Profiling']/field[@name='answers_ids']" position="replace">
+          <field name="answers_ids" colspan="4" nolabel="1">
+            <tree string="Answers">
+              <field name="question_id"/>
+              <field name="name"/>
+            </tree>
+          </field>
+        </xpath>
+      </field>
+    </record>
+  </data>
+</openerp>

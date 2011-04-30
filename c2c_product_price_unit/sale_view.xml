@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <!-- Price Units in Sales Order Form-->
+    <record model="ir.ui.view" id="c2c_product_sale_oder_view">
+      <field name="name">c2c_product.sale_order.view</field>
+      <field name="model">sale.order</field>
+      <field name="inherit_id" ref="sale_layout.view_order_form_inherit_1"/>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <field name="price_unit" position="replace">
+          <group col="4" colspan="2">
+            <field
+              name="price_unit_pu"
+              on_change="onchange_price_unit('price_unit',price_unit_pu,price_unit_id)"/>
+            <field
+              name="price_unit_id"
+              on_change="onchange_price_unit('price_unit',price_unit_pu,price_unit_id)"
+              widget="selection"/>
+          </group>
+          <field groups="c2c_product_price_unit.group_c2c_product_price_unit_manager" name="price_unit"/>
+        </field>
+      </field>
+    </record>
+    <!--
+    <record model="ir.ui.view" id="c2c_product_sale_oder_view2">
+      <field name="name">c2c_product.sale_order.view2</field>
+      <field name="model">sale.order</field>
+      <field name="inherit_id" ref="c2c_product_sale_oder_view"/>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <field name="product_id" position="replace">
+          <field
+            colspan="4"
+            context="partner_id=parent.partner_id,quantity=product_uom_qty,pricelist=parent.pricelist_id,shop=parent.shop_id,uom=product_uom"
+            name="product_id"
+            on_change="product_id_change(parent.pricelist_id,product_id,product_uom_qty,product_uom,product_uos_qty,product_uos,name,parent.partner_id, 'lang' in context and context['lang'], True, parent.date_order, product_packaging, parent.fiscal_position, False)"/>
+        </field>
+      </field>
+    </record>
+    -->
+    <record model="ir.ui.view" id="c2c_sale_oder_line_tree_view">
+      <field name="name">c2c_product.sale_order_line_tree.view</field>
+      <field name="model">sale.order</field>
+      <field name="inherit_id" ref="sale_layout.view_order_form_inherit_1"/>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <xpath expr="/form/notebook/page/field[@name='abstract_line_ids']/tree/field[@name='price_unit']" position="replace">
+          <field name="price_unit_pu"/>
+          <field name="price_unit_id"/>
+          <field name="price_unit" groups="c2c_product_price_unit.group_c2c_product_price_unit_manager"/>
+        </xpath>
+      </field>
+    </record>
+  </data>
+</openerp>

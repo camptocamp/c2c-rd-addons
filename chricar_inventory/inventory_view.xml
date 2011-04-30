@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<terp>
+  <data>
+    <!--
+==============================================
+Inventory (inventory > inventory) 
+generated 2009-02-11 16:03:53+01
+==============================================
+-->
+    <record model="ir.ui.view" id="chricar_inventory_form">
+      <field name="name">chricar.inventory.form</field>
+      <field name="model">chricar.inventory</field>
+      <field name="priority">1</field>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <form string="Inventory">
+          <field name="location_id" select="1"/>
+          <field name="location_old" select="1"/>
+          <field name="position" select="1"/>
+          <field name="name" select="1"/>
+          <field name="value" select="1"/>
+          <field name="partner_id"/>
+          <field name="partner_old" select="2"/>
+          <field name="image" colspan="4" img_width="400" img_height="400" width="400" height="400" widget="image"/>
+          <notebook colspan="4">
+            <page string="invisible" attrs="{'invisible':[]}"/>
+          </notebook>
+        </form>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="chricar_inventory_list">
+      <field name="name">chricar.inventory.list</field>
+      <field name="model">chricar.inventory</field>
+      <field name="priority">1</field>
+      <field name="type">tree</field>
+      <field name="arch" type="xml">
+        <tree string="Inventory" editable="top">
+          <field name="location_id" select="1"/>
+          <field name="location_old" select="1"/>
+          <field name="position" select="1"/>
+          <field name="name" select="1"/>
+          <field name="value" select="1"/>
+          <field name="partner_id"/>
+          <field name="partner_old" select="2"/>
+        </tree>
+      </field>
+    </record>
+    <record model="ir.actions.act_window" id="chricar_inventory_act1">
+      <field name="name">Inventory</field>
+      <field name="res_model">chricar.inventory</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="view_id" ref="chricar_inventory_list"/>
+    </record>
+    <record model="ir.actions.act_window.view" id="chricar_inventory_act1_view2">
+      <field name="sequence" eval="1"/>
+      <field name="view_mode">tree</field>
+      <field name="view_id" ref="chricar_inventory_list"/>
+      <field name="act_window_id" ref="chricar_inventory_act1"/>
+    </record>
+    <record model="ir.actions.act_window.view" id="chricar_inventory_act1_view1">
+      <field name="sequence" eval="2"/>
+      <field name="view_mode">form</field>
+      <field name="view_id" ref="chricar_inventory_form"/>
+      <field name="act_window_id" ref="chricar_inventory_act1"/>
+    </record>
+    <menuitem
+      action="chricar_inventory_act1"
+      id="menu_chricar_inventory_list"
+      parent="chricar_top.menu_chricar_real_estate"
+      sequence="15"/>
+    <!--
+==============================================
+Modification of Parents (only for matching table prefixes)
+==============================================
+-->
+  </data>
+</terp>

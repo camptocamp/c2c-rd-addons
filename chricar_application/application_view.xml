@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <!--
+==============================================
+Application (application > application) 
+generated 2009-03-27 16:34:25+01
+==============================================
+-->
+    <record model="ir.ui.view" id="chricar_application_form">
+      <field name="name">chricar.application.form</field>
+      <field name="model">chricar.application</field>
+      <field name="priority">1</field>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <form string="Application">
+          <field name="name" select="1"/>
+          <field name="partner_id" select="1"/>
+          <field name="prefix" select="2"/>
+          <field name="website"/>
+          <field name="author" select="2"/>
+          <field name="state" readonly="1"/>
+          <notebook colspan="4">
+            <page string="invisible" attrs="{'invisible':[]}"/>
+          </notebook>
+        </form>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="chricar_application_list">
+      <field name="name">chricar.application.list</field>
+      <field name="model">chricar.application</field>
+      <field name="priority">1</field>
+      <field name="type">tree</field>
+      <field name="arch" type="xml">
+        <tree string="Application">
+          <field name="name" select="1"/>
+          <field name="partner_id" select="1"/>
+          <field name="prefix" select="2"/>
+          <field name="website"/>
+          <field name="author" select="2"/>
+          <field name="state" readonly="1"/>
+        </tree>
+      </field>
+    </record>
+    <record model="ir.actions.act_window" id="chricar_application_act1">
+      <field name="name">Application</field>
+      <field name="res_model">chricar.application</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="view_id" ref="chricar_application_list"/>
+    </record>
+    <record model="ir.actions.act_window.view" id="chricar_application_act1_view2">
+      <field name="sequence" eval="1"/>
+      <field name="view_mode">tree</field>
+      <field name="view_id" ref="chricar_application_list"/>
+      <field name="act_window_id" ref="chricar_application_act1"/>
+    </record>
+    <record model="ir.actions.act_window.view" id="chricar_application_act1_view1">
+      <field name="sequence" eval="2"/>
+      <field name="view_mode">form</field>
+      <field name="view_id" ref="chricar_application_form"/>
+      <field name="act_window_id" ref="chricar_application_act1"/>
+    </record>
+    <menuitem
+      action="chricar_application_act1"
+      id="menu_chricar_application_list"
+      name="Application/Application/"
+      sequence="15"/>
+    <!--
+==============================================
+Modification of Parents (only for matching table prefixes)
+==============================================
+-->
+  </data>
+</openerp>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <!--
+==============================================
+Product by Production Location
+==============================================
+-->
+    <record model="ir.ui.view" id="chricar_product_by_production_location_form">
+      <field name="name">chricar.product_by_production_location.form</field>
+      <field name="model">chricar.product_by_production_location</field>
+      <field name="priority">1</field>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <form string="Product by Production Location">
+          <field name="used" select="1"/>
+          <field name="product_id" select="1"/>
+          <field name="fiscalyear_id" select="1"/>
+          <field name="location_id" select="1"/>
+          <field name="capacity" select="1"/>
+          <field name="yield" select="1"/>
+          <field name="name" select="1"/>
+          <field name="amount" select="1" groups="base.group_extended"/>
+          <field name="average_price" groups="base.group_extended"/>
+          <notebook colspan="4">
+            <page string="invisible" attrs="{'invisible':[]}"/>
+          </notebook>
+        </form>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="chricar_product_by_production_location_list">
+      <field name="name">chricar.product_by_production_location.list</field>
+      <field name="model">chricar.product_by_production_location</field>
+      <field name="priority">1</field>
+      <field name="type">tree</field>
+      <field name="arch" type="xml">
+        <tree string="Product by Production Location">
+          <field name="used" select="1"/>
+          <field name="fiscalyear_id" select="1"/>
+          <field name="product_id" select="1"/>
+          <field name="location_id" select="1"/>
+          <field name="capacity" select="1"/>
+          <field name="yield" select="1"/>
+          <field name="name" select="1"/>
+          <field name="uom_id" select="1"/>
+          <field name="amount" select="1" sum="Sum Amount" groups="base.group_extended"/>
+          <field name="average_price" groups="base.group_extended"/>
+          <field name="cost_method" groups="base.group_extended"/>
+        </tree>
+      </field>
+    </record>
+    <record model="ir.actions.act_window" id="chricar_product_by_production_location_act1">
+      <field name="name">Product by Production Location</field>
+      <field name="res_model">chricar.product_by_production_location</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="view_id" ref="chricar_product_by_production_location_list"/>
+    </record>
+    <record model="ir.actions.act_window.view" id="chricar_product_by_production_location_act1_view2">
+      <field name="sequence" eval="1"/>
+      <field name="view_mode">tree</field>
+      <field name="view_id" ref="chricar_product_by_production_location_list"/>
+      <field name="act_window_id" ref="chricar_product_by_production_location_act1"/>
+    </record>
+    <record model="ir.actions.act_window.view" id="chricar_product_by_production_location_act1_view1">
+      <field name="sequence" eval="2"/>
+      <field name="view_mode">form</field>
+      <field name="view_id" ref="chricar_product_by_production_location_form"/>
+      <field name="act_window_id" ref="chricar_product_by_production_location_act1"/>
+    </record>
+    <menuitem
+      action="chricar_product_by_production_location_act1"
+      id="menu_chricar_product_by_production_location_list"
+      parent="stock.next_id_61"
+      sequence="150"/>
+    <!--
+==============================================
+Modification of Parents (only for matching table prefixes)
+==============================================
+-->
+  </data>
+</openerp>

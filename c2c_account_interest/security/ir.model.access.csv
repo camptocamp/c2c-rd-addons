@@ -1,0 +1,7 @@
+"id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
+"access_account_interest_manager","account.account.interest","model_account_account_interest","account.group_account_manager",1,1,1,1
+"access_company_interest_manager","account.company.interest","model_account_company_interest","account.group_account_manager",1,1,1,1
+"access_company_interest_rate_manager","account.company.interest.rate","model_account_company_interest_rate","account.group_account_manager",1,1,1,1
+"access_account_interest","account.account.interest","model_account_account_interest","account.group_account_user",1,0,0,0
+"access_company_interest","account.company.interest","model_account_company_interest","account.group_account_user",1,0,0,0
+"access_company_interest_rate","account.company.interest.rate","model_account_company_interest_rate","account.group_account_user",1,0,0,0

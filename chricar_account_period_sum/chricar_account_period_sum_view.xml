@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<terp>
+  <data>
+    <!--
+    ==============================================
+    list of accounts
+    ==============================================
+-->
+    <record model="ir.ui.view" id="view_account_tree_chricar_1">
+      <field name="name">account.account_with_postings.tree_chricar_1</field>
+      <field name="model">account.account_with_postings</field>
+      <field name="type">tree</field>
+      <field name="arch" type="xml">
+        <tree string="Chart of accounts">
+          <field name="company_id" select="1" readonly="1"/>
+          <field name="code" select="1" readonly="1"/>
+          <field name="name" select="1" readonly="1"/>
+          <field name="user_type" select="1" readonly="1"/>
+        </tree>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="view_account_form_chricar_1">
+      <field name="name">account.account_with_postings.form_chricar_1</field>
+      <field name="model">account.account_with_postings</field>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <form string="Chart of accounts">
+          <group>
+            <field name="company_id" select="1" readonly="1" colspan="4"/>
+            <field name="name" select="1" readonly="1" colspan="4"/>
+            <field name="code" select="1" readonly="1"/>
+            <field name="user_type" select="1" readonly="1"/>
+          </group>
+          <newline/>
+          <field name="sum_fiscalyear_ids" widget="one2many_list" colspan="4" nolabel="1" readonly="1">
+            <tree string="Fiscal Year Sums">
+              <field name="name"/>
+              <field name="debit"/>
+              <field name="credit"/>
+              <field name="balance"/>
+              <field name="date_start"/>
+              <field name="date_stop"/>
+            </tree>
+            <form string="Fiscal Year Sums">
+              <group colspan="4" col="8">
+                <field name="name" width="100"/>
+                <field name="debit" width="100"/>
+                <field name="credit" width="100"/>
+                <field name="balance" width="100"/>
+              </group>
+              <newline/>
+              <notebook colspan="4">
+                <page string="Period Values">
+                  <field name="sum_fy_period_ids" widget="one2many_list" colspan="4" nolabel="1" readonly="1">
+                    <tree string="Period Sums">
+                      <field name="name"/>
+                      <field name="debit"/>
+                      <field name="credit"/>
+                      <field name="balance"/>
+                      <field name="balance_cumulative"/>
+                      <field name="date_start"/>
+                      <field name="date_stop"/>
+                    </tree>
+                    <form string="Period Sums">
+                      <group colspan="4" col="8">
+                        <field name="name" width="100"/>
+                        <field name="debit" width="100"/>
+                        <field name="credit" width="100"/>
+                        <field name="balance" width="100"/>
+                      </group>
+                      <newline/>
+                      <field name="move_line_ids" widget="one2many_list" colspan="4" nolabel="1" readonly="1">
+                        <tree string="Move Lines">
+                          <field name="statement_id"/>
+                          <field name="move_id"/>
+                          <field name="name"/>
+                          <field name="partner_id"/>
+                          <field name="ref"/>
+                          <field name="debit"/>
+                          <field name="credit"/>
+                          <field name="currency_id"/>
+                          <field name="amount_currency"/>
+                          <field name="tax_code_id"/>
+                          <field name="tax_amount"/>
+                          <field name="date"/>
+                          <field name="date_maturity"/>
+                          <!--
+                   <field name="invoice"/>
+                   <field name="analytic_lines"/>
+                   -->
+                        </tree>
+                      </field>
+                    </form>
+                  </field>
+                </page>
+                <page string="Period Delta">
+                  <field name="sum_fy_period_delta_ids" widget="one2many_list" colspan="4" nolabel="1" readonly="1">
+                    <tree string="Period Delta Sums">
+                      <field name="name"/>
+                      <field name="balance_curr"/>
+                      <field name="balance_prev"/>
+                      <field name="diff"/>
+                      <field name="diff_pro"/>
+                      <field name="balance_curr_cum"/>
+                      <field name="balance_prev_cum"/>
+                      <field name="balance_diff_cum"/>
+                      <field name="balance_diff_pro_cum"/>
+                    </tree>
+                    <form string="Period Delta Sums">
+                      <group colspan="4" col="8">
+                        <field name="name"/>
+                        <field name="balance_curr"/>
+                        <field name="balance_prev"/>
+                        <field name="diff"/>
+                        <field name="diff_pro"/>
+                        <field name="balance_curr_cum"/>
+                        <field name="balance_prev_cum"/>
+                        <field name="balance_diff_cum"/>
+                        <field name="balance_diff_pro_cum"/>
+                      </group>
+                      <newline/>
+                      <!--
+                      <field name="move_line_ids" widget="one2many_list" colspan="4" nolabel="1" readonly="1">
+                        <tree string="Move Lines">
+                          <field name="statement_id"/>
+                          <field name="move_id"/>
+                          <field name="name"/>
+                          <field name="partner_id"/>
+                          <field name="ref"/>
+                          <field name="debit"/>
+                          <field name="credit"/>
+                          <field name="currency_id"/>
+                          <field name="amount_currency"/>
+                          <field name="tax_code_id"/>
+                          <field name="tax_amount"/>
+                          <field name="date"/>
+                          <field name="date_maturity"/>
+                   <field name="invoice"/>
+                   <field name="analytic_lines"/>
+                        </tree>
+                      </field>
+                   -->
+                    </form>
+                  </field>
+                </page>
+                <!--
+                <page string="Closing Remarks">
+                  <field name="closing_text_ids" widget="one2many_list" colspan="4" nolabel="1">
+                    <tree string="Closing Remarks">
+                      <field name="closing_text"/>
+                    </tree>
+                    <form string="Closing Remarks">
+                      <field name="closing_text"/>
+                    </form>
+                  </field>
+                </page>
+-->
+              </notebook>
+            </form>
+          </field>
+          <!--
+          <newline/>
+          <field name="sum_fy_period_ids"   widget="one2many_list" colspan="4" nolabel="1"  >
+            <tree string="Period Sums">
+              <field name="name" />
+              <field name="debit"/>
+              <field name="credit"/>
+              <field name="balance"/>
+            </tree>
+            <form string="Period Sums">
+              <group colspan="4" col="8">
+                <field name="name" />
+                <field name="debit"/>
+                <field name="credit"/>
+                <field name="balance"/>
+              </group>
+            </form>
+          </field>
+-->
+          <!-- for testing
+          <newline/>
+          <field name="sum_period_ids"   widget="one2many_list" colspan="4" nolabel="1" string="Period Sums">
+            <tree >
+              <field name="name" />
+              <field name="debit"/>
+              <field name="credit"/>
+
+            </tree>
+            <form >
+              <group colspan="4" col="8">
+                <field name="name" />
+                <field name="debit"/>
+                <field name="credit"/>
+              </group>
+            </form>
+          </field>
+-->
+        </form>
+      </field>
+    </record>
+    <record model="ir.actions.act_window" id="action_account_tree_chricar">
+      <field name="name">Accounts with Postings</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">account.account_with_postings</field>
+      <field name="view_type">form</field>
+    </record>
+    <record model="ir.actions.act_window.view" id="action_account_tree_chricar_1">
+      <field name="view_mode">tree</field>
+      <field name="view_id" ref="view_account_tree_chricar_1"/>
+      <field name="act_window_id" ref="action_account_tree_chricar"/>
+    </record>
+    <record model="ir.actions.act_window.view" id="action_account_form_chricar_1">
+      <field name="view_mode">form</field>
+      <field name="view_id" ref="view_account_form_chricar_1"/>
+      <field name="act_window_id" ref="action_account_tree_chricar"/>
+    </record>
+    <menuitem
+      action="action_account_tree_chricar"
+      id="chricar_menu_action_account_tree_chricar"
+      parent="account.menu_finance_charts"/>
+    <record id="view_account_journal_is_ob_form" model="ir.ui.view">
+      <field name="name">account.journal.ob.form</field>
+      <field name="model">account.journal</field>
+      <field name="inherit_id" ref="account.view_account_journal_form"/>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <field name="entry_posted" position="after">
+          <field name="is_opening_balance"/>
+        </field>
+      </field>
+    </record>
+  </data>
+</terp>

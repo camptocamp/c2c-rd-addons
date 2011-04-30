@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <!--
+==============================================
+Harvest
+==============================================
+-->
+    <record id="mrp_production_harvest_tree_view" model="ir.ui.view">
+      <field name="name">mrp.production.harvest.tree</field>
+      <field name="model">mrp.production</field>
+      <field name="type">tree</field>
+      <field name="arch" type="xml">
+        <tree colors="red:date_expected&lt;current_date and state not in ('done','cancel')" string="Production orders">
+          <field name="name"/>
+          <field name="product_id"/>
+          <field name="product_qty" sum="Total Qty"/>
+          <field name="date_expected"/>
+          <field name="state"/>
+          <field name="move_created_ids"/>
+        </tree>
+      </field>
+    </record>
+    <record id="mrp_production_harvest_form_view" model="ir.ui.view">
+      <field name="name">mrp.production.harvest.form</field>
+      <field name="model">mrp.production</field>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <form string="Harvest Orders">
+          <group colspan="4" col="7">
+            <field
+              attrs="{ 'readonly': [('state','!=','draft')]} "
+              name="name"
+              select="1"/>
+            <field
+              attrs="{ 'readonly': [('state','!=','draft')]} "
+              name="date_expected"
+              select="1"/>
+            <field name="hour_total"/>
+            <newline/>
+            <field
+              attrs="{ 'readonly': [('state','!=','draft')]} "
+              colspan="6"
+              name="product_id"
+              on_change="product_id_change(product_id)"
+              select="1"/>
+            <field name="product_qty"/>
+            <field name="product_uom"/>
+            <field name="product_packaging_id"/>
+            <newline/>
+            <field
+              domain="[('usage','=','production')]"
+              name="location_src_id"
+              select="2"
+              string="Field"/>
+            <field
+              domain="[('usage','=','internal')]"
+              name="location_dest_id"
+              string="Storage Location"/>
+            <field
+              domain="[('product_id','=',product_id)] "
+              name="prodlot_id"/>
+          </group>
+          <!-- does not work in next field
+              context="{'form_view_ref':'chricar_stock_weighing.chricar_weighing_form_view','tree_view_ref':'chricar_stock_weighing.chricar_weighing_tree_view'}"
+                -->
+          <field
+            attrs="{'readonly': [('state','!=','in_production')]} "
+            colspan="4"
+            name="move_created_ids"
+            nolabel="1"
+            widget="one2many_list"/>
+          <group col="9" colspan="4">
+            <field name="state" select="2"/>
+            <button
+              name="button_start_harvest"
+              states="draft"
+              string="Start Production"/>
+            <button
+              name="button_produce_done_harvest"
+              states="in_production"
+              string="Production done"/>
+            <button
+              name="button_post_moves"
+              states="in_production"
+              string="Post Moves Daily!"
+              type="object"/>
+            <button
+              name="button_cancel"
+              states="draft,ready,confirmed,in_production,picking_except"
+              string="Cancel"/>
+          </group>
+        </form>
+      </field>
+    </record>
+    <record id="mrp_production_harvest_action" model="ir.actions.act_window">
+      <field name="name">Harvest All</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">mrp.production</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+    <record model="ir.actions.act_window.view" id="mrp_production_harvest_action_act2_view2">
+      <field name="sequence" eval="1"/>
+      <field name="view_mode">tree</field>
+      <field name="view_id" ref="mrp_production_harvest_tree_view"/>
+      <field name="act_window_id" ref="mrp_production_harvest_action"/>
+    </record>
+    <record model="ir.actions.act_window.view" id="mrp_production_harvest_action_act2_view1">
+      <field name="sequence" eval="2"/>
+      <field name="view_mode">form</field>
+      <field name="view_id" ref="mrp_production_harvest_form_view"/>
+      <field name="act_window_id" ref="mrp_production_harvest_action"/>
+    </record>
+    <record id="mrp_production_harvest_action_open" model="ir.actions.act_window">
+      <field name="name">Harvest Open</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">mrp.production</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="domain">[('state','in',('draft','in_production'))]</field>
+    </record>
+    <record model="ir.actions.act_window.view" id="mrp_production_harvest_action_act1_view2">
+      <field name="sequence" eval="1"/>
+      <field name="view_mode">tree</field>
+      <field name="view_id" ref="mrp_production_harvest_tree_view"/>
+      <field name="act_window_id" ref="mrp_production_harvest_action_open"/>
+    </record>
+    <record model="ir.actions.act_window.view" id="mrp_production_harvest_action_act1_view1">
+      <field name="sequence" eval="2"/>
+      <field name="view_mode">form</field>
+      <field name="view_id" ref="mrp_production_harvest_form_view"/>
+      <field name="act_window_id" ref="mrp_production_harvest_action_open"/>
+    </record>
+    <menuitem
+      action="mrp_production_harvest_action"
+      id="menu_mrp_production_harvest_action"
+      parent="menu_chricar_farm_stock_out"/>
+    <menuitem
+      action="mrp_production_harvest_action_open"
+      id="menu_mrp_production_harvest_action_open"
+      parent="menu_chricar_farm_stock_out"/>
+    <record id="chricar_weighing_tree_view" model="ir.ui.view">
+      <field name="name">chricar.weighing.tree</field>
+      <field name="model">stock.move</field>
+      <field name="type">tree</field>
+      <field name="priority">26</field>
+      <field name="arch" type="xml">
+        <tree string="Weighing" colors="blue:state='draft'">
+          <field name="weighing_slip" readonly="1"/>
+          <field name="product_id" readonly="1"/>
+          <field name="product_qty" sum="Sum Quantity" readonly="1"/>
+          <field name="product_uom" readonly="1"/>
+          <field name="date_expected" readonly="1" string="Wiegedatum"/>
+          <field name="date" readonly="1" string="Erfassungsdatum"/>
+          <field name="prodlot_id" readonly="1"/>
+          <field name="humidity" readonly="1"/>
+          <field name="temperature" readonly="1"/>
+          <field name="specific_weight" readonly="1"/>
+          <field name="protein" readonly="1"/>
+          <field name="sample" readonly="1"/>
+          <field name="aspirates" readonly="1"/>
+          <field name="location_id" select="2" string="From" readonly="1"/>
+          <field name="location_dest_id" select="2" string="Destination" readonly="1"/>
+          <field name="name" readonly="1"/>
+          <field name="state" readonly="1"/>
+          <field name="price_unit_id" groups="base.group_extended" readonly="1"/>
+          <field name="move_value_cost" groups="base.group_extended" readonly="1"/>
+        </tree>
+      </field>
+    </record>
+    <record id="chricar_weighing_form_view" model="ir.ui.view">
+      <field name="name">chricar.weighing.form</field>
+      <field name="model">stock.move</field>
+      <field name="type">form</field>
+      <field name="priority">26</field>
+      <field name="arch" type="xml">
+        <form string="Weighing">
+          <field name="weighing_slip" readonly="1"/>
+          <newline/>
+          <field name="production_id" readonly="1"/>
+          <field name="product_id" readonly="1"/>
+          <field name="product_qty" readonly="1"/>
+          <field name="product_uom" readonly="1"/>
+          <field name="date" readonly="1" string="Erfassungsdatum"/>
+          <field name="prodlot_id" readonly="1"/>
+          <field name="humidity" readonly="1"/>
+          <field name="temperature" readonly="1"/>
+          <field name="specific_weight" readonly="1"/>
+          <field name="protein" readonly="1"/>
+          <field name="sample" readonly="1"/>
+          <field name="aspirates" readonly="1"/>
+          <newline/>
+          <field name="location_id" select="2" string="From" readonly="1"/>
+          <field name="location_dest_id" string="To" readonly="1"/>
+          <field name="date_expected" readonly="1" string="Wiegedatum"/>
+          <field name="name" readonly="1"/>
+          <field name="price_unit_id" groups="base.group_extended" readonly="1"/>
+          <field name="price_unit" groups="base.group_extended" readonly="1"/>
+          <field name="price_unit_coeff" groups="base.group_extended" readonly="1"/>
+          <field name="move_value_cost" groups="base.group_extended" readonly="1"/>
+          <field name="state" readonly="1"/>
+        </form>
+      </field>
+    </record>
+    <record id="chricar_weighing" model="ir.actions.act_window">
+      <field name="name">Weighing</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">stock.move</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="domain">[('weighing_slip','!=','0')]</field>
+    </record>
+    <record model="ir.actions.act_window.view" id="chricar_weighing_tree_view">
+      <field name="sequence" eval="1"/>
+      <field name="view_mode">tree</field>
+      <field name="view_id" ref="chricar_weighing_tree_view"/>
+      <field name="act_window_id" ref="chricar_weighing"/>
+    </record>
+    <record model="ir.actions.act_window.view" id="chricar_weighing_form_view">
+      <field name="sequence" eval="2"/>
+      <field name="view_mode">form</field>
+      <field name="view_id" ref="chricar_weighing_form_view"/>
+      <field name="act_window_id" ref="chricar_weighing"/>
+    </record>
+    <menuitem
+      action="chricar_weighing"
+      id="menu_chricar_weighing"
+      parent="menu_chricar_farm_stock_out"/>
+  </data>
+</openerp>

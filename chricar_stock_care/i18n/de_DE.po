@@ -1,0 +1,82 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* chricar_stock_care
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 5.0.12\n"
+"Report-Msgid-Bugs-To: support@openerp.com\n"
+"POT-Creation-Date: 2010-07-19 21:24:04+0000\n"
+"PO-Revision-Date: 2010-07-19 21:24:04+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: chricar_stock_care
+#: view:stock.picking:0
+msgid "Process Now"
+msgstr "Jetzt verbuchen"
+
+#. module: chricar_stock_care
+#: model:ir.actions.act_window,name:chricar_stock_care.chricar_stock_care_act2
+#: model:ir.ui.menu,name:chricar_stock_care.menu_chricar_stock_care_list2
+msgid "Stock Care Draft"
+msgstr "Lagerbetreuung Offen"
+
+#. module: chricar_stock_care
+#: constraint:ir.ui.view:0
+msgid "Invalid XML for View Architecture!"
+msgstr "Fehlerhafter xml Code für diese Ansicht!"
+
+#. module: chricar_stock_care
+#: field:stock.move,location_loss_id:0
+msgid "Production Loss Location"
+msgstr "Lager für Verluste"
+
+#. module: chricar_stock_care
+#: model:ir.module.module,description:chricar_stock_care.module_meta_information
+msgid "Stock Care\n"
+"generated 2010-04-03 21:47:30+02"
+msgstr "Lagerbetreuung"
+
+#. module: chricar_stock_care
+#: help:stock.move,location_loss_id:0
+msgid "This location will be used to move production loss from destination location"
+msgstr "Dieses Lager wird für die Verarbeitungsverluste verwendet und vom Ziellager abgebucht"
+
+#. module: chricar_stock_care
+#: field:stock.move,product_dest_qty:0
+msgid "Quantity Destination"
+msgstr "Menge Ziellager"
+
+#. module: chricar_stock_care
+#: constraint:ir.actions.act_window:0
+msgid "Invalid model name in the action definition."
+msgstr "Ungültiger Modellname in der Aktionsdefinition."
+
+#. module: chricar_stock_care
+#: view:stock.picking:0
+msgid "Cancel"
+msgstr "Abbrechen"
+
+#. module: chricar_stock_care
+#: constraint:ir.model:0
+msgid "The Object name must start with x_ and not contain any special character !"
+msgstr "Der Objekt Name muss mit einem x_ starten und darf keine Sonderzeichen beinhalten"
+
+#. module: chricar_stock_care
+#: model:ir.model,name:chricar_stock_care.model_chricar_stock_care
+msgid "chricar.stock_care"
+msgstr "chricar.stock_care"
+
+#. module: chricar_stock_care
+#: model:ir.actions.act_window,name:chricar_stock_care.chricar_stock_care_act1
+#: model:ir.module.module,shortdesc:chricar_stock_care.module_meta_information
+#: model:ir.ui.menu,name:chricar_stock_care.menu_chricar_stock_care_list
+#: view:stock.picking:0
+msgid "Stock Care"
+msgstr "Lagerbetreuung"
+

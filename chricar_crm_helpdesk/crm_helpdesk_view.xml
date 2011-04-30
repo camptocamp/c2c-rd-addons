@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <record model="ir.ui.view" id="c2c_crm_case_form_view_helpdesk">
+      <field name="name">c2c.crm.helpdesk</field>
+      <field name="model">crm.helpdesk</field>
+      <field name="inherit_id" ref="crm_helpdesk.crm_case_form_view_helpdesk"/>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <field name="date_closed" position="after">
+          <field name="days_lead" colspan="2"/>
+          <field name="days_warning" colspan="2"/>
+          <field name="date_warning" colspan="2"/>
+        </field>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="c2c_crm_case_form_view_helpdesk3">
+      <field name="name">c2c.crm.helpdesk</field>
+      <field name="model">crm.helpdesk</field>
+      <field name="inherit_id" ref="crm_helpdesk.crm_case_form_view_helpdesk"/>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <field name="partner_address_id" position="after">
+          <field name="partner_contact_id" colspan="4"/>
+        </field>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="c2c_crm_case_form_view_helpdesk1">
+      <field name="name">c2c.crm.helpdesk</field>
+      <field name="model">crm.helpdesk</field>
+      <field name="inherit_id" ref="crm_helpdesk.crm_case_form_view_helpdesk"/>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <field name="ref" position="replace"/>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="c2c_crm_case_form_view_helpdesk2">
+      <field name="name">c2c.crm.helpdesk1</field>
+      <field name="model">crm.helpdesk</field>
+      <field name="inherit_id" ref="c2c_crm_case_form_view_helpdesk1"/>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <xpath expr="/form/group" position="replace">
+          <group colspan="4" col="5">
+            <field name="name" colspan="5" string="Enquery"/>
+            <field name="section_id" widget="selection"/>
+            <field name="user_id" select="1"/>
+            <button
+              icon="gtk-go-forward"
+              name="remind_user"
+              states="open,pending"
+              string="Send Reminder"
+              type="object"/>
+            <field name="date" select="1"/>
+            <field name="date_deadline"/>
+            <field colspan="4" name="ref"/>
+          </group>
+        </xpath>
+      </field>
+    </record>
+    <!-- Helpdesk Support Search View  -->
+    <record id="view_crm_case_helpdesk_filter" model="ir.ui.view">
+      <field name="name">CRM - Helpdesk Search</field>
+      <field name="model">crm.helpdesk</field>
+      <field name="type">search</field>
+      <field name="arch" type="xml">
+        <search string="Search Helpdesk">
+          <filter icon="terp-go-today" string="Today" separator="1" domain="[('date::date','=',time.strftime('%%Y-%%m-%%d'))]" help="Todays's Helpdesk Requests"/>
+          <filter icon="terp-go-week" string="7 Days" separator="1" help="Helpdesk requests during last 7 days" domain="[('date','&lt;', time.strftime('%%Y-%%m-%%d')), ('date','&gt;=',(datetime.date.today()-datetime.timedelta(days=7)).strftime('%%Y-%%m-%%d'))]"/>
+          <filter icon="terp-go-week" string="Next 7 Days" separator="1" help="Date Warning next 7 days" domain="[('date_warning','&gt;', time.strftime('%%Y-%%m-%%d')), ('date_warning','&lt;=',(datetime.date.today()+datetime.timedelta(days=7)).strftime('%%Y-%%m-%%d'))]"/>
+          <separator orientation="vertical"/>
+          <filter icon="terp-check" string="Open" name="state" help="Open Cases" domain="[('state','=','open')]"/>
+          <filter icon="terp-check" string="Draft" name="state" help="Draft Cases" domain="[('state','=','draft')]"/>
+          <filter icon="terp-check" string="Unclosed" name="state" help="Unclosd Cases" domain="[('state','in',['open','draft','pending'])]"/>
+          <separator orientation="vertical"/>
+          <field name="name" select="1" string="Query"/>
+          <field name="partner_id"/>
+          <field name="user_id" select="1" widget="selection"/>
+          <field name="section_id" select="1" widget="selection" string="Sales Team">
+            <filter icon="terp-personal+" groups="base.group_extended" domain="['|', ('section_id', '=', context.get('section_id')), '|', ('section_id.user_id','=',uid), ('section_id.member_ids', 'in', [uid])]" help="My Sales Team(s)"/>
+          </field>
+          <newline/>
+          <group expand="0" string="Group By...">
+            <filter string="Partner" icon="terp-partner" domain="[]" help="Partner" context="{'group_by':'partner_id'}"/>
+            <filter string="Responsible" icon="terp-personal" domain="[]" help="Responsible User" context="{'group_by':'user_id'}"/>
+            <filter string="Sales Team" icon="terp-personal+" domain="[]" help="Sales Team" context="{'group_by':'section_id'}"/>
+            <separator orientation="vertical"/>
+            <filter string="Priority" icon="terp-rating-rated" domain="[]" context="{'group_by':'priority'}"/>
+            <filter string="State" icon="terp-stock_effects-object-colorize" domain="[]" context="{'group_by':'state'}"/>
+            <separator orientation="vertical"/>
+            <filter string="Date" icon="terp-go-month" domain="[]" help="Request Date" context="{'group_by':'date'}"/>
+            <filter string="Deadline" icon="terp-go-month" domain="[]" context="{'group_by':'date_deadline'}"/>
+          </group>
+        </search>
+      </field>
+    </record>
+  </data>
+</openerp>

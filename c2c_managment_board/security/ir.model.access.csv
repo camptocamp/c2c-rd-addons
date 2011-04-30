@@ -1,0 +1,6 @@
+"id","name","model_id","group_id","perm_read","perm_write","perm_create","perm_unlink"
+"access_report_sale_order_board","report.sale.order.board","report.sale.order.board","Accounting / Manager",1,0,0,0
+"access_report_purchase_order_board","report.purchase.order.board","report.purchase.order.board","Accounting / Manager",1,0,0,0
+"access_report_invoice_board","report.invoice.board","report.invoice.board","Accounting / Manager",1,0,0,0
+"access_report_finance_board","report.finance.board","report.finance.board","Accounting / Manager",1,0,0,0
+

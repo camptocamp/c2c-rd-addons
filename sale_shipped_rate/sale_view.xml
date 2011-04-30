@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <!-- location -->
+    <record model="ir.ui.view" id="view_sale_order_tree_shipped">
+      <field name="name">view_sale_order_shipped.view</field>
+      <field name="model">sale.order</field>
+      <field name="inherit_id" ref="sale.view_order_tree"/>
+      <field name="type">tree</field>
+      <field name="arch" type="xml">
+        <field name="picked_rate" position="before">
+          <newline/>
+          <field name="shipped_rate" widget="progressbar"/>
+        </field>
+      </field>
+    </record>
+  </data>
+</openerp>
