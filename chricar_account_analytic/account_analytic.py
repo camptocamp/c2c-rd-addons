@@ -196,6 +196,7 @@ for balance accounts
         if account_id:
             account = self.browse(cr, uid,  account_id)
             if account.account_analytic_usage in ('mandatory','fixed') and not analytic_account_id :
+                print >> sys.stderr, 'Data Error', 'There is no analytic account defined for ',account.name
                 return False
         return True
 
@@ -204,6 +205,7 @@ for balance accounts
         if account_id:
             account = self.browse(cr, uid,  account_id)
             if account.account_analytic_usage == 'fixed' and account.analytic_account_id.id != analytic_account_id :
+                print >> sys.stderr, 'Data Error', 'Wrong analytic account for ',account.name
                 return False
         return True
 
@@ -211,6 +213,7 @@ for balance accounts
         if account_id:
             account = self.browse(cr, uid,  account_id)
             if account.analytic_account_id and account.account_analytic_usage == 'none':
+                print >> sys.stderr, 'Data Error', 'no analytic account allowed for ',account.name
                 return False
         return True
 
@@ -240,12 +243,16 @@ class account_move_line(osv.osv):
     def _check_analytic_account_exists(self, cr, uid, ids):
         for move in self.browse(cr, uid, ids):  
             account_obj = self.pool.get('account.account')
-            return  account_obj.check_analytic_account_exists(cr,uid,ids,move.account_id.id,move.analytic_account_id.id)
+            if move.move_id.state == 'posted':
+               return  account_obj.check_analytic_account_exists(cr,uid,ids,move.account_id.id,move.analytic_account_id.id)
+            return True
 
     def _check_analytic_account_fixed(self, cr, uid, ids):
         for move in self.browse(cr, uid, ids):
             account_obj = self.pool.get('account.account')
-            return  account_obj.check_analytic_account_fixed(cr,uid,ids,move.account_id.id,move.analytic_account_id.id)
+            if move.move_id.state == 'posted':
+                return  account_obj.check_analytic_account_fixed(cr,uid,ids,move.account_id.id,move.analytic_account_id.id)
+            return True
 
     def _check_analytic_account_none(self, cr, uid, ids):
         for move in self.browse(cr, uid, ids):
@@ -254,7 +261,7 @@ class account_move_line(osv.osv):
         
     _constraints = [
         (_check_analytic_account_exists,
-            'You must assign an analytic account.', ['analytic_account_id']),
+            'You must assign an analytic account.(move_line) ', ['analytic_account_id']),
         (_check_analytic_account_fixed,
             'You must not alter a fixed analytic account.', ['analytic_account_id']),
         (_check_analytic_account_none,
@@ -287,7 +294,7 @@ class account_bank_statement_line(osv.osv):
 
     _constraints = [
         (_check_analytic_account_exists,
-            'You must assign an analytic account.', ['analytic_account_id']),
+            'You must assign an analytic account.(bank)', ['analytic_account_id']),
         (_check_analytic_account_fixed,
             'You must not alter a fixed analytic account.', ['analytic_account_id']),
         (_check_analytic_account_none,
@@ -365,7 +372,10 @@ class account_invoice_line(osv.osv):
     def _check_analytic_account_exists(self, cr, uid, ids):
         for move in self.browse(cr, uid, ids):  
             account_obj = self.pool.get('account.account')
-            return  account_obj.check_analytic_account_exists(cr,uid,ids,move.account_id.id,move.account_analytic_id.id)
+            print >> sys.stderr, 'invoice - check analytic for ',move.account_id.name
+            if move.invoice_id.state == 'done':
+                return  account_obj.check_analytic_account_exists(cr,uid,ids,move.account_id.id,move.account_analytic_id.id)
+            return True
 
     def _check_analytic_account_fixed(self, cr, uid, ids):
         for move in self.browse(cr, uid, ids):
@@ -379,7 +389,7 @@ class account_invoice_line(osv.osv):
         
     _constraints = [
         (_check_analytic_account_exists,
-            'You must assign an analytic account.', ['analytic_account_id']),
+            'You must assign an analytic account.(invoice)', ['analytic_account_id']),
         (_check_analytic_account_fixed,
             'You must not alter a fixed analytic account.', ['analytic_account_id']),
         (_check_analytic_account_none,
