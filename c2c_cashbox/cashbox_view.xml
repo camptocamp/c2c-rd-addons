@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <!--
+==============================================
+work per task
+==============================================
+    -->
+    <record id="view_bank_statement_form2_c2c" model="ir.ui.view">
+      <field name="name">account.bank.statement_c2c.form</field>
+      <field name="model">account.bank.statement</field>
+      <field name="type">form</field>
+      <field name="inherit_id" ref="account.view_bank_statement_form2"/>
+      <field name="arch" type="xml">
+        <field name="period_id" position="before">
+          <field name="date"/>
+        </field>
+      </field>
+    </record>
+  </data>
+</openerp>
