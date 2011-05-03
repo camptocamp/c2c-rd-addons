@@ -372,7 +372,7 @@ class account_invoice_line(osv.osv):
     def _check_analytic_account_exists(self, cr, uid, ids):
         for move in self.browse(cr, uid, ids):  
             account_obj = self.pool.get('account.account')
-            print >> sys.stderr, 'invoice - check analytic for ',move.account_id.name
+            print >> sys.stderr, 'invoice - check analytic for ',u'move.account_id.name'
             if move.invoice_id.state == 'done':
                 return  account_obj.check_analytic_account_exists(cr,uid,ids,move.account_id.id,move.account_analytic_id.id)
             return True
