@@ -80,7 +80,34 @@ stock_move()
 class stock_picking(osv.osv):
     _inherit = "stock.picking"
 
-    def action_invoice_create(self, cr, uid, ids, journal_id=False,
+
+    def _invoice_line_hook(self, cr, uid, move_line, invoice_line_id):
+        '''Call after the creation of the invoice line'''
+        print >> sys.stderr,'price_unit invoice_line-hook',move_line,invoice_line_id
+        # move_line => stock_move
+        # invoice_line_id
+        invoice_line_obj = self.pool.get('account.invoice.line')
+        stock_move_obj = self.pool.get('stock.move')
+        stock_move = stock_move_obj.browse(cr, uid, move_line, context=None)
+        if stock_move.price_unit_id:
+            price_unit_id = self.pool.get('c2c_product.price_unit').get_default_id(cr, uid, stock_move.price_unit_id.id)
+        else:
+            price_unit_id = self.pool.get('c2c_product.price_unit').get_default_id(cr, uid, None)
+        coeff = self.pool.get('c2c_product.price_unit').get_coeff(cr, uid, price_unit_id)
+        print >> sys.stderr,'price_unit invoice_line-hook price',stock_move.price_unit , coeff
+        if stock_move.price_unit:
+            price_unit_pu = stock_move.price_unit * coeff  
+        else:
+            price_unit_pu = None
+        invoice_vals = {
+               'price_unit_id' : price_unit_id,
+               'price_unit_pu' : price_unit_pu,
+               }
+        invoice_line_obj.write(cr, uid, [invoice_line_id], invoice_vals, context=None)
+
+        return
+
+    def action_invoice_create1(self, cr, uid, ids, journal_id=False,
             group=False, type='out_invoice', context=None):
         """ Creates invoice based on the invoice state selected for picking.
         @param journal_id: Id of journal
