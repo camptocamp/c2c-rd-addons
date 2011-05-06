@@ -28,7 +28,6 @@
     'description': """
     This modules adds
     * ordering the questions
-    * comments to answers
     * allow to restart wizard with unanswered questions
 """,
     'author': 'Camptocamp Austria',
