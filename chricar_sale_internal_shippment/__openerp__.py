@@ -33,8 +33,8 @@
     -> out: from company location at customer site to customer
 """,
     'author': 'Camptocamp Austria',
-    'depends': [ 'base','sale' ],
-    'update_xml': ['sale_view.xml','sale_wizard.xml',
+    'depends': [ 'base','sale','stock' ],
+    'update_xml': ['sale_view.xml','wizard/make_ship_internal.xml',
        ],
     #'update_xml': ['product_view.xml'],
     'demo_xml': [],

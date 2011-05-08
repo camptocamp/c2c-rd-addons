@@ -20,85 +20,166 @@
 #
 ##############################################################################
 
-import wizard
+from osv import fields, osv
+from tools.translate import _
+import decimal_precision as dp
 import netsvc
+
 import pooler
+
+from datetime import datetime, timedelta
+from dateutil.relativedelta import relativedelta
+import time
+
+
+
 import sys
 
-internal_shipment_form = """<?xml version="1.0"?>
-<form string="Create internal shipment">
-    <separator colspan="4" string="Do you really want to create an internal shipment?" />
-    <field name="location_id" />
-    <field name="location_dest_id" />
-</form>
-"""
+class sale_order(osv.osv):
+    _inherit = "sale.order"
 
-internal_shipment_fields = {
-    'location_id' : {'string':'Source Location', 'type':'many2one','relation':'stock.location','required':True , 'domain':"[('usage','=','internal')]"},
-    'location_dest_id' : {'string':'Destination Location', 'type':'many2one','relation':'stock.location','required':True, 'domain':"[('usage','=','internal')]"}
-}
+    # this is basically a copy of sale_order.action_ship_create with some modifiations
+    def action_ship_internal_create(self, cr, uid, ids, location_id, location_dest_id,*args):
+        
+        wf_service = netsvc.LocalService("workflow")
+        picking_id = False
+        move_obj = self.pool.get('stock.move')
+        proc_obj = self.pool.get('procurement.order')
+        company = self.pool.get('res.users').browse(cr, uid, uid).company_id
+        for order in self.browse(cr, uid, ids, context={}):
+            proc_ids = []
+            output_id = order.shop_id.warehouse_id.lot_output_id.id
+            picking_id = False
+            for line in order.order_line:
+                proc_id = False
+                date_planned = datetime.now() + relativedelta(days=line.delay or 0.0)
+                date_planned = (date_planned - timedelta(days=company.security_lead)).strftime('%Y-%m-%d %H:%M:%S')
 
-ack_form = """<?xml version="1.0"?>
-<form string="Create internal shipment">
-    <separator string="Internal shipment created" />
-</form>"""
+                if line.state == 'done':
+                    continue
+                move_id = False
+                if line.product_id and line.product_id.product_tmpl_id.type in ('product', 'consu'):
+                    location_id = order.shop_id.warehouse_id.lot_stock_id.id
+                    if not picking_id:
+                        pick_name = self.pool.get('ir.sequence').get(cr, uid, 'stock.picking.internal')
+                        picking_id = self.pool.get('stock.picking').create(cr, uid, {
+                            'name': pick_name,
+                            'origin': order.name,
+                            'type': 'internal',
+                            'state': 'draft',
+                            'move_type': order.picking_policy,
+                            'sale_id': order.id,
+                            'address_id': order.partner_shipping_id.id,
+                            'note': order.note,
+                            'invoice_state':  'none',
+                            'company_id': order.company_id.id,
+                        })
+                    move_id = self.pool.get('stock.move').create(cr, uid, {
+                        'name': line.name[:64],
+                        'picking_id': picking_id,
+                        'product_id': line.product_id.id,
+                        'date': date_planned,
+                        'date_expected': date_planned,
+                        'product_qty': line.product_uom_qty,
+                        'product_uom': line.product_uom.id,
+                        'product_uos_qty': line.product_uos_qty,
+                        'product_uos': (line.product_uos and line.product_uos.id)\
+                                or line.product_uom.id,
+                        'product_packaging': line.product_packaging.id,
+                        'address_id': line.address_allotment_id.id or order.partner_shipping_id.id,
+                        'location_id': location_id,
+                        'location_dest_id': location_dest_id,
+                        'sale_line_id': line.id,
+                        'tracking_id': False,
+                        'state': 'draft',
+                        #'state': 'waiting',
+                        'note': line.notes,
+                        'company_id': order.company_id.id,
+                    })
 
-ack_fields = {}
+            #val = {}
 
-def _make_internal_shipment(self, cr, uid, data, context):
-    order_obj = pooler.get_pool(cr.dbname).get('sale.order')
-    internal='n'
-    for o in order_obj.browse(cr, uid,  data['ids'] , context):
-        saleid = o.id
-        for i in o.picking_ids:
-           if i.type== 'internal':
-              internal = 'y'
-    if internal == 'n':
-        order_obj.action_ship_internal_create(cr, uid, data['ids'], data['form']['location_id'],data['form']['location_dest_id'])
-    print >>sys.stderr, '_make_internal_shipment ',internal, data, context
-    #for id in data['ids']:
-    #    wf_service = netsvc.LocalService("workflow")
-    #    wf_service.trg_validate(uid, 'sale.order', id, 'manual_internal_shipment', cr)
-    pool = pooler.get_pool(cr.dbname)
-    mod_obj = pool.get('ir.model.data')
-    act_obj = pool.get('ir.actions.act_window')
-    xml_id='action_picking_tree6'
-    result = mod_obj._get_id(cr, uid, 'stock', xml_id)
-    id = mod_obj.read(cr, uid, result, ['res_id'])['res_id']
-    result = act_obj.read(cr, uid, id)
-    result['domain'] = [('type','=','internal'),('sale_id','=', saleid)]
+            # this resets type to 'out' - do not know why, better leave it in draft
+            #if picking_id:
+            #    wf_service.trg_validate(uid, 'stock.picking', picking_id, 'button_confirm', cr)
+
+            #for proc_id in proc_ids:
+            #    wf_service.trg_validate(uid, 'procurement.order', proc_id, 'button_confirm', cr)
+
+            #if order.state == 'shipping_except':
+            #    val['state'] = 'progress'
+            #    val['shipped'] = False
+
+            #    if (order.order_policy == 'manual'):
+            #        for line in order.order_line:
+            #            if (not line.invoiced) and (line.state not in ('cancel', 'draft')):
+            #                val['state'] = 'manual'
+            #                break
+            #self.write(cr, uid, [order.id], val)
+        return True
+       
+sale_order()
+
+class sale_make_internal_ship_wizard(osv.osv_memory):
+    _name = "sale.make.internal.ship.wizard"
+    
+    _columns = {
+        'location_id': fields.many2one('stock.location', 'Location', required=True, domain="[('usage', '=', 'internal')]"),
+        'location_dest_id': fields.many2one('stock.location', 'Destination Location', required=True, domain="[('usage', '=', 'internal')]"),
+        }
+
+    def view_init(self, cr, uid, fields_list, context=None):
+        if context is None:
+            context = {}
+        record_id = context and context.get('active_id', False)
+        order = self.pool.get('sale.order').browse(cr, uid, record_id, context=context)
+        if order.state in  [ 'done','cancel'] :
+            raise osv.except_osv(_('Warning !'),'You can not create internal shippings when sales order is done or canceled.')
+        return False
+
+    def make_internal_shippment(self, cr, uid, ids, context=None):
+        data = self.read(cr, uid, ids)[0]
+        #print >> sys.stderr, 'data',data
+        record_id = context and context.get('active_id', False)
+        order_obj = self.pool.get('sale.order')
+        order = order_obj.browse(cr, uid, record_id, context=context)
+        
+        # allow only one internal
+        internal='n'
+        for i in order.picking_ids:
+            if i.type== 'internal':
+                internal = 'y'
+                raise osv.except_osv(_('Warning !'),'Internal shipping already created.')
+        
+        if internal == 'n':
             
-    return result
+            #reloacte the source of out picking
+            for i in order.picking_ids:
+                if i.type== 'out' and i.state in ['draft', 'confirmed']:
+                    stock_pick_obj = self.pool.get('stock.picking')
+                    stock_move_obj = self.pool.get('stock.move')
+                    loc_id = data['location_dest_id']
+                    for move in i.move_lines:
+                        #print >> sys.stderr, 'stock_pick write', loc_id, move
+                        stock_move_obj.write(cr, uid, move.id, {'location_id' :  loc_id } )
+                        
+            order_obj.action_ship_internal_create(cr, uid, [record_id], data['location_id'], data['location_dest_id'])
+                        
+                        
+        #print >>sys.stderr, 'make_internal_shipment ',internal, data, context
+        # opene correct shipping window
+        pool = pooler.get_pool(cr.dbname)
+        mod_obj = pool.get('ir.model.data')
+        act_obj = pool.get('ir.actions.act_window')
+        xml_id='action_picking_tree6'
+        result = mod_obj._get_id(cr, uid, 'stock', xml_id)
+        id = mod_obj.read(cr, uid, result, ['res_id'])['res_id']
+        result = act_obj.read(cr, uid, id)
+        result['domain'] = [('type','=','internal'),('sale_id','=', order.id)]
 
-    #return {
-    #    'domain': "[('id','in', ["+','.join(map(str,newinv))+"])]",
-    #    'name': 'Invoices',
-    #    'view_type': 'form',
-    #    'view_mode': 'tree,form',
-    #    'res_model': 'account.internal_shipment',
-    #    'view_id': False,
-    #    'context': "{'type':'out_refund'}",
-    #    'type': 'ir.actions.act_window'
-    #}
-    #return {}
+        return result
 
-class make_internal_shipment(wizard.interface):
-    states = {
-        'init' : {
-            'actions' : [],
-            'result' : {'type' : 'form',
-                    'arch' : internal_shipment_form,
-                    'fields' : internal_shipment_fields,
-                    'state' : [('end', 'Cancel'),('internal_shipment', 'Create Internal Shipment') ]}
-        },
-        'internal_shipment' : {
-            'actions' : [],
-            'result' : {'type' : 'action',
-                    'action' : _make_internal_shipment,
-                    'state' : 'end'}
-        },
-    }
-make_internal_shipment("sale.order.make_internal_shipment")
-
+sale_make_internal_ship_wizard()
+                            
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
 
