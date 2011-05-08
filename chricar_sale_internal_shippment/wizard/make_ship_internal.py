@@ -135,6 +135,10 @@ class sale_make_internal_ship_wizard(osv.osv_memory):
         order = self.pool.get('sale.order').browse(cr, uid, record_id, context=context)
         if order.state in  [ 'done','cancel'] :
             raise osv.except_osv(_('Warning !'),'You can not create internal shippings when sales order is done or canceled.')
+        for i in order.picking_ids:
+            if i.type== 'internal':
+                raise osv.except_osv(_('Warning !'),'Internal shipping already created.')
+         
         return False
 
     def make_internal_shippment(self, cr, uid, ids, context=None):
@@ -145,16 +149,16 @@ class sale_make_internal_ship_wizard(osv.osv_memory):
         order = order_obj.browse(cr, uid, record_id, context=context)
         
         # allow only one internal
-        internal='n'
-        for i in order.picking_ids:
-            if i.type== 'internal':
-                internal = 'y'
-                raise osv.except_osv(_('Warning !'),'Internal shipping already created.')
+        #internal='n'
+        #for i in order.picking_ids:
+        #    if i.type== 'internal':
+        #        internal = 'y'
+        #        raise osv.except_osv(_('Warning !'),'Internal shipping already created.')
         
-        if internal == 'n':
+        #if internal == 'n':
             
             #reloacte the source of out picking
-            for i in order.picking_ids:
+        for i in order.picking_ids:
                 if i.type== 'out' and i.state in ['draft', 'confirmed']:
                     stock_pick_obj = self.pool.get('stock.picking')
                     stock_move_obj = self.pool.get('stock.move')
@@ -163,7 +167,7 @@ class sale_make_internal_ship_wizard(osv.osv_memory):
                         #print >> sys.stderr, 'stock_pick write', loc_id, move
                         stock_move_obj.write(cr, uid, move.id, {'location_id' :  loc_id } )
                         
-            order_obj.action_ship_internal_create(cr, uid, [record_id], data['location_id'], data['location_dest_id'])
+        order_obj.action_ship_internal_create(cr, uid, [record_id], data['location_id'], data['location_dest_id'])
                         
                         
         #print >>sys.stderr, 'make_internal_shipment ',internal, data, context
