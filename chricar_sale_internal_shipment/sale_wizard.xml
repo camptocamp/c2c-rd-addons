@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <wizard id="wizard_sale_order_make_internal_shipment" keyword="client_action_multi" model="sale.order" name="sale.order.make_internal_shipment" multi="True" string="Make internal shipment"/>
+  </data>
+</openerp>
