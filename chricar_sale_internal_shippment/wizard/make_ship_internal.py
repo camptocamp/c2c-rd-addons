@@ -59,7 +59,7 @@ class sale_order(osv.osv):
                     continue
                 move_id = False
                 if line.product_id and line.product_id.product_tmpl_id.type in ('product', 'consu'):
-                    location_id = order.shop_id.warehouse_id.lot_stock_id.id
+                    #location_id = order.shop_id.warehouse_id.lot_stock_id.id
                     if not picking_id:
                         pick_name = self.pool.get('ir.sequence').get(cr, uid, 'stock.picking.internal')
                         picking_id = self.pool.get('stock.picking').create(cr, uid, {
