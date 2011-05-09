@@ -204,7 +204,11 @@ class ir_sequence(osv.osv):
         if context is None:
             context = {}
         seq_type_obj = self.pool.get('ir.sequence.type')
-        seq_type_id = seq_type_obj.search(cr, uid,[('code','=',sequence_id)])
+        if isinstance(sequence_id,(str,unicode)):
+            sequence_name = sequence_id
+            test = 'code'
+        print >> sys.stderr, 'seq-fy-test',test
+        seq_type_id = seq_type_obj.search(cr, uid,[(test,'=',sequence_id)])
         if not seq_type_id:
             seq_type_obj.create(cr, uid, {
                          'code' : sequence_id,
@@ -219,28 +223,32 @@ class ir_sequence(osv.osv):
         if not company_id:
            company_id = self.pool.get('res.users').company_get(cr, uid, uid)
         journal_id = context.get('journal_id', False)
-        sequence_prefix = ''
-        sequence_name = sequence_id
+        sequence_name =''
         if journal_id:
             journal_obj = self.pool.get('account.journal').browse(cr, uid, journal_id, context=None)
-            if journal_obj.prefix:
-                sequence_prefix = journal_obj.prefix+ '-'
             sequence_name   = journal_obj.name
             sequence_create = journal_obj.create_sequence
+        sequence_prefix = ''
         fiscalyear_id = context.get('fiscalyear_id', False)
+
 
         cr.execute('select id from ir_sequence where '
                    + test + '=%s and active=%s', (sequence_id, True,))
         res = cr.dictfetchone()
+        prefix = ''
+        for w in sequence_name.split('.'):
+            prefix += w[0:1]
+        prefix += '-' 
         # FIXME - for now seq_id in journal is mandatory
         if not res:    
+           
             if sequence_create != 'none':
-                 print >> sys.stderr, 'seq-fy company',company_id
+                 print >> sys.stderr, 'seq-fy-company',company_id
                  self.create(cr,uid,{
                    'code'   : sequence_id,
                    'name'   : sequence_name,
                    'active' : True,
-                   'prefix' : sequence_prefix,
+                   'prefix' : prefix,
                    'suffice': '',
                    'padding': 3,
                    'number_next' : 1,
@@ -259,7 +267,7 @@ class ir_sequence(osv.osv):
                                                            line.sequence_id.id,
                                                            test="id",
                                                            context=context)
-            if journal_obj.create_sequence == 'create_fy':
+            if journal_id and journal_obj.create_sequence == 'create_fy':
                     sequence_obj   = self.pool.get('ir.sequence').browse(cr, uid, sequence_id, context=None)
                     fiscalyear_obj = self.pool.get('account.fiscalyear').browse(cr, uid, fiscalyear_id, context=None)
                     code_fy = fiscalyear_obj.sequence_code or fiscalyear_obj.date_start[0:4]

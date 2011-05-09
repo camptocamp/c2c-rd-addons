@@ -99,19 +99,23 @@ class purchase_order(osv.osv):
     _inherit = "purchase.order"
 
     def inv_line_create(self, cr, uid, a, ol):
-        print >> sys.stderr,ol
-        return (0, False, {
-            'name': ol.name,
-            'account_id': a,
-            'price_unit': ol.price_unit or 0.0,
-            'price_unit_pu': ol.price_unit_pu or 0.0,
-            'price_unit_id': ol.price_unit_id.id,
-            'quantity': ol.product_qty,
-            'product_id': ol.product_id.id or False,
-            'uos_id': ol.product_uom.id or False,
-            'invoice_line_tax_id': [(6, 0, [x.id for x in ol.taxes_id])],
-            'account_analytic_id': ol.account_analytic_id.id or False,
-        })
+        line = super(purchase_order, self).inv_line_create(cr, uid, a, ol)
+        print >> sys.stderr,'po line',line
+        #return (0, False, {
+        #    'name': ol.name,
+        #    'account_id': a,
+        #    'price_unit': ol.price_unit or 0.0,
+        #    'price_unit_pu': ol.price_unit_pu or 0.0,
+        #    'price_unit_id': ol.price_unit_id.id,
+        #    'quantity': ol.product_qty,
+        #    'product_id': ol.product_id.id or False,
+        #    'uos_id': ol.product_uom.id or False,
+        #    'invoice_line_tax_id': [(6, 0, [x.id for x in ol.taxes_id])],
+        #    'account_analytic_id': ol.account_analytic_id.id or False,
+        #})
+        line.append( {'price_unit_pu': ol.price_unit_pu or 0.0, 'price_unit_id': ol.price_unit_id.id, } )
+        print >> sys.stderr,'po line after',line
+        return line
 
 purchase_order()
 

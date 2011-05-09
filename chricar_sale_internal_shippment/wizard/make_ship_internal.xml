@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <record id="sale_wizard_make_internal_ship" model="ir.ui.view">
+      <field name="name">sale.make.internal.ship.wizard.form</field>
+      <field name="model">sale.make.internal.ship.wizard</field>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <form string="Create internal shipment">
+          <separator colspan="4" string="Do you really want to create an internal shipment?"/>
+          <field name="location_id"/>
+          <field name="location_dest_id"/>
+          <group colspan="4">
+            <button
+              icon="gtk-cancel"
+              special="cancel"
+              string="Cancel"/>
+            <button
+              icon="gtk-ok"
+              name="make_internal_shippment"
+              string="Create"
+              type="object"/>
+          </group>
+        </form>
+      </field>
+    </record>
+    <act_window
+      id="action_sale_make_internal_ship"
+      name="Make Internal Shippment"
+      res_model="sale.make.internal.ship.wizard"
+      src_model="sale.order"
+      target="new"
+      view_mode="form"/>
+  </data>
+</openerp>

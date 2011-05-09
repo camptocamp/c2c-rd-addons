@@ -49,8 +49,12 @@ class product_product(osv.osv):
 
     def _product_name(self, cr, uid, ids, field_name, arg, context={}):
          result = {}
-         for product in self.browse(cr, uid, ids, context):
-             result[product.id] = product.product_tmpl_id.name
+         for product in self.browse(cr, uid, ids, context=context):
+             print >> sys.stderr,'product name',product
+             try: 
+                 result[product.id] = product.name
+             except:
+                 print >> sys.stderr,'product name execption'
          return result
 
     def update_category_name(self, cr, uid, ids, context=None):
@@ -70,8 +74,8 @@ class product_product(osv.osv):
 
           'name_category': fields.related('categ_id', 'name', type="char", size=64, relation="product.category", string="Category",  select="1",
                        store =  { 'product.category' :
-                           ( update_category_name, ['name'],
-                            10)}
+                           ( update_category_name, ['name']
+                            , 10)}
                     ),
          } 
 
