@@ -202,6 +202,7 @@ class account_fiscalyear_sum(osv.osv):
       'debit'              : fields.float   ('Debit', digits_compute=dp.get_precision('Account'),            readonly=True ),
       'credit'             : fields.float   ('Credit', digits_compute=dp.get_precision('Account'),           readonly=True),
       'balance'            : fields.float   ('Balance', digits_compute=dp.get_precision('Account'),          readonly=True),
+      'opening_balance'    : fields.float   ('Opening Balance', digits_compute=dp.get_precision('Account'),  readonly=True),
       #'sum_fy_period_ids'  : fields.one2many('account.account_fy_period_sum','sum_fy_period_id','Fiscal Year Period Sum'),
       'sum_fy_period_ids'  : one2many_periods('account.account_fy_period_sum','id','Fiscal Year Period Sum', readonly=True, ),
       'sum_fy_period_delta_ids'  : one2many_per_delta('account.account.period.sum.delta','id','Fiscal Year Period Delta', readonly=True, ),
@@ -225,9 +226,10 @@ class account_fiscalyear_sum(osv.osv):
                                             then  '-'||to_char(y.date_stop,'MM')
                                             else '' end as name,
             y.id as fiscalyear_id,
-            sum(debit) as debit,
-            sum(credit) as credit,
+            sum(case when s.name like '%00' then debit else 0 end) as debit,
+            sum(case when s.name like '%00' then credit else 0 end) credit,
             sum(debit) - sum(credit) as balance,
+            sum(case when s.name like '%00' then debit - credit else 0 end) as opening_balance,
             y.date_start,y.date_stop
             from account_account_period_sum s,
                 account_period p,

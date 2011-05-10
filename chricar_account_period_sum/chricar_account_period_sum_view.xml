@@ -35,6 +35,7 @@
           <field name="sum_fiscalyear_ids" widget="one2many_list" colspan="4" nolabel="1" readonly="1">
             <tree string="Fiscal Year Sums">
               <field name="name"/>
+              <field name="opening_balance"/>
               <field name="debit"/>
               <field name="credit"/>
               <field name="balance"/>
@@ -42,8 +43,9 @@
               <field name="date_stop"/>
             </tree>
             <form string="Fiscal Year Sums">
-              <group colspan="4" col="8">
+              <group colspan="4" col="10">
                 <field name="name" width="100"/>
+                <field name="opening_balance" width="100"/>
                 <field name="debit" width="100"/>
                 <field name="credit" width="100"/>
                 <field name="balance" width="100"/>
@@ -62,8 +64,9 @@
                       <field name="date_stop"/>
                     </tree>
                     <form string="Period Sums">
-                      <group colspan="4" col="8">
+                      <group colspan="4" col="10">
                         <field name="name" width="100"/>
+                        <label string="" colspan="2" width="100"/>
                         <field name="debit" width="100"/>
                         <field name="credit" width="100"/>
                         <field name="balance" width="100"/>
