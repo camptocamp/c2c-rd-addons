@@ -3,6 +3,68 @@
   <data>
     <!--
     ==============================================
+    FY Sumes
+    ==============================================
+-->
+    <record model="ir.ui.view" id="view_account_fy_chricar_1">
+      <field name="name">account.account_fiscalyear_sum.fy_chricar_1</field>
+      <field name="model">account.account_fiscalyear_sum</field>
+      <field name="type">tree</field>
+      <field name="arch" type="xml">
+        <tree string="Fiscal Year Sums">
+          <field name="company_id"/>
+          <field name="fiscalyear_id"/>
+          <field name="code"/>
+          <field name="account_id"/>
+          <field name="opening_balance"/>
+          <field name="debit"/>
+          <field name="credit"/>
+          <field name="balance"/>
+          <field name="date_start"/>
+          <field name="date_stop"/>
+        </tree>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="view_account_fy_form_chricar_1">
+      <field name="name">account.account_fiscalyear_sum.fy_form_chricar_1</field>
+      <field name="model">account.account_fiscalyear_sum</field>
+      <field name="type">tree</field>
+      <field name="arch" type="xml">
+        <form string="Fiscal Year Sums">
+          <field name="company_id" select="1"/>
+          <field name="fiscalyear_id" select="1"/>
+          <field name="account_id"/>
+          <field name="opening_balance"/>
+          <field name="debit"/>
+          <field name="credit"/>
+          <field name="balance"/>
+          <field name="date_start"/>
+          <field name="date_stop"/>
+        </form>
+      </field>
+    </record>
+    <record model="ir.actions.act_window" id="action_account_fy_chricar">
+      <field name="name">Account FY Sums</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">account.account_fiscalyear_sum</field>
+      <field name="view_type">form</field>
+    </record>
+    <record model="ir.actions.act_window.view" id="action_account_fy_chricar_1">
+      <field name="view_mode">tree</field>
+      <field name="view_id" ref="view_account_fy_chricar_1"/>
+      <field name="act_window_id" ref="action_account_fy_chricar"/>
+    </record>
+    <record model="ir.actions.act_window.view" id="action_account_fy_form_chricar_1">
+      <field name="view_mode">form</field>
+      <field name="view_id" ref="view_account_fy_form_chricar_1"/>
+      <field name="act_window_id" ref="action_account_fy_chricar"/>
+    </record>
+    <menuitem
+      action="action_account_fy_chricar"
+      id="chricar_menu_action_account_fy_chricar"
+      parent="account.menu_finance_charts"/>
+    <!--
+    ==============================================
     list of accounts
     ==============================================
 -->
