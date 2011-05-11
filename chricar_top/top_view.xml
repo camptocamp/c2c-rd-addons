@@ -172,7 +172,11 @@ generated 2009-07-09 16:17:22+02
             <!--
             <filter string="State" icon="terp-stock_effects-object-colorize" domain="[]" context="{'group_by':'state'}"/>
             -->
-            <filter string="Location" icon="terp-stock_effects-object-colorize" domain="[]" context="{'group_by':'location_id'}"/>
+            <filter
+              context="{'group_by':'location_id'}"
+              domain="[]"
+              icon="terp-stock_effects-object-colorize"
+              string="Location"/>
           </group>
         </search>
       </field>

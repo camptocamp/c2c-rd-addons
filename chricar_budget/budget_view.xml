@@ -205,7 +205,7 @@ generated 2009-08-18 23:44:30+02
       action="chricar_budget_act1"
       id="menu_chricar_budget_list"
       parent="c2c_budget.menu_budget_c2c"
-      sequence="150"/>&#xA;&#xA;==============================================&#xA;Modification of Parents&#xA;==============================================&#xA;--&gt;&#xA;    &#xA;    &#xA;    &#xA;    &#xA;    &#xA;    &#xA;    &#xA;    &#xA;    &#xA;    &#xA;    
+      sequence="150"/>&#xA;&#xA;==============================================&#xA;Modification of Parents&#xA;==============================================&#xA;--&gt;&#xA;    &#xA;    &#xA;    &#xA;    &#xA;    &#xA;    &#xA;    &#xA;    &#xA;    &#xA;    &#xA;    &#xA;    &#xA;    &#xA;    
     <act_window
       domain="[('budget_version_id', '=', active_id)]"
       id="act_budget_version_2_product_plan"
