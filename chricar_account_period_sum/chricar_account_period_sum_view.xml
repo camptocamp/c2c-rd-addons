@@ -3,7 +3,39 @@
   <data>
     <!--
     ==============================================
-    FY Sumes
+    FY Sum Tree
+    ==============================================
+        -->
+    <record id="view_account_chart_sum" model="ir.ui.view">
+      <field name="name">account.account.tree.sum</field>
+      <field name="model">account.account</field>
+      <field name="type">tree</field>
+      <field name="field_parent">child_id</field>
+      <field name="arch" type="xml">
+        <tree colors="blue:type in ('view');black:type in ('other','receivable','payable','consolidation');gray:type in ('closed')" string="Chart of accounts" toolbar="1">
+          <field name="code"/>
+          <field name="name"/>
+          <field name="opening_balance_sum"/>
+          <field name="debit_sum"/>
+          <field name="credit_sum"/>
+          <field name="balance_sum"/>
+          <field name="company_currency_id"/>
+          <field name="company_id" groups="base.group_multi_company"/>
+          <field name="type"/>
+          <field name="parent_id" invisible="1"/>
+        </tree>
+      </field>
+    </record>
+    <record id="action_account_chart_sum" model="ir.actions.act_window">
+      <field name="name">Chart of Accounts Sum</field>
+      <field name="res_model">account.account</field>
+      <field name="view_type">tree</field>
+      <field name="view_id" ref="view_account_chart_sum"/>
+      <field name="domain">[('parent_id','=',False)]</field>
+    </record>
+    <!--
+    ==============================================
+    FY Sums
     ==============================================
 -->
     <record model="ir.ui.view" id="view_account_fy_chricar_1">

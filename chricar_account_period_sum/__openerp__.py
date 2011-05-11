@@ -58,7 +58,7 @@
     "depends" : ["base", "account", "c2c_account_closing_remarks", "chricar_view_id"],
     "init_xml" : [],
     "demo_xml" : [],
-    "update_xml" : ["chricar_account_period_sum_view.xml","security/rule.xml","security/ir.model.access.csv"],
+    "update_xml" : ["chricar_account_period_sum_view.xml","wizard/chart.xml","security/rule.xml","security/ir.model.access.csv"],
     "active": False,
     "installable": True
 }

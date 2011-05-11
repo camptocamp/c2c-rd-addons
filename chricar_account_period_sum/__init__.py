@@ -25,3 +25,4 @@ import chricar_account_period_sum
 import chricar_account_period_sum_trg
 import chricar_account_period_sum_period_name
 import chricar_account
+import wizard
