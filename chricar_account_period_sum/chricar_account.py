@@ -64,24 +64,21 @@ class account_account(osv.osv):
         if children_and_consolidated:
             # FIXME allow only fy and period filters
             # remove others filters from context or raise error
-            self.logger.notifyChannel('addons.'+self._name, netsvc.LOG_DEBUG,
-                                      'Context: %s'%context)
-            aml_query = self.pool.get('account.move.line')._query_get(cr, uid, context=context)
+            #self.logger.notifyChannel('addons.'+self._name, netsvc.LOG_DEBUG,'Context: %s'%context)
+            #aml_query = self.pool.get('account.move.line')._query_get(cr, uid, context=context)
 
-            wheres = [""]
-            if query.strip():
-                wheres.append(query.strip())
-            if aml_query.strip():
-                wheres.append(aml_query.strip())
-            filters = " AND ".join(wheres)
-            self.logger.notifyChannel('addons.'+self._name, netsvc.LOG_DEBUG,
-                                      'Filters: %s'%filters)
+            #wheres = [""]
+            #if query.strip():
+            #    wheres.append(query.strip())
+            #if aml_query.strip():
+            #    wheres.append(aml_query.strip())
+            #filters = " AND ".join(wheres)
+            # self.logger.notifyChannel('addons.'+self._name, netsvc.LOG_DEBUG,'Filters: %s'%filters)
             filters = ' AND period_id in ( select id from account_period where fiscalyear_id = %s ) ' % context.get('fiscalyear', False) 
             periods = context.get('periods', False)
             # FIXME - tuple must not return ',' if only one period is available - period_id in ( p,) should be period_id in ( p )
             filters = ' AND period_id in %s ' % (tuple(periods),)
-            self.logger.notifyChannel('addons.'+self._name, netsvc.LOG_DEBUG,
-                                      'Filters: %s'%filters)
+            #self.logger.notifyChannel('addons.'+self._name, netsvc.LOG_DEBUG,'Filters: %s'%filters)
             # IN might not work ideally in case there are too many
             # children_and_consolidated, in that case join on a
             # values() e.g.:
@@ -167,23 +164,20 @@ class account_account(osv.osv):
         if children_and_consolidated:
             # FIXME allow only fy and period filters
             # remove others filters from context or raise error
-            self.logger.notifyChannel('addons.'+self._name, netsvc.LOG_DEBUG,
-                                      'Context: %s'%context)
-            aml_query = self.pool.get('account.move.line')._query_get(cr, uid, context=context)
+            #self.logger.notifyChannel('addons.'+self._name, netsvc.LOG_DEBUG,'Context: %s'%context)
+            #aml_query = self.pool.get('account.move.line')._query_get(cr, uid, context=context)
 
-            wheres = [""]
-            if query.strip():
-                wheres.append(query.strip())
-            if aml_query.strip():
-                wheres.append(aml_query.strip())
-            filters = " AND ".join(wheres)
-            self.logger.notifyChannel('addons.'+self._name, netsvc.LOG_DEBUG,
-                                      'Filters: %s'%filters)
+            #wheres = [""]
+            #if query.strip():
+            #    wheres.append(query.strip())
+            #if aml_query.strip():
+            #    wheres.append(aml_query.strip())
+            #filters = " AND ".join(wheres)
+            #self.logger.notifyChannel('addons.'+self._name, netsvc.LOG_DEBUG,'Filters: %s'%filters)
             periods_prev = context.get('periods_prev', False)
             # FIXME - tuple must not return ',' if only one period is available - period_id in ( p,) should be period_id in ( p )
             filters = ' AND period_id in %s ' % (tuple(periods_prev),)
-            self.logger.notifyChannel('addons.'+self._name, netsvc.LOG_DEBUG,
-                                      'Filters: %s'%filters)
+            #self.logger.notifyChannel('addons.'+self._name, netsvc.LOG_DEBUG,'Filters: %s'%filters)
             # IN might not work ideally in case there are too many
             # children_and_consolidated, in that case join on a
             # values() e.g.:

@@ -120,8 +120,17 @@ class account_chart_sum(osv.osv_memory):
             result['periods_prev'] = period_obj.build_ctx_periods(cr, uid, data['period_prev_from'], data['period_prev_to'])
         result['context'] = str({'fiscalyear': data['fiscalyear'], 'periods': result['periods'], 'periods_prev' : result['periods_prev']  })
         if data['fiscalyear']:
-            result['name'] += ':' + fy_obj.read(cr, uid, [data['fiscalyear']], context=context)[0]['code']
-        #import sys
+            result['name'] += ':' + fy_obj.read(cr, uid, [data['fiscalyear']], context=context)[0]['code'] 
+        if data['period_from']:
+            result['name'] += ' ' + period_obj.read(cr, uid, [data['period_from']], context=context)[0]['code'] 
+        if data['period_to']:
+            result['name'] += '-' + period_obj.read(cr, uid, [data['period_to']], context=context)[0]['code'] 
+
+        if data['period_prev_from']:
+            result['name'] += ' ' + period_obj.read(cr, uid, [data['period_prev_from']], context=context)[0]['code'] 
+        if data['period_prev_to']:
+            result['name'] += '-' + period_obj.read(cr, uid, [data['period_prev_to']], context=context)[0]['code'] 
+
         #print >> sys.stderr, 'wiz',result
         return result
 
