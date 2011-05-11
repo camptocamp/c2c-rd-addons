@@ -68,8 +68,8 @@ class account_period_sum(osv.osv):
     _columns = {
       'name'               : fields.char    ('Period', size=16,reaodonly=True),
       'company_id'         : fields.many2one('res.company', 'Company', required=True),
-      'account_id'         : fields.many2one('account.account', 'Account', required=True,ondelete="cascade",readonly=True),
-      'period_id'          : fields.many2one('account.period' , 'Period' , required=True,ondelete="cascade",readonly=True),
+      'account_id'         : fields.many2one('account.account', 'Account', required=True,ondelete="cascade",readonly=True, select="1"),
+      'period_id'          : fields.many2one('account.period' , 'Period' , required=True,ondelete="cascade",readonly=True, select="1"),
       'sum_fy_period_id'   : fields.integer ('Account FY id'             , required=True,                   readonly=True),
       'debit'              : fields.float   ('Debit', digits_compute=dp.get_precision('Account'), required=True,readonly=True),
       'credit'             : fields.float   ('Credit', digits_compute=dp.get_precision('Account'), required=True,readonly=True),
