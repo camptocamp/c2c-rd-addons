@@ -3,6 +3,100 @@
   <data>
     <!--
     ==============================================
+    FY Sum Tree
+    ==============================================
+        -->
+    <record id="view_account_chart_sum" model="ir.ui.view">
+      <field name="name">account.account.tree.sum</field>
+      <field name="model">account.account</field>
+      <field name="type">tree</field>
+      <field name="field_parent">child_id</field>
+      <field name="arch" type="xml">
+        <tree colors="blue:type in ('view');black:type in ('other','receivable','payable','consolidation');gray:type in ('closed')" string="Chart of accounts" toolbar="1">
+          <field name="code"/>
+          <field name="name"/>
+          <field name="opening_balance_sum"/>
+          <field name="debit_sum"/>
+          <field name="credit_sum"/>
+          <field name="balance_sum"/>
+          <field name="company_currency_id"/>
+          <field name="company_id" groups="base.group_multi_company"/>
+          <field name="type"/>
+          <field name="parent_id" invisible="1"/>
+        </tree>
+      </field>
+    </record>
+    <record id="action_account_chart_sum" model="ir.actions.act_window">
+      <field name="name">Chart of Accounts Sum</field>
+      <field name="res_model">account.account</field>
+      <field name="view_type">tree</field>
+      <field name="view_id" ref="view_account_chart_sum"/>
+      <field name="domain">[('parent_id','=',False)]</field>
+    </record>
+    <!--
+    ==============================================
+    FY Sums
+    ==============================================
+-->
+    <record model="ir.ui.view" id="view_account_fy_chricar_1">
+      <field name="name">account.account_fiscalyear_sum.fy_chricar_1</field>
+      <field name="model">account.account_fiscalyear_sum</field>
+      <field name="type">tree</field>
+      <field name="arch" type="xml">
+        <tree string="Fiscal Year Sums">
+          <field name="company_id"/>
+          <field name="fiscalyear_id"/>
+          <field name="code"/>
+          <field name="account_id"/>
+          <field name="opening_balance"/>
+          <field name="debit"/>
+          <field name="credit"/>
+          <field name="balance"/>
+          <field name="date_start"/>
+          <field name="date_stop"/>
+        </tree>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="view_account_fy_form_chricar_1">
+      <field name="name">account.account_fiscalyear_sum.fy_form_chricar_1</field>
+      <field name="model">account.account_fiscalyear_sum</field>
+      <field name="type">tree</field>
+      <field name="arch" type="xml">
+        <form string="Fiscal Year Sums">
+          <field name="company_id" select="1"/>
+          <field name="fiscalyear_id" select="1"/>
+          <field name="account_id"/>
+          <field name="opening_balance"/>
+          <field name="debit"/>
+          <field name="credit"/>
+          <field name="balance"/>
+          <field name="date_start"/>
+          <field name="date_stop"/>
+        </form>
+      </field>
+    </record>
+    <record model="ir.actions.act_window" id="action_account_fy_chricar">
+      <field name="name">Account FY Sums</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">account.account_fiscalyear_sum</field>
+      <field name="view_type">form</field>
+    </record>
+    <record model="ir.actions.act_window.view" id="action_account_fy_chricar_1">
+      <field name="view_mode">tree</field>
+      <field name="view_id" ref="view_account_fy_chricar_1"/>
+      <field name="act_window_id" ref="action_account_fy_chricar"/>
+    </record>
+    <record model="ir.actions.act_window.view" id="action_account_fy_form_chricar_1">
+      <field name="view_mode">form</field>
+      <field name="view_id" ref="view_account_fy_form_chricar_1"/>
+      <field name="act_window_id" ref="action_account_fy_chricar"/>
+    </record>
+    <menuitem
+      action="action_account_fy_chricar"
+      id="chricar_menu_action_account_fy_chricar"
+      parent="account.menu_finance_charts"/>
+    <!--
+    ==============================================
     list of accounts
     ==============================================
 -->
@@ -35,6 +129,7 @@
           <field name="sum_fiscalyear_ids" widget="one2many_list" colspan="4" nolabel="1" readonly="1">
             <tree string="Fiscal Year Sums">
               <field name="name"/>
+              <field name="opening_balance"/>
               <field name="debit"/>
               <field name="credit"/>
               <field name="balance"/>
@@ -42,8 +137,9 @@
               <field name="date_stop"/>
             </tree>
             <form string="Fiscal Year Sums">
-              <group colspan="4" col="8">
+              <group colspan="4" col="10">
                 <field name="name" width="100"/>
+                <field name="opening_balance" width="100"/>
                 <field name="debit" width="100"/>
                 <field name="credit" width="100"/>
                 <field name="balance" width="100"/>
@@ -62,8 +158,9 @@
                       <field name="date_stop"/>
                     </tree>
                     <form string="Period Sums">
-                      <group colspan="4" col="8">
+                      <group colspan="4" col="10">
                         <field name="name" width="100"/>
+                        <label string="" colspan="2" width="100"/>
                         <field name="debit" width="100"/>
                         <field name="credit" width="100"/>
                         <field name="balance" width="100"/>

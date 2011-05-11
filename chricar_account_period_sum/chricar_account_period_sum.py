@@ -195,19 +195,21 @@ class account_fiscalyear_sum(osv.osv):
             return res
     
     _columns = {
-      'account_id'         : fields.many2one('account.account', 'Account'       ,readonly=True),
       'company_id'         : fields.many2one('res.company', 'Company', required=True),
-      'fiscalyear_id'      : fields.many2one('account.fiscalyear' , 'Fiscal Year',readonly=True),
+      'account_id'         : fields.many2one('account.account', 'Account'       ,readonly=True),
       'name'               : fields.char    ('Fiscal Year', size =16,           readonly=True),
+      'fiscalyear_id'      : fields.many2one('account.fiscalyear' , 'Fiscal Year',readonly=True),
       'debit'              : fields.float   ('Debit', digits_compute=dp.get_precision('Account'),            readonly=True ),
       'credit'             : fields.float   ('Credit', digits_compute=dp.get_precision('Account'),           readonly=True),
       'balance'            : fields.float   ('Balance', digits_compute=dp.get_precision('Account'),          readonly=True),
+      'opening_balance'    : fields.float   ('Opening Balance', digits_compute=dp.get_precision('Account'),  readonly=True),
+      'date_start'           : fields.date    ('Date Start',readonly=True),
+      'date_stop'          : fields.date    ('Date Stop' ,readonly=True),
       #'sum_fy_period_ids'  : fields.one2many('account.account_fy_period_sum','sum_fy_period_id','Fiscal Year Period Sum'),
       'sum_fy_period_ids'  : one2many_periods('account.account_fy_period_sum','id','Fiscal Year Period Sum', readonly=True, ),
       'sum_fy_period_delta_ids'  : one2many_per_delta('account.account.period.sum.delta','id','Fiscal Year Period Delta', readonly=True, ),
+      'code'               : fields.related ('account_id','code',type='char', size=8,string='Code'),
       #'closing_text_ids'   : one2many_periods('account.closing.text','id','Closing Text', readonly=True, ),
-      'date_start'	       : fields.date    ('Date Start',readonly=True),
-      'date_stop'	       : fields.date    ('Date Stop' ,readonly=True),
 
     }
     _order = 'name desc'
@@ -225,9 +227,10 @@ class account_fiscalyear_sum(osv.osv):
                                             then  '-'||to_char(y.date_stop,'MM')
                                             else '' end as name,
             y.id as fiscalyear_id,
-            sum(debit) as debit,
-            sum(credit) as credit,
+            sum(case when s.name like '%00' then 0 else debit end) as debit,
+            sum(case when s.name like '%00' then 0 else credit end) as credit,
             sum(debit) - sum(credit) as balance,
+            sum(case when s.name like '%00' then debit - credit else 0 end) as opening_balance,
             y.date_start,y.date_stop
             from account_account_period_sum s,
                 account_period p,

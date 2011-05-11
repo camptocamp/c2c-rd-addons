@@ -1,0 +1,14 @@
+=== modified file 'bin/modules/gui/main.py'
+--- bin/modules/gui/main.py	2011-02-01 13:58:58 +0000
++++ bin/modules/gui/main.py	2011-05-10 11:34:24 +0000
+@@ -1055,7 +1055,8 @@
+         title = tools.format_connection_string(*res)
+         sbid = self.sb_servername.get_context_id('message')
+         self.sb_servername.push(sbid, title)
+-        self.window.set_title(_('OpenERP - %s') % title )
++        #self.window.set_title(_('OpenERP - %s') % title )
++        self.window.set_title(_('%s@%s %s OpenERP') % (res[0], res[5], res[2] ))
+         return True
+ 
+     def sig_logout(self, widget):
+

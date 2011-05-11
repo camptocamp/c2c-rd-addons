@@ -231,6 +231,7 @@ class ir_sequence(osv.osv):
         sequence_prefix = ''
         fiscalyear_id = context.get('fiscalyear_id', False)
 
+
         cr.execute('select id from ir_sequence where '
                    + test + '=%s and active=%s', (sequence_id, True,))
         res = cr.dictfetchone()
