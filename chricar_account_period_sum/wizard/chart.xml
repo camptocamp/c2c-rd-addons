@@ -15,6 +15,9 @@
             <separator string="Periods" colspan="4"/>
             <field name="period_from"/>
             <field name="period_to"/>
+            <separator string="Periods Prev Year" colspan="4"/>
+            <field name="period_prev_from"/>
+            <field name="period_prev_to"/>
           </group>
           <separator string="" colspan="4"/>
           <group colspan="4" col="6">
