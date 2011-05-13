@@ -74,8 +74,9 @@ class account_account(osv.osv):
             #    wheres.append(aml_query.strip())
             #filters = " AND ".join(wheres)
             # self.logger.notifyChannel('addons.'+self._name, netsvc.LOG_DEBUG,'Filters: %s'%filters)
-            filters = ' AND period_id in ( select id from account_period where fiscalyear_id = %s ) ' % context.get('fiscalyear', False) 
+            #filters = ' AND period_id in ( select id from account_period where fiscalyear_id = %s ) ' % context.get('fiscalyear', False) 
             periods = context.get('periods', False)
+            self.logger.notifyChannel('addons.'+self._name, netsvc.LOG_DEBUG,'Periods: %s'%periods)
             # FIXME - tuple must not return ',' if only one period is available - period_id in ( p,) should be period_id in ( p )
             filters = ' AND period_id in %s ' % (tuple(periods),)
             #self.logger.notifyChannel('addons.'+self._name, netsvc.LOG_DEBUG,'Filters: %s'%filters)
@@ -161,7 +162,7 @@ class account_account(osv.osv):
 
         #compute for each account the balance/debit/credit from the move lines
         accounts = {}
-        if children_and_consolidated:
+        if children_and_consolidated :
             # FIXME allow only fy and period filters
             # remove others filters from context or raise error
             #self.logger.notifyChannel('addons.'+self._name, netsvc.LOG_DEBUG,'Context: %s'%context)
@@ -174,9 +175,12 @@ class account_account(osv.osv):
             #    wheres.append(aml_query.strip())
             #filters = " AND ".join(wheres)
             #self.logger.notifyChannel('addons.'+self._name, netsvc.LOG_DEBUG,'Filters: %s'%filters)
-            periods_prev = context.get('periods_prev', False)
-            # FIXME - tuple must not return ',' if only one period is available - period_id in ( p,) should be period_id in ( p )
-            filters = ' AND period_id in %s ' % (tuple(periods_prev),)
+            if  context.get('periods_prev', False):
+                periods_prev = context.get('periods_prev', False)
+                # FIXME - tuple must not return ',' if only one period is available - period_id in ( p,) should be period_id in ( p )
+                filters = ' AND period_id in %s ' % (tuple(periods_prev),)
+            else:
+                filters = ' AND 1=2 ' # return no data
             #self.logger.notifyChannel('addons.'+self._name, netsvc.LOG_DEBUG,'Filters: %s'%filters)
             # IN might not work ideally in case there are too many
             # children_and_consolidated, in that case join on a
