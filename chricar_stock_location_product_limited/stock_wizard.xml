@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
   <data>
-    <wizard id="location_product" model="stock.location" name="stock.location.products.modified" string="Products by Location without 0 Quantity"/>
+    <wizard
+      id="location_product"
+      model="stock.location"
+      name="stock.location.products.modified"
+      string="Products by Location without 0 Quantity"/>
   </data>
 </openerp>

@@ -19,6 +19,7 @@
           <field name="debit_sum"/>
           <field name="credit_sum"/>
           <field name="balance_sum"/>
+          <field name="balance_prev_sum"/>
           <field name="company_currency_id"/>
           <field name="company_id" groups="base.group_multi_company"/>
           <field name="type"/>
