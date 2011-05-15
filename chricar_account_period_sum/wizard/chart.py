@@ -53,7 +53,7 @@ class account_chart_sum(osv.osv_memory):
                                WHERE f.id = %s
                                ORDER BY p.date_start ASC
                                LIMIT 1) AS period_start
-                UNION
+                UNION ALL
                 SELECT * FROM (SELECT p.id
                                FROM account_period p
                                LEFT JOIN account_fiscalyear f ON (p.fiscalyear_id = f.id)
@@ -66,6 +66,7 @@ class account_chart_sum(osv.osv_memory):
             if periods and len(periods) > 1:
                 start_period = periods[0]
                 end_period = periods[1]
+                res['value'] = {'period_from': start_period, 'period_to': end_period}
 
             cr.execute('''
                 SELECT * FROM (SELECT p.id
@@ -77,7 +78,7 @@ class account_chart_sum(osv.osv_memory):
                                  AND p.fiscalyear_id = pf.id
                                ORDER BY p.date_start ASC
                                LIMIT 1) AS period_prev_start
-                UNION
+                UNION ALL
                 SELECT * FROM (SELECT p.id
                                FROM account_period p,
                                     account_fiscalyear f, 
@@ -116,12 +117,11 @@ class account_chart_sum(osv.osv_memory):
         result['periods'] = []
         if data['period_from'] and data['period_to']:
             result['periods'] = period_obj.build_ctx_periods(cr, uid, data['period_from'], data['period_to'])
+            result['context'] = str({'fiscalyear': data['fiscalyear'], 'periods': result['periods']  })
         if data['period_prev_from'] and data['period_prev_to']:
             result['periods_prev'] = period_obj.build_ctx_periods(cr, uid, data['period_prev_from'], data['period_prev_to'])
             if result['periods_prev']:
                 result['context'] = str({'fiscalyear': data['fiscalyear'], 'periods': result['periods'], 'periods_prev' : result['periods_prev']  })
-            else:
-                result['context'] = str({'fiscalyear': data['fiscalyear'], 'periods': result['periods']  })
         if data['fiscalyear']:
             result['name'] += ':' + fy_obj.read(cr, uid, [data['fiscalyear']], context=context)[0]['code'] 
         if data['period_from']:
