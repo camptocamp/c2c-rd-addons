@@ -21,6 +21,7 @@
 ##############################################################################
 
 from osv import fields, osv
+import sys
 
 class account_chart_sum(osv.osv_memory):
     """
@@ -96,7 +97,7 @@ class account_chart_sum(osv.osv_memory):
                 res['value'] = {'period_from': start_period, 'period_to': end_period,'period_prev_from': start_prev_period, 'period_prev_to': end_prev_period}
         return res
 
-    def account_chart_sum_open_window(self, cr, uid, ids, context=None):
+    def account_chart_sum_open(self, cr, uid, ids, context=None):
         """
         Opens chart of Accounts
         @param cr: the current row, from the database cursor,
@@ -111,9 +112,21 @@ class account_chart_sum(osv.osv_memory):
         if context is None:
             context = {}
         data = self.read(cr, uid, ids, [], context=context)[0]
-        result = mod_obj.get_object_reference(cr, uid, 'chricar_account_period_sum', 'action_account_chart_sum')
-        id = result and result[1] or False
-        result = act_obj.read(cr, uid, [id], context=context)[0]
+
+        print >>sys.stderr, 'open', context.get('open')
+        if context.get('open')  == 'view':
+            result = mod_obj.get_object_reference(cr, uid, 'chricar_account_period_sum', 'action_account_chart_sum')
+            id = result and result[1] or False
+            result = act_obj.read(cr, uid, [id], context=context)[0]
+        elif context.get('open') == 'report':
+            #result = { 'type': 'ir.actions.report.xml', 'report_name': 'report.account_account.tree_sum','name':'Chart of Accounts '}
+            result = mod_obj.get_object_reference(cr, uid, 'chricar_account_period_sum', 'report_account_account_tree_sum')
+            id = result and result[1] or False
+            result = act_obj.read(cr, uid, [id], context=context)[0]
+            #FIXME 
+            # does not open report
+        print >>sys.stderr, 'result ', result
+
         result['periods'] = []
         if data['period_from'] and data['period_to']:
             result['periods'] = period_obj.build_ctx_periods(cr, uid, data['period_from'], data['period_to'])
@@ -136,6 +149,24 @@ class account_chart_sum(osv.osv_memory):
 
         #print >> sys.stderr, 'wiz',result
         return result
+
+     
+    def account_chart_sum_open_window(self, cr, uid, ids, context=None):
+        if context is None:
+            context = {}
+        #print >> sys.stderr, 'context before',context
+        context.update({'open':'view'})
+        #print >> sys.stderr, 'context after',context
+        return self.account_chart_sum_open( cr, uid, ids, context)
+
+    def account_chart_sum_open_report(self, cr, uid, ids, context=None):
+        if context is None:
+            context = {}
+        context.update({'open':'report'})
+        print >> sys.stderr, 'context after',context
+        return self.account_chart_sum_open( cr, uid, ids, context)
+        
+        
 
 account_chart_sum()
 
