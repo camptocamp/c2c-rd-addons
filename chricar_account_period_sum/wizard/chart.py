@@ -21,7 +21,20 @@
 ##############################################################################
 
 from osv import fields, osv
+import time
+from report import report_sxw
 
+import sys
+
+class report_webkit_html(report_sxw.rml_parse):
+    def __init__(self, cr, uid, name, context):
+        super(report_webkit_html, self).__init__(cr, uid, name, context=context)
+        self.localcontext.update({
+            'time': time,
+            'cr':cr,
+            'uid': uid,
+        })
+        
 class account_chart_sum(osv.osv_memory):
     """
     For Chart of Accounts
@@ -53,7 +66,7 @@ class account_chart_sum(osv.osv_memory):
                                WHERE f.id = %s
                                ORDER BY p.date_start ASC
                                LIMIT 1) AS period_start
-                UNION
+                UNION ALL
                 SELECT * FROM (SELECT p.id
                                FROM account_period p
                                LEFT JOIN account_fiscalyear f ON (p.fiscalyear_id = f.id)
@@ -66,6 +79,7 @@ class account_chart_sum(osv.osv_memory):
             if periods and len(periods) > 1:
                 start_period = periods[0]
                 end_period = periods[1]
+                res['value'] = {'period_from': start_period, 'period_to': end_period}
 
             cr.execute('''
                 SELECT * FROM (SELECT p.id
@@ -77,7 +91,7 @@ class account_chart_sum(osv.osv_memory):
                                  AND p.fiscalyear_id = pf.id
                                ORDER BY p.date_start ASC
                                LIMIT 1) AS period_prev_start
-                UNION
+                UNION ALL
                 SELECT * FROM (SELECT p.id
                                FROM account_period p,
                                     account_fiscalyear f, 
@@ -92,10 +106,10 @@ class account_chart_sum(osv.osv_memory):
             if periods_prev and len(periods_prev) > 1:
                 start_prev_period = periods_prev[0]
                 end_prev_period = periods_prev[1]
-            res['value'] = {'period_from': start_period, 'period_to': end_period,'period_prev_from': start_prev_period, 'period_prev_to': end_prev_period}
+                res['value'] = {'period_from': start_period, 'period_to': end_period,'period_prev_from': start_prev_period, 'period_prev_to': end_prev_period}
         return res
 
-    def account_chart_sum_open_window(self, cr, uid, ids, context=None):
+    def account_chart_sum_open(self, cr, uid, ids, context=None):
         """
         Opens chart of Accounts
         @param cr: the current row, from the database cursor,
@@ -105,20 +119,35 @@ class account_chart_sum(osv.osv_memory):
         """
         mod_obj = self.pool.get('ir.model.data')
         act_obj = self.pool.get('ir.actions.act_window')
+        rep_obj = self.pool.get('ir.actions.report.xml')
         period_obj = self.pool.get('account.period')
         fy_obj = self.pool.get('account.fiscalyear')
         if context is None:
             context = {}
         data = self.read(cr, uid, ids, [], context=context)[0]
-        result = mod_obj.get_object_reference(cr, uid, 'chricar_account_period_sum', 'action_account_chart_sum')
-        id = result and result[1] or False
-        result = act_obj.read(cr, uid, [id], context=context)[0]
+
+        print >>sys.stderr, 'open', context.get('open')
+        if context.get('open')  == 'view':
+            result = mod_obj.get_object_reference(cr, uid, 'chricar_account_period_sum', 'action_account_chart_sum')
+            id = result and result[1] or False
+            result = act_obj.read(cr, uid, [id], context=context)[0]
+        elif context.get('open') == 'report':
+            #result = { 'type': 'ir.actions.report.xml', 'report_name': 'report.account_account.tree_sum','name':'Chart of Accounts '}
+            result = mod_obj.get_object_reference(cr, uid, 'chricar_account_period_sum', 'report_account_account_tree_sum')
+            id = result and result[1] or False
+            result = rep_obj.read(cr, uid, [id], context=context)[0]
+            #FIXME 
+            # does not open report
+        print >>sys.stderr, 'result ', result
+
         result['periods'] = []
         if data['period_from'] and data['period_to']:
             result['periods'] = period_obj.build_ctx_periods(cr, uid, data['period_from'], data['period_to'])
+            result['context'] = str({'fiscalyear': data['fiscalyear'], 'periods': result['periods']  })
         if data['period_prev_from'] and data['period_prev_to']:
             result['periods_prev'] = period_obj.build_ctx_periods(cr, uid, data['period_prev_from'], data['period_prev_to'])
-        result['context'] = str({'fiscalyear': data['fiscalyear'], 'periods': result['periods'], 'periods_prev' : result['periods_prev']  })
+            if result['periods_prev']:
+                result['context'] = str({'fiscalyear': data['fiscalyear'], 'periods': result['periods'], 'periods_prev' : result['periods_prev']  })
         if data['fiscalyear']:
             result['name'] += ':' + fy_obj.read(cr, uid, [data['fiscalyear']], context=context)[0]['code'] 
         if data['period_from']:
@@ -133,6 +162,31 @@ class account_chart_sum(osv.osv_memory):
 
         #print >> sys.stderr, 'wiz',result
         return result
+
+     
+    def account_chart_sum_open_window(self, cr, uid, ids, context=None):
+        if context is None:
+            context = {}
+        #print >> sys.stderr, 'context before',context
+        context.update({'open':'view'})
+        #print >> sys.stderr, 'context after',context
+        return self.account_chart_sum_open( cr, uid, ids, context)
+
+    def account_chart_sum_open_report(self, cr, uid, ids, context=None):
+        if context is None:
+            context = {}
+        context.update({'open':'report'})
+        print >> sys.stderr, 'context after',context
+        res= self.account_chart_sum_open( cr, uid, ids, context)
+        print >> sys.stderr, 'after res', res
+
+        report_sxw.report_sxw('report.account_account.tree_sum_1',
+                       'account.account', 
+                       'addons/chricar_account_period_sum/report/report_account_account_tree_sum.mako',
+                       parser=report_webkit_html)
+
+        return 
+           
 
 account_chart_sum()
 

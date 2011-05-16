@@ -30,6 +30,11 @@
               name="account_chart_sum_open_window"
               string="Open Charts"
               type="object"/>
+            <button
+              icon="gtk-print"
+              name="account_chart_sum_open_report"
+              string="Print Chart (not working yet)"
+              type="object"/>
           </group>
         </form>
       </field>

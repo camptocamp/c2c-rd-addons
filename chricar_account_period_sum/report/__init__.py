@@ -21,9 +21,4 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
-import chricar_account_period_sum
-import chricar_account_period_sum_trg
-import chricar_account_period_sum_period_name
-import chricar_account
-import wizard
-import report
+import report_webkit_html

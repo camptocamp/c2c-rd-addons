@@ -100,11 +100,6 @@ class payment_order(osv.osv) :
             )
     # end def _address
 
-    def _invoice_customer_data(self) :
-        invoice_obj = self.pool.get('account.invoice')
-        return invoice_obj._columns.has_key("customer_data")
-    # end def _invoice_customer_data
-
     def _u2a(self, text) :
         if not text : return ""
         txt = ""
@@ -118,14 +113,6 @@ class payment_order(osv.osv) :
         return txt
     # end def _u2a
 
-    def _strip(self, text) :
-        result = text
-        txt = "/.+:'"
-        for c in txt:
-            result = result.replace(c, "")
-        return result
-    # end def _strip
-
     def action_open(self, cr, uid, ids, *args):
         result = True
         result = super(payment_order, self).action_open(cr, uid, ids, args)
@@ -138,27 +125,27 @@ class payment_order(osv.osv) :
     # end def get_wizard
 
     def _line(self, l, interntl) :
-        s = []
-        s.append("SEQ++%(seq)s'" % l)
-        s.append("MOA+9:%(amount)s:%(currency)s'" % l)
-        if l['move_name'] :
-            s.append("RFF+PQ:%(move_name)s'" % l)
-        if l['customer_data'] :
-            s.append("RFF+AEF:%(customer_data)s'" % l)
+        s = ""
+        s += ("SEQ++%(seq)s'" % l)
+        s += ("MOA+9:%(amount)s:%(currency)s'" % l)
+        s += ("RFF+PQ:%(move_name)s'" % l)
         if interntl :
-            s.append("FCA+%(fca)s'" % l)
-            s.append("FII+BF+%(iban)s:%(name)s+%(bic)s:25:5'" % l)
+            s += ("FCA+%(fca)s'" % l)
+            s += ("FII+BF+%(iban)s:%(name)s+%(bic)s:25:5'" % l)
         else :
-            s.append("FII+BF+%(account)s:%(name)s+%(blz)s:25:137+%(bank_country)s'" % l) # sgr12
-        s.append("NAD+BE+++%(name)s+%(street)s+%(city)s+%(zip)s+%(country)s'" % l) # sgr3
-        s.append("PRC+11'")
-        s.append("FTX+PMD+++%(reference)s'" % l)
+            s += ("FII+BF+%(account)s:%(name)s+%(blz)s:25:137+%(bank_country)s'" % l) # sgr12
+        s += ("NAD+BE+++%(name)s+%(street)s+%(city)s+%(zip)s+%(country)s'" % l) # sgr3
+        s += ("PRC+11'")
+        if l['reference'] != l['move_name'] :
+            s += ("FTX+PMD+++%(reference)s'" % l)
+        else :
+            s += ("FTX+PMD+++'" % l)
         return s
     # end def _line
     
     def _region(self, order, banks, i, area_code):
         partner_bank_obj = self.pool.get('res.partner.bank')
-        s = []
+        s = ""
         for p_bank, lines in banks.iteritems() :
             if p_bank.state == "iban"  :
                 iban    = p_bank.iban.replace(" ", "").upper()
@@ -175,26 +162,18 @@ class payment_order(osv.osv) :
             if [l for l in lines if l.amount <= 0.0] :
                 line = lines[0]
                 i += 1
+                invoice   = line.move_line_id.invoice
                 a = sum(l.amount for l in lines)
-                own_ref = []
-                customer_ref = []
-                for l in lines :
-                    invoice   = l.move_line_id.invoice
-                    if invoice.number :
-                        invoice_number = self._u2a(self._strip(invoice.number)).upper()
-                        own_ref.append(invoice_number)
-                    if invoice.reference :
-                        own_ref.append(self._u2a(invoice.reference).upper())
-                    if l.communication != "/" :
-                        customer_ref.append(self._u2a(l.communication).upper())
-                    if l.communication2 :
-                        customer_ref.append(self._u2a(l.communication2).upper())
-                    if not customer_ref :
-                        raise osv.except_osv \
-                            ( _('Data Error !')
-                            , _('A descriptive text for the payment is missing')
-                            )
-                    
+                # XXX put maximum info here - strip CN and year
+                # XXX GK this no general solution!
+                reference = self._u2a \
+                    (", ".join
+                        ("%s%s" % 
+                            (invoice.number, "" if not invoice.reference else (" " + invoice.reference)
+                            ) for l in lines
+                        )
+                    )[0:70]
+                move_name = self._u2a(", ".join(l.move_line_id.name for l in lines))[0:35]
                 p_address = self._address(line.partner_id, ['invoice', 'default', False])
                 l = \
                     { 'seq'       : "%s" % i
@@ -206,41 +185,25 @@ class payment_order(osv.osv) :
                     , 'bic'       : bic
                     , 'blz'       : blz
                     , 'currency'  : line.currency.name
-                    , 'move_name' : (" ".join(customer_ref))[0:35]
-                    , 'customer_data' : None
+                    , 'move_name' : move_name
                     , 'fca'       : order.mode.type.charges_alloc
                     , 'name'      : self._u2a(line.partner_id.name).upper()[0:35]
                     , 'street'    : self._u2a(p_address.street).upper()[0:35]
                     , 'city'      : self._u2a(p_address.city).upper()[0:35]
                     , 'zip'       : self._u2a(p_address.zip).upper()[0:9]
                     , 'country'   : p_address.country_id.code or ""
-                    , 'reference' : (" ".join(own_ref))[0:70]
+                    , 'reference' : reference
                     }
-                s.extend(self._line(l, area_code == 'IN'))
+                s += self._line(l, area_code == 'IN')
             else :
                 for line in lines :
                     i += 1
                     invoice   = line.move_line_id.invoice
-                    own_ref = []
-                    customer_ref = []
-                    customer_data = None
-                    if invoice.number :
-                        invoice_number = self._u2a(self._strip(invoice.number)).upper()
-                        own_ref.append(invoice_number)
-                    if invoice.reference :
-                        own_ref.append(self._u2a(invoice.reference).upper())
-                    if line.communication != "/" :
-                        customer_ref.append(self._u2a(line.communication).upper())
-                    if line.communication2 :
-                        customer_ref.append(self._u2a(line.communication2).upper())
-                    if self._invoice_customer_data() and invoice.customer_data :
-                        customer_data = invoice.customer_data[0:12]
-                    if not (customer_ref or customer_data) :
-                        raise osv.except_osv \
-                            ( _('Data Error !')
-                            , _('A descriptive text for the payment is missing')
-                            )
-
+                    reference = self._u2a \
+                        ( line.communication
+                        + ((" " + line.communication2 if line.communication2 else ""))
+                        + ((" " + invoice.reference if invoice.reference else ""))
+                        )[0:70]
                     p_address = self._address(line.partner_id, ['invoice', 'default', False])
                     l = \
                         { 'seq'       : "%s" % i
@@ -252,17 +215,16 @@ class payment_order(osv.osv) :
                         , 'bic'       : bic
                         , 'blz'       : blz
                         , 'currency'  : line.currency.name
-                        , 'move_name' : (" ".join(customer_ref))[0:28] # smaller for AEF
-                        , 'customer_data' : customer_data
+                        , 'move_name' : self._u2a(line.move_line_id.name)[0:35]
                         , 'fca'       : order.mode.type.charges_alloc
                         , 'name'      : self._u2a(line.partner_id.name).upper()[0:35]
                         , 'street'    : self._u2a(p_address.street).upper()[0:35]
                         , 'city'      : self._u2a(p_address.city).upper()[0:35]
                         , 'zip'       : self._u2a(p_address.zip).upper()[0:9]
                         , 'country'   : p_address.country_id.code or ""
-                        , 'reference' : (" ".join(own_ref))[0:70]
+                        , 'reference' : reference
                         }
-                    s.extend(self._line(l, area_code == 'IN'))
+                    s += self._line(l, area_code == 'IN')
         return s
     # end def _region
 
@@ -293,12 +255,11 @@ class payment_order(osv.osv) :
                 )
             if att_ids :
                 attachment_obj.unlink(cr, uid, att_ids, context=context)
-            ref     = self._strip(order.reference).upper()
+            ref     = order.reference.replace("/", "").replace(".", "").replace("+", "").replace(":", "").upper()
             refkey  = ref
             refname = time.strftime("%Y%m%d%H%M%S")
             company_name = self._u2a(company.name).upper()[0:35]
             address = self._address(company.partner_id, ['invoice', 'default', False])
-            country = address.country_id.code or ""
             bank    = order.mode.bank_id
             if not bank.bank.bic :
                 raise osv.except_osv \
@@ -360,48 +321,41 @@ class payment_order(osv.osv) :
                             )
             for area_code, banks in regions.iteritems() :
                 if len(banks) == 0 : continue
-                today = time.strftime("%Y%m%d")
-                for p_bank, lines in banks.iteritems() :
-                    dates = list(time.strftime("%Y%m%d", time.strptime(l.date, "%Y-%m-%d")) for l in lines if l.date)
-                    if dates :
-                        payment_date = min(dates)
-                        payment_date = max(today, payment_date)
-                    else : 
-                        payment_date = today
-                i = 0
-                s = []
-                s.append("UNA:+.? '")
-                s.append("UNB+UNOC:3+%s+%s+%s:%s+%s++PAYMUL'" % (company_name, bic, time.strftime("%y%m%d"), time.strftime("%H%M"),refkey))
-                s.append("UNH+%s+PAYMUL:D:96A:UN:FAT01G'" % refname)
-                s.append("BGM+452+%s+9'" % ref)
-                s.append("DTM+137:%s:203'" % (time.strftime("%Y%m%d%H%M%S")))
-                s.append("FII+MR+%s'" % iban) # sgr2 # xxx
-                s.append("NAD+MS+++%s+%s+%s++%s+%s'" % (company_name, street, city, zip, country)) # sgr3
-                s.append("LIN+1'") # sgr4
-                s.append("DTM+203:%s:102'" % (payment_date))
-                s.append("RFF+AEK:%s'" % ref)
-                s.append("BUS++%s++TRF'" % area_code)
-                s.append("MOA+9:%s:%s'" % (amount, currency_name))
-                s.append("FII+OR+%s:%s::%s'" % (iban, company_name, currency_name))
-                s.append("NAD+OY+++%s+%s+%s+%s+%s'" % (company_name, street, city, zip, country)) # sgr3
-                s.extend(self._region(order, banks, i, area_code))
+                i = 0  
+                s = ""
+                s += ("UNA:+.? '")
+                s += ("UNB+UNOC:3+%s+%s+%s:%s+%s++PAYMUL'" % (company_name, bic, time.strftime("%y%m%d"), time.strftime("%H%M"),refkey))
+                s += ("UNH+%s+PAYMUL:D:96A:UN:FAT01G'" % refname)
+                s += ("BGM+452+%s+9'" % ref)
+                s += ("DTM+137:%s:203'" % (time.strftime("%Y%m%d%H%M%S")))
+                s += ("FII+MR+%s'" % iban) # sgr2 # xxx
+                s += ("NAD+MS+++%s+%s+%s++%s+%s'" % (company_name, street, city, zip, address.country_id.code)) # sgr3
+                s += ("LIN+1'") # sgr4
+                s += ("DTM+203:%s:102'" % (time.strftime("%Y%m%d")))
+                s += ("RFF+AEK:%s'" % ref)
+                s += ("BUS++%s++TRF'" % area_code)
+                s += ("MOA+9:%s:%s'" % (amount, currency_name))
+                s += ("FII+OR+%s:%s::%s'" % (iban, company_name, currency_name))
+                s += ("NAD+OY+++%s+%s+%s+%s+%s'" % (company_name, street, city, zip, address.country_id.code)) # sgr3
+                s += self._region(order, banks, i, area_code)
                 i += self._line_count(banks)
-                s.append("CNT+1:%s'" % amount)
-                s.append("CNT+2:1'")
-                s.append("CNT+39:%s'" % i)
-                t = "".join(s)
-                t += ("UNT+%s+%s'" % (len(s)-1, refname))
-                t += ("UNZ+1+%s'" % refkey)
+                s += ("CNT+1:%s'" % amount)
+                s += ("CNT+2:1'")
+                s += ("CNT+39:%s'" % i)
+                s += ("UNT+%s+%s'" % (i * (8 if area_code == "IN" else 7) + 16, refname))
+                s += ("UNZ+1+%s'" % refkey)
+                print
+                print s
+                print
                 vals = \
                     { 'name'        : "%s_%s" % (area_code, ref)
-                    , 'datas'       : base64.encodestring(t)
+                    , 'datas'       : base64.encodestring(s)
                     , 'datas_fname' : "%s_%s.txt" % (area_code, ref)
                     , 'res_model'   : order._table_name
                     , 'res_id'      : order.id
                     , 'description' : description
                     }
                 attachment_obj.create(cr, uid, vals, context=context)
-                print "EDIFACT ", t ####################
     # end def generate_edifact
 # end class payment_order
 payment_order()

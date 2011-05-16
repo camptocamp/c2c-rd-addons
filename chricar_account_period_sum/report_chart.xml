@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <report
+      auto="False"
+      file="chricar_account_period_sum/report/report_account_account_tree_sum.mako"
+      id="report_account_account_tree_sum"
+      model="account.account"
+      name="report.account_account_tree_sum"
+      report_type="webkit"
+      string="Account Chart Sum"/>
+  </data>
+</openerp>
