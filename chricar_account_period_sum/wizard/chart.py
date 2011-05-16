@@ -107,6 +107,7 @@ class account_chart_sum(osv.osv_memory):
         """
         mod_obj = self.pool.get('ir.model.data')
         act_obj = self.pool.get('ir.actions.act_window')
+        rep_obj = self.pool.get('ir.actions.report.xml')
         period_obj = self.pool.get('account.period')
         fy_obj = self.pool.get('account.fiscalyear')
         if context is None:
@@ -122,7 +123,7 @@ class account_chart_sum(osv.osv_memory):
             #result = { 'type': 'ir.actions.report.xml', 'report_name': 'report.account_account.tree_sum','name':'Chart of Accounts '}
             result = mod_obj.get_object_reference(cr, uid, 'chricar_account_period_sum', 'report_account_account_tree_sum')
             id = result and result[1] or False
-            result = act_obj.read(cr, uid, [id], context=context)[0]
+            result = rep_obj.read(cr, uid, [id], context=context)[0]
             #FIXME 
             # does not open report
         print >>sys.stderr, 'result ', result
