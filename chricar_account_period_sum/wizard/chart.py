@@ -180,12 +180,28 @@ class account_chart_sum(osv.osv_memory):
         res= self.account_chart_sum_open( cr, uid, ids, context)
         print >> sys.stderr, 'after res', res
 
-        report_sxw.report_sxw('report.account_account.tree_sum_1',
-                       'account.account', 
-                       'addons/chricar_account_period_sum/report/report_account_account_tree_sum.mako',
-                       parser=report_webkit_html)
+        ##print  >> sys.stderr, 'webkit',  report_sxw.report_sxw('report.account_account.tree_sum',
+        ##               'account.account', 
+        ##               'addons/chricar_account_period_sum/report/report_account_account_tree_sum.mako',
+        ##               parser=report_webkit_html)
 
-        return 
+        data = self.read(cr, uid, ids, [], context=context)[0]
+
+        datas = {
+             'ids': [],
+             'model': 'account.account',
+             'form': data
+        }
+        print >> sys.stderr, 'report datas', datas
+       
+            #'report_name': 'account_account.tree_sum',
+            #'report_name': 'account.account.chart.report',
+        return {
+            'type': 'ir.actions.report.xml',
+            'report_name': 'account_account.tree_sum',
+            'datas': datas,
+        }
+
            
 
 account_chart_sum()

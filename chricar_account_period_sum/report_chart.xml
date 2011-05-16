@@ -6,8 +6,8 @@
       file="chricar_account_period_sum/report/report_account_account_tree_sum.mako"
       id="report_account_account_tree_sum"
       model="account.account"
-      name="report.account_account_tree_sum"
+      name="report.account_account.tree_sum"
       report_type="webkit"
-      string="Account Chart Sum"/>
+      string="Account Chart Sum Test"/>
   </data>
 </openerp>
