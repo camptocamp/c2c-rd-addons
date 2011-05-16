@@ -21,8 +21,20 @@
 ##############################################################################
 
 from osv import fields, osv
+import time
+from report import report_sxw
+
 import sys
 
+class report_webkit_html(report_sxw.rml_parse):
+    def __init__(self, cr, uid, name, context):
+        super(report_webkit_html, self).__init__(cr, uid, name, context=context)
+        self.localcontext.update({
+            'time': time,
+            'cr':cr,
+            'uid': uid,
+        })
+        
 class account_chart_sum(osv.osv_memory):
     """
     For Chart of Accounts
@@ -165,9 +177,16 @@ class account_chart_sum(osv.osv_memory):
             context = {}
         context.update({'open':'report'})
         print >> sys.stderr, 'context after',context
-        return self.account_chart_sum_open( cr, uid, ids, context)
-        
-        
+        res= self.account_chart_sum_open( cr, uid, ids, context)
+        print >> sys.stderr, 'after res', res
+
+        report_sxw.report_sxw('report.account_account.tree_sum_1',
+                       'account.account', 
+                       'addons/chricar_account_period_sum/report/report_account_account_tree_sum.mako',
+                       parser=report_webkit_html)
+
+        return 
+           
 
 account_chart_sum()
 
