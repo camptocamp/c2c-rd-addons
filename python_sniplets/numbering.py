@@ -9,26 +9,19 @@ def numbering(base=None,num=None):
        num += 1
        yield base+str(num)+'.'
        
-def up():
+def new_level(param):
     global genobj
-    val = genobj.next() 
+    val = genobj.next()
     base= val[0:val.rfind('.')-1]
-    num=  base[base.rfind('.')-1:].rstrip('.')
-    base= base[0:base.rfind('.')-1]
-    genobj=numbering(base,num)
+    if param == 'up':
+       num=  base[base.rfind('.')-1:].rstrip('.')
+       base= base[0:base.rfind('.')-1]
+       genobj=numbering(base,num)
+    elif param == 'down':
+       num=  val[val.rfind('.')-1:].rstrip('.')
+       num = str(int(num)-1)
+       genobj=numbering(base+num+'.')
     return genobj.next()
-
-     
-def down():
-    global genobj
-    val = genobj.next() 
-    base= val[0:val.rfind('.')-1]
-    num=  val[val.rfind('.')-1:].rstrip('.')
-    num = str(int(num)-1)
-    genobj=numbering(base+num+'.')
-    return genobj.next()
-
-
 
 genobj=numbering()
 
@@ -46,10 +39,10 @@ def check_level(level):
     if level == level_last:
         res=genobj.next()
     elif level > level_last:
-        res=down()
+        res=new_level('down')
     else :
         while level < level_last:
-            res=up()
+            res=new_level('up')
             level_last -= 1
     levelobj = level_current(level)
     return res
