@@ -33,7 +33,7 @@ def level_current(level=None):
 
 levelobj = level_current()
 
-def check_level(level):
+def get_structure(level):
     global levelobj
     level_last = levelobj.next()
     if level == level_last:
@@ -47,19 +47,19 @@ def check_level(level):
     levelobj = level_current(level)
     return res
         
-
-print 'l 1:',check_level(1)
-print 'l 1:',check_level(1)
-print 'l 2:',check_level(2),'down'
-print 'l 2:',check_level(2)
-print 'l 2:',check_level(2)
-print 'l 3:',check_level(3),'down'
-print 'l 3:',check_level(3)
-print 'l 3:',check_level(3)
-print 'l 4:',check_level(4),'down'
-print 'l 3:',check_level(3),'up'
-print 'l 1:',check_level(1),'up'
-print 'l 2:',check_level(2),'down'
+# test data
+print 'l 1:',get_structure(1)
+print 'l 1:',get_structure(1)
+print 'l 2:',get_structure(2),'down'
+print 'l 2:',get_structure(2)
+print 'l 2:',get_structure(2)
+print 'l 3:',get_structure(3),'down'
+print 'l 3:',get_structure(3)
+print 'l 3:',get_structure(3)
+print 'l 4:',get_structure(4),'down'
+print 'l 3:',get_structure(3),'up'
+print 'l 1:',get_structure(1),'up'
+print 'l 2:',get_structure(2),'down'
 
 
 
