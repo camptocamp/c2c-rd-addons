@@ -1,68 +1,73 @@
-
-def numbering(flag,val=None):
+def numbering(base=None,num=None):
+    if not base:
+       base =''
+    if num:
+       num = int(num.rstrip('.'))
+    else:
+       num = 0
+    while 1==1:
+       num += 1
+       yield base+str(num)+'.'
        
-   if not val and flag == 'init' :
-      val = '1.'
-   elif flag == 'next':
-      v = val.rsplit('.')
-      s = v[-2] 
-      b = val.rstrip('.')
-      b = b.rstrip(s)
-      val = b+str(int(s)+1)+'.'
+def up():
+    global genobj
+    val = genobj.next() 
+    base= val[0:val.rfind('.')-1]
+    num=  base[base.rfind('.')-1:].rstrip('.')
+    base= base[0:base.rfind('.')-1]
+    genobj=numbering(base,num)
+    return genobj.next()
 
-   elif flag == 'down':
-      val = val + '1.'
+     
+def down():
+    global genobj
+    val = genobj.next() 
+    base= val[0:val.rfind('.')-1]
+    num=  val[val.rfind('.')-1:].rstrip('.')
+    num = str(int(num)-1)
+    genobj=numbering(base+num+'.')
+    return genobj.next()
 
-   elif flag == 'up':
-      v = val.rsplit('.')
-      s = v[-2]
-      b = val.rstrip('.')
-      val = b.rstrip(s)
-      val = numbering('next',val)
 
-   return val
 
-val = numbering('init')
-print 'init',val
-val = numbering('next',val)
-print 'next',val
-val = numbering('down',val)
-print 'down',val
-val = numbering('next',val)
-print 'next',val
-val = numbering('down',val)
-print 'down',val
-val = numbering('next',val)
-print 'next',val
-val = numbering('next',val)
-print 'next',val
-val = numbering('down',val)
-print 'down',val
-val = numbering('next',val)
-print 'next',val
-val = numbering('up',val)
-print 'up  ',val
-val = numbering('next',val)
-print 'next',val
-val = numbering('down',val)
-print 'down',val
-val = numbering('down',val)
-print 'down',val
-val = numbering('next',val)
-print 'next',val
-val = numbering('up',val)
-print 'up  ',val
-val = numbering('up',val)
-print 'up  ',val
-val = numbering('next',val)
-print 'next',val
-val = numbering('next',val)
-print 'next',val
-val = numbering('next',val)
-print 'next',val
-val = numbering('next',val)
-print 'next',val
-val = numbering('next',val)
-print 'next',val
-val = numbering('down',val)
-print 'down',val
+genobj=numbering()
+
+def level_current(level=None):
+    if not level:
+       level = 1  
+    while  1 == 1:
+       yield level
+
+levelobj = level_current()
+
+def check_level(level):
+    global levelobj
+    level_last = levelobj.next()
+    if level == level_last:
+        res=genobj.next()
+    elif level > level_last:
+        res=down()
+    else :
+        while level < level_last:
+            res=up()
+            level_last -= 1
+    levelobj = level_current(level)
+    return res
+        
+
+print 'l 1:',check_level(1)
+print 'l 1:',check_level(1)
+print 'l 2:',check_level(2),'down'
+print 'l 2:',check_level(2)
+print 'l 2:',check_level(2)
+print 'l 3:',check_level(3),'down'
+print 'l 3:',check_level(3)
+print 'l 3:',check_level(3)
+print 'l 4:',check_level(4),'down'
+print 'l 3:',check_level(3),'up'
+print 'l 1:',check_level(1),'up'
+print 'l 2:',check_level(2),'down'
+
+
+
+
