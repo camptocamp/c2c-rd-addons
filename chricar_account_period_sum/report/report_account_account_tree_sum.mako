@@ -2,6 +2,9 @@
   <head/>
   <body>
 
+<%
+chapter.__init__()
+%>
 
     <p>
       <b> Account-Chart Sum </b>
@@ -11,6 +14,7 @@
      <thead>
         <tr>
           <td>Level</td>
+          <td>Chapter</td>
           <td>Code</td>
           <td>Name</td>
           <td align="right">Debit</td>
@@ -24,6 +28,11 @@
      <tbody>
         <tr>
           <td>${account.level or ''|entity}  </td>
+          <td>
+              %if account.type == 'view':
+                 ${chapter.get_structure(account.level) or ''|entity}
+              %endif  
+          </td>
           <td>${account.code or ''|entity}  </td>
           <td>${account.name or ''|entity}  </td>
           <td align="right">${account.debit or ''|entity} </td>
