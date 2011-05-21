@@ -75,7 +75,16 @@ class account_account(osv.osv):
             #filters = " AND ".join(wheres)
             # self.logger.notifyChannel('addons.'+self._name, netsvc.LOG_DEBUG,'Filters: %s'%filters)
             #filters = ' AND period_id in ( select id from account_period where fiscalyear_id = %s ) ' % context.get('fiscalyear', False) 
-            periods = context.get('periods', False)
+            if context.get('periods', False):
+                periods = context.get('periods', False)
+            else:
+               # default if startet without form
+               date = time.strftime('%Y-%m-%d')
+               fiscalyear_pool = self.pool.get('account.fiscalyear')
+               fy_id = fiscalyear_pool.search(cr, uid, [('date_start','<=',date), ('date_stop','>=',date)])
+               period_pool = self.pool.get('account.period')
+               periods = period_pool.search(cr, uid, [('fiscalyear_id','=',fy_id)])
+            
             self.logger.notifyChannel('addons.'+self._name, netsvc.LOG_DEBUG,'Periods: %s'%periods)
             # FIXME - tuple must not return ',' if only one period is available - period_id in ( p,) should be period_id in ( p )
             filters = ' AND period_id in %s ' % (tuple(periods),)
@@ -175,13 +184,17 @@ class account_account(osv.osv):
             #    wheres.append(aml_query.strip())
             #filters = " AND ".join(wheres)
             #self.logger.notifyChannel('addons.'+self._name, netsvc.LOG_DEBUG,'Filters: %s'%filters)
-            if  context.get('periods_prev', False):
+            if context.get('periods_prev', False):
                 periods_prev = context.get('periods_prev', False)
-                # FIXME - tuple must not return ',' if only one period is available - period_id in ( p,) should be period_id in ( p )
-                filters = ' AND period_id in %s ' % (tuple(periods_prev),)
             else:
-                filters = ' AND 1=2 ' # return no data
+               # default if startet without form
+               date = (datetime.today() + relativedelta(years=-1)).strftime('%Y-%m-%d')
+               fiscalyear_pool = self.pool.get('account.fiscalyear')
+               fy_id = fiscalyear_pool.search(cr, uid, [('date_start','<=',date), ('date_stop','>=',date)])
+               period_pool = self.pool.get('account.period')
+               periods_prev = period_pool.search(cr, uid, [('fiscalyear_id','=',fy_id),('date_stop','<=',date)])
             #self.logger.notifyChannel('addons.'+self._name, netsvc.LOG_DEBUG,'Filters: %s'%filters)
+            filters = ' AND period_id in %s ' % (tuple(periods_prev),)
             # IN might not work ideally in case there are too many
             # children_and_consolidated, in that case join on a
             # values() e.g.:

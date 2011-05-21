@@ -17,9 +17,11 @@ chapter.__init__()
           <td>Chapter</td>
           <td>Code</td>
           <td>Name</td>
+          <td align="right">Opening Balance</td>
           <td align="right">Debit</td>
           <td align="right">Credit</td>
           <td align="right">Balance</td>
+          <td align="right">Balance Prev</td>
         </tr>
       </thead>
 
@@ -35,9 +37,11 @@ chapter.__init__()
           </td>
           <td>${account.code or ''|entity}  </td>
           <td>${account.name or ''|entity}  </td>
-          <td align="right">${account.debit or ''|entity} </td>
-          <td align="right">${account.credit or ''|entity} </td>
-          <td align="right">${account.balance or ''|entity} </td>
+          <td align="right">${account.opening_balance_sum or ''|entity} </td>
+          <td align="right">${account.debit_sum or ''|entity} </td>
+          <td align="right">${account.credit_sum or ''|entity} </td>
+          <td align="right">${account.balance_sum or ''|entity} </td>
+          <td align="right">${account.balance_prev_sum or ''|entity} </td>
         </tr>
       </tbody>
  %endfor
