@@ -194,7 +194,10 @@ class account_account(osv.osv):
                period_pool = self.pool.get('account.period')
                periods_prev = period_pool.search(cr, uid, [('fiscalyear_id','=',fy_id),('date_stop','<=',date)])
             #self.logger.notifyChannel('addons.'+self._name, netsvc.LOG_DEBUG,'Filters: %s'%filters)
-            filters = ' AND period_id in %s ' % (tuple(periods_prev),)
+            if periods_prev and len(periods_prev) > 0:
+               filters = ' AND period_id in %s ' % (tuple(periods_prev),)
+            else:
+               filters = ' AND 1=2'
             # IN might not work ideally in case there are too many
             # children_and_consolidated, in that case join on a
             # values() e.g.:
