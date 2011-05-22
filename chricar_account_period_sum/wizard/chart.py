@@ -49,6 +49,7 @@ class account_chart_sum(osv.osv_memory):
         'period_to': fields.many2one('account.period', 'End period'),
         'period_prev_from': fields.many2one('account.period', 'Start period prev FY'),
         'period_prev_to': fields.many2one('account.period', 'End period prev FY'),
+        'print_all_zero': fields.boolean('Print lines with all zero'),
 
     }
     
@@ -106,7 +107,7 @@ class account_chart_sum(osv.osv_memory):
             if periods_prev and len(periods_prev) > 1:
                 start_prev_period = periods_prev[0]
                 end_prev_period = periods_prev[1]
-                res['value'] = {'period_from': start_period, 'period_to': end_period,'period_prev_from': start_prev_period, 'period_prev_to': end_prev_period}
+                res['value'] = {'period_from': start_period, 'period_to': end_period,'period_prev_from': start_prev_period, 'period_prev_to': end_prev_period, 'print_all_zero':print_all_zero}
         return res
 
     def account_chart_sum_open(self, cr, uid, ids, context=None):

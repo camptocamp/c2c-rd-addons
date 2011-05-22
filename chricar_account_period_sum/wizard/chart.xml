@@ -18,6 +18,8 @@
             <separator string="Periods Prev Year" colspan="4"/>
             <field name="period_prev_from"/>
             <field name="period_prev_to"/>
+            <separator string="other" colspan="4"/>
+            <field name="print_all_zero"/>
           </group>
           <separator string="" colspan="4"/>
           <group colspan="4" col="6">

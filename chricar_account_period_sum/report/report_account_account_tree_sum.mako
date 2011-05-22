@@ -35,7 +35,8 @@ chapter.__init__()
 
  %for account in objects :
      <tbody >
-        <tr>
+              %if (account.balance_sum !=0 or account.debit_sum !=0 or account.credit_sum !=0 or account.balance_prev_sum !=0):
+              <tr>
           <td>${account.level or ''|entity}  </td>
           <td>
               %if account.type == 'view':
@@ -43,13 +44,21 @@ chapter.__init__()
               %endif  
           </td>
           <td>${account.code or ''|entity}  </td>
-          <td>${account.name or ''|entity}  </td>
+          <td>
+              %if account.type == 'view' :
+                <b>
+              %endif
+               ${account.name or ''|entity}  </td>
+              %if account.type == 'view' :
+                </b>
+              %endif
           <td align=right NOWRAP>${formatLang(account.opening_balance_sum)  or ''|entity} </td>
           <td align=right NOWRAP>${formatLang(account.debit_sum) or ''|entity} </td>
           <td align=right NOWRAP>${formatLang(account.credit_sum) or ''|entity} </td>
           <td align=right NOWRAP>${formatLang(account.balance_sum) or ''|entity} </td>
-          <td align=right NOWRAP>${account.balance_prev_sum or ''|entity} </td>
+          <td align=right NOWRAP>${formatLang(account.balance_prev_sum) or ''|entity} </td>
         </tr>
+            %endif
       </tbody>
  %endfor
     </table>
