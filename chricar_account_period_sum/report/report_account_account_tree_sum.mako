@@ -1,17 +1,24 @@
 <html>
-  <head/>
+<head>
+                <b>Account-Chart Sum</b>
+</head>
+
   <body>
+    <style>
+     table {
+       border-collapse: collapse;
+       cellspacing="0"
+           }
+     td {margin: 0px; padding: 3px; border: 1px solid grey; }
+    </style> 
 
 <%
 chapter.__init__()
 %>
 
-    <p>
-      <b> Account-Chart Sum </b>
-    </p>
+    <table  >
 
-    <table class="basic_table" width="90%" style="text-align:left">
-     <thead>
+     <thead >
         <tr>
           <td>Level</td>
           <td>Chapter</td>
@@ -27,7 +34,7 @@ chapter.__init__()
 
 
  %for account in objects :
-     <tbody>
+     <tbody >
         <tr>
           <td>${account.level or ''|entity}  </td>
           <td>
@@ -37,16 +44,15 @@ chapter.__init__()
           </td>
           <td>${account.code or ''|entity}  </td>
           <td>${account.name or ''|entity}  </td>
-          <td align="right">${account.opening_balance_sum or ''|entity} </td>
-          <td align="right">${account.debit_sum or ''|entity} </td>
-          <td align="right">${account.credit_sum or ''|entity} </td>
-          <td align="right">${account.balance_sum or ''|entity} </td>
+          <td align="right">${formatLang(account.opening_balance_sum) or ''|entity} </td>
+          <td align="right">${formatLang(account.debit_sum) or ''|entity} </td>
+          <td align="right">${formatLang(account.credit_sum) or ''|entity} </td>
+          <td align="right">${formatLang(account.balance_sum) or ''|entity} </td>
           <td align="right">${account.balance_prev_sum or ''|entity} </td>
         </tr>
       </tbody>
  %endfor
     </table>
-
 
 
   </body>
