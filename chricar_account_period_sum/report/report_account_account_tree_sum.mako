@@ -4,12 +4,12 @@
 </head>
 
   <body>
-    <style>
+    <style  type="text/css">
      table {
        border-collapse: collapse;
        cellspacing="0"
            }
-     td {margin: 0px; padding: 3px; border: 1px solid grey; }
+     td {margin: 0px; padding: 3px; border: 1px solid grey;vertical-align: top; }
     </style> 
 
 <%
@@ -44,11 +44,11 @@ chapter.__init__()
           </td>
           <td>${account.code or ''|entity}  </td>
           <td>${account.name or ''|entity}  </td>
-          <td align="right">${formatLang(account.opening_balance_sum) or ''|entity} </td>
-          <td align="right">${formatLang(account.debit_sum) or ''|entity} </td>
-          <td align="right">${formatLang(account.credit_sum) or ''|entity} </td>
-          <td align="right">${formatLang(account.balance_sum) or ''|entity} </td>
-          <td align="right">${account.balance_prev_sum or ''|entity} </td>
+          <td align=right NOWRAP>${formatLang(account.opening_balance_sum)  or ''|entity} </td>
+          <td align=right NOWRAP>${formatLang(account.debit_sum) or ''|entity} </td>
+          <td align=right NOWRAP>${formatLang(account.credit_sum) or ''|entity} </td>
+          <td align=right NOWRAP>${formatLang(account.balance_sum) or ''|entity} </td>
+          <td align=right NOWRAP>${account.balance_prev_sum or ''|entity} </td>
         </tr>
       </tbody>
  %endfor
