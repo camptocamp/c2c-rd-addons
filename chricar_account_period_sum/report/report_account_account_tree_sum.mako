@@ -10,7 +10,7 @@
        cellspacing="0";
        font-size:10px;
            }
-     td {margin: 0px; padding: 3px; border: 1px solid grey;vertical-align: top; }
+     td {margin: 0px; padding: 3px; border: 1px solid lightgrey;  vertical-align: top; }
     </style> 
 
 <%
