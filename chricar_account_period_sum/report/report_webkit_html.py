@@ -1,4 +1,5 @@
 import time
+import locale
 from report import report_sxw
 from osv import osv
 
@@ -9,6 +10,7 @@ class report_webkit_html(report_sxw.rml_parse):
             'time': time,
             'cr':cr,
             'uid': uid,
+            'locale': locale,
         })
         
 report_sxw.report_sxw('report.account_account.tree_sum',
