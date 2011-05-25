@@ -372,8 +372,9 @@ class account_invoice_line(osv.osv):
     def _check_analytic_account_exists(self, cr, uid, ids):
         for move in self.browse(cr, uid, ids):  
             account_obj = self.pool.get('account.account')
-            print >> sys.stderr, 'invoice - check analytic for ',u'move.account_id.name'
-            if move.invoice_id.state == 'done':
+            print >> sys.stderr, 'invoice - check analytic for ', u'move.account_id.name'
+            if move.invoice_id.state == 'open':
+                print >> sys.stderr, 'invoice - check analytic for open'
                 return  account_obj.check_analytic_account_exists(cr,uid,ids,move.account_id.id,move.account_analytic_id.id)
             return True
 
@@ -399,3 +400,43 @@ class account_invoice_line(osv.osv):
 
 account_invoice_line()
 
+class account_invoice(osv.osv):
+    _inherit = "account.invoice"
+
+    def _check_analytic_account_exists(self, cr, uid, ids):
+        for invoice in self.browse(cr, uid, ids):  
+          for move in invoice.invoice_line:
+            account_obj = self.pool.get('account.account')
+            print >> sys.stderr, 'invoice - check analytic for ', u'move.account_id.name'
+            if move.invoice_id.state == 'open':
+                print >> sys.stderr, 'invoice - check analytic for open'
+                return  account_obj.check_analytic_account_exists(cr,uid,ids,move.account_id.id,move.account_analytic_id.id)
+            return True
+
+    def _check_analytic_account_fixed(self, cr, uid, ids):
+        for  invoice in self.browse(cr, uid, ids):
+          for move in invoice.invoice_line:
+            account_obj = self.pool.get('account.account')
+            if move.invoice_id.state == 'open':
+               return  account_obj.check_analytic_account_fixed(cr,uid,ids,move.account_id.id,move.account_analytic_id.id)
+            return True
+
+    def _check_analytic_account_none(self, cr, uid, ids):
+        for  invoice in self.browse(cr, uid, ids):
+          for move in invoice.invoice_line:
+            account_obj = self.pool.get('account.account')
+            if move.invoice_id.state == 'open':
+                return  account_obj.check_analytic_account_none(cr,uid,ids,move.account_id.id,move.account_analytic_id.id)
+            return True
+
+    _constraints = [
+        (_check_analytic_account_exists,
+            'You must assign an analytic account.(invoice)', ['invoice_line']),
+        (_check_analytic_account_fixed,
+            'You must not alter a fixed analytic account.', ['invoice_line']),
+        (_check_analytic_account_none,
+            'You must not define an analytic account.', ['invoice_line']),
+        ]
+
+
+account_invoice()
