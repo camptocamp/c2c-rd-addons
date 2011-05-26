@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <!--
+==============================================
+Partner Layout
+==============================================
+    -->
+    <record id="view_partner_form_c2c" model="ir.ui.view">
+      <field name="name">res.partner.c2c.form</field>
+      <field name="model">res.partner</field>
+      <field name="type">form</field>
+      <field name="inherit_id" ref="base.view_partner_form"/>
+      <field name="arch" type="xml">
+        <field name="name" position="replace">
+          <field name="name" select="1" colspan="6"/>
+        </field>
+      </field>
+    </record>
+  </data>
+</openerp>

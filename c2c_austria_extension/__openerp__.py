@@ -78,6 +78,7 @@ This module installs everything we need for Austrian extra addons c2c_extension
 ,"chricar_stock_location_product_limited"
 ,"chricar_stock_partner_stat"
 ,"stock_location"
+,"chricar_partner_layout"
 ],
     'update_xml': [],
     #'update_xml': ['product_view.xml'],

@@ -13,6 +13,6 @@
      "demo_xml"     : [],
      "update_xml"   : ["cashbox_view.xml"],
      "active"       : False,
-     "installable"  : True
+     "installable"  : False
 }
 

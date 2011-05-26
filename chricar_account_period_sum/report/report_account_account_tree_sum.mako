@@ -1,6 +1,6 @@
 <html>
 <head>
-                <b>Account-Chart Sum</b>
+                <b>Account-Chart Sum</b> requested by ${user.name}
 </head>
 
   <body>
@@ -13,6 +13,21 @@
      td {margin: 0px; padding: 3px; border: 1px solid lightgrey;  vertical-align: top; }
     </style> 
 
+<p>
+Selection:
+%if context['data'] :
+<%doc>
+    FIXME - print default or actual paramaters
+            waiting for Nicalas to fix bug and pass form params
+</%doc>
+  <table>
+	    <tr>
+	    <td>current: all posted</td>
+            <td>previous: year to current month </td> 
+	    </tr>
+  </table>
+%endif
+<p>
 <%
 chapter.__init__()
 %>
