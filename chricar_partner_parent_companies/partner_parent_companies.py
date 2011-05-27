@@ -52,11 +52,66 @@ class res_partner_parent_company(osv.osv):
 res_partner_parent_company()
 
 class res_partner(osv.osv):
-      _inherit = "res.partner"
-      _columns = {
+
+
+    class one2many_parent_current (fields.one2many):
+        def get (self, cr, obj, ids, name, user=None, offset=0, context=None, values={}):
+            res = {}
+            for id in ids : res[id] = []
+            ids2 = obj.pool.get (self._obj).search \
+                ( cr
+                , user
+                , [(self._fields_id, 'in', ids)
+                , ('valid_until', '=', False)]
+                , limit = self._limit
+                )
+            for r in obj.pool.get (self._obj)._read_flat \
+                (cr
+                , user
+                , ids2
+                , [self._fields_id]
+                , context = context
+                , load = '_classic_write'
+                ):
+
+                res [r[self._fields_id]].append( r['id'] )
+            return res
+        # end def get
+
+   # end class one2many_parent_current
+
+    class one2many_participation_current (fields.one2many):
+        def get (self, cr, obj, ids, name, user=None, offset=0, context=None, values={}):
+            res = {}
+            for id in ids : res[id] = []
+            ids2 = obj.pool.get (self._obj).search \
+                ( cr
+                , user
+                , [(self._fields_id, 'in', ids)
+                , ('valid_until', '=', False)]
+                , limit = self._limit
+                )
+            for r in obj.pool.get (self._obj)._read_flat \
+                (cr
+                , user
+                , ids2
+                , [self._fields_id]
+                , context = context
+                , load = '_classic_write'
+                ):
+
+                res [r[self._fields_id]].append( r['id'] )
+            return res
+        # end def get
+
+   # end class one2many_parent_current
+
+
+    _inherit = "res.partner"
+    _columns = {
           'partner_ids': fields.one2many('res.partner.parent_company','partner_id','Parent Companies'),
-          'partner_current_ids': fields.one2many('res.partner.parent_company','partner_id','Parent Companies Current'),
+          'partner_current_ids': one2many_parent_current('res.partner.parent_company','partner_id','Parent Companies Current'),
           'participation_ids': fields.one2many('res.partner.parent_company','partner_parent_id','Participations'),
-          'participation_current_ids': fields.one2many('res.partner.parent_company','partner_parent_id','Participations Current', ),
+          'participation_current_ids': one2many_participation_current('res.partner.parent_company','partner_parent_id','Participations Current', ),
       }
 res_partner()

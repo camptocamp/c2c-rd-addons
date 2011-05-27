@@ -16,7 +16,7 @@ Modification of Partner - Adding Tab for Parent Companies
             <notebook>
               <page string="Participations Current">
                 <field name="partner_current_ids" colspan="4" nolabel="1" widget="one2many_list" editable="top">
-                  <tree string="Parent Companies">
+                  <tree string="Parent Companies" editable="top">
                     <field name="name" select="1" sum="Sum Share"/>
                     <field name="paid_in" select="1" sum="Sum Paid in"/>
                     <field name="percentage" select="1" sum="Sum Percentage"/>
@@ -48,7 +48,7 @@ Modification of Partner - Adding Tab for Parent Companies
                   </form>
                 </field>
                 <field name="participation_current_ids" colspan="4" nolabel="1" widget="one2many_list" editable="top">
-                  <tree string="Participations">
+                  <tree string="Participations" editable="top">
                     <field name="name" select="1"/>
                     <field name="paid_in" select="1"/>
                     <field name="percentage" select="1"/>
@@ -82,7 +82,7 @@ Modification of Partner - Adding Tab for Parent Companies
               </page>
               <page string="Participations All">
                 <field name="partner_ids" colspan="4" nolabel="1" widget="one2many_list" editable="top">
-                  <tree string="Parent Companies">
+                  <tree string="Parent Companies" editable="top">
                     <field name="name" select="1" sum="Sum Share"/>
                     <field name="paid_in" select="1" sum="Sum Paid in"/>
                     <field name="percentage" select="1" sum="Sum Percentage"/>
@@ -114,7 +114,7 @@ Modification of Partner - Adding Tab for Parent Companies
                   </form>
                 </field>
                 <field name="participation_ids" colspan="4" nolabel="1" widget="one2many_list" editable="top">
-                  <tree string="Participations">
+                  <tree string="Participations" editable="top">
                     <field name="name" select="1"/>
                     <field name="paid_in" select="1"/>
                     <field name="percentage" select="1"/>
@@ -185,7 +185,7 @@ Definition of Parent Companies
       <field name="model">res.partner.parent_company</field>
       <field name="type">tree</field>
       <field name="arch" type="xml">
-        <tree string="Parent Companies">
+        <tree string="Parent Companies" editable="top">
           <field name="partner_id" select="1"/>
           <field name="partner_parent_id" select="1"/>
           <field name="name" select="1" sum="Sum Share"/>
