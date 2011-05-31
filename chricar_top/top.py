@@ -170,7 +170,11 @@ class chricar_top(osv.osv):
 
        'operating_cost'     : fields.function(_operating_cost, method=True, string="Monthly operating costs", type='float', digits=(16,0)),
        'ref_top'            : fields.function(_get_ref, method=True, string="Ref Top", type="char"),
-
+       'air_condition'      : fields.selection([('unknown','Unknown'),
+                                                ('none','None'),
+                                                ('full','Full'),
+                                                ('partial','Partial'),
+                                                ], 'Air Condition' ),
 }
      _defaults = {
        'alarm'             : lambda *a: False,
