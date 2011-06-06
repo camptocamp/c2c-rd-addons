@@ -127,8 +127,8 @@ class ir_model(osv.osv):
                         'export_id' : ir_export_id
                         })
                 # FIXME remove continue, but then it hangs after 50 to 150 records
-                if counter > 50:
-                    continue
+                #if counter > 50:
+                #    continue
                 export = False
                 cr.execute("select 1 from information_schema.columns where table_name='%s' and column_name='%s'" % (m,f))
                 f_exists = bool(cr.fetchone())
