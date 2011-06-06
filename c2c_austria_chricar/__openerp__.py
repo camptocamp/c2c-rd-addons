@@ -39,7 +39,7 @@ This module installs everything we need for Austrian chricar extension
 ,"chricar_stock_dispo_production_V1"
 ,"chricar_stocklocation_moves"
 ,"chricar_stock_weighing"
-,"chricar_tools_export"
+#,"chricar_tools_export"
 ,"chricar_stock_product_by_location"
 ,"chricar_stock_product_production"
 ,"chricar_inventory"

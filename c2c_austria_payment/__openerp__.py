@@ -33,7 +33,7 @@ This module installs everything we need for Austrian for payment
 "c2c_austria_extension"
 ,"account_payment_edifact"
 ,"purchase_payment"
-,"sale_payment"
+#,"sale_payment"
 ],
     'update_xml': [],
     #'update_xml': ['product_view.xml'],

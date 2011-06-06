@@ -45,7 +45,7 @@ class ir_model(osv.osv):
             psql = "\o %s.csv"%(m)
             psql = psql +"\n\nselect \'%s_\'||id as id"%(m)
 	    t_exists = False
-	    cr.execute("select 1 from information_schema.tables where table_name='%s' " % (m))
+	    cr.execute("select True from information_schema.tables where table_name='%s' " % (m))
             t_exists = bool(cr.fetchone())
             if t_exists:
              for field in model.field_id:
@@ -57,13 +57,13 @@ class ir_model(osv.osv):
 			})
 
                 export = False
-		cr.execute("select 1 from information_schema.columns where table_name='%s' and column_name='%s'" % (m,f))
+		cr.execute("select True from information_schema.columns where table_name='%s' and column_name='%s'" % (m,f))
 		f_exists = bool(cr.fetchone())
                 if f_exists:
                   if field.required == True or field.ttype == 'text':
                     export = True
                   else:
-                    cr.execute("select 1 from %s where \"%s\" is not null limit 1"% (m,f))
+                    cr.execute("select True from %s where \"%s\" is not null limit 1"% (m,f))
 		    export = bool(cr.fetchone())
 
                   if field.ttype == 'many2one':
@@ -115,7 +115,7 @@ class ir_model(osv.osv):
             psql = "\o %s.csv"%(m)
             psql = psql +"\n\nselect \'%s_\'||id as id"%(m)
             t_exists = False
-            cr.execute("select 1 from information_schema.tables where table_name='%s' " % (m))
+            cr.execute("select True from information_schema.tables where table_name='%s' " % (m))
             t_exists = bool(cr.fetchone())
             if t_exists:
              # FIXME should be sorted by field.name
@@ -130,14 +130,14 @@ class ir_model(osv.osv):
                 if counter > 50:
                     continue
                 export = False
-                cr.execute("select 1 from information_schema.columns where table_name='%s' and column_name='%s'" % (m,f))
+                cr.execute("select True from information_schema.columns where table_name='%s' and column_name='%s'" % (m,f))
                 f_exists = bool(cr.fetchone())
                 if f_exists:
                   # use only fields with content
                   if field.required == True or field.ttype == 'text':
                     export = True
                   else:
-                    cr.execute("select 1 from %s where \"%s\" is not null limit 1"% (m,f))
+                    cr.execute("select True from %s where \"%s\" is not null limit 1"% (m,f))
                     export = bool(cr.fetchone())
                   # m2o fields
                   if field.ttype == 'many2one':
