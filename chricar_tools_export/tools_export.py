@@ -6,16 +6,16 @@
 #    www.chricar.at
 #
 #    This program is free software: you can redistribute it and/or modify
-#    it under the terms of the GNU General Public License as published by
+#    it under the terms of the GNU Affero General Public License as published by
 #    the Free Software Foundation, either version 3 of the License, or
 #    (at your option) any later version.
 #
 #    This program is distributed in the hope that it will be useful,
 #    but WITHOUT ANY WARRANTY; without even the implied warranty of
 #    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#    GNU General Public License for more details.
+#    GNU Affero General Public License for more details.
 #
-#    You should have received a copy of the GNU General Public License
+#    You should have received a copy of the GNU Affero General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
@@ -127,8 +127,8 @@ class ir_model(osv.osv):
                         'export_id' : ir_export_id
                         })
                 # FIXME remove continue, but then it hangs after 50 to 150 records
-                if counter > 50:
-                    continue
+                #if counter > 50:
+                #    continue
                 export = False
                 cr.execute("select True from information_schema.columns where table_name='%s' and column_name='%s'" % (m,f))
                 f_exists = bool(cr.fetchone())

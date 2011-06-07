@@ -51,6 +51,7 @@ generated 2009-07-09 16:17:22+02
             <group string="Technical" colspan="1" col="2">
               <field name="heating" select="2"/>
               <field name="heating_source" select="2"/>
+              <field name="air_condition" select="2"/>
               <field name="solar_heating" select="2"/>
               <field name="solar_electric" select="2"/>
               <field name="alarm" select="2"/>

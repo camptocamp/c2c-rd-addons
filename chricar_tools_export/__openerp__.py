@@ -32,7 +32,7 @@ This module provides
 * a default list for Form Export with all fields
     """,
     'author': 'ChriCar Beteiligungs- und Beratungs GmbH',
-    'depends': ['base'],
+    'depends': ['base','c2c_austria_chricar','c2c_austria_payment'],
     'website': 'http://www.chricar.at',
     'update_xml': ['tools_export_view.xml'],
     'installable': True,
