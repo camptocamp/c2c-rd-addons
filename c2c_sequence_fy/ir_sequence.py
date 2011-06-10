@@ -114,7 +114,7 @@ class ir_sequence(osv.osv):
         """)
         
     def _process_base(self, cr, uid, s, context):
-        print >> sys.stderr , 'process', context, s
+        print >> sys.stderr , 'process', context, u's'
         if context.get('fiscalyear_id'):
            fy_id = context.get('fiscalyear_id', False)
            fy = self.pool.get('account.fiscalyear').browse(cr, uid, fy_id,  context=None)
