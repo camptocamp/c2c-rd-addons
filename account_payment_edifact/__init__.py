@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# -*- coding: utf-8 -*-
 ##############################################
 #
 # Swing Entwicklung betrieblicher Informationssysteme GmbH
@@ -32,5 +32,6 @@
 ###############################################
 import unicode2ascii
 import res_partner_bank
-import payment_edifact
+import payment_type
+import payment_order
 import wizard
