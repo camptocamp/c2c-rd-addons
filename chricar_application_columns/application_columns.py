@@ -1,6 +1,6 @@
 
 #!/usr/bin/python
-# -*- encoding: utf-8 -*-
+# -*- coding: utf-8 -*-
 ##############################################
 #
 # ChriCar Beteiligungs- und Beratungs- GmbH

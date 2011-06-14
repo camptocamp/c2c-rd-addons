@@ -36,6 +36,47 @@ import time
 import unicode2ascii
 import base64
 
+class P_Bank(object):
+    def __init__(self, p_bank, line):
+        self.p_bank = p_bank
+        self.lines = [line]
+
+    def __repr__(self):
+        return "(%s:%s)" % (self.p_bank, self.lines) 
+    
+    def __contains__(self, line):
+        return line in self.lines
+
+    def add(self, line):
+        self.lines.append(line)
+# end class P_Bank
+        
+
+class Date(object):
+    def __init__(self, p_bank):
+        self.p_banks = [p_bank]
+
+    def __repr__(self):
+        return str(self.p_banks)
+    
+    def __len__(self):
+        return len(self.p_banks)
+    
+    def __contains__(self, p_bank):
+        return p_bank in [x.p_bank for x in self.p_banks]
+
+    def add(self, p_bank):
+        self.p_banks.append(p_bank)
+        
+    def append(self, p_bank, line):
+        for p_bank in self.p_banks :
+            if p_bank.p_bank == p_bank :
+                p_bank.add(line)
+                
+    def iteritems(self):
+        return [(x.p_bank, x.lines) for x in self.p_banks]
+# end class Date
+
 class payment_order(osv.osv) :
     _inherit = "payment.order"
 
@@ -245,7 +286,7 @@ class payment_order(osv.osv) :
 
     def _regions(self, order, company) :
         bank    = order.mode.bank_id
-        regions = {'IN' : {}, 'DO' : {}}
+        regions = {}
         for line in order.line_ids :
             date   = self._payment_date(line.date)
             p_bank = line.bank_id
@@ -267,25 +308,23 @@ class payment_order(osv.osv) :
                     )
             if (    p_bank.bank.country 
                 and bank.bank.country
-                and (p_bank.bank.country == bank.bank.country) 
+                and (p_bank.bank.country == bank.bank.country)
                ) :
                 region = "DO" # domestic
             else :
                 region = "IN" # international
+            if region not in regions.keys() :
+                regions[region] = {}
             if date not in regions[region] :
-                lines = [line]
-                p_banks = {}
-                p_banks[p_bank] = lines
+                p_banks = P_Bank(p_bank, line)
                 dates = {}
-                dates[date] = p_banks
+                dates[date] = Date(p_banks)
                 regions[region] = dates
             elif p_bank not in regions[region][date] :
-                lines = [line]
-                p_banks = {}
-                p_banks[p_bank] = lines
-                regions[region][date] = p_banks
+                p_banks = P_Bank(p_bank, line)
+                regions[region][date].add(p_banks)
             else :
-                regions[region][date][p_bank].append(line)
+                regions[region][date].append(p_bank, line)
         for area_code, dates in regions.iteritems() :
             for date, p_banks in dates.iteritems() :
                 for p_bank, lines in p_banks.iteritems() :
@@ -334,8 +373,8 @@ class payment_order(osv.osv) :
         street  = self._u2a(address.street).upper()[0:35]
         city    = self._u2a(address.city).upper()[0:35]
         zip     = self._u2a(address.zip).upper()[0:9]
-        total  = "%s" % order.total
         for area_code, dates in self._regions(order, company).iteritems() :
+            total  = 0.0
             i = 0
             s = []
             s.append("UNA:+.? '")
@@ -359,6 +398,7 @@ class payment_order(osv.osv) :
                 s.append("NAD+OY+++%s+%s+%s+%s+%s'" % (company_name, street, city, zip, country)) # sgr3
                 s.extend(self._generate_date(order, p_banks, i, area_code))
                 i += self._line_count(p_banks)
+                total += amount
             s.append("CNT+1:%s'" % total)
             s.append("CNT+2:%s'" % len(dates))
             s.append("CNT+39:%s'" % i)
@@ -383,6 +423,5 @@ class payment_order(osv.osv) :
             if order.state == "cancel" : continue
             self._generate_order(cr, uid, ids, order, company, context)
     # end def generate_edifact
-
 # end class payment_order
 payment_order()

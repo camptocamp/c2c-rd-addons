@@ -27,11 +27,11 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program; if not, see <http://www.gnu.org/licenses/> or
 # write to the Free Software Foundation, Inc.,
-# 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+# 59 Temple Place - Suite 330, Boston, MA  02111-1.17, USA.
 #
 ###############################################
-{ "name"        : "Electronic Banking via EDIFACT (Austria)"
-, "version"     : "1.0"
+{ "name"        : "Electronic Banking via EDIFACT"
+, "version"     : "1.1"
 , "author"      : "Swing Entwicklung betrieblicher Informationssysteme GmbH"
 , "website"     : "http://www.swing-system.com"
 , "description" : 
@@ -56,22 +56,23 @@ The bank transfer currency must be the same as the company currency.
 
 Partner addresses are determined according to the function-sequence "invoice"->"default"->"None".
 
-The "payment day" is max(file-creation-date, min(payment_order_line-dates)).
+The "payment day" is, if unspecified or in the past, the file-creation-date.
 
 The sum of the transfers to a bank account must not be negative.
 If there are such payment lines with negative amount, the lines are summed up for this bank account.
 
 A conversion to ASCII for all texts within the EDIFACT-file is attempted. 
 """
-, "category"    :  "Generic Modules/Payment"
+, "category"    : "Payment"
 , "depends"     : 
     [ "account_payment"
     , "base_iban"
-    , "c2c_account_payment_extension" 
+    , "c2c_account_payment_extension"
     ]
 , "init_xml"    : []
 , "demo_xml"    : []
 , "update_xml"  : ['payment_edifact_view.xml','payment_iban.xml','payment_edifact_wizard.xml']
+, "test"        : []
 , "active"      : False
 , "installable" : True
 }
