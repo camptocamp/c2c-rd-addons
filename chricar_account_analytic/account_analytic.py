@@ -160,7 +160,7 @@ for balance accounts
                    if user_type.close_method == 'none':
                       usage = 'mandatory'
             vals.update({'account_analytic_usage': usage})           
-        print >> sys.stderr,'account vals usage', usage, vals
+        #print >> sys.stderr,'account vals usage', usage, vals
                        
         res = super(account_account, self).create(cr, uid, vals, context)
         return res
