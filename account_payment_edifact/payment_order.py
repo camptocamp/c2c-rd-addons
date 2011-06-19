@@ -423,6 +423,5 @@ class payment_order(osv.osv) :
             if order.state == "cancel" : continue
             self._generate_order(cr, uid, ids, order, company, context)
     # end def generate_edifact
-
 # end class payment_order
 payment_order()
