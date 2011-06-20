@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <!--
+==============================================
+Production Lot - Global-Gap-Number
+==============================================
+-->
+    <record id="view_production_lot_gap_form" model="ir.ui.view">
+      <field name="name">stock.production.lot.gap.form</field>
+      <field name="model">stock.production.lot</field>
+      <field name="type">form</field>
+      <field name="inherit_id" ref="stock.view_production_lot_form"/>
+      <field name="arch" type="xml">
+        <field name="date" position="after">
+          <field name="global_gap_number"/>
+        </field>
+      </field>
+    </record>
+    <record id="view_production_lot_gap_tree" model="ir.ui.view">
+      <field name="name">stock.production.lot.gap.tree</field>
+      <field name="model">stock.production.lot</field>
+      <field name="type">tree</field>
+      <field name="inherit_id" ref="stock.view_production_lot_tree"/>
+      <field name="arch" type="xml">
+        <field name="date" position="after">
+          <field name="global_gap_number"/>
+        </field>
+      </field>
+    </record>
+  </data>
+</openerp>
