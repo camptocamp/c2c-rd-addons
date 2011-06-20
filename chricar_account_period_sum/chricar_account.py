@@ -192,7 +192,7 @@ class account_account(osv.osv):
                fiscalyear_pool = self.pool.get('account.fiscalyear')
                fy_id = fiscalyear_pool.search(cr, uid, [('date_start','<=',date), ('date_stop','>=',date)])
                period_pool = self.pool.get('account.period')
-               periods_prev = period_pool.search(cr, uid, [('fiscalyear_id','=',fy_id),('date_stop','<=',date)])
+               periods_prev = period_pool.search(cr, uid, [('fiscalyear_id','=',fy_id),('date_start','<=',date)])
             #self.logger.notifyChannel('addons.'+self._name, netsvc.LOG_DEBUG,'Filters: %s'%filters)
             if periods_prev and len(periods_prev) > 0:
                filters = ' AND period_id in %s ' % (tuple(periods_prev),)
