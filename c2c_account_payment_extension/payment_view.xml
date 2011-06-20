@@ -21,6 +21,7 @@
       <field name="arch" type="xml">
         <field name="payment_type_supplier" position="before">
           <field name="payment_block"/>
+          <field name="payment_obey_balance"/>
         </field>
       </field>
     </record>
