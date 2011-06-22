@@ -398,7 +398,22 @@ class sale_order_line(osv.osv):
     
 sale_order_line()
 
-
+class stock_production_lot(osv.osv):
+    _inherit = 'stock.production.lot'
+    _columns = { 
+       'global_gap_number' : fields.char('Global-Gap-Nr', size=16, help="""GLOBALG.A.P introduced the GLOBALG.A.P number (GGN) to identify each legal entity regis-
+tered (individual producers) in the GLOBALG.A.P database. This 13-digit number (e.g.
+4049929000000) is unique and remains valid and attached to the legal entity as long as it exists.
+It serves as search key on the GLOBALG.A.P website to validate certificates.
+Remark:
+We put it here, because 
+* it changes with every harvest and 
+* may overlap calendar years and harvests periods and
+* is only necessary/valid for certain products
+to avoid data entry for every Sales Order
+ """),
+    }
+stock_production_lot()
 
 #class stock_move(osv.osv):
 #      _inherit = "stock.move"
