@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data>
+    <wizard 
+      string="Merge Duplicates"
+      id="wizard_remove_duplicate" 
+      model="ir.model" 
+      name="ir.wizard_remove_duplicate"/> 
+    <menuitem 
+      name="Administration/Customization/Database Structure/"
+      type="wizard" 
+      action="wizard_remove_duplicate" 
+      id="menu_db_structure_remove_duplicate"/>
+  </data>
+</openerp>
