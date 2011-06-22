@@ -32,6 +32,7 @@
 ###############################################
 import wizard
 import pooler
+from osv import fields, osv
 from tools.translate import _
 from lxml import etree
 import os.path
@@ -115,7 +116,8 @@ class wizard_export_data(wizard.interface):
             if "report" in model.model : continue
 #            if "audittrail" in model.model : continue # XXX
             table_obj = pool.get(model.model)
-            if not table_obj : continue
+            if table_obj is None : continue
+            if isinstance(table_obj, osv.osv_memory) : continue
             cr.execute("SELECT count(*) FROM %s;" % table_obj._table)
             res = cr.fetchall()[0][0]
 #            print model.model, res ###############

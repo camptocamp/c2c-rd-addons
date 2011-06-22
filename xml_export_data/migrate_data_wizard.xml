@@ -8,7 +8,7 @@
       name="ir.wizard_export_data_via_xml" 
       string="Export Datamodel to XML"/>
     <menuitem 
-      name="Administration/Customization/Database Structure/"
+      parent="base.next_id_9"
       type="wizard" 
       action="wizard_export_data" 
       id="menu_db_structure_export_xml"/>
