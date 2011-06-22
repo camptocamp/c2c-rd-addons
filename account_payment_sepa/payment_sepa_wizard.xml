@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
   <data>
-    <wizard 
-      id="wizard_payment_sepa" 
-      model="payment.order" 
-      name="payment.order.wizard_generate_sepa_credit_transfer" 
+    <wizard
+      id="wizard_payment_sepa"
+      model="payment.order"
+      name="payment.order.wizard_generate_sepa_credit_transfer"
       string="Generate SEPA Credit Transfer"/>
   </data>
 </openerp>
