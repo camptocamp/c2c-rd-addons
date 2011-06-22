@@ -30,10 +30,10 @@
 # 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 ###############################################
-from osv import fields,osv
-from tools.translate import _
 import wizard
 import pooler
+from osv import osv
+from tools.translate import _
 from lxml import etree
 import base64
 
@@ -140,7 +140,7 @@ class wizard_generate_xml(wizard.interface):
             model_id = data['form']['model_ids'][0][2][0] 
         model = model_obj.browse(cr, uid, model_id)
         self.table_obj = pool.get(model.model)
-        if self.table_obj :
+        if self.table_obj is not None and not isinstance(self.table_obj, osv.osv_memory) :
             self._add_filter(data['form'])
             xml = model_obj.generate_tree(cr, uid, self.table_obj, search=self._filters)
             self._manage_attachments \

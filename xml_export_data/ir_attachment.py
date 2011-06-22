@@ -61,7 +61,7 @@ class ir_attachment (osv.osv):
         obj = self.pool.get("res.request.link")
         ids = obj.search(cr, uid, [])
         res = obj.read(cr, uid, ids, ["object", "name"], context)
-        return [(r["object"], t["name"]) for r in res]
+        return [(r["object"], r["name"]) for r in res]
     # ende def _links_get
 
     _columns  = \
