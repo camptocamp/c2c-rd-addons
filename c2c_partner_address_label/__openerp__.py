@@ -34,7 +34,7 @@ ToDo: adapt reports to use this
     'author': 'Camptocamp Austria',
     'depends': [ 'base' ],
     'update_xml': [
-    'partner_view.xml',
+    'partner_view.xml','report_label.xml',
        ],
     #'update_xml': ['product_view.xml'],
     'demo_xml': [],
