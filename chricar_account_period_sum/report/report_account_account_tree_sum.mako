@@ -12,7 +12,6 @@
            }
      td {margin: 0px; padding: 3px; border: 1px solid lightgrey;  vertical-align: top; }
     </style> 
-
 <p>
 Selection:
 %if context['data'] :
@@ -29,6 +28,7 @@ Selection:
 %endif
 <p>
 <%
+import math
 chapter.__init__()
 %>
 
@@ -45,6 +45,8 @@ chapter.__init__()
           <td align="right">Credit</td>
           <td align="right">Balance</td>
           <td align="right">Balance Prev</td>
+          <td align="right">Balance Diff</td>
+          <td align="right">Diff %</td>
         </tr>
       </thead>
 
@@ -73,6 +75,14 @@ chapter.__init__()
           <td align=right NOWRAP>${formatLang(account.credit_sum) or ''|entity} </td>
           <td align=right NOWRAP>${formatLang(account.balance_sum) or ''|entity} </td>
           <td align=right NOWRAP>${formatLang(account.balance_prev_sum) or ''|entity} </td>
+          <td align=right NOWRAP>${formatLang(account.balance_sum - account.balance_prev_sum) or ''|entity} </td>
+          <td align=right NOWRAP>
+                %if account.balance_prev_sum and round(account.balance_prev_sum,2) != 0 and round(account.balance_sum,2) != 0 and (account.balance_sum/abs(account.balance_sum)) == (account.balance_prev_sum /abs(account.balance_prev_sum)):
+                 ${formatLang(((account.balance_sum - account.balance_prev_sum)/account.balance_prev_sum )*100) or ''|entity} 
+                %else:
+                  -
+                %endif 
+          </td>
         </tr>
             %endif
       </tbody>
