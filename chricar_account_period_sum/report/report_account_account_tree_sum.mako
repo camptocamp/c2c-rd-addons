@@ -1,6 +1,6 @@
 <html>
 <head>
-                <b>Account-Chart Sum</b> requested by ${user.name}
+                <b>Account-Chart Enhanced</b> requested by ${user.name}
 </head>
 
   <body>
@@ -28,7 +28,6 @@ Selection:
 %endif
 <p>
 <%
-import math
 chapter.__init__()
 %>
 
@@ -36,7 +35,6 @@ chapter.__init__()
 
      <thead >
         <tr>
-          <td>Level</td>
           <td>Chapter</td>
           <td>Code</td>
           <td>Name</td>
@@ -55,7 +53,6 @@ chapter.__init__()
      <tbody >
               %if (account.balance_sum !=0 or account.debit_sum !=0 or account.credit_sum !=0 or account.balance_prev_sum !=0):
               <tr>
-          <td>${account.level or ''|entity}  </td>
           <td>
               %if account.type == 'view':
                  ${chapter.get_structure(account.level) or ''|entity}
@@ -78,7 +75,11 @@ chapter.__init__()
           <td align=right NOWRAP>${formatLang(account.balance_sum - account.balance_prev_sum) or ''|entity} </td>
           <td align=right NOWRAP>
                 %if account.balance_prev_sum and round(account.balance_prev_sum,2) != 0 and round(account.balance_sum,2) != 0 and (account.balance_sum/abs(account.balance_sum)) == (account.balance_prev_sum /abs(account.balance_prev_sum)):
-                 ${formatLang(((account.balance_sum - account.balance_prev_sum)/account.balance_prev_sum )*100) or ''|entity} 
+                 ${formatLang(round(((account.balance_sum - account.balance_prev_sum)/account.balance_prev_sum )*100),2) or ''|entity} 
+                %elif round(account.balance_prev_sum,2) <> 0 and round(account.balance_sum,2) == 0:
+                 ${formatLang(-100) or ''|entity}
+                %elif round(account.balance_sum - account.balance_prev_sum,2) == 0 :
+                 ${formatLang(0) or ''|entity}
                 %else:
                   -
                 %endif 
