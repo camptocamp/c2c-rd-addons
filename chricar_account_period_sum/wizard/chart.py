@@ -50,8 +50,16 @@ class account_chart_sum(osv.osv_memory):
         'period_prev_from': fields.many2one('account.period', 'Start period prev FY'),
         'period_prev_to': fields.many2one('account.period', 'End period prev FY'),
         'print_all_zero': fields.boolean('Print lines with all zero'),
-
+        'print_chapter' : fields.boolean('Print chapter column'),
+        'print_opening_dc' : fields.boolean('Print opening balance, debit and credit columns'),
+        'print_views_only' : fields.boolean('Print only accounts of type view'),
+        'print_closing_remarks' : fields.boolean('Print closing remarks'),
     }
+    _defaults = {
+       'print_chapter': lambda *a: True,
+       'print_opening_dc': lambda *a: True,
+        }
+
     
     def onchange_fiscalyear(self, cr, uid, ids, fiscalyear_id=False, context=None):
         res = {}
@@ -107,7 +115,11 @@ class account_chart_sum(osv.osv_memory):
             if periods_prev and len(periods_prev) > 1:
                 start_prev_period = periods_prev[0]
                 end_prev_period = periods_prev[1]
-                res['value'] = {'period_from': start_period, 'period_to': end_period,'period_prev_from': start_prev_period, 'period_prev_to': end_prev_period, 'print_all_zero':print_all_zero}
+                res['value'] = {'period_from': start_period, 
+                                'period_to'  : end_period,
+                                'period_prev_from': start_prev_period, 
+                                'period_prev_to'  : end_prev_period, 
+                               }
         return res
 
     def account_chart_sum_open(self, cr, uid, ids, context=None):
@@ -148,7 +160,14 @@ class account_chart_sum(osv.osv_memory):
         if data['period_prev_from'] and data['period_prev_to']:
             result['periods_prev'] = period_obj.build_ctx_periods(cr, uid, data['period_prev_from'], data['period_prev_to'])
             if result['periods_prev']:
-                result['context'] = str({'fiscalyear': data['fiscalyear'], 'periods': result['periods'], 'periods_prev' : result['periods_prev']  })
+                result['context'] = str({'fiscalyear': data['fiscalyear'], 'periods': result['periods'], 'periods_prev' : result['periods_prev'] ,
+                                'print_all_zero'  : data['print_all_zero'],
+                                'print_chapter'   : data['print_chapter'],
+                                'print_opening_dc': data['print_opening_dc'],
+                                'print_views_only': data['print_views_only'],
+                                'print_closing_remarks' : data['print_closing_remarks'],
+                                })
+
         if data['fiscalyear']:
             result['name'] += ':' + fy_obj.read(cr, uid, [data['fiscalyear']], context=context)[0]['code'] 
         if data['period_from']:
