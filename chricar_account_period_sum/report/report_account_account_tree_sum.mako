@@ -75,7 +75,7 @@ chapter.__init__()
           <td align=right NOWRAP>${formatLang(account.balance_sum - account.balance_prev_sum) or ''|entity} </td>
           <td align=right NOWRAP>
                 %if account.balance_prev_sum and round(account.balance_prev_sum,2) != 0 and round(account.balance_sum,2) != 0 and (account.balance_sum/abs(account.balance_sum)) == (account.balance_prev_sum /abs(account.balance_prev_sum)):
-                 ${formatLang(round(((account.balance_sum - account.balance_prev_sum)/account.balance_prev_sum )*100),2) or ''|entity} 
+                 ${formatLang(round(((account.balance_sum - account.balance_prev_sum)/account.balance_prev_sum )*100,2)) or ''|entity} 
                 %elif round(account.balance_prev_sum,2) <> 0 and round(account.balance_sum,2) == 0:
                  ${formatLang(-100) or ''|entity}
                 %elif round(account.balance_sum - account.balance_prev_sum,2) == 0 :
