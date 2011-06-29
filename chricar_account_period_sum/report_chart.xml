@@ -8,6 +8,6 @@
       model="account.account"
       name="report.account_account.tree_sum"
       report_type="webkit"
-      string="Account Chart Sum Test"/>
+      string="Account Chart Enhanced"/>
   </data>
 </openerp>

@@ -28,13 +28,13 @@
     'description': """
 Adds
 - a function field for address labels with zip position depending on country
-- per company definition for address window positions
+- per company definition for address window positions 
 ToDo: adapt reports to use this
 """,
     'author': 'Camptocamp Austria',
     'depends': [ 'base' ],
     'update_xml': [
-    'partner_view.xml',
+    'partner_view.xml','report_label.xml',
        ],
     #'update_xml': ['product_view.xml'],
     'demo_xml': [],

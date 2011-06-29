@@ -23,10 +23,10 @@
 #
 {
     "name" : "Account Period Sum",
-    "version" : "0.9.5",
+    "version" : "0.9.9",
     "author"  : "ChriCar Beteiligungs- und Beratungs GmbH" ,
     "website" : "http://www.chricar.at/ChriCar",
-        "description"  : """BETA Quality - Proof of concept
+        "description"  : """
         This module adds period sums for moves_lines
         of account_moves with state posted
         *) on update from draft to posted
@@ -42,6 +42,12 @@
         *) for every fiscal year beginning in the same calendar year a period sum with the name YYYY00 will be created,
            but associated to the correct fiscal year.
         *) the period sums will be deleted if the matching account_periods are deleted.
+        *) fast webkit report "account chart enhanced", showing 
+           - opening balance
+           - debit,credit, balance of current year / selected periods 
+           - balance of previous year / selected periods
+           - balance diff and diff %
+           - word wrap of long account names
 
     standardizes account_period name generation to comply with this naming.
 

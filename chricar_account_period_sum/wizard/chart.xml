@@ -20,6 +20,12 @@
             <field name="period_prev_to"/>
             <separator string="other" colspan="4"/>
             <field name="print_all_zero"/>
+            <separator string="Report Controls" colspan="4"/>
+            <field name="print_chapter"/>
+            <field name="print_opening_dc"/>
+            <field name="print_views_only"/>
+            <field name="print_closing_remarks"/>
+            <field name="print_prev_1000"/>
           </group>
           <separator string="" colspan="4"/>
           <group colspan="4" col="6">

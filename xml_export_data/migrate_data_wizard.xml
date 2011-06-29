@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data>
+    <wizard 
+      id="wizard_export_data" 
+      menu="False" 
+      model="ir.actions.actions" 
+      name="ir.wizard_export_data_via_xml" 
+      string="Export Datamodel to XML"/>
+    <menuitem 
+      parent="base.next_id_9"
+      type="wizard" 
+      action="wizard_export_data" 
+      id="menu_db_structure_export_xml"/>
+  </data>
+</openerp>
