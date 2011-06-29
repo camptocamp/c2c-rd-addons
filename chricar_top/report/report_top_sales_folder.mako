@@ -147,9 +147,11 @@
         
         <td COLSPAN=2>${top.note_sales or ''|entity}</td>
         </tr>
+        %endif
+        %if top.blueprint:
         <tr>
         <td COLSPAN=2>
-          <img src=${top.blueprint} alt="Blueprint" width="400" height="400" />
+          ${helper.embed_image('png',top.blueprint, width=400)}
         </dt>
         </tr>
 
