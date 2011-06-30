@@ -11,6 +11,7 @@
        font-size:12px;
            }
      td {margin: 0px; padding: 3px; border: 1px solid lightgrey;  vertical-align: top; }
+     pre {font-family:helvetica; font-size:12;}
     </style>
 %for top in objects:
 
@@ -157,7 +158,8 @@
 
         %if top.note_sales:
         <tr>
-        <td COLSPAN=2>${top.note_sales or ''|entity}</td>
+        <td COLSPAN=2><pre><b>${_("Remarks:")}</b>
+${top.note_sales or ''|entity}</pre></td>
         </tr>
         %endif
 
