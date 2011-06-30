@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <report
+      auto="False"
+      file="chricar_top/report/report_top_sales_folder.mako"
+      id="report_real_estate_sale_folder"
+      model="chricar.top"
+      name="report.chricar.real.estate.sale.folder"
+      report_type="webkit"
+      string="Sale Folder Webkit"/>
+  </data>
+</openerp>
