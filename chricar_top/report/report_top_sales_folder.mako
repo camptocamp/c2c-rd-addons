@@ -50,12 +50,20 @@
 
         <tr>
         <td>${_("Monthly Rent Net")}</td>
-        <td>${formatLang(round((top.surface or 0 ) * (top.lease_target or 0),0)) or ''|entity} €</td>
+        <td>${formatLang(round((top.surface or 0 ) * (top.lease_target or 0),0)) or ''|entity} € 
+          %if top.lease_target and top.surface:
+            (${formatLang(top.lease_target or 0)}/m²) 
+          %endif
+        </td>
         </tr>
         <tr>
 
         <td>${_("Monthly Operating Cost Net")}</td>
-        <td>${formatLang(round(top.operating_cost ,0)) or ''|entity} €</td>
+        <td>${formatLang(round(top.operating_cost ,0)) or ''|entity} €  
+          %if top.surface and top.surface <> 0:
+            (${formatLang((top.operating_cost or 0 )/ (top.surface ))}/m²)
+          %endif
+        </td>
         </tr>
 
         %if top.usage:
