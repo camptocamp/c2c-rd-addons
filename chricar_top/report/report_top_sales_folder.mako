@@ -1,29 +1,33 @@
 <html>                
+ %for top in objects :
+<head>
+<title>Sale Folder</title>
 <b>Sales Folder</b>
                 
   <body>
     <style  type="text/css">
      table {
+       page-break-after:auto;
        border-collapse: collapse;
        cellspacing="0";
        font-size:10px;
            }
      td {margin: 0px; padding: 3px; border: 1px solid lightgrey;  vertical-align: top; }
     </style> 
+ 
 
 </head>
 
   <body>
     <style  type="text/css">
      table {
+       page-break-after:auto;
        border-collapse: collapse;
        cellspacing="0";
        font-size:12px;
            }
     </style>
 <table>
-
- %for top in objects :
      <tbody>
         <tr>
         <td>Object</td>
@@ -52,7 +56,7 @@
         
         <tr>
         <td>Monthly Rent Net €</td>
-        <td>${round((top.surface or '0' ) * (top.lease_target or ''),0) or ''|entity}</td>
+        <td>${round((top.surface or 0 ) * (top.lease_target or 0),0) or ''|entity}</td>
         </tr>
         <tr>
         <td>Monthly Operating Cost Net €</td>
@@ -154,10 +158,9 @@
           ${helper.embed_image('png',top.blueprint, width=400)}
         </dt>
         </tr>
-
         %endif
       </tbody>
- %endfor
  <table>
   </body>
+ %endfor
 </html>
