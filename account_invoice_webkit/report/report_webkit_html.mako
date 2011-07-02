@@ -101,7 +101,9 @@ ${inv.address_invoice_id.address_label}
     </table>
     <h1><br /></h1>
     <table class="list_table"  width="90%">
-        <thead><tr><th>${_("Description")}</th><th class>${_("Taxes")}</th><th class>${_("QTY")}</th><th>${_("Unit Price")}</th><th >${_("Disc.(%)")}</th><th>${_("Price")}</th></tr></thead>
+        <thead><tr><th>${_("Description")}</th><th class>${_("Taxes")}</th><th class>${_("QTY")}</th><th>${_("Unit Price")}</th>
+            <th >${_("Disc.(%)")}</th>
+        <th>${_("Price")}</th></tr></thead>
         %for line in inv.invoice_line :
         <tbody>
         <tr>
@@ -139,8 +141,11 @@ ${inv.address_invoice_id.address_label}
         %endif
     </table>        
     %if inv.payment_term:
-    <h4>${_("Payment Term")}</h4>
-    ${inv.payment_term.name}
+    <br><b>${_("Payment Term")}</b><br>
+    ${inv.payment_term.name}<br>
+    %endif:
+    %if inv.comment:
+    <pre>${inv.comment}</pre>
     %endif:
     <p style="page-break-after:always"></p>
     %endfor
