@@ -99,7 +99,7 @@ ${inv.address_invoice_id.address_label}
            <td style="text-align:right;">${formatLang(line.price_subtotal)}
          </td></tr>
         %if line.note :
-        <tr><td colspan="6" style="border-style:none"><pre style="font-family:Helvetica;padding-left:20px">${line.note |entity}</pre></td></tr>
+        <tr><td colspan="6" style="border-style:none"><pre style="font-family:Helvetica;padding-left:20px;font-size:10">${line.note |entity}</pre></td></tr>
         %endif
         %endfor
         <tr><td style="border-style:none"/><td style="border-style:none"/><td style="border-style:none"/><td style="border-style:none"/><td style="border-top:2px solid"><b>Net Total:</b></td><td style="border-top:2px solid;text-align:right">${formatLang(inv.amount_untaxed)}</td></tr>
@@ -121,7 +121,7 @@ ${inv.address_invoice_id.address_label}
         <tr>
             <td style="border-style:none"/>
             <td style="border-top:2px solid;text-align:right;"><b>${_("Total")}</b></td>
-            <td style="border-top:2px solid">${ formatLang(inv.amount_tax) }</td>
+            <td style="border-top:2px solid;text-align:right;">${ formatLang(inv.amount_tax) }</td>
         </tr>
         %endif
     </table>        
