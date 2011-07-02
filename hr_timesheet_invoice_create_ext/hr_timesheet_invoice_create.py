@@ -36,6 +36,8 @@ class hr_timesheet_invoice_create(osv.osv_memory):
     _columns = {
        'date_invoice': fields.date('Date Invoice', help='The date of the invoice or emtpy will take the current day on validate'),
        'description': fields.char('Prefix Invoice Text',size=16, help='This text will be placed before the name of the analytic account instead of the current date'),
+       'reference': fields.char('Reference', size=64, help='The reference on the invoice, usually the period of service'),
+
     }
 
     def do_create(self, cr, uid, ids, context=None):
@@ -89,6 +91,7 @@ class hr_timesheet_invoice_create(osv.osv_memory):
             curr_invoice = {
                 'name': prefix + ' - ' + account.name,
                 'date_invoice': data['date_invoice'] or False,
+                'reference': data['reference'] or False,
                 'partner_id': account.partner_id.id,
                 'address_contact_id': res_partner_obj.address_get(cr, uid,
                     [account.partner_id.id], adr_pref=['contact'])['contact'],
@@ -98,7 +101,8 @@ class hr_timesheet_invoice_create(osv.osv_memory):
                 'account_id': partner.property_account_receivable.id,
                 'currency_id': account.pricelist_id.currency_id.id,
                 'date_due': date_due,
-                'fiscal_position': account.partner_id.property_account_position.id
+                'fiscal_position': account.partner_id.property_account_position.id,
+                'state' : 'draft',
             }
             last_invoice = invoice_obj.create(cr, uid, curr_invoice, context=context)
             invoices.append(last_invoice)
