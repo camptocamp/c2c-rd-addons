@@ -390,11 +390,11 @@ class account_invoice_line(osv.osv):
         
     _constraints = [
         (_check_analytic_account_exists,
-            'You must assign an analytic account.(invoice)', ['analytic_account_id']),
+            'You must assign an analytic account.(invoiceline)', ['analytic_account_id']),
         (_check_analytic_account_fixed,
-            'You must not alter a fixed analytic account.', ['analytic_account_id']),
+            'You must not alter a fixed analytic account.(invoiceline)', ['analytic_account_id']),
         (_check_analytic_account_none,
-            'You must not define an analytic account.', ['analytic_account_id']),
+            'You must not define an analytic account.(invoiceline)', ['analytic_account_id']),
         ]
 
 
@@ -411,7 +411,7 @@ class account_invoice(osv.osv):
             if move.invoice_id.state == 'open':
                 print >> sys.stderr, 'invoice - check analytic for open'
                 return  account_obj.check_analytic_account_exists(cr,uid,ids,move.account_id.id,move.account_analytic_id.id)
-            return True
+          return True
 
     def _check_analytic_account_fixed(self, cr, uid, ids):
         for  invoice in self.browse(cr, uid, ids):
@@ -419,7 +419,7 @@ class account_invoice(osv.osv):
             account_obj = self.pool.get('account.account')
             if move.invoice_id.state == 'open':
                return  account_obj.check_analytic_account_fixed(cr,uid,ids,move.account_id.id,move.account_analytic_id.id)
-            return True
+          return True
 
     def _check_analytic_account_none(self, cr, uid, ids):
         for  invoice in self.browse(cr, uid, ids):
@@ -427,7 +427,7 @@ class account_invoice(osv.osv):
             account_obj = self.pool.get('account.account')
             if move.invoice_id.state == 'open':
                 return  account_obj.check_analytic_account_none(cr,uid,ids,move.account_id.id,move.account_analytic_id.id)
-            return True
+          return True
 
     _constraints = [
         (_check_analytic_account_exists,

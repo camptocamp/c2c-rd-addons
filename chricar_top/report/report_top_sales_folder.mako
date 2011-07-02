@@ -14,7 +14,7 @@
      pre {font-family:helvetica; font-size:12;}
     </style>
 %for top in objects:
-
+<% setLang(top.partner_id.lang) %>
 <table>
 <h1>${_("Info Folder")}</h1>
     <tbody>
@@ -37,7 +37,7 @@
         %if top.staircase or top.flor:
         <tr>
         <td>${_("Staircase / Floor")}</td>
-        <td>${top.staircase or ''|entity} / ${top.floor or ''|entity}</td>
+        <td>${top.staircase or '-'|entity} / ${top.floor or '-'|entity}</td>
         </tr>
         %endif
 
@@ -48,23 +48,25 @@
         </tr>    
         %endif
 
+        %if top.lease_target and top.surface:
         <tr>
         <td>${_("Monthly Rent Net")}</td>
-        <td>${formatLang(round((top.surface or 0 ) * (top.lease_target or 0),0)) or ''|entity} € 
-          %if top.lease_target and top.surface:
-            (${formatLang(top.lease_target or 0)}/m²) 
-          %endif
+        <td>${formatLang(round((top.surface * top.lease_target ),0))} €
+            (${formatLang(top.lease_target or 0)}€/m²) 
         </td>
         </tr>
-        <tr>
+        %endif
 
+        %if top.operating_cost:
+        <tr>
         <td>${_("Monthly Operating Cost Net")}</td>
-        <td>${formatLang(round(top.operating_cost ,0)) or ''|entity} €  
+        <td>${formatLang(round(top.operating_cost ,0))} or ''|entity €  
           %if top.surface and top.surface <> 0:
-            (${formatLang((top.operating_cost or 0 )/ (top.surface ))}/m²)
+            (${formatLang((top.operating_cost or 0 ) / top.surface )}€/m²)
           %endif
         </td>
         </tr>
+        %endif
 
         %if top.usage:
         <tr>
@@ -181,6 +183,8 @@ ${top.note_sales or ''|entity}</pre></td>
 
       </tbody>
     <table>
-</body>
+ <p style="page-break-after:always"></p>
 %endfor
+</body>
+
 </html>
