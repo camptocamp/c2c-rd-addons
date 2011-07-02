@@ -25,6 +25,7 @@
             }
         </script>
     </head>
+    
       <body style="border:0; margin: 0;" onload="subst()">
         <table style="border-top: 1px solid black; width: 100%">
             <tr >
@@ -59,26 +60,36 @@
             ${css}
         </style>
     </head>
-    <body style="border:0; margin: 0;" onload="subst()">
-        <table class="header" style="border-bottom: 0px solid black; width: 100%" ;font-size:10;>
+       <body style="border-collapse: collapse;border:0; margin: 0;" onload="subst()">
+        <table class="header" style="border-collapse: collapse;border-bottom: 0px solid black; width: 100% ;font-size:10;">
             <tr>
-                <td>${helper.embed_logo_by_name('company_logo', height=50)}</td>
-                <td style="text-align:right"></td>
-            </tr>
-            <tr>
-                <td><hr/></td>
-                <td style="text-align:left"> </td>
-            </tr>
-            <tr>
-                <td>
-${company.partner_id.name |entity}<br>
+                <td style="border-bottom: 1px solid grey;">${helper.embed_logo_by_name('company_logo', height=50,width=50)}</td>
+                <td style="border-bottom: 1px solid grey;width:40%";>${company.partner_id.name |entity}<br>
 ${company.partner_id.address and company.partner_id.address[0].street or ''|entity}<br>
 ${company.partner_id.address and company.partner_id.address[0].zip or ''|entity}
 ${company.partner_id.address and company.partner_id.address[0].city or ''|entity}<br>
-Phone: ${company.partner_id.address and company.partner_id.address[0].phone or ''|entity} <br>
-Mail: ${company.partner_id.address and company.partner_id.address[0].email or ''|entity}
-                <td/>
+${company.partner_id.address and company.partner_id.address[0].country_id.name or ''|entity}</td>
             </tr>
+            <tr">
+                <td style="border-bottom: 0px solid white;"></td>
+                <td style="border-bottom: 0px solid white;">
+
+<table class="header" style="border-collapse: collapse;border-bottom: 0px solid white; width: 100% ;font-size:10;">
+<tr>
+<td>
+Phone<br>
+Fax<br>
+Mail<br>
+</td>
+<td>${company.partner_id.address and company.partner_id.address[0].phone or ''|entity} <br>
+${company.partner_id.address and company.partner_id.address[0].fax or ''|entity}<br>
+${company.partner_id.address and company.partner_id.address[0].email or ''|entity}
+</td>
+</tr>
+</table>
+
+</td>
+   </tr>
         </table> ${_debug or ''} </body>
 </html>]]>
 </field>
