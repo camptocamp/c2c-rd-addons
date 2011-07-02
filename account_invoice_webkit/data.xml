@@ -1,0 +1,205 @@
+<?xml version="1.0" ?>
+<openerp>
+    <data noupdate="1">
+        <record id="ir_property_webkitheaderdefault0" model="ir.property">
+            <field name="fields_id" ref="field_ir_act_report_xml_webkit_header"/>
+            <field eval="&quot;&quot;&quot;webkit_header_default&quot;&quot;&quot;" name="name"/>
+            <field eval="&quot;&quot;&quot;ir.header_webkit,1&quot;&quot;&quot;" name="value"/>
+        </record>
+        
+        <record id="ir_header_webkit_basesample0" model="ir.header_webkit">
+            
+            <field name="footer_html"><![CDATA[<html>
+    <head>
+        <meta content="text/html; charset=UTF-8" http-equiv="content-type"/>
+        <script>
+            function subst() {
+            var vars={};
+            var x=document.location.search.substring(1).split('&');
+            for(var i in x) {var z=x[i].split('=',2);vars[z[0]] = unescape(z[1]);}
+            var x=['frompage','topage','page','webpage','section','subsection','subsubsection'];
+            for(var i in x) {
+            var y = document.getElementsByClassName(x[i]);
+            for(var j=0; j<y.length; ++j) y[j].textContent = vars[x[i]];
+                }
+            }
+        </script>
+    </head>
+      <body style="border:0; margin: 0;" onload="subst()">
+        <table style="border-top: 1px solid black; width: 100%">
+            <tr >
+                <td style="text-align:left;font-size:9;width:50%;" >Sitz in Wien<br>Firmenbuch: FN 263124y beim Handelsgericht Wien<br>UID ATU61770417</td>
+                <td style="text-align:left;font-size:9;width:40%;" >Schoellerbank Aktiengesellschaft<br>BLZ 19200<br>Konto 08 577 596 007<br>SWIFT SCHOATWW<br>IBAN AT53 1920 0085 7759 6007</td>
+                <td style="text-align:left;font-size:9;width:5%;" >${_("Page")} <span class="page"/></td>
+                <td style="text-align:left;font-size:9;width:5%;">  of  <span class="topage"/></td>
+            </tr>
+        </table>
+      </body>
+</html>]]></field>
+
+            <field eval="&quot;&quot;&quot;Portrait&quot;&quot;&quot;" name="orientation"/>
+            <field eval="&quot;&quot;&quot;A4&quot;&quot;&quot;" name="format"/>
+            
+            <field name="html"><![CDATA[<html>
+    <head>
+        <meta content="text/html; charset=UTF-8" http-equiv="content-type"/>
+        <script>
+            function subst() {
+            var vars={};
+            var x=document.location.search.substring(1).split('&');
+            for(var i in x) {var z=x[i].split('=',2);vars[z[0]] = unescape(z[1]);}
+            var x=['frompage','topage','page','webpage','section','subsection','subsubsection'];
+            for(var i in x) {
+            var y = document.getElementsByClassName(x[i]);
+            for(var j=0; j<y.length; ++j) y[j].textContent = vars[x[i]];
+                }
+            }
+        </script>
+        <style type="text/css">
+            ${css}
+        </style>
+    </head>
+    <body style="border:0; margin: 0;" onload="subst()">
+        <table class="header" style="border-bottom: 0px solid black; width: 100%" ;font-size:10;>
+            <tr>
+                <td>${helper.embed_logo_by_name('company_logo', height=50)}</td>
+                <td style="text-align:right"></td>
+            </tr>
+            <tr>
+                <td><hr/></td>
+                <td style="text-align:left"> </td>
+            </tr>
+            <tr>
+                <td>
+${company.partner_id.name |entity}<br>
+${company.partner_id.address and company.partner_id.address[0].street or ''|entity}<br>
+${company.partner_id.address and company.partner_id.address[0].zip or ''|entity}
+${company.partner_id.address and company.partner_id.address[0].city or ''|entity}<br>
+Phone: ${company.partner_id.address and company.partner_id.address[0].phone or ''|entity} <br>
+Mail: ${company.partner_id.address and company.partner_id.address[0].email or ''|entity}
+                <td/>
+            </tr>
+        </table> ${_debug or ''} </body>
+</html>]]>
+</field>
+            <field eval="55.0" name="margin_top"/>
+            
+            <field name="css" ><![CDATA[
+body {
+font-family:helvetica;
+font-size:12;
+}
+
+
+.dest_address {
+margin-left:60%;
+font-size:12;
+}
+
+.header {
+margin-left:0;
+text-align:left;
+width:300px;
+font-size:12;
+}
+
+.title {
+font-size:16;
+font-weight: bold;
+
+}
+
+
+.basic_table{
+text-align:center;
+border:1px solid lightGrey;
+border-collapse: collapse;
+}
+.basic_table td {
+border:1px solid lightGrey;
+font-size:12;
+
+
+}
+
+.list_table {
+border-color:black;
+text-align:center;
+border-collapse: collapse;
+
+}
+.list_table td {
+border-color:gray;
+border-top:1px solid gray;
+text-align:left;
+font-size:12;
+padding-right:3px
+padding-left:3px
+padding-top:3px
+padding-bottom:3px
+}
+
+.list_table th {
+border-bottom:2px solid black;
+text-align:left;
+font-size:12;
+font-weight:bold;
+padding-right:3px
+padding-left:3px
+}
+
+.list_tabe thead {
+    display:table-header-group;
+}
+
+.text_table {
+border-color:black;
+text-align:center;
+border-collapse: collapse;
+
+}
+.text_table td {
+border-color:gray;
+border-top:0px solid gray;
+text-align:left;
+font-size:12;
+padding-right:3px
+padding-left:3px
+padding-top:3px
+padding-bottom:3px
+}
+
+.text_table th {
+border-bottom:2px solid black;
+text-align:left;
+font-size:12;
+font-weight:bold;
+padding-right:3px
+padding-left:3px
+}
+
+.text_table thead {
+    display:table-header-group;
+    }
+
+.total {
+width:100%;
+}
+.lib {
+width:10.3%;
+}
+.tot {
+text-align:right;
+width:15%;
+}
+.lefttot {
+width:74%;
+}
+.tax {
+width:50%;
+}
+]]> </field>
+            <field eval="&quot;&quot;&quot;Base Sample Company&quot;&quot;&quot;" name="name"/>
+        </record>
+    </data>
+</openerp>
