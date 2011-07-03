@@ -87,16 +87,18 @@ ${inv.address_invoice_id.address_label}
     <br/>
     <br/>
     <table class="basic_table" width="90%">
-        <tr><td>${_("Document")}</td><td>${_("Invoice Date")}</td>
+        <tr><td>${_("Document")}</td>
+            <td style="white-space:nowrap">${_("Invoice Date")}</td>
+            <td style="white-space:nowrap">${_("Payment Term")}</td>
           %if inv.reference:
-           <td>${_("Partner Ref.")}</td>
+            <td>${_("Partner Ref.")}</td>
           %endif
-         <td>${_("Curr")}</td></tr>
-        <tr><td>${inv.name}</td><td>${formatLang(inv.date_invoice, date=True)|entity}</td>
-         %if inv.reference:
-         <td>${inv.reference}
-         </td>
-         %endif
+            <td>${_("Curr")}</td>
+        </tr>
+        <tr><td>${inv.name}</td><td>${formatLang(inv.date_invoice, date=True)|entity}</td><td>${inv.payment_term.name}</td>
+           %if inv.reference:
+         <td>${inv.reference}</td>
+           %endif
          <td>${inv.currency_id.name}</td></tr>
     </table>
     <h1><br /></h1>
@@ -160,10 +162,6 @@ ${inv.address_invoice_id.address_label}
         </tr>
         %endif
     </table>        
-    %if inv.payment_term:
-    <br><b>${_("Payment Term")}</b><br>
-    ${inv.payment_term.name}<br>
-    %endif:
     %if inv.comment:
     <pre>${inv.comment}</pre>
     %endif:
