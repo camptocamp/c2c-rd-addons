@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <openerp>
-    <data noupdate="0">
+    <data noupdate="1">
         <record id="ir_property_webkitheader_c2c_austria" model="ir.property">
             <field name="fields_id" ref="report_webkit.field_ir_act_report_xml_webkit_header"/>
             <field eval="&quot;&quot;&quot;webkit_header_c2c_austria&quot;&quot;&quot;" name="name"/>
