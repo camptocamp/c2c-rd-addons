@@ -4,7 +4,7 @@
 # Copyright (c) 2010 Camptocamp SA (http://www.camptocamp.com) 
 # All Right Reserved
 #
-# Author : Nicolas Bessi (Camptocamp)
+# Author : Ferdinand GAssauer (Camptocamp Austria)
 #
 # WARNING: This program as such is intended to be used by professional
 # programmers who take the whole responsability of assessing all potential
@@ -41,7 +41,7 @@
     "category": "Reports/Webkit",
     "author" : "Camptocamp SA - NBessi, Ferdinand Gassauer",
     "url": "http://www.camptocamp.com/",
-    "data": ["data.xml","report_webkit_html_view.xml",
+    "data": ["data.xml","account_invoice_webkit_view.xml",
                    ],
     "installable" : True,
     "active" : False,
