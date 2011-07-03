@@ -33,13 +33,13 @@ ${inv.address_invoice_id.address_label}
          </td>
          <td>
          %if inv.address_invoice_id.phone :
-${_("Tel")}: ${inv.address_invoice_id.phone|entity} <br>
+${_("Phone")}: ${inv.address_invoice_id.phone|entity} <br>
         %endif
         %if inv.address_invoice_id.fax :
 ${_("Fax")}: ${inv.address_invoice_id.fax|entity} <br>
         %endif
         %if inv.address_invoice_id.email :
-${_("E-mail")}: ${inv.address_invoice_id.email|entity} <br>
+${_("Mail")}: ${inv.address_invoice_id.email|entity} <br>
         %endif
         %if inv.partner_id.vat :
 ${_("VAT")}: ${inv.partner_id.vat|entity} <br>
