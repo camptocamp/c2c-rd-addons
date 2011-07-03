@@ -113,12 +113,12 @@ ${inv.address_invoice_id.address_label}
         <tbody>
         <tr>
            <td>${line.name|entity}</td><td>${ ', '.join([ tax.name or '' for tax in line.invoice_line_tax_id ])|entity}</td>
-           <td style="text-align:right;">${line.quantity}</td>
-           <td style="text-align:right;">${formatLang(line.price_unit,digits=2)}</td>
+           <td style="white-space:nowrap;text-align:right;">${line.quantity}</td>
+           <td style="white-space:nowrap;text-align:right;">${formatLang(line.price_unit,digits=2)}</td>
           %if inv.amount_discount != 0:
-           <td style="text-align:right;">${line.discount or 0.00}</td>
+           <td style="white-space:nowrap;text-align:right;">${line.discount or 0.00}</td>
           %endif
-           <td style="text-align:right;">${formatLang(line.price_subtotal)}
+           <td style="white-space:nowrap;text-align:right;">${formatLang(line.price_subtotal)}
          </td></tr>
         %if line.note :
            %if inv.amount_discount != 0:
