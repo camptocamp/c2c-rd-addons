@@ -95,7 +95,8 @@ ${inv.address_invoice_id.address_label}
           %endif
             <td>${_("Curr")}</td>
         </tr>
-        <tr><td>${inv.name}</td><td>${formatLang(inv.date_invoice, date=True)|entity}</td><td>${inv.payment_term.name}</td>
+        <tr><td>${inv.name or ''}</td><td>${formatLang(inv.date_invoice, date=True)|entity}</td>
+          <td>${inv.payment_term.name or ''}</td>
            %if inv.reference:
          <td>${inv.reference}</td>
            %endif
