@@ -63,7 +63,7 @@
        <body style="border-collapse: collapse;border:0; margin: 0;" onload="subst()">
         <table class="header" style="border-collapse: collapse;border-bottom: 0px solid black; width: 100% ;font-size:10;">
             <tr>
-                <td style="border-bottom: 1px solid grey;">${helper.embed_logo_by_name('company_logo', height=50,width=50)}</td>
+                <td style="border-bottom: 1px solid grey;">${helper.embed_logo_by_name('company_logo', height=70)}</td>
                 <td style="border-bottom: 1px solid grey;width:40%";>${company.partner_id.name |entity}<br>
 ${company.partner_id.address and company.partner_id.address[0].street or ''|entity}<br>
 ${company.partner_id.address and company.partner_id.address[0].zip or ''|entity}

@@ -104,16 +104,17 @@ ${inv.address_invoice_id.address_label}
     </table>
     <h1><br /></h1>
     <table class="list_table"  width="90%">
-        <thead><tr><th>${_("Description")}</th><th class>${_("Taxes")}</th><th class>${_("QTY")}</th><th>${_("Unit Price")}</th>
+        <thead><tr><th>${_("Description")}</th><th class>${_("Taxes")}</th><th class style="text-align:right;">${_("QTY")}</th><th class>${_("Unit")}</th><th style="text-align:right;">${_("Unit Price")}</th>
           %if inv.amount_discount != 0:
-            <th >${_("Disc.(%)")}</th>
+            <th style="text-align:right;">${_("Disc.(%)")}</th>
           %endif
-        <th>${_("Price")}</th></tr></thead>
+        <th style="text-align:right;">${_("Price")}</th></tr></thead>
         %for line in inv.invoice_line :
         <tbody>
         <tr>
            <td>${line.name|entity}</td><td>${ ', '.join([ tax.name or '' for tax in line.invoice_line_tax_id ])|entity}</td>
            <td style="white-space:nowrap;text-align:right;">${line.quantity}</td>
+           <td style="white-space:nowrap;text-align:left;">${line.uos_id.name}</td>
            <td style="white-space:nowrap;text-align:right;">${formatLang(line.price_unit,digits=2)}</td>
           %if inv.amount_discount != 0:
            <td style="white-space:nowrap;text-align:right;">${line.discount or 0.00}</td>
@@ -132,34 +133,34 @@ ${inv.address_invoice_id.address_label}
            %if inv.amount_discount != 0:
              <td style="border-style:none"/>
            %endif
-             <td style="border-style:none"/><td style="border-style:none"/><td style="border-style:none"/><td style="border-top:2px solid"><b>Net Total:</b></td><td style="border-top:2px solid;text-align:right">${formatLang(inv.amount_untaxed)}</td></tr>
+             <td style="border-style:none"/> <td style="border-style:none"/><td style="border-style:none"/><td style="border-style:none"/><td style="border-top:2px solid;white-space:nowrap"><b>Net Total:</b></td><td style="border-top:2px solid;text-align:right">${formatLang(inv.amount_untaxed)}</td></tr>
         <tr> 
            %if inv.amount_discount != 0:
               <td style="border-style:none"/>
            %endif
-              <td style="border-style:none"/><td style="border-style:none"/><td style="border-style:none"/><td style="border-style:none"><b>Taxes:</b></td><td style="text-align:right">${formatLang(inv.amount_tax)}</td></tr>
+              <td style="border-style:none"/><td style="border-style:none"/><td style="border-style:none"/><td style="border-style:none"/><td style="border-style:none"><b>Taxes:</b></td><td style="text-align:right">${formatLang(inv.amount_tax)}</td></tr>
         <tr> 
           %if inv.amount_discount != 0:
              <td style="border-style:none"/>
           %endif
-             <td style="border-style:none"/><td style="border-style:none"/><td style="border-style:none"/><td style="border-top:2px solid"><b>Total ${inv.currency_id.name}:</b></td><td style="border-top:2px solid;text-align:right">${formatLang(inv.amount_total)}</td></tr>
+             <td style="border-style:none"/><td style="border-style:none"/><td style="border-style:none"/><td style="border-style:none"/><td style="border:2px solid;font-weight:bold;white-space:nowrap">Total ${inv.currency_id.name}:</td><td style="border:2px solid;text-align:right;font-weight:bold">${formatLang(inv.amount_total)}</td></tr>
         </tbody>
     </table>
 <br>
        %if inv.tax_line :
-    <table class="list_table" style="width:40%;">
-        <tr><th>${_("Tax")}</th><th>${_("Base")}</th><th>${_("Amount")}</th></tr>
+    <table class="list_table" style="width:40%;border:1px solid grey">
+        <tr><th>${_("Tax")}</th><th style="text-align:right;">${_("Base")}</th><th style="text-align:right;">${_("Amount")}</th></tr>
         %for t in inv.tax_line :
         <tr>
-            <td>${ t.name|entity } </td>
-            <td style="text-align:right;">${ t.base|entity}</td>
-            <td style="text-align:right;">${ formatLang(t.amount) }</td>
+            <td style="border:1px solid grey">${ t.name|entity } </td>
+            <td style="text-align:right;border:1px solid grey">${ formatLang(t.base)}</td>
+            <td style="text-align:right;border:1px solid grey">${ formatLang(t.amount) }</td>
         </tr>
         %endfor
         <tr>
             <td style="border-style:none"/>
-            <td style="border-top:2px solid;text-align:right;"><b>${_("Total")}</b></td>
-            <td style="border-top:2px solid;text-align:right;">${ formatLang(inv.amount_tax) }</td>
+            <td style="border-top:0px solid;text-align:right;"><b>${_("Total Tax:")}</b></td>
+            <td style="border-top:0px solid;text-align:right;">${ formatLang(inv.amount_tax) }</td>
         </tr>
         %endif
     </table>        
