@@ -91,7 +91,7 @@ ${inv.address_invoice_id.address_label}
             <td style="white-space:nowrap">${_("Invoice Date")}</td>
             <td style="white-space:nowrap">${_("Payment Term")}</td>
           %if inv.reference:
-            <td>${_("Partner Ref.")}</td>
+            <td style="white-space:nowrap">${_("Partner Ref.")}</td>
           %endif
             <td>${_("Curr")}</td>
         </tr>
