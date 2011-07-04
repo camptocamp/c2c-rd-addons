@@ -29,7 +29,7 @@
       <body style="border:0; margin: 0;" onload="subst()">
         <table style="border-top: 1px solid black; width: 100%">
             <tr >
-                <td style="text-align:left;font-size:9;width:50%;" >Sitz in Wien<br>Firmenbuch: FN 263124y beim Handelsgericht Wien<br>UID ATU61770417</td>
+                <td style="text-align:left;font-size:9;width:50%;" >Sitz in Wien<br>Firmenbuch: FN 263124y beim Handelsgericht Wien<br>${_("VAT")} ${company.partner_id.vat or ''}</td>
                 <td style="text-align:left;font-size:9;width:40%;" >Schoellerbank Aktiengesellschaft<br>BLZ 19200<br>Konto 08 577 596 007<br>SWIFT SCHOATWW<br>IBAN AT53 1920 0085 7759 6007</td>
                 <td style="text-align:left;font-size:9;width:5%;" >${_("Page")} <span class="page"/></td>
                 <td style="text-align:left;font-size:9;width:5%;">  of  <span class="topage"/></td>
@@ -70,9 +70,9 @@ ${company.partner_id.address and company.partner_id.address[0].zip or ''|entity}
 ${company.partner_id.address and company.partner_id.address[0].city or ''|entity}<br>
 ${company.partner_id.address and company.partner_id.address[0].country_id.name or ''|entity}</td>
             </tr>
-            <tr">
-                <td style="border-bottom: 0px solid white;"></td>
-                <td style="border-bottom: 0px solid white;">
+            <tr>
+	      <td style="border-bottom: 0px solid white;">${company.rml_header1|entity}</td>
+              <td style="border-bottom: 0px solid white;">
 
 <table class="header" style="border-collapse: collapse;border-bottom: 0px solid white; width: 100% ;font-size:10;">
 <tr>
