@@ -1,13 +1,13 @@
 <?xml version="1.0" ?>
 <openerp>
     <data noupdate="1">
-        <record id="ir_property_webkitheaderdefault0" model="ir.property">
-            <field name="fields_id" ref="field_ir_act_report_xml_webkit_header"/>
-            <field eval="&quot;&quot;&quot;webkit_header_default&quot;&quot;&quot;" name="name"/>
+        <record id="ir_property_webkitheader_c2c_austria" model="ir.property">
+            <field name="fields_id" ref="report_webkit.field_ir_act_report_xml_webkit_header"/>
+            <field eval="&quot;&quot;&quot;webkit_header_c2c_austria&quot;&quot;&quot;" name="name"/>
             <field eval="&quot;&quot;&quot;ir.header_webkit,1&quot;&quot;&quot;" name="value"/>
         </record>
         
-        <record id="ir_header_webkit_basesample0" model="ir.header_webkit">
+        <record id="ir_header_webkit_c2c_austria" model="ir.header_webkit">
             
             <field name="footer_html"><![CDATA[<html>
     <head>
@@ -25,6 +25,7 @@
             }
         </script>
     </head>
+    
       <body style="border:0; margin: 0;" onload="subst()">
         <table style="border-top: 1px solid black; width: 100%">
             <tr >
@@ -59,31 +60,43 @@
             ${css}
         </style>
     </head>
-    <body style="border:0; margin: 0;" onload="subst()">
-        <table class="header" style="border-bottom: 0px solid black; width: 100%" ;font-size:10;>
+       <body style="border-collapse: collapse;border:0; margin: 0;" onload="subst()">
+        <table class="header" style="border-collapse: collapse;border-bottom: 0px solid black; width: 100% ;font-size:10;">
             <tr>
-                <td>${helper.embed_logo_by_name('company_logo', height=50)}</td>
-                <td style="text-align:right"></td>
-            </tr>
-            <tr>
-                <td><hr/></td>
-                <td style="text-align:left"> </td>
-            </tr>
-            <tr>
-                <td>
-${company.partner_id.name |entity}<br>
+                <td style="border-bottom: 1px solid grey;">${helper.embed_logo_by_name('company_logo', height=50,width=50)}</td>
+                <td style="border-bottom: 1px solid grey;width:40%";>${company.partner_id.name |entity}<br>
 ${company.partner_id.address and company.partner_id.address[0].street or ''|entity}<br>
 ${company.partner_id.address and company.partner_id.address[0].zip or ''|entity}
 ${company.partner_id.address and company.partner_id.address[0].city or ''|entity}<br>
-Phone: ${company.partner_id.address and company.partner_id.address[0].phone or ''|entity} <br>
-Mail: ${company.partner_id.address and company.partner_id.address[0].email or ''|entity}
-                <td/>
+${company.partner_id.address and company.partner_id.address[0].country_id.name or ''|entity}</td>
             </tr>
+            <tr">
+                <td style="border-bottom: 0px solid white;"></td>
+                <td style="border-bottom: 0px solid white;">
+
+<table class="header" style="border-collapse: collapse;border-bottom: 0px solid white; width: 100% ;font-size:10;">
+<tr>
+<td>
+Phone<br>
+Fax<br>
+Mail<br>
+</td>
+<td>${company.partner_id.address and company.partner_id.address[0].phone or ''|entity} <br>
+${company.partner_id.address and company.partner_id.address[0].fax or ''|entity}<br>
+${company.partner_id.address and company.partner_id.address[0].email or ''|entity}
+</td>
+</tr>
+</table>
+
+</td>
+   </tr>
         </table> ${_debug or ''} </body>
 </html>]]>
 </field>
-            <field eval="55.0" name="margin_top"/>
-            
+            <field eval="40.0" name="margin_top"/>
+            <field eval="20.0" name="margin_bottom"/>
+	    <field eval="13.0" name="margin_left"/>
+	    <field eval="10.0" name="margin_right"/>
             <field name="css" ><![CDATA[
 body {
 font-family:helvetica;
@@ -199,7 +212,7 @@ width:74%;
 width:50%;
 }
 ]]> </field>
-            <field eval="&quot;&quot;&quot;Base Sample Company&quot;&quot;&quot;" name="name"/>
+            <field eval="&quot;&quot;&quot;Base c2c Austria&quot;&quot;&quot;" name="name"/>
         </record>
     </data>
 </openerp>
