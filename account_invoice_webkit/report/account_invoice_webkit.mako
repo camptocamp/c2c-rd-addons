@@ -143,7 +143,7 @@ ${inv.address_invoice_id.address_label}
           %if inv.amount_discount != 0:
              <td style="border-style:none"/>
           %endif
-             <td style="border-style:none"/><td style="border-style:none"/><td style="border-style:none"/><td style="border-style:none"/><td style="border-top:2px solid"><b>Total ${inv.currency_id.name}:</b></td><td style="border-top:2px solid;text-align:right">${formatLang(inv.amount_total)}</td></tr>
+             <td style="border-style:none"/><td style="border-style:none"/><td style="border-style:none"/><td style="border-style:none"/><td style="border:2px solid;font-weight:bold">Total ${inv.currency_id.name}:</td><td style="border:2px solid;text-align:right;font-weight:bold">${formatLang(inv.amount_total)}</td></tr>
         </tbody>
     </table>
 <br>
