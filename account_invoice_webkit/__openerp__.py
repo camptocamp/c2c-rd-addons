@@ -37,11 +37,11 @@
            using address lebel field with addressee's country specific zip position
                     """,
     "version" : "0.9",
-    "depends" : ["base", "account", "report_webkit","report_webkit_c2c_austria_templates","c2c_partner_address_label"],
+    "depends" : ["base", "account", "report_webkit","report_webkit_c2c_templates","c2c_partner_address_label"],
     "category": "Reports/Webkit",
     "author" : "Camptocamp SA - NBessi, Ferdinand Gassauer",
     "url": "http://www.camptocamp.com/",
-    "data": ["account_invoice_webkit_view.xml",
+    "data": ["account_invoice_webkit_view.xml","bank_account_view.xml",
                    ],
     "installable" : True,
     "active" : False,

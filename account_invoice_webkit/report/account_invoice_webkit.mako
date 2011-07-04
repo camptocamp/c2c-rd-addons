@@ -104,7 +104,7 @@ ${inv.address_invoice_id.address_label}
     </table>
     <h1><br /></h1>
     <table class="list_table"  width="90%">
-        <thead><tr><th>${_("Description")}</th><th class>${_("Taxes")}</th><th class style="text-align:right;">${_("QTY")}</th><th class>${_("Unit")}</th><th style="text-align:right;">${_("Unit Price")}</th>
+        <thead><tr><th>${_("Description")}</th><th class>${_("Taxes")}</th><th class style="text-align:right;">${_("QTY")}</th><th class>${_("Unit")}</th><th style="text-align:right;white-space:nowrap;">${_("Unit Price")}</th>
           %if inv.amount_discount != 0:
             <th style="text-align:right;">${_("Disc.(%)")}</th>
           %endif
