@@ -85,7 +85,7 @@ ${company.partner_id.address and company.partner_id.address[0].city or ''|entity
 ${company.partner_id.address and company.partner_id.address[0].country_id.name or ''|entity}</td>
             </tr>
             <tr>
-	      <td style="border-bottom: 0px solid white;">${company.rml_header1|entity}</td>
+	      <td style="border-bottom: 0px solid white;">${company.rml_header1 or ''}</td>
               <td style="border-bottom: 0px solid white;">
 
 <table class="header" style="border-collapse: collapse;border-bottom: 0px solid white; width: 100% ;font-size:10;">
