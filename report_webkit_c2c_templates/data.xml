@@ -78,7 +78,7 @@ ${_("IBAN:")} ${company.company_bank_id.iban}
         <table class="header" style="border-collapse: collapse;border-bottom: 0px solid black; width: 100% ;font-size:10;">
             <tr>
                 <td style="border-bottom: 1px solid grey;">${helper.embed_logo_by_name('company_logo', height=70)}</td>
-		<td style="border-bottom: 1px solid grey;width:40%";><b>${company.partner_id.name |entity}<b><br>
+		<td style="border-bottom: 1px solid grey;width:40%";><b>${company.partner_id.name |entity}</b><br>
 ${company.partner_id.address and company.partner_id.address[0].street or ''|entity}<br>
 ${company.partner_id.address and company.partner_id.address[0].zip or ''|entity}
 ${company.partner_id.address and company.partner_id.address[0].city or ''|entity}<br>
