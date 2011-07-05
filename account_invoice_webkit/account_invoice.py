@@ -42,7 +42,20 @@ class account_invoice(osv.osv):
           res[invoice.id] =  amount_discount     
         return res
 
+    def _print_price_unit_id(self, cr, uid, ids, name, args, context=None):
+        res = {}
+        print_price_unit_id = False
+        for invoice in self.browse(cr, uid, ids, context=context):
+	  if invoice.invoice_line:
+            for line in invoice.invoice_line:
+                if line.price_unit_id and line.price_unit_id.coefficient != 1:
+		   print_price_unit_id = True
+		   break
+          res[invoice.id] =  print_price_unit_id
+        return res
+
     _columns = {
-        'amount_discount': fields.function(_amount_discount, method=True, digits_compute=dp.get_precision('Account'), string='Total Discount',),  
+        'amount_discount': fields.function(_amount_discount, method=True, digits_compute=dp.get_precision('Account'), string='Total Discount',),
+        'print_price_unit_id': fields.function(_print_price_unit_id, method=True, type='boolean', string='Print column price unit id if not 1',),        
     }
 account_invoice()
