@@ -44,13 +44,12 @@ class account_invoice(osv.osv):
 
     def _print_price_unit_id(self, cr, uid, ids, name, args, context=None):
         res = {}
-        print_price_unit_id = False
         for invoice in self.browse(cr, uid, ids, context=context):
+	  print_price_unit_id = False
 	  if invoice.invoice_line:
             for line in invoice.invoice_line:
-                if line.price_unit_id and line.price_unit_id.coefficient != 1:
+                if line.price_unit_id and line.price_unit_id.coefficient != 1.0:
 		   print_price_unit_id = True
-		   break
           res[invoice.id] =  print_price_unit_id
         return res
 
