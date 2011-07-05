@@ -29,6 +29,5 @@
 #
 ##############################################################################
 import account_invoice
-import bank_account
 import wizard
 import report

@@ -41,7 +41,7 @@
     "category": "Reports/Webkit",
     "author" : "Camptocamp SA - NBessi, Ferdinand Gassauer",
     "url": "http://www.camptocamp.com/",
-    "data": ["account_invoice_webkit_view.xml","bank_account_view.xml",
+    "data": ["account_invoice_webkit_view.xml",
                    ],
     "installable" : True,
     "active" : False,
