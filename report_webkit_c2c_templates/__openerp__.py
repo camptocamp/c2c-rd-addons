@@ -39,7 +39,7 @@
     "category": "Reports/Webkit",
     "author" : "Camptocamp Ferdinand Gassauer",
     "url": "http://www.camptocamp.com/",
-    "data": ["data.xml",
+    "data": ["bank_account_view.xml","data.xml",
                    ],
     "installable" : True,
     "active" : False,

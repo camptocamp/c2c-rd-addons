@@ -91,11 +91,15 @@ ${inv.address_invoice_id.address_label}
             <td style="white-space:nowrap">${_("Invoice Date")}</td>
             <td style="white-space:nowrap">${_("Payment Term")}</td>
           %if inv.reference:
-            <td>${_("Partner Ref.")}</td>
+            <td style="white-space:nowrap">${_("Partner Ref.")}</td>
           %endif
             <td>${_("Curr")}</td>
         </tr>
-        <tr><td>${inv.name or ''}</td><td>${formatLang(inv.date_invoice, date=True)|entity}</td>
+        <tr><td>${inv.name or ''} 
+            %if inv.origin:
+               <br>${inv.origin or ''}
+            %endif
+            </td><td>${formatLang(inv.date_invoice, date=True)|entity}</td>
           <td>${inv.payment_term.name or ''}</td>
            %if inv.reference:
          <td>${inv.reference}</td>
@@ -104,18 +108,28 @@ ${inv.address_invoice_id.address_label}
     </table>
     <h1><br /></h1>
     <table class="list_table"  width="90%">
-        <thead><tr><th>${_("Description")}</th><th class>${_("Taxes")}</th><th class style="text-align:right;">${_("QTY")}</th><th class>${_("Unit")}</th><th style="text-align:right;">${_("Unit Price")}</th>
-          %if inv.amount_discount != 0:
-            <th style="text-align:right;">${_("Disc.(%)")}</th>
+        <thead>
+          <tr>
+            <th>${_("Description")}</th><th class>${_("Taxes")}</th><th class style="text-align:left;">${_("QTY")}</th><th class>${_("Unit")}</th><th style="text-align:left;white-space:nowrap;">${_("Unit Price")}</th>
+          %if inv.print_price_unit_id == True:
+            <th style="text-align:left;">${_("Price/Unit")}</th>
           %endif
-        <th style="text-align:right;">${_("Price")}</th></tr></thead>
+          %if inv.amount_discount != 0:
+            <th style="text-align:left;">${_("Disc.(%)")}</th>
+          %endif
+            <th style="text-align:left;">${_("Price")}</th>
+         </tr>
+        </thead>
         %for line in inv.invoice_line :
         <tbody>
         <tr>
            <td>${line.name|entity}</td><td>${ ', '.join([ tax.name or '' for tax in line.invoice_line_tax_id ])|entity}</td>
            <td style="white-space:nowrap;text-align:right;">${line.quantity}</td>
-           <td style="white-space:nowrap;text-align:left;">${line.uos_id.name}</td>
-           <td style="white-space:nowrap;text-align:right;">${formatLang(line.price_unit,digits=2)}</td>
+           <td style="white-space:nowrap;text-align:left;">${line.uos_id.name or _("Unit")}</td>
+           <td style="white-space:nowrap;text-align:right;">${formatLang(line.price_unit_pu or line.price_unit,digits=2)}</td>
+          %if inv.print_price_unit_id == True:
+           <td style="white-space:nowrap;text-align:left;">${line.price_unit_id.name or ''}</td>
+          %endif
           %if inv.amount_discount != 0:
            <td style="white-space:nowrap;text-align:right;">${line.discount or 0.00}</td>
           %endif
@@ -130,16 +144,25 @@ ${inv.address_invoice_id.address_label}
         %endif
         %endfor
         <tr>
+           %if inv.print_price_unit_id == True:
+             <td style="border-style:none"/>
+           %endif
            %if inv.amount_discount != 0:
              <td style="border-style:none"/>
            %endif
              <td style="border-style:none"/> <td style="border-style:none"/><td style="border-style:none"/><td style="border-style:none"/><td style="border-top:2px solid;white-space:nowrap"><b>Net Total:</b></td><td style="border-top:2px solid;text-align:right">${formatLang(inv.amount_untaxed)}</td></tr>
-        <tr> 
+        <tr>
+           %if inv.print_price_unit_id == True:
+             <td style="border-style:none"/>
+           %endif 
            %if inv.amount_discount != 0:
               <td style="border-style:none"/>
            %endif
               <td style="border-style:none"/><td style="border-style:none"/><td style="border-style:none"/><td style="border-style:none"/><td style="border-style:none"><b>Taxes:</b></td><td style="text-align:right">${formatLang(inv.amount_tax)}</td></tr>
         <tr> 
+           %if inv.print_price_unit_id == True:
+             <td style="border-style:none"/>
+           %endif
           %if inv.amount_discount != 0:
              <td style="border-style:none"/>
           %endif
@@ -149,7 +172,7 @@ ${inv.address_invoice_id.address_label}
 <br>
        %if inv.tax_line :
     <table class="list_table" style="width:40%;border:1px solid grey">
-        <tr><th>${_("Tax")}</th><th style="text-align:right;">${_("Base")}</th><th style="text-align:right;">${_("Amount")}</th></tr>
+        <tr><th>${_("Tax")}</th><th style="text-align:left;">${_("Base")}</th><th style="text-align:left;">${_("Amount")}</th></tr>
         %for t in inv.tax_line :
         <tr>
             <td style="border:1px solid grey">${ t.name|entity } </td>

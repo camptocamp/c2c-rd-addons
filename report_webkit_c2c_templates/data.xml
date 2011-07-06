@@ -29,8 +29,22 @@
       <body style="border:0; margin: 0;" onload="subst()">
         <table style="border-top: 1px solid black; width: 100%">
             <tr >
-                <td style="text-align:left;font-size:9;width:50%;" >Sitz in Wien<br>Firmenbuch: FN 263124y beim Handelsgericht Wien<br>UID ATU61770417</td>
-                <td style="text-align:left;font-size:9;width:40%;" >Schoellerbank Aktiengesellschaft<br>BLZ 19200<br>Konto 08 577 596 007<br>SWIFT SCHOATWW<br>IBAN AT53 1920 0085 7759 6007</td>
+                <td style="text-align:left;font-size:9;width:45%;" >
+${_("Registered Office:")} ${company.registered_office or ''}<br>
+${_("Commercial Register:")} ${company.commercial_register or ''}<br>
+${_("VAT:")} ${company.partner_id.vat or ''}
+                </td>
+                <td style="text-align:left;font-size:9;width:45%;" >
+${company.company_bank_id.bank.name}<br>
+   %if company.company_bank_id.acc_number:
+${_("Code:")} ${company.company_bank_id.bank.code}<br>
+${_("Account:")} ${company.company_bank_id.acc_number}<br>
+  %endif
+  %if company.company_bank_id.iban:
+${_("SWIFT:")} ${company.company_bank_id.bank.bic}<br>
+${_("IBAN:")} ${company.company_bank_id.iban}
+  %endif
+</td>
                 <td style="text-align:left;font-size:9;width:5%;" >${_("Page")} <span class="page"/></td>
                 <td style="text-align:left;font-size:9;width:5%;">  of  <span class="topage"/></td>
             </tr>
@@ -64,15 +78,15 @@
         <table class="header" style="border-collapse: collapse;border-bottom: 0px solid black; width: 100% ;font-size:10;">
             <tr>
                 <td style="border-bottom: 1px solid grey;">${helper.embed_logo_by_name('company_logo', height=70)}</td>
-                <td style="border-bottom: 1px solid grey;width:40%";>${company.partner_id.name |entity}<br>
+		<td style="border-bottom: 1px solid grey;width:40%";><b>${company.partner_id.name |entity}</b><br>
 ${company.partner_id.address and company.partner_id.address[0].street or ''|entity}<br>
 ${company.partner_id.address and company.partner_id.address[0].zip or ''|entity}
 ${company.partner_id.address and company.partner_id.address[0].city or ''|entity}<br>
 ${company.partner_id.address and company.partner_id.address[0].country_id.name or ''|entity}</td>
             </tr>
-            <tr">
-                <td style="border-bottom: 0px solid white;"></td>
-                <td style="border-bottom: 0px solid white;">
+            <tr>
+	      <td style="border-bottom: 0px solid white;">${company.rml_header1 or ''}</td>
+              <td style="border-bottom: 0px solid white;">
 
 <table class="header" style="border-collapse: collapse;border-bottom: 0px solid white; width: 100% ;font-size:10;">
 <tr>
