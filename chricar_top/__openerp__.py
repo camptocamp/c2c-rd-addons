@@ -10,7 +10,7 @@ generated 2009-07-09 16:17:22+02""",
      "depends"      : ["base","product","stock","chricar_partner_parent_companies",],
      "init_xml"     : ["mig_top_init.xml"],
      "demo_xml"     : [],
-     "update_xml"   : ["top_view.xml","report_webkit.xml"],
+     "update_xml"   : ["top_view.xml","location_income_tax_view.xml","report_webkit.xml","security/ir.model.access.csv"],
      "active"       : False,
      "installable"  : True
 }

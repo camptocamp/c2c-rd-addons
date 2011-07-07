@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <!--
+==============================================
+Real Estate Income Tax Statement per location
+==============================================
+-->
+    <record model="ir.ui.view" id="chricar_location_income_tax_list">
+      <field name="name">chricar.location.income.tax.list</field>
+      <field name="model">location.income.tax</field>
+      <field name="priority">1</field>
+      <field name="type">tree</field>
+      <field name="arch" type="xml">
+        <tree string="Income Tax Details" editable="bottom">
+          <field name="location_id" select="1"/>
+          <field name="fiscalyear_id" select="1"/>
+          <field name="account_id" select="1"/>
+          <field name="amount" select="1" sum="Amount"/>
+          <field name="note" select="1"/>
+        </tree>
+      </field>
+    </record>
+    <record id="location_income_tax_search" model="ir.ui.view">
+      <field name="name">location.income.tax.search</field>
+      <field name="model">location.income.tax</field>
+      <field name="type">search</field>
+      <field name="arch" type="xml">
+        <search string="Search Fiscalyear">
+          <group>
+            <field name="location_id"/>
+            <field name="fiscalyear_id"/>
+            <field name="account_id"/>
+            <field name="note"/>
+          </group>
+          <newline/>
+          <group expand="1" string="Group By...">
+            <filter
+              context="{'group_by': 'location_id'}"
+              icon="terp-stock_effects-object-colorize"
+              string="Location"/>
+            <filter
+              context="{'group_by': 'fiscalyear_id'}"
+              icon="terp-stock_effects-object-colorize"
+              string="Fiscalyear"/>
+            <filter
+              context="{'group_by': 'account_id'}"
+              icon="terp-stock_effects-object-colorize"
+              string="Account"/>
+          </group>
+        </search>
+      </field>
+    </record>
+    <record model="ir.actions.act_window" id="chricar_location_income_tax">
+      <field name="name">Income Tax Details</field>
+      <field name="res_model">location.income.tax</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="view_id" ref="chricar_location_income_tax_list"/>
+    </record>
+    <record model="ir.actions.act_window.view" id="chricar_location_income_tax_view">
+      <field name="sequence" eval="1"/>
+      <field name="view_mode">tree</field>
+      <field name="view_id" ref="chricar_location_income_tax_list"/>
+      <field name="act_window_id" ref="chricar_location_income_tax"/>
+    </record>
+    <menuitem
+      action="chricar_location_income_tax"
+      id="menu_action_location_income_tax"
+      parent="chricar_top.menu_chricar_real_estate"
+      sequence="20"/>
+  </data>
+</openerp>
