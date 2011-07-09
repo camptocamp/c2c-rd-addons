@@ -32,6 +32,18 @@ from tools.translate import _
 class stock_picking(osv.osv):
     _inherit = "stock.picking"
 
+    def _print_uom(self, cr, uid, ids, name, args, context=None):
+        res = {}
+        for picking in self.browse(cr, uid, ids, context=context):
+	  print_uom = False
+	  if picking.move_lines:
+            for line in picking.move_lines:
+                if line.product_uom != line.product_uos :
+		   print_uom = True
+          res[picking.id] =  print_uom
+        return res
+        
     _columns = {
+              'print_uom': fields.function(_print_uom, method=True, type='boolean', string='Print UoM if different from UoS',),
     }
 stock_picking()
