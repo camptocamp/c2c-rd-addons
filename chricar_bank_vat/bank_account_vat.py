@@ -261,9 +261,15 @@ class account_bank_statement_line(osv.osv):
         result = {}
         if tax_id:
             result = self.onchange_tax(cr, uid, ids, tax_id, amount, partner_id)
+            #print >> sys.stderr, 'r1', result
 	if not date:
-	    result = { 'value' : {'date': date_statement}} 
-        return result
+	    # FIXME not nice
+	    v1 = result.get('value') 
+	    v2 = { 'value' : {'date': date_statement}}
+	    v2a = v2.get('value')
+	    v1.update(v2a)
+	    #print >> sys.stderr, 'r2', v1
+        return {'value' : v1 }
         
     def onchange_account(self, cr, uid, ids, account_id,tax_id, amount, partner_id):
         if not account_id: return {}
