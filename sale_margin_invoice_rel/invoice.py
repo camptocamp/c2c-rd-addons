@@ -27,4 +27,12 @@ class account_invoice(osv.osv):
     _columns = {
         'picking_ids': fields.many2many('stock.picking', 'picking_invoice_rel', 'invoice_id', 'picking_id', 'Pickings', domain=[('type', '=', 'out')]),
     }
+    
+    # FIXME - is not executed on install of the module 
+    def init(self, cr):
+      cr.execute("""
+insert into picking_invoice_rel(picking_id,invoice_id) select p.id,i.id from stock_picking p, account_invoice i
+where p.name = split_part(i.origin,':',1) and (p.id,i.id) not in (select picking_id,invoice_id from picking_invoice_rel);
+""")
+
 account_invoice()
