@@ -150,7 +150,7 @@ for balance accounts
     def create(self, cr, uid, vals, context=None):
         if context is None:
             context = {}
-        print >> sys.stderr,'account vals ', vals
+        #print >> sys.stderr,'account vals ', vals
         
         if not vals.get('account_analytic_usage'):
             usage = 'none'
@@ -196,7 +196,7 @@ for balance accounts
         if account_id:
             account = self.browse(cr, uid,  account_id)
             if account.account_analytic_usage in ('mandatory','fixed') and not analytic_account_id :
-                print >> sys.stderr, 'Data Error', 'There is no analytic account defined for ',account.name
+                #print >> sys.stderr, 'Data Error', 'There is no analytic account defined for ',account.name
                 return False
         return True
 
@@ -205,7 +205,7 @@ for balance accounts
         if account_id:
             account = self.browse(cr, uid,  account_id)
             if account.account_analytic_usage == 'fixed' and account.analytic_account_id.id != analytic_account_id :
-                print >> sys.stderr, 'Data Error', 'Wrong analytic account for ',account.name
+                #print >> sys.stderr, 'Data Error', 'Wrong analytic account for ',account.name
                 return False
         return True
 
@@ -213,7 +213,7 @@ for balance accounts
         if account_id:
             account = self.browse(cr, uid,  account_id)
             if account.analytic_account_id and account.account_analytic_usage == 'none':
-                print >> sys.stderr, 'Data Error', 'no analytic account allowed for ',account.name
+                #print >> sys.stderr, 'Data Error', 'no analytic account allowed for ',account.name
                 return False
         return True
 
@@ -358,23 +358,23 @@ class account_invoice_line(osv.osv):
         result = super(account_invoice_line,self).onchange_account_id(cr, uid, ids,fiscal_position,account_id)
         if not account_id or account_analytic_id: 
              return {}
-        print >> sys.stderr, ' invoice line ', result
+        #print >> sys.stderr, ' invoice line ', result
         account_obj =  self.pool.get('account.account')
         res = account_obj.get_analytic(cr, uid, ids, account_id)
-        print >> sys.stderr, ' invoice line ', result, res
+        #print >> sys.stderr, ' invoice line ', result, res
         v1 = result.get('value')
         v2 = res.get('value')
         if v2:
            v1.update(v2)
-        print >> sys.stderr, ' invoice line -2 ', result
+        #print >> sys.stderr, ' invoice line -2 ', result
         return result
 
     def _check_analytic_account_exists(self, cr, uid, ids):
         for move in self.browse(cr, uid, ids):  
             account_obj = self.pool.get('account.account')
-            print >> sys.stderr, 'invoice - check analytic for ', u'move.account_id.name'
+            #print >> sys.stderr, 'invoice - check analytic for ', u'move.account_id.name'
             if move.invoice_id.state == 'open':
-                print >> sys.stderr, 'invoice - check analytic for open'
+                #print >> sys.stderr, 'invoice - check analytic for open'
                 return  account_obj.check_analytic_account_exists(cr,uid,ids,move.account_id.id,move.account_analytic_id.id)
             return True
 
@@ -407,9 +407,9 @@ class account_invoice(osv.osv):
         for invoice in self.browse(cr, uid, ids):  
           for move in invoice.invoice_line:
             account_obj = self.pool.get('account.account')
-            print >> sys.stderr, 'invoice - check analytic for ', u'move.account_id.name'
+            #print >> sys.stderr, 'invoice - check analytic for ', u'move.account_id.name'
             if move.invoice_id.state == 'open':
-                print >> sys.stderr, 'invoice - check analytic for open'
+                #print >> sys.stderr, 'invoice - check analytic for open'
                 return  account_obj.check_analytic_account_exists(cr,uid,ids,move.account_id.id,move.account_analytic_id.id)
           return True
 
