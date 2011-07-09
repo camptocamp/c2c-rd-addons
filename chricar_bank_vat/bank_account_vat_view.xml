@@ -10,7 +10,7 @@
         <xpath expr="/form/notebook/page[@string='Transaction']/field/tree/field[@name='amount']" position="replace">
           <field
             name="amount"
-            on_change="onchange_amount(tax_id,amount, partner_id)"/>
+            on_change="onchange_amount(tax_id,amount, partner_id, date, parent.date)"/>
           <field
             name="tax_id"
             on_change="onchange_tax(tax_id,amount,partner_id)"/>
@@ -32,7 +32,7 @@
         <xpath expr="/form/notebook/page[@string='Transaction']/field/form/field[@name='amount']" position="replace">
           <field
             name="amount"
-            on_change="onchange_amount(tax_id,amount, partner_id)"/>
+            on_change="onchange_amount(tax_id,amount, partner_id, date, parent.date)"/>
           <field
             name="tax_id"
             on_change="onchange_tax(tax_id,amount,partner_id)"/>
@@ -86,7 +86,7 @@ Modification of Cash statement - account - change trigger
         <xpath expr="/form/notebook/page[@string='Cash Transactions']/field/tree/field[@name='amount']" position="replace">
           <field
             name="amount"
-            on_change="onchange_amount(tax_id,amount, partner_id)"/>
+            on_change="onchange_amount(tax_id,amount, partner_id, date, parent.date)"/>
           <field
             name="tax_id"
             on_change="onchange_tax(tax_id,amount,partner_id)"/>
@@ -108,7 +108,7 @@ Modification of Cash statement - account - change trigger
         <xpath expr="/form/notebook/page[@string='Cash Transactions']/field/form/field[@name='amount']" position="replace">
           <field
             name="amount"
-            on_change="onchange_amount(tax_id,amount, partner_id)"/>
+            on_change="onchange_amount(tax_id,amount, partner_id, date, parent.date)"/>
           <field
             name="tax_id"
             on_change="onchange_tax(tax_id,amount,partner_id)"/>
