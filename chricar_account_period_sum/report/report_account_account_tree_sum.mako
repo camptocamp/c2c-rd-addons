@@ -30,7 +30,7 @@ Selection:
 <%
 chapter.__init__()
 %>
-
+<% setLang(user.context_lang) %>
     <table  >
 
      <thead >
