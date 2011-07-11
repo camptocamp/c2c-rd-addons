@@ -27,6 +27,9 @@
         %if inv.company_id.address_label_position == 'left':
          <tr>
          <td>
+%if inv.type in ('in_invoice','in_refund'):
+${_("Supplier Address")}
+%endif
            <pre>
 ${inv.address_invoice_id.address_label}
            <pre>
@@ -66,6 +69,9 @@ ${_("VAT")}: ${inv.partner_id.vat|entity} <br>
         %endif
          </td>
          <td>
+%if inv.type in ('in_invoice','in_refund'):
+${_("Supplier Address")}
+%endif
            <pre>
 ${inv.address_invoice_id.address_label}
            <pre>
