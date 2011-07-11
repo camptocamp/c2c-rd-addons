@@ -26,19 +26,19 @@ import sys
 
 class purchase_order(osv.osv):
     _inherit = "purchase.order"
-    _order = ' id desc'
+    _order = 'id desc'
 
 purchase_order()
 
 class sale_order(osv.osv):
     _inherit = "sale.order"
-    _order = ' id desc'
+    _order = 'id desc'
 
 sale_order()
 
 class stock_picking(osv.osv):
     _inherit = "stock.picking"
-    _order = ' id desc'
+    _order = 'id desc'
 
 stock_picking()
 
