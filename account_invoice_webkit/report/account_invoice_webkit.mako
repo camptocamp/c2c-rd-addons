@@ -90,8 +90,11 @@ ${inv.address_invoice_id.address_label}
         <tr><td>${_("Document")}</td>
             <td style="white-space:nowrap">${_("Invoice Date")}</td>
             <td style="white-space:nowrap">${_("Payment Term")}</td>
-          %if inv.reference:
-            <td style="white-space:nowrap">${_("Partner Ref.")}</td>
+          %if inv.client_order_ref:
+            <td style="white-space:nowrap">${_("Partner Reference")}</td>
+          %endif
+          %if inv.reference and inv.client_order_ref and inv.reference != inv.client_order_ref:
+            <td style="white-space:nowrap">${_("Reference")}</td>
           %endif
             <td>${_("Curr")}</td>
         </tr>
@@ -101,7 +104,10 @@ ${inv.address_invoice_id.address_label}
             %endif
             </td><td>${formatLang(inv.date_invoice, date=True)|entity}</td>
           <td>${inv.payment_term.name or ''}</td>
-           %if inv.reference:
+          %if inv.client_order_ref:
+            <td >${inv.client_order_ref}</td>
+          %endif
+           %if inv.reference and inv.client_order_ref and inv.reference != inv.client_order_ref:
          <td>${inv.reference}</td>
            %endif
          <td>${inv.currency_id.name}</td></tr>

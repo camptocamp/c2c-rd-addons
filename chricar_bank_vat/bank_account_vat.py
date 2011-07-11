@@ -257,11 +257,19 @@ class account_bank_statement_line(osv.osv):
         return {'value': {'amount': balance, 'account_id': account_id,'type': type,
                  'tax_id':'', 'amount_tax':'', 'amount_net':'' }}
 
-    def onchange_amount(self, cr, uid, ids, tax_id, amount, partner_id):
+    def onchange_amount(self, cr, uid, ids, tax_id, amount, partner_id, date, date_statement):
         result = {}
         if tax_id:
             result = self.onchange_tax(cr, uid, ids, tax_id, amount, partner_id)
-        return result
+            #print >> sys.stderr, 'r1', result
+	if not date:
+	    # FIXME not nice
+	    v1 = result.get('value') 
+	    v2 = { 'value' : {'date': date_statement}}
+	    v2a = v2.get('value')
+	    v1.update(v2a)
+	    #print >> sys.stderr, 'r2', v1
+        return {'value' : v1 }
         
     def onchange_account(self, cr, uid, ids, account_id,tax_id, amount, partner_id):
         if not account_id: return {}
@@ -271,7 +279,7 @@ class account_bank_statement_line(osv.osv):
         if len(account_obj.tax_ids) == 1:
             print >> sys.stderr, 'tax_ids', account_obj.tax_ids
             for tax_rec in account_obj.tax_ids:
-                tax_id = tax_rec.id
+                tax_id = tax_rec.id		
             result = {'value': {
                 'tax_id': tax_id,
             }

@@ -19,31 +19,20 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+from osv import fields, osv
 
-import time
-from lxml import etree
-import decimal_precision as dp
+class account_invoice(osv.osv):
+    _inherit = "account.invoice"
 
-import netsvc
-import pooler
-from osv import fields, osv, orm
-from tools.translate import _
-
-class stock_picking(osv.osv):
-    _inherit = "stock.picking"
-
-    def _print_uom(self, cr, uid, ids, name, args, context=None):
-        res = {}
-        for picking in self.browse(cr, uid, ids, context=context):
-	  print_uom = False
-	  if picking.move_lines:
-            for line in picking.move_lines:
-                if line.product_uom != line.product_uos :
-		   print_uom = True
-          res[picking.id] =  print_uom
-        return res
-        
     _columns = {
-              'print_uom': fields.function(_print_uom, method=True, type='boolean', string='Print UoM if different from UoS',),
+        'picking_ids': fields.many2many('stock.picking', 'picking_invoice_rel', 'invoice_id', 'picking_id', 'Pickings', domain=[('type', '=', 'out')]),
     }
-stock_picking()
+    
+    # FIXME - is not executed on install of the module 
+    def init(self, cr):
+      cr.execute("""
+insert into picking_invoice_rel(picking_id,invoice_id) select p.id,i.id from stock_picking p, account_invoice i
+where p.name = split_part(i.origin,':',1) and (p.id,i.id) not in (select picking_id,invoice_id from picking_invoice_rel);
+""")
+
+account_invoice()

@@ -30,18 +30,16 @@
 ##############################################################################
 
 {
-    "name" : "Webkit Report Invoice",
+    "name" : "Customer Invoice to Picking Relation",
     "description" : """
-           Invoice using Webkit,
-           Address label with option to position address left, right
-           using address lebel field with addressee's country specific zip position
+        Adds backwards reference from Customer Invoce to Picking
                     """,
     "version" : "0.9",
-    "depends" : ["base", "account", "report_webkit","report_webkit_c2c_templates","c2c_partner_address_label","sale_margin_invoice_rel"],
-    "category": "Reports/Webkit",
-    "author" : "Camptocamp SA - NBessi, Ferdinand Gassauer",
+    "depends" : ["base", "sale_margin"],
+    "category": "Sale",
+    "author" : "Camptocamp SA - Ferdinand Gassauer",
     "url": "http://www.camptocamp.com/",
-    "data": ["account_invoice_webkit_view.xml",
+    "data": ["invoice_view.xml",
                    ],
     "installable" : True,
     "active" : False,

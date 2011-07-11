@@ -4,7 +4,7 @@
 # Copyright (c) 2010 Camptocamp SA (http://www.camptocamp.com) 
 # All Right Reserved
 #
-# Author : Ferdinand GAssauer (Camptocamp Austria)
+# Author : Nicolas Bessi (Camptocamp)
 #
 # WARNING: This program as such is intended to be used by professional
 # programmers who take the whole responsability of assessing all potential
@@ -28,21 +28,4 @@
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 ##############################################################################
-
-{
-    "name" : "Webkit Report Invoice",
-    "description" : """
-           Invoice using Webkit,
-           Address label with option to position address left, right
-           using address lebel field with addressee's country specific zip position
-                    """,
-    "version" : "0.9",
-    "depends" : ["base", "account", "report_webkit","report_webkit_c2c_templates","c2c_partner_address_label","sale_margin_invoice_rel"],
-    "category": "Reports/Webkit",
-    "author" : "Camptocamp SA - NBessi, Ferdinand Gassauer",
-    "url": "http://www.camptocamp.com/",
-    "data": ["account_invoice_webkit_view.xml",
-                   ],
-    "installable" : True,
-    "active" : False,
-}
+import invoice

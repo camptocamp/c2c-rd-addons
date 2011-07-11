@@ -53,8 +53,20 @@ class account_invoice(osv.osv):
           res[invoice.id] =  print_price_unit_id
         return res
 
+    def _get_client_order_ref(self, cr, uid, ids, name, args, context=None):
+        res = {}
+        for invoice in self.browse(cr, uid, ids, context=context):
+	  client_order_ref = ''
+	  if invoice.picking_ids:
+            for pick in invoice.picking_ids:
+                if pick.sale_id.client_order_ref :
+		   client_order_ref += pick.sale_id.client_order_ref
+          res[invoice.id] = client_order_ref 
+        return res
+        
     _columns = {
         'amount_discount': fields.function(_amount_discount, method=True, digits_compute=dp.get_precision('Account'), string='Total Discount',),
         'print_price_unit_id': fields.function(_print_price_unit_id, method=True, type='boolean', string='Print column price unit id if not 1',),        
+        'client_order_ref': fields.function(_get_client_order_ref, method=True, type='char',size='128', string='Customer Reference of Sale Orders',), 
     }
 account_invoice()
