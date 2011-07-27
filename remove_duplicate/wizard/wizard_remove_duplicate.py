@@ -94,14 +94,14 @@ class wizard_remove_duplicate(wizard.interface):
         new_id  = data['form']['new_id']
         self.old_ids.remove(new_id)
         self._remove_from_table(cr, uid, id, new_id, self.old_ids)
-        return {'result' : {'type' : 'state', 'state' : 'end'}}
+        return {}
     # end def _remove
 
     def _select_duplicates(self, cr, uid, data, res_get=False) :
         self.old_ids = data['form']['old_ids'][0][2]
         self._init_new_fields['new_id']['ids'] = self.old_ids
         self._init_new_fields['new_id']['domain'] = "[('id','in',%s)]" % self.old_ids
-        return {'result' : {'type' : 'state', 'state' : 'new_form'}}
+        return {}
     # end def _select_duplicates
 
     def _set_relation(self, cr, uid, data, res_get=False) :
@@ -115,7 +115,7 @@ class wizard_remove_duplicate(wizard.interface):
         self.table_obj = pool.get(model.model)
         self._init_old_fields['old_ids']['relation'] = model.model
         self._init_new_fields['new_id']['relation'] = model.model
-        return {'result' : {'type' : 'state', 'state' : 'new_form'}}
+        return {}
     # end def _set_relation
 
     def _remove_from_table(self, cr, uid, id, new_id, old_ids) :
@@ -159,7 +159,6 @@ class wizard_remove_duplicate(wizard.interface):
                 , _('Database modification failed (probably another duplicate) with exception %s for SQL: \n%s' 
                     % (str(e), "\n".join(sqls)))
                 )
-        return {'result' : {'type' : 'state', 'state' : 'end'}}
     # end def _remove_from_table
 
     states = \
