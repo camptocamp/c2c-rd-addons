@@ -293,12 +293,13 @@ BEGIN
 -- id of the last year
 select into last_fiscalyear_id_p fy.id
        from account_fiscalyear fy
-       where date_stop = (select max(y.date_stop)
+       where (company_id,date_stop) = (select p.company_id,max(y.date_stop)
                             from account_fiscalyear y,
                                  account_period p
                            where p.id = period_id_i
                              and y.date_stop < p.date_start 
-                             and p.company_id = y.company_id);
+                             and p.company_id = y.company_id
+                           group by p.company_id);
 
 
 insert into account_account_period_sum
@@ -319,7 +320,8 @@ insert into account_account_period_sum
     where t.close_method != 'none'
       and t.id = a.user_type
       and p.id = period_id_i     -- current period
-      and p.special = false
+      and (p.special = false or p.special is null)
+      and (lp.special = false or lp.special is null)
       and y.id = p.fiscalyear_id -- current year
       and lp.fiscalyear_id = last_fiscalyear_id_p
       and p.date_start = y.date_start
@@ -502,7 +504,8 @@ for first_period_id_rec in
           account_fiscalyear f
   where p.date_start=f.date_start
     and p.company_id = f.company_id
-  order by p.date_start
+    and (p.special = False or p.special is null)
+  order by p.company_id,p.date_start
   LOOP
    perform account_period_sum_create(first_period_id_rec.id);
   END LOOP;
