@@ -291,6 +291,7 @@ last_fiscalyear_id_p integer;
 
 BEGIN
 -- id of the last year
+last_fiscalyear_id_p = 0;
 select into last_fiscalyear_id_p fy.id
        from account_fiscalyear fy
        where (company_id,date_stop) = (select p.company_id,max(y.date_stop)
@@ -301,7 +302,8 @@ select into last_fiscalyear_id_p fy.id
                              and p.company_id = y.company_id
                            group by p.company_id);
 
-
+if last_fiscalyear_id_p > 0 then
+--RAISE NOTICE 'account_account_period_sum_create FY % PERIOD % ',last_fiscalyear_id_p, period_id_i;
 insert into account_account_period_sum
     (company_id, account_id, period_id, debit, credit, name, sum_fy_period_id)
      select
@@ -332,6 +334,8 @@ insert into account_account_period_sum
       and s.account_id = a.id
       group by s.company_id, a.id, period_id_i,y.id, to_char(y.date_start,'YYYY')||'00'
       having sum(debit) !=0 or  sum(credit) !=0;
+
+end if;
 return;
 END;
 $$
@@ -346,6 +350,7 @@ BEGIN
  return NEW;
 END;
 $$
+
 LANGUAGE plpgsql;
 """)
 
