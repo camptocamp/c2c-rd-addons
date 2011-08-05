@@ -15,13 +15,14 @@
     </style>
 %for top in objects:
 <% setLang(top.partner_id.lang) %>
+<% import imghdr %>
 <table>
 <h1>${_("Info Folder")}</h1>
     <tbody>
         <tr>
         <td>${_("Object")}</td>
         <td>${top.location_id.name or ''|entity}</td>
-        <td rowspan=20>${helper.embed_image('png',top.location_id.image, width=250)}<br>${helper.embed_image('png',top.location_id.blueprint, width=250)}</td>
+        <td rowspan=20>${helper.embed_image(imghdr.what('',top.location_id.image),top.location_id.image, width=250)}<br>${helper.embed_image(imghdr.what('',top.location_id.blueprint),top.location_id.blueprint, width=250)}</td>
         </tr> 
 
         <tr>
@@ -176,7 +177,7 @@ ${top.note_sales or ''|entity}</pre></td>
         %if top.blueprint:
         <tr>
         <td COLSPAN=2>
-          ${helper.embed_image('png',top.blueprint, width=400)}
+          ${helper.embed_image(imghdr.what('',top.blueprint),top.blueprint, width=400)}
         </dt>
         </tr>
         %endif
