@@ -91,50 +91,33 @@ ${pick.address_id.address_label}
     <table class="basic_table" width="90%">
         <tr><td>${_("Document")}</td>
             <td style="white-space:nowrap">${_("Picking Date")}</td>
-          %if pick.carrier_id:
             <td style="white-space:nowrap">${_("Carrier")}</td>
-          %endif
-          %if pick.origin and pick.origin not in (pick.sale_id.name,pick.purchase_id.name):
-            <td style="white-space:nowrap">${_("Origin")}</td>
-          %endif
-          %if  pick.sale_id or pick.purchase_id:
+          %if pick.origin:
             <td style="white-space:nowrap">${_("Reference")}</td>
           %endif
-          %if pick.sale_id.client_order_ref:
-            <td style="white-space:nowrap">${_("Client Reference")}</td>
-          %endif
+            <td>${_("tbd")}</td>
         </tr>
-        <tr><td>${pick.name or ''}</td>
-          <td>
+        <tr><td>${pick.name or ''} 
+            %if pick.origin:
+               <br>${pick.origin or ''}
+            %endif
+            </td><td>
                %if pick.max_date:
-               ${pick.max_date}
+               ${pick.max_date}</td>
                %endif
-          </td>
-           %if pick.carrier_id:
-          <td>${pick.carrier_id.name}</td>
-           %endif          
-          %if pick.origin and pick.origin not in (pick.sale_id.name,pick.purchase_id.name):
-            <td style="white-space:nowrap">${pick.origin}</td>
-          %endif
-
-           %if pick.sale_id or pick.purchase_id:
+          <td></td>
+           %if pick.sale_id or pick_purchase_id:
          <td>${pick.sale_id.name or pick.purchase_id.name or ''}</td>
            %endif
-         
-        %if pick.sale_id.client_order_ref:
-           <td>${pick.sale_id.client_order_ref}</td>
-        %endif
-          </tr>
+         <td>tbd</td></tr>
     </table>
     <h1><br /></h1>
     <table class="list_table"  width="90%">
         <thead>
           <tr>
             <th>${_("Description")}</th>
-       %if pick.print_uom:
-            <th class>${_("Quantity UoM")}</th><th style="text-align:left;">${_("UoM")}</th>
-       %endif
-            <th class>${_("Quantity")}</th><th style="text-align:left;white-space:nowrap;">${_("UoS")}</th>
+            <th class>${_("Quantity")}</th><th class style="text-align:left;">${_("UoM")}</th>
+            <th class>${_("UoS Qty")}</th><th style="text-align:left;white-space:nowrap;">${_("UoS")}</th>
             <th style="text-align:left;">${_("Source Location")}</th>
             <th style="text-align:left;">${_("Destination Location")}</th>
          </tr>
@@ -143,10 +126,8 @@ ${pick.address_id.address_label}
         <tbody>
         <tr>
            <td>${line.name|entity}</td>
-       %if pick.print_uom:
            <td style="white-space:nowrap;text-align:right;">${line.product_qty}</td>
            <td style="white-space:nowrap;text-align:left;">${line.product_uom.name or ''}</td>
-       %endif
            <td style="white-space:nowrap;text-align:rigth;">${line.product_uos_qty or ''}</td>
            <td style="white-space:nowrap;text-align:left;">${line.product_uos.name or ''}</td>
            <td style="white-space:nowrap;text-align:left;">${line.location_id.name or ''}</td>

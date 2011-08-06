@@ -37,7 +37,7 @@
            using address lebel field with addressee's country specific zip position
                     """,
     "version" : "0.9",
-    "depends" : ["base", "stock", "report_webkit","report_webkit_c2c_templates","c2c_partner_address_label","chricar_stock_weighing"],
+    "depends" : ["base", "stock", "report_webkit","report_webkit_c2c_templates","c2c_partner_address_label"],
     "category": "Reports/Webkit",
     "author" : "Camptocamp SA - Ferdinand Gassauer",
     "url": "http://www.camptocamp.com/",
