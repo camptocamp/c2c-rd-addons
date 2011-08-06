@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <record id="chricar_account_move_line_igel_rule" model="ir.rule">
+      <field name="name">chricar_account_move_line_igel_rule multi company</field>
+      <field ref="model_chricar_account_move_line_igel" name="model_id"/>
+      <field eval="True" name="global"/>
+      <field name="domain_force">['|','|',('company_id','=',False),('company_id','child_of',[user.company_id.id]),('company_id.child_ids','child_of',[user.company_id.id])]</field>
+    </record>
+  </data>
+</openerp>

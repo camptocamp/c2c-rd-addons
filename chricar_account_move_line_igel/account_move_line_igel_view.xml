@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <!--
+==============================================
+Account Moves Igel account_move_line_igel
+==============================================
+-->
+    <record model="ir.ui.view" id="chricar_account_move_line_igel_form">
+      <field name="name">chricar.account_move_line_igel.form</field>
+      <field name="model">chricar.account.move.line.igel</field>
+      <field name="priority">1</field>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <form string="Account Moves Igel">
+          <field name="company_id"/>
+          <field name="kanzlei"/>
+          <field name="klient"/>
+          <field name="fiscalyear_id"/>
+          <field name="kontoart"/>
+          <field name="account_id"/>
+          <field name="kontoname"/>
+          <field name="ba_nr"/>
+          <field name="periode"/>
+          <field name="buchungsdatum"/>
+          <field name="bel_nr"/>
+          <field name="name"/>
+          <field name="belegdatum"/>
+          <field name="gegenkonto"/>
+          <field name="kst_nr"/>
+          <field name="text"/>
+          <field name="betrag_soll"/>
+          <field name="betrag_haben"/>
+          <field name="ust_kz"/>
+          <field name="ust"/>
+          <field name="ust_betrag"/>
+          <field name="fwc"/>
+          <field name="fw_betrag"/>
+          <field name="betreuer"/>
+          <field name="team"/>
+          <field name="klientengruppe"/>
+          <field name="zessionsname"/>
+          <field name="analytic_account_id"/>
+        </form>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="chricar_account_move_line_igel_list">
+      <field name="name">chricar.account_move_line_igel.list</field>
+      <field name="model">chricar.account.move.line.igel</field>
+      <field name="priority">1</field>
+      <field name="type">tree</field>
+      <field name="arch" type="xml">
+        <tree string="Account Moves Igel" editable="top">
+          <field name="company_id"/>
+          <field name="kanzlei"/>
+          <field name="klient"/>
+          <field name="fiscalyear_id"/>
+          <field name="kontoart"/>
+          <field name="account_id"/>
+          <field name="kontoname"/>
+          <field name="ba_nr"/>
+          <field name="periode"/>
+          <field name="buchungsdatum"/>
+          <field name="bel_nr"/>
+          <field name="name"/>
+          <field name="belegdatum"/>
+          <field name="gegenkonto"/>
+          <field name="kst_nr"/>
+          <field name="text"/>
+          <field name="analytic_account_id"/>
+          <field name="betrag_soll"/>
+          <field name="betrag_haben"/>
+          <field name="ust_kz"/>
+          <field name="ust"/>
+          <field name="ust_betrag"/>
+          <field name="fwc"/>
+          <field name="fw_betrag"/>
+          <field name="betreuer"/>
+          <field name="team"/>
+          <field name="klientengruppe"/>
+          <field name="zessionsname"/>
+        </tree>
+      </field>
+    </record>
+    <record model="ir.actions.act_window" id="chricar_account_move_line_igel_act1">
+      <field name="name">Account Moves Igel</field>
+      <field name="res_model">chricar.account.move.line.igel</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="view_id" ref="chricar_account_move_line_igel_list"/>
+    </record>
+    <record model="ir.actions.act_window.view" id="chricar_account_move_line_igel_act1_view2">
+      <field name="sequence" eval="1"/>
+      <field name="view_mode">tree</field>
+      <field name="view_id" ref="chricar_account_move_line_igel_list"/>
+      <field name="act_window_id" ref="chricar_account_move_line_igel_act1"/>
+    </record>
+    <record model="ir.actions.act_window.view" id="chricar_account_move_line_igel_act1_view1">
+      <field name="sequence" eval="2"/>
+      <field name="view_mode">form</field>
+      <field name="view_id" ref="chricar_account_move_line_igel_form"/>
+      <field name="act_window_id" ref="chricar_account_move_line_igel_act1"/>
+    </record>
+    <menuitem
+      id="menu_chricar_account_igel"
+      name="Igel"
+      parent="account.menu_finance_entries"
+      sequence="150"/>
+    <menuitem
+      action="chricar_account_move_line_igel_act1"
+      id="menu_chricar_account_move_line_igel_list"
+      parent="menu_chricar_account_igel"
+      sequence="150"/>
+  </data>
+</openerp>
