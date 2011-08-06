@@ -19,18 +19,23 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-{ 'name'        : 'Payment exclude partners and invoices'
-, 'version'     : '0.7'
-, 'category'    : 'Accounting'
-, 'description' : """Allows to exclude Partners and/or invoices from automatic payment"""
-, 'author'      : 'Camptocamp Austria'
-, 'depends'     : ['base','account_payment_extension' ]
-, 'update_xml'  : ['payment_view.xml']
-, 'update_xml'  : [] # ['product_view.xml']
-, 'test'        : []
-, 'demo_xml'    : []
-, 'installable' : True
-, 'active'      : False
-}
 
+
+{
+    'name': 'Payment exclude partners and invoices',
+    'version': '0.7',
+    'category': 'Accounting',
+    'description': """
+Allows to exclude Partners and/or invoices from automatic payment
+""",
+    'author': 'Camptocamp Austria',
+    'depends': [ 'base','account_payment_extension' ],
+    'update_xml': [
+    'payment_view.xml',
+       ],
+    #'update_xml': ['product_view.xml'],
+    'demo_xml': [],
+    'installable': True,
+    'active': False,
+}
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
