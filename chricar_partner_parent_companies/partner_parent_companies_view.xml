@@ -217,5 +217,64 @@ Definition of Parent Companies
       action="action_partner_parent_companies_form"
       id="menu_partner_parent_companies_form"
       parent="base.menu_address_book"/>
+    <!-- not working, because the structure must be in the resource not foreign
+    <record id="view_partner_parent_companies_tree2" model="ir.ui.view">
+      <field name="name">res.partner.parent_company.tree2</field>
+      <field name="model">res.partner.parent_company</field>
+      <field name="type">tree</field>
+      <field name="field_parent">partner_id</field>
+      <field name="arch" type="xml">
+        <tree toolbar="1" string="Paticipation Strucutre">
+          <field name="partner_parent_id" select="1"/>
+          <field name="partner_id" string="Participation" select="1"/>
+          <field name="name" select="1"/>
+          <field name="percentage" select="1"/>
+          <field name="agio" select="1"/>
+          <field name="consolidation" select="1"/>
+          <field name="valid_from" select="1"/>
+          <field name="valid_until" select="1"/>
+          <field name="valid_fiscal_from" select="1"/>
+          <field name="valid_fiscal_until" select="1"/>
+          <field name="contract_date" select="1"/>
+          <field name="contract_number" select="1"/>
+        </tree>
+      </field>
+    </record>
+    <record model="ir.actions.act_window" id="open_partner_participation_tree">
+      <field name="name">Participation Structure (not working)</field>
+      <field name="res_model">res.partner.parent_company</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="view_id" ref="view_partner_parent_companies_tree2"/>
+    </record>
+    <menuitem
+      action="open_partner_participation_tree"
+      id="menu_partner_participation_tree"
+      parent="base.menu_address_book"/>
+        -->
+    <!--
+    <record id="view_partner_tree_struct" model="ir.ui.view">
+      <field name="name">res.partner.tree.struct</field>
+      <field name="model">res.partner</field>
+      <field name="type">tree</field>
+      <field name="field_parent">partner_ids</field>
+      <field name="arch" type="xml">
+        <tree toolbar="1">
+          <field name="name"/>
+        </tree>
+      </field>
+    </record>
+    <record id="action_partner_tree_struct" model="ir.actions.act_window">
+      <field name="name">Participation Structure</field>
+      <field name="res_model">res.partner</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="view_type">tree</field>
+      <field name="view_id" ref="view_partner_tree_struct"/>
+    </record>
+    <menuitem
+      action="action_partner_tree_struct"
+      id="menu_partner_tree_struct"
+      parent="base.menu_address_book"/>
+        -->
   </data>
 </openerp>
