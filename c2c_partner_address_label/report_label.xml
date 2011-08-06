@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <report
+      auto="False"
+      file="c2c_partner_address_label/report/report_label_test.mako"
+      id="report_label_test_mako"
+      model="res.partner.address"
+      name="report.res.partner.label.test"
+      report_type="webkit"
+      string="Label Test"/>
+  </data>
+</openerp>
