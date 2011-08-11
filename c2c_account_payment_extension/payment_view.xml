@@ -35,5 +35,20 @@
         </field>
       </field>
     </record>
-  </data>
+    
+    <!--***************************** PAYMENT ORDER *********************************-->
+    <!-- Filter invoices by payment type. Allow negative payment amounts -->
+    <record id="view_payment_order_form_ext1_c2c" model="ir.ui.view">
+        <field name="name">payment.order.form.ext1.c2c</field>
+        <field name="model">payment.order</field>
+        <field name="type">form</field>
+        <field name="inherit_id" ref="account_payment_extension.view_payment_order_form_ext1"/>
+        <field name="arch" type="xml">
+            <button name="%(account_payment_extension.wizard_populate_payment_ext)d" position="replace">
+                <button colspan="2" name="%(wizard_populate_payment_ext_c2c)d" string="Select invoices to pay/receive payment" type="action" attrs="{'invisible':[('state','=','done')]}" icon="gtk-find"/>
+            </button>
+        </field>
+    </record>
+
+   </data>
 </openerp>
