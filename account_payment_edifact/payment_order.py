@@ -382,19 +382,22 @@ class payment_order(osv.osv) :
             s.append("DTM+137:%s:203'" % (time.strftime("%Y%m%d%H%M%S")))
             s.append("FII+MR+%s'" % iban) # sgr2 # xxx
             s.append("NAD+MS+++%s+%s+%s++%s+%s'" % (company_name, street, city, zip, country)) # sgr3
+            lin = 0
             for date, p_banks in dates.iteritems() :
+                lin += 1
                 if len(p_banks) == 0 : continue
                 amount = 0.0
                 for p_bank, lines in p_banks.iteritems() :
                     amount += sum(l.amount for l in lines)
-                s.append("LIN+1'") # sgr4
+                s.append("LIN+%s'" % lin) # sgr4
                 s.append("DTM+203:%s:102'" % (date))
                 s.append("RFF+AEK:%s'" % time.strftime("%Y%m%d%H%M%S"))
                 s.append("BUS++%s++TRF'" % area_code)
                 s.append("MOA+9:%s:%s'" % (amount, currency_name))
                 s.append("FII+OR+%s:%s::%s'" % (iban, company_name, currency_name))
                 s.append("NAD+OY+++%s+%s+%s+%s+%s'" % (company_name, street, city, zip, country)) # sgr3
-                s.extend(self._generate_date(order, p_banks, i, area_code))
+                seq = 0
+                s.extend(self._generate_date(order, p_banks, seq, area_code))
                 i += self._line_count(p_banks)
                 total += amount
             s.append("CNT+1:%s'" % total)
