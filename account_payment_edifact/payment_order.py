@@ -15,16 +15,16 @@
 # Service Company.
 #
 # This program is Free Software; you can redistribute it and/or
-# modify it under the terms of the GNU Affero General Public License
+# modify it under the terms of the GNU General Public License
 # as published by the Free Software Foundation; either version 3
 # of the License, or (at your option) any later version.
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU Affero General Public License for more details.
+# GNU General Public License for more details.
 #
-# You should have received a copy of the GNU Affero General Public License
+# You should have received a copy of the GNU General Public License
 # along with this program; if not, see <http://www.gnu.org/licenses/> or
 # write to the Free Software Foundation, Inc.,
 # 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
@@ -69,9 +69,9 @@ class Date(object):
         self.p_banks.append(p_bank)
         
     def append(self, p_bank, line):
-        for p_bank in self.p_banks :
-            if p_bank.p_bank == p_bank :
-                p_bank.add(line)
+        for bank in self.p_banks :
+            if bank.p_bank == p_bank :
+                bank.add(line)
                 
     def iteritems(self):
         return [(x.p_bank, x.lines) for x in self.p_banks]
@@ -313,13 +313,11 @@ class payment_order(osv.osv) :
                 region = "DO" # domestic
             else :
                 region = "IN" # international
-            if region not in regions.keys() :
+            if region not in regions :
                 regions[region] = {}
             if date not in regions[region] :
                 p_banks = P_Bank(p_bank, line)
-                dates = {}
-                dates[date] = Date(p_banks)
-                regions[region] = dates
+                regions[region][date] = Date(p_banks)
             elif p_bank not in regions[region][date] :
                 p_banks = P_Bank(p_bank, line)
                 regions[region][date].add(p_banks)
@@ -344,8 +342,8 @@ class payment_order(osv.osv) :
         description    = 'EDIFACT-file'
         att_ids = attachment_obj.search \
             ( cr, uid
-            , [ ('res_model', '=', order._table_name)
-              , ('res_id', '=', order.id)
+            , [ ('res_model',   '=', order._table_name)
+              , ('res_id',      '=', order.id)
               , ('description', '=', description)
               ]
             )
@@ -384,19 +382,22 @@ class payment_order(osv.osv) :
             s.append("DTM+137:%s:203'" % (time.strftime("%Y%m%d%H%M%S")))
             s.append("FII+MR+%s'" % iban) # sgr2 # xxx
             s.append("NAD+MS+++%s+%s+%s++%s+%s'" % (company_name, street, city, zip, country)) # sgr3
+            lin = 0
             for date, p_banks in dates.iteritems() :
+                lin += 1
                 if len(p_banks) == 0 : continue
                 amount = 0.0
                 for p_bank, lines in p_banks.iteritems() :
                     amount += sum(l.amount for l in lines)
-                s.append("LIN+1'") # sgr4
+                s.append("LIN+%s'" % lin) # sgr4
                 s.append("DTM+203:%s:102'" % (date))
                 s.append("RFF+AEK:%s'" % time.strftime("%Y%m%d%H%M%S"))
                 s.append("BUS++%s++TRF'" % area_code)
                 s.append("MOA+9:%s:%s'" % (amount, currency_name))
                 s.append("FII+OR+%s:%s::%s'" % (iban, company_name, currency_name))
                 s.append("NAD+OY+++%s+%s+%s+%s+%s'" % (company_name, street, city, zip, country)) # sgr3
-                s.extend(self._generate_date(order, p_banks, i, area_code))
+                seq = 0
+                s.extend(self._generate_date(order, p_banks, seq, area_code))
                 i += self._line_count(p_banks)
                 total += amount
             s.append("CNT+1:%s'" % total)
