@@ -240,6 +240,6 @@ class wizard_payment_order(wizard.interface):
             },
         }
 
-wizard_payment_order('populate_payment_ext')
+wizard_payment_order('populate_payment_ext_c2c')
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
