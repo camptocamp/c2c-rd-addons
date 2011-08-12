@@ -31,7 +31,7 @@ Allows to exclude Partners and/or invoices from automatic payment
     'author': 'Camptocamp Austria',
     'depends': [ 'base','account_payment_extension' ],
     'update_xml': [
-    'payment_view.xml',
+    'payment_wizard.xml','payment_view.xml',
        ],
     #'update_xml': ['product_view.xml'],
     'demo_xml': [],

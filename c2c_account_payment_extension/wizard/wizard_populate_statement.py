@@ -116,7 +116,7 @@ class PopulateStatement(wizard.interface):
         },
     }
 
-PopulateStatement('populate_statement_ext')
+PopulateStatement('populate_statement_ext_c2c')
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
 
