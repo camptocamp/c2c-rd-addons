@@ -21,7 +21,7 @@
       </tr>
     </table>
     <p>
-      <b> CRM - Messages </b>
+      <b> CRM - Messages</b>
     </p>
     <table class="list_table" width="90%">
 %for msg in crm.message_ids:
@@ -36,7 +36,7 @@
        %if  msg.description:
           <table  class="text_table">
 
-            %for line in msg.display_text.split('\n'):  
+            %for line in msg.description.split('\n'):  
               <tr><td>${line or ''|entity}</td></tr>
             %endfor
          </table>
