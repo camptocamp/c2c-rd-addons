@@ -57,7 +57,7 @@ class stock_location(osv.osv):
      _inherit = "stock.location"
 
      _columns = {
-       'income_tax_move_ids'  : fields.one2many('location_income_tax','location_id','Income Tax Statement'),
+       'income_tax_move_ids'  : fields.one2many('location.income.tax','location_id','Income Tax Statement'),
 }
 stock_location()
 
