@@ -220,8 +220,11 @@ class account_chart_sum(osv.osv_memory):
         data.update({'period_prev_from_name' :  period_obj.read(cr, uid, [data['period_prev_from']], context=context)[0]['code'] or ''})
         data.update({'period_prev_to_name' :  period_obj.read(cr, uid, [data['period_prev_to']], context=context)[0]['code'] or ''})
 
+        # get ids
+        account_obj = self.pool.get('account.account')
+        account_ids = account_obj._get_children_and_consol(cr, uid, [data['chart_account_id']] , context)
         datas = {
-             'ids': [data['chart_account_id']],
+             'ids': account_ids,
              'model': 'ir.ui.menu',
              'form': data
         }
