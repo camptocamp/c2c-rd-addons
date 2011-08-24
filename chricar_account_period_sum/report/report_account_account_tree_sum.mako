@@ -73,13 +73,13 @@ Selection:
                 </b>
               %endif
           </td>
-          <td align="right NOWRAP">${formatLang(account.opening_balance_sum) }</td>
-          <td align="right NOWRAP">${formatLang(account.debit_sum)}</td>
-          <td align="right NOWRAP">${formatLang(account.credit_sum)}</td>
-          <td align="right NOWRAP">${formatLang(account.balance_sum)}</td>
-          <td align="right NOWRAP">${formatLang(account.balance_prev_sum)}</td>
-          <td align="right NOWRAP">${formatLang(account.balance_sum - account.balance_prev_sum)} </td>
-          <td align="right NOWRAP">
+          <td style="text-align:right;white-space:nowrap;">${formatLang(account.opening_balance_sum) }</td>
+          <td style="text-align:right;white-space:nowrap;">${formatLang(account.debit_sum)}</td>
+          <td style="text-align:right;white-space:nowrap;">${formatLang(account.credit_sum)}</td>
+          <td style="text-align:right;white-space:nowrap;">${formatLang(account.balance_sum)}</td>
+          <td style="text-align:right;white-space:nowrap;">${formatLang(account.balance_prev_sum)}</td>
+          <td style="text-align:right;white-space:nowrap;">${formatLang(account.balance_sum - account.balance_prev_sum)} </td>
+          <td style="text-align:right;white-space:nowrap;">
                 %if account.balance_prev_sum and round(account.balance_prev_sum,2) != 0 and round(account.balance_sum,2) != 0 and (account.balance_sum/abs(account.balance_sum)) == (account.balance_prev_sum /abs(account.balance_prev_sum)):
                  ${formatLang(round(((account.balance_sum - account.balance_prev_sum)/account.balance_prev_sum )*100,2))} 
                 %elif round(account.balance_prev_sum,2) != 0 and round(account.balance_sum,2) == 0:
