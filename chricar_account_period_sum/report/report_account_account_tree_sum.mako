@@ -15,10 +15,15 @@
 <p>
 Selection:
 %if context['data'] :
-<%doc>
-    FIXME - print default or actual paramaters
-            waiting for Nicalas to fix bug and pass form params
-</%doc>
+
+  <table>
+	    <tr>
+	    <td>current: ${context['data']['form']['period_from']} - ${context['data']['form']['period_to']}</td>
+	    <td>previous: ${context['data']['form']['period_prev_from']} - ${context['data']['form']['period_prev_to']}</td>
+	    </tr>
+  </table>
+
+%else:
   <table>
 	    <tr>
 	    <td>current: all posted</td>
@@ -26,11 +31,11 @@ Selection:
 	    </tr>
   </table>
 %endif
-<p>
-<%
-chapter.__init__()
-%>
-<% setLang(user.context_lang) %>
+</p>
+
+<%chapter.__init__()%>
+
+<%setLang(user.context_lang)%>
     <table  >
 
      <thead >
@@ -63,23 +68,24 @@ chapter.__init__()
               %if account.type == 'view' :
                 <b>
               %endif
-               ${account.name or ''|entity}  </td>
+               ${account.name or ''|entity}  
               %if account.type == 'view' :
                 </b>
               %endif
-          <td align=right NOWRAP>${formatLang(account.opening_balance_sum)  or ''|entity} </td>
-          <td align=right NOWRAP>${formatLang(account.debit_sum) or ''|entity} </td>
-          <td align=right NOWRAP>${formatLang(account.credit_sum) or ''|entity} </td>
-          <td align=right NOWRAP>${formatLang(account.balance_sum) or ''|entity} </td>
-          <td align=right NOWRAP>${formatLang(account.balance_prev_sum) or ''|entity} </td>
-          <td align=right NOWRAP>${formatLang(account.balance_sum - account.balance_prev_sum) or ''|entity} </td>
-          <td align=right NOWRAP>
+          </td>
+          <td align="right NOWRAP">${formatLang(account.opening_balance_sum) }</td>
+          <td align="right NOWRAP">${formatLang(account.debit_sum)}</td>
+          <td align="right NOWRAP">${formatLang(account.credit_sum)}</td>
+          <td align="right NOWRAP">${formatLang(account.balance_sum)}</td>
+          <td align="right NOWRAP">${formatLang(account.balance_prev_sum)}</td>
+          <td align="right NOWRAP">${formatLang(account.balance_sum - account.balance_prev_sum)} </td>
+          <td align="right NOWRAP">
                 %if account.balance_prev_sum and round(account.balance_prev_sum,2) != 0 and round(account.balance_sum,2) != 0 and (account.balance_sum/abs(account.balance_sum)) == (account.balance_prev_sum /abs(account.balance_prev_sum)):
-                 ${formatLang(round(((account.balance_sum - account.balance_prev_sum)/account.balance_prev_sum )*100,2)) or ''|entity} 
-                %elif round(account.balance_prev_sum,2) <> 0 and round(account.balance_sum,2) == 0:
-                 ${formatLang(-100) or ''|entity}
+                 ${formatLang(round(((account.balance_sum - account.balance_prev_sum)/account.balance_prev_sum )*100,2))} 
+                %elif round(account.balance_prev_sum,2) != 0 and round(account.balance_sum,2) == 0:
+                 ${formatLang(-100)}
                 %elif round(account.balance_sum - account.balance_prev_sum,2) == 0 :
-                 ${formatLang(0) or ''|entity}
+                 ${formatLang(0)}
                 %else:
                   -
                 %endif 

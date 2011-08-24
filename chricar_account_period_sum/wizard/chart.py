@@ -42,6 +42,10 @@ class account_chart_sum(osv.osv_memory):
     _name = "account.chart.sum"
     _description = "Account chart (sum)"
     _columns = {
+        'chart_account_id': fields.many2one('account.account', \
+                                    'Chart of Account ',  \
+                                    domain = [('parent_id','=',False)] ,\
+                                    required=True),
         'fiscalyear': fields.many2one('account.fiscalyear', \
                                     'Fiscal year',  \
                                     required=True),
@@ -54,7 +58,7 @@ class account_chart_sum(osv.osv_memory):
         'print_opening_dc' : fields.boolean('Print opening balance, debit and credit columns'),
         'print_views_only' : fields.boolean('Print only accounts of type view'),
         'print_closing_remarks' : fields.boolean('Print closing remarks'),
-        'print_prev_1000' : fields.boolean('Print previous balance in 1000'),
+        'print_previous_1000' : fields.boolean('Print previous balance in 1000'),
     }
     _defaults = {
        'print_chapter': lambda *a: True,
@@ -161,7 +165,9 @@ class account_chart_sum(osv.osv_memory):
         if data['period_prev_from'] and data['period_prev_to']:
             result['periods_prev'] = period_obj.build_ctx_periods(cr, uid, data['period_prev_from'], data['period_prev_to'])
             if result['periods_prev']:
-                result['context'] = str({'fiscalyear': data['fiscalyear'], 'periods': result['periods'], 'periods_prev' : result['periods_prev'] ,
+                result['context'] = str({'fiscalyear': data['fiscalyear'], 
+                                'chart_account_id' : data['chart_account_id'],
+                                'periods': result['periods'], 'periods_prev' : result['periods_prev'] ,
                                 'print_all_zero'  : data['print_all_zero'],
                                 'print_chapter'   : data['print_chapter'],
                                 'print_opening_dc': data['print_opening_dc'],
@@ -209,9 +215,10 @@ class account_chart_sum(osv.osv_memory):
 
         data = self.read(cr, uid, ids, [], context=context)[0]
 
+        #FIXME 745 must not be hard coded
         datas = {
-             'ids': [],
-             'model': 'account.account',
+             'ids': [data['chart_account_id']],
+             'model': 'ir.ui.menu',
              'form': data
         }
         print >> sys.stderr, 'report datas', datas
@@ -220,7 +227,7 @@ class account_chart_sum(osv.osv_memory):
             #'report_name': 'account.account.chart.report',
         return {
             'type': 'ir.actions.report.xml',
-            'report_name': 'account_account.tree_sum',
+            'report_name': 'report.account_account.tree_sum',
             'datas': datas,
         }
 

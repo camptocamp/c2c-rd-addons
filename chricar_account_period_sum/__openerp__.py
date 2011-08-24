@@ -61,7 +61,7 @@
     * eventually - adapting the accounting reporting to use this sums (2c2?)
     """,
     "category" : "Generic Modules/Others",
-    "depends" : ["base", "account", "c2c_account_closing_remarks", "chricar_view_id"],
+    "depends" : ["base","report_webkit", "account", "c2c_account_closing_remarks", "chricar_view_id"],
     "init_xml" : [],
     "demo_xml" : [],
     "update_xml" : ["chricar_account_period_sum_view.xml","wizard/chart.xml","security/rule.xml","security/ir.model.access.csv","report_chart.xml"],

@@ -12,6 +12,7 @@
               name="fiscalyear"
               on_change="onchange_fiscalyear(fiscalyear)"
               required="1"/>
+            <field name="chart_account_id"/>
             <separator string="Periods" colspan="4"/>
             <field name="period_from"/>
             <field name="period_to"/>
@@ -25,7 +26,7 @@
             <field name="print_opening_dc"/>
             <field name="print_views_only"/>
             <field name="print_closing_remarks"/>
-            <field name="print_prev_1000"/>
+            <field name="print_previous_1000"/>
           </group>
           <separator string="" colspan="4"/>
           <group colspan="4" col="6">
