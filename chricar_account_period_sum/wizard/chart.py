@@ -54,7 +54,7 @@ class account_chart_sum(osv.osv_memory):
         'print_opening_dc' : fields.boolean('Print opening balance, debit and credit columns'),
         'print_views_only' : fields.boolean('Print only accounts of type view'),
         'print_closing_remarks' : fields.boolean('Print closing remarks'),
-        'print_prev_1000' : fields.boolean('Print previous balance in 1000'),
+        'print_previous_1000' : fields.boolean('Print previous balance in 1000'),
     }
     _defaults = {
        'print_chapter': lambda *a: True,
