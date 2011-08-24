@@ -262,9 +262,9 @@ class account_bank_statement_line(osv.osv):
         if tax_id:
             result = self.onchange_tax(cr, uid, ids, tax_id, amount, partner_id)
             #print >> sys.stderr, 'r1', result
+	v1 = result.get('value') 
 	if not date:
 	    # FIXME not nice
-	    v1 = result.get('value') 
 	    v2 = { 'value' : {'date': date_statement}}
 	    v2a = v2.get('value')
 	    v1.update(v2a)
