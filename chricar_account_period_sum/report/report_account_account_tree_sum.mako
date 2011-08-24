@@ -66,7 +66,8 @@ Selection:
 
  %for account in objects :
      <tbody >
-              %if (account.balance_sum !=0 or account.debit_sum !=0 or account.credit_sum !=0 or account.balance_prev_sum !=0 ) \
+              %if (account.balance_sum !=0 or account.debit_sum !=0 or account.credit_sum !=0 or account.balance_prev_sum !=0 or \
+                  context['data']['form']['print_all_zero'] == 1) \
                   and ((account.type == 'view' and context['data']['form']['print_views_only'] == 1) or context['data']['form']['print_views_only'] == 0) :
               <tr>
 %if context['data']['form']['print_chapter'] == 1:
