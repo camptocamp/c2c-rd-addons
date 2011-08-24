@@ -19,9 +19,8 @@
             <separator string="Periods Prev Year" colspan="4"/>
             <field name="period_prev_from"/>
             <field name="period_prev_to"/>
-            <separator string="other" colspan="4"/>
+            <separator string="Report Output Controls" colspan="4"/>
             <field name="print_all_zero"/>
-            <separator string="Report Controls" colspan="4"/>
             <field name="print_chapter"/>
             <field name="print_opening_dc"/>
             <field name="print_views_only"/>
@@ -42,7 +41,7 @@
             <button
               icon="gtk-print"
               name="account_chart_sum_open_report"
-              string="Print Chart (not working yet)"
+              string="Print Chart"
               type="object"/>
           </group>
         </form>
