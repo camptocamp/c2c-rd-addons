@@ -87,7 +87,9 @@ class account_account(osv.osv):
             
             self.logger.notifyChannel('addons.'+self._name, netsvc.LOG_DEBUG,'Periods: %s'%periods)
             # FIXME - tuple must not return ',' if only one period is available - period_id in ( p,) should be period_id in ( p )
-            filters = ' AND period_id in %s ' % (tuple(periods),)
+            filters = ''
+            if periods: 
+                filters = ' AND period_id in %s ' % (tuple(periods),)
             #self.logger.notifyChannel('addons.'+self._name, netsvc.LOG_DEBUG,'Filters: %s'%filters)
             # IN might not work ideally in case there are too many
             # children_and_consolidated, in that case join on a
