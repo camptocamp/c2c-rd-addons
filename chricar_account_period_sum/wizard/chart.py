@@ -220,6 +220,14 @@ class account_chart_sum(osv.osv_memory):
         data.update({'period_prev_from_name' :  period_obj.read(cr, uid, [data['period_prev_from']], context=context)[0]['code'] or ''})
         data.update({'period_prev_to_name' :  period_obj.read(cr, uid, [data['period_prev_to']], context=context)[0]['code'] or ''})
 
+        if data['period_from'] and data['period_to']:
+            periods = period_obj.build_ctx_periods(cr, uid, data['period_from'], data['period_to'])
+            context.update({'fiscalyear': data['fiscalyear'], 'periods': periods  })
+
+        if data['period_prev_from'] and data['period_prev_to']:
+            periods_prev = period_obj.build_ctx_periods(cr, uid, data['period_prev_from'], data['period_prev_to'])
+            context.update({'periods_prev': periods_prev  })
+
         # get ids
         account_obj = self.pool.get('account.account')
         account_ids = account_obj._get_children_and_consol(cr, uid, [data['chart_account_id']] , context)
@@ -236,6 +244,7 @@ class account_chart_sum(osv.osv_memory):
             'type': 'ir.actions.report.xml',
             'report_name': 'report.account_account.tree_sum',
             'datas': datas,
+            'context' : context
         }
 
            
