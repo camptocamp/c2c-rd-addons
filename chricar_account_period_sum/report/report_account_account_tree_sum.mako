@@ -18,8 +18,8 @@ Selection:
 
   <table>
 	    <tr>
-	    <td>current: ${context['data']['form']['period_from']} - ${context['data']['form']['period_to']}</td>
-	    <td>previous: ${context['data']['form']['period_prev_from']} - ${context['data']['form']['period_prev_to']}</td>
+	    <td>current: ${context['data']['form']['period_from_name']} - ${context['data']['form']['period_to_name']}</td>
+	    <td>previous: ${context['data']['form']['period_prev_from_name']} - ${context['data']['form']['period_prev_to_name']}</td>
 	    </tr>
   </table>
 

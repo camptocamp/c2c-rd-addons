@@ -214,8 +214,12 @@ class account_chart_sum(osv.osv_memory):
         ##               parser=report_webkit_html)
 
         data = self.read(cr, uid, ids, [], context=context)[0]
+        period_obj = self.pool.get('account.period')
+        data.update({'period_from_name' :  period_obj.read(cr, uid, [data['period_from']], context=context)[0]['code']})
+        data.update({'period_to_name' :  period_obj.read(cr, uid, [data['period_to']], context=context)[0]['code']})
+        data.update({'period_prev_from_name' :  period_obj.read(cr, uid, [data['period_prev_from']], context=context)[0]['code'] or ''})
+        data.update({'period_prev_to_name' :  period_obj.read(cr, uid, [data['period_prev_to']], context=context)[0]['code'] or ''})
 
-        #FIXME 745 must not be hard coded
         datas = {
              'ids': [data['chart_account_id']],
              'model': 'ir.ui.menu',
