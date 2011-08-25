@@ -1,6 +1,6 @@
 <html>
 <head>
-<b>${company.name |entity}: Account-Chart Enhanced</b> requested by ${user.name}
+<b>Account-Chart Enhanced</b> requested by ${user.name}
 </head>
 
   <body>
@@ -21,7 +21,7 @@ Selection:
 	    <td>current year: ${context['data']['form']['period_from_name']} - ${context['data']['form']['period_to_name']}</td>
 	    <td>previous year: ${context['data']['form']['period_prev_from_name']} - ${context['data']['form']['period_prev_to_name']}</td>
 %if context['data']['form']['print_previous_1000'] == 1:
-	    <td>previous year in 1000</td>A
+	    <td>previous year in 1000</td>
 %endif
 %if context['data']['form']['print_views_only'] == 1:
 	    <td>print only views</td>
