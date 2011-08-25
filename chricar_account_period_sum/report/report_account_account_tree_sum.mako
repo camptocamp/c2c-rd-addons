@@ -1,6 +1,6 @@
 <html>
 <head>
-                <b>Account-Chart Enhanced</b> requested by ${user.name}
+<b>${company.name |entity}: Account-Chart Enhanced</b> requested by ${user.name}
 </head>
 
   <body>
