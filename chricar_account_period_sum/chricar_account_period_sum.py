@@ -155,42 +155,45 @@ class account_fiscalyear_sum(osv.osv):
     # to avoid view_id
     class one2many_periods (fields.one2many):
         def get (self, cr, obj, ids, name, user=None, offset=0, context=None, values={}):
-            res = {}
-            for id in ids : res[id] = []
-            fy = pooler.get_pool(cr.dbname).get('account.account_fiscalyear_sum').browse(cr, user, ids, context=context)[0]
-             
-            ids2 = obj.pool.get (self._obj).search \
-                ( cr
-                , user
-                , [ ('company_id', '=', fy.company_id.id)
-                  , ('account_id', '=', fy.account_id.id)
-                  , ('fiscalyear_id', '=', fy.fiscalyear_id.id)
-                  ]
-                , limit = self._limit
-                )
-            
-            for r in ids2:
-               #print >> sys.stderr,'r_ids2 ', r
-               res [fy.id].append( r )
-            return res
+                res = {}
+                for id in ids :
+                    res[id] = []
+                    print "ID",id
+                    fy = pooler.get_pool(cr.dbname).get('account.account_fiscalyear_sum').browse(cr, user, id, context=context)
+                    ids2 = obj.pool.get (self._obj).search \
+                        ( cr
+                        , user
+                        , [ ('company_id', '=', fy.company_id.id)
+                          , ('account_id', '=', fy.account_id.id)
+                          , ('fiscalyear_id', '=', fy.fiscalyear_id.id)
+                          ]
+                        , limit = self._limit
+                        )
+                    for r in ids2:
+                        #print >> sys.stderr,'r_ids2 ', r
+                        res [fy.id].append( r )
+
+
+                return res
             #  set missing
     # end class one2many_periods
     class one2many_per_delta (fields.one2many):
         def get (self, cr, obj, ids, name, user=None, offset=0, context=None, values={}):
             res = {}
-            for id in ids : res[id] = []
-            fy = pooler.get_pool(cr.dbname).get('account.account_fiscalyear_sum').browse(cr, user, ids, context=context)[0]
+            for id in ids : 
+                res[id] = []
+                fy = pooler.get_pool(cr.dbname).get('account.account_fiscalyear_sum').browse(cr, user, id, context=context)
 
-            cr.execute("""select id from account_account_period_sum_delta
+                cr.execute("""select id from account_account_period_sum_delta
                            where company_id = %s
                              and account_id = %s
                              and fiscalyear_id = %s
                              order by name""" , (fy.company_id.id,fy.account_id.id,fy.fiscalyear_id.id))
-            ids3 = cr.fetchall()
+                ids3 = cr.fetchall()
             #print >> sys.stderr,'ids3 ', ids3
-            for r in ids3:
-                #print >> sys.stderr,'r_ids3 ', r[0]
-                res [fy.id].append( r[0] )
+                for r in ids3:
+                   #print >> sys.stderr,'r_ids3 ', r[0]
+                   res [fy.id].append( r[0] )
                 
             return res
     
