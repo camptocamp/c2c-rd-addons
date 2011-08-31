@@ -48,8 +48,14 @@
            - balance of previous year / selected periods
            - balance diff and diff %
            - word wrap of long account names
-
-    standardizes account_period name generation to comply with this naming.
+	   - many options to select what to print
+	   - remarks:
+	     * this report will also work unchanged but slower if the used functions fields are not calculated 
+	       based on account_period_sum but on account_move_lines
+	     * using function fields based on account_move_lines will allow to have other selection options found
+	       in the original chart of accounts, but seems not to be essential for accounting
+	       
+    * standardizes account_period name generation to comply with this naming.
 
     OpenERP needs Closing the fiscal year to show correct balances.
        This module introduces a special journal is_opening_balance. All moves of this journal will not be added to the period sum
@@ -57,11 +63,12 @@
        If opening balance already exists, it is neccessary to install this module, mark the journal as "Is Opening Balance Journal"
        and update the module to get correct period sums.
 
-    Things to come:
-    * eventually - adapting the accounting reporting to use this sums (2c2?)
+    
+
+
     """,
     "category" : "Generic Modules/Others",
-    "depends" : ["base", "account", "c2c_account_closing_remarks", "chricar_view_id"],
+    "depends" : ["base","report_webkit", "account", "c2c_account_closing_remarks", "chricar_view_id"],
     "init_xml" : [],
     "demo_xml" : [],
     "update_xml" : ["chricar_account_period_sum_view.xml","wizard/chart.xml","security/rule.xml","security/ir.model.access.csv","report_chart.xml"],

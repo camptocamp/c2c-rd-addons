@@ -42,6 +42,10 @@ class account_chart_sum(osv.osv_memory):
     _name = "account.chart.sum"
     _description = "Account chart (sum)"
     _columns = {
+        'chart_account_id': fields.many2one('account.account', \
+                                    'Chart of Account ',  \
+                                    domain = [('parent_id','=',False)] ,\
+                                    required=True),
         'fiscalyear': fields.many2one('account.fiscalyear', \
                                     'Fiscal year',  \
                                     required=True),
@@ -161,7 +165,9 @@ class account_chart_sum(osv.osv_memory):
         if data['period_prev_from'] and data['period_prev_to']:
             result['periods_prev'] = period_obj.build_ctx_periods(cr, uid, data['period_prev_from'], data['period_prev_to'])
             if result['periods_prev']:
-                result['context'] = str({'fiscalyear': data['fiscalyear'], 'periods': result['periods'], 'periods_prev' : result['periods_prev'] ,
+                result['context'] = str({'fiscalyear': data['fiscalyear'], 
+                                'chart_account_id' : data['chart_account_id'],
+                                'periods': result['periods'], 'periods_prev' : result['periods_prev'] ,
                                 'print_all_zero'  : data['print_all_zero'],
                                 'print_chapter'   : data['print_chapter'],
                                 'print_opening_dc': data['print_opening_dc'],
@@ -208,10 +214,26 @@ class account_chart_sum(osv.osv_memory):
         ##               parser=report_webkit_html)
 
         data = self.read(cr, uid, ids, [], context=context)[0]
+        period_obj = self.pool.get('account.period')
+        data.update({'period_from_name' :  period_obj.read(cr, uid, [data['period_from']], context=context)[0]['code']})
+        data.update({'period_to_name' :  period_obj.read(cr, uid, [data['period_to']], context=context)[0]['code']})
+        data.update({'period_prev_from_name' :  period_obj.read(cr, uid, [data['period_prev_from']], context=context)[0]['code'] or ''})
+        data.update({'period_prev_to_name' :  period_obj.read(cr, uid, [data['period_prev_to']], context=context)[0]['code'] or ''})
 
+        if data['period_from'] and data['period_to']:
+            periods = period_obj.build_ctx_periods(cr, uid, data['period_from'], data['period_to'])
+            context.update({'fiscalyear': data['fiscalyear'], 'periods': periods  })
+
+        if data['period_prev_from'] and data['period_prev_to']:
+            periods_prev = period_obj.build_ctx_periods(cr, uid, data['period_prev_from'], data['period_prev_to'])
+            context.update({'periods_prev': periods_prev  })
+
+        # get ids
+        account_obj = self.pool.get('account.account')
+        account_ids = account_obj._get_children_and_consol(cr, uid, [data['chart_account_id']] , context)
         datas = {
-             'ids': [],
-             'model': 'account.account',
+             'ids': account_ids,
+             'model': 'ir.ui.menu',
              'form': data
         }
         print >> sys.stderr, 'report datas', datas
@@ -220,8 +242,9 @@ class account_chart_sum(osv.osv_memory):
             #'report_name': 'account.account.chart.report',
         return {
             'type': 'ir.actions.report.xml',
-            'report_name': 'account_account.tree_sum',
+            'report_name': 'report.account_account.tree_sum',
             'datas': datas,
+            'context' : context
         }
 
            
