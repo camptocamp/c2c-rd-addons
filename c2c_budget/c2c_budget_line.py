@@ -346,8 +346,14 @@ class c2c_budget_line(osv.osv):
                 periods = periods + version_obj.get_periods (cr, user, v, context=context)
             lines = self.browse(cr, user, lines_ids, context=context)
             #lines = self.filter_by_period(cr, user, lines, [p.id for p in periods], context)
-            lines_ids = [l.id for l in lines]
-        
+            line_ids = []
+            # FIXME - may be a data error in blau6
+            if lines:
+               try:
+                  lines_ids = [l.id for l in lines]
+               except:
+                  import sys
+                  print >> sys.stderr,' lines',lines
         return lines_ids
                                                                       
     
