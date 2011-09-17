@@ -182,7 +182,11 @@ class c2c_budget_item(osv.osv):
                     #self.logger.notifyChannel('addons.'+self._name, netsvc.LOG_DEBUG,'sums: %s'%sums)
                     for child in current.children_ids:
                         if child.company_id.currency_id.id == current.company_id.currency_id.id:
-                            sums[current.id][fn] += sums[child.id][fn]
+                            #FIXME Data error ?
+                            try:
+                               sums[current.id][fn] += sums[child.id][fn]
+                            except:
+                               print ' sums[current.id][fn] += sums[child.id][fn]'
                         else:
                             sums[current.id][fn] += currency_obj.compute(cr, uid, child.company_id.currency_id.id, current.company_id.currency_id.id, sums[child.id][fn], context=context)
             #self.logger.notifyChannel('addons.'+self._name, netsvc.LOG_DEBUG,'sums: %s'%sums)
@@ -297,7 +301,12 @@ class c2c_budget_item(osv.osv):
                     #self.logger.notifyChannel('addons.'+self._name, netsvc.LOG_DEBUG,'sums: %s'%sums)
                     for child in current.children_ids:
                         if child.company_id.currency_id.id == current.company_id.currency_id.id:
-                            sums[current.id][fn] += sums[child.id][fn]
+                            #FIXME Data error ?
+                            try:
+                               sums[current.id][fn] += sums[child.id][fn]
+                            except:
+                               import sys
+                               print >> sys.stderr,'sums[current.id][fn] += sums[child.id][fn]', current.id, child.id
                         else:
                             sums[current.id][fn] += currency_obj.compute(cr, uid, child.company_id.currency_id.id, current.company_id.currency_id.id, sums[child.id][fn], context=context)
             #self.logger.notifyChannel('addons.'+self._name, netsvc.LOG_DEBUG,'sums: %s'%sums)
