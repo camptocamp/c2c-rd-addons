@@ -4,6 +4,7 @@
 </head>
 
   <body>
+    <%setLang(user.context_lang)%>
     <style  type="text/css">
      table {
        border-collapse: collapse;
