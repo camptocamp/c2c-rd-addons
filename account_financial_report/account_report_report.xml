@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data >
+
+	# Report full account balance
+        <report
+            id="account_balance_full"
+            string="**Full account balance"
+            model="account.account"
+            name="account.balance.full"
+            rml="account_financial_report/report/account_balance_full.rml"
+			header="False"
+			auto="False"
+			menu="False"/>
+
+	# Report cumulative general ledger
+        <report
+            id="account_general_ledger_cumulative"
+            string="**Cumulative general ledger"
+            model="account.account"
+            name="account.general.ledger.cumulative"
+            rml="account_financial_report/report/general_ledger.rml"
+			header="False"
+			auto="False"
+			menu="False"/>
+
+	# Report cumulative general ledger landscape
+        <report
+            id="account_general_ledger_cumulative_landscape"
+            string="**Cumulative general ledger landscape"
+            model="account.account"
+            name="account.general.ledger.cumulative.landscape"
+            rml="account_financial_report/report/general_ledger_landscape.rml"
+			header="False"
+			auto="False"
+			menu="False"/>
+
+	# Report account chart
+		<report
+            id="account_account_chart_report"
+			string="**Chart of accounts"
+			model="account.account"
+			name="account.account.chart.report"
+			rml="account_financial_report/report/account_chart.rml"
+			header="False"
+			auto="False"
+			menu="True"/>
+
+	# Report invoice list
+		<report
+            id="account_invoice_list_report"
+			string="**Invoice list"
+			model="account.invoice"
+			name="account.invoice.list.report"
+			rml="account_financial_report/report/invoice_list.rml"
+			header="False"
+			auto="False"
+			menu="True"/>
+
+	# Report account move line
+        <report
+            id="report_account_move_line"
+            string="**Entry lines"
+            model="account.move.line"
+            name="account.move.line.report"
+            rml="account_financial_report/report/account_move_line.rml"
+            header="False"
+            auto="True"/>
+
+	# Report account move
+        <report
+            id="report_account_move_line_record"
+            string="**Entry"
+            model="account.move"
+            name="account.move.report"
+            rml="account_financial_report/report/account_move_line_record.rml"
+            header="False"
+            auto="True"/>
+        <report
+            id="report_account_move_line_record_h"
+            string="**Entry landscape"
+            model="account.move"
+            name="account.move.report.h"
+            rml="account_financial_report/report/account_move_line_record_h.rml"
+            header="False"
+            auto="True"/>
+
+        <report
+            id="account_print_journal_entries"
+            string="**Print journal by entries"
+            model="account.journal.period"
+            name="account.print.journal.entries"
+            rml="account_financial_report/report/account_move_line_record.rml"
+            header="False"
+            auto="False"/>
+        <report
+            id="account_print_journal_entriesh"
+            string="**Print journal by entries landscape"
+            model="account.journal.period"
+            name="account.print.journal.entriesh"
+            rml="account_financial_report/report/account_move_line_record_h.rml"
+            header="False"
+            auto="False"/>
+
+  </data>
+</openerp>

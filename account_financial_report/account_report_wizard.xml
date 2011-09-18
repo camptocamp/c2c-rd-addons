@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data >
+
+	# Report account move
+        <wizard
+            string="**Print journal by entries"
+            model="account.journal.period"
+            name="account.journal.entries.report"
+            menu="False"
+            id="wizard_journal_entries_report"/>
+		<menuitem
+            name="**Print journal by entries"
+            parent="account.menu_finance_generic_reporting"
+            action="wizard_journal_entries_report"
+            type="wizard"
+            icon="STOCK_PRINT"
+            id="menu_journal_entries_report"/>
+
+	# Report full account balance
+        <wizard
+            string="**Full account balance"
+            keyword="client_print_multi"
+            model="account.account"
+            name="account.balance.full.report"
+            id="wizard_account_balance_full_report"/>
+
+		<wizard
+			string="**Full account balance"
+			model="account.account"
+			name="account.balance.full.report"
+			menu="False"
+			id="wizard_account_balance_full_report_menu"/>
+		<menuitem
+			name="**Full account balance"
+			parent="account.menu_finance_generic_reporting"
+			action="wizard_account_balance_full_report_menu"
+			type="wizard"
+			icon="STOCK_PRINT"
+			id="menu_account_balance_full_report"/>
+
+	# Report cumulative general ledger
+        <wizard
+            string="**Cum. general ledger"
+            keyword="client_print_multi"
+            model="account.account"
+            name="account.general.ledger.cumulative.report"
+            id="wizard_account_general_ledger_cumulative_report"/>
+
+		<wizard
+			string="**Cumulative general ledger"
+			model="account.account"
+			name="account.general.ledger.cumulative.report"
+			menu="False"
+			id="wizard_account_general_ledger_cumulative_report_menu"/>
+		<menuitem
+			name="**Cumulative general ledger"
+			parent="account.menu_finance_generic_reporting"
+			action="wizard_account_general_ledger_cumulative_report_menu"
+			type="wizard"
+			icon="STOCK_PRINT"
+			id="menu_account_general_ledger_cumulative_report"/>
+
+	# Report account chart
+		<wizard
+			string="**Chart of accounts"
+			model="account.account"
+			name="account.account.chart.report"
+			menu="False"
+			id="wizard_account_chart_report"/>
+		<menuitem
+			name="**Chart of accounts"
+			parent="account.menu_finance_generic_reporting"
+			action="wizard_account_chart_report"
+			type="wizard"
+			icon="STOCK_PRINT"
+			id="menu_account_chart_report"/>
+
+	# Report invoice list
+        <wizard
+            string="**Print invoice list"
+            model="account.invoice"
+            name="account.invoice.list.report"
+            menu="False"
+            id="wizard_invoice_list_report"/>
+		<menuitem
+            name="**Print invoice list"
+            parent="account.menu_finance_generic_reporting"
+            action="wizard_invoice_list_report"
+            type="wizard"
+            icon="STOCK_PRINT"
+            id="menu_invoice_list_report"/>
+
+
+  </data>
+</openerp>
