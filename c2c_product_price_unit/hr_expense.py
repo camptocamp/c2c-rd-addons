@@ -27,8 +27,13 @@ import math
 #from _common import rounding
 import re  
 from tools.translate import _
+from tools.sql import drop_view_if_exists
         
 import sys
+
+def init(self, cr):
+    drop_view_if_exists(cr, 'hr_expense_report')
+
 
 #----------------------------------------------------------
 #  Account Invoice Line INHERIT
