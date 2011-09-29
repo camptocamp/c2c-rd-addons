@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data>
+    <record model="ir.ui.view" id="view_attachment_form_ref">
+      <field name="name">ir.attachment.view.ref</field>
+      <field name="model">ir.attachment</field>
+      <field name="inherit_id" ref="base.view_attachment_form"/>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <xpath expr="/form/notebook/page[@string='Notes']" position="after">
+            <page string="References">
+              <field name="reference_ids" widget="one2many_list" colspan="4" nolabel="1">
+                <tree string="References">
+                  <field name="name" widget="reference"/>
+                </tree>
+              </field>
+            </page>
+        </xpath>
+      </field>
+    </record>
+  </data>
+</openerp>

@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<openerp>
+  <data>
+    <wizard 
+      string="Generate CSV"
+      id="wizard_generate_csv" 
+      name="ir.model.wizard_generate_csv" 
+      model="ir.model"/>
+  </data>
+</openerp>
