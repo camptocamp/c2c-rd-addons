@@ -27,6 +27,7 @@
         %if pick.company_id.address_label_position == 'left':
          <tr>
          <td>
+${_("Shipping Address")}   
            <pre>
 ${pick.address_id.address_label}
            <pre>
@@ -44,6 +45,10 @@ ${_("Mail")}: ${pick.address_id.email|entity} <br>
         %if pick.partner_id.vat :
 ${_("VAT")}: ${pick.partner_id.vat|entity} <br>
         %endif
+        %if pick.partner_customer_id.id != pick.address_id.partner_id.id :
+${_("Customer")}: ${pick.partner_customer_id.name|entity} <br>
+        %endif
+   
          </td>
 
         </tr>
@@ -64,8 +69,13 @@ ${_("E-mail")}: ${pick.address_id.email|entity} <br>
         %if pick.partner_id.vat :
 ${_("VAT")}: ${pick.partner_id.vat|entity} <br>
         %endif
+        %if pick.partner_customer_id.id != pick.address_id.partner_id.id :
+${_("Customer")}: ${pick.partner_customer_id.name|entity} <br>
+        %endif
+
          </td>
          <td>
+${_("Shipping Address")}
            <pre>
 ${pick.address_id.address_label}
            <pre>
@@ -126,9 +136,9 @@ ${pick.address_id.address_label}
         <tbody>
         <tr>
            <td>${line.name|entity}</td>
-           <td style="white-space:nowrap;text-align:right;">${line.product_qty}</td>
+           <td style="white-space:nowrap;text-align:right;">${line.product_qty or '0'}</td>
            <td style="white-space:nowrap;text-align:left;">${line.product_uom.name or ''}</td>
-           <td style="white-space:nowrap;text-align:rigth;">${line.product_uos_qty or ''}</td>
+           <td style="white-space:nowrap;text-align:rigth;">${line.product_uos_qty or '0'}</td>
            <td style="white-space:nowrap;text-align:left;">${line.product_uos.name or ''}</td>
            <td style="white-space:nowrap;text-align:left;">${line.location_id.name or ''}</td>
            <td style="white-space:nowrap;text-align:right;">${line.location_dest_id.name or ''}</td>
