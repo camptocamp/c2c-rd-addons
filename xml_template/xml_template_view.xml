@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data>
+    <record id="xml_template_view_tree" model="ir.ui.view">
+      <field name="name">xml.template.tree</field>
+      <field name="model">xml.template</field>
+      <field name="type">tree</field>
+      <field name="arch" type="xml">
+        <tree string="XML Templates">
+          <field name="name"/>
+          <field name="valid_from"/>
+          <field name="valid_to"/>
+          <field name="schema"/>
+        </tree>
+      </field>
+    </record>
+    <record id="xml_template_view_form" model="ir.ui.view">
+      <field name="name">xml.template.form</field>
+      <field name="model">xml.template</field>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <form string="XML Template">
+          <field name="name" colspan="4"/>
+          <newline/>
+          <field name="valid_from"/>
+          <field name="valid_to"/>
+          <newline/>
+          <field name="schema" widget="url" colspan="3"/>
+          <button
+            name="button_generate_template"
+            string="Generate Template from Schema"
+            type="object"/>
+          <notebook colspan="4">
+            <page string="Content">
+              <field name="content" nolabel="1"/>
+            </page>
+            <page string="Regulations">
+              <field name="regulation_ids" widget="one2many_list" colspan="4" nolabel="1">
+                <tree string="Regulations">
+                  <field name="name" widget="url" />
+                </tree>
+              </field>
+            </page>
+            <page string="References">
+              <field name="reference_ids" widget="one2many_list" colspan="4" nolabel="1">
+                <tree string="References">
+                  <field name="name" widget="reference"/>
+                </tree>
+              </field>
+            </page>
+            <page string="Comment">
+              <field name="comment" nolabel="1"/>
+            </page>
+          </notebook>
+        </form>
+      </field>
+    </record>
+    <record id="xml_template_act" model="ir.actions.act_window">
+      <field name="name">XML Templates</field>
+      <field name="res_model">xml.template</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form,calendar</field>
+      <field name="view_id" ref="xml_template_view_tree"/>
+    </record>
+    <menuitem 
+      id="menu_xml_template" 
+      action="xml_template_act" 
+      parent="base.menu_custom"/>
+  </data>
+</openerp>

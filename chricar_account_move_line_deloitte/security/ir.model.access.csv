@@ -1,0 +1,5 @@
+"id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
+"access_chricar_account_move_import_deny","chricar.account_move_import_deny","model_chricar_account_move_import_deny","account.group_account_user",1,1,1,1
+"access_chricar_account_tax_code_deloitte","chricar.account_tax_code_deloitte","model_chricar_account_tax_code_deloitte","account.group_account_user",1,1,1,1
+"access_chricar_account_opening_deloitte","chricar.account_opening_deloitte","model_chricar_account_opening_deloitte","account.group_account_user",1,1,1,1
+"access_chricar_account_move_line_deloitte","chricar.account_move_line_deloitte","model_chricar_account_move_line_deloitte","account.group_account_user",1,1,1,1

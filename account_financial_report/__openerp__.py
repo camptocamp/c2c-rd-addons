@@ -21,14 +21,14 @@
 #
 ##############################################################################
 {
-	"name" : "Common financial reports",
-	"version" : "1.0",
-	"author" : "Zikzakmedia SL",
-	"website" : "www.zikzakmedia.com",
+    "name" : "Common financial reports",
+    "version" : "1.0",
+    "author" : "Zikzakmedia SL",
+    "website" : "www.zikzakmedia.com",
     "license" : "GPL-3",
-	"depends" : ["account"],
-	"category" : "Localisation/Accounting",
-	"description": """
+    "depends" : ["account"],
+    "category" : "Localisation/Accounting",
+    "description": """
 Add some common financial/accounting reports and some wizards to quickly compute them:
   * Account chart list
   * Invoice list
@@ -42,12 +42,12 @@ They can be found in the "Financial Management/Legal Statements/Generic Reports"
 Some reports are based on previous work by Pexego and others on the c2c_finance_report module for TinyERP 4.2 by Camptocamp SA.
 201101 ported to v6 by Camptocamp Austria
 """,
-	"init_xml" : [],
-	"demo_xml" : [],
-	"update_xml" : [
-		"account_report_report.xml",
-		"account_report_wizard.xml",
-	],
-	"active": False,
-	"installable": True
+    "init_xml" : [],
+    "demo_xml" : [],
+    "update_xml" : [
+        "account_report_report.xml",
+        "account_report_wizard.xml",
+    ],
+    "active": False,
+    "installable": True
 }
