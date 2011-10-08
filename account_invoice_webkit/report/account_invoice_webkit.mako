@@ -147,7 +147,7 @@ ${inv.address_invoice_id.address_label}
           %endif
            <td style="white-space:nowrap;text-align:right;">${formatLang(line.price_subtotal)}
          </td></tr>
-        %if line.note :
+        %if line.note and len(line.note.replace('\n','')) > 0 :
            %if inv.amount_discount != 0:
         <tr><td colspan="6" style="border-style:none"><pre style="font-family:Helvetica;padding-left:20px;font-size:10">${line.note |entity}</pre></td></tr>
            %else:
