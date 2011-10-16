@@ -15,16 +15,16 @@
 # Service Company.
 #
 # This program is Free Software; you can redistribute it and/or
-# modify it under the terms of the GNU Affero General Public License
+# modify it under the terms of the GNU General Public License
 # as published by the Free Software Foundation; either version 3
 # of the License, or (at your option) any later version.
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU Affero General Public License for more details.
+# GNU General Public License for more details.
 #
-# You should have received a copy of the GNU Affero General Public License
+# You should have received a copy of the GNU General Public License
 # along with this program; if not, see <http://www.gnu.org/licenses/> or
 # write to the Free Software Foundation, Inc.,
 # 59 Temple Place - Suite 330, Boston, MA  02111-1.17, USA.
@@ -51,6 +51,8 @@ The banking accounts should preferably be specified by IBAN/BIC.
 For the own bank IBAN/BIC must be specified.
 
 The banking information must be specified for each payment line (sic!).
+If no bank-country is specified, this module tries to retrofit the country from the BIC.
+If no country can be guessed, an international money transfer is generated.
 
 The bank transfer currency must be the same as the company currency.
 
@@ -61,13 +63,13 @@ The "payment day" is, if unspecified or in the past, the file-creation-date.
 The sum of the transfers to a bank account must not be negative.
 If there are such payment lines with negative amount, the lines are summed up for this bank account.
 
-A conversion to ASCII for all texts within the EDIFACT-file is attempted. 
+A conversion to ASCII for all texts within the EDIFACT-file is attempted.
 """
-, "category"    : "Payment"
+, "category"    : "Payment module"
 , "depends"     : 
     [ "account_payment"
     , "base_iban"
-    , "c2c_account_payment_extension"
+    , "account_payment_extension"
     ]
 , "init_xml"    : []
 , "demo_xml"    : []

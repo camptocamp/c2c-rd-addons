@@ -5,7 +5,7 @@
 # (<http://www.swing-system.com>)
 # Copyright (C) ChriCar Beteiligungs- und Beratungs- GmbH
 # all rights reserved
-#    05-AUG-2010 (GK) created
+#    14-OCT-2011 (GK) created
 #
 # WARNING: This program as such is intended to be used by professional
 # programmers who take the whole responsability of assessing all potential
@@ -30,9 +30,20 @@
 # 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 ###############################################
-import unicode2ascii
-import res_bank
-import res_partner_bank
-import payment_type
-import payment_order
-import wizard
+from osv import fields, osv
+from tools.translate import _
+
+class res_bank(osv.osv) :
+    _inherit = "res.bank"
+
+    def retrofit_country(self, cr, uid, ids):
+        country_obj = self.pool.get('res.country')
+        for bank in self.browse(cr, uid, ids) :
+            if not bank.country and bank.bic :
+                country = country_obj.search(cr, uid, [('code', '=', bank.bic[4:6])]) # ISO 3166
+                if country :
+                    self.write(cr, uid, [bank.id], {'country' : country[0]})
+    # end def retrofit_country
+
+# end class res_bank
+res_bank()
