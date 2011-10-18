@@ -122,6 +122,8 @@ class chricar_tenant(osv.osv):
 
      _order = "name desc"
 
+     def name_search(self, cr, user, name='', args=None, operator='ilike', context=None, limit=100):
+         super(chricar_tenant, self).name_search(cr, user, name, args, operator='=', context=context, limit=limit)
 
 #[09:28:47] … Here is an example
 #<field name="domain"> [('id', 'in', find_ids_to_list())] </field>
