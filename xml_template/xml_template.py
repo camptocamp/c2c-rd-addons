@@ -80,7 +80,8 @@ class xml_template(osv.osv):
     def generate_xml(self, cr, uid, id, nsmap=None, **scope_dict) :
         """Generates the XML and returns it
         
-        :param navigation_roots: (dictionary of) objects that are used for navigation 
+        :param nsmap: (dictionary of) namespaces
+        :param scope_dict: (dictionary of) navigation roots 
         :return: root of XML-structure
         """
         obj = self.browse(cr, uid, id)
