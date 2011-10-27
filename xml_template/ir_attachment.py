@@ -36,7 +36,6 @@ from tools.translate import _
 class ir_attachment_ref(osv.osv):
     _name           = "ir.attachment.ref"
     _description    = "Attachment Reference"
-    _order          = "ref"
 
     def _links_get(self, cr, uid, context={}) :
         obj = self.pool.get("res.request.link")
