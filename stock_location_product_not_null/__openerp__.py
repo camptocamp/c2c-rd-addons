@@ -23,10 +23,16 @@
 
 {
     'name': 'Toggle printing of product 0 Values in stock report',
-    'version': '0.7',
+    'version': '1.0',
     'category': 'Inventory Control',
     'description': """
 Add check to prohibit printing products with Real and Future Value = 0 
+
+****************************************************
+REQUIRES patch for filter (and sort) function fields - please see
+http://www.camptocamp.com/en/blog/2011/10/sort-and-filter-options-for-function-fields-in-openerp
+****************************************************
+
 """,
     'author': 'Camptocamp Austria',
     'depends': [ 'stock'],
