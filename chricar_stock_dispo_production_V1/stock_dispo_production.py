@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 #!/usr/bin/python
-# -*- coding: utf-8 -*-
+# -*- encoding: utf-8 -*-
 ##############################################
 #
 # ChriCar Beteiligungs- und Beratungs- GmbH
@@ -17,16 +17,16 @@
 # Service Company.
 #
 # This program is Free Software; you can redistribute it and/or
-# modify it under the terms of the GNU Affero General Public License
+# modify it under the terms of the GNU General Public License
 # as published by the Free Software Foundation; either version 3
 # of the License, or (at your option) any later version.
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU Affero General Public License for more details.
+# GNU General Public License for more details.
 #
-# You should have received a copy of the GNU Affero General Public License
+# You should have received a copy of the GNU General Public License
 # along with this program; if not, see <http://www.gnu.org/licenses/> or
 # write to the Free Software Foundation, Inc.,
 # 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
@@ -50,14 +50,14 @@ class stock_move(osv.osv):
                                   ('small','Small'),
                                   ('faulty','Faulty'),
                                   ('waste','Waste'),
-                                  ],'Category', size=16, readonly=True, states={'draft': [('readonly', False)]}),
-       'category_prod'      : fields.char('Category', size=16, readonly=True, states={'draft': [('readonly', False)]}),
+                                  ],'Category', size=16, required=True,readonly=True, states={'draft': [('readonly', False)]}),
+       'category_prod'      : fields.char('Category', size=16, required=True,readonly=True, states={'draft': [('readonly', False)]}),
        #'date_production'    : fields.datetime('Production Date', required=True,readonly=True, states={'draft': [('readonly', False)]}),
        #'location_id'        : fields.many2one('stock.location', 'Location',readonly=True, states={'draft': [('readonly', False)]}),
        #'location_dest_id'   : fields.many2one('stock.location', 'Dest. Location',readonly=True, states={'draft': [('readonly', False)]}),
        #'move_id'            : fields.many2one('stock.move','Picking Line', select=True,readonly=True,),
        #'name'               : fields.char    ('Quality', size=16 ,readonly=True, states={'draft': [('readonly', False)]}),
-       'order_line_id'      : fields.many2one('sale.order.line','Sale Order Line', select=True, readonly=True,),
+       'order_line_id'      : fields.many2one('sale.order.line','Sale Order Line', select=True, required=True,readonly=True,),
        #'quantity'           : fields.float   ('Quantity', required=True,readonly=True, states={'draft': [('readonly', False)]}),
        'sequence'           : fields.integer ('Sequence', size=16, ),
        #'state'              : fields.char    ('State', size=16, readonly=True),
@@ -72,7 +72,7 @@ class stock_move(osv.osv):
 #       'active'            : lambda *a: True,
        #'state'             : lambda *a: 'draft',
        'sequence'          : lambda *a: 0.0,
-       #'date_planned'   : lambda *a: time.strftime('%Y-%m-%d %H:%M:%S'),
+       #'date'   : lambda *a: time.strftime('%Y-%m-%d %H:%M:%S'),
 
 }
      _order = 'date'
@@ -200,8 +200,9 @@ class sale_order_line(osv.osv):
                 , context = context
                 , load = '_classic_write'
                 ):
-                
+                #print >> sys.stderr,'r ', r, r['id'], r[self._fields_id]
                 res [r[self._fields_id]].append( r['id'] )
+            #print >> sys.stderr,'res ',res
             return res
         # end def get
 
@@ -330,6 +331,30 @@ class sale_order_line(osv.osv):
             return res
         # end def get
 
+    class one2many_draft (fields.one2many):
+        def get (self, cr, obj, ids, name, user=None, offset=0, context=None, values={}):
+            res = {}
+            for id in ids : res[id] = []
+            ids2 = obj.pool.get (self._obj).search \
+                ( cr
+                , user
+                , [(self._fields_id, 'in', ids)
+                , ('state', '=', 'draft')]
+                , limit = self._limit
+                )
+            for r in obj.pool.get (self._obj)._read_flat \
+                (cr
+                , user
+                , ids2
+                , [self._fields_id]
+                , context = context
+                , load = '_classic_write'
+                ):
+                res [r[self._fields_id]].append( r['id'] )
+            return res
+        # end def get
+
+
         def set(self, cr, obj, id, field, values, user=None, context=None):
             for act in values :
                 if act[0] == 0 : # "create"
@@ -380,6 +405,8 @@ class sale_order_line(osv.osv):
                        readonly=True, states={'draft': [('readonly', False)],'confirmed': [('readonly', False)] }),
        'stock_dispo_production_waste_ids' : one2many_waste('stock.move','order_line_id','Waste', \
                        readonly=True, states={'draft': [('readonly', False)],'confirmed': [('readonly', False)] }),
+       'stock_dispo_production_draft_ids' : one2many_draft('stock.move','order_line_id','Draft', \
+                       readonly=True, states={'draft': [('readonly', False)],'confirmed': [('readonly', False)] }),
        'stock_dispo_production_ids': fields.one2many('stock.move','order_line_id','Dispo Production', \
                        readonly=True, states={'draft': [('readonly', False)],'confirmed': [('readonly', False)] }),
        'product_packaging_id' : fields.many2one('product.product', 'Packaging', help='Product wich is used to store the main product') ,
@@ -414,7 +441,6 @@ to avoid data entry for every Sales Order
  """),
     }
 stock_production_lot()
-
 #class stock_move(osv.osv):
 #      _inherit = "stock.move"
 #      _columns = {
