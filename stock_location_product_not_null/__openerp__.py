@@ -22,7 +22,7 @@
 
 
 {
-    'name': 'Toggle printing of product 0 Values in stock report',
+    'name': 'Toggle display of product with 0 Values in stock location analysis',
     'version': '1.0',
     'category': 'Inventory Control',
     'description': """
