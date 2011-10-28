@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <report
+      auto="False"
+      file="report_production_order_badges/report/report_production_order_badges.mako"
+      id="report_production_order_badges"
+      model="sale.order"
+      name="report.production_order_badges"
+      report_type="webkit"
+      string="Badges"/>
+  </data>
+</openerp>
