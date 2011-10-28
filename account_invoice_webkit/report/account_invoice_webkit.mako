@@ -15,13 +15,10 @@
        font-size:12px;
            }
      td {width: 50%; margin: 0px; padding: 3px; border: 1px solid lightgrey;  vertical-align: top; }
-     pre {font-family:helvetica; font-size:13;}
+     pre {font-family:helvetica; font-size:15;}
     </style>
     %for inv in objects :
     <% setLang(inv.partner_id.lang) %>
-<br>
-<br>
-<br>
 <br>
     <table >
         %if inv.company_id.address_label_position == 'left':
@@ -29,7 +26,10 @@
          <td>
 %if inv.type in ('in_invoice','in_refund'):
 ${_("Supplier Address")}
+%else:
+${_("Customer Address")}
 %endif
+<hr>
            <pre>
 ${inv.address_invoice_id.address_label}
            <pre>
@@ -71,7 +71,10 @@ ${_("VAT")}: ${inv.partner_id.vat|entity} <br>
          <td>
 %if inv.type in ('in_invoice','in_refund'):
 ${_("Supplier Address")}
+%else:
+${_("Customer Address")}
 %endif
+<hr>
            <pre>
 ${inv.address_invoice_id.address_label}
            <pre>
@@ -80,7 +83,8 @@ ${inv.address_invoice_id.address_label}
         %endif
 
     </table>
-    <br />
+    <br>
+    <br>
     %if inv.type == 'out_invoice' :
     <span class="title">${_("Invoice")} ${inv.number or ''|entity}</span>
     %elif inv.type == 'in_invoice' :
