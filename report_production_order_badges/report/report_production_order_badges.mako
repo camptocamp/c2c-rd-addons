@@ -2,6 +2,9 @@
   <head/>
   <body>
 
+<%import locale%>
+<%locale.setlocale(locale.LC_ALL, "de_DE.UTF-8") %>
+
     <style  type="text/css">
      table {
        border-collapse: collapse;
@@ -20,16 +23,16 @@
     <table>
       <tbody>
         <tr>
-          <td>Dispo-Nr eigen/fremd</td> <td>${sale_order.name} / ${sale_order.client_order_ref or ' - '}  </td>
+          <td>Dispo-Nr </td> <td>${sale_order.name} vom ${sale_order.date_order}  </td>
         </tr>
         <tr>
           <td>Auftraggeber</td> <td>${sale_order.partner_id.name or ''}  </td>
         </tr>
         <tr>
-          <td>Empfänger</td> <td>${sale_order.partner_shipping_id.partner_id.name or ''}  </td>
+          <td>Kundenreferenz</td> <td>${sale_order.client_order_ref or ''}</td>
         </tr>
         <tr>
-          <td>Datum Dispo</td> <td>${sale_order.date_order}</td>
+          <td>Empfänger</td> <td>${sale_order.partner_shipping_id.partner_id.name or ''}  </td>
         </tr>
         <tr>
           <td>BIO-Produkt / Sorte</td> <td>${line.product_id.name} ${line.product_id.variants or ''} ${line.product_packaging.name or ''}   </td>
@@ -37,6 +40,11 @@
         <tr>
           <td>Los</td> <td>${(line.prodlot_id.name or '')+'/'+(line.prodlot_id.ref or '')}  </td>
         </tr>
+%if line.prodlot_id.global_gap_number:
+        <tr>
+          <td>Global-Gap-Nr</td> <td>${line.prodlot_id.global_gap_number }  </td>
+        </tr>
+%endif:
         <tr>
           <td>Feldname/-Nr.(AMA)</td> <td>${ line.location_product_id.name or ''}  </td>
         </tr>
@@ -44,7 +52,7 @@
           <td>Sortierung </td> <td>${prod_line.name  or ''}  </td>
         </tr>
         <tr>
-          <td>Gewicht </td> <td>${ getattr(prod_line,"product_qty","")} ${line.product_uos.name or '' }  </td>
+          <td>Gewicht </td> <td>${locale.format("%0.0f", prod_line.product_qty,True)} ${line.product_uos.name or '' }  </td>
         </tr>
         <tr>
           <td>Datum der Aufbereitung </td> <td>${getattr(prod_line,"date","") or ''}  </td>
