@@ -46,7 +46,7 @@ ${_("Mail")}: ${pick.address_id.email|entity} <br>
         %if pick.partner_id.vat :
 ${_("VAT")}: ${pick.partner_id.vat|entity} <br>
         %endif
-        %if pick.partner_customer_id.id != pick.address_id.partner_id.id :
+        %if pick.partner_customer_id and  pick.address_id and pick.partner_customer_id.id != pick.address_id.partner_id.id :
 ${_("Customer")}: ${pick.partner_customer_id.name|entity} <br>
         %endif
    
@@ -70,7 +70,7 @@ ${_("E-mail")}: ${pick.address_id.email|entity} <br>
         %if pick.partner_id.vat :
 ${_("VAT")}: ${pick.partner_id.vat|entity} <br>
         %endif
-        %if pick.partner_customer_id.id != pick.address_id.partner_id.id :
+        %if pick.partner_customer_id and pick.address_id and pick.partner_customer_id.id != pick.address_id.partner_id.id :
 ${_("Customer")}: ${pick.partner_customer_id.name|entity} <br>
         %endif
 
@@ -157,18 +157,18 @@ ${pick.address_id.address_label}
         <tr><th>${_("text")}</th><th style="text-align:left;">${_("Tractor")}</th><th style="text-align:left;">${_("Trailer")}</th></tr>
         <tr>
             <td style="border:1px solid grey">${_("Net")}</td>
-            <td style="text-align:right;border:1px solid grey">${ formatLang(tractor_net)}</td>
-            <td style="text-align:right;border:1px solid grey">${ formatLang(trailer_net) }</td>
+            <td style="text-align:right;border:1px solid grey">${ formatLang(tractor_net or '')}</td>
+            <td style="text-align:right;border:1px solid grey">${ formatLang(trailer_net or '') }</td>
         </tr>
         <tr>
             <td style="border-style:none">${_("Tare")}</td>
-            <td style="text-align:right;border:1px solid grey">${ formatLang(tractor_tare)}</td>
-            <td style="text-align:right;border:1px solid grey">${ formatLang(trailer_tare) }</td>
+            <td style="text-align:right;border:1px solid grey">${ formatLang(tractor_tare or '')}</td>
+            <td style="text-align:right;border:1px solid grey">${ formatLang(trailer_tare or '') }</td>
         </tr>
         <tr>
             <td style="border-style:none">${_("Gross")}</td>
-            <td style="text-align:right;border:1px solid grey">${ formatLang(tractor_gross)}</td>
-            <td style="text-align:right;border:1px solid grey">${ formatLang(trailer_gross) }</td>
+            <td style="text-align:right;border:1px solid grey">${ formatLang(tractor_gross or '')}</td>
+            <td style="text-align:right;border:1px solid grey">${ formatLang(trailer_gross or '') }</td>
         </tr>
         %endif
     </table>        
@@ -176,6 +176,6 @@ ${pick.address_id.address_label}
     <pre>${pick.note_print}</pre>
     %endif:
     <p style="page-break-after:always"></p>
-    %endfor
+    %endfor 
 </body>
 </html>
