@@ -28,6 +28,7 @@
          <tr>
          <td>
 ${_("Shipping Address")}   
+<hr>
            <pre>
 ${pick.address_id.address_label}
            <pre>
@@ -76,6 +77,7 @@ ${_("Customer")}: ${pick.partner_customer_id.name|entity} <br>
          </td>
          <td>
 ${_("Shipping Address")}
+<hr>
            <pre>
 ${pick.address_id.address_label}
            <pre>
