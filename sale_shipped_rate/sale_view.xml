@@ -9,7 +9,6 @@
       <field name="type">tree</field>
       <field name="arch" type="xml">
         <field name="picked_rate" position="before">
-          <newline/>
           <field name="shipped_rate" widget="progressbar"/>
         </field>
       </field>
