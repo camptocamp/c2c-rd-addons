@@ -43,6 +43,7 @@ This module installs everything we need for Austrian chricar extension
 ,"chricar_stock_product_by_location"
 ,"chricar_stock_product_production"
 ,"chricar_inventory"
+,"sale_shipped_rate"
       ],
     'update_xml': [       ],
     #'update_xml': ['product_view.xml'],
