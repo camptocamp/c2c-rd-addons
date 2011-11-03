@@ -14,7 +14,7 @@
        cellspacing="0";
        font-size:12px;
            }
-     td {width: 50%; margin: 0px; padding: 3px; border: 1px solid lightgrey;  vertical-align: top; }
+     td { margin: 0px; padding: 3px; border: 1px solid lightgrey;  vertical-align: top; }
      pre {font-family:helvetica; font-size:13;}
     </style>
     %for pick in objects :
@@ -100,7 +100,7 @@ ${pick.address_id.address_label}
     %endif
     <br/>
     <br/>
-    <table class="basic_table" width="90%">
+    <table  width="90%">
         <tr><td>${_("Document")}</td>
             <td style="white-space:nowrap">${_("Picking Date")}</td>
             <td style="white-space:nowrap">${_("Carrier")}</td>
@@ -124,7 +124,7 @@ ${pick.address_id.address_label}
          <td>tbd</td></tr>
     </table>
     <h1><br /></h1>
-    <table class="list_table"  width="90%">
+    <table   width="90%">
         <thead>
           <tr>
             <th>${_("Description")}</th>
@@ -138,9 +138,9 @@ ${pick.address_id.address_label}
         <tbody>
         <tr>
            <td>${line.name|entity}</td>
-           <td style="white-space:nowrap;text-align:right;">${line.product_qty or '0'}</td>
+           <td style="white-space:nowrap;text-align:right;">${str(line.product_qty).replace(',000','') or '0'}</td>
            <td style="white-space:nowrap;text-align:left;">${line.product_uom.name or ''}</td>
-           <td style="white-space:nowrap;text-align:rigth;">${line.product_uos_qty or '0'}</td>
+           <td style="white-space:nowrap;text-align:rigth;">${str(line.product_uos_qty).replace(',000','') or '0'}</td>
            <td style="white-space:nowrap;text-align:left;">${line.product_uos.name or ''}</td>
            <td style="white-space:nowrap;text-align:left;">${line.location_id.name or ''}</td>
            <td style="white-space:nowrap;text-align:right;">${line.location_dest_id.name or ''}</td>
