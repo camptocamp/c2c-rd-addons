@@ -2,9 +2,6 @@
   <head/>
   <body>
 
-<%import locale%>
-<%locale.setlocale(locale.LC_ALL, "de_DE.UTF-8") %>
-
     <style  type="text/css">
      table {
        border-collapse: collapse;
@@ -52,7 +49,7 @@
           <td>Sortierung </td> <td>${prod_line.name  or ''}  </td>
         </tr>
         <tr>
-          <td>Gewicht </td> <td>${locale.format("%0.0f", prod_line.product_qty,True)} ${line.product_uos.name or '' }  </td>
+          <td>Gewicht </td> <td>${str(prod_line.product_qty).replace(',000','')} ${line.product_uos.name or '' }  </td>
         </tr>
         <tr>
           <td>Datum der Aufbereitung </td> <td>${getattr(prod_line,"date","") or ''}  </td>
