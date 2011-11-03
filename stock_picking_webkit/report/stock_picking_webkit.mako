@@ -18,22 +18,19 @@
      pre {font-family:helvetica; font-size:13;}
     </style>
     %for pick in objects :
+<br>
     <% setLang(pick.partner_id.lang) %>
-<br>
-<br>
-<br>
-<br>
     <table >
         %if pick.company_id.address_label_position == 'left':
          <tr>
-         <td>
+         <td width=50% >
 ${_("Shipping Address")}   
 <hr>
            <pre>
 ${pick.address_id.address_label}
            <pre>
          </td>
-         <td>
+         <td width=50%>
          %if pick.address_id.phone :
 ${_("Phone")}: ${pick.address_id.phone|entity} <br>
         %endif
@@ -57,7 +54,7 @@ ${_("Customer")}: ${pick.partner_customer_id.name|entity} <br>
 
         %if pick.company_id.address_label_position == 'right' or not pick.company_id.address_label_position:
          <tr>
-         <td>
+         <td >
          %if pick.address_id.phone :
 ${_("Tel")}: ${pick.address_id.phone|entity} <br>
         %endif
@@ -75,7 +72,7 @@ ${_("Customer")}: ${pick.partner_customer_id.name|entity} <br>
         %endif
 
          </td>
-         <td>
+         <td >
 ${_("Shipping Address")}
 <hr>
            <pre>
@@ -84,9 +81,11 @@ ${pick.address_id.address_label}
          </td>
         </tr>
         %endif
-
     </table>
+
     <br />
+    <br />
+
     %if pick.type == 'out' :
     <span class="title">${_("Delivery Out")} ${pick.name or ''|entity}</span>
     %elif pick.type == 'in' :
@@ -98,6 +97,9 @@ ${pick.address_id.address_label}
     %elif pick.type == 'internal' :
     <span class="title">${_("Internal Picking")} ${pick.name or ''|entity}</span> 
     %endif
+%if pick.state == 'cancel':
+   <br> ${pick.state}
+%endif 
     <br/>
     <br/>
     <table  width="90%">
@@ -128,22 +130,26 @@ ${pick.address_id.address_label}
         <thead>
           <tr>
             <th>${_("Description")}</th>
-            <th class>${_("Quantity")}</th><th class style="text-align:left;">${_("UoM")}</th>
-            <th class>${_("UoS Qty")}</th><th style="text-align:left;white-space:nowrap;">${_("UoS")}</th>
-            <th style="text-align:left;">${_("Source Location")}</th>
-            <th style="text-align:left;">${_("Destination Location")}</th>
+%if pick.print_uom:
+            <th style="text-align:center;">${_("Quantity")}</th><th class style="text-align:left;">${_("UoM")}</th>
+%endif
+            <th style="text-align:center;">${_("UoS Qty")}</th><th style="text-align:left;white-space:nowrap;">${_("UoS")}</th>
+            <th style="text-align:center;">${_("Source Location")}</th>
+            <th style="text-align:center;">${_("Destination Location")}</th>
          </tr>
         </thead>
         %for line in pick.move_lines :
         <tbody>
         <tr>
            <td>${line.name|entity}</td>
+%if pick.print_uom:
            <td style="white-space:nowrap;text-align:right;">${str(line.product_qty).replace(',000','') or '0'}</td>
            <td style="white-space:nowrap;text-align:left;">${line.product_uom.name or ''}</td>
-           <td style="white-space:nowrap;text-align:rigth;">${str(line.product_uos_qty).replace(',000','') or '0'}</td>
+%endif
+           <td style="white-space:nowrap;text-align:right;">${str(line.product_uos_qty).replace(',000','') or '0'}</td>
            <td style="white-space:nowrap;text-align:left;">${line.product_uos.name or ''}</td>
            <td style="white-space:nowrap;text-align:left;">${line.location_id.name or ''}</td>
-           <td style="white-space:nowrap;text-align:right;">${line.location_dest_id.name or ''}</td>
+           <td style="white-space:nowrap;text-align:left;">${line.location_dest_id.name or ''}</td>
         </tr>
         %if line.note :
         <tr><td colspan="6" style="border-style:none"><pre style="font-family:Helvetica;padding-left:20px;font-size:10">${line.note |entity}</pre></td></tr>
