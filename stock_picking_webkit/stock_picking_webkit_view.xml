@@ -8,6 +8,6 @@
       model="stock.picking"
       name="stock.picking.webkit"
       report_type="webkit"
-      string="WebKit Packing"/>
+      string="WebKit Picking"/>
   </data>
 </openerp>
