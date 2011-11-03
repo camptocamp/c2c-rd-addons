@@ -10,7 +10,9 @@ generated 2009-07-09 16:17:22+02
     <menuitem
       id="menu_chricar_real_estate"
       name="Real Estate"
-      sequence="80"/>
+      parent="base.menu_base_partner"
+      sequence="28"/>
+
     <record model="ir.ui.view" id="chricar_top_form">
       <field name="name">chricar.top.form</field>
       <field name="model">chricar.top</field>
