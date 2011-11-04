@@ -14,16 +14,16 @@
        cellspacing="0";
        font-size:12px;
            }
-     td {width: 50%; margin: 0px; padding: 3px; border: 1px solid lightgrey;  vertical-align: top; }
+     td { margin: 0px; padding: 3px; border: 1px solid lightgrey;  vertical-align: top; }
      pre {font-family:helvetica; font-size:15;}
     </style>
     %for inv in objects :
     <% setLang(inv.partner_id.lang) %>
 <br>
-    <table >
+    <table  >
         %if inv.company_id.address_label_position == 'left':
          <tr>
-         <td>
+         <td style="width:50%">
 %if inv.type in ('in_invoice','in_refund'):
 ${_("Supplier Address")}
 %else:
@@ -34,7 +34,7 @@ ${_("Customer Address")}
 ${inv.address_invoice_id.address_label}
            <pre>
          </td>
-         <td>
+         <td style="width:50%">
          %if inv.address_invoice_id.phone :
 ${_("Phone")}: ${inv.address_invoice_id.phone|entity} <br>
         %endif
@@ -54,7 +54,7 @@ ${_("VAT")}: ${inv.partner_id.vat|entity} <br>
 
         %if inv.company_id.address_label_position == 'right' or not inv.company_id.address_label_position:
          <tr>
-         <td>
+         <td style="width:50%">
          %if inv.address_invoice_id.phone :
 ${_("Tel")}: ${inv.address_invoice_id.phone|entity} <br>
         %endif
@@ -68,7 +68,7 @@ ${_("E-mail")}: ${inv.address_invoice_id.email|entity} <br>
 ${_("VAT")}: ${inv.partner_id.vat|entity} <br>
         %endif
          </td>
-         <td>
+         <td style="width:50%">
 %if inv.type in ('in_invoice','in_refund'):
 ${_("Supplier Address")}
 %else:
@@ -96,7 +96,7 @@ ${inv.address_invoice_id.address_label}
     %endif
     <br/>
     <br/>
-    <table class="basic_table" width="90%">
+    <table >
         <tr><td>${_("Document")}</td>
             <td style="white-space:nowrap">${_("Invoice Date")}</td>
             <td style="white-space:nowrap">${_("Payment Term")}</td>
@@ -123,7 +123,7 @@ ${inv.address_invoice_id.address_label}
          <td>${inv.currency_id.name}</td></tr>
     </table>
     <h1><br /></h1>
-    <table class="list_table"  width="90%">
+    <table >
         <thead>
           <tr>
             <th>${_("Description")}</th><th class>${_("Taxes")}</th><th class style="text-align:left;">${_("QTY")}</th><th class>${_("Unit")}</th><th style="text-align:left;white-space:nowrap;">${_("Unit Price")}</th>
