@@ -58,7 +58,7 @@ Country()
 class res_company(osv.osv):
     _inherit = 'res.company'
     _columns = {
-        'address_label_position' : fields.selection([('left','Left'),('rigth','Right')], string="Address Window Position", help="Position of address window on standard company enevlops. Many reports do not use this yet"),
+        'address_label_position' : fields.selection([('left','Left'),('right','Right')], string="Address Window Position", help="Position of address window on standard company enevlops. Many reports do not use this yet"),
     }
     _defaults = {
         'address_label_position': lambda *a: 'right',
