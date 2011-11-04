@@ -94,6 +94,9 @@ ${inv.address_invoice_id.address_label}
     %elif inv.type == 'in_refund' :
     <span class="title">${_("Supplier Refund")} ${inv.number or ''|entity}</span> 
     %endif
+    %if inv.state == 'cancel' :
+    <span class="title">${inv.state}</span> 
+    %endif
     <br/>
     <br/>
     <table >
