@@ -21,6 +21,7 @@ generated 2010-04-02 15:01:02+02
                         <field name="prodlot_id"/>
                         <field name="name" string="Assorted"/>
                         <field name="date_expected"/>
+                        <newline/>
                         <field name="location_id"/>
                         <field name="location_dest_id"/>
                         <field name="company_id" groups="base.group_multi_company" widget="selection"/>
@@ -180,7 +181,7 @@ Dispo Production
 -->
     <menuitem
       id="menu_chricar_farm_production"
-      name="Assale_orderrting"
+      name="Assorting"
       parent="stock.menu_stock_root"
       sequence="14"/>
     <menuitem
