@@ -127,15 +127,17 @@ generated 2010-04-02 15:01:02+02
       <field name="view_id" ref="chricar_stock_dispo_production_form"/>
       <field name="act_window_id" ref="chricar_stock_dispo_production_act1"/>
     </record>
+<!--
     <menuitem
       id="menu_chricar_farm"
       name="Farm"
       sequence="80"/>
+-->
     <menuitem
       id="menu_chricar_farm_production"
-      name="Production"
-      parent="menu_chricar_farm"
-      sequence="20"/>
+      name="Assorting"
+      parent="stock.menu_stock_root"
+      sequence="14"/>
     <menuitem
       action="chricar_stock_dispo_production_act1"
       id="menu_chricar_stock_dispo_production_list"
