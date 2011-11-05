@@ -48,6 +48,8 @@ class stock_move(osv.osv):
                             help="""Product's cost for accounting stock valuation."""),
 
         'price_unit_sale_id' : fields.many2one('c2c_product.price_unit','Price Unit Sale'),
+        'price_unit_coeff':fields.float(string='Price/Coeff internal',digits=(16,8) ),
+
     }
 
     _defaults = {
