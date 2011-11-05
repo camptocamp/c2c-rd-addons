@@ -98,32 +98,47 @@ ${pick.address_id.address_label}
     <span class="title">${_("Internal Picking")} ${pick.name or ''|entity}</span> 
     %endif
 %if pick.state == 'cancel':
-   <br> ${pick.state}
+   <span class="title"> ${pick.state} </span>
 %endif 
     <br/>
     <br/>
     <table  width="90%">
-        <tr><td>${_("Document")}</td>
+        <tr>
+          %if pick.origin and pick.origin not in [ pick.sale_id.name,pick.purchase_id.name]  :
+            <td>${_("Document")}</td>
+          %endif
             <td style="white-space:nowrap">${_("Picking Date")}</td>
+          %if pick.carrier_id:
             <td style="white-space:nowrap">${_("Carrier")}</td>
-          %if pick.origin:
+          %endif
+          %if pick.sale_id or pick_purchase_id:
             <td style="white-space:nowrap">${_("Reference")}</td>
           %endif
-            <td>${_("tbd")}</td>
+          %if pick.total_gross:
+            <td>${_("Weight")}</td>
+          %endif
         </tr>
-        <tr><td>${pick.name or ''} 
-            %if pick.origin:
-               <br>${pick.origin or ''}
+        <tr>
+            %if pick.origin and pick.origin not in [ pick.sale_id.name,pick.purchase_id.name]  :
+            <td>
+               ${pick.origin}
+            </td>
             %endif
-            </td><td>
-               %if pick.max_date:
+             <td>
+            %if pick.max_date:
                ${pick.max_date}</td>
-               %endif
-          <td></td>
-           %if pick.sale_id or pick_purchase_id:
-         <td>${pick.sale_id.name or pick.purchase_id.name or ''}</td>
+            %endif
+            %if pick.carrier_id:
+             <td>
+               ${pick.carrier_id }
+             </td>
            %endif
-         <td>tbd</td></tr>
+           %if pick.sale_id or pick_purchase_id:
+             <td>${pick.sale_id.name or pick.purchase_id.name or ''}</td>
+           %endif
+          %if pick.total_gross:
+         <td>${pick.total_gross}</td></tr>
+           %endif
     </table>
     <h1><br /></h1>
     <table   width="90%">
@@ -133,7 +148,7 @@ ${pick.address_id.address_label}
 %if pick.print_uom:
             <th style="text-align:center;">${_("Quantity")}</th><th class style="text-align:left;">${_("UoM")}</th>
 %endif
-            <th style="text-align:center;">${_("UoS Qty")}</th><th style="text-align:left;white-space:nowrap;">${_("UoS")}</th>
+            <th style="text-align:center;white-space:nowrap">${_("UoS Qty")}</th><th style="text-align:left;white-space:nowrap;">${_("UoS")}</th>
             <th style="text-align:center;">${_("Source Location")}</th>
             <th style="text-align:center;">${_("Destination Location")}</th>
          </tr>
@@ -159,25 +174,26 @@ ${pick.address_id.address_label}
     </table>
 <br>
        %if pick.tractor_gross :
-    <table class="list_table" style="width:40%;border:1px solid grey">
-        <tr><th>${_("text")}</th><th style="text-align:left;">${_("Tractor")}</th><th style="text-align:left;">${_("Trailer")}</th></tr>
+    <table style="text-align:right;border:1px solid grey;width:40%">
+        <tr style="text-align:left;border:1px solid grey;"><th>${_("Weight")}</th> <th>${_("Tractor")}</th>  <th>${_("Trailer")}</th> </tr>
         <tr>
-            <td style="border:1px solid grey">${_("Net")}</td>
-            <td style="text-align:right;border:1px solid grey">${ formatLang(tractor_net or '')}</td>
-            <td style="text-align:right;border:1px solid grey">${ formatLang(trailer_net or '') }</td>
+            <td style="text-align:left;">${_("Net")}</td>
+            <td>${ formatLang(pick.tractor_net or '')}</td>
+            <td>${ formatLang(pick.trailer_net or '') }</td>
         </tr>
         <tr>
-            <td style="border-style:none">${_("Tare")}</td>
-            <td style="text-align:right;border:1px solid grey">${ formatLang(tractor_tare or '')}</td>
-            <td style="text-align:right;border:1px solid grey">${ formatLang(trailer_tare or '') }</td>
+            <td style="text-align:left;">${_("Tare")}</td>
+            <td >${ formatLang(pick.tractor_tare or '')}</td>
+            <td i>${ formatLang(pick.trailer_tare or '') }</td>
         </tr>
         <tr>
-            <td style="border-style:none">${_("Gross")}</td>
-            <td style="text-align:right;border:1px solid grey">${ formatLang(tractor_gross or '')}</td>
-            <td style="text-align:right;border:1px solid grey">${ formatLang(trailer_gross or '') }</td>
+            <td style="text-align:left;">${_("Gross")}</td>
+            <td >${ formatLang(pick.tractor_gross or '')}</td>
+            <td >${ formatLang(pick.trailer_gross or '') }</td>
         </tr>
         %endif
     </table>        
+
     %if pick.note_print:
     <pre>${pick.note_print}</pre>
     %endif:
