@@ -174,16 +174,16 @@ generated 2010-04-03 21:47:30+02
       id="menu_chricar_farm"
       name="Farm"
       sequence="80"/>
--->
     <menuitem
       id="menu_chricar_farm_stock"
       name="Stock Care"
       parent="stock.menu_stock_root"
       sequence="13"/>
+-->
     <menuitem
       action="chricar_stock_care_act1"
       id="menu_chricar_stock_care_list"
-      parent="menu_chricar_farm_stock"
+      parent="stock.menu_stock_warehouse_mgmt"
       sequence="20"/>
 <!--
     <record model="ir.actions.act_window" id="chricar_stock_care_act2">

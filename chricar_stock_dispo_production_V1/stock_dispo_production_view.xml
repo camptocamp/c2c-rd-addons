@@ -182,7 +182,7 @@ Dispo Production
     <menuitem
       id="menu_chricar_farm_production"
       name="Assorting"
-      parent="stock.menu_stock_root"
+      parent="stock.menu_stock_warehouse_mgmt"
       sequence="14"/>
     <menuitem
       action="chricar_stock_dispo_production_act1"
