@@ -7,6 +7,7 @@ Stock Weighing
 Modification of picking out
 ==============================================
 -->
+
     <record id="view_picking_out_weighing_form" model="ir.ui.view">
       <field name="name">stock.picking.out.weighing.form</field>
       <field name="model">stock.picking</field>
@@ -166,6 +167,7 @@ Modification of picking
       id="menu_chricar_action_picking_tree3"
       parent="menu_chricar_farm_stock_out"/>
         -->
+<!--
     <record id="action_picking_tree6d" model="ir.actions.act_window">
       <field name="name">Draft Internal Move</field>
       <field name="res_model">stock.picking</field>
@@ -190,5 +192,6 @@ Modification of picking
       action="action_picking_tree6d"
       id="menu_chricar_weighing_picking_m7d"
       parent="menu_chricar_farm_stock_out"/>
+-->
   </data>
 </openerp>
