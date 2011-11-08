@@ -6,6 +6,30 @@
 Account Moves Igel account_move_line_igel
 ==============================================
 -->
+
+         <record id="chricar_account_move_line_igel_search" model="ir.ui.view">
+            <field name="name">chricar.account.move.line.igel.search</field>
+            <field name="model">chricar.account.move.line.igel</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string="Search Order">
+                    <group col="10" colspan="4">
+                        <field name="fiscalyear_id"/>
+                        <field name="analytic_account_id"/>
+                        <field name="company_id" groups="base.group_multi_company" widget="selection"/>
+                    </group>
+                    <newline/>
+                    <group expand="0" string="Group By..." colspan="4" col="4" >
+                        <filter string="Fiscal Year" icon="terp-go-year" context="{'group_by':'fiscalyear_id'}"/> 
+                        <filter string="Analytic Account" name="group_account" icon="terp-folder-green" context="{'group_by':'analytic_account_id'}"/>
+                    </group>
+                </search>
+
+            </field>
+        </record>
+
+
+
     <record model="ir.ui.view" id="chricar_account_move_line_igel_form">
       <field name="name">chricar.account_move_line_igel.form</field>
       <field name="model">chricar.account.move.line.igel</field>
