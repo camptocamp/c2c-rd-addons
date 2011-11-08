@@ -1,0 +1,32 @@
+=== modified file 'bin/widget/view/tree_gtk/parser.py'
+--- bin/widget/view/tree_gtk/parser.py	2010-11-26 11:24:56 +0000
++++ bin/widget/view/tree_gtk/parser.py	2010-12-01 18:03:57 +0000
+@@ -168,17 +168,17 @@
+                 col.set_cell_data_func(renderer, cell.setter)
+                 col.set_clickable(True)
+                 twidth = {
+-                    'integer': (60, 170),
+-                    'float': (80, 300),
+-                    'float_time': (80,150),
+-                    'date': (70, False),
+-                    'datetime': (145, 145),
+-                    'selection': (90, 250),
+-                    'char': (100, False),
+-                    'one2many': (50, False),
+-                    'many2many': (50, False),
++                    'integer': (10, 170),
++                    'float': (10, 300),
++                    'float_time': (10,150),
++                    'date': (10, False),
++                    'datetime': (10, 145),
++                    'selection': (10, 250),
++                    'char': (10, False),
++                    'one2many': (10, False),
++                    'many2many': (10, False),
+                     'boolean': (20, 80),
+-                    'progressbar':(150, 200)
++                    'progressbar':(70, 200)
+                 }
+ 
+                 if col._type not in twidth:
+
