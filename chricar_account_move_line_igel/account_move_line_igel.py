@@ -75,4 +75,6 @@ class chricar_account_move_line_igel(osv.osv):
 }
      _order =   "name"
 
+     _sql_constraints = [('key_uniq','unique(kanzlei,klient,fiscalyear_id,name)', 'Journalrow must be unique for kanzlei/klient/fiscalyear_id,buchungszeile!')]
+
 chricar_account_move_line_igel()
