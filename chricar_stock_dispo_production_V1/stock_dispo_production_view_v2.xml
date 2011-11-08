@@ -27,7 +27,7 @@ generated 2010-04-02 15:01:02+02
             name="prodlot_id"/>
           <field name="state" readonly="1"/>
           <notebook colspan="4">
-            <page string="invisible" attrs="{'invisible':[]}"/>
+            <page string="invisible" invisible="1"/>
           </notebook>
         </form>
       </field>

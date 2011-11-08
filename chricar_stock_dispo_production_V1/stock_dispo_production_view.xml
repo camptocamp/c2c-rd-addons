@@ -7,39 +7,6 @@ Dispo Production (Dispo Production > stock_dispo_production)
 generated 2010-04-02 15:01:02+02
 ==============================================
 -->
-         <record id="chricar_stock_dispo_production_search" model="ir.ui.view">
-            <field name="name">chricar.stock.dispo.production.search</field>
-            <field name="model">stock.move</field>
-            <field name="type">search</field>
-            <field name="arch" type="xml">
-                <search string="Search Order">
-                    <group col="10" colspan="4">
-                        <filter name="draft" string="Draft" domain="[('state','=','draft')]" icon="terp-document-new"/>
-                        <filter name="done" string="Confirmed" domain="[('state','=','done')]" icon="terp-camera_test"/>
-                        <separator orientation="vertical"/>
-                        <field name="product_id"/>
-                        <field name="prodlot_id"/>
-                        <field name="name" string="Assorted"/>
-                        <field name="date_expected"/>
-                        <newline/>
-                        <field name="location_id"/>
-                        <field name="location_dest_id"/>
-                        <field name="company_id" groups="base.group_multi_company" widget="selection"/>
-                    </group>
-                    <newline/>
-                    <group expand="0" string="Group By..." colspan="4" col="4" >
-                        <filter string="State" icon="terp-stock_effects-object-colorize" domain="[]" context="{'group_by':'state'}"/>
-                        <filter string="Scheduled Date" icon="terp-go-month" domain="[]" context="{'group_by':'date_expected'}"/>
-                        <filter string="Product" icon="terp-accessories-archiver" domain="[]" context="{'group_by':'product_id'}"/>
-                        <filter string="Source Location" icon="terp-gtk-jump-to-ltr"  domain="[]" context="{'group_by':'location_id'}"/>
-                        <filter string="Dest Location" icon="terp-gtk-jump-to-ltr"  domain="[]" context="{'group_by':'location_dest_id'}"/>
-                        <filter string="Lot" name="groupby_prodlot_id" icon="terp-accessories-archiver" domain="[]"  context="{'group_by':'prodlot_id'}"/>
-                    </group>
-                </search>
-
-            </field>
-        </record>
-
     <record model="ir.ui.view" id="chricar_stock_dispo_production_form">
       <field name="name">chricar.stock_dispo_production.form</field>
       <field name="model">stock.move</field>
@@ -48,55 +15,47 @@ generated 2010-04-02 15:01:02+02
       <field name="arch" type="xml">
         <form string="Dispo Production">
           <field
-            attrs="{ 'readonly': [('state','!=','draft')]} "
-            name="product_id"
-            select="1"/>
-          <field
-            attrs="{ 'readonly': [('state','!=','draft')]} "
+             'readonly': [('state','!=','draft')]} "
             name="date_expected"
             select="1"/>
           <field
-            attrs="{ 'readonly': [('state','!=','draft')]} "
+             'readonly': [('state','!=','draft')]} "
             name="category"
             select="1"/>
           <field
-            attrs="{ 'readonly': [('state','!=','draft')]} "
+             'readonly': [('state','!=','draft')]} "
             name="name"
-            string="Assorted"
             select="1"/>
           <field
-            attrs="{ 'readonly': [('state','!=','draft')]} "
-            name="product_id"
+             'readonly': [('state','!=','draft')]} "
+            name="order_line_id"
             select="1"/>
           <field
-            attrs="{ 'readonly': [('state','!=','draft')]} "
+             'readonly': [('state','!=','draft')]} "
             name="product_qty"/>
           <field
-            attrs="{ 'readonly': [('state','!=','draft')]} "
+             'readonly': [('state','!=','draft')]} "
             name="location_id"
             select="1"/>
           <field
-            attrs="{ 'readonly': [('state','!=','draft')]} "
+             'readonly': [('state','!=','draft')]} "
             name="location_dest_id"
             select="1"/>
           <field
-            attrs="{ 'readonly': [('state','!=','draft')]} "
+             'readonly': [('state','!=','draft')]} "
             context="{'location_id':location_id, 'product_id':product_id}"
             domain="[('product_id','=',product_id)]"
             name="prodlot_id"/>
           <field
-            attrs="{ 'readonly': [('state','!=','draft')]} "
+             'readonly': [('state','!=','draft')]} "
             name="state"
             readonly="1"/>
           <notebook colspan="4">
-            <page string="invisible" attrs="{'invisible':[]}"/>
+            <page string="invisible" invisible="1"/>
           </notebook>
         </form>
       </field>
     </record>
-<!--
-Dispo Production
--->
     <record model="ir.ui.view" id="chricar_stock_dispo_production_list">
       <field name="name">chricar.stock_dispo_production.list</field>
       <field name="model">stock.move</field>
@@ -105,49 +64,46 @@ Dispo Production
       <field name="arch" type="xml">
         <tree string="Dispo Production" editable="top" colors="blue:state='draft' ">
           <field
-            attrs="{ 'readonly': [('state','!=','draft')]} "
+             'readonly': [('state','!=','draft')]} "
             name="date_expected"
             select="1"/>
           <field
-            attrs="{ 'readonly': [('state','!=','draft')]} "
-            name="product_id"
+             'readonly': [('state','!=','draft')]} "
+            name="order_line_id"
             select="1"/>
           <field
-            attrs="{ 'readonly': [('state','!=','draft')]} "
+             'readonly': [('state','!=','draft')]} "
             name="name"
-            string="Assorted"
             select="1"/>
           <field
-            attrs="{ 'readonly': [('state','!=','draft')]} "
+             'readonly': [('state','!=','draft')]} "
             name="product_qty"/>
           <field
-            attrs="{ 'readonly': [('state','!=','draft')]} "
+             'readonly': [('state','!=','draft')]} "
             name="category"
             select="1"/>
           <field
-            attrs="{ 'readonly': [('state','!=','draft')]} "
+             'readonly': [('state','!=','draft')]} "
             name="location_id"
             select="1"/>
           <field
-            attrs="{ 'readonly': [('state','!=','draft')]} "
+             'readonly': [('state','!=','draft')]} "
             name="location_dest_id"
             select="1"/>
           <field
-            attrs="{ 'readonly': [('state','!=','draft')]} "
+             'readonly': [('state','!=','draft')]} "
             name="sequence"/>
           <field
-            attrs="{ 'readonly': [('state','!=','draft')]} "
+             'readonly': [('state','!=','draft')]} "
             context="{'location_id':location_id, 'product_id':product_id}"
             domain="[('product_id','=',product_id)]"
             name="prodlot_id"/>
           <field
-            attrs="{ 'readonly': [('state','!=','draft')]} "
+             'readonly': [('state','!=','draft')]} "
             name="state"
             readonly="1"/>
-<!--
           <field name="shipped_rate"/>
           <field name="picked_rate"/>
--->
         </tree>
       </field>
     </record>
@@ -158,8 +114,6 @@ Dispo Production
       <field name="view_mode">tree,form</field>
       <field name="view_id" ref="chricar_stock_dispo_production_list"/>
       <field name="domain">[('category','!=','')]</field>
-      <field name="context">{'search_default_draft': 1}</field>
-      <field name="search_view_id" ref="chricar_stock_dispo_production_search" />
     </record>
     <record model="ir.actions.act_window.view" id="chricar_stock_dispo_production_act1_view2">
       <field name="sequence" eval="26"/>
@@ -173,17 +127,15 @@ Dispo Production
       <field name="view_id" ref="chricar_stock_dispo_production_form"/>
       <field name="act_window_id" ref="chricar_stock_dispo_production_act1"/>
     </record>
-<!--
     <menuitem
       id="menu_chricar_farm"
       name="Farm"
       sequence="80"/>
--->
     <menuitem
       id="menu_chricar_farm_production"
-      name="Assorting"
-      parent="stock.menu_stock_warehouse_mgmt"
-      sequence="14"/>
+      name="Production"
+      parent="menu_chricar_farm"
+      sequence="20"/>
     <menuitem
       action="chricar_stock_dispo_production_act1"
       id="menu_chricar_stock_dispo_production_list"
@@ -193,34 +145,7 @@ Dispo Production
 ==============================================
 Modification of Parents (only for matching table prefixes)
 ==============================================
-
 -->
-         <record id="chricar_sale_order_dispo_production_search" model="ir.ui.view">
-            <field name="name">chricar.sale.order.dispo.production.search</field>
-            <field name="model">sale.order</field>
-            <field name="type">search</field>
-            <field name="arch" type="xml">
-                <search string="Search Order">
-                    <group col="10" colspan="4">
-                        <filter name="draft" string="Draft" domain="[('state','=','draft')]" icon="terp-document-new"/>
-                        <filter name="done" string="Confirmed" domain="[('state','=','done')]" icon="terp-camera_test"/>
-                        <separator orientation="vertical"/>
-                        <field name="partner_id"/>
-                        <field name="name"/>
-                        <field name="date_order"/>
-                        <field name="company_id" groups="base.group_multi_company" widget="selection"/>
-                    </group>
-                    <newline/>
-                    <group expand="0" string="Group By..." colspan="4" col="4" >
-                        <filter string="State" icon="terp-stock_effects-object-colorize" domain="[]" context="{'group_by':'state'}"/>
-                        <filter string="Ordered Date" icon="terp-go-month" domain="[]" context="{'group_by':'date_order'}"/>
-                        <filter string="Customer" icon="terp-partner" name="Partner" domain="[]" context="{'group_by':'partner_id'}"/>
-                    </group>
-                </search>
-
-            </field>
-        </record>
-
     <record id="chricar_sale_order_dispo_production_tree" model="ir.ui.view">
       <field name="name">sale.order.dispo_production_tree</field>
       <field name="model">sale.order</field>
@@ -323,7 +248,7 @@ Modification of Parents (only for matching table prefixes)
               <field name="state"/>
               <field name="move_state" invisible="1"/>
               <button
-                attrs="{'invisible':[('move_state','=',False)]}"
+                invisible:[('move_state','=',False)]}"
                 colspan="2"
                 name="move_action_done"
                 string="Post Moves (daily)"
@@ -351,7 +276,7 @@ Modification of Parents (only for matching table prefixes)
                     domain="[('usage', '=', 'inventory')]"
                     name="location_waste_id"/>
                   <separator colspan="4" string="Product Properties"/>
-                  <field name="quality" required="True" string="Ordered Assale_orderrtment"/>
+                  <field name="quality" required="True" string="Ordered Assortment"/>
                   <field name="location_product_id" required="True"/>
                   <field
                     context="{'location_id':location_id, 'product_id':product_id}"
@@ -368,132 +293,132 @@ Modification of Parents (only for matching table prefixes)
                       <field colspan="2" name="stock_dispo_production_sale_ids" nolabel="1" widget="one2many_list">
                         <tree string="Verkauf" editable="bottom">
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             name="name"
-                            string="Assale_orderrtment"/>
+                            string="Assortment"/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             name="product_qty"
                             on_change="on_change_dispo_product_qty('sell',name,parent.quality, parent.location_id,parent.location_dest_id,parent.location_big_id,parent.location_small_id, parent.location_faulty_id, parent.location_waste_id, parent.prodlot_id,parent.product_packaging_id, parent.product_id, parent.product_uom, parent.price_unit_id, product_qty)"
                             sum="Quantity"/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             invisible="1"
                             name="location_id"/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             invisible="1"
                             name="location_dest_id"/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             invisible="1"
                             name="prodlot_id"/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             invisible="1"
                             name="category"/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             invisible="1"
                             name="category_prod"/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             invisible="1"
                             name="date_expected"/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             invisible="1"
                             name="product_packaging_id"/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             name="packaging_qty"
                             string="Emballagen"/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             invisible="1"
                             name="product_id"/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             invisible="1"
                             name="price_unit_id"/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             invisible="1"
                             name="product_uom"/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             invisible="1"
                             name="move_value_cost"/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             invisible="1"
                             name="date"/>
                         </tree>
                         <form string="To Sell">
                           <group string="Eingabe">
                             <field
-                              attrs="{ 'readonly': [('state','!=','draft')]} "
+                               'readonly': [('state','!=','draft')]} "
                               name="product_qty"
                               on_change="on_change_dispo_product_qty('sell',name,parent.quality, parent.location_id,parent.location_dest_id,parent.location_big_id,parent.location_small_id, parent.location_faulty_id, parent.location_waste_id, parent.prodlot_id,parent.product_packaging_id, parent.product_id, parent.product_uom, parent.price_unit_id, product_qty)"/>
                             <field
-                              attrs="{ 'readonly': [('state','!=','draft')]} "
+                               'readonly': [('state','!=','draft')]} "
                               name="packaging_qty"
                               string="Emballagen"/>
                             <field
-                              attrs="{ 'readonly': [('state','!=','draft')]} "
+                               'readonly': [('state','!=','draft')]} "
                               name="name"
                               select="1"
-                              string="Assale_orderrtment"/>
+                              string="Assortment"/>
                             <field
-                              attrs="{ 'readonly': [('state','!=','draft')]} "
+                               'readonly': [('state','!=','draft')]} "
                               name="date_expected"
                               select="1"/>
                           </group>
                           <group string="Info" groups="base.group_extended">
                             <field
-                              attrs="{ 'readonly': [('state','!=','draft')]} "
+                               'readonly': [('state','!=','draft')]} "
                               name="sequence"/>
                             <field
-                              attrs="{ 'readonly': [('state','!=','draft')]} "
+                               'readonly': [('state','!=','draft')]} "
                               name="category"
                               select="1"/>
                             <field
-                              attrs="{ 'readonly': [('state','!=','draft')]} "
+                               'readonly': [('state','!=','draft')]} "
                               context="{'location_id':location_id, 'product_id':product_id}"
                               domain="[('product_id','=',product_id)]"
                               name="prodlot_id"/>
                             <newline/>
                             <field
-                              attrs="{ 'readonly': [('state','!=','draft')]} "
+                               'readonly': [('state','!=','draft')]} "
                               colspan="4"
                               domain="[('usage', '=', 'internal')]"
                               name="location_id"
                               select="1"/>
                             <newline/>
                             <field
-                              attrs="{ 'readonly': [('state','!=','draft')]} "
+                               'readonly': [('state','!=','draft')]} "
                               colspan="4"
                               domain="[('usage', 'in', ['internal','customer'])]"
                               name="location_dest_id"
                               select="1"/>
                             <newline/>
                             <field
-                              attrs="{ 'readonly': [('state','!=','draft')]} "
+                               'readonly': [('state','!=','draft')]} "
                               name="product_packaging_id"/>
                             <field
-                              attrs="{ 'readonly': [('state','!=','draft')]} "
+                               'readonly': [('state','!=','draft')]} "
                               name="product_id"/>
                             <field
-                              attrs="{ 'readonly': [('state','!=','draft')]} "
+                               'readonly': [('state','!=','draft')]} "
                               name="price_unit_id"/>
                             <field
-                              attrs="{ 'readonly': [('state','!=','draft')]} "
+                               'readonly': [('state','!=','draft')]} "
                               name="product_uom"/>
                             <field
-                              attrs="{ 'readonly': [('state','!=','draft')]} "
+                               'readonly': [('state','!=','draft')]} "
                               name="move_value_cost"/>
                             <field
-                              attrs="{ 'readonly': [('state','!=','draft')]} "
+                               'readonly': [('state','!=','draft')]} "
                               invisible="1"
                               name="date"/>
                           </group>
@@ -504,122 +429,122 @@ Modification of Parents (only for matching table prefixes)
                       <field colspan="2" name="stock_dispo_production_big_ids" nolabel="1" widget="one2many_list">
                         <tree string="Übergröße" editable="bottom">
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             name="name"
-                            string="Assale_orderrtment"/>
+                            string="Assortment"/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             name="product_qty"
                             on_change="on_change_dispo_product_qty('big',name,parent.quality, parent.location_id,parent.location_dest_id,parent.location_big_id,parent.location_small_id, parent.location_faulty_id, parent.location_waste_id, parent.prodlot_id,parent.product_packaging_id, parent.product_id, parent.product_uom, parent.price_unit_id, product_qty)"
                             sum="Quantity"/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             invisible="1"
                             name="location_id"/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             invisible="1"
                             name="location_dest_id"/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             invisible="1"
                             name="prodlot_id"/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             invisible="1"
                             name="category"/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             invisible="1"
                             name="date_expected"/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             invisible="1"
                             name="product_packaging_id"/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             name="packaging_qty"/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             invisible="1"
                             name="product_id"/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             invisible="1"
                             name="price_unit_id"/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             invisible="1"
                             name="product_uom"/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             invisible="1"
                             name="move_value_cost"/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             invisible="1"
                             name="date"/>
                         </tree>
                         <form string="To Big">
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             name="date_expected"
                             select="1"/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             name="sequence"/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             name="name"
                             select="1"/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             name="product_qty"
                             on_change="on_change_dispo_product_qty('big',name,parent.quality, parent.location_id,parent.location_dest_id,parent.location_big_id,parent.location_small_id, parent.location_faulty_id, parent.location_waste_id, parent.prodlot_id,parent.product_packaging_id,parent.product_id, parent.product_uom, parent.price_unit_id, product_qty)"/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             name="category"
                             select="1"/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             context="{'location_id':location_id, 'product_id':product_id}"
                             domain="[('product_id','=',product_id)]"
                             name="prodlot_id"/>
                           <newline/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             colspan="4"
                             domain="[('usage', '=', 'internal')]"
                             name="location_id"
                             select="1"/>
                           <newline/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             colspan="4"
                             domain="[('usage', '=', 'internal')]"
                             name="location_dest_id"
                             select="1"/>
                           <newline/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             name="product_packaging_id"/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             name="packaging_qty"/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             name="product_id"/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             name="price_unit_id"/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             name="product_uom"/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             name="move_value_cost"/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             invisible="1"
                             name="date"/>
                         </form>
@@ -627,122 +552,122 @@ Modification of Parents (only for matching table prefixes)
                       <field colspan="2" name="stock_dispo_production_small_ids" nolabel="1" widget="one2many_list">
                         <tree string="Untergröße" editable="bottom">
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             name="name"
-                            string="Assale_orderrtment"/>
+                            string="Assortment"/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             name="product_qty"
                             on_change="on_change_dispo_product_qty('small',name,parent.quality, parent.location_id,parent.location_dest_id,parent.location_big_id,parent.location_small_id, parent.location_faulty_id, parent.location_waste_id, parent.prodlot_id,parent.product_packaging_id, parent.product_id, parent.product_uom, parent.price_unit_id, product_qty)"
                             sum="Quantity"/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             invisible="1"
                             name="location_id"/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             invisible="1"
                             name="location_dest_id"/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             invisible="1"
                             name="prodlot_id"/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             invisible="1"
                             name="category"/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             invisible="1"
                             name="date_expected"/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             invisible="1"
                             name="product_packaging_id"/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             name="packaging_qty"/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             invisible="1"
                             name="product_id"/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             invisible="1"
                             name="price_unit_id"/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             invisible="1"
                             name="product_uom"/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             invisible="1"
                             name="move_value_cost"/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             invisible="1"
                             name="date"/>
                         </tree>
                         <form string="To Small">
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             name="date_expected"
                             select="1"/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             name="sequence"/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             name="name"
                             select="1"/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             name="product_qty"
                             on_change="on_change_dispo_product_qty('small',name,parent.quality, parent.location_id,parent.location_dest_id,parent.location_big_id,parent.location_small_id, parent.location_faulty_id, parent.location_waste_id, parent.prodlot_id,parent.product_packaging_id, parent.product_id, parent.product_uom, parent.price_unit_id, product_qty)"/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             name="category"
                             select="1"/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             context="{'location_id':location_id, 'product_id':product_id}"
                             domain="[('product_id','=',product_id)]"
                             name="prodlot_id"/>
                           <newline/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             colspan="4"
                             domain="[('usage', '=', 'internal')]"
                             name="location_id"
                             select="1"/>
                           <newline/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             colspan="4"
                             domain="[('usage', '=', 'internal')]"
                             name="location_dest_id"
                             select="1"/>
                           <newline/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             name="product_packaging_id"/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             name="packaging_qty"/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             name="product_id"/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             name="price_unit_id"/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             name="product_uom"/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             name="move_value_cost"/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             invisible="1"
                             name="date"/>
                         </form>
@@ -752,122 +677,122 @@ Modification of Parents (only for matching table prefixes)
                       <field colspan="2" name="stock_dispo_production_faulty_ids" nolabel="1" widget="one2many_list">
                         <tree string="Mangelware" editable="bottom">
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             name="name"
-                            string="Assale_orderrtment"/>
+                            string="Assortment"/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             name="product_qty"
                             on_change="on_change_dispo_product_qty('faulty',name,parent.quality, parent.location_id,parent.location_dest_id,parent.location_big_id,parent.location_small_id, parent.location_faulty_id, parent.location_waste_id, parent.prodlot_id,parent.product_packaging_id, parent.product_id, parent.product_uom, parent.price_unit_id, product_qty)"
                             sum="Quantity"/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             invisible="1"
                             name="location_id"/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             invisible="1"
                             name="location_dest_id"/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             invisible="1"
                             name="prodlot_id"/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             invisible="1"
                             name="category"/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             invisible="1"
                             name="date_expected"/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             invisible="1"
                             name="product_packaging_id"/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             name="packaging_qty"/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             invisible="1"
                             name="product_id"/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             invisible="1"
                             name="price_unit_id"/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             invisible="1"
                             name="product_uom"/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             invisible="1"
                             name="move_value_cost"/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             invisible="1"
                             name="date"/>
                         </tree>
                         <form string="Faulty">
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             name="date_expected"
                             select="1"/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             name="sequence"/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             name="name"
                             select="1"/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             name="product_qty"
                             on_change="on_change_dispo_product_qty('faulty',name,parent.quality, parent.location_id,parent.location_dest_id,parent.location_big_id,parent.location_small_id, parent.location_faulty_id, parent.location_waste_id, parent.prodlot_id,parent.product_packaging_id, parent.product_id, parent.product_uom, parent.price_unit_id, product_qty)"/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             name="category"
                             select="1"/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             context="{'location_id':location_id, 'product_id':product_id}"
                             domain="[('product_id','=',product_id)]"
                             name="prodlot_id"/>
                           <newline/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             colspan="4"
                             domain="[('usage', '=', 'internal')]"
                             name="location_id"
                             select="1"/>
                           <newline/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             colspan="4"
                             domain="[('usage', '=', 'internal')]"
                             name="location_dest_id"
                             select="1"/>
                           <newline/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             name="product_packaging_id"/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             name="packaging_qty"/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             name="product_id"/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             name="price_unit_id"/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             name="product_uom"/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             name="move_value_cost"/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             invisible="1"
                             name="date"/>
                         </form>
@@ -875,122 +800,122 @@ Modification of Parents (only for matching table prefixes)
                       <field colspan="2" name="stock_dispo_production_waste_ids" nolabel="1" widget="one2many_list">
                         <tree string="Abfall" editable="bottom">
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             name="name"
-                            string="Assale_orderrtment"/>
+                            string="Assortment"/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             name="product_qty"
                             on_change="on_change_dispo_product_qty('waste',name,parent.quality, parent.location_id,parent.location_dest_id,parent.location_big_id,parent.location_small_id, parent.location_faulty_id, parent.location_waste_id, parent.prodlot_id,parent.product_packaging_id, parent.product_id, parent.product_uom, parent.price_unit_id, product_qty)"
                             sum="Quantity"/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             invisible="1"
                             name="location_id"/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             invisible="1"
                             name="location_dest_id"/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             invisible="1"
                             name="prodlot_id"/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             invisible="1"
                             name="category"/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             invisible="1"
                             name="date_expected"/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             invisible="1"
                             name="product_packaging_id"/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             name="packaging_qty"/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             invisible="1"
                             name="product_id"/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             invisible="1"
                             name="price_unit_id"/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             invisible="1"
                             name="product_uom"/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             invisible="1"
                             name="move_value_cost"/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             invisible="1"
                             name="date"/>
                         </tree>
                         <form string="Waste">
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             name="date_expected"
                             select="1"/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             name="sequence"/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             name="name"
                             select="1"/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             name="product_qty"
                             on_change="on_change_dispo_product_qty('waste',name,parent.quality, parent.location_id,parent.location_dest_id,parent.location_big_id,parent.location_small_id, parent.location_faulty_id, parent.location_waste_id, parent.prodlot_id,parent.product_packaging_id, parent.product_id, parent.product_uom, parent.price_unit_id, product_qty)"/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             name="category"
                             select="1"/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             context="{'location_id':location_id, 'product_id':product_id}"
                             domain="[('product_id','=',product_id)]"
                             name="prodlot_id"/>
                           <newline/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             colspan="4"
                             domain="[('usage', '=', 'internal')]"
                             name="location_id"
                             select="1"/>
                           <newline/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             colspan="4"
                             domain="[('usage', '=', 'inventory')]"
                             name="location_dest_id"
                             select="1"/>
                           <newline/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             name="product_packaging_id"/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             name="packaging_qty"/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             name="product_id"/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             name="price_unit_id"/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             name="product_uom"/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             name="move_value_cost"/>
                           <field
-                            attrs="{ 'readonly': [('state','!=','draft')]} "
+                             'readonly': [('state','!=','draft')]} "
                             invisible="1"
                             name="date"/>
                         </form>
@@ -1002,131 +927,131 @@ Modification of Parents (only for matching table prefixes)
                   <field colspan="2" name="stock_dispo_production_ids" nolabel="1" widget="one2many_list">
                     <tree string="Alle">
                       <field
-                        attrs="{ 'readonly': [('state','!=','draft')]} "
+                         'readonly': [('state','!=','draft')]} "
                         name="date_expected"
                         select="1"
                         string="Production Date"/>
                       <field
-                        attrs="{ 'readonly': [('state','!=','draft')]} "
+                         'readonly': [('state','!=','draft')]} "
                         name="name"
                         select="1"
-                        string="Assale_orderrtment"/>
+                        string="Assortment"/>
                       <field
-                        attrs="{ 'readonly': [('state','!=','draft')]} "
+                         'readonly': [('state','!=','draft')]} "
                         name="product_qty"
                         on_change="on_change_dispo_product_qty(category,name,parent.quality, parent.location_id,parent.location_dest_id,parent.location_big_id,parent.location_small_id, parent.location_faulty_id, parent.location_waste_id, parent.prodlot_id,parent.product_packaging_id, parent.product_id, parent.product_uom, parent.price_unit_id, product_qty)"
                         sum="Quantity"/>
                       <field
-                        attrs="{ 'readonly': [('state','!=','draft')]} "
+                         'readonly': [('state','!=','draft')]} "
                         name="category"
                         on_change="on_change_dispo_product_qty(category,name,parent.quality, parent.location_id,parent.location_dest_id,parent.location_big_id,parent.location_small_id, parent.location_faulty_id, parent.location_waste_id, parent.prodlot_id,parent.product_packaging_id, parent.product_id, parent.product_uom, parent.price_unit_id, product_qty)"/>
                       <field
-                        attrs="{ 'readonly': [('state','!=','draft')]} "
+                         'readonly': [('state','!=','draft')]} "
                         name="location_id"/>
                       <field
-                        attrs="{ 'readonly': [('state','!=','draft')]} "
+                         'readonly': [('state','!=','draft')]} "
                         name="location_dest_id"/>
                       <field
-                        attrs="{ 'readonly': [('state','!=','draft')]} "
+                         'readonly': [('state','!=','draft')]} "
                         context="{'location_id':location_id, 'product_id':product_id}"
                         domain="[('product_id','=',product_id)]"
                         name="prodlot_id"/>
                       <field
-                        attrs="{ 'readonly': [('state','!=','draft')]} "
+                         'readonly': [('state','!=','draft')]} "
                         name="product_packaging_id"/>
                       <field
-                        attrs="{ 'readonly': [('state','!=','draft')]} "
+                         'readonly': [('state','!=','draft')]} "
                         name="packaging_qty"/>
                       <field
-                        attrs="{ 'readonly': [('state','!=','draft')]} "
+                         'readonly': [('state','!=','draft')]} "
                         name="product_id"/>
                       <field
-                        attrs="{ 'readonly': [('state','!=','draft')]} "
+                         'readonly': [('state','!=','draft')]} "
                         name="price_unit_id"/>
                       <field
-                        attrs="{ 'readonly': [('state','!=','draft')]} "
+                         'readonly': [('state','!=','draft')]} "
                         name="product_uom"/>
                       <field
-                        attrs="{ 'readonly': [('state','!=','draft')]} "
+                         'readonly': [('state','!=','draft')]} "
                         name="move_value_cost"/>
                       <field
-                        attrs="{ 'readonly': [('state','!=','draft')]} "
+                         'readonly': [('state','!=','draft')]} "
                         name="state"
                         readonly="1"/>
                       <field
-                        attrs="{ 'readonly': [('state','!=','draft')]} "
+                         'readonly': [('state','!=','draft')]} "
                         invisible="1"
                         name="date"/>
                     </tree>
                     <form string="All">
                       <group string="Eingabe">
                         <field
-                          attrs="{ 'readonly': [('state','!=','draft')]} "
+                           'readonly': [('state','!=','draft')]} "
                           name="category"
                           on_change="on_change_dispo_product_qty(category,name,parent.quality, parent.location_id,parent.location_dest_id,parent.location_big_id,parent.location_small_id, parent.location_faulty_id, parent.location_waste_id, parent.prodlot_id,parent.product_packaging_id, parent.product_id, parent.product_uom, parent.price_unit_id, product_qty)"
                           select="1"/>
                         <newline/>
                         <field
-                          attrs="{ 'readonly': [('state','!=','draft')]} "
+                           'readonly': [('state','!=','draft')]} "
                           name="product_qty"
                           on_change="on_change_dispo_product_qty(category,name,parent.quality, parent.location_id,parent.location_dest_id,parent.location_big_id,parent.location_small_id, parent.location_faulty_id, parent.location_waste_id, parent.prodlot_id,parent.product_packaging_id, parent.product_id, parent.product_uom, parent.price_unit_id, product_qty)"/>
                         <field
-                          attrs="{ 'readonly': [('state','!=','draft')]} "
+                           'readonly': [('state','!=','draft')]} "
                           name="packaging_qty"
                           string="Emballagen"/>
                         <field
-                          attrs="{ 'readonly': [('state','!=','draft')]} "
+                           'readonly': [('state','!=','draft')]} "
                           name="name"
                           select="1"
-                          string="Assale_orderrtment"/>
+                          string="Assortment"/>
                         <field
-                          attrs="{ 'readonly': [('state','!=','draft')]} "
+                           'readonly': [('state','!=','draft')]} "
                           name="date_expected"
                           select="1"/>
                       </group>
                       <group string="Info" groups="base.group_extended">
                         <field
-                          attrs="{ 'readonly': [('state','!=','draft')]} "
+                           'readonly': [('state','!=','draft')]} "
                           name="sequence"/>
                         <field
-                          attrs="{ 'readonly': [('state','!=','draft')]} "
+                           'readonly': [('state','!=','draft')]} "
                           context="{'location_id':location_id, 'product_id':product_id}"
                           domain="[('product_id','=',product_id)]"
                           name="prodlot_id"/>
                         <newline/>
                         <field
-                          attrs="{ 'readonly': [('state','!=','draft')]} "
+                           'readonly': [('state','!=','draft')]} "
                           colspan="4"
                           domain="[('usage', '=', 'internal')]"
                           name="location_id"
                           select="1"/>
                         <newline/>
                         <field
-                          attrs="{ 'readonly': [('state','!=','draft')]} "
+                           'readonly': [('state','!=','draft')]} "
                           colspan="4"
                           domain="[('usage', 'in', ['internal','customer'])]"
                           name="location_dest_id"
                           select="1"/>
                         <newline/>
                         <field
-                          attrs="{ 'readonly': [('state','!=','draft')]} "
+                           'readonly': [('state','!=','draft')]} "
                           colspan="4"
                           name="product_id"/>
                         <field
-                          attrs="{ 'readonly': [('state','!=','draft')]} "
+                           'readonly': [('state','!=','draft')]} "
                           colspan="4"
                           name="product_packaging_id"/>
                         <field
-                          attrs="{ 'readonly': [('state','!=','draft')]} "
+                           'readonly': [('state','!=','draft')]} "
                           name="price_unit_id"/>
                         <field
-                          attrs="{ 'readonly': [('state','!=','draft')]} "
+                           'readonly': [('state','!=','draft')]} "
                           name="product_uom"/>
                         <field
-                          attrs="{ 'readonly': [('state','!=','draft')]} "
+                           'readonly': [('state','!=','draft')]} "
                           name="move_value_cost"/>
                         <field
-                          attrs="{ 'readonly': [('state','!=','draft')]} "
+                           'readonly': [('state','!=','draft')]} "
                           invisible="1"
                           name="date"/>
                       </group>
@@ -1145,8 +1070,6 @@ Modification of Parents (only for matching table prefixes)
       <field name="view_type">form</field>
       <field name="view_mode">tree,form</field>
       <field name="view_id" ref="chricar_sale_order_dispo_production_form"/>
-      <field name="context">{'search_default_draft': 1}</field>
-      <field name="search_view_id" ref="chricar_sale_order_dispo_production_search" />
     </record>
     <record model="ir.actions.act_window.view" id="chricar_stock_dispo_production_act2_view2">
       <field name="sequence" eval="4"/>
@@ -1165,7 +1088,6 @@ Modification of Parents (only for matching table prefixes)
       id="menu_chricar_stock_dispo_production_form"
       parent="menu_chricar_farm_production"
       sequence="30"/>
-<!--
     <record model="ir.actions.act_window" id="chricar_stock_dispo_production_open_act">
       <field name="name">Dispo Production Open</field>
       <field name="res_model">sale.order</field>
@@ -1191,7 +1113,6 @@ Modification of Parents (only for matching table prefixes)
       id="menu_chricar_stock_dispo_production_open_form"
       parent="menu_chricar_farm_production"
       sequence="30"/>
--->
     <!-- Open Moves -->
     <record id="chricar_sale_order_dispo_production_open_move_tree" model="ir.ui.view">
       <field name="name">sale.order.dispo_production_open_move_tree</field>
@@ -1216,7 +1137,7 @@ Modification of Parents (only for matching table prefixes)
           <field name="product_id" string="Reference" select="1" readonly="1"/>
           <field name="move_state" select="1" readonly="1"/>
           <button
-            attrs="{'invisible':[('move_state','=',False)]}"
+            invisible:[('move_state','=',False)]}"
             colspan="2"
             groups="base.group_extended"
             name="move_action_done"

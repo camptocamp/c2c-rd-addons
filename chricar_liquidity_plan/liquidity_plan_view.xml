@@ -23,7 +23,7 @@ generated 2009-08-14 15:55:18+02
           <field name="category_id" select="1"/>
           <field name="partner_id" select="1"/>
           <notebook colspan="4">
-            <page string="invisible" attrs="{'invisible':[]}"/>
+            <page string="invisible" invisible="1"/>
           </notebook>
         </form>
       </field>
