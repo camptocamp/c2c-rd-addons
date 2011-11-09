@@ -141,7 +141,7 @@ Harvest
       id="menu_mrp_production_harvest_action_open"
       parent="menu_chricar_farm_stock_out"/>
     <record id="chricar_weighing_tree_view" model="ir.ui.view">
-      <field name="name">chricar.weighing.tree</field>
+      <field name="name">chricar.weighing.tree.view</field>
       <field name="model">stock.move</field>
       <field name="type">tree</field>
       <field name="priority">26</field>
@@ -170,7 +170,7 @@ Harvest
       </field>
     </record>
     <record id="chricar_weighing_form_view" model="ir.ui.view">
-      <field name="name">chricar.weighing.form</field>
+      <field name="name">chricar.weighing.form.view</field>
       <field name="model">stock.move</field>
       <field name="type">form</field>
       <field name="priority">26</field>
@@ -211,13 +211,13 @@ Harvest
       <field name="view_mode">tree,form</field>
       <field name="domain">[('weighing_slip','!=','0')]</field>
     </record>
-    <record model="ir.actions.act_window.view" id="chricar_weighing_tree_view">
+    <record model="ir.actions.act_window.view" id="chricar_weighing_tree_act">
       <field name="sequence" eval="1"/>
       <field name="view_mode">tree</field>
       <field name="view_id" ref="chricar_weighing_tree_view"/>
       <field name="act_window_id" ref="chricar_weighing"/>
     </record>
-    <record model="ir.actions.act_window.view" id="chricar_weighing_form_view">
+    <record model="ir.actions.act_window.view" id="chricar_weighing_form_act">
       <field name="sequence" eval="2"/>
       <field name="view_mode">form</field>
       <field name="view_id" ref="chricar_weighing_form_view"/>
