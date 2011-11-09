@@ -1,0 +1,20 @@
+CSV Import:
+* column Geschäftsjahr has to be renamed to "Geschaeftsjahr"  (python column name)
+* number columns must not have thousand separator
+
+
+
+TODO
+* Wizard: read all xls from local directory and
+* import xls into correct company of chricar6 table "*igel*"
+** have to store "Klient"-number in res_company
+** check for uniqueness (sql_constraint)
+*** ignore duplicates
+*** Error if record changed
+* move xls to "done" directory
+** create <localdir>/done if missing
+
+* wizard: create account moves / period
+** counter account = "Creditors"
+
+
