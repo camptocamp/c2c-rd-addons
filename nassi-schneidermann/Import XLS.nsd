@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root text="&#34;Import XLS/CSV&#34;" comment="&#34;&#34;" color="ffffff" type="program" style="nice">
+	<children>
+		<instruction text="&#34;menu import xls / csv&#34;" comment="&#34;&#34;" color="ffffff" rotated="0"></instruction>
+		<instruction text="&#34;select and remember local directory&#34;" comment="&#34;&#34;" color="ffffff" rotated="0"></instruction>
+		<for text="&#34;for every xls/csv&#34;" comment="&#34;&#34;" color="ffffff">
+			<qFor>
+				<instruction text="&#34;open xls&#34;,&#34;calculate md5&#34;" comment="&#34;&#34;" color="ffffff" rotated="0"></instruction>
+				<for text="&#34;for every sheet&#34;" comment="" color="ffffff">
+					<qFor>
+						<alternative text="&#34;already imported &#34;" comment="" color="ffffff">
+							<qTrue>
+							</qTrue>
+							<qFalse>
+								<alternative text="&#34;config available&#34;" comment="" color="ffffff">
+									<qTrue>
+									</qTrue>
+									<qFalse>
+										<alternative text="&#34;interactive&#34;" comment="&#34;&#34;" color="ffffff">
+											<qTrue>
+												<instruction text="&#34;ask for object&#34;" comment="" color="ffffff" rotated="0"></instruction>
+												<alternative text="&#34;import sheet&#34;" comment="" color="ffffff">
+													<qTrue>
+														<instruction text="&#34;parse matching columns&#34;" comment="" color="ffffff" rotated="0"></instruction>
+														<alternative text="&#34;matching columns check&#34;,&#34;ignore empty column&#34;,&#34;ignore trailing blanks in col headers&#34;,&#34;all xls-columns &#34;,&#34;all mandatory&#34;" comment="&#34;&#34;" color="ffffff">
+															<qTrue>
+															</qTrue>
+															<qFalse>
+																<instruction text="&#34;manual column mapping&#34;,&#34;or ignore column&#34;" comment="&#34;&#34;" color="ffffff" rotated="0"></instruction>
+																<instruction text="&#34;store manual mapping&#34;" comment="" color="ffffff" rotated="0"></instruction>
+															</qFalse>
+														</alternative>
+													</qTrue>
+													<qFalse>
+														<instruction text="&#34;config as&#34;,&#34;ignored&#34;" comment="&#34;&#34;" color="ffffff" rotated="0"></instruction>
+													</qFalse>
+												</alternative>
+												<instruction text="&#34;store config&#34;" comment="" color="ffffff" rotated="0"></instruction>
+											</qTrue>
+											<qFalse>
+												<instruction text="&#34;error&#34;,&#34;message&#34;" comment="&#34;&#34;" color="ffffff" rotated="0"></instruction>
+											</qFalse>
+										</alternative>
+									</qFalse>
+								</alternative>
+								<alternative text="&#34;config now available&#34;" comment="&#34;&#34;" color="ffffff">
+									<qTrue>
+										<instruction text="&#34;import data&#34;" comment="" color="ffffff" rotated="0"></instruction>
+										<alternative text="&#34;import successful&#34;" comment="" color="ffffff">
+											<qTrue>
+												<instruction text="&#34;mark sheet as imported&#34;,&#34;file identified by md5&#34;" comment="&#34;&#34;" color="ffffff" rotated="0"></instruction>
+											</qTrue>
+											<qFalse>
+												<instruction text="&#34;popup error (interactive)&#34;,&#34;or &#34;,&#34;mail (batch)&#34;" comment="&#34;&#34;" color="ffffff" rotated="0"></instruction>
+											</qFalse>
+										</alternative>
+									</qTrue>
+									<qFalse>
+										<instruction text="&#34;skip sheet&#34;" comment="&#34;&#34;" color="ffffff" rotated="0"></instruction>
+									</qFalse>
+								</alternative>
+							</qFalse>
+						</alternative>
+					</qFor>
+				</for>
+				<alternative text="&#34;all sheets imported (or ignored )&#34;" comment="" color="ffffff">
+					<qTrue>
+						<instruction text="&#34;move xls/csv to done directory&#34;" comment="&#34;&#34;" color="ffffff" rotated="0"></instruction>
+					</qTrue>
+					<qFalse>
+					</qFalse>
+				</alternative>
+			</qFor>
+		</for>
+	</children>
+</root>
