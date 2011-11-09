@@ -29,7 +29,7 @@ generated 2009-09-19 23:51:03+02
           <field name="move_value_cost" groups="base.group_extended" select="1"/>
           <field name="average_price" groups="base.group_extended"/>
           <notebook colspan="4">
-            <page string="invisible" attrs="{'invisible':[]}"/>
+            <page string="invisible" invisible="1"/>
           </notebook>
         </form>
       </field>
@@ -102,7 +102,7 @@ generated 2009-09-19 23:51:03+02
           <field name="amount" groups="base.group_extended" select="1"/>
           <field name="average_price" groups="base.group_extended"/>
           <notebook colspan="4">
-            <page string="invisible" attrs="{'invisible':[]}"/>
+            <page string="invisible" invisible="1"/>
           </notebook>
         </form>
       </field>
@@ -178,7 +178,7 @@ generated 2009-09-19 23:51:03+02
           <field name="amount" select="1" groups="base.group_extended"/>
           <field name="average_price" groups="base.group_extended"/>
           <notebook colspan="4">
-            <page string="invisible" attrs="{'invisible':[]}"/>
+            <page string="invisible" invisible="1"/>
           </notebook>
         </form>
       </field>

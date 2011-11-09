@@ -24,7 +24,7 @@ generated 2009-08-01
           <field name="move_value_sale" sum="Total Sale"/>
           <field name="avg_sale_price"/>
           <notebook colspan="4">
-            <page string="invisible" attrs="{'invisible':[]}"/>
+            <page string="invisible" invisible="1"/>
           </notebook>
         </form>
       </field>

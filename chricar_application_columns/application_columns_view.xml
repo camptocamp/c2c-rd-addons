@@ -46,7 +46,7 @@ generated 2009-03-27 16:28:26+01
           <field name="translate"/>
           <field name="type"/>
           <notebook colspan="4">
-            <page string="invisible" attrs="{'invisible':[]}"/>
+            <page string="invisible" invisible="1"/>
           </notebook>
         </form>
       </field>

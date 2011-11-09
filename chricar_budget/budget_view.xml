@@ -138,7 +138,7 @@ generated 2009-08-18 23:44:30+02
           </group>
           <notebook colspan="4">
             <!--
-            <page string="invisible" attrs="{'invisible':[]}"/>
+            <page string="invisible" invisible="1"/>
             -->
             <page string="Notes">
               <field name="name" select="2" nolabel="1" colspan="4"/>
@@ -256,7 +256,7 @@ generated 2009-08-18 23:44:30+02
                                    <field name="name" select="1" />
                                  </group>
                                  <notebook colspan="4">
-                                 <page string="invisible" attrs="{'invisible':[]}"/>
+                                 <page string="invisible" invisible="1"/>
 
                                  </notebook>
                              </form>

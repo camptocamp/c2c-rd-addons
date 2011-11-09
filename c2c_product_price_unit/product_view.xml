@@ -13,7 +13,7 @@
           <field name="coefficient" select="1"/>
           <field name="code" select="1"/>
           <notebook colspan="4">
-            <page string="invisible" attrs="{'invisible':[]}"/>
+            <page string="invisible" invisible="1"/>
           </notebook>
         </form>
       </field>
@@ -75,7 +75,7 @@
         <field name="standard_price" position="replace">
           <group col="4" colspan="2">
             <field
-              attrs="{'readonly':[('cost_method','=','average')]}"
+	      attrs="{'readonly':[('cost_method','=','average')]}"
               name="standard_price_pu"
               nolabel="1"
               on_change="onchange_price_unit('standard_price',standard_price_pu,price_unit_id)"/>
@@ -86,7 +86,7 @@
           </group>
           <!-- the following field should have this attr, but it is only visible to experts , so I do not handle this
      it must be writeable for now to allow onchange_price_unit to wirte AND save
-            attrs="{'readonly':[('cost_method','=','average')]}"
+            'readonly':[('cost_method','=','average')]}"
 -->
           <field groups="c2c_product_price_unit.group_c2c_product_price_unit_manager" name="standard_price" nolabel="1"/>
         </field>

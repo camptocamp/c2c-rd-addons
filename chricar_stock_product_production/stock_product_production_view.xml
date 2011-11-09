@@ -23,7 +23,7 @@ Product by Production Location
           <field name="amount" select="1" groups="base.group_extended"/>
           <field name="average_price" groups="base.group_extended"/>
           <notebook colspan="4">
-            <page string="invisible" attrs="{'invisible':[]}"/>
+            <page string="invisible" invisible="1"/>
           </notebook>
         </form>
       </field>
