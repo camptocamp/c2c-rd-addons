@@ -94,7 +94,7 @@ Harvest
       </field>
     </record>
     <record id="mrp_production_harvest_action" model="ir.actions.act_window">
-      <field name="name">Harvest All</field>
+      <field name="name">Harvest</field>
       <field name="type">ir.actions.act_window</field>
       <field name="res_model">mrp.production</field>
       <field name="view_type">form</field>
@@ -112,6 +112,7 @@ Harvest
       <field name="view_id" ref="mrp_production_harvest_form_view"/>
       <field name="act_window_id" ref="mrp_production_harvest_action"/>
     </record>
+<!--
     <record id="mrp_production_harvest_action_open" model="ir.actions.act_window">
       <field name="name">Harvest Open</field>
       <field name="type">ir.actions.act_window</field>
@@ -132,6 +133,7 @@ Harvest
       <field name="view_id" ref="mrp_production_harvest_form_view"/>
       <field name="act_window_id" ref="mrp_production_harvest_action_open"/>
     </record>
+-->
     <menuitem
       action="mrp_production_harvest_action"
       id="menu_mrp_production_harvest_action"
