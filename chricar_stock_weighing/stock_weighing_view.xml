@@ -136,25 +136,29 @@ Modification of picking
       </field>
     </record>
     -->
+<!--
     <menuitem
       id="menu_chricar_farm_stock_out"
       name="Outgoing Products"
       parent="chricar_stock_care.menu_chricar_farm_stock"
       sequence="20"/>
+-->
     <menuitem
       action="stock.action_picking_tree6"
       id="menu_chricar_weighing_picking_m6"
-      parent="menu_chricar_farm_stock_out"/>
+      parent="stock.menu_stock_warehouse_mgmt"/>
     <!--
     <menuitem
       action="stock.action_picking_tree7"
       id="menu_chricar_weighing_picking_m7"
       parent="menu_chricar_farm_stock_out"/>
         -->
+<!--
     <menuitem
       action="stock.action_picking_tree"
       id="menu_chricar_weighing_picking_out"
       parent="menu_chricar_farm_stock_out"/>
+-->
     <!--
     <menuitem
       action="stock.action_picking_tree2"

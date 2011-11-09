@@ -135,11 +135,13 @@ Harvest
     <menuitem
       action="mrp_production_harvest_action"
       id="menu_mrp_production_harvest_action"
-      parent="menu_chricar_farm_stock_out"/>
+      parent="stock.menu_stock_warehouse_mgmt"/>
+<!--
     <menuitem
       action="mrp_production_harvest_action_open"
       id="menu_mrp_production_harvest_action_open"
       parent="menu_chricar_farm_stock_out"/>
+-->
     <record id="chricar_weighing_tree_view" model="ir.ui.view">
       <field name="name">chricar.weighing.tree.view</field>
       <field name="model">stock.move</field>
@@ -226,6 +228,6 @@ Harvest
     <menuitem
       action="chricar_weighing"
       id="menu_chricar_weighing"
-      parent="menu_chricar_farm_stock_out"/>
+      parent="stock.menu_stock_warehouse_mgmt"/>
   </data>
 </openerp>
