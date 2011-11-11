@@ -113,7 +113,13 @@ class purchase_order(osv.osv):
         #    'invoice_line_tax_id': [(6, 0, [x.id for x in ol.taxes_id])],
         #    'account_analytic_id': ol.account_analytic_id.id or False,
         #})
-        line.append( {'price_unit_pu': ol.price_unit_pu or 0.0, 'price_unit_id': ol.price_unit_id.id, } )
+
+        price_unit_pu =  ol.price_unit_pu or 0.0
+        print >> sys.stderr,'price_unit_pu' ,price_unit_pu
+        print >> sys.stderr,'price_unit_id' ,ol.price_unit_id.id
+        #FIXME
+        #the 2 values have to be written to the line
+        #line['value'].update({'price_unit_pu' : price_unit_pu, 'price_unit_id' : ol.price_unit_id.id })
         print >> sys.stderr,'po line after',line
         return line
 
