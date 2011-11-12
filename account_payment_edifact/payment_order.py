@@ -123,12 +123,12 @@ class payment_order(osv.osv) :
             elif c in unicode2ascii.EXTRA_CHARACTERS : txt += unicode2ascii.EXTRA_CHARACTERS[c]
             elif c in unicode2ascii.FG_HACKS : txt += unicode2ascii.FG_HACKS[c]
             else : txt+= "_"
-        return txt
+        return self._edifact_strip(txt)
     # end def _u2a
 
     def _edifact_strip(self, text) :
         result = text
-        txt = "/.+:'"
+        txt = "+:'"
         for c in txt:
             result = result.replace(c, "")
         return result
@@ -189,7 +189,7 @@ class payment_order(osv.osv) :
                 for l in lines :
                     invoice   = l.move_line_id.invoice
                     if invoice.number :
-                        invoice_number = self._u2a(self._edifact_strip(invoice.number)).upper()
+                        invoice_number = self._u2a(invoice.number.replace(".","").replace("/","")).upper()
                         own_ref.append(invoice_number)
                     if invoice.reference :
                         own_ref.append(self._u2a(invoice.reference).upper())
@@ -233,7 +233,7 @@ class payment_order(osv.osv) :
                     customer_ref = []
                     customer_data = None
                     if invoice.number :
-                        invoice_number = self._u2a(self._edifact_strip(invoice.number)).upper()
+                        invoice_number = self._u2a(invoice.number.replace(".","").replace("/","")).upper()
                         own_ref.append(invoice_number)
                     if invoice.reference :
                         own_ref.append(self._u2a(invoice.reference).upper())
@@ -349,7 +349,7 @@ class payment_order(osv.osv) :
             )
         if att_ids :
             attachment_obj.unlink(cr, uid, att_ids, context=context)
-        ref     = self._edifact_strip(order.reference).upper()
+        ref     = order.reference.upper().replace(".","").replace("/","")
         refkey  = ref
         refname = time.strftime("%Y%m%d%H%M%S")
         company_name = self._u2a(company.name).upper()[0:35]

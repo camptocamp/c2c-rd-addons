@@ -47,7 +47,7 @@ class wizard_construct_iban(wizard.interface):
         for bank in bank_obj.browse (cr, uid, ids) :
             for partner_bank in partner_bank_obj.browse(cr, uid, partner_bank_obj.search(cr, uid, [('bank', '=', bank.id)])):
                 partner_bank_obj.convert2iban(cr, uid, [partner_bank.id], context)
-        return {'result' : {'type' : 'state', 'state' : 'end'}}
+        return {}
     # end def _construct_iban
     
     states = \
