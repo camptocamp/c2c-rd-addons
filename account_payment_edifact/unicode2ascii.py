@@ -533,7 +533,7 @@ def build_dictionary():
     # First do what can be done automatically
     for i in range(0xffff):
         u=unichr(i)
-        try:
+        try :
             n=unicodedata.name(u)
             if n.startswith('LATIN '):
                 k=unicodedata.normalize('NFKD', u).encode('ASCII', 'ignore')
@@ -542,7 +542,7 @@ def build_dictionary():
     # Next, add some by-hand ones (overlap possible, so order matters)
     for m in [EXTRA_LATIN_NAMES,EXTRA_CHARACTERS,UNI2ASCII_CONVERSIONS,FG_HACKS]:
         for i in m:
-            try: d[ord(i)]=unicode(m[i])
+            try : d[ord(i)]=unicode(m[i])
             except Exception, err: pass
     return d
 
