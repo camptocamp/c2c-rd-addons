@@ -75,7 +75,7 @@ This module installs everything from addons we need for Austrian Base
  ,"hr_timesheet_invoice"
  ,"hr_timesheet_sheet"
  ,"knowledge"
- ,"mail_gateway"
+# ,"mail_gateway"
  ,"marketing"
  ,"marketing_campaign"
  ,"mrp"
