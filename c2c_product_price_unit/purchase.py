@@ -22,10 +22,6 @@
 
 from osv import osv, fields
 import decimal_precision as dp
-
-import math
-#from _common import rounding
-import re  
 from tools.translate import _
         
 import sys
@@ -36,13 +32,20 @@ import sys
 #----------------------------------------------------------
 class purchase_order_line(osv.osv):
     _inherit = "purchase.order.line"
-    _columns = {
-        'price_unit_id'    :fields.many2one('c2c_product.price_unit','Price Unit', required=True),
-        'price_unit_pu'    :fields.float(string='Unit Price PU',digits_compute=dp.get_precision('Purchase Price') , required=True, \
-                            help='Price using "Price Units"') ,
-        'price_unit'       : fields.float('Unit Price Internal', required=True, digits=(16,8), \
-                            help="""Product's cost for accounting stock valuation. It is the base price for the supplier price."""),
-    }
+    _columns = \
+        { 'price_unit_id' : fields.many2one('c2c_product.price_unit','Price Unit', required=True)
+        , 'price_unit_pu' : fields.float
+            ( string='Unit Price PU'
+            , digits_compute=dp.get_precision('Purchase Price')
+            , required=True
+            , help='Price using "Price Units"'
+            )
+        , 'price_unit'    : fields.float
+            ( 'Unit Price Internal'
+            , required=True
+            , digits=(16,8)
+            , help="""Product's cost for accounting stock valuation. It is the base price for the supplier price."""),
+        }
 
     def init(self, cr):
       cr.execute("""
@@ -80,13 +83,13 @@ class purchase_order_line(osv.osv):
            
            res['value']['price_unit_id'] = price_unit_id
            res['value']['price_unit_pu'] = price_unit_pu
-           res['value']['price_unit'] = price_unit
+           res['value']['price_unit']    = price_unit
        return res
 
 
     def onchange_price_unit(self, cr, uid, ids, field_name,price_pu, price_unit_id):
+        print >>sys.stderr,'purch -68c-1 ',field_name,price_pu,price_unit_id
         if  price_pu and  price_unit_id:
-           
            coeff = self.pool.get('c2c_product.price_unit').get_coeff(cr, uid, price_unit_id)
            price = price_pu / coeff 
            print >>sys.stderr,'purch -68c- ',field_name,price
@@ -118,6 +121,8 @@ class purchase_order(osv.osv):
         print >> sys.stderr,'price_unit_pu' ,price_unit_pu
         print >> sys.stderr,'price_unit_id' ,ol.price_unit_id.id
         #FIXME
+        line[2]['price_unit_pu'] = price_unit_pu
+        line[2]['price_unit_id'] = ol.price_unit_id.id
         #the 2 values have to be written to the line
         #line['value'].update({'price_unit_pu' : price_unit_pu, 'price_unit_id' : ol.price_unit_id.id })
         print >> sys.stderr,'po line after',line

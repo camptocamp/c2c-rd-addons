@@ -22,9 +22,9 @@
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU Affero General Public License for more details.
+# GNU General Public License for more details.
 #
-# You should have received a copy of the GNU Affero General Public License
+# You should have received a copy of the GNU General Public License
 # along with this program; if not, see <http://www.gnu.org/licenses/> or
 # write to the Free Software Foundation, Inc.,
 # 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
@@ -40,7 +40,7 @@ class res_partner_bank(osv.osv) :
         iban    = False
         account = p_bank.acc_number
         blz     = p_bank.bank.code
-        if p_bank.bank.country:
+        if p_bank.bank.country :
             country = p_bank.bank.country.code
             if   country == "AT":
                 xblz     = "%05i" % int(blz)
@@ -76,7 +76,7 @@ class payment_line(osv.osv):
         { 'bank_account_type': fields.related
             ( 'bank_id'
             , 'state'
-            , type='char', size=16
+            , type      = 'char', size=16
             , store     = False
             , relation  = 'res.partner_bank'
             , string    = 'Bank Account Type'
