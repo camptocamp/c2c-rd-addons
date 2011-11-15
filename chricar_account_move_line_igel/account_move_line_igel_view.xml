@@ -92,8 +92,8 @@ Account Moves Igel account_move_line_igel
           <field name="kst_nr"/>
           <field name="text"/>
           <field name="analytic_account_id"/>
-          <field name="betrag_soll"/>
-          <field name="betrag_haben"/>
+          <field name="betrag_soll" sum="Soll"/>
+          <field name="betrag_haben" sum="Haben"/>
           <field name="ust_kz"/>
           <field name="ust"/>
           <field name="ust_betrag"/>
