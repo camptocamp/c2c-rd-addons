@@ -212,7 +212,7 @@ generated 2009-10-17 12:10:57+02
                         <filter string="Fiscal Year" icon="terp-go-year" context="{'group_by':'fiscalyear_id'}"/>
                         <filter string="Period" context="{'group_by': 'period_id'}" icon="terp-go-month"/>
                         <filter string="Account" name="group_account" icon="terp-folder-green" context="{'group_by':'account'}"/>
-                        <filter string="Account" name="group_analytic_account_id" icon="terp-folder-green" context="{'group_by':'analytic_account_id'}"/>
+                        <filter string="Analytic Account" name="group_analytic_account_id" icon="terp-folder-green" context="{'group_by':'analytic_account_id'}"/>
                     </group>
                 </search>
 
