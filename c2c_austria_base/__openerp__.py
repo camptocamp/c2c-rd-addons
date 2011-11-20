@@ -104,7 +104,7 @@ This module installs everything from addons we need for Austrian Base
  ,"warning"
  ,"wiki"
  ,"wiki_faq"
- ,"wiki_quality_manual"
+ #,"wiki_quality_manual"
  ,"wiki_sale_faq"
       ],
     'update_xml': [       ],
