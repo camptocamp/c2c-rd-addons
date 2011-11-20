@@ -192,6 +192,33 @@ Account Moves Deloitte (account_move_line_deloitte > account_move_line_deloitte)
 generated 2009-10-17 12:10:57+02
 ==============================================
 -->
+
+         <record id="chricar_account_move_line_deloitte_search" model="ir.ui.view">
+            <field name="name">chricar.account.move.line.deloitte.search</field>
+            <field name="model">chricar.account_move_line_deloitte</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string="Search Order">
+                    <group col="10" colspan="4">
+                        <field name="fiscalyear_id"/>
+                        <field name="period_id"/>
+                        <field name="account"/>
+                        <field name="analytic_account"/>
+                        <field name="analytic_account_id"/>
+                        <field name="company_id" groups="base.group_multi_company" widget="selection"/>
+                    </group>
+                    <newline/>
+                    <group expand="0" string="Group By..." colspan="4" col="4" >
+                        <filter string="Fiscal Year" icon="terp-go-year" context="{'group_by':'fiscalyear_id'}"/>
+                        <filter string="Period" context="{'group_by': 'period_id'}" icon="terp-go-month"/>
+                        <filter string="Account" name="group_account" icon="terp-folder-green" context="{'group_by':'account'}"/>
+                        <filter string="Account" name="group_analytic_account_id" icon="terp-folder-green" context="{'group_by':'analytic_account_id'}"/>
+                    </group>
+                </search>
+
+            </field>
+        </record>
+
     <record model="ir.ui.view" id="chricar_account_move_line_deloitte_form">
       <field name="name">chricar.account_move_line_deloitte.form</field>
       <field name="model">chricar.account_move_line_deloitte</field>
@@ -199,12 +226,15 @@ generated 2009-10-17 12:10:57+02
       <field name="type">form</field>
       <field name="arch" type="xml">
         <form string="Account Moves Deloitte">
+          <field name="fiscalyear_id" select="1"/>
+          <field name="period_id" select="1"/>
           <field name="account" select="1"/>
           <field name="date" select="1"/>
           <field name="symbol" select="1"/>
           <field name="name" select="1"/>
           <field name="fnr"/>
           <field name="analytic_account" select="1"/>
+          <field name="analytic_account_id" select="1"/>
           <field name="counter_account" select="1"/>
           <field name="amount" select="1"/>
           <field name="tax_code" select="1"/>
@@ -226,12 +256,15 @@ generated 2009-10-17 12:10:57+02
       <field name="type">tree</field>
       <field name="arch" type="xml">
         <tree string="Account Moves Deloitte">
+          <field name="fiscalyear_id" select="1"/>
+          <field name="period_id" select="1"/>
           <field name="account" select="1"/>
           <field name="date" select="1"/>
           <field name="symbol" select="1"/>
           <field name="name" select="1"/>
           <field name="fnr"/>
           <field name="analytic_account" select="1"/>
+          <field name="analytic_account_id" select="1"/>
           <field name="counter_account" select="1"/>
           <field name="amount" select="1" sum="Sum Amount"/>
           <field name="tax_code" select="1"/>
@@ -248,6 +281,7 @@ generated 2009-10-17 12:10:57+02
       <field name="res_model">chricar.account_move_line_deloitte</field>
       <field name="view_type">form</field>
       <field name="view_mode">tree,form</field>
+      <field name="search_view_id" ref="chricar_account_move_line_deloitte_search"/>
       <field name="view_id" ref="chricar_account_move_line_deloitte_list"/>
     </record>
     <record model="ir.actions.act_window.view" id="chricar_account_move_line_deloitte_act1_view2">
