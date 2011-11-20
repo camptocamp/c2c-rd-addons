@@ -1,21 +1,19 @@
-# translation of de_DE.po to Deutsch
 # Translation of OpenERP Server.
 # This file contains the translation of the following modules:
 #	* chricar_account_move_line_deloitte
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: de_DE\n"
+"Project-Id-Version: OpenERP Server 5.0.16\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
-"POT-Creation-Date: 2009-10-18 12:25:05+0000\n"
-"PO-Revision-Date: 2009-10-18 14:30+0200\n"
-"Last-Translator: \n"
-"Language-Team: Deutsch\n"
+"POT-Creation-Date: 2011-11-17 13:26:07+0000\n"
+"PO-Revision-Date: 2011-11-17 13:26:07+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
-"X-Generator: KBabel 1.11.4\n"
 
 #. module: chricar_account_move_line_deloitte
 #: constraint:ir.model:0
@@ -25,22 +23,22 @@ msgstr "Der Objekt Name muss mit einem x_ starten und darf keine Sonderzeichen b
 #. module: chricar_account_move_line_deloitte
 #: field:chricar.account_move_line_deloitte,ba:0
 msgid "BA"
-msgstr ""
+msgstr "BA"
 
 #. module: chricar_account_move_line_deloitte
 #: field:chricar.account_move_line_deloitte,bc:0
 msgid "BC"
-msgstr ""
+msgstr "BC"
 
 #. module: chricar_account_move_line_deloitte
 #: model:ir.model,name:chricar_account_move_line_deloitte.model_chricar_account_opening_deloitte
 msgid "chricar.account_opening_deloitte"
-msgstr ""
+msgstr "chricar.account_opening_deloitte"
 
 #. module: chricar_account_move_line_deloitte
 #: field:chricar.account_move_line_deloitte,fix:0
 msgid "Fix"
-msgstr ""
+msgstr "Fix"
 
 #. module: chricar_account_move_line_deloitte
 #: model:ir.actions.act_window,name:chricar_account_move_line_deloitte.chricar_account_import_deny_act1
@@ -56,7 +54,7 @@ msgstr "Fehlerhafter xml Code für diese Ansicht!"
 #. module: chricar_account_move_line_deloitte
 #: model:ir.model,name:chricar_account_move_line_deloitte.model_chricar_account_move_import_deny
 msgid "chricar.account_move_import_deny"
-msgstr ""
+msgstr "chricar.account_move_import_deny"
 
 #. module: chricar_account_move_line_deloitte
 #: field:chricar.account_opening_deloitte,name:0
@@ -66,33 +64,32 @@ msgstr "Bezeichnung"
 #. module: chricar_account_move_line_deloitte
 #: model:ir.model,name:chricar_account_move_line_deloitte.model_chricar_account_tax_code_deloitte
 msgid "chricar.account_tax_code_deloitte"
-msgstr ""
+msgstr "chricar.account_tax_code_deloitte"
 
 #. module: chricar_account_move_line_deloitte
 #: constraint:ir.actions.act_window:0
 msgid "Invalid model name in the action definition."
-msgstr "Ungültiger Modell Name in.der Aktion Definition "
+msgstr "Ungültiger Modellname in der Aktionsdefinition."
 
 #. module: chricar_account_move_line_deloitte
 #: field:chricar.account_tax_code_deloitte,account_id:0
-#, fuzzy
 msgid "Tax Account"
 msgstr "Steuerkonto"
 
 #. module: chricar_account_move_line_deloitte
 #: field:chricar.account_move_line_deloitte,fnr:0
 msgid "FNR"
-msgstr ""
+msgstr "FNR"
 
 #. module: chricar_account_move_line_deloitte
 #: field:chricar.account_move_line_deloitte,lc:0
 msgid "LC"
-msgstr ""
+msgstr "LC"
 
 #. module: chricar_account_move_line_deloitte
 #: model:ir.model,name:chricar_account_move_line_deloitte.model_chricar_account_move_line_deloitte
 msgid "chricar.account_move_line_deloitte"
-msgstr ""
+msgstr "chricar.account_move_line_deloitte"
 
 #. module: chricar_account_move_line_deloitte
 #: field:chricar.account_move_line_deloitte,symbol:0
@@ -101,13 +98,11 @@ msgstr "SY"
 
 #. module: chricar_account_move_line_deloitte
 #: field:chricar.account_move_import_deny,date_stop:0
-#, fuzzy
 msgid "Date Stop"
 msgstr "Enddatum"
 
 #. module: chricar_account_move_line_deloitte
 #: field:chricar.account_move_line_deloitte,description:0
-#, fuzzy
 msgid "text"
 msgstr "Text"
 
@@ -147,7 +142,6 @@ msgstr "Konto"
 
 #. module: chricar_account_move_line_deloitte
 #: field:chricar.account_tax_code_deloitte,percent:0
-#, fuzzy
 msgid "Percent"
 msgstr "Prozent"
 
@@ -165,8 +159,7 @@ msgstr "Betrag"
 
 #. module: chricar_account_move_line_deloitte
 #: model:ir.module.module,description:chricar_account_move_line_deloitte.module_meta_information
-msgid ""
-"Import table for account move lines of Deloitte\n"
+msgid "Import table for account move lines of Deloitte\n"
 "generated 2009-10-17 12:10:57+02"
 msgstr "Import für Zugang Buchungszeilen von Deloitte"
 
@@ -203,13 +196,12 @@ msgstr "Kost"
 
 #. module: chricar_account_move_line_deloitte
 #: view:chricar.account_move_line_deloitte:0
-#, fuzzy
+#: view:chricar.account_opening_deloitte:0
 msgid "Sum Amount"
 msgstr "Summe Betrag"
 
 #. module: chricar_account_move_line_deloitte
 #: field:chricar.account_move_import_deny,date_start:0
-#, fuzzy
 msgid "Date Start"
 msgstr "Anfangsdatum"
 

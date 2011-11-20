@@ -92,8 +92,8 @@ Account Moves Igel account_move_line_igel
           <field name="kst_nr"/>
           <field name="text"/>
           <field name="analytic_account_id"/>
-          <field name="betrag_soll"/>
-          <field name="betrag_haben"/>
+          <field name="betrag_soll" sum="Soll"/>
+          <field name="betrag_haben" sum="Haben"/>
           <field name="ust_kz"/>
           <field name="ust"/>
           <field name="ust_betrag"/>
@@ -111,6 +111,7 @@ Account Moves Igel account_move_line_igel
       <field name="res_model">chricar.account.move.line.igel</field>
       <field name="view_type">form</field>
       <field name="view_mode">tree,form</field>
+      <field name="search_view_id" ref="chricar_account_move_line_igel_search"/>
       <field name="view_id" ref="chricar_account_move_line_igel_list"/>
     </record>
     <record model="ir.actions.act_window.view" id="chricar_account_move_line_igel_act1_view2">
