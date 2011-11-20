@@ -10,8 +10,9 @@ Modification of Partner - Adding Tab for Parent Companies
       <field name="name">res.partner.form.parent_company</field>
       <field name="model">res.partner</field>
       <field name="inherit_id" ref="base.view_partner_form"/>
+      <field name="priority" eval="20"/>
       <field name="arch" type="xml">
-        <notebook position="inside">
+        <notebook>
           <page string="Participations">
             <notebook>
               <page string="Participations Current">

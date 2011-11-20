@@ -93,8 +93,9 @@ Modification of Parents (only for matching table prefixes)
       <field name="name">chricar.room.form1</field>
       <field name="model">chricar.room</field>
       <field name="inherit_id" ref="chricar_room.chricar_room_form"/>
+      <field name="priority" eval="10"/>
       <field name="arch" type="xml">
-        <notebook colspan="4" position="inside">
+        <notebook>
           <page string="Equipment">
             <field name="equipment_ids" widget="one2many_list" colspan="4" nolabel="1">
               <tree string="Equipment" editable="top">
@@ -139,8 +140,9 @@ Modification of Parents (only for matching table prefixes)
       <field name="name">chricar.top.form1</field>
       <field name="model">chricar.top</field>
       <field name="inherit_id" ref="chricar_top.chricar_top_form"/>
+      <field name="priority" eval="80"/>
       <field name="arch" type="xml">
-        <notebook colspan="4" position="inside">
+        <notebook>
           <page string="Equipment">
             <field name="equipment_ids" widget="one2many_list" colspan="4" nolabel="1">
               <tree string="Equipment" editable="top">

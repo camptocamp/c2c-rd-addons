@@ -13,8 +13,9 @@ Modification of picking out
       <field name="model">stock.picking</field>
       <field name="type">form</field>
       <field name="inherit_id" ref="stock.view_picking_out_form"/>
+      <field name="priority" eval="10"/>
       <field name="arch" type="xml">
-        <notebook position="inside">
+        <notebook>
           <page string="Weighing" attrs="{'readonly':[('state','=','done')]}">
             <field name="date_weighing"/>
             <field name="number_weighing"/>
@@ -59,8 +60,9 @@ Modification of picking
       <field name="model">stock.picking</field>
       <field name="type">form</field>
       <field name="inherit_id" ref="stock.view_picking_form"/>
+      <field name="priority" eval="10"/>
       <field name="arch" type="xml">
-        <notebook position="inside">
+        <notebook>
           <page string="Weighing" attrs="{'readonly':[('state','=','done')]}">
             <field name="date_weighing"/>
             <field name="number_weighing"/>

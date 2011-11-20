@@ -125,8 +125,9 @@ Modification of Parents (only for matching table prefixes)
       <field name="name">chricar.application_tables.form1</field>
       <field name="model">chricar.application_tables</field>
       <field name="inherit_id" ref="chricar_application_tables.chricar_application_tables_form"/>
+      <field name="priority" eval="10"/>
       <field name="arch" type="xml">
-        <notebook colspan="4" position="inside">
+        <notebook>
           <page string="Application Columns">
             <field name="application_columns_ids" widget="one2many_list" colspan="4" nolabel="1">
               <tree string="Application Columns" editable="top">
