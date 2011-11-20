@@ -93,6 +93,15 @@ class chricar_account_move_line_deloitte(osv.osv):
                      result[move.id] = account_ids[0]
          return result
 
+     def _account_id(self, cr, uid, ids, name, arg, context):
+         result = {}
+         for move in self.browse(cr, uid, ids):
+             result[move.id] = False
+             if move.account and move.company_id:
+                 account_ids= self.pool.get('account.account').search(cr,uid,[('company_id','=',move.company_id.id),('code','=',move.account)])
+                 if len(account_ids):
+                     result[move.id] = account_ids[0]
+         return result
      
      def _period_id(self, cr, uid, ids, name, arg, context):
          result = {}
@@ -119,7 +128,8 @@ class chricar_account_move_line_deloitte(osv.osv):
 
      _columns = {
        'company_id'         : fields.many2one('res.company', 'Company'),
-       'account'            : fields.char    ('Account', size=8, required=True),
+       'account'            : fields.char    ('Account Deloitte', size=8, required=True),
+       'account_id'         : fields.function(_account_id, method=True, string="Account",type='many2one', relation='account.account',  select="1", store=True ),
        'amount'             : fields.float   ('Amount', required=True, digits=(16,2)),
        'analytic_account'   : fields.char    ('Analytic Account Deloitte', size=8),
        'analytic_account_id': fields.function(_analytic_account_id, method=True, string="Analytic Account",type='many2one', relation='account.analytic.account',  select="1", store=True ),
