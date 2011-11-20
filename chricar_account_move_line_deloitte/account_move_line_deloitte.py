@@ -130,6 +130,7 @@ class chricar_account_move_line_deloitte(osv.osv):
        'company_id'         : fields.many2one('res.company', 'Company'),
        'account'            : fields.char    ('Account Deloitte', size=8, required=True),
        'account_id'         : fields.function(_account_id, method=True, string="Account",type='many2one', relation='account.account',  select="1", store=True ),
+       'account_type_name'  : fields.related ('account_id', 'user_type', string="Account Type",type='many2one', relation='account.account.type',  select="1", store=True ),
        'amount'             : fields.float   ('Amount', required=True, digits=(16,2)),
        'analytic_account'   : fields.char    ('Analytic Account Deloitte', size=8),
        'analytic_account_id': fields.function(_analytic_account_id, method=True, string="Analytic Account",type='many2one', relation='account.analytic.account',  select="1", store=True ),
