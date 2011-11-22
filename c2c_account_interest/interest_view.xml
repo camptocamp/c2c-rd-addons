@@ -55,9 +55,10 @@
       <field name="name">c2c_account.account.interest.form</field>
       <field name="model">account.account</field>
       <field name="inherit_id" ref="account.view_account_form"/>
+      <field name="priority" eval="20"/>
       <field name="type">form</field>
       <field name="arch" type="xml">
-        <notebook position="inside">
+        <notebook>
           <page string="Interest Rates">
             <field name="account_interest_ids"/>
             <separator colspan="4" string="Account specific interest rates"/>

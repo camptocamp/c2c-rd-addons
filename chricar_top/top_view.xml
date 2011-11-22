@@ -78,65 +78,77 @@ generated 2009-07-09 16:17:22+02
           </group>
           <notebook colspan="4">
             <page string="invisible" invisible="1"/>
-            <page string="Notes">
-              <field name="note" colspan="4" nolabel="1"/>
-              <separator string="Notes Sales Folder" colspan="1"/>
-              <field name="note_sales" colspan="4" nolabel="1"/>
-            </page>
-            <page string="Blueprint">
-              <!--
-                              <field name="blueprint"  colspan="4" nolabel="1" width="600" height="600" widget="image" />
-                  -->
-              <group colspan="1">
-                <field name="blueprint" colspan="3" nolabel="1" img_width="550" img_height="550" width="550" height="550" widget="image"/>
-              </group>
-              <group colspan="1" col="1">
-                <separator string="Description" colspan="1"/>
-                <field name="description" colspan="1" nolabel="1"/>
-              </group>
-            </page>
-            <page string="Costs">
-              <field name="top_cost_ids" widget="one2many_list" colspan="2" nolabel="1">
-                <tree string="Costs" >
-                  <field name="seq"/>
-                  <field name="account_id"/>
-                  <field name="account_tax_id"/>
-                  <field name="name" sum="Sum Net"/>
-                  <field name="amount_tax" sum="Sum Tax"/>
-                  <field name="amount" sum="Total"/>
-                </tree>
-                <form string="Costs" >
-                  <field name="account_id"/>
-                  <field name="account_tax_id"/>
-                  <field name="name" sum="Sum Net"/>
-                  <field name="amount_tax" sum="Sum Tax"/>
-                  <field name="amount" sum="Total"/>
-                </form>
-                <group colspan="2">
-                  <label/>
-                </group>
-              </field>
-            </page>
-            <page string="Analytics">
-              <field name="analytic_line_ids" widget="one2many_list" colspan="4" nolabel="1">
-                <tree string="Invoice lines">
-                  <field name="date"/>
-                  <field name="name"/>
-                  <field name="amount" sum="Total"/>
-                  <field name="general_account_id"/>
-                </tree>
-                <form string="Invoice lines">
-                  <field name="date"/>
-                  <field name="name"/>
-                  <field name="amount"/>
-                  <field name="general_account_id"/>
-                </form>
-              </field>
-            </page>
           </notebook>
         </form>
       </field>
     </record>
+
+    <record model="ir.ui.view" id="chricar_top_base_pages_form">
+      <field name="name">chricar.top.base_pages.form</field>
+      <field name="model">chricar.top</field>
+      <field name="inherit_id" ref="chricar_top_form"/>
+      <field name="priority" eval="20"/>
+      <field name="arch" type="xml">
+        <notebook>
+          <page string="Notes">
+            <field name="note" colspan="4" nolabel="1"/>
+            <separator string="Notes Sales Folder" colspan="1"/>
+            <field name="note_sales" colspan="4" nolabel="1"/>
+          </page>
+          <page string="Blueprint">
+            <!--
+               <field name="blueprint"  colspan="4" nolabel="1" width="600" height="600" widget="image" />
+            -->
+            <group colspan="1">
+              <field name="blueprint" colspan="3" nolabel="1" img_width="550" img_height="550" width="550" height="550" widget="image"/>
+            </group>
+            <group colspan="1" col="1">
+              <separator string="Description" colspan="1"/>
+              <field name="description" colspan="1" nolabel="1"/>
+            </group>
+          </page>
+          <page string="Costs">
+            <field name="top_cost_ids" widget="one2many_list" colspan="2" nolabel="1">
+              <tree string="Costs" >
+                <field name="seq"/>
+                <field name="account_id"/>
+                <field name="account_tax_id"/>
+                <field name="name" sum="Sum Net"/>
+                <field name="amount_tax" sum="Sum Tax"/>
+                <field name="amount" sum="Total"/>
+              </tree>
+              <form string="Costs" >
+                <field name="account_id"/>
+                <field name="account_tax_id"/>
+                <field name="name" sum="Sum Net"/>
+                <field name="amount_tax" sum="Sum Tax"/>
+                <field name="amount" sum="Total"/>
+              </form>
+              <group colspan="2">
+                <label/>
+              </group>
+            </field>
+          </page>
+          <page string="Analytics">
+            <field name="analytic_line_ids" widget="one2many_list" colspan="4" nolabel="1">
+              <tree string="Invoice lines">
+                <field name="date"/>
+                <field name="name"/>
+                <field name="amount" sum="Total"/>
+                <field name="general_account_id"/>
+              </tree>
+              <form string="Invoice lines">
+                <field name="date"/>
+                <field name="name"/>
+                <field name="amount"/>
+                <field name="general_account_id"/>
+              </form>
+            </field>
+          </page>
+        </notebook>
+      </field>
+    </record>
+
     <record model="ir.ui.view" id="chricar_top_list">
       <field name="name">chricar.top.list</field>
       <field name="model">chricar.top</field>
@@ -298,8 +310,9 @@ generated 2009-07-09 16:17:22+02
       <field name="name">res.partner.top.form</field>
       <field name="model">res.partner</field>
       <field name="inherit_id" ref="base.view_partner_form"/>
+      <field name="priority" eval="30"/>
       <field name="arch" type="xml">
-        <notebook position="inside">
+        <notebook>
           <page string="Real Estate">
             <field name="lease_current_sum"/>
             <field name="lease_potential_sum"/>

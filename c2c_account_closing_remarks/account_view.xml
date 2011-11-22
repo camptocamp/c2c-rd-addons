@@ -79,9 +79,10 @@
       <field name="name">c2c_account.closing.text.form2</field>
       <field name="model">account.account</field>
       <field name="inherit_id" ref="account.view_account_form"/>
+      <field name="priority" eval="10"/>
       <field name="type">form</field>
       <field name="arch" type="xml">
-        <notebook position="inside">
+        <notebook>
           <page string="Closing text">
             <field colspan="4" name="account_closing_remark_ids" nolabel="1">
               <form>

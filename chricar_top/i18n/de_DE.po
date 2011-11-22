@@ -216,7 +216,7 @@ msgstr "Stiege"
 #. module: chricar_top
 #: field:chricar.top,operating_cost:0
 msgid "Monthly operating costs"
-msgstr "monatl. Betriebskosten"
+msgstr "mon. Betr.Kosten"
 
 #. module: chricar_top
 #: field:chricar.top,solar_heating:0
@@ -469,7 +469,7 @@ msgstr "Holz"
 #. module: chricar_top
 #: view:chricar.top:0
 msgid "Technical"
-msgstr "Techik"
+msgstr "Technik"
 
 #. module: chricar_top
 #: field:chricar.top,alarm:0

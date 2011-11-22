@@ -200,14 +200,22 @@ generated 2009-10-17 12:10:57+02
             <field name="arch" type="xml">
                 <search string="Search Order">
                     <group col="10" colspan="4">
-                        <field name="date"/>
+                        <field name="fiscalyear_id"/>
+                        <field name="period_id"/>
+                        <field name="account"/>
+                        <field name="account_id"/>
+                        <field name="account_type_name"/>
                         <field name="analytic_account"/>
+                        <field name="analytic_account_id"/>
                         <field name="company_id" groups="base.group_multi_company" widget="selection"/>
                     </group>
                     <newline/>
                     <group expand="0" string="Group By..." colspan="4" col="4" >
-                        <filter string="Account" name="group_account" icon="terp-folder-green" context="{'group_by':'account'}"/>
-                        <filter string="Analytic Account" name="group_account_analytic" icon="terp-folder-green" context="{'group_by':'analytic_account'}"/>
+                        <filter string="Fiscal Year" icon="terp-go-year" context="{'group_by':'fiscalyear_id'}"/>
+                        <filter string="Period" context="{'group_by': 'period_id'}" icon="terp-go-month"/>
+                        <filter string="Account" name="group_account" icon="terp-folder-green" context="{'group_by':'account_id'}"/>
+                        <filter string="Account Type" name="group_account_type_name" icon="terp-folder-green" context="{'group_by':'account_type_name'}"/>
+                        <filter string="Analytic Account" name="group_analytic_account_id" icon="terp-folder-green" context="{'group_by':'analytic_account_id'}"/>
                     </group>
                 </search>
 
@@ -221,12 +229,17 @@ generated 2009-10-17 12:10:57+02
       <field name="type">form</field>
       <field name="arch" type="xml">
         <form string="Account Moves Deloitte">
+          <field name="fiscalyear_id" select="1"/>
+          <field name="period_id" select="1"/>
           <field name="account" select="1"/>
+          <field name="account_id" select="1"/>
+          <field name="account_type_name"/>
           <field name="date" select="1"/>
           <field name="symbol" select="1"/>
           <field name="name" select="1"/>
           <field name="fnr"/>
           <field name="analytic_account" select="1"/>
+          <field name="analytic_account_id" select="1"/>
           <field name="counter_account" select="1"/>
           <field name="amount" select="1"/>
           <field name="tax_code" select="1"/>
@@ -248,12 +261,17 @@ generated 2009-10-17 12:10:57+02
       <field name="type">tree</field>
       <field name="arch" type="xml">
         <tree string="Account Moves Deloitte">
+          <field name="fiscalyear_id" select="1"/>
+          <field name="period_id" select="1"/>
           <field name="account" select="1"/>
+          <field name="account_id" select="1"/>
+          <field name="account_type_name"/>
           <field name="date" select="1"/>
           <field name="symbol" select="1"/>
           <field name="name" select="1"/>
           <field name="fnr"/>
           <field name="analytic_account" select="1"/>
+          <field name="analytic_account_id" select="1"/>
           <field name="counter_account" select="1"/>
           <field name="amount" select="1" sum="Sum Amount"/>
           <field name="tax_code" select="1"/>

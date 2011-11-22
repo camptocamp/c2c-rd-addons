@@ -63,7 +63,8 @@
 					<notebook>
 						<page string="Versions">
 							<field name="budget_version_ids" nolabel="1" widget="many2many" />
-						</page><page string="Notes">
+						</page>
+						<page string="Notes">
 							<field name="note" nolabel="1"/>
 						</page>
 					</notebook>							
@@ -117,7 +118,8 @@
 									<field name="amount_in_budget_currency"  sum="Total Amount" />
 								</form>							
 							</field>
-						</page><page string="Notes">
+						</page>
+						<page string="Notes">
 							<field name="note" nolabel="1" />
 						</page>
 					</notebook>							
@@ -150,15 +152,18 @@
 					<notebook>
 						<page string="Accounts">
 							<field name="account" nolabel="1" context="limit=800"/>
-						</page><page string="Children">
+						</page>
+						<page string="Children">
 							<field name="children_ids" nolabel="1" widget="many2many" domain="[('parent_id', '=', False)]" />
-						</page><page string="Calculation">
+						</page>
+						<page string="Calculation">
 							<label string="For item of type 'view', you can define a method of calculation based on other items." align="0.0" />
 							<label string="Start your formula by 'result=' and use standard math symbols with items codes surrounded by %%()f . Items' codes will be replaced by items' values and then parsed in python code. So be sure to be python compilant." align="0.0" />
 							<label string="Here is a simple example: result=(%%(ebitda)f+%%(ebit)f)*2" align="0.0" />
 							
 							<field name="calculation" nolabel="1" colspan="8"/>
-						</page><page string="Notes">
+						</page>
+						<page string="Notes">
 							<field name="note" nolabel="1"/>
 						</page>
 					</notebook>							

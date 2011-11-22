@@ -50,13 +50,6 @@ class chricar_tenant(osv.osv):
                 result[tenant.id] = lease / surface
          return result
 
-     #def _sort(self, cr, uid, ids, field_name, arg, context=None):
-     #    result = {}
-     #    for tenant in self.browse(cr, uid, ids, context):
-     #        result[tenant.id] = int(tenant.top_id.sort)
-     #    return result
-
-
      def _dirname(self, cr, uid, ids, field_name, arg, context=None):
          result = {}
          for dirname in self.browse(cr, uid, ids, context):
@@ -75,22 +68,6 @@ class chricar_tenant(osv.osv):
                  
          return result
 
-# rewrite for ftp document dirname
-#     def name_get(self, cr, uid, ids, context=None):
-#              if not len(ids):
-#                       return []
-#              #reads = self.read(cr, uid, ids, ['name','location_id'])
-#              reads = self.read(cr, uid, ids, [])
-#              res = []
-#              for record in reads:
-#                       name = str(record['name'])
-#                       tenant = record['tenant_id']
-#                       name = tenant +' '+ name
-#                       res.append((record['id'], name))
-#              return res
-
-
-
      _columns = {
        'contract'           : fields.char    ('Contract ', size=64),
        'date_contract'      : fields.date    ('Contract Date'),
@@ -101,17 +78,15 @@ class chricar_tenant(osv.osv):
        'notice_period'      : fields.integer ('Notice Period Month', help="Notice period in month"),
        'termination_date'   : fields.selection([('month','Month End'),('quater','Quater End')], 'Termination Date',  size=24),
        'partner_id'         : fields.many2one('res.partner','Tenant', select=True, required=True),
-       'price'              : fields.function(_price_per_m2, method=True, string=u"Price / m²", type='float', digits=(16,2),store=True),
-       #'sort'               : fields.function(_sort, method=True, string="Sort",type='float',digits=(16,0), store=True),
+       'price'              : fields.function(_price_per_m2, method=True, string=u"Price / m²", type='float', digits=(16,2),),
        'sort'               : fields.related ('top_id', 'sort', tpye ='integer', relation='chricar.top', string="Sort", readonly = True),
        'surface'            : fields.related ('top_id', 'surface', tpye ='float', relation='chricar.top', string="Surface", readonly = True),   
        'to_date'            : fields.date    ('To Date', help="Date Contract Ends"),
        'top_id'             : fields.many2one('chricar.top','Top', select=True, required=True),
-       'location_id'        : fields.related ('top_id','location_id',type='many2one', relation='stock.location', string="Location", readonly = True, store = True),
-       #'waiver_of_termination': fields.date  ('Waiver of Termination'),
+       'location_id'        : fields.related ('top_id','location_id',type='many2one', relation='stock.location', string="Location", readonly = True ),
        'waiver_of_termination': fields.integer  ('Waiver of Termination', help="Duration in month bofore the tenant can terminate the lease" ),
        'lease_free'         : fields.integer  ('Initial free month', help="Duration in month the tenant does not pay rent" ),
-       'dirname'            : fields.function(_dirname, method=True, string="Dirname",type='char',size=128, store=True),
+       #'dirname'            : fields.function(_dirname, method=True, string="Dirname",type='char',size=128, store=True),
        'state'              : fields.function(_get_state, method=True, string='Status', type='char', readonly=True),
        'ref_top'            : fields.related ('top_id', 'ref_top', type ='char', relation='chricar.top', string="Ref Top", readonly = True),   
     }
@@ -125,34 +100,11 @@ class chricar_tenant(osv.osv):
      def name_search(self, cr, user, name='', args=None, operator='ilike', context=None, limit=100):
          super(chricar_tenant, self).name_search(cr, user, name, args, operator='=', context=context, limit=limit)
 
-#[09:28:47] … Here is an example
-#<field name="domain"> [('id', 'in', find_ids_to_list())] </field>
-#[09:29:07] … class ir_action_window(osv.osv):
-#    _inherit = 'ir.actions.act_window'
-
-#    def read(self, cr, uid, ids, fields=None, context=None, load='_classic_read'):
-#        select = ids
-#        if isinstance(ids, (int, long)):
-#            select = [ids]
-#        res = super(ir_action_window, self).read(cr, uid, select, fields=fields,
-#                context=context, load=load)
-#        for r in res:
-#            mystring = 'find_ids_to_list()'
-#            if mystring in (r.get('domain', '[]') or ''):
-#                r['domain'] = r['domain'].replace(mystring, str(
-#                    self.pool.get('project.task')._get_id(cr, uid)))
-
-
-#       if isinstance(ids, (int, long)):
-#            return res[0]
-#        return res
-
-#ir_action_window()
-
-
 chricar_tenant()
 
+#*************************************************************Y
 class chricar_top(osv.osv):
+#*************************************************************Y
       _inherit = "chricar.top"
       _columns = {
           'tenant_ids': fields.one2many('chricar.tenant','top_id','Tenant'),
@@ -173,60 +125,59 @@ class chricar_top(osv.osv):
          result = {}
          price = 0.0
          for p in self.browse(cr, uid, ids, context):
-             pid = p.id
-             cr.execute("""select price from chricar_tenant where  name <= current_date and (to_date is null or to_date > current_date) and top_id = %d order by name desc;
-             """ % pid)
-             res = cr.fetchone()
-             price = (res and res[0]) or False
+             now = time.strftime('%Y-%m-%d %H:%M:%S')
+             tenant_obj = self.pool.get('chricar.tenant')
+             tenant_ids = tenant_obj.search(cr,uid,['|',('to_date','=',False),('to_date','>',now),('name','<=',now),('top_id','=',p.id)])
+             for lease in tenant_obj.browse(cr, uid, tenant_ids,context):
+                 price  = lease.price
              result[p.id] = price
          return result
 
      def _lease_current(self, cr, uid, ids, field_name, arg, context=None):
          result = {}
-         lease = 0.0
          for p in self.browse(cr, uid, ids, context):
-             pid = p.id
-             cr.execute("""select lease from chricar_tenant where name <= current_date and (to_date is null or to_date > current_date) and top_id = %d order by name desc;
-             """ % pid)
-             res = cr.fetchone()
-             lease = (res and res[0]) or False
-             result[p.id] = lease
+             now = time.strftime('%Y-%m-%d %H:%M:%S')
+             tenant_obj = self.pool.get('chricar.tenant')
+             tenant_ids = tenant_obj.search(cr,uid,['|',('to_date','=',False),('to_date','>',now),('name','<=',now),('top_id','=',p.id)])
+             lease_cur = 0
+             for lease in tenant_obj.browse(cr, uid, tenant_ids,context):
+                 lease_cur = lease.lease
+             result[p.id] = lease_cur
          return result
 
      def _lease_potential(self, cr, uid, ids, field_name, arg, context=None):
          result = {}
          potential = 0.0
          for p in self.browse(cr, uid, ids, context):
-             pid = p.id
-             cr.execute("""select price from chricar_tenant where  name <= current_date and  (to_date is null or to_date > current_date) and top_id = %d order by name desc;
-             """ % pid)
-             res = cr.fetchone()
-             price = (res and res[0]) or False
+             now = time.strftime('%Y-%m-%d %H:%M:%S')
+             tenant_obj = self.pool.get('chricar.tenant')
+             tenant_ids = tenant_obj.search(cr,uid,['|',('to_date','=',False),('to_date','>',now),('name','<=',now),('top_id','=',p.id)])
+             price = 0
+             for lease in tenant_obj.browse(cr, uid, tenant_ids,context):
+                 price = lease.price
              potential = 0.0
-             #if price and p.lease_target and p.surface:
              if p.lease_target and p.surface:
                  potential = p.surface * (p.lease_target - price)
              if not p.surface and p.lease_target:
-                 cr.execute("""select lease from chricar_tenant where  name <= current_date and  (to_date is null or to_date > current_date) and top_id = %d order by name desc;
-             """ % pid)
-                 res = cr.fetchone()
-                 lease = (res and res[0]) or False
-                 potential = round(p.lease_target - lease,0)
+                 potential = round(p.lease_target - p.lease_current,0)
              result[p.id] = potential
          return result
 
      def _tenant_current(self, cr, uid, ids, field_name, arg, context=None):
          result = {}
-         partner_id = ''
          for p in self.browse(cr, uid, ids, context):
-             pid = p.id
-             cr.execute("""select partner_id from chricar_tenant
-                            where  name <= current_date and  (to_date is null or to_date > current_date)
-                              and top_id = %d
-                            order by name desc;
-             """ % pid)
-             res = cr.fetchone()
-             partner_id = (res and res[0]) or False
+             partner_id = False
+             now = time.strftime('%Y-%m-%d %H:%M:%S')
+             tenant_obj = self.pool.get('chricar.tenant')
+             tenant_ids = tenant_obj.search(cr,uid,['|',('to_date','=',False),('to_date','>',now),('name','<=',now),('top_id','=',p.id)])
+             if tenant_ids:
+                 for lease in tenant_obj.browse(cr, uid, tenant_ids,context):
+                     partner_id = lease.partner_id.id
+             if not partner_id:
+                 tenant_ids = tenant_obj.search(cr,uid,[('name','>',now),('top_id','=',p.id)])
+                 if tenant_ids:
+                    for lease in tenant_obj.browse(cr, uid, tenant_ids,context):
+                       partner_id = lease.partner_id.id
              result[p.id] = partner_id
          return result
 
