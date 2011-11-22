@@ -53,7 +53,7 @@ class account_invoice_line(osv.osv):
       """)
       
     def product_id_change_c2c_pu(self, cr, uid, ids, product, uom, qty=0, name='',
-           type=False, partner_id=False, fposition_id=False, price_unit_pu=False, address_invoice_id=False, currency_id=False, context=None,price_unit_id=None):
+           type=False, partner_id=False, fposition_id=False, price_unit_pu=False, address_invoice_id=False, currency_id=False, company_id=None,price_unit_id=None):
        res = {}
        print >>sys.stderr,'invocie ',price_unit_id, price_unit_pu
 
@@ -67,7 +67,7 @@ class account_invoice_line(osv.osv):
         
            coeff = self.pool.get('c2c_product.price_unit').get_coeff(cr, uid, price_unit_id)
            price_unit = price_unit_pu * coeff 
-
+           context ={}
            res['value'] = super(account_invoice_line, self).product_id_change( cr, uid, ids, product, uom, qty, name,
                type, partner_id, fposition_id, price_unit, address_invoice_id, currency_id, context)['value']
            print  >>sys.stderr, 'invoice res ', res['value']

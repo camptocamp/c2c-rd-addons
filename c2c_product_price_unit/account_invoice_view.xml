@@ -33,7 +33,7 @@
         <field name="product_id" position="replace">
           <field
             name="product_id"
-            on_change="product_id_change_c2c_pu(product_id, uos_id, quantity, name, parent.type, parent.partner_id, parent.fiscal_position, price_unit_pu, parent.address_invoice_id, parent.currency_id, {'company_id': parent.company_id}, price_unit_id)"/>
+            on_change="product_id_change_c2c_pu(product_id, uos_id, quantity, name, parent.type, parent.partner_id, parent.fiscal_position, price_unit_pu, parent.address_invoice_id, parent.currency_id,  parent.company_id, price_unit_id)"/>
         </field>
       </field>
     </record>
@@ -82,7 +82,7 @@
         <field name="product_id" position="replace">
           <field
             name="product_id"
-            on_change="product_id_change_c2c_pu(product_id, uos_id, quantity, name, parent.type, parent.partner_id, parent.fiscal_position, price_unit_pu, parent.address_invoice_id, parent.currency_id, {'company_id': parent.company_id},price_unit_id)"/>
+            on_change="product_id_change_c2c_pu(product_id, uos_id, quantity, name, parent.type, parent.partner_id, parent.fiscal_position, price_unit_pu, parent.address_invoice_id, parent.currency_id,  parent.company_id,price_unit_id)"/>
         </field>
       </field>
     </record>
