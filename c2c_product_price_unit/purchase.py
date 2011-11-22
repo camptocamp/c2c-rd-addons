@@ -91,8 +91,8 @@ class purchase_order_line(osv.osv):
         print >>sys.stderr,'purch -68c-1 ',field_name,price_pu,price_unit_id
         if  price_pu and  price_unit_id:
            coeff = self.pool.get('c2c_product.price_unit').get_coeff(cr, uid, price_unit_id)
-           price = price_pu / coeff 
-           print >>sys.stderr,'purch -68c- ',field_name,price
+           price = price_pu / float(coeff) 
+           print >>sys.stderr,'purch -68c- ',field_name,price, coeff
            return {'value': {field_name : price}}
         return False
 
