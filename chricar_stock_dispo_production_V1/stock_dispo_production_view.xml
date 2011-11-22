@@ -280,33 +280,33 @@ Modification of Parents (only for matching table prefixes)
           <field colspan="4" name="order_line" nolabel="1" widget="one2many_list">
             <tree string="Dispo Production Order Lines">
               <field
-                context="partner_id=parent.partner_id,product_qty=product_uom_qty,pricelist=parent.pricelist_id,shop=parent.shop_id,uom=product_uom"
+                context="{'partner_id':parent.partner_id,'product_qty':product_uom_qty,'pricelist':parent.pricelist_id,'shop':parent.shop_id,'uom':product_uom}"
                 name="product_id"
-                on_change="product_id_change(parent.pricelist_id,price_unit_id,product_id,product_uom_qty,product_uom,product_uos_qty,product_uos,name,parent.partner_id, 'lang' in context and context['lang'], True, parent.date_order, product_packaging, parent.fiscal_position)"/>
+                on_change="product_id_change(parent.pricelist_id,price_unit_id,product_id,product_uom_qty,product_uom,product_uos_qty,product_uos,name,parent.partner_id, False, True, parent.date_order, product_packaging, parent.fiscal_position)"/>
               <field
-                context="partner_id=parent.partner_id,product_qty=product_uom_qty,pricelist=parent.pricelist_id,shop=parent.shop_id,uom=product_uom"
+                context="{'partner_id':parent.partner_id,'product_qty':product_uom_qty,'pricelist':parent.pricelist_id,'shop':parent.shop_id,'uom':product_uom}"
                 name="product_uom_qty"
-                on_change="product_id_change(parent.pricelist_id,price_unit_id,product_id,product_uom_qty,product_uom,product_uos_qty,product_uos,name,parent.partner_id, 'lang' in context and context['lang'], False, parent.date_order, product_packaging, parent.fiscal_position, True)"/>
+                on_change="product_id_change(parent.pricelist_id,price_unit_id,product_id,product_uom_qty,product_uom,product_uos_qty,product_uos,name,parent.partner_id, False, False, parent.date_order, product_packaging, parent.fiscal_position, True)"/>
               <field
                 name="product_uom"
-                on_change="product_uom_change(parent.pricelist_id,price_unit_id,product_id,product_uom_qty,product_uom,product_uos_qty,product_uos,name,parent.partner_id, 'lang' in context and context['lang'], False, parent.date_order)"/>
+                on_change="product_uom_change(parent.pricelist_id,price_unit_id,product_id,product_uom_qty,product_uom,product_uos_qty,product_uos,name,parent.partner_id, Falsde, False, parent.date_order)"/>
             </tree>
             <form string="Dispo Production Order Lines">
               <field
                 colspan="4"
-                context="partner_id=parent.partner_id,product_qty=product_uom_qty,pricelist=parent.pricelist_id,shop=parent.shop_id,uom=product_uom"
+                context="{'partner_id':parent.partner_id,'product_qty':product_uom_qty,'pricelist':parent.pricelist_id,'shop':parent.shop_id,'uom':product_uom}"
                 name="product_id"
-                on_change="product_id_change(parent.pricelist_id,price_unit_id,product_id,product_uom_qty,product_uom,product_uos_qty,product_uos,name,parent.partner_id, 'lang' in context and context['lang'], True, parent.date_order, product_packaging, parent.fiscal_position)"
+                on_change="product_id_change(parent.pricelist_id,price_unit_id,product_id,product_uom_qty,product_uom,product_uos_qty,product_uos,name,parent.partner_id, False, True, parent.date_order, product_packaging, parent.fiscal_position)"
                 required="1"
                 select="1"/>
               <field
-                context="partner_id=parent.partner_id,product_qty=product_uom_qty,pricelist=parent.pricelist_id,shop=parent.shop_id,uom=product_uom"
+                context="{'partner_id':parent.partner_id,'product_qty':product_uom_qty,'pricelist':parent.pricelist_id,'shop':parent.shop_id,'uom':product_uom}"
                 name="product_uom_qty"
-                on_change="product_id_change(parent.pricelist_id,price_unit_id,product_id,product_uom_qty,product_uom,product_uos_qty,product_uos,name,parent.partner_id, 'lang' in context and context['lang'], False, parent.date_order, product_packaging, parent.fiscal_position, True)"
+                on_change="product_id_change(parent.pricelist_id,price_unit_id,product_id,product_uom_qty,product_uom,product_uos_qty,product_uos,name,parent.partner_id, False, False, parent.date_order, product_packaging, parent.fiscal_position, True)"
                 select="1"/>
               <field
                 name="product_uom"
-                on_change="product_uom_change(parent.pricelist_id,price_unit_id,product_id,product_uom_qty,product_uom,product_uos_qty,product_uos,name,parent.partner_id, 'lang' in context and context['lang'], False, parent.date_order)"/>
+                on_change="product_uom_change(parent.pricelist_id,price_unit_id,product_id,product_uom_qty,product_uom,product_uos_qty,product_uos,name,parent.partner_id, False, False, parent.date_order)"/>
               <field name="price_unit" groups="base.group_extended"/>
               <field name="price_unit_id" groups="base.group_extended"/>
               <field
@@ -315,11 +315,11 @@ Modification of Parents (only for matching table prefixes)
               <field name="name" groups="base.group_extended"/>
               <field name="product_uos"/>
               <field
-                context="partner_id=parent.partner_id,product_qty=product_uom_qty,pricelist=parent.pricelist_id,shop=parent.shop_id,uom=product_uom"
+                context="{'partner_id':parent.partner_id,'product_qty':product_uom_qty,'pricelist':parent.pricelist_id,'shop':parent.shop_id,'uom':product_uom}"
                 domain="[('product_id','=',product_id)]"
                 groups="base.group_extended"
                 name="product_packaging"
-                on_change="product_id_change(parent.pricelist_id,price_unit_id,product_id,product_uom_qty,product_uom,product_uos_qty,product_uos,name,parent.partner_id, 'lang' in context and context['lang'], False, parent.date_order, product_packaging, parent.fiscal_position)"/>
+                on_change="product_id_change(parent.pricelist_id,price_unit_id,product_id,product_uom_qty,product_uom,product_uos_qty,product_uos,name,parent.partner_id, False, False, parent.date_order, product_packaging, parent.fiscal_position)"/>
               <field name="state"/>
               <field name="move_state" invisible="1"/>
               <button
