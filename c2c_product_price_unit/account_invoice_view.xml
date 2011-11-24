@@ -12,11 +12,11 @@
           <group col="4" colspan="2">
             <field
               name="price_unit_pu"
-              on_change="onchange_price_unit('price_unit',price_unit_pu,price_unit_id)"
+              on_change="onchange_price_unit('price_unit',quantity ,price_unit_pu,price_unit_id)"
               required="1"/>
             <field
               name="price_unit_id"
-              on_change="onchange_price_unit('price_unit',price_unit_pu,price_unit_id)"
+              on_change="onchange_price_unit('price_unit',quantity, price_unit_pu,price_unit_id)"
               required="1"
               widget="selection"/>
           </group>
@@ -63,11 +63,11 @@
         <field name="price_unit" position="replace">
           <field
             name="price_unit_pu"
-            on_change="onchange_price_unit('price_unit',price_unit_pu,price_unit_id)"
+            on_change="onchange_price_unit('price_unit',quantity, price_unit_pu,price_unit_id)"
             required="1"/>
           <field
             name="price_unit_id"
-            on_change="onchange_price_unit('price_unit',price_unit_pu,price_unit_id)"
+            on_change="onchange_price_unit('price_unit',quantity, price_unit_pu,price_unit_id)"
             required="1"/>
           <field name="price_unit" groups="c2c_product_price_unit.group_c2c_product_price_unit_manager"/>
         </field>

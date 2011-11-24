@@ -12,10 +12,10 @@
           <group col="4" colspan="2">
             <field
               name="price_unit_pu"
-              on_change="onchange_price_unit('price_unit',price_unit_pu,price_unit_id)"/>
+              on_change="onchange_price_unit('price_unit',product_qty,price_unit_pu,price_unit_id)"/>
             <field
               name="price_unit_id"
-              on_change="onchange_price_unit('price_unit',price_unit_pu,price_unit_id)"
+              on_change="onchange_price_unit('price_unit',product_qty,price_unit_pu,price_unit_id)"
               widget="selection"/>
           </group>
           <field name="price_unit" groups="c2c_product_price_unit.group_c2c_product_price_unit_manager"/>
