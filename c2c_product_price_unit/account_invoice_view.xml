@@ -53,7 +53,6 @@
     </record>
 
 
-    <!-- does not exist any more 20110707
     <record model="ir.ui.view" id="c2c_purchase_account_invoice_line_tree_view">
       <field name="name">c2c_product.account_invoice_line_tree.view</field>
       <field name="model">account.invoice.line</field>
@@ -67,7 +66,7 @@
         </field>
       </field>
     </record>
--->
+
     <!-- Supplier -->
     <!-- does not exist any more 20110707
     <record model="ir.ui.view" id="c2c_product_invoice_supplier_form_view">
