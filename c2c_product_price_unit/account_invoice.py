@@ -57,7 +57,7 @@ class account_invoice_line(osv.osv):
        res = {}
        print >>sys.stderr,'invocie ',price_unit_id, price_unit_pu
 
-       if product:
+       if product and qty:
            prod = self.pool.get('product.product').browse(cr, uid, product)
            if type in ['out_invoice','out_refund']:
                price_unit_id = prod.list_price_unit_id.id
@@ -66,21 +66,22 @@ class account_invoice_line(osv.osv):
                price_unit_id = prod.price_unit_id.id
         
            coeff = self.pool.get('c2c_product.price_unit').get_coeff(cr, uid, price_unit_id)
-           price_unit = price_unit_pu * coeff 
+           price_unit = price_unit_pu / float( coeff ) * qty
            context ={}
            res['value'] = super(account_invoice_line, self).product_id_change( cr, uid, ids, product, uom, qty, name,
                type, partner_id, fposition_id, price_unit, address_invoice_id, currency_id, context)['value']
            print  >>sys.stderr, 'invoice res ', res['value']
 
            res['value']['price_unit_id'] = price_unit_id
-           res['value']['price_unit_pu'] = res['value']['price_unit'] * coeff
+           res['value']['price_unit_pu'] = res['value']['price_unit'] / float(coeff) *qty
 
        return res
 
-    def onchange_price_unit(self, cr, uid, ids, field_name,price_pu, price_unit_id):
-        if  price_pu and  price_unit_id:
+    def onchange_price_unit(self, cr, uid, ids, field_name, qty, price_pu, price_unit_id):
+        if  price_pu and  price_unit_id and qty:
            coeff = self.pool.get('c2c_product.price_unit').get_coeff(cr, uid, price_unit_id)
-           price = price_pu / float(coeff)
+           price = price_pu / float(coeff) * qty
+           print  >>sys.stderr, 'invoice res q', field_name,qty,price_pu,price_unit_id,price
            return {'value': {field_name : price}}
         return False
 
