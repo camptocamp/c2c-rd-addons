@@ -119,7 +119,7 @@ class constraint_predicate(osv.osv):
             , help="Python exprssion that evaluates to 'True' if the condition is fullfilled, else 'False'"
             )
         , 'filter'    : fields.char ('Filter', size=256)
-        , 'name'      : fields.char ('Error Message', required=True, size=128)
+        , 'name'      : fields.char ('Error Message', required=True, size=128, translate=True)
         , 'object'    : fields.char ('Object name', required=True, size=32)
         , 'table'     : fields.char ('Table', required=True, size=32)
         , 'enable'    : fields.boolean ('Enable', required=True)
@@ -239,7 +239,7 @@ class constraint_check_for_all (osv.osv):
 
     _columns  = \
         { 'sequence' : fields.char ('Sequence', size=256, required=True, help="Python expression that evaluates to a list")
-        , 'var'      : fields.char ('Variable', size=32,  required=True)
+        , 'var'      : fields.char ('Variable name', size=32,  required=True)
         }
 
     def test_obj (self, cr, uid, rule, obj) :
@@ -262,17 +262,17 @@ class constraint_check_for_all (osv.osv):
                         ename = getattr(elem, "name", "")
                         result.append('%s "%s": %s "%s"' % (c_obj._description, name, rule.name, ename))
         else :
-            seq = eval (rule.sequence, dict)
+            seq = eval(rule.sequence, dict)
             for elem in seq :
                 ctx = {rule.var : elem}
                 ctx.update(dict)
                 if not eval (rule.condition, ctx):
-                    try :
-                        it = iter(elem)
-                        e = [o.name for o in elem]
-                    except TypeError :
-                        name = getattr(obj, c_obj._rec_name, "")
-                        ename = getattr(elem, "name", "")
+#                    try :
+#                        it = iter(elem)
+#                        e = [o.name for o in elem]
+#                    except TypeError :
+                    name = getattr(obj, c_obj._rec_name, "")
+                    ename = getattr(elem, "name", "")
                     result.append('%s "%s": %s "%s"' % (c_obj._description, name, rule.name, ename))
         return result
     # end def test_obj
