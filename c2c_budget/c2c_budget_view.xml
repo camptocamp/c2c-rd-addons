@@ -98,10 +98,10 @@
 					</group>
 					<notebook>
 						<page string="Budget Lines">
-							<field name="budget_line_ids" nolabel="1" mode="tree" select="1" context="currency_id=currency_id, budget_id=budget_id, version_id=active_id" >
+							<field name="budget_line_ids" nolabel="1" mode="tree" select="1" context="{'currency_id':currency_id, 'budget_id':budget_id, 'version_id':active_id}" >
 								<tree string="Budget Lines" editable="top">	
-									<field name="period_id" context="budget_id=parent.budget_id, version_id=parent.id" />
-									<field name="budget_item_id" context="budget_id=parent.budget_id, version_id=parent.id" />
+									<field name="period_id" context="{'budget_id':parent.budget_id, 'version_id':parent.id}" />
+									<field name="budget_item_id" context="{'budget_id':parent.budget_id, 'version_id':parent.id}" />
 									<field name="name" />
 									<field name="analytic_account_id"/>
 									<field name="amount" />
@@ -109,8 +109,9 @@
 									<field name="amount_in_budget_currency"  sum="Total Amount" />
 								</tree>							
 								<form>	
-									<field name="period_id" context="budget_id=parent.budget_id, version_id=parent.id" />
-									<field name="budget_item_id" context="budget_id=parent.budget_id, version_id=.parent.id" />
+									<field name="period_id" context="{'budget_id':parent.budget_id, 'version_id':parent.id}" />
+									<field name="budget_item_id" context="{'budget_id':parent.budget_id, 'version_id':parent.id}" />
+
 									<field name="name" />
 									<field name="analytic_account_id"/>
 									<field name="amount" />
@@ -151,7 +152,7 @@
 					</group>
 					<notebook>
 						<page string="Accounts">
-							<field name="account" nolabel="1" context="limit=800"/>
+							<field name="account" nolabel="1" />
 						</page>
 						<page string="Children">
 							<field name="children_ids" nolabel="1" widget="many2many" domain="[('parent_id', '=', False)]" />
@@ -185,8 +186,10 @@
 					<field name="code"/>
 					<field name="start_date" />
 					<field name="end_date" />
+<!--
 					<field name="balance_budget" />
 					<field name="balance_real" />
+-->
 					<field name="active" />
 				</tree>
 			</field>
