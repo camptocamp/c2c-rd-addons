@@ -10,8 +10,8 @@
           <group colspan="4">
             <field name="table" select="1"/>
             <field name="name" select="1"/>
-            <field name="object" readonly="1"/>
-            <field name="condition" readonly="1"/>
+            <field name="object"/>
+            <field name="condition"/>
             <field name="filter" select="1"/>
             <field name="enable" select="1"/>
             <button
@@ -41,8 +41,8 @@
         <tree string="check_ones" editable="top">
           <field name="table" select="1"/>
           <field name="name" select="1"/>
-          <field name="object" readonly="1"/>
-          <field name="condition" readonly="1"/>
+          <field name="object"/>
+          <field name="condition"/>
           <field name="filter" select="1"/>
           <field name="enable" select="1"/>
         </tree>
@@ -80,11 +80,11 @@
           <group colspan="4">
             <field name="table" select="1"/>
             <field name="name" select="1"/>
-            <field name="object" readonly="1"/>
-            <field name="condition" readonly="1"/>
+            <field name="object"/>
+            <field name="condition"/>
             <field name="filter" select="1"/>
-            <field name="sequence" readonly="1"/>
-            <field name="var" readonly="1"/>
+            <field name="sequence"/>
+            <field name="var"/>
             <field name="enable" select="1"/>
             <button
               colspan="4"
@@ -113,8 +113,8 @@
         <tree string="check_for_alls" editable="top">
           <field name="table" select="1"/>
           <field name="name" select="1"/>
-          <field name="object" readonly="1"/>
-          <field name="condition" readonly="1"/>
+          <field name="object"/>
+          <field name="condition"/>
           <field name="filter" select="1"/>
           <field name="enable" select="1"/>
         </tree>
