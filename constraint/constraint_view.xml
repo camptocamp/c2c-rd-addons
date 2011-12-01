@@ -8,12 +8,12 @@
       <field name="arch" type="xml">
         <form string="check_ones">
           <group colspan="4">
+            <field name="name" select="1" colspan="4"/>
+            <field name="condition" colspan="4"/>
             <field name="table" select="1"/>
-            <field name="name" select="1"/>
             <field name="object"/>
-            <field name="condition"/>
-            <field name="filter" select="1"/>
             <field name="enable" select="1"/>
+            <field name="filter" select="1" colspan="4"/>
             <button
               colspan="4"
               name="button_test"
@@ -78,14 +78,14 @@
       <field name="arch" type="xml">
         <form string="check_for_alls">
           <group colspan="4">
+            <field name="name" select="1" colspan="4"/>
+            <field name="condition" colspan="4"/>
             <field name="table" select="1"/>
-            <field name="name" select="1"/>
             <field name="object"/>
-            <field name="condition"/>
-            <field name="filter" select="1"/>
             <field name="sequence"/>
             <field name="var"/>
             <field name="enable" select="1"/>
+            <field name="filter" select="1" colspan="4"/>
             <button
               colspan="4"
               name="button_test"
