@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <record model="constraint.check_one" id="constraint_invoice1">
+      <field name="table">account.invoice</field>
+      <field name="object">invoice</field>
+      <field name="name">Invoice has to be in Euros</field>
+      <field name="condition">invoice.currency_id.name == 'EUR'</field>
+    </record>
+    <record model="constraint.check_for_all" id="constraint_invoice2">
+      <field name="table">account.invoice</field>
+      <field name="object">invoice</field>
+      <field name="name">Each invoice line must have correct product</field>
+      <field name="var">line</field>
+      <field name="sequence">invoice.invoice_line</field>
+      <field name="condition">'MyProduct' in line.name</field>
+    </record>
+  </data>
+</openerp>
