@@ -24,10 +24,10 @@ Budget Produktion
       <field name="priority">1</field>
       <field name="type">form</field>
       <field name="arch" type="xml">
-        <form string="Budget Products" editable="bottom">
+        <form string="Budget Products" >
           <field name="fiscalyear_id"/>
           <field name="name" select="1"/>
-          <field name="budget_version_ids" widget="many2many" nolabel="1" select="1" colspan="4">
+          <field name="budget_version_ids"  nolabel="1" colspan="4">
             <tree string="Budget Version" editable="bottom">
               <field name="name" select="1"/>
               <field name="is_current" select="1"/>
