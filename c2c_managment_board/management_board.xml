@@ -38,7 +38,7 @@
     <menuitem
       action="action_report_sale_order_board_tree"
       id="menu_action_report_sale_order_board_tree"
-      parent="sale.menu_sale_order"/>
+      parent="board.menu_dasboard"/>
     <!-- Purchase Order -->
     <record model="ir.ui.view" id="report_purchase_order_board_graph">
       <field name="name">report.purchase.order.board.graph</field>
@@ -76,7 +76,7 @@
     <menuitem
       action="action_report_purchase_order_board_tree"
       id="menu_action_report_purchase_order_board_tree"
-      parent="purchase.menu_purchase_form_action"/>
+      parent="purchase.menu_purchase_deshboard"/>
     <!-- Invoices -->
     <record model="ir.ui.view" id="report_invoice_board_graph">
       <field name="name">report.invoice.board.graph</field>

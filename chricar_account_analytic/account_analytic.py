@@ -225,7 +225,9 @@ account_account()
 class account_move_line(osv.osv):
     _inherit = "account.move.line"
     
-
+    _columns = {
+       'analytic_account_id': fields.many2one('account.analytic.account', 'Analytic Account', readonly=True)
+    }
     def onchange_account(self, cr, uid, ids, account_id,tax_id, amount, partner_id):
 
         result = super(account_move_line,self).onchange_account_id( cr, uid, ids, account_id, partner_id)
@@ -343,6 +345,9 @@ account_bank_statement_line()
 class account_invoice_line(osv.osv):
     _inherit = "account.invoice.line"
 
+    _columns = {
+       'analytic_account_id': fields.many2one('account.analytic.account', 'Analytic Account', readonly=True)
+    }
     # we need this to fill default analytic for imported invoice lines
     def write(self, cr, uid, ids, vals, context=None):
         if not vals.get('account_analytic_id',False) and  vals.get('account_id',False):

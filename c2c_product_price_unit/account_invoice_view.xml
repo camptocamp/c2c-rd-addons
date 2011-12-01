@@ -12,11 +12,11 @@
           <group col="4" colspan="2">
             <field
               name="price_unit_pu"
-              on_change="onchange_price_unit('price_unit',price_unit_pu,price_unit_id)"
+              on_change="onchange_price_unit('price_unit',quantity ,price_unit_pu,price_unit_id)"
               required="1"/>
             <field
               name="price_unit_id"
-              on_change="onchange_price_unit('price_unit',price_unit_pu,price_unit_id)"
+              on_change="onchange_price_unit('price_unit',quantity, price_unit_pu,price_unit_id)"
               required="1"
               widget="selection"/>
           </group>
@@ -37,7 +37,22 @@
         </field>
       </field>
     </record>
-    <!-- does not exist any more 20110707
+    <record model="ir.ui.view" id="c2c_purchase_account_invoice_line_form_qty_view">
+      <field name="name">c2c_product.account_invoice_line_form_qty.view</field>
+      <field name="model">account.invoice.line</field>
+      <field name="inherit_id" ref="account.view_invoice_line_form"/>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <field name="quantity" position="replace">
+          <field
+            name="quantity" 
+            nolabel="1"
+            on_change="onchange_price_unit('price_unit',quantity, price_unit_pu,price_unit_id)"/>
+          </field>
+      </field>
+    </record>
+
+
     <record model="ir.ui.view" id="c2c_purchase_account_invoice_line_tree_view">
       <field name="name">c2c_product.account_invoice_line_tree.view</field>
       <field name="model">account.invoice.line</field>
@@ -51,7 +66,7 @@
         </field>
       </field>
     </record>
--->
+
     <!-- Supplier -->
     <!-- does not exist any more 20110707
     <record model="ir.ui.view" id="c2c_product_invoice_supplier_form_view">
@@ -63,11 +78,11 @@
         <field name="price_unit" position="replace">
           <field
             name="price_unit_pu"
-            on_change="onchange_price_unit('price_unit',price_unit_pu,price_unit_id)"
+            on_change="onchange_price_unit('price_unit',quantity, price_unit_pu,price_unit_id)"
             required="1"/>
           <field
             name="price_unit_id"
-            on_change="onchange_price_unit('price_unit',price_unit_pu,price_unit_id)"
+            on_change="onchange_price_unit('price_unit',quantity, price_unit_pu,price_unit_id)"
             required="1"/>
           <field name="price_unit" groups="c2c_product_price_unit.group_c2c_product_price_unit_manager"/>
         </field>

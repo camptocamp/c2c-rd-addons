@@ -28,14 +28,10 @@
       <field name="view_id" ref="board_manager_form"/>
     </record>
     <menuitem
-      id="board_manager"
-      name="Manager Board"
-      parent="account.menu_dashboard_acc"/>
-    <menuitem
       action="open_board_manager"
       icon="terp-graph"
       id="menu_board_manager"
-      parent="board_manager"
+      parent="account.menu_dashboard_acc"
       sequence="1"/>
   </data>
 </openerp>
