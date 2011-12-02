@@ -359,7 +359,7 @@ class c2c_budget_item(osv.osv):
                                         required=True
                                     ),
         'balance_real': fields.function(__compute_real_sum, digits_compute=dp.get_precision('Account'), method=True, string='Balance REAL', multi='balance_sum'),
-        'balance_budget': fields.function(__compute_budget_sum, digits_compute=dp.get_precision('Account'), method=True, string='Balance Budget', multi='balance_budgetsum'),
+        'balance_budget': fields.function(__compute_budget_sum, digits_compute=dp.get_precision('Account'), method=True, string='Balance Budget', multi='balance_budget_sum'),
             }
 
     _defaults = {
