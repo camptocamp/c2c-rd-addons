@@ -30,7 +30,7 @@ This module installs everything for Blaustauden
 """,
     'author': 'Camptocamp Austria',
     'depends': [
-,"account"
+"account"
 ,"account_accountant"
 ,"account_analytic_analysis"
 ,"account_analytic_default"
@@ -152,7 +152,6 @@ This module installs everything for Blaustauden
 ,"import_base"
 ,"import_sugarcrm"
 ,"knowledge"
-,"l10n_de"
 ,"mail"
 ,"marketing"
 ,"marketing_campaign"
