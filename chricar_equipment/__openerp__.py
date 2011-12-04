@@ -9,7 +9,7 @@ generated 2009-07-11 14:41:58+02""",
      "depends"      : ["base","chricar_room","chricar_top"],
      "init_xml"     : [],
      "demo_xml"     : [],
-     "update_xml"   : ["equipment_view.xml"],
+     "update_xml"   : ["equipment_view.xml","security/ir.model.access.csv"],
      "active"       : False,
      "installable"  : True
 }
