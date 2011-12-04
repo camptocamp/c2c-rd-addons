@@ -36,10 +36,6 @@ ${_("VAT:")} ${company.partner_id.vat or ''}
                 </td>
                 <td style="text-align:left;font-size:9;width:45%;" >
 ${company.company_bank_id.bank.name}<br>
-   %if company.company_bank_id.acc_number:
-${_("Code:")} ${company.company_bank_id.bank.code}<br>
-${_("Account:")} ${company.company_bank_id.acc_number}<br>
-  %endif
   %if company.company_bank_id.iban:
 ${_("SWIFT:")} ${company.company_bank_id.bank.bic}<br>
 ${_("IBAN:")} ${company.company_bank_id.iban}
