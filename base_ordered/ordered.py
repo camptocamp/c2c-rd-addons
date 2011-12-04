@@ -22,7 +22,6 @@
 
 
 from osv import fields, osv
-import sys
 
 class purchase_order(osv.osv):
     _inherit = "purchase.order"
