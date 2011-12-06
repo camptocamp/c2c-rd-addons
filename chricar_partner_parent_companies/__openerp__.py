@@ -1,5 +1,5 @@
 {
-	"name" : "Partner Parent Companies",
+	"name" : "Partner Participations",
 	"version" : "0.2",
 	"author"  : "ChriCar Beteiligungs- und Beratungs- GmbH" ,
 	"website" : "http://www.chricar.at/ChriCar",
