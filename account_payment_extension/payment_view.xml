@@ -39,7 +39,7 @@
         <field name="model">res.partner.bank</field>
         <field name="inherit_id" ref="base.view_partner_bank_tree"/>
         <field name="arch" type="xml">
-            <field name="state" position="before">
+            <field name="sequence" position="after">
                 <field name="default_bank"/>
             </field>
         </field>

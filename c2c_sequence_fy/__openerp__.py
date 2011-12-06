@@ -22,11 +22,12 @@
 
 
 {
-    'name': 'Sequence Financial Year Extension fy',
+    'name': 'Sequence Financial Year Extension fy (not for v61 and above)',
     'version': '0.7',
     'category': 'Accounting',
     'description': """
-This module adds i
+    Please do not used this module in v61 and above, there is a new one
+This module adds 
 * "fy" and "cj" as placeholder for prefix and suffix.
 
 * creation rules for missing sequences in ir_sequence_type 

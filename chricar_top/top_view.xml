@@ -11,6 +11,7 @@ generated 2009-07-09 16:17:22+02
       id="menu_chricar_real_estate"
       name="Real Estate"
       parent="base.menu_base_partner"
+      groups="chricar_top.group_real_estate"
       sequence="28"/>
 
     <record model="ir.ui.view" id="chricar_top_form">
@@ -294,6 +295,7 @@ generated 2009-07-09 16:17:22+02
       domain="[('partner_id', '=', active_id)]"
       id="act_partner_chricar_top_owner"
       name="Tops Owned"
+      groups="chricar_top.group_real_estate"
       res_model="chricar.top"
       src_model="res.partner"
       view_mode="tree,form"
@@ -313,7 +315,7 @@ generated 2009-07-09 16:17:22+02
       <field name="priority" eval="30"/>
       <field name="arch" type="xml">
         <notebook>
-          <page string="Real Estate">
+          <page string="Real Estate" groups="chricar_top.group_real_estate">
             <field name="lease_current_sum"/>
             <field name="lease_potential_sum"/>
             <field name="lease_current_participation_sum"/>

@@ -1,0 +1,14 @@
+<openerp>
+<data noupdate="0">
+
+<!--
+Users Groups
+-->
+<record model="res.groups" id="chricar_inventory.group_chricar_inventory">
+<field name="name">ChriCar Inventory</field>
+</record>
+
+    </data>
+</openerp>
+
+
