@@ -14,7 +14,8 @@
 	"init_xml" : [],
 	"demo_xml" : ["partner_parent_companies_demo.xml"],
 	"update_xml" : ["partner_parent_companies_view.xml",
-                    "security/ir.model.access.csv"],
+                    "security/ir.model.access.csv",
+                     "report_participation.xml"],
 	"active": False,
 	"installable": True
 }
