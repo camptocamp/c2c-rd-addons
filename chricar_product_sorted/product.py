@@ -46,7 +46,7 @@ class product_product(osv.osv):
         return product_ids
 
     _columns = {
-          'name_template': fields.related('product_tmpl_id', 'name', string="Name", type='char', size=128, store=True, select="1"),
+          'name_template': fields.function(_product_name, method=True, string="Product",type='char', size=128, select="1",
           'name_category': fields.related('categ_id', 'name', type="char", size=64, relation="product.category", string="Category",  select="1",
                        store =  { 'product.category' :
                            ( _update_category_name, ['name']
@@ -58,5 +58,6 @@ class product_product(osv.osv):
      if not cr.fetchone():
          cr.execute('CREATE INDEX name_category_default_code_name_template_variants_index ON product_product(name_category,default_code,name_template,variants);)
 
+     }
 product_product()
           
