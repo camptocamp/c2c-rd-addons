@@ -36,49 +36,23 @@ import time
 from osv import fields,osv
 import pooler
 
-import decimal_precision as dp
-
-from tools.sql import drop_view_if_exists
-
-
-import sys
-
 class product_product(osv.osv):
     _inherit = "product.product"
-    _order = "name_category,name_template,variants"
+    _order = "name_category,default_code,name_template,variants"
 
-    def _product_name(self, cr, uid, ids, field_name, arg, context={}):
-         result = {}
-         for product in self.browse(cr, uid, ids, context=context):
-             print >> sys.stderr,'product name',product
-             try: 
-                 result[product.id] = product.name
-             except:
-                 print >> sys.stderr,'product name execption'
-         return result
-
-    def update_category_name(self, cr, uid, ids, context=None):
+    def _update_category_name(self, cr, uid, ids, context=None):
         product_obj = self.pool.get('product.product')
         product_ids = product_obj.search(cr, uid, [('categ_id','in',ids)])
         return product_ids
 
     _columns = {
-          'name_template': fields.function(_product_name, method=True, string="Product",type='char', size=128, select="1",
-                       store =  { 'product.template' :
-                    ( lambda self, cr, uid, ids, context:
-                          [f.id for f in self.pool.get('product.template').browse(cr, uid, ids, context)]
-                    , None
-                    , 10
-                    )}
-                       ),
-
           'name_category': fields.related('categ_id', 'name', type="char", size=64, relation="product.category", string="Category",  select="1",
                        store =  { 'product.category' :
-                           ( update_category_name, ['name']
+                           ( _update_category_name, ['name']
                             , 10)}
                     ),
-         } 
 
 
+     }
 product_product()
           
