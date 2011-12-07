@@ -3,7 +3,7 @@
   <data>
     <!--
 ==============================================
-TBD
+adds the category
 ==============================================
 -->
     <record id="product_product_tree_view" model="ir.ui.view">
@@ -17,5 +17,22 @@ TBD
         </field>
       </field>
     </record>
+<!--
+==============================================
+groups by names instead of id's 
+==============================================
+-->
+        <record id="product_search_form_view_name" model="ir.ui.view">
+            <field name="name">product.search.form.name</field>
+            <field name="model">product.product</field>
+            <field name="type">search</field>
+            <field name="inherit_id" ref="product.product_search_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="/search/group[@string='Group by...']/filter[@string='Category']" position="replace">
+                  <filter string='Category' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'name_category'}" />
+               </xpath>
+            </field>
+        </record>
+
   </data>
 </openerp>
