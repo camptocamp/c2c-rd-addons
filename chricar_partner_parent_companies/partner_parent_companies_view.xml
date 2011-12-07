@@ -239,7 +239,7 @@ Definition of Parent Companies
       </field>
     </record>
     <record id="action_partner_parent_companies_form" model="ir.actions.act_window">
-      <field name="name">Partner Parents</field>
+      <field name="name">Partner Participations</field>
       <field name="res_model">res.partner.parent_company</field>
       <field name="view_type">form</field>
       <field name="view_mode">tree,form</field>
