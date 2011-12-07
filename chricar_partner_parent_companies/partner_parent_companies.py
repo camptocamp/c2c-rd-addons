@@ -13,6 +13,7 @@ import pooler
 
 class res_partner_parent_company(osv.osv):
      _name = "res.partner.parent_company"
+     _order = "name, valid_from"
 
      def _children_ids(self, cr, uid, ids, name, args, context=None):
         res = {}
