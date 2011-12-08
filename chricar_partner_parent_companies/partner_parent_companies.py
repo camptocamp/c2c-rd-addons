@@ -13,7 +13,7 @@ import pooler
 
 class res_partner_parent_company(osv.osv):
      _name = "res.partner.parent_company"
-     _order = "valid_from"
+     _order = "partner_id, valid_from"
 
      def _children_ids(self, cr, uid, ids, name, args, context=None):
         res = {}
@@ -50,6 +50,23 @@ class res_partner_parent_company(osv.osv):
        'agio': lambda *a: 0.0,
        'percentage': lambda *a: 0.0,
      }
+
+     def cmp_func(self):
+         def cmp (a,b) :
+             if a.partner_id.name == b.partner_id.name :
+                 if a.valid_from == b.valid_from :
+                     return 0
+                 elif a.valid_from < b.valid_from :
+                     return -1
+                 else :
+                     return 1
+             elif a.partner_id.name < b.partner_id.name :
+                 return -1
+             else :
+                 return 1
+
+         return cmp 
+    # end def cmp_func
 res_partner_parent_company()
 
 class res_partner(osv.osv):
