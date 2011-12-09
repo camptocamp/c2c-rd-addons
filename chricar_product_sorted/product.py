@@ -51,8 +51,12 @@ class product_product(osv.osv):
                            ( _update_category_name, ['name']
                             , 10)}
                     ),
-
-
      }
+    # FIXME - not sure if index works if column default_code is empty 
+    def init(self, cr):
+        cr.execute('SELECT indexname FROM pg_indexes WHERE indexname = \'name_category_default_code_name_template_variants_index\'')
+        if not cr.fetchone():
+            cr.execute('CREATE INDEX name_category_default_code_name_template_variants_index ON product_product(name_category,default_code,name_template,variants)')
+
 product_product()
           

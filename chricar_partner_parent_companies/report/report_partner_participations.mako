@@ -46,7 +46,7 @@
         </tr>
       </thead>
 
- %for partner in partner.participation_ids :
+ %for partner in sorted(partner.participation_ids, cmp=partner.pool.get('res.partner.parent_company').cmp_func())) :
      <tbody >
         <tr>
           <td style="text-align:right;white-space:nowrap;">${formatLang(partner.name)}</td>
