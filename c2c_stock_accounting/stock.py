@@ -43,7 +43,7 @@ class stock_move(osv.osv):
             print >> sys.stderr,'type cost', move.picking_id.type
             if move.state in ['done','cancel']: return {}
             if move.purchase_line_id:
-                result[move.id] = move.product_qty * move.purchase_line_id.price_subtotal
+                result[move.id] = move.product_qty * move.price_unit
             else:
                 loc_id = str(move.location_id.id)
                 print >> sys.stderr, 'loc_id ',loc_id
