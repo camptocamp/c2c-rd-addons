@@ -33,13 +33,22 @@ class stock_partial_picking_line(osv.TransientModel):
       'cost_unit_pu' : fields.many2one('c2c_product.price_unit','Price Unit'),
     }
 
+    def onchange_cost_pu(self, cr, uid, ids,cost_pu,cost_unit_pu):
+       if cost_pu and cost_unit_pu:
+           coeff = self.pool.get('c2c_product.price_unit').get_coeff(cr, uid, cost_unit_pu)
+           cost = cost_pu / coeff
+           return {'value' : {'cost': cost }}
+       return
+
+
 class stock_partial_picking(osv.osv_memory):
     _inherit = "stock.partial.picking"
 
     def _product_cost_for_average_update(self, cr, uid, move):
-        res = super(stock_partial_picking,self)._product_cost_for_average_update(cr, uid, move )
-        import sys
-        print >> sys.stderr,'_product_cost_for_average_update',res 
-        res.update({'cost_pu' : move.price_unit_pu or move.product_id.standard_price, 'cost_unit_pu': move.price_unit_id.id or  move.product_id.price_unit_id.id})
-        print >> sys.stderr,'_product_cost_for_average_update',res 
-        return res
+       res = super(stock_partial_picking,self)._product_cost_for_average_update(cr, uid, move )
+       import sys
+       print >> sys.stderr,'_product_cost_for_average_update',res 
+       res.update({'cost_pu' : move.price_unit_pu or move.product_id.standard_price, 'cost_unit_pu': move.price_unit_id.id or  move.product_id.price_unit_id.id})
+       print >> sys.stderr,'_product_cost_for_average_update',res 
+       return res
+
