@@ -8,8 +8,12 @@
             <field name="inherit_id" ref="stock.stock_partial_picking_line_list"/>
             <field name="arch" type="xml">
                     <field name="cost" attrs="{'invisible': [('update_cost','=', False)]}" position="replace">
-                       <field name="cost_pu" attrs="{'invisible': [('update_cost','=', False)]}" on_change="onchange_cost_pu(cost_pu,cost_unit_pu)"/>
-                       <field name="cost_unit_pu" attrs="{'invisible': [('update_cost','=', False)]}" on_change="onchange_cost_pu(cost_pu,cost_unit_pu)"/>
+                       <field name="cost_pu" attrs="{'invisible': [('update_cost','=', False)]}" on_change="onchange_cost_pu('cost',cost_pu,cost_unit_pu)"/>
+                       <field name="cost_unit_pu" attrs="{'invisible': [('update_cost','=', False)]}" on_change="onchange_cost_pu('cost',cost_pu,cost_unit_pu)"/>
+                       <field name="cost_sale_pu" on_change="onchange_cost_pu('sale',cost_pu,cost_unit_pu)"/>
+                       <field name="cost_unit_sale_pu" on_change="onchange_cost_pu('sale',cost_pu,cost_unit_pu)"/>
+                       <field name="sale" />
+                       <field name="move_type" />
                        <field name="cost" attrs="{'invisible': [('update_cost','=', False)]}" groups="c2c_product_price_unit.group_c2c_product_price_unit_manager"/>
                     </field>
             </field>

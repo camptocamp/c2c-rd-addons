@@ -30,14 +30,18 @@ class stock_partial_picking_line(osv.TransientModel):
    
     _columns = {
       'cost_pu' : fields.float("Cost PU", help="PU Unit Cost for this product line"),
+      'sale' : fields.float("Sale", help="Sale for this product line"),
+      'cost_sale_pu' : fields.float("Sale PU", help="PU Unit Cost for this product line"),
       'cost_unit_pu' : fields.many2one('c2c_product.price_unit','Price Unit'),
+      'cost_unit_sale_pu' : fields.many2one('c2c_product.price_unit','Price Unit Sale'),
+      'move_type' : fields.char('Move Type',size=16),
     }
 
-    def onchange_cost_pu(self, cr, uid, ids,cost_pu,cost_unit_pu):
+    def onchange_cost_pu(self, cr, uid, ids,field,cost_pu,cost_unit_pu):
        if cost_pu and cost_unit_pu:
            coeff = self.pool.get('c2c_product.price_unit').get_coeff(cr, uid, cost_unit_pu)
            cost = cost_pu / coeff
-           return {'value' : {'cost': cost }}
+           return {'value' : {field: cost }}
        return
 
 
@@ -51,7 +55,19 @@ class stock_partial_picking(osv.osv_memory):
        res.update({'cost_pu' : move.price_unit_pu or move.purchase_line_id.price_unit_pu or  move.product_id.standard_price, \
                'cost_unit_pu': move.price_unit_id.id or move.purchase_line_id.price_unit_id.id or move.product_id.price_unit_id.id})
        # FIXME - remove if 
-       res.update({'cost' : move.price_unit or move.purchase_line_id.price_unit or  move.product_id.standard_price })
+       res.update({'cost' : move.purchase_line_id.price_unit or  move.product_id.standard_price })
        print >> sys.stderr,'_product_cost_for_average_update',res 
        return res
-
+ 
+    def _partial_move_for(self, cr, uid, move):
+       res = super(stock_partial_picking,self)._partial_move_for(cr, uid, move)
+       import sys
+       print >> sys.stderr,'_partial_move_for (b)',res
+       print >> sys.stderr,'move',move
+       res.update({'move_type': move.picking_id.type})
+       if move.picking_id.type == 'out' : #and move.product_id.cost_method == 'average':
+           res.update({'cost_sale_pu' : move.sale_line_id.price_unit_pu or  move.product_id.list_price, \
+               'cost_unit_sale_pu': move.sale_line_id.price_unit_id.id or move.product_id.price_unit_id.id,
+               'sale' : move.sale_line_id.price_unit or  move.product_id.list_price})
+       print >> sys.stderr,'_partial_move_for (c)',res
+       return res 
