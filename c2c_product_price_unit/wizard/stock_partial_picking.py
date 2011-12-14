@@ -48,7 +48,10 @@ class stock_partial_picking(osv.osv_memory):
        res = super(stock_partial_picking,self)._product_cost_for_average_update(cr, uid, move )
        import sys
        print >> sys.stderr,'_product_cost_for_average_update',res 
-       res.update({'cost_pu' : move.price_unit_pu or move.product_id.standard_price, 'cost_unit_pu': move.price_unit_id.id or  move.product_id.price_unit_id.id})
+       res.update({'cost_pu' : move.price_unit_pu or move.purchase_line_id.price_unit_pu or  move.product_id.standard_price, \
+               'cost_unit_pu': move.price_unit_id.id or move.purchase_line_id.price_unit_id.id or move.product_id.price_unit_id.id})
+       # FIXME - remove if 
+       res.update({'cost' : move.price_unit or move.purchase_line_id.price_unit or  move.product_id.standard_price })
        print >> sys.stderr,'_product_cost_for_average_update',res 
        return res
 
