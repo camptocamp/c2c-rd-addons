@@ -57,15 +57,18 @@ class sale_order_line(osv.osv):
             uom=False, qty_uos=0, uos=False, name='', partner_id=False,
             lang=False, update_tax=True, date_order=False, packaging=False, fiscal_position=False, flag=False,context={}):
        res = {}
-       res['value'] = super(sale_order_line, self).product_id_change( cr, uid, ids, pricelist, product, qty, 
-            uom, qty_uos, uos, name, partner_id, 
-            lang, update_tax, date_order, packaging, fiscal_position, flag,context)['value']
-       print >>sys.stderr,'sale a',   res['value']  
+       print >>sys.stderr,'sale a0',   qty,qty_uos,uos,uom
+       res = super(sale_order_line, self).product_id_change( cr, uid, ids, pricelist, product, qty=qty, 
+                uom=uom, qty_uos=qty_uos, uos=uos, name=name,
+                partner_id=partner_id, lang=lang, update_tax=update_tax,
+                date_order=date_order)
+       print >>sys.stderr,'sale a1',   res['value']  
        if product:
            prod = self.pool.get('product.product').browse(cr, uid, product)
            price_unit_id = prod.list_price_unit_id.id
            print >>sys.stderr,'sale pu',   price_unit_id, product, u'prod.name'
            res['value']['price_unit_id'] = price_unit_id
+           print >>sys.stderr,'sale pu2',  res['value']
      
            if res['value']['price_unit'] and qty:
                coeff = self.pool.get('c2c_product.price_unit').get_coeff(cr, uid, price_unit_id)
@@ -76,7 +79,7 @@ class sale_order_line(osv.osv):
     def onchange_price_unit(self, cr, uid, ids, field_name,qty, price_pu, price_unit_id):
         if  price_pu and  price_unit_id and qty:
             coeff = self.pool.get('c2c_product.price_unit').get_coeff(cr, uid, price_unit_id)
-            price = price_pu / float(coeff) * qty
+            price = price_pu / float(coeff) #* qty
             return {'value': {field_name : price}}
         return False
 

@@ -23,14 +23,14 @@
     <table >
         %if pick.company_id.address_label_position == 'left':
          <tr>
-         <td width=50% >
+         <td style="width:50%">
 ${_("Shipping Address")}   
 <hr>
            <pre>
 ${pick.address_id.address_label}
            <pre>
          </td>
-         <td width=50%>
+         <td style="width:50%">
          %if pick.address_id.phone :
 ${_("Phone")}: ${pick.address_id.phone|entity} <br>
         %endif
@@ -54,7 +54,7 @@ ${_("Customer")}: ${pick.partner_customer_id.name|entity} <br>
 
         %if pick.company_id.address_label_position == 'right' or not pick.company_id.address_label_position:
          <tr>
-         <td >
+         <td style="width:50%">
          %if pick.address_id.phone :
 ${_("Tel")}: ${pick.address_id.phone|entity} <br>
         %endif
@@ -72,7 +72,7 @@ ${_("Customer")}: ${pick.partner_customer_id.name|entity} <br>
         %endif
 
          </td>
-         <td >
+         <td style="width:50%">
 ${_("Shipping Address")}
 <hr>
            <pre>
@@ -102,7 +102,7 @@ ${pick.address_id.address_label}
 %endif 
     <br/>
     <br/>
-    <table  width="90%">
+    <table  style="width:90%">
         <tr>
           %if pick.origin and pick.origin not in [ pick.sale_id.name,pick.purchase_id.name]  :
             <td>${_("Document")}</td>
@@ -141,7 +141,7 @@ ${pick.address_id.address_label}
            %endif
     </table>
     <h1><br /></h1>
-    <table   width="90%">
+    <table style="width:90%">
         <thead>
           <tr>
             <th>${_("Description")}</th>

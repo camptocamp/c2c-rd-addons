@@ -43,7 +43,7 @@ class stock_move(osv.osv):
             print >> sys.stderr,'type cost', move.picking_id.type
             if move.state in ['done','cancel']: return {}
             if move.purchase_line_id:
-                result[move.id] = move.product_qty * move.purchase_line_id.price_subtotal
+                result[move.id] = move.product_qty * move.price_unit
             else:
                 loc_id = str(move.location_id.id)
                 print >> sys.stderr, 'loc_id ',loc_id
@@ -78,9 +78,23 @@ class stock_move(osv.osv):
             if move.state in ['done','cancel']: return {}
             print >> sys.stderr,'type sale', move.picking_id.type
             if move.sale_line_id:
-                result[move.id] = move.product_qty * move.sale_line_id.price_subtotal
+                result[move.id] = move.product_qty * move.sale_line_id.price_unit
                 print >> sys.stderr, 'value_sale', result[move.id]
         return result
+
+    def _compute_price_unit_sale(self, cr, uid, ids, name, args, context):
+        print >> sys.stderr, 'value_price'
+        if not ids: return {}
+        result = {}
+        for move in self.browse(cr, uid, ids):
+            avg_price = 0.0
+            if move.picking_id.type == 'out' and move.state != 'cancel' and move.product_qty and move.product_qty != 0:
+                print >> sys.stderr,'type sale', move.picking_id.type
+                avg_price = move.move_value_sale / move.product_qty 
+            result[move.id] = avg_price
+            print >> sys.stderr, 'value_sale', result[move.id]
+        return result
+
 
     def _period_id(self, cr, uid, ids, name, arg, context):
          result = {}
@@ -99,7 +113,7 @@ class stock_move(osv.osv):
         'move_value_sale'    : fields.function(_compute_move_value_sale, method=True, string='Amount Sale', digits_compute=dp.get_precision('Account'),type='float' , store=True, \
                              help="""Product's sale value for accounting valuation.""") ,
         'period_id'          : fields.function(_period_id, method=True, string="Period",type='many2one', relation='account.period', store=True, select="1",  ),
-        'price_unit_sale'    : fields.float('Unit Price Sale',  digits_compute=dp.get_precision('Account') ),
+        'price_unit_sale'    : fields.function(_compute_price_unit_sale, method=True, string='Sale Price',  digits_compute=dp.get_precision('Account') ),
         'analytic_account_id': fields.many2one('account.analytic.account', 'Analytic Account'),
 
     }

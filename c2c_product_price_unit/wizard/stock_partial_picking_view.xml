@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="stock_partial_picking_line_pu_list" model="ir.ui.view">
+            <field name="name">stock.partial.picking.line.pu.list</field>
+            <field name="model">stock.partial.picking.line</field>
+            <field name="type">tree</field>
+            <field name="inherit_id" ref="stock.stock_partial_picking_line_list"/>
+            <field name="arch" type="xml">
+                    <field name="cost" attrs="{'invisible': [('update_cost','=', False)]}" position="replace">
+                       <field name="cost_pu" attrs="{'invisible':['|',('move_type','=', 'out'),('update_cost','=', False),('move_type','=', 'in')]}" on_change="onchange_cost_pu('cost',cost_pu,cost_unit_pu)"/>
+                       <field name="cost_unit_pu" attrs="{'invisible':['|',('move_type','=', 'out'),('update_cost','=', False),('move_type','=', 'in')]}" on_change="onchange_cost_pu('cost',cost_pu,cost_unit_pu)"/>
+                       <field name="cost" attrs="{'invisible': ['|',('move_type','=', 'out'),('update_cost','=', False),('move_type','=', 'in')]}" groups="c2c_product_price_unit.group_c2c_product_price_unit_manager"/>
+                       <field name="cost_sale_pu" attrs="{'invisible': [('move_type','=', 'in')]}" on_change="onchange_cost_pu('sale',cost_pu,cost_unit_pu)"/>
+                       <field name="cost_unit_sale_pu" attrs="{'invisible': [('move_type','=', 'in')]}" on_change="onchange_cost_pu('sale',cost_pu,cost_unit_pu)"/>
+                       <field name="sale" attrs="{'invisible': [('move_type','=', 'in')]}"/>
+                       <field name="move_type" invisible="1"/>
+                    </field>
+            </field>
+        </record>
+
+    </data>
+</openerp>
+
