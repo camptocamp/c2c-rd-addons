@@ -143,7 +143,7 @@ class sale_make_internal_ship_wizard(osv.osv_memory):
 
     def make_internal_shippment(self, cr, uid, ids, context=None):
         data = self.read(cr, uid, ids)[0]
-        #print >> sys.stderr, 'data',data
+        print >> sys.stderr, 'data',data
         record_id = context and context.get('active_id', False)
         order_obj = self.pool.get('sale.order')
         order = order_obj.browse(cr, uid, record_id, context=context)
@@ -162,12 +162,12 @@ class sale_make_internal_ship_wizard(osv.osv_memory):
                 if i.type== 'out' and i.state not in ['done', 'cancel']:
                     #stock_pick_obj = self.pool.get('stock.picking')
                     stock_move_obj = self.pool.get('stock.move')
-                    loc_id = data['location_dest_id']
+                    loc_id = data['location_dest_id'][0]
                     for move in i.move_lines:
                         print >> sys.stderr, 'stock_pick write', loc_id, move.id
                         stock_move_obj.write(cr, uid, [move.id], {'location_id' :  loc_id } )
                         
-        order_obj.action_ship_internal_create(cr, uid, [record_id], data['location_id'], data['location_dest_id'])
+        order_obj.action_ship_internal_create(cr, uid, [record_id], data['location_id'][0], data['location_dest_id'][0])
                         
                         
         #print >>sys.stderr, 'make_internal_shipment ',internal, data, context
