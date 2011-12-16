@@ -1,0 +1,14 @@
+<openerp>
+<data noupdate="1">
+
+<!--
+Groups which may create gaps in SO, PO, PICK
+-->
+<record model="res.groups" id="no_gap_SO_PO_PICK.group_create_gap">
+<field name="name">Allowed to create gap</field>
+</record>
+
+    </data>
+</openerp>
+
+
