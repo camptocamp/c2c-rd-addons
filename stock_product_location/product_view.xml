@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <!-- stock default location -->
+    <record model="ir.ui.view" id="product_normal_stock_loc_form_view">
+      <field name="name">view.product.normal.stock.loc.form</field>
+      <field name="model">product.product</field>
+      <field name="inherit_id" ref="product.product_normal_form_view"/>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <field name="loc_rack" position="before">
+          <field name="property_stock_location"  attrs="{'readonly':[('type','=','service')]}"/>
+        </field>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="product_category_loc_form_view">
+      <field name="name">view.product.category.loc.form</field>
+      <field name="model">product.category</field>
+      <field name="inherit_id" ref="product.product_category_form_view"/>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <field name="type" position="after">
+          <field name="property_stock_location" />
+        </field>
+      </field>
+    </record>
+
+
+  </data>
+</openerp>
