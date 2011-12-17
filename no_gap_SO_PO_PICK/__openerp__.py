@@ -29,6 +29,9 @@
 Standard OpenERP allows deletion of sale / purchase order and pickings
 this module forbid's deletion by users and managers, unused documents must be canceled manually
 only users belonging to the group 'Allow SO PO PICK Gap' may delete these resources
+ToDo:
+* workflow - create number leaving draft
+* do not create number on "new" 
 """,
     'author': 'Camptocamp Austria',
     'depends': [ 'stock','sale','purchase' ],
