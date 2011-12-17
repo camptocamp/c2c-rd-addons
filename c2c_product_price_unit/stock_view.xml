@@ -9,8 +9,8 @@
             <field name="inherit_id" ref="stock.view_picking_form"/>
             <field name="arch" type="xml">
                <xpath expr="/form/notebook/page/field/form/group/field[@name='product_uos']" position="after">
-                  <field name="price_unit_pu"/>
-                  <field name="price_unit_id"/>
+                  <field name="price_unit_pu" groups="c2c_product_price_unit.group_c2c_product_price_unit_manager"/>
+                  <field name="price_unit_id" groups="c2c_product_price_unit.group_c2c_product_price_unit_manager"/>
                </xpath>
       </field>
     </record>
