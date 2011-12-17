@@ -22,6 +22,7 @@
 
 
 import product
+import stock
 import sale
 import purchase
 
