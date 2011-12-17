@@ -36,9 +36,14 @@ import sys
 class stock_move(osv.osv):
     _inherit = "stock.move"
 
-    def _get_price_unit_id(self, cr, uid, context):
-        print >> sys.stderr, context
-        return 
+    def _get_price_unit_id(self, cr, uid, context=None):
+        if context is None:
+            context = {}
+        if not context.get('product_id', False):
+            return False 
+        pu_id = self.pool.get('product.product').browse(cr, uid, context['product_id']).price_unit_id.id
+        return pu_id or False
+
 
     _columns = { 
         'price_unit_id'    : fields.many2one('c2c_product.price_unit','Price Unit'),
@@ -73,6 +78,18 @@ class stock_move(osv.osv):
            return {'value': {field_name : price}}
         return False
         
+    def onchange_product_id(self, cr, uid, ids, prod_id=False, loc_id=False,
+                            loc_dest_id=False, address_id=False):
+        context = {}
+        res = super(stock_move,self).onchange_product_id( cr, uid, ids, prod_id, loc_id,
+                            loc_dest_id, address_id)
+        if prod_id :
+            prod_obj = self.pool.get('product.product').browse(cr, uid, prod_id)
+            pu_id = prod_obj.price_unit_id.id
+            standard_price_pu = prod_obj.standard_price_pu
+            res['value'].update({'price_unit_id':pu_id, 'price_unit_pu':standard_price_pu})
+        return res
+      
 
 stock_move()
 
