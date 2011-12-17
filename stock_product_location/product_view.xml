@@ -9,7 +9,7 @@
       <field name="type">form</field>
       <field name="arch" type="xml">
         <field name="loc_rack" position="before">
-          <field name="property_stock_location"  attrs="{'readonly':[('type','=','service')]}"/>
+          <field name="property_stock_location" domain="[('usage','=','internal')]"  attrs="{'readonly':[('type','=','service')]}"/>
         </field>
       </field>
     </record>
@@ -21,7 +21,7 @@
       <field name="type">form</field>
       <field name="arch" type="xml">
         <field name="type" position="after">
-          <field name="property_stock_location" />
+          <field name="property_stock_location" domain="[('usage','=','internal')]"/>
         </field>
       </field>
     </record>
