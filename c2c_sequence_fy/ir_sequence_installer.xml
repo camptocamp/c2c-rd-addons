@@ -19,6 +19,7 @@
           </separator>
           <xpath expr="//label[@string='description']" position="attributes">
             <attribute name="string">You may choose to replace all '(year)' prefix and suffix occurrences by '(fy)'.</attribute>
+            <attribute name="colspan">4</attribute>
           </xpath>
           <group colspan="8" position="inside">
             <button 
@@ -29,30 +30,6 @@
         </data>
       </field>
     </record>
-    <!--
-    <record id="view_sequence_configuration_installer" model="ir.ui.view">
-      <field name="name">ir.sequence.installer.form</field>
-      <field name="model">ir.sequence</field>
-      <field name="type">tree</field>
-      <field name="arch" type="xml">
-        <tree string="Sequences">
-          <field name="code"/>
-          <field name="name"/>
-          <field name="prefix"/>
-          <field name="suffix"/>
-          <field name="padding"/>
-          <field name="company_id" groups="base.group_multi_company"/>
-          <field name="number_next"/>
-          <field name="number_increment"/>
-          <field name="implementation"/>
-          <button 
-            name="button_convert"
-            string="Convert calendar-year to fiscal-year for all sequences"
-            type="object"/>
-        </tree>
-      </field>
-    </record>
-    -->
     <record id="action_sequence_configuration_installer" model="ir.actions.act_window">
       <field name="name">Convert calendar-year to fiscal-year</field>
       <field name="type">ir.actions.act_window</field>
