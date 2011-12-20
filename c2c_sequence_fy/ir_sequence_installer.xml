@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
   <data>
-    <!-- 
     <record id="view_sequence_configuration_installer" model="ir.ui.view">
       <field name="name">ir.sequence.installer.form</field>
       <field name="model">ir.sequence</field>
@@ -10,13 +9,16 @@
       <field name="arch" type="xml">
         <data>
           <form position="attributes">
-              <attribute name="string">Sequence Configuration</attribute>
+            <attribute name="string">Sequence Configuration</attribute>
           </form>
+          <xpath expr="//field[@name='config_logo']" position="replace">
+            <separator string="vsep" orientation="vertical" colspan="1" rowspan="12"/>
+          </xpath>
           <separator string="title" position="attributes">
-              <attribute name="string">Configure Sequences</attribute>
+            <attribute name="string">Configure Sequences</attribute>
           </separator>
           <xpath expr="//label[@string='description']" position="attributes">
-              <attribute name="string">You may choose to replace all '(year)' prefix and suffix occurrences by '(fy)'.</attribute>
+            <attribute name="string">You may choose to replace all '(year)' prefix and suffix occurrences by '(fy)'.</attribute>
           </xpath>
           <group colspan="8" position="inside">
             <button 
@@ -27,7 +29,7 @@
         </data>
       </field>
     </record>
-    -->
+    <!--
     <record id="view_sequence_configuration_installer" model="ir.ui.view">
       <field name="name">ir.sequence.installer.form</field>
       <field name="model">ir.sequence</field>
@@ -50,6 +52,7 @@
         </tree>
       </field>
     </record>
+    -->
     <record id="action_sequence_configuration_installer" model="ir.actions.act_window">
       <field name="name">Convert calendar-year to fiscal-year</field>
       <field name="type">ir.actions.act_window</field>
