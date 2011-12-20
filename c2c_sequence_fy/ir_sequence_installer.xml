@@ -19,16 +19,10 @@
           </separator>
           <xpath expr="//label[@string='description']" position="attributes">
             <attribute name="string">You may choose to replace all '(year)' prefix and suffix occurrences by '(fy)'.</attribute>
-            <attribute name="colspan">4</attribute>
           </xpath>
-          <!-- 
-          <group colspan="8" position="inside">
-            <button 
-              name="button_convert"
-              string="Convert calendar-year to fiscal-year for all sequences"
-              type="object"/>
-          </group>
-          -->
+          <xpath expr="//button[@string='Install Modules']" position="attributes">
+              <attribute name="string">Configure Sequences</attribute>
+          </xpath>
         </data>
       </field>
     </record>

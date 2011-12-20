@@ -32,7 +32,7 @@ class ir_sequence_installer(osv.osv_memory):
                  SET prefix = replace(prefix, '(year)', '(fy)'),
                      suffix = replace(suffix, '(year)', '(fy)');"""
             )
-        super(ir_sequence_installer, self).execute(cr, uid, ids, context=context)
+#        return super(ir_sequence_installer, self).execute(cr, uid, ids, context=context)
     # end def execute
     
 ir_sequence_installer()
