@@ -27,13 +27,13 @@ from tools.translate import _
 class ir_sequence(osv.osv):
     _inherit = 'ir.sequence'
 
-    def init(self, cr):
-        super(ir_sequence, self).init(cr)
+    def button_convert(self, cr, uid, ids, id):
         cr.execute \
             ("""UPDATE ir_sequence
-                 SET prefix = replace(prefix,'(year)','(fy)'),
-                     suffix = replace(suffix,'(year)','(fy)')"""
+                 SET prefix = replace(prefix, '(year)', '(fy)'),
+                     suffix = replace(suffix, '(year)', '(fy)');"""
             )
+    # end def button_convert
 
     def _abbrev(self, name, separator):
         return "".join(w[0] for w in _(name).split(separator))

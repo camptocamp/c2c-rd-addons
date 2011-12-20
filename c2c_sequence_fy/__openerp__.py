@@ -33,11 +33,12 @@ This module adds
    if a not existing sequence is requested it will be created on the fly.
    * if no prefix pattern is defined in sequence-types, a name will be created using 
      the first characters of each word of then name of the sequence-type
-     Example "Account Invoice In" will pe "AAI-"
+     Example "Account Invoice In" will be "AAI-"
 
-* "fy" (fiscalyear)
-  This allows gapless numbering per fiscal year.
-  This sequence code will be used to format the start date of the fiscalyear for the placeholder 'fy' defined for sequences as prefix and suffix.
+* "fy" (fiscal year)
+  This allows contiguous numbering per fiscal year.
+  This sequence code will be used to format the start date of the fiscal year 
+  for the placeholder 'fy' defined for sequences as prefix and suffix.
   Example a fiscal year starting on March 1st with a sequence code %Ya will generate 2011a.
   This allows to handle multiple fiscal years per calendar year and fiscal years not matching calendar years easily.
 
@@ -50,10 +51,11 @@ This module adds
 * "jn" (journal-name)
   This allows to use the (abbreviated) journal name as placeholder.
 
-This module is a prerequisite to automatically generated new fiscalyears, periods and associated sequences using fy instead of hard coding.
+This module is a prerequisite to automatically generated new fiscal years, periods and associated sequences 
+using '(fy)' instead of hard coding.
 
-ToDo:
-This module replaces all (year) prefix and suffix occurrences but will return same results as (year) for calendar year = fiscal year as long as the sequence code is not defined.
+* Configuration wizard:
+  During configuration you may choose to replace all '(year)' prefix and suffix occurrences by '(fy)'.
 """
 , 'author'      : 'Camptocamp Austria'
 , 'depends'     : ['account']
@@ -62,6 +64,7 @@ This module replaces all (year) prefix and suffix occurrences but will return sa
     , 'account_fiscalyear_view.xml'
     , 'ir_sequence_type_view.xml'
 #    , 'account_journal_view.xml'
+    , 'ir_sequence_installer.xml'
     ]
 , 'demo_xml'    : []
 , 'installable' : True
