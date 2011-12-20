@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
   <data>
-  <!-- 
     <record id="view_sequence_configuration_installer" model="ir.ui.view">
       <field name="name">ir.sequence.installer.form</field>
       <field name="model">ir.sequence</field>
@@ -27,7 +26,7 @@
         </data>
       </field>
     </record>
-    -->
+    <!-- 
     <record id="view_sequence_configuration_installer" model="ir.ui.view">
       <field name="name">ir.sequence.installer.form</field>
       <field name="model">ir.sequence</field>
@@ -41,6 +40,7 @@
         </form>
       </field>
     </record>
+    -->
     <record id="action_sequence_configuration_installer" model="ir.actions.act_window">
       <field name="name">Convert calendar-year to fiscal-year</field>
       <field name="type">ir.actions.act_window</field>
