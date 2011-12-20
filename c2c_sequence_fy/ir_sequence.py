@@ -27,12 +27,15 @@ from tools.translate import _
 class ir_sequence(osv.osv):
     _inherit = 'ir.sequence'
 
-    def button_convert(self, cr, uid, ids, id):
+    def button_convert(self, cr, uid, ids, id) :
+        import sys
+        print >>sys.stderr, "button_convert begin"
         cr.execute \
             ("""UPDATE ir_sequence
                  SET prefix = replace(prefix, '(year)', '(fy)'),
                      suffix = replace(suffix, '(year)', '(fy)');"""
             )
+        print >>sys.stderr, "button_convert end"
     # end def button_convert
 
     def _abbrev(self, name, separator):
@@ -92,6 +95,8 @@ class ir_sequence(osv.osv):
     # end def _seq_type_code
 
     def _next(self, cr, uid, seq_ids, context=None) :
+        import sys
+        print >>sys.stderr, "_next begin"
         res = super(ir_sequence, self)._next(cr, uid, seq_ids, context)
         if not res:
             return False
@@ -111,6 +116,8 @@ class ir_sequence(osv.osv):
         else :
             ty = self._seq_type(cr, uid, seq)
             _suffix = ty.suffix_template or ''
+        print >>sys.stderr, "_next end"
         return _prefix + '%%0%sd' % seq.padding % seq.number_next + _suffix
+    # end def _next
 
 ir_sequence()
