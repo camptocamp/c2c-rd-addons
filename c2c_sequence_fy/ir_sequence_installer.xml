@@ -11,9 +11,11 @@
           <form position="attributes">
             <attribute name="string">Sequence Configuration</attribute>
           </form>
+          <!-- 
           <xpath expr="//field[@name='config_logo']" position="replace">
             <separator string="vsep" orientation="vertical" colspan="1" rowspan="12"/>
           </xpath>
+          -->
           <separator string="title" position="attributes">
             <attribute name="string">Configure Sequences</attribute>
           </separator>
@@ -29,9 +31,9 @@
     <record id="action_sequence_configuration_installer" model="ir.actions.act_window">
       <field name="name">Convert calendar-year to fiscal-year</field>
       <field name="type">ir.actions.act_window</field>
-      <field name="res_model">ir.sequence</field>
+      <field name="res_model">ir.sequence.installer</field>
       <field name="view_type">form</field>
-      <field name="view_mode">tree,form</field>
+      <field name="view_mode">form</field>
       <field name="view_id" ref="view_sequence_configuration_installer"/>
       <field name="help">For all accounting-based sequences it is better to use the fiscal year instead of the calendar year.</field>
     </record>
