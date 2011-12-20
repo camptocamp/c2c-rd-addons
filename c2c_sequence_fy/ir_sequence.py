@@ -27,17 +27,6 @@ from tools.translate import _
 class ir_sequence(osv.osv):
     _inherit = 'ir.sequence'
 
-    def button_convert(self, cr, uid, ids, id) :
-        import sys
-        print >>sys.stderr, "button_convert begin"
-        cr.execute \
-            ("""UPDATE ir_sequence
-                 SET prefix = replace(prefix, '(year)', '(fy)'),
-                     suffix = replace(suffix, '(year)', '(fy)');"""
-            )
-        print >>sys.stderr, "button_convert end"
-    # end def button_convert
-
     def _abbrev(self, name, separator):
         return "".join(w[0] for w in _(name).split(separator))
     # end def _abbrev
