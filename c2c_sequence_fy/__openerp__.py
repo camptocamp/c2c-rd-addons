@@ -64,7 +64,7 @@ using '(fy)' instead of hard coding.
     , 'account_fiscalyear_view.xml'
     , 'ir_sequence_type_view.xml'
 #    , 'account_journal_view.xml'
-    , 'ir_sequence_installer.xml'
+    , 'ir_sequence_installer_view.xml'
     ]
 , 'demo_xml'    : []
 , 'installable' : True
