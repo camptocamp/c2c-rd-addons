@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
-#    
+#
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2010 Tiny SPRL (<http://tiny.be>).
 #    Copyright (C) 2010-2010 Camptocamp Austria (<http://www.camptocamp.at>)
@@ -17,13 +17,15 @@
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-import account_fiscalyear
-#import account_journal
-import ir_sequence_type
-import ir_sequence
-#import account_move
-import ir_sequence_installer
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+from osv import fields, osv
+
+class ir_sequence_type(osv.osv):
+    _inherit = 'ir.sequence.type'
+    _columns = \
+    { 'prefix_pattern' : fields.char('Prefix Pattern', size=64, help="Prefix pattern for the sequence")
+    , 'suffix_pattern' : fields.char('Suffix Pattern', size=64, help="Suffix pattern for the sequence")
+    }
+ir_sequence_type()
