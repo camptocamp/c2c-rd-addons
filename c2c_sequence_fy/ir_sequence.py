@@ -99,12 +99,12 @@ class ir_sequence(osv.osv):
             _prefix = self._interpolate(seq.prefix, d)
         else :
             ty = self._seq_type(cr, uid, seq)
-            _prefix = ty.prefix_template or ''
+            _prefix = ty.prefix_pattern or ''
         if seq.suffix : 
             _suffix = self._interpolate(seq.suffix, d)
         else :
             ty = self._seq_type(cr, uid, seq)
-            _suffix = ty.suffix_template or ''
+            _suffix = ty.suffix_pattern or ''
         print >>sys.stderr, "_next end"
         return _prefix + '%%0%sd' % seq.padding % seq.number_next + _suffix
     # end def _next
