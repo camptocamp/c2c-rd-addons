@@ -80,6 +80,7 @@ ToDo:
                    'product_view.xml',
                    'purchase_view.xml',
                    'sale_view.xml',
+                   'stock_view.xml',
                    'account_invoice_view.xml',
                    'wizard/stock_partial_picking_view.xml',
                  ],

@@ -1,10 +1,9 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
-#    
+#
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2010 Tiny SPRL (<http://tiny.be>).
 #    Copyright (C) 2010-2010 Camptocamp Austria (<http://www.camptocamp.at>)
-#    Copyright (C) 2011-2011 Swing Entwicklung betrieblicher Informationssysteme GmbH (<http://www.swing-system.com>)
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -17,13 +16,24 @@
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-import account_fiscalyear
-#import account_journal
-import ir_sequence_type
-import ir_sequence
-#import account_move
-import ir_sequence_installer
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+
+import pooler
+from osv import fields, osv
+import netsvc
+import sys
+
+class purchase_order(osv.osv):
+    _inherit= "purchase.order"
+
+    def _prepare_order_line_move(self, cr, uid, order, order_line, picking_id, *args): 
+        res = super(purchase_order,self)._prepare_order_line_move( cr, uid, order, order_line, picking_id, *args)
+        location_dest_id = order_line.product_id.property_stock_location.id or order_line.product_id.categ_id.property_stock_location.id or order.shop_id.warehouse_id.lot_stock_id.id
+        print >> sys.stderr, '_prepare_order_line_move',res
+        print >> sys.stderr, '_prepare_order_line_move',location_dest_id
+        res.update({'location_dest_id':location_dest_id})
+        return res
+
+purchase_order()

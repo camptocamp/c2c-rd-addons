@@ -1,10 +1,9 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
-#    
+#
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2010 Tiny SPRL (<http://tiny.be>).
 #    Copyright (C) 2010-2010 Camptocamp Austria (<http://www.camptocamp.at>)
-#    Copyright (C) 2011-2011 Swing Entwicklung betrieblicher Informationssysteme GmbH (<http://www.swing-system.com>)
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -17,13 +16,28 @@
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-import account_fiscalyear
-#import account_journal
-import ir_sequence_type
-import ir_sequence
-#import account_move
-import ir_sequence_installer
+
+
+{
+    'name': 'Stock Product Location',
+    'version': '0.7',
+    'category': 'Inventory Control',
+    'description': """
+This module defines a default stock location for products and product groups.
+This will be used 
+* as destination location for purchases and production
+* as source location for sales and internal moves
+
+""",
+    'author': 'Camptocamp Austria',
+    'depends': [ 'product','stock','sale','purchase' ],
+    'update_xml': ['product_view.xml',
+       ],
+    'demo_xml': [],
+    'installable': True,
+    'active': False,
+}
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

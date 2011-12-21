@@ -1,91 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
   <data>
-    <!-- fiscal year -->
-    <record model="ir.ui.view" id="account_fiscalyear_seq_view_tree">
-      <field name="name">account.fiscalyear.sequ_code.view.tree</field>
-      <field name="model">account.fiscalyear</field>
-      <field name="inherit_id" ref="account.view_account_fiscalyear_tree"/>
-      <field name="type">form</field>
-      <field name="arch" type="xml">
-        <field name="code" position="after">
-          <field name="sequence_code"/>
-        </field>
-      </field>
-    </record>
-    <record model="ir.ui.view" id="account_fiscalyear_seq_view_form">
-      <field name="name">account.fiscalyear.sequ_code.view.form</field>
-      <field name="model">account.fiscalyear</field>
-      <field name="inherit_id" ref="account.view_account_fiscalyear_form"/>
-      <field name="type">form</field>
-      <field name="arch" type="xml">
-        <field name="code" position="after">
-          <field name="sequence_code"/>
-        </field>
-      </field>
-    </record>
-    <!-- sequence type -->
-    <record model="ir.ui.view" id="c2c_sequence_type_form_view">
-      <field name="name">sequence.type.view.form</field>
-      <field name="model">ir.sequence.type</field>
-      <field name="inherit_id" ref="base.sequence_type_form_view"/>
-      <field name="type">form</field>
-      <field name="arch" type="xml">
-        <field name="code" position="after">
-          <field name="prefix"/>
-          <field name="suffix"/>
-          <field name="name_template"/>
-          <field name="create_sequence"/>
-        </field>
-      </field>
-    </record>
-    <record model="ir.ui.view" id="c2c_sequence_type_tree_view">
-      <field name="name">sequence.type.view.tree</field>
-      <field name="model">ir.sequence.type</field>
-      <field name="inherit_id" ref="base.sequence_type_tree_view"/>
-      <field name="type">form</field>
-      <field name="arch" type="xml">
-        <field name="code" position="after">
-          <field name="prefix"/>
-          <field name="suffix"/>
-          <field name="name_template"/>
-          <field name="create_sequence"/>
-        </field>
-      </field>
-    </record>
-    <!-- sequence -->
     <record model="ir.ui.view" id="sequence_view_fy_form">
       <field name="name">sequence.view.fy.form</field>
       <field name="model">ir.sequence</field>
       <field name="inherit_id" ref="base.sequence_view"/>
       <field name="type">form</field>
       <field name="arch" type="xml">
-        <label colspan="4" string="Current Year with Century: %%(year)s" position="before">
-          <label colspan="4" string="Current Fiscal Year: %%(fy)s (see sequence code in fiscalyear)"/>
-        </label>
-      </field>
-    </record>
-    <!-- journal -->
-    <record model="ir.ui.view" id="account_journal_tree_c2c">
-      <field name="name">account.journal.tree.c2c</field>
-      <field name="model">account.journal</field>
-      <field name="inherit_id" ref="account.view_account_journal_tree"/>
-      <field name="type">form</field>
-      <field name="arch" type="xml">
-        <field colspan="4" name="type" position="after">
-          <field name="create_sequence"/>
-        </field>
-      </field>
-    </record>
-    <record model="ir.ui.view" id="account_journal_form_c2c">
-      <field name="name">account.journal.form.c2c</field>
-      <field name="model">account.journal</field>
-      <field name="inherit_id" ref="account.view_account_journal_form"/>
-      <field name="type">form</field>
-      <field name="arch" type="xml">
-        <field colspan="4" name="sequence_id" position="after">
-          <field name="create_sequence"/>
-        </field>
+        <xpath expr="/form//separator[@string='Legend (for prefix, suffix)']" position="after">
+          <group>
+            <label colspan="8" string="Current Fiscal Year: %%(fy)s (see sequence code in fiscalyear)"/>
+            <label colspan="8" string="Abbreviated name of the journal: %%(jn)s"/>
+            <label colspan="8" string="Abbreviated name of the sequence-type: %%(stn)s"/>
+            <label colspan="8" string="Abbreviated code of the sequence-type: %%(stc)s"/>
+          </group>
+        </xpath>
       </field>
     </record>
   </data>

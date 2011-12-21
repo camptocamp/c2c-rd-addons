@@ -47,6 +47,7 @@ class stock_move(osv.osv):
             else:
                 loc_id = str(move.location_id.id)
                 print >> sys.stderr, 'loc_id ',loc_id
+                # compute avg price per stock location
                 sql = 'select \
                  sum( case when location_id = '+loc_id+' then -move_value_cost else 0 end + case when location_dest_id = '+loc_id+' then move_value_cost else 0 end) as sum_amount, \
                  sum( case when location_id = '+loc_id+' then -product_qty else 0 end + case when location_dest_id     = '+loc_id+' then product_qty else 0 end) as sum_qty \
