@@ -32,8 +32,9 @@ class ir_sequence(osv.osv):
     # end def _abbrev
     
     def _fy_code(self, cr, uid, context) :
-        fy_id = context.get('fiscalyear_id', False)
-        if fy_id :
+        if context and ('fiscalyear_id' in context) and context.get('fiscalyear_id', False): 
+          fy_id = context.get('fiscalyear_id', False)
+          if fy_id :
             fiscalyear_obj = self.pool.get('account.fiscalyear')
             fy = fiscalyear_obj.browse(cr, uid, fy_id)
             return fy.sequence_code or fy.date_start[0:4]
