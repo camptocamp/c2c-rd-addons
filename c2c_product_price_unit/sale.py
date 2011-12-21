@@ -168,8 +168,8 @@ class sale_order(osv.osv):
             wf_service.trg_write(uid, 'sale.order', sid, cr)
         return create_ids
 
-    def _prepare_order_line_move(self, cr, uid, order, line, picking_id, date_planned, *args):
-        res = super(sale_order,self)._prepare_order_line_move( cr, uid, order, line, picking_id, date_planned, *args)
+    def _prepare_order_line_move(self, cr, uid, order, line, picking_id, date_planned, context=None):
+        res = super(sale_order,self)._prepare_order_line_move( cr, uid, order, line, picking_id, date_planned, context)
         res.update({'price_unit_sale_id': line.price_unit_id.id , 'price_unit_sale':line.price_unit_pu , 'price_unit_id': line.product_id.price_unit_id.id})
         return res
 

@@ -28,8 +28,8 @@ import sys
 class sale_order(osv.osv):
     _inherit= "sale.order"
 
-    def _prepare_order_line_move(self, cr, uid, order, line, picking_id, date_planned, *args):
-        res = super(sale_order,self)._prepare_order_line_move( cr, uid, order, line, picking_id, date_planned, *args)
+    def _prepare_order_line_move(self, cr, uid, order, line, picking_id, date_planned, context=None):
+        res = super(sale_order,self)._prepare_order_line_move( cr, uid, order, line, picking_id, date_planned, context)
         location_id = line.product_id.property_stock_location.id or  line.product_id.categ_id.property_stock_location.id or order.shop_id.warehouse_id.lot_stock_id.id
         print >> sys.stderr, '_prepare_order_line_move',res
         print >> sys.stderr, '_prepare_order_line_move',location_id
