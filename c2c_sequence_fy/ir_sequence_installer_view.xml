@@ -11,11 +11,6 @@
           <form position="attributes">
             <attribute name="string">Sequence Configuration</attribute>
           </form>
-          <!-- 
-          <xpath expr="//field[@name='config_logo']" position="replace">
-            <separator string="vsep" orientation="vertical" colspan="1" rowspan="12"/>
-          </xpath>
-          -->
           <separator string="title" position="attributes">
             <attribute name="string">Configure Sequences</attribute>
           </separator>

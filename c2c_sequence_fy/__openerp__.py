@@ -50,6 +50,8 @@ This module adds
 
 * "jn" (journal-name)
   This allows to use the (abbreviated) journal name as placeholder.
+  
+If no prefix/suffix is specified, the prefi/suffix of the sequence-type is used. 
 
 This module is a prerequisite to automatically generated new fiscal years, periods and associated sequences 
 using '(fy)' instead of hard coding.
@@ -63,7 +65,6 @@ using '(fy)' instead of hard coding.
     [ 'ir_sequence_view.xml'
     , 'account_fiscalyear_view.xml'
     , 'ir_sequence_type_view.xml'
-#    , 'account_journal_view.xml'
     , 'ir_sequence_installer_view.xml'
     ]
 , 'demo_xml'    : []
