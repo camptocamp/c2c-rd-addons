@@ -160,7 +160,7 @@ This module installs everything for Blaustauden
 ,"multi_company"
 ,"outlook"
 ,"pad"
-,"point_of_sale"
+#,"point_of_sale"
 ,"portal"
 ,"process"
 ,"procurement"

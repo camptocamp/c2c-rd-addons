@@ -81,7 +81,7 @@ This module installs everything from addons we need for Austrian Base
  ,"mrp"
  ,"mrp_jit"
  ,"outlook"
- ,"point_of_sale"
+ #,"point_of_sale"
  ,"process"
  ,"procurement"
  ,"product"
