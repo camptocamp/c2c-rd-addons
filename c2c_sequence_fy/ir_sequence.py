@@ -41,7 +41,24 @@ class ir_sequence(osv.osv):
         else :
             return time.strftime('%Y')
     # end def _fy_code
-    
+
+    def name_get(self, cr, uid, ids, context=None):
+        if not ids : return []
+        reads = self.read(cr, uid, ids, ['name', 'code'], context=context)
+        res = []
+        for record in reads :
+            name = record['name']
+            if record['code']:
+                name = record['code'] + ' ' + name
+            
+            fy_id = context.get('fiscalyear_id', False)
+            if fy_id :
+                fy_seq_code = self._fy_code(cr, uid, context)
+                name = record['code'] + ' [' +  fy_seq_code  + ']'
+            res.append((record['id'], name))
+        return res
+    # end def name_get
+
     def _journal(self, cr, uid, seq) :
         journal_obj = self.pool.get('account.journal')
         jou = journal_obj.browse(cr, uid, journal_obj.search(cr, uid, [('sequence_id', '=', seq.id)]))
@@ -83,14 +100,22 @@ class ir_sequence(osv.osv):
         else :
             return ''
     # end def _seq_type_code
-
-    def _next(self, cr, uid, seq_ids, context=None) :
-        import sys
-        print >>sys.stderr, "_next begin"
-        res = super(ir_sequence, self)._next(cr, uid, seq_ids, context)
-        if not res:
-            return False
-        seq = self.browse(cr, uid, seq_ids[0])
+    
+    def _next_seq(self, cr, uid, id) :
+        seq = self.browse(cr, uid, id)
+        if seq.implementation == 'standard':
+            #cr.execute("SELECT nextval('ir_sequence_%03d')" % (self._table, seq.id))
+            cr.execute("SELECT nextval('ir_sequence_%03d')" % (seq.id))
+            seq.number_next = cr.fetchone()
+        else:
+            cr.execute("SELECT number_next FROM %s WHERE id=%s FOR UPDATE NOWAIT;" % (self._table, seq.id))
+            cr.execute("UPDATE %s SET number_next=number_next+number_increment WHERE id=%s" % (self._table, seq.id))
+            cr.execute("SELECT number_next FROM %s WHERE id=%s FOR UPDATE NOWAIT;" % (self._table, seq.id))
+            seq.number_next = cr.fetchone()
+        return seq
+    # end def _next_seq
+    
+    def _format(self, cr, uid, seq, context) :
         d = self._interpolation_dict()
         d['fy']  = self._fy_code(cr, uid, context)
         d['stn'] = self._seq_type_name(cr, uid, seq)
@@ -105,9 +130,47 @@ class ir_sequence(osv.osv):
             _suffix = self._interpolate(seq.suffix, d)
         else :
             ty = self._seq_type(cr, uid, seq)
-            _suffix = ty.suffix_pattern or ''
-        print >>sys.stderr, "_next end"
+            # FIXME ty.suffix_pattern does not exist
+            #_suffix = ty.suffix_pattern or ''
+            _suffix =  ''
         return _prefix + '%%0%sd' % seq.padding % seq.number_next + _suffix
+    # end def _format
+
+    def _next(self, cr, uid, seq_ids, context=None) :
+        if not seq_ids: return False
+        seq = self._next_seq(cr, uid, seq_ids[0])
+        return self._format(cr, uid, seq, context)
     # end def _next
+
+    def next_by_code(self, cr, uid, sequence_code, context=None) :
+        company_id = self.pool.get('res.company')._company_default_get(cr, uid, 'ir.sequence', context=context)
+        seq_ids = self.search(cr, uid, ['&', ('code','=', sequence_code), ('company_id', '=', company_id)])
+        if not seq_ids :
+            seq_type_obj = self.pool.get('ir.sequence.type')
+            seq_type_ids = seq_type_obj.search(cr, uid, [('code', '=', sequence_code)])
+            if not seq_type_ids :
+                raise osv.except_osv \
+                    ( _('Integrity Error !')
+                    , _('Missing sequence-code %s') % sequence_code
+                    )
+            seq_type = seq_type_obj.browse(cr, uid, seq_type_ids[0])
+            if seq_type.create_sequence == 'none' :
+                raise osv.except_osv \
+                    ( _('Integrity Error !')
+                    , _('Automatic creation not allowed for sequence code %s with %s') 
+                        % (sequence_code, seq_type.create_sequence)
+                    )
+            values = \
+                { 'code'    : sequence_code
+                , 'name'    : self._abbrev(seq_type.name, ' ')
+#                , 'prefix'  :  # "%(stn)-"
+                , 'padding' : 3
+                }
+            new_id = self.create(cr, uid, values)
+            seq = self._next_seq(cr, uid, new_id)
+            return self._format(cr, uid, seq, context)
+        else :
+            return super(ir_sequence, self).next_by_code(cr, uid, sequence_code, context=context)
+    # end def next_by_code
 
 ir_sequence()

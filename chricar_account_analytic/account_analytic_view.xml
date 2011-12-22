@@ -89,8 +89,10 @@ Modification of Invoice Line - change trigger
             groups="base.group_user"
             name="account_id"
             on_change="onchange_account(parent.fiscal_position,account_id,account_analytic_id)"/>
+<!--
           <field
             name="analytic_account_id" />
+-->
         </field>
       </field>
     </record>
@@ -103,7 +105,7 @@ Modification of Invoice Line - change trigger
       <field name="type">form</field>
       <field name="arch" type="xml">
         <field name="account_id" position="after">
-          <field name="analytic_account_id"/>
+          <field name="account_analytic_id"/>
         </field>
       </field>
     </record>
