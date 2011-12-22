@@ -133,18 +133,18 @@ class ir_sequence(osv.osv):
             if not seq_type_ids :
                 raise osv.except_osv \
                     ( _('Integrity Error !')
-                    , _('Missing sequence-type with code %s') % sequence_code
+                    , _('Missing sequence-code %s') % sequence_code
                     )
             seq_type = seq_type_obj.browse(cr, uid, seq_type_ids[0])
             if seq_type.create_sequence == 'none' :
                 raise osv.except_osv \
                     ( _('Integrity Error !')
-                    , _('Automatic creation not allowed for sequence of type %s with %s') 
+                    , _('Automatic creation not allowed for sequence code %s with %s') 
                         % (sequence_code, seq_type.create_sequence)
                     )
             values = \
                 { 'code'        : sequence_code
-                , 'name'        : seq_type.name
+                , 'name'        : self._abbrev(seq_type.name, ' ')
 #                , 'prefix'      :  # "%(stn)-"
                 , 'padding'     : 3
                 , 'number_next' : 0

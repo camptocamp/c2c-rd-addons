@@ -31,8 +31,8 @@ This module adds
 
 * creation rules for missing sequences in ir_sequence_type 
    if a not existing sequence is requested it will be created on the fly.
-   * if no prefix pattern is defined in sequence-types, a name will be created using 
-     the first characters of each word of then name of the sequence-type
+   * if no prefix pattern is defined in sequence-codes, a name will be created using 
+     the first characters of each word of then name of the sequence-code
      Example "Account Invoice In" will be "AAI-"
 
 * "fy" (fiscal year)
@@ -43,15 +43,15 @@ This module adds
   This allows to handle multiple fiscal years per calendar year and fiscal years not matching calendar years easily.
 
 * "stn" (sequence-type-name)
-  This allows to use the (abbreviated) sequence-type name as placeholder.
+  This allows to use the (abbreviated) sequence-code name as placeholder.
 
 * "stc" (sequence-type-code)
-  This allows to use the (abbreviated) sequence-type code as placeholder.
+  This allows to use the (abbreviated) sequence-code code as placeholder.
 
 * "jn" (journal-name)
   This allows to use the (abbreviated) journal name as placeholder.
   
-If no prefix/suffix is specified, the prefi/suffix of the sequence-type is used. 
+If no prefix/suffix is specified, the prefi/suffix of the sequence-code is used. 
 
 This module is a prerequisite to automatically generated new fiscal years, periods and associated sequences 
 using '(fy)' instead of hard coding.
