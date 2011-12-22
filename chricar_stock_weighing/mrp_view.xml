@@ -61,10 +61,8 @@ Harvest
               domain="[('product_id','=',product_id)] "
               name="prodlot_id"/>
           </group>
-          <!-- does not work in next field
-              context="{'form_view_ref':'chricar_stock_weighing.chricar_weighing_form_view','tree_view_ref':'chricar_stock_weighing.chricar_weighing_tree_view'}"
-                -->
           <field
+              context="{'form_view_ref':'chricar_stock_weighing.chricar_weighing_form_view','tree_view_ref':'chricar_stock_weighing.chricar_weighing_tree_view'}"
             attrs="{'readonly': [('state','!=','in_production')]} "
             colspan="4"
             name="move_created_ids"
@@ -150,7 +148,7 @@ Harvest
       <field name="type">tree</field>
       <field name="priority">26</field>
       <field name="arch" type="xml">
-        <tree string="Weighing" colors="blue:state='draft'">
+        <tree string="Weighing" colors="blue:state=='draft'">
           <field name="weighing_slip" readonly="1"/>
           <field name="product_id" readonly="1"/>
           <field name="product_qty" sum="Sum Quantity" readonly="1"/>
