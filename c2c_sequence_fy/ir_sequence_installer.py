@@ -28,14 +28,6 @@ class ir_sequence_installer(osv.osv_memory):
 
     def execute(self, cr, uid, ids, context=None):
 
-        where = ''
-        count = self.pool.get('ir.module.module').search_count(cr, uid, ['&', ('name', '=', 'account_sequence_fiscalyear'), ('state', 'in', ['installed'])])
-
-        if count > 0:
-            where = """
-                 WHERE id IN (SELECT sequence_main_id 
-                               FROM account_sequence_fiscalyear) """
-
         cr.execute \
             ("""UPDATE ir_sequence
                  SET prefix = replace(prefix, '(year)', '(fy)'),
