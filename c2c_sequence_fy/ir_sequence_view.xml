@@ -11,8 +11,8 @@
           <group>
             <label colspan="8" string="Current Fiscal Year: %%(fy)s (see sequence code in fiscalyear)"/>
             <label colspan="8" string="Abbreviated name of the journal: %%(jn)s"/>
-            <label colspan="8" string="Abbreviated name of the sequence-type: %%(stn)s"/>
-            <label colspan="8" string="Abbreviated code of the sequence-type: %%(stc)s"/>
+            <label colspan="8" string="Abbreviated name of the sequence-code: %%(stn)s"/>
+            <label colspan="8" string="Abbreviated code of the sequence-code: %%(stc)s"/>
           </group>
         </xpath>
       </field>

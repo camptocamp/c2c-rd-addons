@@ -27,28 +27,28 @@ class account_move(osv.osv):
     _inherit = "account.move"
 
     def post(self, cr, uid, ids, context=None):
-        if context is None:
-            context = {}
+        if context is None : context = {}
         invoice = context.get('invoice', False)
-        valid_moves = self.validate(cr, uid, ids, context)
-
-        if not valid_moves:
+        valid_move_ids = self.validate(cr, uid, ids, context)
+        if not valid_move_ids:
             raise osv.except_osv \
                 ( _('Integrity Error !')
                 , _('You cannot validate a non-balanced entry!\nMake sure you have configured Payment Term properly !\nIt should contain at least one Payment Term Line with type "Balance" !')
                 )
-        obj_sequence = self.pool.get('ir.sequence')
-        for move in self.browse(cr, uid, valid_moves, context=context):
+        seq_obj = self.pool.get('ir.sequence')
+        for move in self.browse(cr, uid, valid_move_ids, context=context):
             if move.name == '/':
                 new_name = False
                 journal = move.journal_id
-
                 if invoice and invoice.internal_number:
                     new_name = invoice.internal_number
                 else:
                     if journal.sequence_id:
-                        c = {'fiscalyear_id': move.period_id.fiscalyear_id.id, 'journal_id': move.journal_id.id}
-                        new_name = obj_sequence.next_by_id(cr, uid, journal.sequence_id.id, context=c)
+                        c = \
+                            { 'fiscalyear_id' : move.period_id.fiscalyear_id.id
+                            , 'journal_id'    : move.journal_id.id
+                            }
+                        new_name = seq_obj.next_by_id(cr, uid, journal.sequence_id.id, context=c)
                     # FIXME
                     # some sequences are requested internaly but not defined 
                     # https://bugs.launchpad.net/bugs/737517    
@@ -57,8 +57,8 @@ class account_move(osv.osv):
 
                 if new_name:
                     self.write(cr, uid, [move.id], {'name' : new_name})
-
-        cr.execute('UPDATE %s SET state=%s WHERE id IN %s', (self._table, 'posted', tuple(valid_moves)))
+        values = {'state' : 'posted'}
+        self.write(cr, uid, valid_move_ids, values)
         return True
     # end def post
 

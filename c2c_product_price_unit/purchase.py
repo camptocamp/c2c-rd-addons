@@ -124,8 +124,8 @@ class purchase_order(osv.osv):
         return line
 
 
-    def _prepare_order_line_move(self, cr, uid, order, order_line, picking_id, *args):
-        res = super(purchase_order,self)._prepare_order_line_move( cr, uid, order, order_line, picking_id, *args)
+    def _prepare_order_line_move(self, cr, uid, order, order_line, picking_id, context=None):
+        res = super(purchase_order,self)._prepare_order_line_move( cr, uid, order, order_line, picking_id, context)
         price_unit_id = order_line.price_unit_id.id
         price_unit_pu = order_line.price_unit_pu
         res.update({'price_unit_id' : price_unit_id,'price_unit_pu' : price_unit_pu})

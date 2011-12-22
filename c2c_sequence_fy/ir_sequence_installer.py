@@ -23,16 +23,26 @@
 from osv import fields, osv
 
 class ir_sequence_installer(osv.osv_memory):
-    _name = 'ir.sequence.installer'
+    _name    = 'ir.sequence.installer'
     _inherit = 'res.config.installer'
 
     def execute(self, cr, uid, ids, context=None):
+
+        where = ''
+        count = self.pool.get('ir.module.module').search_count(cr, uid, ['&', ('name', '=', 'account_sequence_fiscalyear'), ('state', 'in', ['installed'])])
+
+        if count > 0:
+            where = """
+                 WHERE id IN (SELECT sequence_main_id 
+                               FROM account_sequence_fiscalyear) """
+
         cr.execute \
             ("""UPDATE ir_sequence
                  SET prefix = replace(prefix, '(year)', '(fy)'),
-                     suffix = replace(suffix, '(year)', '(fy)');"""
+                     suffix = replace(suffix, '(year)', '(fy)') 
+               WHERE (prefix like '%(year)%' or  suffix like '%(year)%') 
+                 AND id IN (SELECT sequence_main_id
+                               FROM account_sequence_fiscalyear) ;""" 
             )
-#        return super(ir_sequence_installer, self).execute(cr, uid, ids, context=context)
-    # end def execute
-    
+  
 ir_sequence_installer()
