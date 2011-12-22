@@ -104,7 +104,8 @@ class ir_sequence(osv.osv):
     def _next_seq(self, cr, uid, id) :
         seq = self.browse(cr, uid, id)
         if seq.implementation == 'standard':
-            cr.execute("SELECT nextval('ir_sequence_%03d')" % (self._table, seq.id))
+            #cr.execute("SELECT nextval('ir_sequence_%03d')" % (self._table, seq.id))
+            cr.execute("SELECT nextval('ir_sequence_%03d')" % (seq.id))
             seq.number_next = cr.fetchone()
         else:
             cr.execute("SELECT number_next FROM %s WHERE id=%s FOR UPDATE NOWAIT;" % (self._table, seq.id))
@@ -129,12 +130,14 @@ class ir_sequence(osv.osv):
             _suffix = self._interpolate(seq.suffix, d)
         else :
             ty = self._seq_type(cr, uid, seq)
-            _suffix = ty.suffix_pattern or ''
+            # FIXME ty.suffix_pattern does not exist
+            #_suffix = ty.suffix_pattern or ''
+            _suffix =  ''
         return _prefix + '%%0%sd' % seq.padding % seq.number_next + _suffix
     # end def _format
 
     def _next(self, cr, uid, seq_ids, context=None) :
-        if not res : return False
+        if not seq_ids: return False
         seq = self._next_seq(cr, uid, seq_ids[0])
         return self._format(cr, uid, seq, context)
     # end def _next
