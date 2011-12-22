@@ -100,12 +100,21 @@ class ir_sequence(osv.osv):
         else :
             return ''
     # end def _seq_type_code
-
-    def _next(self, cr, uid, seq_ids, context=None) :
-        res = super(ir_sequence, self)._next(cr, uid, seq_ids, context)
-        if not res:
-            return False
-        seq = self.browse(cr, uid, seq_ids[0])
+    
+    def _next_seq(self, cr, uid, id) :
+        seq = self.browse(cr, uid, id)
+        if seq.implementation == 'standard':
+            cr.execute("SELECT nextval('ir_sequence_%03d')" % (self._table, seq.id))
+            seq.number_next = cr.fetchone()
+        else:
+            cr.execute("SELECT number_next FROM %s WHERE id=%s FOR UPDATE NOWAIT;" % (self._table, seq.id))
+            cr.execute("UPDATE %s SET number_next=number_next+number_increment WHERE id=%s" % (self._table, seq.id))
+            cr.execute("SELECT number_next FROM %s WHERE id=%s FOR UPDATE NOWAIT;" % (self._table, seq.id))
+            seq.number_next = cr.fetchone()
+        return seq
+    # end def _next_seq
+    
+    def _format(self, cr, uid, seq, context) :
         d = self._interpolation_dict()
         d['fy']  = self._fy_code(cr, uid, context)
         d['stn'] = self._seq_type_name(cr, uid, seq)
@@ -122,6 +131,12 @@ class ir_sequence(osv.osv):
             ty = self._seq_type(cr, uid, seq)
             _suffix = ty.suffix_pattern or ''
         return _prefix + '%%0%sd' % seq.padding % seq.number_next + _suffix
+    # end def _format
+
+    def _next(self, cr, uid, seq_ids, context=None) :
+        if not res : return False
+        seq = self._next_seq(cr, uid, seq_ids[0])
+        return self._format(cr, uid, seq, context)
     # end def _next
 
     def next_by_code(self, cr, uid, sequence_code, context=None) :
@@ -143,20 +158,14 @@ class ir_sequence(osv.osv):
                         % (sequence_code, seq_type.create_sequence)
                     )
             values = \
-                { 'code'        : sequence_code
-                , 'name'        : self._abbrev(seq_type.name, ' ')
-#                , 'prefix'      :  # "%(stn)-"
-                , 'padding'     : 3
+                { 'code'    : sequence_code
+                , 'name'    : self._abbrev(seq_type.name, ' ')
+#                , 'prefix'  :  # "%(stn)-"
+                , 'padding' : 3
                 }
             new_id = self.create(cr, uid, values)
-            seq = self.browse(cr, uid, new_id)
-            if seq.implementation == 'standard':
-                cr.execute("SELECT nextval('%s_%03d');" % (self._table,new_id))
-                seq.number_next = cr.fetchone()
-            else:
-                cr.execute("SELECT number_next FROM %s WHERE id=%s FOR UPDATE NOWAIT;" % (self._table, new_id))
-                cr.execute("UPDATE %s SET number_next=number_next+number_increment WHERE id=%s;" % (self._table, new_id))
-            return self._next(cr, uid, [new_id], context=context)
+            seq = self._next_seq(cr, uid, new_id)
+            return self._format(cr, uid, seq, context)
         else :
             return super(ir_sequence, self).next_by_code(cr, uid, sequence_code, context=context)
     # end def next_by_code
