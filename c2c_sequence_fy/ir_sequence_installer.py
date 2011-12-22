@@ -32,9 +32,8 @@ class ir_sequence_installer(osv.osv_memory):
             ("""UPDATE ir_sequence
                  SET prefix = replace(prefix, '(year)', '(fy)'),
                      suffix = replace(suffix, '(year)', '(fy)') 
-               WHERE (prefix like '%(year)%' or  suffix like '%(year)%') 
-                 AND id IN (SELECT sequence_main_id
-                               FROM account_sequence_fiscalyear) ;""" 
+               WHERE (prefix LIKE '%(year)%' OR  suffix LIKE '%(year)%') 
+                 AND id IN (SELECT sequence_main_id FROM account_sequence_fiscalyear);""" 
             )
   
 ir_sequence_installer()

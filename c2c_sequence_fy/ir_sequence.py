@@ -129,7 +129,7 @@ class ir_sequence(osv.osv):
         seq_ids = self.search(cr, uid, ['&', ('code','=', sequence_code), ('company_id', '=', company_id)])
         if not seq_ids :
             seq_type_obj = self.pool.get('ir.sequence.type')
-            seq_type_ids = seq_type_obj.search(cr, uid, [('code','=', sequence_code)])
+            seq_type_ids = seq_type_obj.search(cr, uid, [('code', '=', sequence_code)])
             if not seq_type_ids :
                 raise osv.except_osv \
                     ( _('Integrity Error !')
@@ -147,10 +147,16 @@ class ir_sequence(osv.osv):
                 , 'name'        : self._abbrev(seq_type.name, ' ')
 #                , 'prefix'      :  # "%(stn)-"
                 , 'padding'     : 3
-                , 'number_next' : 0
                 }
             new_id = self.create(cr, uid, values)
-            return super(ir_sequence, self).next_by_id(cr, uid, new_id, context=context)
+            seq = self.browse(cr, uid, new_id)
+            if seq.implementation == 'standard':
+                cr.execute("SELECT nextval('%s_%03d');" % (self._table,new_id))
+                seq.number_next = cr.fetchone()
+            else:
+                cr.execute("SELECT number_next FROM %s WHERE id=%s FOR UPDATE NOWAIT;" % (self._table, new_id))
+                cr.execute("UPDATE %s SET number_next=number_next+number_increment WHERE id=%s;" % (self._table, new_id))
+            return self._next(cr, uid, [new_id], context=context)
         else :
             return super(ir_sequence, self).next_by_code(cr, uid, sequence_code, context=context)
     # end def next_by_code
