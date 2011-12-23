@@ -112,19 +112,28 @@ class constraint_predicate(osv.osv):
     _name = "constraint.predicate"
 
     _columns  = \
-        { 'condition' : fields.char 
+        { 'company_id': fields.many2one('res.company', 'Company', required=True)
+        , 'condition' : fields.char 
             ('Condition'
-            , required=True
-            , size=256
-            , help="Python exprssion that evaluates to 'True' if the condition is fullfilled, else 'False'"
+            , required = True
+            , size     = 256
+            , help     = "Python expression that evaluates to 'True' if the condition is fulfilled, else 'False'"
             )
-        , 'filter'    : fields.char ('Filter', size=256)
-        , 'name'      : fields.char ('Error Message', required=True, size=128, translate=True)
-        , 'object'    : fields.char ('Object name', required=True, size=32)
-        , 'table'     : fields.char ('Table', required=True, size=32)
-        , 'enable'    : fields.boolean ('Enable', required=True)
+        , 'enable'    : fields.boolean('Enable', required=True)
+        , 'filter'    : fields.char
+            ( 'Filter'
+            , size=256
+            , help="Python expression. If it evaluates to 'True' then the Condition is checked"
+            )
+        , 'name'      : fields.char('Error Message', required=True, size=128, translate=True)
+        , 'object'    : fields.char('Object Name', required=True, size=32)
+        , 'table'     : fields.char('Table', required=True, size=32)
         }
-    _defaults = {'enable' : lambda *a : True}
+    _defaults = \
+        { 'company_id' : lambda s, cr, uid, c: s.pool.get('res.users').browse(cr, uid, uid, context=c).company_id.id # V5.0
+#V6.1        , 'company_id' : lambda s, cr, uid, c: s.pool.get('res.company')._company_default_get(cr, uid, 'ir.sequence', context=c)
+        , 'enable' : lambda *a : True
+        }
     _msg = []
 
     def test_obj (self, cr, uid, rule, obj) : pass # let the heirs do the work
@@ -134,7 +143,9 @@ class constraint_predicate(osv.osv):
         c_obj = self.pool.get (rule.table)
         c_ids = c_obj.search (cr, uid, [])
         for obj in c_obj.browse (cr, uid, c_ids) :
-            result.extend(self.test_obj(cr, uid, rule, obj))
+            has_company = 'company_id' in c_obj._columns
+            if not has_company or (obj.company_id == rule.company_id) :
+                result.extend(self.test_obj(cr, uid, rule, obj))
         return result
     # end def test
 
@@ -239,7 +250,7 @@ class constraint_check_for_all (osv.osv):
 
     _columns  = \
         { 'sequence' : fields.char ('Sequence', size=256, required=True, help="Python expression that evaluates to a list")
-        , 'var'      : fields.char ('Variable name', size=32,  required=True)
+        , 'var'      : fields.char ('Variable Name', size=32,  required=True)
         }
 
     def test_obj (self, cr, uid, rule, obj) :

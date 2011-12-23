@@ -12,8 +12,9 @@
             <field name="condition" colspan="4"/>
             <field name="table" select="1"/>
             <field name="object"/>
-            <field name="enable" select="1"/>
             <field name="filter" select="1" colspan="4"/>
+            <field name="enable" select="1"/>
+            <field name="company_id" select="1" groups="base.group_multi_company"/>
             <button
               colspan="4"
               name="button_test"
@@ -45,11 +46,12 @@
           <field name="condition"/>
           <field name="filter" select="1"/>
           <field name="enable" select="1"/>
+          <field name="company_id" select="1" groups="base.group_multi_company"/>
         </tree>
       </field>
     </record>
     <record model="ir.actions.act_window" id="constraint_check_one_act1">
-      <field name="name">Constraints (Exist)</field>
+      <field name="name">Exists</field>
       <field name="res_model">constraint.check_one</field>
       <field name="view_type">form</field>
       <field name="view_mode">tree,form</field>
@@ -67,10 +69,6 @@
       <field name="view_id" ref="constraint_check_one_list"/>
       <field name="act_window_id" ref="constraint_check_one_act1"/>
     </record>
-    <menuitem
-      action="constraint_check_one_act1"
-      id="menu_constraint_check_one_list"
-      parent="base.menu_config"/>
     <record model="ir.ui.view" id="constraint_check_for_all_form">
       <field name="name">constraint.check_for_all.form</field>
       <field name="model">constraint.check_for_all</field>
@@ -84,8 +82,9 @@
             <field name="object"/>
             <field name="sequence"/>
             <field name="var"/>
-            <field name="enable" select="1"/>
             <field name="filter" select="1" colspan="4"/>
+            <field name="enable" select="1"/>
+            <field name="company_id" select="1" groups="base.group_multi_company"/>
             <button
               colspan="4"
               name="button_test"
@@ -117,11 +116,12 @@
           <field name="condition"/>
           <field name="filter" select="1"/>
           <field name="enable" select="1"/>
+          <field name="company_id" select="1" groups="base.group_multi_company"/>
         </tree>
       </field>
     </record>
     <record model="ir.actions.act_window" id="constraint_check_for_all_act1">
-      <field name="name">Constraints (For All)</field>
+      <field name="name">For All</field>
       <field name="res_model">constraint.check_for_all</field>
       <field name="view_type">form</field>
       <field name="view_mode">tree,form</field>
@@ -140,8 +140,19 @@
       <field name="act_window_id" ref="constraint_check_for_all_act1"/>
     </record>
     <menuitem
+      id="menu_constraints"
+      name="Constraints"
+      groups="group_constraint_admin"
+      parent="base.menu_custom"/>
+    <menuitem
+      action="constraint_check_one_act1"
+      id="menu_constraint_check_one_list"
+      groups="group_constraint_admin"
+      parent="menu_constraints"/>
+    <menuitem
       action="constraint_check_for_all_act1"
       id="menu_constraint_check_for_all_list"
-      parent="base.menu_config"/>
+      groups="group_constraint_admin"
+      parent="menu_constraints"/>
   </data>
 </openerp>
