@@ -60,7 +60,7 @@ using '(fy)' instead of hard coding.
   During configuration you may choose to replace all '(year)' prefix and suffix occurrences by '(fy)'.
 """
 , 'author'      : 'Camptocamp Austria'
-, 'depends'     : ['account','stock','sale','purchase','mrp']
+, 'depends'     : ['account']
 , 'update_xml'  : 
     [ 'ir_sequence_view.xml'
     , 'account_fiscalyear_view.xml'
