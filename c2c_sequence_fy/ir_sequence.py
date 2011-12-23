@@ -147,10 +147,11 @@ class ir_sequence(osv.osv):
                         % (sequence_code, seq_type.create_sequence)
                     )
             values = \
-                { 'code'    : sequence_code
-                , 'name'    : self._abbrev(seq_type.name, ' ')
-#                , 'prefix'  :  # "%(stn)-"
-                , 'padding' : 3
+                { 'code'           : sequence_code
+                , 'name'           : self._abbrev(seq_type.name, ' ')
+#                , 'prefix'         :  # "%(stn)-"
+                , 'padding'        : 3
+                , 'implementation' : 'no_gap'
                 }
             new_id = self.create(cr, uid, values)
             seq = self._next_seq(cr, uid, new_id)
