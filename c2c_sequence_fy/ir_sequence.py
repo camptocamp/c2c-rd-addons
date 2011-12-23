@@ -114,11 +114,11 @@ class ir_sequence(osv.osv):
         if seq.prefix :
             _prefix = self._interpolate(seq.prefix, d)
         else :
-            _prefix = self._interpolate(ty.prefix_pattern, d) or ''
+            _prefix = self._interpolate(ty.prefix_pattern or '', d)
         if seq.suffix : 
             _suffix = self._interpolate(seq.suffix, d)
         else :
-            _suffix = self._interpolate(ty.suffix_pattern, d) or ''
+            _suffix = self._interpolate(ty.suffix_pattern or '', d)
         return _prefix + ('%%0%sd' % seq.padding) % seq.number_next + _suffix
     # end def _format
 
