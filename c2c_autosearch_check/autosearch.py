@@ -45,10 +45,11 @@ class act_window(osv.osv):
         for act_window in window_obj.browse(cr, uid, window_ids) :
             # FIXME add domain to get realistic results ??
             sql = """SELECT count(*) FROM %s;""" % self.pool.get(act_window.res_model)._table
+            import sys ###################
+            print >>sys.stderr, ">>>>>>>>>>>>>>>>", sql, ###################
             cr.execute(sql)
             count = cr.fetchone()
-            import sys
-            print >>sys.stderr, ">>>>>>>>>>>>>>>>", sql, count ####################
+            print >>sys.stderr, count ####################
             if count > self._autosearch_check_limit:
                 window_obj.write(cr, uid, [act_window.id], {'auto_search' : False})
         return True
