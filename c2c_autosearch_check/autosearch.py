@@ -34,12 +34,6 @@
 ###############################################
 import time
 from osv import fields,osv
-import pooler
-
-from datetime import datetime
-from math import ceil 
-import sys
-
 
 class act_window(osv.osv):
     _inherit = "ir.actions.act_window"
@@ -53,12 +47,10 @@ class act_window(osv.osv):
             # FIXME add domain to get realistic results ??
             cr.execute(""" select count(*) from %s;""" % act_window.res_model._table)
             count = cr.fetchone()
+            import sys
             print >> sys.stderr,'model ', act_window.res_model._table, count
             if count > 80:
-                cr.execute(""" update ir_act_window
-                        set auto_search = False
-                      where id = %s;""" % act_window.id)
-                #cr.fetchone()      
+                window_obj.write(cr, uid, [act_window.id], {'auto_search' : False})
         return True
 
     _columns = {

@@ -53,6 +53,7 @@ class hr_timesheet_invoice_create(osv.osv_memory):
         fiscal_pos_obj = self.pool.get('account.fiscal.position')
         product_uom_obj = self.pool.get('product.uom')
         invoice_line_obj = self.pool.get('account.invoice.line')
+        account_analytic_line_obj = self.pool.get('account.analytic.line')
         invoices = []
         if context is None:
             context = {}
@@ -60,7 +61,7 @@ class hr_timesheet_invoice_create(osv.osv_memory):
         data = self.read(cr, uid, ids, [], context=context)[0]
 
         account_ids = {}
-        for line in self.pool.get('account.analytic.line').browse(cr, uid, context['active_ids'], context=context):
+        for line in account_analytic_line_obj.browse(cr, uid, context['active_ids'], context=context):
             account_ids[line.account_id.id] = True
 
         account_ids = account_ids.keys() #data['accounts']
@@ -180,7 +181,9 @@ class hr_timesheet_invoice_create(osv.osv_memory):
 
                 curr_line['note'] = "\n".join(map(lambda x: unicode(x) or '',note))
                 invoice_line_obj.create(cr, uid, curr_line, context=context)
-                cr.execute("update account_analytic_line set invoice_id=%s WHERE account_id = %s and id IN %s", (last_invoice, account.id, tuple(context['active_ids'])))
+                aal_ids = account_analytic_line_obj.search \
+                    (cr, uid, [('account_id','=', account.id), ('id', 'IN', tuple(context['active_ids']))])
+                account_analytic_line_obj.write(cr, uid, aal_ids, {'invoice_id' : last_invoice})
 
             invoice_obj.button_reset_taxes(cr, uid, [last_invoice], context)
 
