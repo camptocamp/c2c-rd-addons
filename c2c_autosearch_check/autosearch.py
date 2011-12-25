@@ -1,7 +1,4 @@
 # -*- coding: utf-8 -*-
-
-#!/usr/bin/python
-# -*- coding: utf-8 -*-
 ##############################################
 #
 # ChriCar Beteiligungs- und Beratungs- GmbH
@@ -32,37 +29,33 @@
 # 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 ###############################################
-import time
 from osv import fields,osv
 
 class act_window(osv.osv):
     _inherit = "ir.actions.act_window"
-   
-    def _auto_search_check(self, cr, uid, ids, context=None):
-        model_obj = self.pool.get('ir.model')
+
+    _autosearch_check_limit = 80
+
+    def run_auto_search_check(self, cr, uid, ids, context=None):
         window_obj = self.pool.get('ir.actions.act_window')
-        window_ids = window_obj.search(cr, uid, [( 'auto_search_check', '=', True),( 'auto_search', '=', True) ])
-        
-        for act_window in window_obj.browse(cr,uid, window_ids, context=None):
+        window_ids = window_obj.search \
+            ( cr, uid
+            , [('auto_search_check', '=', True), ('type', '=', 'ir.actions.act_window')]
+            )
+        for act_window in window_obj.browse(cr, uid, window_ids, context=None):
             # FIXME add domain to get realistic results ??
-            cr.execute(""" select count(*) from %s;""" % act_window.res_model._table)
+            cr.execute("""SELECT count(*) FROM %s;""" % act_window.res_model._table)
             count = cr.fetchone()
-            import sys
-            print >> sys.stderr,'model ', act_window.res_model._table, count
-            if count > 80:
+            if count > self._autosearch_check_limit:
                 window_obj.write(cr, uid, [act_window.id], {'auto_search' : False})
         return True
+    # end def run_auto_search_check
 
-    _columns = {
-        'auto_search_check': fields.boolean('Auto Search Check', help="if checked, the number of records will be checked periodicaly and autosearch will be turned off for big tables"),
-    }
-    def init(self, cr):
-       cr.execute("""update ir_act_window
-                        set auto_search_check = True
-                      where auto_search_check is null;""")
-       
-       return
-
+    _columns = \
+        { 'auto_search_check': fields.boolean
+            ('Auto Search Check'
+            , help="If selected, the number of records will be checked periodically and autosearch will be turned off for big tables"
+            )
+        }
+    _defaults = {'auto_search_check' : lambda *a : True}
 act_window()
-
-
