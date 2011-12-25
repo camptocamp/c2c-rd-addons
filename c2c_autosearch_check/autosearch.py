@@ -42,9 +42,9 @@ class act_window(osv.osv):
             ( cr, uid
             , [('auto_search_check', '=', True), ('type', '=', 'ir.actions.act_window')]
             )
-        for act_window in window_obj.browse(cr, uid, window_ids):
+        for act_window in window_obj.browse(cr, uid, window_ids) :
             # FIXME add domain to get realistic results ??
-            sql = """SELECT count(*) FROM %s;""" % act_window.res_model
+            sql = """SELECT count(*) FROM %s;""" % self.pool.get(act_window.res_model)._table
             cr.execute(sql)
             count = cr.fetchone()
             import sys
