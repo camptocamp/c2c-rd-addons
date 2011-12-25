@@ -10,7 +10,6 @@
       <field name="interval_type">minutes</field>
       <field name="numbercall">-1</field>
       <field name="user_id" ref="base.user_admin"/>
-      <field name="nextcall" eval="'2011-12-25 18:40:00'"/>
     </record>
   </data>
 </openerp>

@@ -36,16 +36,19 @@ class act_window(osv.osv):
 
     _autosearch_check_limit = 80
 
-    def run_auto_search_check(self, cr, uid, ids, context=None):
+    def run_auto_search_check(self, cr, uid):
         window_obj = self.pool.get('ir.actions.act_window')
         window_ids = window_obj.search \
             ( cr, uid
             , [('auto_search_check', '=', True), ('type', '=', 'ir.actions.act_window')]
             )
-        for act_window in window_obj.browse(cr, uid, window_ids, context=None):
+        for act_window in window_obj.browse(cr, uid, window_ids):
             # FIXME add domain to get realistic results ??
-            cr.execute("""SELECT count(*) FROM %s;""" % act_window.res_model._table)
+            sql = """SELECT count(*) FROM %s;""" % act_window.res_model._table
+            cr.execute(sql)
             count = cr.fetchone()
+            import sys
+            print >>sys.stderr, ">>>>>>>>>>>>>>>>", sql, count ####################
             if count > self._autosearch_check_limit:
                 window_obj.write(cr, uid, [act_window.id], {'auto_search' : False})
         return True
