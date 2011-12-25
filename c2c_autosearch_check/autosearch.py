@@ -44,7 +44,9 @@ class act_window(osv.osv):
             )
         for act_window in window_obj.browse(cr, uid, window_ids) :
             # FIXME add domain to get realistic results ??
-            sql = """SELECT count(*) FROM %s;""" % self.pool.get(act_window.res_model)._table
+            _obj = self.pool.get(act_window.res_model)
+            if not _obj : continue
+            sql = """SELECT count(*) FROM %s;""" % _obj._table
             import sys ###################
             print >>sys.stderr, ">>>>>>>>>>>>>>>>", sql, ###################
             cr.execute(sql)
