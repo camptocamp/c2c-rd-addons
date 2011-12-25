@@ -53,8 +53,8 @@ class act_window(osv.osv):
             if count > self._autosearch_check_limit :
                 try :
                     window_obj.write(cr, uid, [act_window.id], {'auto_search' : False})
-                except exc :
-                    print  >>sys.stderr, "!!!!!", " could not write ir.actions.act_window,", act_window.id, str(exc)
+                except :
+                    print  >>sys.stderr, "!!!!!", " could not write ir.actions.act_window,", act_window.id
     # end def run_auto_search_check
 
     _columns = \
