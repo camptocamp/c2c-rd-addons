@@ -50,9 +50,11 @@ class act_window(osv.osv):
             cr.execute(sql)
             count = cr.fetchone()
             print >>sys.stderr, count, act_window.id ####################
-            if count > self._autosearch_check_limit:
-                window_obj.write(cr, uid, [act_window.id], {'auto_search' : False})
-        return True
+            if count > self._autosearch_check_limit :
+                try :
+                    window_obj.write(cr, uid, [act_window.id], {'auto_search' : False})
+                except exc :
+                    print  >>sys.stderr, "!!!!!", " could not write ir.actions.act_window,", act_window.id, str(exc)
     # end def run_auto_search_check
 
     _columns = \
