@@ -49,7 +49,7 @@ class act_window(osv.osv):
             print >>sys.stderr, ">>>>>>>>>>>>>>>>", sql, ###################
             cr.execute(sql)
             count = cr.fetchone()
-            print >>sys.stderr, count ####################
+            print >>sys.stderr, count, act_window.id ####################
             if count > self._autosearch_check_limit:
                 window_obj.write(cr, uid, [act_window.id], {'auto_search' : False})
         return True
