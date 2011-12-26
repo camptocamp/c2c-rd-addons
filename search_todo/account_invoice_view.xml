@@ -1,0 +1,17 @@
+
+<openerp>
+ <data>
+         <record id="view_account_invoice_todo_filter" model="ir.ui.view">
+            <field name="name">account.invoice.todo.select</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.view_account_invoice_filter"/>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+              <xpath expr="/search/group/filter[@name='draft']" position="before">
+               <filter icon="terp-gtk-jump-to-ltr" name="to_do" string="To Do" domain="[('state','not in',('paid','cancel'))]" help="All what needs your attention."/>
+                <separator orientation="vertical"/>
+              </xpath>
+           </field>
+         </record>
+ </data>
+</openerp>

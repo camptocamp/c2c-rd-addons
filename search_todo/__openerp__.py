@@ -31,11 +31,11 @@ this shows all resources which need further interaction (are not done or cancele
 """,
     'author': 'Camptocamp Austria',
     'depends': [
-,"purchase"
+"purchase"
 ,"sale"
 ,"stock"
      ],
-    'update_xml': ['purchase_view.xml',       ],
+    'update_xml': ['purchase_view.xml','sale_view.xml','stock_view.xml', 'account_invoice_view.xml'       ],
     'demo_xml': [],
     'installable': True,
     'active': False,
