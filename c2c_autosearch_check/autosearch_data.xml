@@ -6,8 +6,8 @@
       <field name="model" eval="'ir.actions.act_window'"/>
       <field name="function" eval="'run_auto_search_check'"/>
       <field name="args" eval="'()'"/>
-      <field name="interval_number">4</field>
-      <field name="interval_type">minutes</field>
+      <field name="interval_number">12</field>
+      <field name="interval_type">hours</field>
       <field name="numbercall">-1</field>
       <field name="user_id" ref="base.user_admin"/>
     </record>

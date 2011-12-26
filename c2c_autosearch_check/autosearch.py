@@ -47,16 +47,14 @@ class act_window(osv.osv):
             _obj = self.pool.get(act_window.res_model)
             if not _obj : continue
             sql = """SELECT count(*) FROM %s;""" % _obj._table
-            import sys ###################
-            print >>sys.stderr, ">>>>>>>>>>>>>>>>", sql, ###################
             cr.execute(sql)
             count = cr.fetchone()
-            print >>sys.stderr, count, act_window.id ####################
             if count > self._autosearch_check_limit :
                 try :
                     window_obj.write(cr, uid, [act_window.id], {'auto_search' : False})
                 except :
-                    print  >>sys.stderr, "!!!!!", " could not write ir.actions.act_window,", act_window.id
+                    import sys ###################
+                    print  >>sys.stderr, "!!c2c_autosearch_check!! could not write ir.actions.act_window,", act_window.id
     # end def run_auto_search_check
 
     _columns = \
