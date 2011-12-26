@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<openerp>
+  <data>
+    <record model="ir.cron" id="ir_cron_autosearch_action" forcecreate="True">
+      <field name="name">Autosearch check</field>
+      <field name="model" eval="'ir.actions.act_window'"/>
+      <field name="function" eval="'run_auto_search_check'"/>
+      <field name="args" eval="'()'"/>
+      <field name="interval_number">12</field>
+      <field name="interval_type">hours</field>
+      <field name="numbercall">-1</field>
+      <field name="user_id" ref="base.user_admin"/>
+    </record>
+  </data>
+</openerp>
