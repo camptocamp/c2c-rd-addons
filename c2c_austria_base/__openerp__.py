@@ -33,7 +33,7 @@ This module installs everything from addons we need for Austrian Base
  "account"
  ,"account_accountant"
  ,"account_chart"
- ,"account_coda"
+ #,"account_coda"
  ,"account_followup"
  ,"account_invoice_layout"
  ,"account_payment"

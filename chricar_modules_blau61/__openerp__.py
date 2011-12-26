@@ -38,7 +38,7 @@ This module installs everything for Blaustauden
 ,"account_asset"
 ,"account_bank_statement_defaults"
 ,"account_chart"
-,"account_coda"
+#,"account_coda"
 ,"account_financial_report"
 ,"account_followup"
 ,"account_invoice_layout"
