@@ -48,7 +48,7 @@ class hr_timesheet_invoice_create(osv.osv_memory):
             , help='The reference on the invoice, usually the period of service'
             )
         }
-    _defaults = {'description' : lambda a: time.strftime('%d/%m/%Y')}
+    _defaults = {'description' : lambda *a: time.strftime('%d/%m/%Y')}
 
     def do_create(self, cr, uid, ids, context=None) :
         if context is None : context = {}
