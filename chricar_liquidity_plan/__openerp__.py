@@ -5,7 +5,7 @@
      "website"      : "http://www.chricar.at/ChriCar",
      "description"  : """Allows to plan Liquidity and cash flow
 generated 2009-08-14 15:55:18+02""",
-     "category"     : "Client Modules/ChriCar Addons",
+     "category"     : "Accounting & Finance",
      "depends"      : ["base","c2c_budget"],
      "init_xml"     : ["mig_liquidity_plan_init.xml"],
      "demo_xml"     : [],

@@ -38,7 +38,7 @@
                     """,
     "version" : "0.9",
     "depends" : ["base", "stock", "report_webkit","report_webkit_c2c_templates","c2c_partner_address_label","c2c_sale_multi_partner","chricar_stock_weighing","chricar_stock_care"],
-    "category": "Reports/Webkit",
+    "category": "Warehouse Management",
     "author" : "Camptocamp SA - Ferdinand Gassauer",
     "url": "http://www.camptocamp.com/",
     "data": ["stock_picking_webkit_view.xml",

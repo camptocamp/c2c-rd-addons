@@ -30,7 +30,7 @@ Adds VAT to bank statement lines
 does not support
 * mulitple VAT per line
        """,
-     "category"     : "Client Modules/ChriCar Addons",
+     "category"     : "Accounting & Finance",
      "depends"      : ["account",],
      "init_xml"     : [],
      "demo_xml"     : [],

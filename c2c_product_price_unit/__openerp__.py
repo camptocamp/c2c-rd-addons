@@ -24,7 +24,7 @@
 {
     'name': 'Product Price Unit',
     'version': '0.7',
-    'category': 'Inventory Control',
+    'category': 'Warehouse Management',
     'description': """
 Attention the module must be installed and upgraded immediately to complete all modifications
 

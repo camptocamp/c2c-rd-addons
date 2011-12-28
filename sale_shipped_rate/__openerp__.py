@@ -24,7 +24,7 @@
 {
     'name': 'Sale Shipped rate',
     'version': '0.7',
-    'category': 'Inventory Control',
+    'category': 'Warehouse Management',
     'description': """
 This module shows the completion of internal moves associated with sale orders
 2 cases

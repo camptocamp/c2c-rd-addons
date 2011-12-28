@@ -54,7 +54,7 @@ other  - naming !!!
 ./account_voucher/voucher.py
 ./auction/auction.py
        """,
-     "category"     : "Client Modules/ChriCar Addons",
+     "category"     : "Accounting & Finance",
      "depends"      : ["base","account","chricar_bank_vat","sale"],
      "init_xml"     : [],
      "demo_xml"     : [],

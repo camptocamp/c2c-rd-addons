@@ -3,6 +3,7 @@
 	"version" : "0.1",
 	"author" : "Z-Beanz Technologies",
 	"website" : "http://www.chricar.at/ChriCar/index.html",
+        "category" : "Warehouse Management",
 	"description": """
 This module is funded by
 ChriCar Beteiligungs- und Beratungs- GmbH

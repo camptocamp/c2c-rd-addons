@@ -24,7 +24,7 @@
 {
     'name': 'Sale order internal picking',
     'version': '0.9',
-    'category': 'Generic Modules/Sales & Purchases',
+    'category': 'Sales Management',
     'description': """
     This module adds an extra internal picking to sale order on request
     Purpose
