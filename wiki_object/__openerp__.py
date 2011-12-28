@@ -24,7 +24,7 @@
 {
     'name': 'Link from Objects to Wiki Pages',
     'version': '0.9',
-    'category': 'Utilities',
+    'category': 'Knowledge Management',
     'description': """
     This module creates a link from each object to a wiki page
 """,
