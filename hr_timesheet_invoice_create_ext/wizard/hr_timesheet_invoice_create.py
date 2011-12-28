@@ -19,7 +19,9 @@
 #
 ##############################################################################
 import time
+import datetime
 from osv import osv, fields
+from tools.translate import _
 #
 # TODO: check unit of measure !!!
 #
@@ -42,7 +44,24 @@ class hr_timesheet_invoice_create(osv.osv_memory):
             , help='The reference on the invoice, usually the period of service'
             )
         }
-    _defaults = {'description' : lambda *a: time.strftime('%d/%m/%Y')}
+    _defaults = {'reference' : lambda *a: 'automatic'}
+    
+    def _ref(self, dates) :
+        _min = datetime.datetime.strptime(dates[0][0:19], '%Y-%m-%d %H:%M:%S') 
+        _max = datetime.datetime.strptime(dates[-1][0:19], '%Y-%m-%d %H:%M:%S')
+        if _min.year != _max.year :
+            return _('Output period: ') + dates[0] + ".." + dates[-1]
+        else :
+            if _min.month == _max.month :
+                return _('Output period: ') + datetime.datetime.strftime(_min,"%b") + " " + str(_min.year)
+            else :
+                for i, r in enumerate([range(1,4), range(4,7), range(7,10), range(10,13)]) :
+                    if (_min.month in r) and (_max.month in r) :
+                        return _('Output period: ') + str(i+1) + _(".Quarter ") + str(_min.year)
+                for i, r in enumerate([range(1,7), range(6,13)]) :
+                    if (_min.month in r) and (_max.month in r) :
+                        return _('Output period: ') + str(i+1) + _(".Half-year ") + str(_min.year)
+    # end def _ref
 
     def do_create(self, cr, uid, ids, context=None) :
         act_win = super(hr_timesheet_invoice_create, self).do_create(cr, uid, ids, context)
@@ -51,11 +70,15 @@ class hr_timesheet_invoice_create(osv.osv_memory):
         inv_obj  = self.pool.get('account.invoice')
 
         inv_ids = line_obj.invoice_cost_create(cr, uid, context['active_ids'], data, context=context)
-        for inv in inv_obj.browse(cr, uid, inv_ids) : 
+        for inv in inv_obj.browse(cr, uid, inv_ids) :
+            if data['reference'] == 'automatic' :
+                ref = self._ref(sorted([l.account_analytic_id.date for l in inv.invoice_line]))
+            else :
+                ref = data['reference'] or False
             values = \
                 { 'name'         : data['description'] + ' - ' + inv.invoice_line[0].account_analytic_id.name
                 , 'date_invoice' : data['date_invoice'] or False
-                , 'reference'    : data['reference'] or False
+                , 'reference'    : ref
                 }
             inv_obj.write(cr, uid, [inv.id], values)
         return act_win
