@@ -61,6 +61,7 @@ class hr_timesheet_invoice_create(osv.osv_memory):
                 for i, r in enumerate([range(1,7), range(6,13)]) :
                     if (_min.month in r) and (_max.month in r) :
                         return _('Output period: ') + str(i+1) + _(".Half-year ") + str(_min.year)
+                return _('Output period: ') + _("Calendaryear ") + str(_min.year)
     # end def _ref
 
     def do_create(self, cr, uid, ids, context=None) :
