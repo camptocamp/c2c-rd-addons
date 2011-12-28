@@ -1,0 +1,29 @@
+
+<openerp>
+ <data>
+         <record id="view_purchase_order_todo_filter" model="ir.ui.view">
+            <field name="name">purchase.order.list.todo.select</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.view_purchase_order_filter"/>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+              <xpath expr="/search/group/filter[@name='draft']" position="before">
+               <filter icon="terp-gtk-jump-to-ltr" name="to_do" string="To Do" domain="[('state','not in',('done','cancel'))]" help="All what needs your attention."/>
+                <separator orientation="vertical"/>
+              </xpath>
+           </field>
+         </record>
+
+        <record id="purchase.purchase_form_action" model="ir.actions.act_window">
+            <field name="name">Purchase Orders</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">purchase.order</field>
+            <field name="view_mode">tree,form,graph,calendar</field>
+            <field name="context">{'search_default_to_do': 1}</field>
+            <field name="search_view_id" ref="view_purchase_order_todo_filter"/>
+            <field name="help">Use this menu to search within your purchase orders by references, supplier, products, etc. For each purchase order, you can track the products received, and control the supplier invoices.</field>
+        </record>
+
+
+ </data>
+</openerp>

@@ -1,0 +1,4 @@
+"id","name","model_id:id","group_id","perm_read","perm_write","perm_create","perm_unlink"
+"access_constraint_predicate","constraint.predicate","model_constraint_predicate","Constraint Manager",1,1,1,1
+"access_constraint_check_one","constraint.check_one","model_constraint_check_one","Constraint Manager",1,1,1,1
+"access_constraint_check_for_all","constraint.check_for_all","model_constraint_check_for_all","Constraint Manager",1,1,1,1

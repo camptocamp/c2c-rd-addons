@@ -19,25 +19,19 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-
-
-{
-    'name': 'Adds fields for invoice creation',
-    'version': '0.7',
-    'category': 'Generic Modules/Accounting',
-    'description': """
+{ 'name'        : 'Adds fields for invoice creation'
+, 'version'     : '0.7'
+, 'category'    : 'Generic Modules/Accounting'
+, 'description' : """
 This module will add
  * invoice date
- * modified description (free text + analytic account name)
-
-""",
-    'author': 'Camptocamp Austria',
-    'depends': [ 'hr_timesheet_invoice' ],
-    'update_xml': ['hr_timesheet_invoice_create_view.xml',
-       ],
-    #'update_xml': ['product_view.xml'],
-    'demo_xml': [],
-    'installable': True,
-    'active': False,
+ * modified description/reference (free text + analytic account name)
+"""
+, 'author'      : 'Camptocamp Austria'
+, 'depends'     : [ 'hr_timesheet_invoice' ]
+, 'update_xml'  : ['wizard/hr_timesheet_invoice_create_view.xml']
+, 'demo_xml'    : []
+, 'installable' : True
+, 'active'      : False
 }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

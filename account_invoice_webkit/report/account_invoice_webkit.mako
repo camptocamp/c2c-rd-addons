@@ -21,60 +21,80 @@
     <% setLang(inv.partner_id.lang) %>
 <br>
     <table  >
+<!-- ****************************
+left Address
+******************************-->
         %if inv.company_id.address_label_position == 'left':
          <tr>
          <td style="width:50%">
 %if inv.type in ('in_invoice','in_refund'):
 ${_("Supplier Address")}
-%else:
-${_("Customer Address")}
-%endif
 <hr>
+%endif
            <pre>
 ${inv.address_invoice_id.address_label}
            <pre>
          </td>
          <td style="width:50%">
+<table {border:none} >
          %if inv.address_invoice_id.phone :
-${_("Phone")}: ${inv.address_invoice_id.phone|entity} <br>
+<tr>
+<td> ${_("Phone")}</td><td> ${inv.address_invoice_id.phone|entity} </td
+</tr>
         %endif
         %if inv.address_invoice_id.fax :
-${_("Fax")}: ${inv.address_invoice_id.fax|entity} <br>
+<tr>
+<td>${_("Fax")}</td><td> ${inv.address_invoice_id.fax|entity} </td>
+</tr>
         %endif
         %if inv.address_invoice_id.email :
-${_("Mail")}: ${inv.address_invoice_id.email|entity} <br>
+<tr>
+<td>${_("Mail")}</td><td>${inv.address_invoice_id.email|entity} </td>
+</tr>
         %endif
         %if inv.partner_id.vat :
-${_("VAT")}: ${inv.partner_id.vat|entity} <br>
+<tr>
+<td>${_("VAT")}</td><td> ${inv.partner_id.vat|entity} </td>
+</tr>
         %endif
+</table>
          </td>
-
         </tr>
         %endif
-
+<!-- ****************************
+right Address
+******************************-->
         %if inv.company_id.address_label_position == 'right' or not inv.company_id.address_label_position:
          <tr>
          <td style="width:50%">
+<table {border:none} >
          %if inv.address_invoice_id.phone :
-${_("Tel")}: ${inv.address_invoice_id.phone|entity} <br>
+<tr>
+<td> ${_("Phone")}</td><td> ${inv.address_invoice_id.phone|entity} </td
+</tr>
         %endif
         %if inv.address_invoice_id.fax :
-${_("Fax")}: ${inv.address_invoice_id.fax|entity} <br>
+<tr>
+<td>${_("Fax")}</td><td> ${inv.address_invoice_id.fax|entity} </td>
+</tr>
         %endif
         %if inv.address_invoice_id.email :
-${_("E-mail")}: ${inv.address_invoice_id.email|entity} <br>
+<tr>
+<td>${_("Mail")}</td><td>${inv.address_invoice_id.email|entity} </td>
+</tr>
         %endif
         %if inv.partner_id.vat :
-${_("VAT")}: ${inv.partner_id.vat|entity} <br>
+<tr>
+<td>${_("VAT")}</td><td> ${inv.partner_id.vat|entity} </td>
+</tr>
         %endif
+</table>
          </td>
          <td style="width:50%">
 %if inv.type in ('in_invoice','in_refund'):
 ${_("Supplier Address")}
-%else:
-${_("Customer Address")}
-%endif
 <hr>
+%endif
            <pre>
 ${inv.address_invoice_id.address_label}
            <pre>
@@ -103,7 +123,7 @@ ${inv.address_invoice_id.address_label}
         <tr><td>${_("Document")}</td>
             <td style="white-space:nowrap">${_("Invoice Date")}</td>
             <td style="white-space:nowrap">${_("Payment Term")}</td>
-          %if inv.client_order_ref:
+          %if inv.client_order_ref and inv.client_order_ref not in inv.name:
             <td style="white-space:nowrap">${_("Partner Reference")}</td>
           %endif
           %if inv.reference and inv.client_order_ref and inv.reference != inv.client_order_ref:
@@ -117,7 +137,7 @@ ${inv.address_invoice_id.address_label}
             %endif
             </td><td>${formatLang(inv.date_invoice, date=True)|entity}</td>
           <td>${inv.payment_term.name or ''}</td>
-          %if inv.client_order_ref:
+          %if inv.client_order_ref and inv.client_order_ref not in inv.name:
             <td >${inv.client_order_ref}</td>
           %endif
            %if inv.reference and inv.client_order_ref and inv.reference != inv.client_order_ref:

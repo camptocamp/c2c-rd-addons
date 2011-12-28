@@ -351,7 +351,7 @@ Modification of Parents (only for matching table prefixes)
                     domain="[('usage', '=', 'inventory')]"
                     name="location_waste_id"/>
                   <separator colspan="4" string="Product Properties"/>
-                  <field name="quality" required="True" string="Ordered Assale_orderrtment"/>
+                  <field name="quality" required="True" string="Ordered Assortment"/>
                   <field name="location_product_id" required="True"/>
                   <field
                     context="{'location_id':location_id, 'product_id':product_id}"
@@ -370,7 +370,7 @@ Modification of Parents (only for matching table prefixes)
                           <field
                             attrs="{ 'readonly': [('state','!=','draft')]} "
                             name="name"
-                            string="Assale_orderrtment"/>
+                            string="Assortment"/>
                           <field
                             attrs="{ 'readonly': [('state','!=','draft')]} "
                             name="product_qty"
@@ -443,7 +443,7 @@ Modification of Parents (only for matching table prefixes)
                               attrs="{ 'readonly': [('state','!=','draft')]} "
                               name="name"
                               select="1"
-                              string="Assale_orderrtment"/>
+                              string="Assortment"/>
                             <field
                               attrs="{ 'readonly': [('state','!=','draft')]} "
                               name="date_expected"
@@ -506,7 +506,7 @@ Modification of Parents (only for matching table prefixes)
                           <field
                             attrs="{ 'readonly': [('state','!=','draft')]} "
                             name="name"
-                            string="Assale_orderrtment"/>
+                            string="Assortment"/>
                           <field
                             attrs="{ 'readonly': [('state','!=','draft')]} "
                             name="product_qty"
@@ -629,7 +629,7 @@ Modification of Parents (only for matching table prefixes)
                           <field
                             attrs="{ 'readonly': [('state','!=','draft')]} "
                             name="name"
-                            string="Assale_orderrtment"/>
+                            string="Assortment"/>
                           <field
                             attrs="{ 'readonly': [('state','!=','draft')]} "
                             name="product_qty"
@@ -754,7 +754,7 @@ Modification of Parents (only for matching table prefixes)
                           <field
                             attrs="{ 'readonly': [('state','!=','draft')]} "
                             name="name"
-                            string="Assale_orderrtment"/>
+                            string="Assortment"/>
                           <field
                             attrs="{ 'readonly': [('state','!=','draft')]} "
                             name="product_qty"
@@ -877,7 +877,7 @@ Modification of Parents (only for matching table prefixes)
                           <field
                             attrs="{ 'readonly': [('state','!=','draft')]} "
                             name="name"
-                            string="Assale_orderrtment"/>
+                            string="Assortment"/>
                           <field
                             attrs="{ 'readonly': [('state','!=','draft')]} "
                             name="product_qty"
@@ -1010,7 +1010,7 @@ Modification of Parents (only for matching table prefixes)
                         attrs="{ 'readonly': [('state','!=','draft')]} "
                         name="name"
                         select="1"
-                        string="Assale_orderrtment"/>
+                        string="Assortment"/>
                       <field
                         attrs="{ 'readonly': [('state','!=','draft')]} "
                         name="product_qty"
@@ -1078,7 +1078,7 @@ Modification of Parents (only for matching table prefixes)
                           attrs="{ 'readonly': [('state','!=','draft')]} "
                           name="name"
                           select="1"
-                          string="Assale_orderrtment"/>
+                          string="Assortment"/>
                         <field
                           attrs="{ 'readonly': [('state','!=','draft')]} "
                           name="date_expected"

@@ -78,34 +78,23 @@ class ir_sequence(osv.osv):
     
     def _seq_type(self, cr, uid, seq):
         seq_type_obj = self.pool.get('ir.sequence.type')
-        ty = seq_type_obj.browse(cr, uid, seq_type_obj.search(cr, uid, [('code', '=', seq.code)]))
-        if ty :
-            return ty[0]
-        else :
-            return False
+        return seq_type_obj.browse(cr, uid, seq_type_obj.search(cr, uid, [('code', '=', seq.code)]))[0]
     # end def _seq_type
     
     def _seq_type_name(self, cr, uid, seq) :
         ty = self._seq_type(cr, uid, seq)
-        if ty :
-            return self._abbrev(ty.name, ' ')
-        else :
-            return ''
+        return self._abbrev(ty.name, ' ')
     # end def _seq_type_name
     
     def _seq_type_code(self, cr, uid, seq) :
         ty = self._seq_type(cr, uid, seq)
-        if ty :
-            return self._abbrev(ty.code, '.')
-        else :
-            return ''
+        return self._abbrev(ty.code, '.')
     # end def _seq_type_code
     
     def _next_seq(self, cr, uid, id) :
         seq = self.browse(cr, uid, id)
-        if seq.implementation == 'standard':
-            #cr.execute("SELECT nextval('ir_sequence_%03d')" % (self._table, seq.id))
-            cr.execute("SELECT nextval('ir_sequence_%03d')" % (seq.id))
+        if seq.implementation == 'standard' :
+            cr.execute("SELECT nextval('%s_%03d')" % (self._table, seq.id))
             seq.number_next = cr.fetchone()
         else:
             cr.execute("SELECT number_next FROM %s WHERE id=%s FOR UPDATE NOWAIT;" % (self._table, seq.id))
@@ -121,19 +110,16 @@ class ir_sequence(osv.osv):
         d['stn'] = self._seq_type_name(cr, uid, seq)
         d['stc'] = self._seq_type_code(cr, uid, seq)
         d['jn']  = self._journal_name(cr, uid, seq)
+        ty = self._seq_type(cr, uid, seq)
         if seq.prefix :
             _prefix = self._interpolate(seq.prefix, d)
         else :
-            ty = self._seq_type(cr, uid, seq)
-            _prefix = ty.prefix_pattern or ''
+            _prefix = self._interpolate(ty.prefix_pattern or '', d)
         if seq.suffix : 
             _suffix = self._interpolate(seq.suffix, d)
         else :
-            ty = self._seq_type(cr, uid, seq)
-            # FIXME ty.suffix_pattern does not exist
-            #_suffix = ty.suffix_pattern or ''
-            _suffix =  ''
-        return _prefix + '%%0%sd' % seq.padding % seq.number_next + _suffix
+            _suffix = self._interpolate(ty.suffix_pattern or '', d)
+        return _prefix + ('%%0%sd' % seq.padding) % seq.number_next + _suffix
     # end def _format
 
     def _next(self, cr, uid, seq_ids, context=None) :
@@ -157,14 +143,15 @@ class ir_sequence(osv.osv):
             if seq_type.create_sequence == 'none' :
                 raise osv.except_osv \
                     ( _('Integrity Error !')
-                    , _('Automatic creation not allowed for sequence code %s with %s') 
+                    , _('Automatic creation not allowed for sequence-code %s with %s') 
                         % (sequence_code, seq_type.create_sequence)
                     )
             values = \
-                { 'code'    : sequence_code
-                , 'name'    : self._abbrev(seq_type.name, ' ')
-#                , 'prefix'  :  # "%(stn)-"
-                , 'padding' : 3
+                { 'code'           : sequence_code
+                , 'name'           : self._abbrev(seq_type.name, ' ')
+#                , 'prefix'         :  # "%(stn)-"
+                , 'padding'        : 3
+                , 'implementation' : 'no_gap'
                 }
             new_id = self.create(cr, uid, values)
             seq = self._next_seq(cr, uid, new_id)
