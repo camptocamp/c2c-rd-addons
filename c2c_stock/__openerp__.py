@@ -24,7 +24,7 @@
 {
     'name': 'Stock Extensions',
     'version': '0.7',
-    'category': 'Inventory Control',
+    'category': 'Warehouse Management',
     'description': """
 Adds some info fields to stock location
 """,

@@ -24,7 +24,7 @@
 {
     'name': 'Toggle display of product with 0 Values in stock location analysis',
     'version': '1.0',
-    'category': 'Inventory Control',
+    'category': 'Warehouse Management',
     'description': """
 Add check to prohibit printing products with Real and Future Value = 0 
 

@@ -24,7 +24,7 @@
 {
     'name': 'Stock Product Location',
     'version': '0.7',
-    'category': 'Inventory Control',
+    'category': 'Warehouse Management',
     'description': """
 This module defines a default stock location for products and product groups.
 This will be used 

@@ -24,7 +24,7 @@
 {
     'name': 'Stock Accounting',
     'version': '0.7',
-    'category': 'Inventory Control',
+    'category': 'Warehouse Management',
     'description': """
 ************** Attention ***************
 * Must be intalled without demo data

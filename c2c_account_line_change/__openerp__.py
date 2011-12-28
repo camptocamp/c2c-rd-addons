@@ -24,7 +24,7 @@
 {
     'name': 'Account change',
     'version': '0.9',
-    'category': 'Finance',
+    'category': 'Accounting & Finance',
     'description': """
 ********** Use with care *********
 This module allows to change accounts of posted moves

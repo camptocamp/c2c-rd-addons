@@ -24,7 +24,7 @@
 {
     'name': 'Totally gapless numbering for sale/purchase order, picking',
     'version': '0.7',
-    'category': 'Accounting',
+    'category': 'Accounting & Finance',
     'description': """
 Standard OpenERP allows deletion of sale / purchase order and pickings
 this module forbid's deletion by users and managers, unused documents must be canceled manually

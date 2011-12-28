@@ -7,7 +7,7 @@
      "description"  : """
      Adds date of cashbox to form to allow modifications
      """,
-     "category"     : "Generic Modules/Accounting",
+     "category"     : "Accounting & Finance",
      "depends"      : ["base","account"],
      "init_xml"     : [],
      "demo_xml"     : [],

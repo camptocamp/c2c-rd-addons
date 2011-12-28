@@ -36,7 +36,7 @@
                     """,
     "version" : "0.9",
     "depends" : ["base", "account"],
-    "category": "Sale",
+    "category": "Accounting & Finance",
     "author" : "Camptocamp SA - Ferdinand Gassauer",
     "url": "http://www.camptocamp.com/",
     "data": ["bank_statement_line_view.xml",

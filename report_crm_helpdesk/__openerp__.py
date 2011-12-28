@@ -36,7 +36,7 @@
     """,
     "version" : "0.9",
     "depends" : ["crm_helpdesk", "report_webkit"],
-    "category": 'Generic Modules/CRM & SRM',
+    "category": 'CRM & SRM',
     "author" : "Camptocamp Austria",
     "url": "http://www.camptocamp.at/",
     "data": ["report_crm_helpdesk_view.xml",

@@ -24,7 +24,7 @@
 {
     'name': 'CRM Profile Enhancements',
     'version': '0.9',
-    'category': 'CRM',
+    'category': 'CRM & SRM',
     'description': """
     This modules adds
     * ordering the questions

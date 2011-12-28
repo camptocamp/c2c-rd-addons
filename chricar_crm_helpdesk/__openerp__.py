@@ -7,7 +7,7 @@
      "description"  : """
 Adds lead times to crm_heldesk
        """,
-     "category"     : "Client Modules/ChriCar Addons",
+     "category"     : "CRM & SRM",
      "depends"      : ["base","crm_helpdesk","base_contact"],
      "init_xml"     : [],
      "demo_xml"     : [],

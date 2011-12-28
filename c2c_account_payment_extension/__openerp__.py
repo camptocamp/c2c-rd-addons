@@ -24,7 +24,7 @@
 {
     'name': 'Payment exclude partners and invoices',
     'version': '0.7',
-    'category': 'Accounting',
+    'category': 'Accounting & Finance',
     'description': """
 Allows to exclude Partners and/or invoices from automatic payment
 """,
