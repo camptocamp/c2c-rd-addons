@@ -23,7 +23,7 @@
 {
     'name': 'Account Closing Remarks',
     'version': '0.7',
-    'category': 'Accounting',
+    'category': 'Accounting & Finance',
     'description': """
 Add a per year textbox for description of account closing remarks
 """,

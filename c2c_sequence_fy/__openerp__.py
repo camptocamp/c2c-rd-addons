@@ -24,7 +24,7 @@
 
 { 'name'        : 'Sequence Financial Year Extension fy (for v61 and above'
 , 'version'     : '0.8'
-, 'category'    : 'Accounting'
+, 'category'    : 'Accounting & Finance'
 , 'description' : """
 This module adds 
 * "fy", "stn", "stc" and "jn" as placeholder for prefix and suffix.

@@ -24,7 +24,7 @@
 {
     'name': 'Account Tax - simulate vertical calculation ',
     'version': '1.0',
-    'category': 'Accounting',
+    'category': 'Accounting & Finance',
     'description': """
 Default tax calculation is per line including rounding of tax amount per line.
 This module turns off rounding per line and per tax, hence simulation vertical calculation

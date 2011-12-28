@@ -21,7 +21,7 @@
 ##############################################################################
 { 'name'        : 'Adds fields for invoice creation'
 , 'version'     : '0.7'
-, 'category'    : 'Generic Modules/Accounting'
+, 'category'    : 'Sales Management'
 , 'description' : """
 This module will add
  * invoice date
