@@ -53,6 +53,7 @@ class account_move(osv.osv):
                     else :
                         values = \
                             { 'name'           : move.journal_id.name
+                            , 'prefix'         : "".join(w[0] for w in _(journal.name).split(' '))
                             , 'padding'        : 3
                             , 'implementation' : 'no_gap'
                             }
