@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 6.1beta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-12-29 08:20+0000\n"
-"PO-Revision-Date: 2011-12-29 09:27+0100\n"
+"POT-Creation-Date: 2011-12-29 22:05+0000\n"
+"PO-Revision-Date: 2011-12-29 23:08+0100\n"
 "Last-Translator: Ferdinand Gassauer <f.gassauer@chricar.at>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -24,21 +24,36 @@ msgid "Date Invoice"
 msgstr "Rechnungsdatum"
 
 #. module: hr_timesheet_invoice_create_ext
+#: help:hr.timesheet.invoice.create,journal_id:0
+msgid "The journal to be used"
+msgstr "Zu verwendendes Journal"
+
+#. module: hr_timesheet_invoice_create_ext
+#: selection:hr.timesheet.invoice.create,invoice_language:0
+msgid "User Language"
+msgstr "Benutzersprache"
+
+#. module: hr_timesheet_invoice_create_ext
 #: field:hr.timesheet.invoice.create,reference:0
 msgid "Reference"
 msgstr "Referenz"
 
 #. module: hr_timesheet_invoice_create_ext
-#: code:addons/hr_timesheet_invoice_create_ext/wizard/hr_timesheet_invoice_create.py:69
+#: code:addons/hr_timesheet_invoice_create_ext/wizard/hr_timesheet_invoice_create.py:88
 #, python-format
-msgid "Calendaryear "
+msgid "Half-year"
+msgstr "Halbjahr"
+
+#. module: hr_timesheet_invoice_create_ext
+#: code:addons/hr_timesheet_invoice_create_ext/wizard/hr_timesheet_invoice_create.py:89
+#, python-format
+msgid "Calendar year"
 msgstr "Kalenderjahr"
 
 #. module: hr_timesheet_invoice_create_ext
-#: code:addons/hr_timesheet_invoice_create_ext/wizard/hr_timesheet_invoice_create.py:68
-#, python-format
-msgid ".Half-year "
-msgstr ". Halbjahr"
+#: selection:hr.timesheet.invoice.create,invoice_language:0
+msgid "Company Language"
+msgstr "Unternehmenssprache"
 
 #. module: hr_timesheet_invoice_create_ext
 #: field:hr.timesheet.invoice.create,journal_id:0
@@ -51,9 +66,10 @@ msgid "The date of the invoice or empty will take the current day on validate"
 msgstr "Rechnungsdatum oder leer für aktuelles Datum der Validierung"
 
 #. module: hr_timesheet_invoice_create_ext
-#: help:hr.timesheet.invoice.create,journal_id:0
-msgid "The journal to be used"
-msgstr "Zu verwendendes Journal"
+#: code:addons/hr_timesheet_invoice_create_ext/wizard/hr_timesheet_invoice_create.py:86
+#, python-format
+msgid "Clearing period"
+msgstr "Abrechnungszeitraum"
 
 #. module: hr_timesheet_invoice_create_ext
 #: field:hr.timesheet.invoice.create,description:0
@@ -61,10 +77,20 @@ msgid "Prefix Invoice Text"
 msgstr "Präfix Rechungstext"
 
 #. module: hr_timesheet_invoice_create_ext
-#: code:addons/hr_timesheet_invoice_create_ext/wizard/hr_timesheet_invoice_create.py:65
+#: selection:hr.timesheet.invoice.create,invoice_language:0
+msgid "Partner Language"
+msgstr "Partnersprache"
+
+#. module: hr_timesheet_invoice_create_ext
+#: field:hr.timesheet.invoice.create,invoice_language:0
+msgid "Invoice Language"
+msgstr "Rechnungssprache"
+
+#. module: hr_timesheet_invoice_create_ext
+#: code:addons/hr_timesheet_invoice_create_ext/wizard/hr_timesheet_invoice_create.py:87
 #, python-format
-msgid ".Quarter "
-msgstr ". Quartal"
+msgid "Quarter"
+msgstr "Quartal"
 
 #. module: hr_timesheet_invoice_create_ext
 #: help:hr.timesheet.invoice.create,description:0
@@ -81,16 +107,6 @@ msgstr "Die Referenz auf der Rechnung, automatisch der Leistungszeitraum"
 #. module: hr_timesheet_invoice_create_ext
 #: model:ir.model,name:hr_timesheet_invoice_create_ext.model_hr_timesheet_invoice_create
 msgid "Create invoice from timesheet"
-msgstr "Erzeuge Rechnung für ausgewählten Zeitraum"
-
-#. module: hr_timesheet_invoice_create_ext
-#: code:addons/hr_timesheet_invoice_create_ext/wizard/hr_timesheet_invoice_create.py:58
-#: code:addons/hr_timesheet_invoice_create_ext/wizard/hr_timesheet_invoice_create.py:61
-#: code:addons/hr_timesheet_invoice_create_ext/wizard/hr_timesheet_invoice_create.py:65
-#: code:addons/hr_timesheet_invoice_create_ext/wizard/hr_timesheet_invoice_create.py:68
-#: code:addons/hr_timesheet_invoice_create_ext/wizard/hr_timesheet_invoice_create.py:69
-#, python-format
-msgid "Clearing period: "
-msgstr "Abrechnungszeitraum: "
+msgstr "Erzeuge Rechnung für abrechenbare Zeiten"
 
 
