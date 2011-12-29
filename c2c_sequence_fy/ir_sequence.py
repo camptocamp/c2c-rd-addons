@@ -78,30 +78,21 @@ class ir_sequence(osv.osv):
     
     def _seq_type(self, cr, uid, seq):
         seq_type_obj = self.pool.get('ir.sequence.type')
-        import sys
-        print >> sys.stderr,'_seq_type',seq.code, seq.name, seq.id
-        #FIXME - sequenzen ohne code müssen via next_by_id verwenden (alles was aus der fibu kommt ?!)
-        res= False
-        if seq.code:
-          res= seq_type_obj.browse(cr, uid, seq_type_obj.search(cr, uid, [('code', '=', seq.code)]))[0]
-        return res
+        ids = seq_type_obj.search(cr, uid, [('code', '=', seq.code)])
+        if ids :
+          return seq_type_obj.browse(cr, uid, ids[0])
+        else :
+            return False
     # end def _seq_type
     
     def _seq_type_name(self, cr, uid, seq) :
         ty = self._seq_type(cr, uid, seq)
-        res = ''
-        if ty and ty.name: 
-            res = self._abbrev(ty.name, ' ') 
-        return res
-       
+        return self._abbrev(ty.name, ' ')       
     # end def _seq_type_name
     
     def _seq_type_code(self, cr, uid, seq) :
         ty = self._seq_type(cr, uid, seq)
-        res = ''
-        if ty and ty.code:
-            res = self._abbrev(ty.code, '.')
-        return res
+        return self._abbrev(ty.code, '.')
     # end def _seq_type_code
     
     def _next_seq(self, cr, uid, id) :
@@ -120,8 +111,9 @@ class ir_sequence(osv.osv):
     def _format(self, cr, uid, seq, context) :
         d = self._interpolation_dict()
         d['fy']  = self._fy_code(cr, uid, context)
-        d['stn'] = self._seq_type_name(cr, uid, seq)
-        d['stc'] = self._seq_type_code(cr, uid, seq)
+        if self._seq_type(cr, uid, seq) :
+            d['stn'] = self._seq_type_name(cr, uid, seq)
+            d['stc'] = self._seq_type_code(cr, uid, seq)
         d['jn']  = self._journal_name(cr, uid, seq)
         ty = self._seq_type(cr, uid, seq)
         _suffix = ''
