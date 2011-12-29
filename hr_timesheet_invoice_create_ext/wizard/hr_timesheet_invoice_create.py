@@ -19,7 +19,9 @@
 #
 ##############################################################################
 import time
+import datetime
 from osv import osv, fields
+from tools.translate import _
 #
 # TODO: check unit of measure !!!
 #
@@ -29,12 +31,17 @@ class hr_timesheet_invoice_create(osv.osv_memory):
     _columns = \
         { 'date_invoice' : fields.date
             ( 'Date Invoice'
-            , help='The date of the invoice or emtpy will take the current day on validate'
+            , help='The date of the invoice or empty will take the current day on validate'
             )
         , 'description'  : fields.char
             ( 'Prefix Invoice Text'
             , size=16
             , help='This text will be placed before the name of the analytic account instead of the current date'
+            )
+        , 'journal_id'   : fields.many2one
+            ( 'account.journal'
+            , 'Journal'
+            , help='The journal to be used'
             )
         , 'reference'    : fields.char
             ( 'Reference'
@@ -42,7 +49,25 @@ class hr_timesheet_invoice_create(osv.osv_memory):
             , help='The reference on the invoice, usually the period of service'
             )
         }
-    _defaults = {'description' : lambda *a: time.strftime('%d/%m/%Y')}
+    _defaults = {'reference' : lambda *a: 'automatic'}
+    
+    def _ref(self, dates) :
+        _min = datetime.datetime.strptime(dates[0][0:10], '%Y-%m-%d') 
+        _max = datetime.datetime.strptime(dates[-1][0:10], '%Y-%m-%d')
+        if _min.year != _max.year :
+            return _('Clearing period: ') + dates[0] + ".." + dates[-1]
+        else :
+            if _min.month == _max.month :
+                return _('Clearing period: ') + datetime.datetime.strftime(_min,"%b") + " " + str(_min.year)
+            else :
+                for i, r in enumerate([range(1,4), range(4,7), range(7,10), range(10,13)]) :
+                    if (_min.month in r) and (_max.month in r) :
+                        return _('Clearing period: ') + str(i+1) + _(".Quarter ") + str(_min.year)
+                for i, r in enumerate([range(1,7), range(6,13)]) :
+                    if (_min.month in r) and (_max.month in r) :
+                        return _('Clearing period: ') + str(i+1) + _(".Half-year ") + str(_min.year)
+                return _('Clearing period: ') + _("Calendaryear ") + str(_min.year)
+    # end def _ref
 
     def do_create(self, cr, uid, ids, context=None) :
         act_win = super(hr_timesheet_invoice_create, self).do_create(cr, uid, ids, context)
@@ -50,13 +75,28 @@ class hr_timesheet_invoice_create(osv.osv_memory):
         line_obj = self.pool.get('account.analytic.line')
         inv_obj  = self.pool.get('account.invoice')
 
-        inv_ids = line_obj.invoice_cost_create(cr, uid, context['active_ids'], data, context=context)
-        for inv in inv_obj.browse(cr, uid, inv_ids) : 
+        inv_ids = []
+        for d in act_win.get('domain') :
+            if d[0] == 'id' : 
+                inv_ids = d[2]
+
+        for inv in inv_obj.browse(cr, uid, inv_ids) :
+            if data['reference'] == 'automatic' :
+                analytic_ids = line_obj.search(cr, uid, [('invoice_id','=',inv.id)])
+                lines = line_obj.browse(cr, uid, analytic_ids)
+                ref = self._ref(sorted([l.date for l in lines]))
+            else :
+                ref = data['reference'] or False
             values = \
-                { 'name'         : data['description'] + ' - ' + inv.invoice_line[0].account_analytic_id.name
-                , 'date_invoice' : data['date_invoice'] or False
-                , 'reference'    : data['reference'] or False
+                { 'date_invoice' : data['date_invoice'] or False
+                , 'reference'    : ref
                 }
+            if data['description'] :
+                values['name'] = data['description'] + ' - ' + inv.invoice_line[0].account_analytic_id.name
+            else:
+                values['name'] = inv.invoice_line[0].account_analytic_id.name
+            if data['journal_id'] :
+                values['journal_id'] =  data['journal_id'][0]
             inv_obj.write(cr, uid, [inv.id], values)
         return act_win
     # end def do_create
