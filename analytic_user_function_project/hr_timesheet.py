@@ -42,7 +42,7 @@ class project_work(osv.osv):
             p = aufg_obj.search(cr, uid, [('user_id','=', user_id),('account_id','=',account_id)])
             if p:
                for aufg in aufg_obj.browse(cr, uid, p, context=None):
-                  line_obj.write(cr, uid, line_id, {'product_id': aufg.product_id.id }) 
+                  line_obj.write(cr, uid, line_id, {'product_id': aufg.product_id.id,  'amount' : -ts.hours * aufg.product_id.standard_price   }) 
 
         return res
 
