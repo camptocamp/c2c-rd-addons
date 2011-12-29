@@ -106,11 +106,11 @@ ${inv.address_invoice_id.address_label}
     <br>
     <br>
     %if inv.type == 'out_invoice' :
-    <span class="title">${_("Invoice")} ${inv.number or ''|entity}</span>
+    <span class="title">${_("Customer Invoice")} ${inv.number or ''|entity}</span>
     %elif inv.type == 'in_invoice' :
     <span class="title">${_("Supplier Invoice")} ${inv.number or ''|entity}</span>   
     %elif inv.type == 'out_refund' :
-    <span class="title">${_("Refund")} ${inv.number or ''|entity}</span> 
+    <span class="title">${_("Customer Refund")} ${inv.number or ''|entity} </span> 
     %elif inv.type == 'in_refund' :
     <span class="title">${_("Supplier Refund")} ${inv.number or ''|entity}</span> 
     %endif
@@ -120,29 +120,42 @@ ${inv.address_invoice_id.address_label}
     <br/>
     <br/>
     <table >
-        <tr><td>${_("Document")}</td>
+        <tr>
+           %if inv.name or inv.origin:
+            <td>${_("Document")}</td>
+           %endif
+          %if inv.reference and inv.name and inv.reference != inv.name:
+            <td style="white-space:nowrap">${_("Reference")}</td>
+          %endif
             <td style="white-space:nowrap">${_("Invoice Date")}</td>
             <td style="white-space:nowrap">${_("Payment Term")}</td>
           %if inv.client_order_ref and inv.client_order_ref not in inv.name:
             <td style="white-space:nowrap">${_("Partner Reference")}</td>
           %endif
-          %if inv.reference and inv.client_order_ref and inv.reference != inv.client_order_ref:
-            <td style="white-space:nowrap">${_("Reference")}</td>
-          %endif
             <td>${_("Curr")}</td>
         </tr>
-        <tr><td>${inv.name or ''} 
-            %if inv.origin:
-               <br>${inv.origin or ''}
+        <tr>
+          %if inv.name or inv.origin:
+            <td>
+            %if not inv.origin or inv.origin and inv.origin.find(inv.name) == -1 :
+               ${inv.name or ''} 
             %endif
-            </td><td>${formatLang(inv.date_invoice, date=True)|entity}</td>
+            %if inv.origin and inv.origin.find(inv.name) == -1 and inv.origin != inv.name:
+              <br>
+            %endif
+            %if inv.origin and inv.origin != inv.name:
+               ${inv.origin or ''}
+            %endif
+            </td>
+          %endif
+           %if inv.reference and inv.name and inv.reference != inv.name:
+         <td>${inv.reference}</td>
+           %endif
+          <td>${formatLang(inv.date_invoice, date=True)|entity}</td>
           <td>${inv.payment_term.name or ''}</td>
           %if inv.client_order_ref and inv.client_order_ref not in inv.name:
             <td >${inv.client_order_ref}</td>
           %endif
-           %if inv.reference and inv.client_order_ref and inv.reference != inv.client_order_ref:
-         <td>${inv.reference}</td>
-           %endif
          <td>${inv.currency_id.name}</td></tr>
     </table>
     <h1><br /></h1>
