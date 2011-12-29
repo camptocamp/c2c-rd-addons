@@ -19,13 +19,15 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-{ 'name'        : 'Adds fields for invoice creation'
+{ 'name'        : 'Adds fields for invoice creation from task work'
 , 'version'     : '0.7'
 , 'category'    : 'Sales Management'
 , 'description' : """
-This module will add
- * invoice date
- * modified description/reference (free text + analytic account name)
+This module will allow to spezify
+ * invoice date, journal
+ * automatic calculation of "Clearing period" and setting this as reference 
+ * prefix for analytic account name
+ * remove the default date of today as prefix for analytic account name
 """
 , 'author'      : 'Camptocamp Austria'
 , 'depends'     : [ 'hr_timesheet_invoice' ]
