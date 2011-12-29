@@ -22,6 +22,7 @@ import time
 import datetime
 from osv import osv, fields
 from tools.translate import _, translate
+import locale
 #
 # TODO: check unit of measure !!!
 #
@@ -73,20 +74,17 @@ class hr_timesheet_invoice_create(osv.osv_memory):
     def _ref(self, cr, dates, lang_code) :
         _min = datetime.datetime.strptime(dates[0][0:10], '%Y-%m-%d') 
         _max = datetime.datetime.strptime(dates[-1][0:10], '%Y-%m-%d')
-        #clearing     = translate(cr, None, 'code', lang_code, 'Clearing period: ')
-        #quarter      = translate(cr, None, 'code', lang_code, '.Quarter ')
-        #halfyear     = translate(cr, None, 'code', lang_code, '.Half-year ')
-        #calendaryear = translate(cr, None, 'code', lang_code, 'Calendaryear ')
-        #month        = translate(cr, None, 'code', lang_code, datetime.datetime.strftime(_min, "%b"))
-        # FIXME - must use internal python for month
-        #if not month:
-        #    month =  datetime.datetime.strftime(_min, "%b")
+
         context = {}
         context['lang'] = lang_code
+
         clearing     = _('Clearing period') + ': '
         quarter      = '. ' + _('Quarter') + ' '
         halfyear     = '. ' + _('Half-year') + ' '
         calendaryear = _('Calendar year') + ' '
+
+        # FIXME
+        # locale.setlocale(locale.LC_ALL, lang_code )
         month        =  datetime.datetime.strftime(_min, "%b") + ' '
 
         if _min.year != _max.year :
