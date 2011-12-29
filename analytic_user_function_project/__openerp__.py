@@ -19,19 +19,16 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-{ 'name'        : 'Adds fields for invoice creation from task work'
+{ 'name'        : 'Makes product user relation available in projects'
 , 'version'     : '0.7'
 , 'category'    : 'Sales Management'
 , 'description' : """
-This module will allow to spezify
- * invoice date, journal
- * automatic calculation of "Clearing period" and setting this as reference 
- * prefix for analytic account name
- * remove the default date of today as prefix for analytic account name
+This module will use the product from user-product-project (analytic account) relation
+for timesheet tasks invoicing)
 """
 , 'author'      : 'Camptocamp Austria'
-, 'depends'     : [ 'hr_timesheet_invoice' ]
-, 'update_xml'  : ['wizard/hr_timesheet_invoice_create_view.xml']
+, 'depends'     : [ 'analytic_user_function','project_timesheet' ]
+, 'update_xml'  : []
 , 'demo_xml'    : []
 , 'installable' : True
 , 'active'      : False

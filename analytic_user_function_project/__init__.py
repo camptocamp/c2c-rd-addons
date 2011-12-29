@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
-#
+#    
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2010 Tiny SPRL (<http://tiny.be>).
 #    Copyright (C) 2010-2010 Camptocamp Austria (<http://www.camptocamp.at>)
@@ -16,24 +16,9 @@
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
 #
 ##############################################################################
-{ 'name'        : 'Adds fields for invoice creation from task work'
-, 'version'     : '0.7'
-, 'category'    : 'Sales Management'
-, 'description' : """
-This module will allow to spezify
- * invoice date, journal
- * automatic calculation of "Clearing period" and setting this as reference 
- * prefix for analytic account name
- * remove the default date of today as prefix for analytic account name
-"""
-, 'author'      : 'Camptocamp Austria'
-, 'depends'     : [ 'hr_timesheet_invoice' ]
-, 'update_xml'  : ['wizard/hr_timesheet_invoice_create_view.xml']
-, 'demo_xml'    : []
-, 'installable' : True
-, 'active'      : False
-}
+import hr_timesheet
+
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
