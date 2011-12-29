@@ -27,8 +27,8 @@ This module will use the product from user-product-project (analytic account) re
 for timesheet tasks invoicing)
 """
 , 'author'      : 'Camptocamp Austria'
-, 'depends'     : [ 'analytic_user_function','hr_timesheet' ]
-, 'update_xml'  : ['wizard/hr_timesheet_invoice_create_view.xml']
+, 'depends'     : [ 'analytic_user_function','project_timesheet' ]
+, 'update_xml'  : []
 , 'demo_xml'    : []
 , 'installable' : True
 , 'active'      : False

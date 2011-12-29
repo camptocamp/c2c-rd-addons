@@ -21,20 +21,29 @@
 import time
 import datetime
 from osv import osv, fields
-import sys
 
+class project_work(osv.osv):
+    _inherit = "project.task.work"
 
-class hr_analytic_timesheet(osv.osv):
-    _name = "hr.analytic.timesheet"
-    _table = 'hr_analytic_timesheet'
+    def create(self, cr, uid, vals, *args, **kwargs):
+        res =  super(project_work,self).create(cr, uid, vals, *args, **kwargs)
+        
+        proj_work_obj = self.browse(cr, uid, [res] , context=False)
+        hr_ats_obj = self.pool.get('hr.analytic.timesheet')
+        aufg_obj   = self.pool.get('analytic.user.funct.grid') 
+        line_obj   = self.pool.get('account.analytic.line')
 
+        for ts in proj_work_obj:
+            line_id = ts.hr_analytic_timesheet_id.line_id.id
+            user_id = ts.hr_analytic_timesheet_id.line_id.user_id.id
+            account_id = ts.hr_analytic_timesheet_id.line_id.account_id.id
+            product_id = ts.hr_analytic_timesheet_id.line_id.product_id.id
+            p = '' 
+            p = aufg_obj.search(cr, uid, [('user_id','=', user_id),('account_id','=',account_id)])
+            if p:
+               for aufg in aufg_obj.browse(cr, uid, p, context=None):
+                  line_obj.write(cr, uid, line_id, {'product_id': aufg.product_id.id }) 
 
-    def _getEmployeeProduct(self, cr, uid, context=None):
-        if context is None:
-            context = {}
-        print >> sys.stderr, 'context timesheet', context
-
-        res = super(hr_analytic_timesheet,self)._getEmployeeProduct(self, cr, uid, context=None) 
         return res
 
-hr_analytic_timesheet()
+project_work()
