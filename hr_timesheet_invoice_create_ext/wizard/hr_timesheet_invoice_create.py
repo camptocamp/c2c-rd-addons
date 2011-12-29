@@ -83,9 +83,11 @@ class hr_timesheet_invoice_create(osv.osv_memory):
         halfyear     = '. ' + _('Half-year') + ' '
         calendaryear = _('Calendar year') + ' '
 
-        # FIXME
-        # locale.setlocale(locale.LC_ALL, lang_code )
+        # FIXME - IMHO changes locale for the server process
+        loc = locale.getlocale()
+        locale.setlocale(locale.LC_ALL, (lang_code,'UTF8') )
         month        =  datetime.datetime.strftime(_min, "%b") + ' '
+        locale.setlocale(locale.LC_ALL, loc )
 
         if _min.year != _max.year :
             return clearing + dates[0] + ".." + dates[-1]
