@@ -8,7 +8,7 @@
       <field name="inherit_id" ref="hr_timesheet_invoice.view_hr_timesheet_invoice_create"/>
       <field name="arch" type="xml">
         <field name="product" position="after">
-          <field name="journal_id"/>
+          <field name="journal_id" domain="[('type','=','sale')]"/>
           <field name="date_invoice"/>
           <field name="description"/>
           <field name="reference"/>
