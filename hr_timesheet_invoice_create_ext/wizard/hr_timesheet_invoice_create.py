@@ -22,7 +22,6 @@ import time
 import datetime
 from osv import osv, fields
 from tools.translate import _
-import sys
 #
 # TODO: check unit of measure !!!
 #
@@ -32,14 +31,14 @@ class hr_timesheet_invoice_create(osv.osv_memory):
     _columns = \
         { 'date_invoice' : fields.date
             ( 'Date Invoice'
-            , help='The date of the invoice or emtpy will take the current day on validate'
+            , help='The date of the invoice or empty will take the current day on validate'
             )
         , 'description'  : fields.char
             ( 'Prefix Invoice Text'
             , size=16
             , help='This text will be placed before the name of the analytic account instead of the current date'
             )
-        , 'journal_id'    : fields.many2one
+        , 'journal_id'   : fields.many2one
             ( 'account.journal'
             , 'Journal'
             , help='The journal to be used'
@@ -53,7 +52,6 @@ class hr_timesheet_invoice_create(osv.osv_memory):
     _defaults = {'reference' : lambda *a: 'automatic'}
     
     def _ref(self, dates) :
-        print >>sys.stderr,'dates ',dates
         _min = datetime.datetime.strptime(dates[0][0:10], '%Y-%m-%d') 
         _max = datetime.datetime.strptime(dates[-1][0:10], '%Y-%m-%d')
         if _min.year != _max.year :
@@ -73,27 +71,19 @@ class hr_timesheet_invoice_create(osv.osv_memory):
 
     def do_create(self, cr, uid, ids, context=None) :
         act_win = super(hr_timesheet_invoice_create, self).do_create(cr, uid, ids, context)
-        print >> sys.stderr, 'act_win A', act_win
         data = self.read(cr, uid, ids, [], context=context)[0]
         line_obj = self.pool.get('account.analytic.line')
         inv_obj  = self.pool.get('account.invoice')
 
-        #inv_ids = line_obj.invoice_cost_create(cr, uid, context['active_ids'], data, context=context)
-        dom = act_win.get('domain')
-        print >> sys.stderr, 'dom', dom
-        # FIXME - dom [('id', 'in', [1512L]), ('type', '=', 'out_invoice')]
-        # wie findet man das 'id' - hier [0], könnte aber auch in anderer Reihenfolge kommen
-        inv_ids = dom[0][2] 
- 
-        print >> sys.stderr, 'inv_ids', inv_ids
+        inv_ids = []
+        for d in act_win.get('domain') :
+            if d[0] == 'id' : 
+                inv_ids = d[2]
+
         for inv in inv_obj.browse(cr, uid, inv_ids) :
-            print >> sys.stderr,'inv',inv
-            print >> sys.stderr,'inv', inv.invoice_line
             if data['reference'] == 'automatic' :
                 analytic_ids = line_obj.search(cr, uid, [('invoice_id','=',inv.id)])
                 lines = line_obj.browse(cr, uid, analytic_ids)
-                print >> sys.stderr,'analytic_ids', analytic_ids
-                #ref = self._ref(sorted([l.account_analytic_id.date for l in inv.invoice_line]))
                 ref = self._ref(sorted([l.date for l in lines]))
             else :
                 ref = data['reference'] or False
@@ -101,17 +91,13 @@ class hr_timesheet_invoice_create(osv.osv_memory):
                 { 'date_invoice' : data['date_invoice'] or False
                 , 'reference'    : ref
                 }
-
-            if data['description']:
-                values.update({ 'name'         : data['description'] + ' - ' + inv.invoice_line[0].account_analytic_id.name })
+            if data['description'] :
+                values['name'] = data['description'] + ' - ' + inv.invoice_line[0].account_analytic_id.name
             else:
-                values.update({ 'name'         : inv.invoice_line[0].account_analytic_id.name })
-                
-            if data['journal_id']:
-                values.update({ 'journal_id'   : data['journal_id'][0] })
-            print >> sys.stderr,'values',inv.id ,values
+                values['name'] = inv.invoice_line[0].account_analytic_id.name
+            if data['journal_id'] :
+                values['journal_id'] =  data['journal_id'][0]
             inv_obj.write(cr, uid, [inv.id], values)
-        print >> sys.stderr, 'act_win B', act_win
         return act_win
     # end def do_create
 hr_timesheet_invoice_create()
