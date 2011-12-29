@@ -78,17 +78,30 @@ class ir_sequence(osv.osv):
     
     def _seq_type(self, cr, uid, seq):
         seq_type_obj = self.pool.get('ir.sequence.type')
-        return seq_type_obj.browse(cr, uid, seq_type_obj.search(cr, uid, [('code', '=', seq.code)]))[0]
+        import sys
+        print >> sys.stderr,'_seq_type',seq.code, seq.name, seq.id
+        #FIXME - sequenzen ohne code müssen via next_by_id verwenden (alles was aus der fibu kommt ?!)
+        res= False
+        if seq.code:
+          res= seq_type_obj.browse(cr, uid, seq_type_obj.search(cr, uid, [('code', '=', seq.code)]))[0]
+        return res
     # end def _seq_type
     
     def _seq_type_name(self, cr, uid, seq) :
         ty = self._seq_type(cr, uid, seq)
-        return self._abbrev(ty.name, ' ')
+        res = ''
+        if ty and ty.name: 
+            res = self._abbrev(ty.name, ' ') 
+        return res
+       
     # end def _seq_type_name
     
     def _seq_type_code(self, cr, uid, seq) :
         ty = self._seq_type(cr, uid, seq)
-        return self._abbrev(ty.code, '.')
+        res = ''
+        if ty and ty.code:
+            res = self._abbrev(ty.code, '.')
+        return res
     # end def _seq_type_code
     
     def _next_seq(self, cr, uid, id) :
@@ -111,6 +124,7 @@ class ir_sequence(osv.osv):
         d['stc'] = self._seq_type_code(cr, uid, seq)
         d['jn']  = self._journal_name(cr, uid, seq)
         ty = self._seq_type(cr, uid, seq)
+        _suffix = ''
         if seq.prefix :
             _prefix = self._interpolate(seq.prefix, d)
         else :
@@ -118,7 +132,8 @@ class ir_sequence(osv.osv):
         if seq.suffix : 
             _suffix = self._interpolate(seq.suffix, d)
         else :
-            _suffix = self._interpolate(ty.suffix_pattern or '', d)
+            if ty and suffix_pattern:
+               _suffix = self._interpolate(ty.suffix_pattern or '', d)
         return _prefix + ('%%0%sd' % seq.padding) % seq.number_next + _suffix
     # end def _format
 

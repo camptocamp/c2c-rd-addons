@@ -47,7 +47,7 @@ class account_move(osv.osv):
                     if journal.sequence_id:
                         c = \
                             { 'fiscalyear_id' : move.period_id.fiscalyear_id.id
-                            , 'journal_id'    : journal_id.id
+                            , 'journal_id'    : journal.id
                             }
                         new_name = seq_obj.next_by_id(cr, uid, journal.sequence_id.id, context=c)
                     else :
