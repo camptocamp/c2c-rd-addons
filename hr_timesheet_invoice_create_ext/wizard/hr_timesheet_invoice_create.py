@@ -101,8 +101,12 @@ class hr_timesheet_invoice_create(osv.osv_memory):
                 { 'date_invoice' : data['date_invoice'] or False
                 , 'reference'    : ref
                 }
+
             if data['description']:
                 values.update({ 'name'         : data['description'] + ' - ' + inv.invoice_line[0].account_analytic_id.name })
+            else:
+                values.update({ 'name'         : inv.invoice_line[0].account_analytic_id.name })
+                
             if data['journal_id']:
                 values.update({ 'journal_id'   : data['journal_id'][0] })
             print >> sys.stderr,'values',inv.id ,values
