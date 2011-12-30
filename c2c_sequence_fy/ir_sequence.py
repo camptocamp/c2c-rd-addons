@@ -4,7 +4,6 @@
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2010 Tiny SPRL (<http://tiny.be>).
 #    Copyright (C) 2010-2010 Camptocamp Austria (<http://www.camptocamp.at>)
-#    Copyright (C) 2011-2011 Swing Entwicklung betrieblicher Informationssysteme GmbH (<http://www.swing-system.com>)
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -78,12 +77,16 @@ class ir_sequence(osv.osv):
     
     def _seq_type(self, cr, uid, seq):
         seq_type_obj = self.pool.get('ir.sequence.type')
-        return seq_type_obj.browse(cr, uid, seq_type_obj.search(cr, uid, [('code', '=', seq.code)]))[0]
+        ids = seq_type_obj.search(cr, uid, [('code', '=', seq.code)])
+        if ids :
+          return seq_type_obj.browse(cr, uid, ids[0])
+        else :
+            return False
     # end def _seq_type
     
     def _seq_type_name(self, cr, uid, seq) :
         ty = self._seq_type(cr, uid, seq)
-        return self._abbrev(ty.name, ' ')
+        return self._abbrev(ty.name, ' ')       
     # end def _seq_type_name
     
     def _seq_type_code(self, cr, uid, seq) :
@@ -107,18 +110,23 @@ class ir_sequence(osv.osv):
     def _format(self, cr, uid, seq, context) :
         d = self._interpolation_dict()
         d['fy']  = self._fy_code(cr, uid, context)
-        d['stn'] = self._seq_type_name(cr, uid, seq)
-        d['stc'] = self._seq_type_code(cr, uid, seq)
+        if self._seq_type(cr, uid, seq) :
+            d['stn'] = self._seq_type_name(cr, uid, seq)
+            d['stc'] = self._seq_type_code(cr, uid, seq)
         d['jn']  = self._journal_name(cr, uid, seq)
         ty = self._seq_type(cr, uid, seq)
         if seq.prefix :
             _prefix = self._interpolate(seq.prefix, d)
-        else :
+        elif ty :
             _prefix = self._interpolate(ty.prefix_pattern or '', d)
+        else :
+            _prefix = ''
         if seq.suffix : 
             _suffix = self._interpolate(seq.suffix, d)
-        else :
+        elif ty :
             _suffix = self._interpolate(ty.suffix_pattern or '', d)
+        else :
+            _suffix = ''
         return _prefix + ('%%0%sd' % seq.padding) % seq.number_next + _suffix
     # end def _format
 

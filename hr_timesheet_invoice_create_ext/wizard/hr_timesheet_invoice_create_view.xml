@@ -12,6 +12,7 @@
           <field name="date_invoice"/>
           <field name="description"/>
           <field name="reference"/>
+          <field name="invoice_language"/>
         </field>
       </field>
     </record>
