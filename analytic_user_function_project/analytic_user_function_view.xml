@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <!-- project.project inherited view -->
+        <record model="ir.ui.view" id="edit_project_inherit">
+            <field name="name">project.project.form</field>
+            <field name="model">project.project</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="project.edit_project"/>
+            <field name="arch" type="xml">
+                <xpath expr="/form/notebook/page" position="after">
+                    <page string="Users/Products Rel.">
+                        <field name="user_product_ids" colspan="4" nolabel="1"/>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</openerp>
