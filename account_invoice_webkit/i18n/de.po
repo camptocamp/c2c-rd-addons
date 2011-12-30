@@ -1,155 +1,222 @@
-# German translation for openobject-addons
-# Copyright (c) 2010 Rosetta Contributors and Canonical Ltd 2010
-# This file is distributed under the same license as the openobject-addons package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2010.
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* account_invoice_webkit
 #
+# Ferdinand Gassauer <f.gassauer@chricar.at>, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: openobject-addons\n"
-"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2011-01-11 11:16+0000\n"
-"PO-Revision-Date: 2011-01-19 12:00+0000\n"
-"Last-Translator: Thorsten Vocks (OpenBig.org) <thorsten.vocks@big-"
-"consulting.net>\n"
-"Language-Team: German <de@li.org>\n"
+"Project-Id-Version: OpenERP Server 6.1beta\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-12-30 16:11+0000\n"
+"PO-Revision-Date: 2011-12-30 21:45+0100\n"
+"Last-Translator: Ferdinand Gassauer <f.gassauer@chricar.at>\n"
+"Language-Team: German <kde-i18n-de@kde.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-06-17 05:36+0000\n"
-"X-Generator: Launchpad (build 13168)\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+"Language: de\n"
+"X-Generator: Lokalize 1.2\n"
 
-#. module: report_webkit_sample
-#: model:ir.actions.report.xml,name:report_webkit_sample.report_webkit_html
-msgid "WebKit invoice"
-msgstr "Webkit Rechnung"
+#. module: account_invoice_webkit
+#: report:report.account.invoice.webkit:237
+msgid "Total Tax:"
+msgstr "Gesamt Steuern:"
 
-#. module: report_webkit_sample
-#: report:report.webkitaccount.invoice:35
+#. module: account_invoice_webkit
+#: report:report.account.invoice.webkit:113
+msgid "Customer Refund"
+msgstr "Kunden Gutschrift"
+
+#. module: account_invoice_webkit
+#: field:account.invoice,client_order_ref:0
+msgid "Customer Reference of Sale Orders"
+msgstr "Kundenauftragsreferenz"
+
+#. module: account_invoice_webkit
+#: report:report.account.invoice.webkit:109
+msgid "Customer Invoice"
+msgstr "Kundenrechnung"
+
+#. module: account_invoice_webkit
+#: report:report.account.invoice.webkit:31
+#: report:report.account.invoice.webkit:95
+msgid "Supplier Address"
+msgstr "Lieferantenadresse"
+
+#. module: account_invoice_webkit
+#: report:report.account.invoice.webkit:111
 msgid "Supplier Invoice"
-msgstr "Lieferanten Rechnung"
+msgstr "Lieferantenrechnung"
 
-#. module: report_webkit_sample
-#: report:report.webkitaccount.invoice:49
+#. module: account_invoice_webkit
+#: report:report.account.invoice.webkit:165
 msgid "Unit Price"
-msgstr "Preis/ME"
+msgstr "Einzelpreis"
 
-#. module: report_webkit_sample
-#: model:ir.module.module,description:report_webkit_sample.module_meta_information
-msgid ""
-"Samples for Webkit Report Engine (report_webkit module).\n"
-"\n"
-"    A sample invoice report is included in this module, as well as a wizard "
-"to\n"
-"    add Webkit Report entries on any Document in the system.\n"
-"      \n"
-"    You have to create the print buttons by calling the wizard. For more "
-"details see:\n"
-"        http://files.me.com/nbessi/06n92k.mov \n"
-"                    "
-msgstr ""
-"Beispiele für Webkit Report Engine (report_webkit module).\n"
-"\n"
-"\n"
-"  Eine Beispielrechnung befindet sich in diesem Modul, außerdem auch ein "
-"Assistent für die\n"
-"   Erstellung von Webkit Reports zu jedem Dokument in OpenERP.\n"
-"\n"
-"Sie müssen die Druck Buttons für die Reports durch den Assistenten "
-"erstellen, sehen Sie hierzu auch das folgende Video:\n"
-"        http://files.me.com/nbessi/06n92k.mov \n"
-"                    "
+#. module: account_invoice_webkit
+#: report:report.account.invoice.webkit:52
+#: report:report.account.invoice.webkit:83
+msgid "Mail"
+msgstr "EMail"
 
-#. module: report_webkit_sample
-#: model:ir.module.module,shortdesc:report_webkit_sample.module_meta_information
-msgid "Webkit Report Samples"
-msgstr "Beispiele Webkit Reports"
+#. module: account_invoice_webkit
+#: report:report.account.invoice.webkit:167
+msgid "Price/Unit"
+msgstr "Preis/Einheit"
 
-#. module: report_webkit_sample
-#: report:report.webkitaccount.invoice:49
-msgid "Disc.(%)"
-msgstr "Rabatt (%)"
-
-#. module: report_webkit_sample
-#: report:report.webkitaccount.invoice:22
-msgid "Fax"
-msgstr "Fax"
-
-#. module: report_webkit_sample
-#: report:report.webkitaccount.invoice:44
+#. module: account_invoice_webkit
+#: report:report.account.invoice.webkit:125
 msgid "Document"
 msgstr "Dokument"
 
-#. module: report_webkit_sample
-#: report:report.webkitaccount.invoice:49
+#. module: account_invoice_webkit
+#: constraint:account.invoice:0
+msgid "You must not alter a fixed analytic account."
+msgstr "You must not alter a fixed analytic account."
+
+#. module: account_invoice_webkit
+#: report:report.account.invoice.webkit:47
+#: report:report.account.invoice.webkit:78
+msgid "Fax"
+msgstr "Fax"
+
+#. module: account_invoice_webkit
+#: report:report.account.invoice.webkit:170
+msgid "Disc.(%)"
+msgstr "Rab.(%)"
+
+#. module: account_invoice_webkit
+#: report:report.account.invoice.webkit:165
 msgid "Description"
 msgstr "Beschreibung"
 
-#. module: report_webkit_sample
-#: report:report.webkitaccount.invoice:49
+#. module: account_invoice_webkit
+#: model:ir.actions.report.xml,name:account_invoice_webkit.account_invoice_webkit
+msgid "WebKit Invoice"
+msgstr "WebKit Rechnung"
+
+#. module: account_invoice_webkit
+#: report:report.account.invoice.webkit:172
 msgid "Price"
-msgstr "Preis"
+msgstr "Gesamtpreis"
 
-#. module: report_webkit_sample
-#: report:report.webkitaccount.invoice:44
+#. module: account_invoice_webkit
+#: report:report.account.invoice.webkit:130
 msgid "Invoice Date"
-msgstr "Datum Rechnung"
+msgstr "Rechnungsdatum"
 
-#. module: report_webkit_sample
-#: report:report.webkitaccount.invoice:49
+#. module: account_invoice_webkit
+#: report:report.account.invoice.webkit:165
 msgid "QTY"
-msgstr "Anz."
+msgstr "Menge"
 
-#. module: report_webkit_sample
-#: report:report.webkitaccount.invoice:64
+#. module: account_invoice_webkit
+#: report:report.account.invoice.webkit:42
+#: report:report.account.invoice.webkit:73
+msgid "Phone"
+msgstr "Tel"
+
+#. module: account_invoice_webkit
+#: report:report.account.invoice.webkit:227
 msgid "Base"
-msgstr "Steuergrundbetrag"
+msgstr "Basis"
 
-#. module: report_webkit_sample
-#: report:report.webkitaccount.invoice:44
-msgid "Partner Ref."
-msgstr "Partner Ref."
+#. module: account_invoice_webkit
+#: report:report.account.invoice.webkit:227
+msgid "Tax"
+msgstr "Steuer"
 
-#. module: report_webkit_sample
-#: report:report.webkitaccount.invoice:49
+#. module: account_invoice_webkit
+#: field:account.invoice,print_price_unit_id:0
+msgid "Print column price unit id if not 1"
+msgstr "Print column price unit id if not 1"
+
+#. module: account_invoice_webkit
+#: report:report.account.invoice.webkit:133
+msgid "Partner Reference"
+msgstr "Partner Referenz"
+
+#. module: account_invoice_webkit
+#: constraint:account.invoice:0
+msgid "You must not define an analytic account."
+msgstr "You must not define an analytic account."
+
+#. module: account_invoice_webkit
+#: sql_constraint:account.invoice:0
+msgid "Invoice Number must be unique per Company!"
+msgstr "Rechnungsnummer muss je Firma eindeutig sein!"
+
+#. module: account_invoice_webkit
+#: report:report.account.invoice.webkit:165
 msgid "Taxes"
 msgstr "Steuern"
 
-#. module: report_webkit_sample
-#: report:report.webkitaccount.invoice:64
+#. module: account_invoice_webkit
+#: report:report.account.invoice.webkit:227
 msgid "Amount"
 msgstr "Betrag"
 
-#. module: report_webkit_sample
-#: report:report.webkitaccount.invoice:28
+#. module: account_invoice_webkit
+#: report:report.account.invoice.webkit:57
+#: report:report.account.invoice.webkit:88
 msgid "VAT"
 msgstr "UID"
 
-#. module: report_webkit_sample
-#: report:report.webkitaccount.invoice:37
-msgid "Refund"
-msgstr "Gutschrift"
+#. module: account_invoice_webkit
+#: constraint:account.invoice:0
+msgid "Error: \"Reference\" is missing"
+msgstr "Fehler: \"Referenze\" fehlt"
 
-#. module: report_webkit_sample
-#: report:report.webkitaccount.invoice:19
-msgid "Tel"
-msgstr "Tel."
+#. module: account_invoice_webkit
+#: report:report.account.invoice.webkit:135
+msgid "Curr"
+msgstr "WHG"
 
-#. module: report_webkit_sample
-#: report:report.webkitaccount.invoice:25
-msgid "E-mail"
-msgstr "E-Mail"
+#. module: account_invoice_webkit
+#: report:report.account.invoice.webkit:128
+msgid "Reference"
+msgstr "Referenz"
 
-#. module: report_webkit_sample
-#: report:report.webkitaccount.invoice:33
+#. module: account_invoice_webkit
+#: constraint:account.invoice:0
+msgid "Invalid BBA Structured Communication !"
+msgstr "Invalid BBA Structured Communication !"
+
+#. module: account_invoice_webkit
+#: report:report.account.invoice.webkit:131
+msgid "Payment Term"
+msgstr "Zahlungskondition"
+
+#. module: account_invoice_webkit
+#: field:account.invoice,amount_discount:0
+msgid "Total Discount"
+msgstr "Gesamt Rabatt"
+
+#. module: account_invoice_webkit
+#: constraint:account.invoice:0
+msgid "Error: Invalid \"Customer Data\" [numeric12]"
+msgstr "Fehler: ungültiges Feld \"Kundendante\" [numerisch 12]"
+
+#. module: account_invoice_webkit
+#: model:ir.model,name:account_invoice_webkit.model_account_invoice
 msgid "Invoice"
 msgstr "Rechnung"
 
-#. module: report_webkit_sample
-#: report:report.webkitaccount.invoice:39
+#. module: account_invoice_webkit
+#: report:report.account.invoice.webkit:115
 msgid "Supplier Refund"
-msgstr "Lieferanten Gutschrift"
+msgstr "Lieferantengutschrift"
 
-#. module: report_webkit_sample
-#: report:report.webkitaccount.invoice:76
-msgid "Total"
-msgstr "Summe"
+#. module: account_invoice_webkit
+#: constraint:account.invoice:0
+msgid "You must assign an analytic account.(invoice)"
+msgstr "You must assign an analytic account.(invoice)"
+
+#. module: account_invoice_webkit
+#: report:report.account.invoice.webkit:165
+#: report:report.account.invoice.webkit:180
+msgid "Unit"
+msgstr "Einheit"
+
+
