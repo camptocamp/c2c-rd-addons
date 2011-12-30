@@ -4,7 +4,6 @@
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2010 Tiny SPRL (<http://tiny.be>).
 #    Copyright (C) 2010-2010 Camptocamp Austria (<http://www.camptocamp.at>)
-#    Copyright (C) 2011-2011 Swing Entwicklung betrieblicher Informationssysteme GmbH (<http://www.swing-system.com>)
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -116,16 +115,18 @@ class ir_sequence(osv.osv):
             d['stc'] = self._seq_type_code(cr, uid, seq)
         d['jn']  = self._journal_name(cr, uid, seq)
         ty = self._seq_type(cr, uid, seq)
-        _suffix = ''
         if seq.prefix :
             _prefix = self._interpolate(seq.prefix, d)
-        else :
+        elif ty :
             _prefix = self._interpolate(ty.prefix_pattern or '', d)
+        else :
+            _prefix = ''
         if seq.suffix : 
             _suffix = self._interpolate(seq.suffix, d)
+        elif ty :
+            _suffix = self._interpolate(ty.suffix_pattern or '', d)
         else :
-            if ty and suffix_pattern:
-               _suffix = self._interpolate(ty.suffix_pattern or '', d)
+            _suffix = ''
         return _prefix + ('%%0%sd' % seq.padding) % seq.number_next + _suffix
     # end def _format
 
