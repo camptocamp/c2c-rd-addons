@@ -4,7 +4,6 @@
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2010 Tiny SPRL (<http://tiny.be>).
 #    Copyright (C) 2010-2010 Camptocamp Austria (<http://www.camptocamp.at>)
-#    Copyright (C) 2011-2011 Swing Entwicklung betrieblicher Informationssysteme GmbH (<http://www.swing-system.com>)
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -58,7 +57,7 @@ class account_move(osv.osv):
                             , 'implementation' : 'no_gap'
                             }
                         new_id   = seq_obj.create(cr, uid, values)
-                        new_name = seq_obj._next_seq(cr, uid, new_id)
+                        new_name = seq_obj._format(self, cr, uid, seq_obj.browse(cr, uid, new_id), context)
                         jou_obj.write(cr, uid, [journal_id.id], {'sequence_id' : new_id})
                 self.write(cr, uid, [move.id], {'name' : new_name})
         self.write(cr, uid, valid_move_ids, {'state' : 'posted'})
