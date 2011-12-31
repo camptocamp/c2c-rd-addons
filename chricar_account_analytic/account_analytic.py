@@ -219,15 +219,32 @@ for balance accounts
 
 account_account()
 
-# *****************3Y*******************
+# ************************************
 # account_move_line
 # ************************************
 class account_move_line(osv.osv):
     _inherit = "account.move.line"
-    
+   
+
+    def _analytic_account_id(self, cr, uid, ids=False, context=None):
+        # FIXME - do not know if this ever will return a valid analytic account
+        res = ''
+        if ids:
+            line = self.browse(cr, uid, ids)
+            if not line.analytic_account_id and line.account_id and line.account_id.analytic_account_id:
+                res = line.account_id.analytic_account_id.id
+        return res
+ 
     _columns = {
-       'analytic_account_id': fields.many2one('account.analytic.account', 'Analytic Account', readonly=True)
+       # FIXME why readonly ?? FGF 20111231
+       #'analytic_account_id': fields.many2one('account.analytic.account', 'Analytic Account', readonly=True)
     }
+ 
+    _defaults = {
+       'analytic_account_id' :  _analytic_account_id,
+    }
+
+
     def onchange_account(self, cr, uid, ids, account_id,tax_id, amount, partner_id):
 
         result = super(account_move_line,self).onchange_account_id( cr, uid, ids, account_id, partner_id)
