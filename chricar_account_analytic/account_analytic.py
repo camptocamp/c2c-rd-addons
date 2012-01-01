@@ -25,7 +25,7 @@ from osv import fields,osv
 import pooler
 import sys
 
-# ***************3Y*********************
+# ************************************
 # account_account
 # ************************************
 
@@ -286,6 +286,15 @@ class account_move_line(osv.osv):
         (_check_analytic_account_none,
             'You must not define an analytic account.', ['analytic_account_id']),
         ]
+
+    def create(self, cr, uid, vals, context=None, check=True):
+        res  = super(account_move_line, self).create(cr, uid, vals, context=context) 
+        if not vals.get('analytic_account_id') :
+             account_id = vals.get('account_id')
+             for account in self.pool.get('account.account').browse(cr, uid, [account_id] , context=context):
+                 if account.account_analytic_usage in [ 'fixed', 'mandatory'] and account.analytic_account_id:
+                     res['vals']['analytic_account_id'] = account.analytic_account_id.id
+        return res
 
 account_move_line()
 
