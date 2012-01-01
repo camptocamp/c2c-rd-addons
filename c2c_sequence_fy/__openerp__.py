@@ -28,7 +28,7 @@
 This module adds 
 * "fy", "stn", "stc" and "jn" as placeholder for prefix and suffix.
 
-* creation rules for missing sequences in ir_sequence_type 
+* creation rules for missing sequences in ir_sequence_type and account journal
    if a not existing sequence is requested it will be created on the fly.
    * if no prefix pattern is defined in sequence-codes, a name will be created using 
      the first characters of each word of then name of the sequence-code
@@ -50,7 +50,7 @@ This module adds
 * "jn" (journal-name)
   This allows to use the (abbreviated) journal name as placeholder.
   
-If no prefix/suffix is specified, the prefi/suffix of the sequence-code is used. 
+If no prefix/suffix is specified, the prefix/suffix of the sequence-code is used. 
 
 This module is a prerequisite to automatically generated new fiscal years, periods and associated sequences 
 using '(fy)' instead of hard coding.
@@ -65,6 +65,7 @@ using '(fy)' instead of hard coding.
     , 'account_fiscalyear_view.xml'
     , 'ir_sequence_type_view.xml'
     , 'ir_sequence_installer_view.xml'
+    , 'account_view.xml'
     ]
 , 'demo_xml'    : []
 , 'installable' : True

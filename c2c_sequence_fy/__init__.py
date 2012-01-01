@@ -20,6 +20,7 @@
 #
 ##############################################################################
 import account_fiscalyear
+import account
 import ir_sequence_type
 import ir_sequence
 import account_move

@@ -26,6 +26,57 @@ class account_move(osv.osv):
     _inherit = "account.move"
 
     def post(self, cr, uid, ids, context=None):
+        import sys
+        print >> sys.stderr,'post move context',context 
+
+        journal_id = context.get('journal_id')
+        jour_obj = self.pool.get('account.journal')
+        seq_obj  = self.pool.get('ir.sequence')
+        print >> sys.stderr,'post move journal', journal_id
+        if journal_id:
+          for jour in jour_obj.browse(cr, uid, [journal_id] , context=context):
+            print >> sys.stderr,'post jour', jour
+            if not jour.sequence_id and jour.create_sequence in ['create','create_fy']:
+                prefix = jour.prefix_pattern or "".join(w[0] for w in _(jour.name).split(' '))
+                values = \
+                            { 'name'           : jour.name
+                            , 'prefix'         : prefix
+                            , 'padding'        : 3
+                            , 'implementation' : 'no_gap'
+                            }
+                seq_id = seq_obj.create(cr, uid, values)
+                jou_obj.write(cr, uid, [journal_id], {'sequence_id' : seq_id})
+                
+            
+            if jour.create_sequence == 'create_fy' :  
+                fy_seq_obj = self.pool.get('account.sequence.fiscalyear')
+                period_obj = self.pool.get('account.period')
+                period_id = context.get('period_id')
+                for period in period_obj.browse(cr, uid, [period_id]):
+                   fy_id = period.fiscalyear_id.id
+                fy_seq_id = fy_seq_obj.search(cr, uid, [('fiscalyear_id','=',fy_id)])
+                if not fy_seq_id:
+                   prefix = jour.prefix_pattern or "".join(w[0] for w in _(jour.name).split(' ')) + '%(fy)s'
+                    
+                   values = \
+                            { 'name'           : jour.name
+                            , 'prefix'         : prefix
+                            , 'padding'        : 3
+                            , 'implementation' : 'no_gap'
+                            }
+                   fy_seq_id = seq_obj.create(cr, uid, values)
+                   fy_rel = \
+                          { 'sequence_id'      : fy_seq_id
+                          , 'sequence_main_id' : jour.sequence_id.id or seq_id
+                          , 'fiscalyear_id'    : fy_id
+                          }   
+                   print >> sys.stderr,'fy_rel',fy_rel
+                   fy_seq_obj.create(cr, uid, fy_rel)
+         
+        return super(account_move, self).post(cr, uid, ids, context)
+        
+
+    def post_gk(self, cr, uid, ids, context=None):
         if context is None : context = {}
         invoice = context.get('invoice', False)
         valid_move_ids = self.validate(cr, uid, ids, context)
