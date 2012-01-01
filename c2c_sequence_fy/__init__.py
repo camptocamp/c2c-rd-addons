@@ -20,9 +20,9 @@
 #
 ##############################################################################
 import account_fiscalyear
-import account
 import ir_sequence_type
 import ir_sequence
+import account
 import account_move
 import ir_sequence_installer
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

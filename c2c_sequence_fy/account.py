@@ -42,7 +42,8 @@ class account_journal(osv.osv):
        res =  super(account_journal,self).create_sequence(cr, uid, vals, context)
        seq_obj = self.pool.get('ir.sequence')
        for seq in seq_obj.browse(cr, uid, [res],context) :
-           prefix = seq.prefix.replace('year','fy')
+           # FIXME - include the new parameters like fy,etc and uset the prefix_pattern
+           prefix = seq.prefix.replace('/%(year)s/','-%(fy)s-')
            seq_obj.write(cr, uid, res,{'prefix' : prefix }) 
        return res
 

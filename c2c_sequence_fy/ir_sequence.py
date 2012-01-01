@@ -27,6 +27,24 @@ import sys
 class ir_sequence(osv.osv):
     _inherit = 'ir.sequence'
 
+    def next_by_id(self, cr, uid, sequence_id, context=None):
+        """ Draw an interpolated string using the specified sequence."""
+        print >> sys.stderr,'next_by_id ',sequence_id,context
+        self.check_read(cr, uid)
+        company_ids = self.pool.get('res.company').search(cr, uid, [], order='company_id', context=context) + [False]
+        fy_seq_id = sequence_id
+        if context['fiscalyear_id'] :
+          fy = context['fiscalyear_id'] 
+          print >> sys.stderr,'fy', fy
+          if fy:
+            fy_seq = self.pool.get('account.sequence.fiscalyear').search(cr, uid,  [('sequence_main_id','=', sequence_id),('fiscalyear_id','=',fy)])
+            for fy_s in  self.pool.get('account.sequence.fiscalyear').browse(cr, uid, fy_seq):
+               fy_seq_id = fy_s.sequence_id.id
+        print >> sys.stderr,'next_by_id seq_id',  fy_seq_id
+             
+        #ids = self.search(cr, uid, ['&',('id','=', sequence_id),('company_id','in',company_ids)])
+        return self._next(cr, uid, fy_seq_id , context)
+
     def _abbrev(self, name, separator):
         return "".join(w[0] for w in _(name).split(separator))
     # end def _abbrev
@@ -102,9 +120,8 @@ class ir_sequence(osv.osv):
             seq.number_next = cr.fetchone()
         else:
             cr.execute("SELECT number_next FROM %s WHERE id=%s FOR UPDATE NOWAIT;" % (self._table, seq.id))
-            cr.execute("UPDATE %s SET number_next=number_next+number_increment WHERE id=%s" % (self._table, seq.id))
-            cr.execute("SELECT number_next FROM %s WHERE id=%s FOR UPDATE NOWAIT;" % (self._table, seq.id))
             seq.number_next = cr.fetchone()
+            cr.execute("UPDATE %s SET number_next=number_next+number_increment WHERE id=%s" % (self._table, seq.id))
         return seq
     # end def _next_seq
     
@@ -133,7 +150,7 @@ class ir_sequence(osv.osv):
 
     def _next(self, cr, uid, seq_ids, context=None) :
         if not seq_ids: return False
-        seq = self._next_seq(cr, uid, seq_ids[0])
+        seq = self._next_seq(cr, uid, seq_ids)
         return self._format(cr, uid, seq, context)
     # end def _next
 
