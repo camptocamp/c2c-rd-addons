@@ -36,12 +36,19 @@ import sys
 #----------------------------------------------------------
 class account_invoice_line(osv.osv):
     _inherit = "account.invoice.line"
+     
+    def _get_default_id(self, cr, uid, price_unit_id, context=None):
+        return self.pool.get('c2c_product_price_unit').get_default_id(cr,uid,price_unit_id, context=None)
+        
     _columns = {
         'price_unit_id'    : fields.many2one('c2c_product.price_unit','Price Unit' ),
         'price_unit_pu'    : fields.float(string='Unit Price',digits_compute=dp.get_precision('Sale Price'),  \
                             help='Price using "Price Units"') ,
         'price_unit'       : fields.float(string='Unit Price internal',  digits=(16, 8), \
                             help="""Product's cost for accounting stock valuation."""),
+    }
+    _default = {
+        'price_unit_id'   : _get_default_id,
     }
 
     def init(self, cr):
