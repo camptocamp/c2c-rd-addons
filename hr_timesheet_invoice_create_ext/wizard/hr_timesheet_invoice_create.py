@@ -132,7 +132,7 @@ class hr_timesheet_invoice_create(osv.osv_memory):
             else:
                 values['name'] = inv.invoice_line[0].account_analytic_id.name
             if data['journal_id'] :
-                values['journal_id'] =  data['journal_id'][0]
+                values['journal_id'] =  data['journal_id']
             inv_obj.write(cr, uid, [inv.id], values)
         return act_win
     # end def do_create
