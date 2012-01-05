@@ -77,7 +77,7 @@ class c2c_budget_item(osv.osv):
         return ids2 + ids3
 
     def __compute_real_sum(self, cr, uid, ids, field_names, arg=None, context=None,
-                  query='', query_params=()):
+                  query='', query_params=''):
         """ compute the balance for the provided
         budget_item_ids
         Arguments:
@@ -124,11 +124,11 @@ class c2c_budget_item(osv.osv):
                fiscalyear_pool = self.pool.get('account.fiscalyear')
                fy_id = fiscalyear_pool.search(cr, uid, [('date_start','<=',date), ('date_stop','>=',date)])
                period_pool = self.pool.get('account.period')
-               periods = period_pool.search(cr, uid, [('fiscalyear_id','=',fy_id), ('date_stop','<=',date2)])
+               periods = period_pool.search(cr, uid, [('fiscalyear_id','in',fy_id), ('date_stop','<=',date2)])
 
             #self.logger.notifyChannel('addons.'+self._name, netsvc.LOG_DEBUG,'Periods: %s'%periods)
             # FIXME - tuple must not return ',' if only one period is available - period_id in ( p,) should be period_id in ( p )
-            filters = ' AND period_id in %s ' % (tuple(periods),)
+            filters = ' AND period_id in (%s) ' % (','.join(map(str,periods)) )
             #self.logger.notifyChannel('addons.'+self._name, netsvc.LOG_DEBUG,'Filters: %s'%filters)
             # IN might not work ideally in case there are too many
             # children_and_consolidated, in that case join on a
@@ -137,6 +137,8 @@ class c2c_budget_item(osv.osv):
             # INNER JOIN (VALUES (id1), (id2), (id3), ...) AS tmp (id)
             # ON l.account_id = tmp.id
             # or make _get_children_and_consol return a query and join on that
+            if not query_params:
+                 query_params = 'null'
             request = ("SELECT i.id as id, " +\
                        ', '.join(map(mapping.__getitem__, field_names)) +
                        " FROM account_account_period_sum l," \
@@ -144,10 +146,14 @@ class c2c_budget_item(osv.osv):
                        "      c2c_budget_item_account_rel r " \
                        " WHERE l.account_id = r.account_id " \
                        "   AND i.id = r.budget_item_id " \
-                       "   AND i.id IN %s " \
+             #          "   AND i.id IN (%s) " \
                             + filters +
-                       " GROUP BY i.id")
-            params = (tuple(children_and_consolidated),) + query_params
+                       " GROUP BY i.id") #% (query_params)
+            #params = (tuple(children_and_consolidated),) + query_params
+            logger = netsvc.Logger()
+            logger.notifyChannel('addons.'+self._name, netsvc.LOG_ERROR,'children and consolidated FGF:  %s/ %s '%(children_and_consolidated, query_params))
+            logger.notifyChannel('addons.'+self._name, netsvc.LOG_ERROR,'children and consolidated FGF:  %s/ %s '%( (', '.join(map(str,children_and_consolidated))), query_params))
+            params = (', '.join(map(str,children_and_consolidated))) 
             #self.logger.notifyChannel('addons.'+self._name, netsvc.LOG_DEBUG,'Request: %s'%request)
             #self.logger.notifyChannel('addons.'+self._name, netsvc.LOG_DEBUG,'Params: %s'%params)
             cr.execute(request, params)
@@ -247,12 +253,14 @@ class c2c_budget_item(osv.osv):
                fiscalyear_pool = self.pool.get('account.fiscalyear')
                fy_id = fiscalyear_pool.search(cr, uid, [('date_start','<=',date), ('date_stop','>=',date)])
                period_pool = self.pool.get('account.period')
-               periods = period_pool.search(cr, uid, [('fiscalyear_id','=',fy_id),('date_stop','<=',date2)])
+               periods = period_pool.search(cr, uid, [('fiscalyear_id','in',fy_id),('date_stop','<=',date2)])
 
             #self.logger.notifyChannel('addons.'+self._name, netsvc.LOG_DEBUG,'Periods: %s'%periods)
             # FIXME - tuple must not return ',' if only one period is available - period_id in ( p,) should be period_id in ( p )
-            filters = ' AND period_id in %s ' % (tuple(periods),)
+            filters = ' AND period_id in (%s) ' % (','.join(map(str,periods)) )
             #self.logger.notifyChannel('addons.'+self._name, netsvc.LOG_DEBUG,'Filters: %s'%filters)
+            logger = netsvc.Logger()
+            logger.notifyChannel('addons.'+self._name, netsvc.LOG_ERROR,'periods FGF: %s %s '%( periods, tuple(periods)))
             # IN might not work ideally in case there are too many
             # children_and_consolidated, in that case join on a
             # values() e.g.:
@@ -260,13 +268,15 @@ class c2c_budget_item(osv.osv):
             # INNER JOIN (VALUES (id1), (id2), (id3), ...) AS tmp (id)
             # ON l.account_id = tmp.id
             # or make _get_children_and_consol return a query and join on that
+            if not query_params:
+                query_params = '%'
             request = ("SELECT l.budget_item_id as id, " +\
                        ', '.join(map(mapping.__getitem__, field_names)) +
                        " FROM c2c_budget_line l" \
-                       " WHERE l.budget_item_id IN %s " \
+                       " WHERE l.budget_item_id >0 " 
                             + filters +
-                       " GROUP BY l.budget_item_id")
-            params = (tuple(children_and_consolidated),) + query_params
+                       " GROUP BY l.budget_item_id") 
+            params = (tuple(children_and_consolidated),) 
             #self.logger.notifyChannel('addons.'+self._name, netsvc.LOG_DEBUG,'Request: %s'%request)
             #self.logger.notifyChannel('addons.'+self._name, netsvc.LOG_DEBUG,'Params: %s'%params)
             cr.execute(request, params)

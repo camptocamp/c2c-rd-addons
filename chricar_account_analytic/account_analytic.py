@@ -288,13 +288,13 @@ class account_move_line(osv.osv):
         ]
 
     def create(self, cr, uid, vals, context=None, check=True):
-        res  = super(account_move_line, self).create(cr, uid, vals, context=context) 
         if not vals.get('analytic_account_id') :
              account_id = vals.get('account_id')
-             for account in self.pool.get('account.account').browse(cr, uid, [account_id] , context=context):
+             if account_id:
+               for account in self.pool.get('account.account').browse(cr, uid, [account_id] , context=context):
                  if account.account_analytic_usage in [ 'fixed', 'mandatory'] and account.analytic_account_id:
-                     res['vals']['analytic_account_id'] = account.analytic_account_id.id
-        return res
+                     vals['analytic_account_id'] = account.analytic_account_id.id 
+        return super(account_move_line, self).create(cr, uid, vals, context=context) 
 
 account_move_line()
 
