@@ -50,7 +50,8 @@ class account_period(osv.osv):
             cr.execute("""select id from account_period
                        where company_id = %s
                          and date_start = %s
-                         and special = %s """, ( p.company_id.id, date_start, p.special))
+                         and special = %s """, ( p.company_id.id or p.fiscalyear_id.company_id.id, date_start, p.special))
+ 
             res[p.id] = cr.fetchone() #or False
             #print >>sys.stderr, 'prev id', res
         return res
