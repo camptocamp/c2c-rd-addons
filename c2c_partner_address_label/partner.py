@@ -24,32 +24,35 @@ from osv import fields,osv
 import tools
 import pooler
 from tools.translate import _
+import netsvc
 
+
+# new in 6.1 label_format
 #----------------------------------------------------------
 #  Country
 #----------------------------------------------------------
 
-class Country(osv.osv):
-    _inherit = 'res.country'
-    _columns = {
-        'zip_position' : fields.selection([('before','Before'),('after','After'),('below','Below')], string="Zip Position", help="Zip position relative to city name"),
-    }
-
-    _defaults = {
-        'zip_position': lambda *a: 'before',
-    }
-
-    def init(self, cr):
-        # set reasonable values 
-        cr.execute("""update res_country
-                         set zip_position = 'after'
-                       where code in ('US')
-                         and zip_position is null""")
-        cr.execute("""update res_country
-                         set zip_position = 'below'
-                       where code in ('GB')
-                         and zip_position is null""")
-Country()
+#class Country(osv.osv):
+#    _inherit = 'res.country'
+#    _columns = {
+#        'zip_position' : fields.selection([('before','Before'),('after','After'),('below','Below')], string="Zip Position", help="Zip position relative to city name"),
+#    }
+#
+#    _defaults = {
+#        'zip_position': lambda *a: 'before',
+#    }
+#
+#    def init(self, cr):
+#        # set reasonable values 
+#        cr.execute("""update res_country
+#                         set zip_position = 'after'
+#                       where code in ('US')
+#                         and zip_position is null""")
+#        cr.execute("""update res_country
+#                         set zip_position = 'below'
+#                       where code in ('GB')
+#                         and zip_position is null""")
+#Country()
 
 #----------------------------------------------------------
 #  Company
@@ -73,9 +76,35 @@ class res_partner_address(osv.osv):
     _inherit = 'res.partner.address'
  
     def _address_label(self, cr, uid, ids, name, arg, context=None):
+        logger = netsvc.Logger()            
+        res = {}
+        for a in self.browse(cr,uid,ids,context):
+            logger.notifyChannel('addons.'+self._name, netsvc.LOG_INFO,'address_label street FGF:  %s '%(a.street))
+            lf ='\n'
+            l = a.partner_id.name or ''
+            if a.partner_id.title:
+                 l = l + ' ' + a.partner_id.title.name
+
+            bc = self.pool.get('ir.module.module').search(cr, uid,  [('name', '=', 'base_contact'),('state', '=', 'installed')], context=context)
+
+            if not bc:
+                t = ''
+                if a.title:
+                    t = a.title.name + ' ' or ''
+                if a.name:
+                    t = t + a.name
+                if t:
+                    l = l + lf + t
+            
+            address = self._display_address(cr,uid,a)
+            res[a.id] = l + lf + address
+            logger.notifyChannel('addons.'+self._name, netsvc.LOG_INFO,'address_label 2 FGF:  %s '%(res[a.id]))
+            return res
+
+# new in 6.1 labe_format        
+    def _address_label_old(self, cr, uid, ids, name, arg, context=None):
         res = {}
         lf ='\x0A'
-#        lf ='\x0D\x0A'
         for a in self.browse(cr, uid, ids, context=context):
              l = a.partner_id.name or ''
              if a.partner_id.title:
@@ -115,7 +144,6 @@ class res_partner_address(osv.osv):
                   l = l + lf + a.country_id.name
              res[a.id] = l
         return res
-
 
     _columns = {
         'address_label': fields.function(_address_label, type='text', method = True, string="Address Label"),
