@@ -79,6 +79,14 @@ c2c_product_price_unit()
 #----------------------------------------------------------
 class product_template(osv.osv):
     _inherit = "product.template"
+
+
+    def _get_default_id(self, cr, uid, price_unit_id, context=None):
+       print >>sys.stderr,'invoice pi_id ',price_unit_id
+       pu = self.pool.get('c2c_product.price.unit')
+       if not pu: return
+       return pu.get_default_id(cr, uid, price_unit_id, context)
+
     _columns = {
         'price_unit_id'    :fields.many2one('c2c_product.price_unit','Price Unit'),
         'standard_price_pu':fields.float(string='Cost Price PU',digits_compute=dp.get_precision('Purchase Price') , \
@@ -115,6 +123,15 @@ update product_template set list_price_unit_id = (select min(id) from c2c_produc
         'list_price'       :fields.float('Sale Price', digits=(16, 8), help="Base price for computing the customer price. Sometimes called the catalog price."),
 
     }
+    _defaults = {
+        'price_unit_id'   : _get_default_id,
+        'standard_price_pu': 0.0,
+        'list_price_unit_id'   : _get_default_id,
+        'list_price_pu': 0.0,
+        'standard_price': 0.0,
+ 
+
+    } 
     def init(self, cr):
       cr.execute("""
 update product_template set standard_price_pu=standard_price  where standard_price_pu is null;

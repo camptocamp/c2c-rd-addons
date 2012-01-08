@@ -32,6 +32,21 @@ import sys
 #----------------------------------------------------------
 class purchase_order_line(osv.osv):
     _inherit = "purchase.order.line"
+
+    def _get_default_id(self, cr, uid, price_unit_id, context=None):
+       pu = self.pool.get('c2c_product.price.unit')
+       if not pu: return 1.0
+       return pu.get_default_id(cr, uid, price_unit_id, context)
+
+    def _get_default_price_unit_pu(self, cr, uid, price_unit_id, context=None):
+       pu = self.browse(cr, uid, price_unit_id)
+       res  = 0.0
+       if not pu:
+           return res
+       for p in pu:
+           res = p.price_unit
+       return res
+
     _columns = \
         { 'price_unit_id' : fields.many2one('c2c_product.price_unit','Price Unit', required=True)
         , 'price_unit_pu' : fields.float
@@ -46,7 +61,12 @@ class purchase_order_line(osv.osv):
             , digits=(16,8)
             , help="""Product's cost for accounting stock valuation. It is the base price for the supplier price."""),
         }
-
+    _defaults = {
+        'price_unit_id'   : _get_default_id,
+        'price_unit_pu'   : _get_default_price_unit_pu,
+        'price_unit'      : 0.0
+        }
+        
     def init(self, cr):
       cr.execute("""
           update purchase_order_line set price_unit_pu = price_unit  where price_unit_pu is null;
