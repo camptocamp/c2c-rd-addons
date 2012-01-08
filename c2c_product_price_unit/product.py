@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+#  -*- coding: utf-8 -*-
 ##############################################################################
 #
 #    OpenERP, Open Source Management Solution
@@ -65,7 +65,8 @@ class c2c_product_price_unit(osv.osv):
         if not price_unit_id:
            cr.execute('select min(id) from c2c_product_price_unit where coefficient=1' )
         #res = cr.fetchone()[0] or 1.0
-           price_unit_id = cr.fetchone()[0]
+           price_unit_id = cr.fetchone()[0] or ''
+
            print >> sys.stderr , 'pu default', price_unit_id
         return price_unit_id
      
@@ -79,13 +80,13 @@ c2c_product_price_unit()
 class product_template(osv.osv):
     _inherit = "product.template"
     _columns = {
-        'price_unit_id'    :fields.many2one('c2c_product.price_unit','Price Unit', required=True),
-        'standard_price_pu':fields.float(string='Cost Price PU',digits_compute=dp.get_precision('Purchase Price') , required=True, \
+        'price_unit_id'    :fields.many2one('c2c_product.price_unit','Price Unit'),
+        'standard_price_pu':fields.float(string='Cost Price PU',digits_compute=dp.get_precision('Purchase Price') , \
                             help='Price using "Price Units"') ,
-        'list_price_unit_id'    :fields.many2one('c2c_product.price_unit','Price Unit', required=True),
+        'list_price_unit_id'    :fields.many2one('c2c_product.price_unit','Price Unit'),
         'list_price_pu'    :fields.float(string='List Price PU',digits_compute=dp.get_precision('Sale Price'), \
                             help='Price using "Price Units"'),
-        'standard_price'   :fields.float(string='Cost Price', required=True, digits=(16, 8), help="Product's cost for accounting stock valuation. It is the base price for the supplier price."),
+        'standard_price'   :fields.float(string='Cost Price',  digits=(16, 8), help="Product's cost for accounting stock valuation. It is the base price for the supplier price."),
         'list_price'       :fields.float('Sale Price', digits=(16, 8), help="Base price for computing the customer price. Sometimes called the catalog price."),
 
     }
@@ -103,6 +104,21 @@ update product_template set list_price_pu=list_price  where list_price_pu is nul
 update product_template set list_price_unit_id = (select min(id) from c2c_product_price_unit where coefficient=1) where list_price_unit_id is null;
       """)
 
+    _columns = {
+        'price_unit_id'    :fields.many2one('c2c_product.price_unit','Price Unit', required=True),
+        'standard_price_pu':fields.float(string='Cost Price PU',digits_compute=dp.get_precision('Purchase Price') , required=True, \
+                            help='Price using "Price Units"') ,
+        'list_price_unit_id'    :fields.many2one('c2c_product.price_unit','Price Unit', required=True),
+        'list_price_pu'    :fields.float(string='List Price PU',digits_compute=dp.get_precision('Sale Price'), \
+                            help='Price using "Price Units"'),
+        'standard_price'   :fields.float(string='Cost Price', required=True, digits=(16, 8), help="Product's cost for accounting stock valuation. It is the base price for the supplier price."),
+        'list_price'       :fields.float('Sale Price', digits=(16, 8), help="Base price for computing the customer price. Sometimes called the catalog price."),
+
+    }
+    def init(self, cr):
+      cr.execute("""
+update product_template set standard_price_pu=standard_price  where standard_price_pu is null;
+      """)
 product_template()
 
 class product_product(osv.osv):
