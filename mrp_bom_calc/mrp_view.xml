@@ -12,7 +12,6 @@
       <field name="arch" type="xml">
         <field name="product_qty" position="before">
           <field name="standard_price"/>
-          <field name="standard_price_pu"/>
           <field name="price_unit_id"/>
         </field>
       </field>

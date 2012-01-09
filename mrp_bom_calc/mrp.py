@@ -39,13 +39,13 @@ class mrp_bom(osv.osv):
             prod_obj=self.pool.get('product.product')
             prod=prod_obj.browse(cr,uid,[product_id])[0]
             v = {'product_uom':prod.uom_id.id}
-            v['standard_price']=prod.product_tmpl_id.standard_price
+            v['standard_price']=prod.standard_price
             # FIXME standard_price_coeff is stored in product or template ?
             # Have to fix this later -> must go into template
-            if 'standard_price_pu' in prod_obj._columns :
-                    v['standard_price_pu']=prod.standard_price_pu
-            if 'price_unit_id' in prod_obj._columns :
-                v['price_unit_id']=prod.price_unit_id.id
+            #if 'standard_price_pu' in prod_obj._columns :
+            v['standard_price_pu']=prod.standard_price_pu
+            #if 'price_unit_id' in prod_obj._columns :
+            v['price_unit_id']=prod.price_unit_id.id
             if not name:
                 v['name'] = prod.name
             return {'value': v}
@@ -243,7 +243,7 @@ class mrp_bom(osv.osv):
         'product_rounding': fields.float('Product Rounding', help="Rounding applied on the product quantity. For integer only values, put 1.0",readonly=True, states={'draft': [('readonly', False)]}),
         'product_efficiency': fields.float('Product Efficiency', required=True, help="Efficiency on the production. A factor of 0.9 means a loss of 10% in the production.", readonly=True,states={'draft': [('readonly', False)]}),
         'price_unit_id'       :fields.many2one('c2c_product.price_unit','Price Unit' ,states={'draft': [('readonly', False)]}),
-        'standard_price_pu':fields.float(string='Standard Price/Coeff',digits=(16,8)),
+        'standard_price_pu':fields.float(string='Standard Price/Coeff',digits_compute=dp.get_precision('Purchase Price') ),
         'bom_lines': fields.one2many('mrp.bom', 'bom_id', 'BoM Lines',readonly=True, states={'draft': [('readonly', False)]}),
         'bom_id': fields.many2one('mrp.bom', 'Parent BoM', ondelete='cascade', select=True,readonly=True, states={'draft': [('readonly', False)]}),
         'routing_id': fields.many2one('mrp.routing', 'Routing', help="The list of operations (list of workcenters) to produce the finished product. The routing is mainly used to compute workcenter costs during operations and to plan futur loads on workcenters based on production plannification.", readonly=True,states={'draft': [('readonly', False)]}),
