@@ -80,6 +80,20 @@
         </field>
       </field>
     </record>
+
+    <record id="mrp_bom_cal_form_view_c2c" model="ir.ui.view">
+      <field name="name">mrp.bom.form2</field>
+      <field name="model">mrp.bom</field>
+      <field name="inherit_id" ref="mrp_bom_cal_form_view1"/>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+      <xpath expr="/form/notebook/page[@string='Components']/field[@name='bom_lines']/tree[@string='Components']/field[@name='product_uom']" position="after">
+            <field name="standard_price_pu"/>
+            <field name="price_unit_id"/>
+      </xpath>
+      </field>
+    </record>
+
     <record id="mrp_bom_cal_form_view2" model="ir.ui.view">
       <field name="name">mrp.bom.form</field>
       <field name="model">mrp.bom</field>
