@@ -31,7 +31,7 @@
     """,
     'author': 'zBeanz',
     'website': 'http://www.zbeanztech.com',
-    'depends': ['c2c_product_price_unit','mrp'],
+    'depends': ['c2c_product_price_unit','mrp','mrp_subproduct'],
     'init_xml': [],
     'update_xml': [
             'mrp_view.xml',

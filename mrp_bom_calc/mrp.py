@@ -36,14 +36,15 @@ class mrp_bom(osv.osv):
 
     def onchange_product_id(self, cr, uid, ids, product_id, name, context=None):
         if product_id:
-            prod=self.pool.get('product.product').browse(cr,uid,[product_id])[0]
+            prod_obj=self.pool.get('product.product')
+            prod=prod_obj.browse(cr,uid,[product_id])[0]
             v = {'product_uom':prod.uom_id.id}
             v['standard_price']=prod.product_tmpl_id.standard_price
-            # FIX ME standard_price_coeff is stored in product or template ?
+            # FIXME standard_price_coeff is stored in product or template ?
             # Have to fix this later -> must go into template
-            if 'standard_price_coeff' in prod._columns :
-                    v['standard_price_coeff']=prod.standard_price_coeff
-            if 'price_unit_id' in prod._columns :
+            if 'standard_price_pu' in prod_obj._columns :
+                    v['standard_price_pu']=prod.standard_price_pu
+            if 'price_unit_id' in prod_obj._columns :
                 v['price_unit_id']=prod.price_unit_id.id
             if not name:
                 v['name'] = prod.name
@@ -80,7 +81,7 @@ class mrp_bom(osv.osv):
                                     'product_uom':bom_line.product_uom.id,
                                     'name': bom_line.name,
                                     'standard_price':bom_line.standard_price,
-                                    'standard_price_coeff':bom_line.standard_price_coeff,
+                                    'standard_price_pu':bom_line.standard_price_pu,
                                     'cost_routing':bom_line.cost_routing,
                                     'product_qty':bom_line.product_qty,
                                     'bom_id':bom.id,
@@ -122,7 +123,7 @@ class mrp_bom(osv.osv):
                             'product_uom':bom2_line.product_uom.id,
                             'name': bom2_line.name,
                             'standard_price': bom2_line.standard_price,
-                            'standard_price_coeff': bom2_line.standard_price_coeff,
+                            'standard_price_pu': bom2_line.standard_price_pu,
                             'cost_routing':bom2_line.cost_routing,
                             'product_qty':bom2_line.product_qty,
                             'bom_id':bom.id,
@@ -166,7 +167,7 @@ class mrp_bom(osv.osv):
             coeff=bom.price_unit_id.coefficient
             if not coeff or coeff == 0.0:
                coeff=1
-            result[bom.id]=bom.standard_price_coeff*bom.product_qty/coeff
+            result[bom.id]=bom.standard_price_pu*bom.product_qty/coeff
         return result
 
     def standard_price_subtotal_cum_calc(self, cr, uid, ids, name, arg, context=None):
@@ -175,7 +176,7 @@ class mrp_bom(osv.osv):
             coeff=bom.price_unit_id.coefficient
             if not coeff or coeff == 0.0:
                coeff=1
-            result[bom.id]=bom.product_qty_explode*bom.standard_price_coeff/coeff
+            result[bom.id]=bom.product_qty_explode*bom.standard_price_pu/coeff
         return result
 
     def _value_cum_calc(self, cr, uid, id):
@@ -242,7 +243,7 @@ class mrp_bom(osv.osv):
         'product_rounding': fields.float('Product Rounding', help="Rounding applied on the product quantity. For integer only values, put 1.0",readonly=True, states={'draft': [('readonly', False)]}),
         'product_efficiency': fields.float('Product Efficiency', required=True, help="Efficiency on the production. A factor of 0.9 means a loss of 10% in the production.", readonly=True,states={'draft': [('readonly', False)]}),
         'price_unit_id'       :fields.many2one('c2c_product.price_unit','Price Unit' ,states={'draft': [('readonly', False)]}),
-        'standard_price_coeff':fields.float(string='Standard Price/Coeff',digits=(16,8)),
+        'standard_price_pu':fields.float(string='Standard Price/Coeff',digits=(16,8)),
         'bom_lines': fields.one2many('mrp.bom', 'bom_id', 'BoM Lines',readonly=True, states={'draft': [('readonly', False)]}),
         'bom_id': fields.many2one('mrp.bom', 'Parent BoM', ondelete='cascade', select=True,readonly=True, states={'draft': [('readonly', False)]}),
         'routing_id': fields.many2one('mrp.routing', 'Routing', help="The list of operations (list of workcenters) to produce the finished product. The routing is mainly used to compute workcenter costs during operations and to plan futur loads on workcenters based on production plannification.", readonly=True,states={'draft': [('readonly', False)]}),
