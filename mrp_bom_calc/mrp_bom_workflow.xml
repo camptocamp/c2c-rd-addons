@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <record id="wkf_mrp_bom" model="workflow">
+      <field name="name">mrp.bom.basic</field>
+      <field name="osv">mrp.bom</field>
+      <field name="on_create">True</field>
+    </record>
+    <!-- Roles definition -->
+<!--
+    <record id="bom_confirm" model="res.roles">
+      <field name="name">BOM -Confirm</field>
+    </record>
+    <record id="bom_all" model="res.roles">
+            <field name="name">BOM All</field>
+    </record>
+-->
+
+    <!-- Activity -->
+    <record id="act_draft" model="workflow.activity">
+      <field name="wkf_id" ref="wkf_mrp_bom"/>
+      <field name="flow_start">True</field>
+      <field name="name">draft</field>
+      <!--field name="action">wkf_action_confirm_draft()</field-->
+    </record>
+    <record model="workflow.activity" id="act_verify">
+      <field name="wkf_id" ref="wkf_mrp_bom"/>
+      <field name="name">To be Confirm</field>
+      <field name="kind">function</field>
+      <field name="action">wkf_action_draft_verify()</field>
+    </record>
+    <record model="workflow.activity" id="act_confirm">
+      <field name="wkf_id" ref="wkf_mrp_bom"/>
+      <field name="name">Confirmed</field>
+      <field name="kind">function</field>
+      <field name="action">wkf_action_verify_confirm()</field>
+    </record>
+    <record model="workflow.activity" id="act_invalid">
+      <field name="wkf_id" ref="wkf_mrp_bom"/>
+      <field name="name">Invalid</field>
+      <field name="flow_stop">True</field>
+      <field name="kind">function</field>
+      <field name="action">wkf_action_confirm_invalid()</field>
+    </record>
+    <record model="workflow.activity" id="act_expire">
+      <field name="wkf_id" ref="wkf_mrp_bom"/>
+      <field name="name">Expired</field>
+      <field name="flow_stop">True</field>
+      <field name="kind">function</field>
+      <field name="action">wkf_action_confirm_expire()</field>
+    </record>
+    <!-- Transistion -->
+    <record id="trans_draft_verify" model="workflow.transition">
+      <field name="act_from" ref="act_draft"/>
+      <field name="act_to" ref="act_verify"/>
+      <field name="signal">wkf_verify</field>
+    </record>
+    <record id="trans_verify_confirm" model="workflow.transition">
+      <field name="act_from" ref="act_verify"/>
+      <field name="act_to" ref="act_confirm"/>
+      <field name="signal">wkf_confirm</field>
+      <field name="condition">wkf_check_confirmed_bom()</field>
+<!--
+      <field name="role_id" ref="bom_confirm"/>
+-->
+    </record>
+    <record id="trans_confirm_invalid" model="workflow.transition">
+      <field name="act_from" ref="act_confirm"/>
+      <field name="act_to" ref="act_invalid"/>
+      <field name="signal">wkf_invalid</field>
+    </record>
+    <!--record id="trans_confirm_draft" model="workflow.transition">
+            <field name="act_from" ref="act_confirm"/>
+            <field name="act_to" ref="act_draft"/>
+            <field name="signal">wkf_draft</field>
+        </record-->
+    <record id="trans_confirm_expire" model="workflow.transition">
+      <field name="act_from" ref="act_confirm"/>
+      <field name="act_to" ref="act_expire"/>
+      <field name="signal">wkf_expire</field>
+    </record>
+    <!--record id="trans_invalid_draft" model="workflow.transition">
+            <field name="act_from" ref="act_invalid"/>
+            <field name="act_to" ref="act_draft"/>
+            <field name="signal">wkf_draft</field>
+        </record-->
+  </data>
+</openerp>
