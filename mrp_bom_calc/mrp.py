@@ -173,10 +173,16 @@ class mrp_bom(osv.osv):
     def standard_price_subtotal_cum_calc(self, cr, uid, ids, name, arg, context=None):
         result = {}
         for bom in self.browse(cr, uid, ids, context=context):
-            coeff=bom.price_unit_id.coefficient
-            if not coeff or coeff == 0.0:
-               coeff=1
-            result[bom.id]=bom.product_qty_explode*bom.standard_price_pu/coeff
+            value = 0.0
+            if bom.bom_lines:
+              for bom_line in bom.bom_lines:
+                value += bom_line.standard_price_subtotal
+            else:
+                coeff=bom.price_unit_id.coefficient
+                if not coeff or coeff == 0.0:
+                    coeff=1
+                value = bom.product_qty_explode*bom.standard_price_pu/coeff
+            result[bom.id]=value
         return result
 
     def _value_cum_calc(self, cr, uid, id):
@@ -184,19 +190,32 @@ class mrp_bom(osv.osv):
         bom=self.browse(cr, uid, id)
         value=0
         for bom_line in bom.bom_lines:
-            value=value +mrp_bom_obj._value_cum_calc(cr,uid,bom_line.id)
+            #if not bom_line.bom_id :
+               value=value +mrp_bom_obj._value_cum_calc(cr,uid,bom_line.id)
 
-        value=value + bom.standard_price_subtotal_explode + bom.cost_routing_bom
+        #value=value + bom.standard_price_subtotal_explode + bom.cost_routing_bom
 
         return value
+
     def value_bom_cum_calc(self, cr, uid, ids, name, arg, context=None):
         result = {}
         mrp_bom_obj=self.pool.get('mrp.bom')
+        value = 0.0
         for bom in self.browse(cr, uid, ids, context=context):
-            value=mrp_bom_obj._value_cum_calc(cr,uid,bom.id)
-            result[bom.id]=value - bom.cost_routing_bom
-
+            if bom.bom_lines: 
+              for bom_line in bom.bom_lines:
+                 #value=mrp_bom_obj._value_cum_calc(cr,uid,bom_line.id)
+                 #result[bom.id]=value - bom.cost_routing_bom
+                 #value += mrp_bom_obj._value_cum_calc(cr,uid,bom_line.id)
+                 #value = bom._value_cum_calc(cr,uid, bom.id)
+                 value += bom_line.standard_price_pu / bom_line.price_unit_id.coefficient * bom_line.product_qty_explode
+                 #value +=  1.0
+                 #value += bom_line.value_bom_cum
+            else:
+                 value = bom.standard_price_pu / bom.price_unit_id.coefficient * bom.product_qty_explode
+            result[bom.id] = value 
         return result
+
     def cost_routing_bom_calc(self, cr, uid, ids, name, arg, context=None):
         result = {}
         for bom in self.browse(cr, uid, ids, context=context):
@@ -206,11 +225,13 @@ class mrp_bom(osv.osv):
     def _total_cost_calc(self, cr, uid, id):
         mrp_bom_obj=self.pool.get('mrp.bom')
         bom=self.browse(cr, uid, id)
-        value=0
-        for bom_line in bom.bom_lines:
-            value=value +mrp_bom_obj._total_cost_calc(cr,uid,bom_line.id)
+        #value=0
+        #for bom_line in bom.bom_lines:
+            #value=value + mrp_bom_obj._total_cost_calc(cr,uid,bom_line.id)
+        value = bom.value_bom_cum + bom.cost_routing_bom
 
-        value=value + bom.standard_price_subtotal_explode + bom.cost_routing_bom
+        #value=value + bom.standard_price_subtotal_explode + bom.cost_routing_bom
+        #value= bom.standard_price_subtotal_explode + bom.cost_routing_bom
         return value
 
     def total_cost_calc(self, cr, uid, ids, name, arg, context=None):
@@ -236,14 +257,16 @@ class mrp_bom(osv.osv):
         'sequence': fields.integer('Sequence', readonly=True,states={'draft': [('readonly', False)]}),
         'position': fields.char('Internal Ref.', size=64, help="Reference to a position in an external plan.",readonly=True, states={'draft': [('readonly', False)]}),
         'product_id': fields.many2one('product.product', 'Product',required=True, readonly=True, states={'draft': [('readonly', False)]}),
-        'product_qty': fields.float('Product Qty', required=True,readonly=True, states={'draft': [('readonly', False)]}, help="Units needed to produce the parent product" ),
+        'product_qty': fields.float('Qty Calc', required=True,readonly=True, states={'draft': [('readonly', False)]}, help="Units for calculation" ),
         'product_bom_qty': fields.float('Bom Qty', required=True,readonly=True, states={'draft': [('readonly', False)]} , help="Units produced by this BOM (factor for child products)"),'product_uos': fields.many2one('product.uom', 'Product UOS', readonly=True,states={'draft': [('readonly', False)]}),
-        'product_qty_explode': fields.float('Cum Qty', required=True,readonly=True, states={'draft': [('readonly', False)]}),
-        'product_uom': fields.many2one('product.uom', 'Product UOM', required=True,readonly=True, states={'draft': [('readonly', False)]}),
+        'product_uom': fields.many2one('product.uom', 'UOM', required=True,readonly=True, states={'draft': [('readonly', False)]}),
         'product_rounding': fields.float('Product Rounding', help="Rounding applied on the product quantity. For integer only values, put 1.0",readonly=True, states={'draft': [('readonly', False)]}),
         'product_efficiency': fields.float('Product Efficiency', required=True, help="Efficiency on the production. A factor of 0.9 means a loss of 10% in the production.", readonly=True,states={'draft': [('readonly', False)]}),
         'price_unit_id'       :fields.many2one('c2c_product.price_unit','Price Unit' ,states={'draft': [('readonly', False)]}),
-        'standard_price_pu':fields.float(string='Standard Price/Coeff',digits_compute=dp.get_precision('Purchase Price') ),
+        'standard_price_pu':fields.float(string='Price Calc',digits_compute=dp.get_precision('Purchase Price'),help="Price for this BOM calculation"  ),
+        'standard_price_pu_rel':fields.related('product_id','standard_price_pu',type='float',string='Curr Price',digits_compute=dp.get_precision('Purchase Price'),readonly=True, help="Current product price" ),
+        'qty_available':fields.related('product_id','qty_available',type='float',string='Qty On Hand',readonly=True ),
+        'virtual_available':fields.related('product_id','virtual_available',type='float',string='Qty Available',readonly=True ),
         'bom_lines': fields.one2many('mrp.bom', 'bom_id', 'BoM Lines',readonly=True, states={'draft': [('readonly', False)]}),
         'bom_id': fields.many2one('mrp.bom', 'Parent BoM', ondelete='cascade', select=True,readonly=True, states={'draft': [('readonly', False)]}),
         'routing_id': fields.many2one('mrp.routing', 'Routing', help="The list of operations (list of workcenters) to produce the finished product. The routing is mainly used to compute workcenter costs during operations and to plan futur loads on workcenters based on production plannification.", readonly=True,states={'draft': [('readonly', False)]}),
@@ -253,14 +276,17 @@ class mrp_bom(osv.osv):
         'child_ids': fields.function(_child_compute,relation='mrp.bom', method=True, string="BoM Hyerarchy", type='many2many',readonly=True, states={'draft': [('readonly', False)]}),
         'child_complete_ids': fields.function(_child_compute,relation='mrp.bom', method=True, string="BoM Hyerarchy", type='many2many',readonly=True, states={'draft': [('readonly', False)]}),
 
-        'version_no':fields.integer('Version Number', readonly=True,states={'draft': [('readonly', False)]}),
+        'version_no':fields.integer('Version', readonly=True,states={'draft': [('readonly', False)]}),
         #'cost_price':fields.float('cost Price',readonly=True, states={'draft': [('readonly', False)]}),
         'standard_price': fields.float('Cost Price',  digits_compute=dp.get_precision('Purchase Price'), help="The cost of the product for BOM valuation. Especially usefull for new products.",readonly=True, states={'draft': [('readonly', False)]}),
-        'standard_price_subtotal':fields.function(standard_price_subtotal_calc, method=True, type='float',string='Value', help="The cost of the product for BOM valuation. "),'product_qty_explode':fields.function(quantity_cum_calc, method=True, type='float',string='Cost Subtotal'),
+# FGF
+        'standard_price_subtotal':fields.function(standard_price_subtotal_calc, method=True, type='float',string='Value', help="The cost of the product for BOM valuation. "),
+        'product_qty_explode':fields.function(quantity_cum_calc, method=True, type='float',string='Qty Calc'),
         'standard_price_subtotal_explode':fields.function(standard_price_subtotal_cum_calc, method=True,type='float',string='Value BOM',help="Total Cost for the exploded BOM" ),
-        'value_bom_cum':fields.function(value_bom_cum_calc, method=True,type='float',string='Value BOM Cum'),
+        'value_bom_cum':fields.function(value_bom_cum_calc, method=True,type='float',string='Value Calc'),
+
         'cost_routing':fields.float('cost Routing', readonly=True,states={'draft': [('readonly', False)]}),
-        'cost_routing_bom':fields.function(cost_routing_bom_calc, method=True, type='float',string='cost Routing BOM'),
+        'cost_routing_bom':fields.function(cost_routing_bom_calc, method=True, type='float',string='cost Routing Calc'),
         'total':fields.function(total_cost_calc, method=True, type='float',string='Total Cost'),
         'mapping' : fields.boolean('mapping', states={'draft': [('readonly', False)]}),
         'last_modified_date': fields.datetime('modification time' ,readonly=True),

@@ -23,7 +23,7 @@
       <field name="type">tree</field>
       <field name="arch" type="xml">
         <field name="product_uom" position="replace">
-          <field name="product_qty_explode" string="Qty Cum"/>
+          <field name="product_qty_explode" />
           <field name="product_uom"/>
           <field name="standard_price"/>
           <field name="standard_price_pu"/>
@@ -60,8 +60,8 @@
             attrs="{'invisible':[('bom_id','=',False)]}"
             name="product_qty_explode"/>
           <field name="standard_price_pu"/>
-          <newline/>
           <field name="standard_price_subtotal"/>
+          <newline/>
           <field name="standard_price_subtotal_explode"/>
           <newline/>
           <group string="Routing" colspan="2" col="2" groups="base.group_extended">
@@ -72,7 +72,7 @@
               select="2"/>
             <field name="cost_routing" groups="base.group_extended"/>
           </group>
-          <group string="Costs BOM " colspan="2" col="2">
+          <group string="BOM Calc" colspan="2" col="2">
             <field name="value_bom_cum"/>
             <field name="cost_routing_bom"/>
             <field name="total"/>
@@ -88,8 +88,14 @@
       <field name="type">form</field>
       <field name="arch" type="xml">
       <xpath expr="/form/notebook/page[@string='Components']/field[@name='bom_lines']/tree[@string='Components']/field[@name='product_uom']" position="after">
+            <field name="standard_price_pu_rel"/>
             <field name="standard_price_pu"/>
             <field name="price_unit_id"/>
+            <field name="standard_price_subtotal"/>
+            <field name="value_bom_cum"/>
+            <field name="product_qty_explode"/>
+            <field name="qty_available"/>
+            <field name="virtual_available"/>
       </xpath>
       </field>
     </record>
