@@ -43,7 +43,13 @@ class mrp_bom(osv.osv):
             # FIXME standard_price_coeff is stored in product or template ?
             # Have to fix this later -> must go into template
             #if 'standard_price_pu' in prod_obj._columns :
-            v['standard_price_pu']=prod.standard_price_pu
+            mrp_bom_obj=self.pool.get('mrp.bom')
+            other_bom_ids = mrp_bom_obj.search(cr, uid, [('product_id','=',product_id),('state','=','confirm')])
+            if other_bom_ids:
+                for bom in  mrp_bom_obj.browse(cr, uid, other_bom_ids):  
+                      v['standard_price_pu'] = bom.standard_price_subtotal_explode
+            else:           
+                v['standard_price_pu']=prod.standard_price_pu
             #if 'price_unit_id' in prod_obj._columns :
             v['price_unit_id']=prod.price_unit_id.id
             if not name:
@@ -276,7 +282,7 @@ class mrp_bom(osv.osv):
         'product_rounding': fields.float('Product Rounding', help="Rounding applied on the product quantity. For integer only values, put 1.0",readonly=True, states={'draft': [('readonly', False)]}),
         'product_efficiency': fields.float('Product Efficiency', required=True, help="Efficiency on the production. A factor of 0.9 means a loss of 10% in the production.", readonly=True,states={'draft': [('readonly', False)]}),
         'price_unit_id'       :fields.many2one('c2c_product.price_unit','Price Unit' ,states={'draft': [('readonly', False)]}),
-        'standard_price_pu':fields.float(string='Price Calc',digits_compute=dp.get_precision('Purchase Price'),help="Price for this BoM calculation"  ),
+        'standard_price_pu':fields.float(string='Price Calc',digits_compute=dp.get_precision('Purchase Price'),help="Price for this BoM calculation, automatically proposed: Value BoM of this product or standard price"  ),
         'standard_price_pu_rel':fields.related('product_id','standard_price_pu',type='float',string='Curr Price',digits_compute=dp.get_precision('Purchase Price'),readonly=True, help="Current product price" ),
         'qty_available':fields.related('product_id','qty_available',type='float',string='Qty On Hand',readonly=True ),
         'virtual_available':fields.related('product_id','virtual_available',type='float',string='Qty Available',readonly=True ),
