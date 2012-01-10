@@ -241,6 +241,19 @@ class mrp_bom(osv.osv):
             result[bom.id]=mrp_bom_obj._total_cost_calc(cr,uid,bom.id)
         return result
 
+    def _get_bom_line_bom(self, cr, uid, ids, name, arg, context=None):
+        result = {}
+        mrp_bom_obj=self.pool.get('mrp.bom')
+        bom_lines = self.browse(cr, uid, ids, context=context)
+        other_bom_id = ''
+        for bom in bom_lines:
+           if bom.bom_id:
+               other_bom_ids = mrp_bom_obj.search(cr, uid, [('product_id','=',bom.product_id.id),('state','=','confirm')])
+               if other_bom_ids:
+                   other_bom_id = other_bom_ids[0]
+           result[bom.id]= other_bom_id
+        return result
+
     _columns={
         'name': fields.char('Name', size=64, required=True,readonly=True, states={'draft': [('readonly', False)]}),
         'code': fields.char('Code', size=16, readonly=True,states={'draft': [('readonly', False)]}),
@@ -258,12 +271,12 @@ class mrp_bom(osv.osv):
         'position': fields.char('Internal Ref.', size=64, help="Reference to a position in an external plan.",readonly=True, states={'draft': [('readonly', False)]}),
         'product_id': fields.many2one('product.product', 'Product',required=True, readonly=True, states={'draft': [('readonly', False)]}),
         'product_qty': fields.float('Qty Calc', required=True,readonly=True, states={'draft': [('readonly', False)]}, help="Units for calculation" ),
-        'product_bom_qty': fields.float('Bom Qty', required=True,readonly=True, states={'draft': [('readonly', False)]} , help="Units produced by this BOM (factor for child products)"),'product_uos': fields.many2one('product.uom', 'Product UOS', readonly=True,states={'draft': [('readonly', False)]}),
+        'product_bom_qty': fields.float('Bom Qty', required=True,readonly=True, states={'draft': [('readonly', False)]} , help="Units produced by this BoM (factor for child products)"),'product_uos': fields.many2one('product.uom', 'Product UOS', readonly=True,states={'draft': [('readonly', False)]}),
         'product_uom': fields.many2one('product.uom', 'UOM', required=True,readonly=True, states={'draft': [('readonly', False)]}),
         'product_rounding': fields.float('Product Rounding', help="Rounding applied on the product quantity. For integer only values, put 1.0",readonly=True, states={'draft': [('readonly', False)]}),
         'product_efficiency': fields.float('Product Efficiency', required=True, help="Efficiency on the production. A factor of 0.9 means a loss of 10% in the production.", readonly=True,states={'draft': [('readonly', False)]}),
         'price_unit_id'       :fields.many2one('c2c_product.price_unit','Price Unit' ,states={'draft': [('readonly', False)]}),
-        'standard_price_pu':fields.float(string='Price Calc',digits_compute=dp.get_precision('Purchase Price'),help="Price for this BOM calculation"  ),
+        'standard_price_pu':fields.float(string='Price Calc',digits_compute=dp.get_precision('Purchase Price'),help="Price for this BoM calculation"  ),
         'standard_price_pu_rel':fields.related('product_id','standard_price_pu',type='float',string='Curr Price',digits_compute=dp.get_precision('Purchase Price'),readonly=True, help="Current product price" ),
         'qty_available':fields.related('product_id','qty_available',type='float',string='Qty On Hand',readonly=True ),
         'virtual_available':fields.related('product_id','virtual_available',type='float',string='Qty Available',readonly=True ),
@@ -278,12 +291,15 @@ class mrp_bom(osv.osv):
 
         'version_no':fields.integer('Version', readonly=True,states={'draft': [('readonly', False)]}),
         #'cost_price':fields.float('cost Price',readonly=True, states={'draft': [('readonly', False)]}),
-        'standard_price': fields.float('Cost Price',  digits_compute=dp.get_precision('Purchase Price'), help="The cost of the product for BOM valuation. Especially usefull for new products.",readonly=True, states={'draft': [('readonly', False)]}),
+        'standard_price': fields.float('Cost Price',  digits_compute=dp.get_precision('Purchase Price'), help="The cost of the product for BoM valuation. Especially usefull for new products.",readonly=True, states={'draft': [('readonly', False)]}),
 # FGF
-        'standard_price_subtotal':fields.function(standard_price_subtotal_calc, method=True, type='float',string='Value', help="The cost of the product for BOM valuation. "),
+        'standard_price_subtotal':fields.function(standard_price_subtotal_calc, method=True, type='float',string='Value', help="The cost of the product for BoM valuation. "),
         'product_qty_explode':fields.function(quantity_cum_calc, method=True, type='float',string='Qty Calc'),
-        'standard_price_subtotal_explode':fields.function(standard_price_subtotal_cum_calc, method=True,type='float',string='Value BOM',help="Total Cost for the exploded BOM" ),
+        'standard_price_subtotal_explode':fields.function(standard_price_subtotal_cum_calc, method=True,type='float',string='Value BoM',help="Total Cost for the exploded BoM" ),
         'value_bom_cum':fields.function(value_bom_cum_calc, method=True,type='float',string='Value Calc'),
+        'bom_line_bom': fields.function(_get_bom_line_bom, method=True, type='many2one', relation='mrp.bom', string='Sub-BoM', help="The confirmed BoM of a BoM-line product" ),
+        #'bom_line_bom': fields.function(_get_bom_line_bom, method=True, type='integer',  string='Sub-BoM', help="The confirmed BoM of a BoM-line product" ),
+
 
         'cost_routing':fields.float('cost Routing', readonly=True,states={'draft': [('readonly', False)]}),
         'cost_routing_bom':fields.function(cost_routing_bom_calc, method=True, type='float',string='cost Routing Calc'),
@@ -340,7 +356,7 @@ class mrp_bom(osv.osv):
             if not bom.bom_id :
                 bom_ids=self.pool.get('mrp.bom').search(cr, uid, [('mapping','=',False),('bom_id','=',False),('state','=','confirm'),('product_id','=',bom.product_id.id)])
                 if bom_ids :
-                    raise osv.except_osv("Already Done", 'The BOM of product: "%s"  already Confirmed' % bom.product_id.name)
+                    raise osv.except_osv("Already Done", 'The BoM of product: "%s"  already Confirmed' % bom.product_id.name)
                     return False
         return True
 mrp_bom()

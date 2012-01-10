@@ -72,7 +72,7 @@
               select="2"/>
             <field name="cost_routing" groups="base.group_extended"/>
           </group>
-          <group string="BOM Calc" colspan="2" col="2">
+          <group string="BoM Calc" colspan="2" col="2">
             <field name="value_bom_cum"/>
             <field name="cost_routing_bom"/>
             <field name="total"/>
@@ -96,6 +96,7 @@
             <field name="product_qty_explode"/>
             <field name="qty_available"/>
             <field name="virtual_available"/>
+            <field name="bom_line_bom"/>
       </xpath>
       </field>
     </record>
