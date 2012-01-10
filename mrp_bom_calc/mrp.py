@@ -187,7 +187,8 @@ class mrp_bom(osv.osv):
                 coeff=bom.price_unit_id.coefficient
                 if not coeff or coeff == 0.0:
                     coeff=1
-                value = bom.product_qty_explode*bom.standard_price_pu/coeff
+                #value = bom.product_qty_explode*bom.standard_price_pu/coeff
+                value = bom.standard_price_pu/coeff
             result[bom.id]=value
         return result
 
@@ -299,7 +300,7 @@ class mrp_bom(osv.osv):
         #'cost_price':fields.float('cost Price',readonly=True, states={'draft': [('readonly', False)]}),
         'standard_price': fields.float('Cost Price',  digits_compute=dp.get_precision('Purchase Price'), help="The cost of the product for BoM valuation. Especially usefull for new products.",readonly=True, states={'draft': [('readonly', False)]}),
 # FGF
-        'standard_price_subtotal':fields.function(standard_price_subtotal_calc, method=True, type='float',string='Value', help="The cost of the product for BoM valuation. "),
+        'standard_price_subtotal':fields.function(standard_price_subtotal_calc, method=True, type='float',string='Value Line', help="The cost of the product for BoM valuation. "),
         'product_qty_explode':fields.function(quantity_cum_calc, method=True, type='float',string='Qty Calc'),
         'standard_price_subtotal_explode':fields.function(standard_price_subtotal_cum_calc, method=True,type='float',string='Value BoM',help="Total Cost for the exploded BoM" ),
         'value_bom_cum':fields.function(value_bom_cum_calc, method=True,type='float',string='Value Calc'),
