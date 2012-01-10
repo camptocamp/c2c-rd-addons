@@ -40,9 +40,6 @@ class mrp_bom(osv.osv):
             prod=prod_obj.browse(cr,uid,[product_id])[0]
             v = {'product_uom':prod.uom_id.id}
             v['standard_price']=prod.standard_price
-            # FIXME standard_price_coeff is stored in product or template ?
-            # Have to fix this later -> must go into template
-            #if 'standard_price_pu' in prod_obj._columns :
             mrp_bom_obj=self.pool.get('mrp.bom')
             other_bom_ids = mrp_bom_obj.search(cr, uid, [('product_id','=',product_id),('state','=','confirm')])
             if other_bom_ids:
@@ -50,7 +47,6 @@ class mrp_bom(osv.osv):
                       v['standard_price_pu'] = bom.standard_price_subtotal_explode
             else:           
                 v['standard_price_pu']=prod.standard_price_pu
-            #if 'price_unit_id' in prod_obj._columns :
             v['price_unit_id']=prod.price_unit_id.id
             if not name:
                 v['name'] = prod.name
@@ -277,7 +273,7 @@ class mrp_bom(osv.osv):
         'sequence': fields.integer('Sequence', readonly=True,states={'draft': [('readonly', False)]}),
         'position': fields.char('Internal Ref.', size=64, help="Reference to a position in an external plan.",readonly=True, states={'draft': [('readonly', False)]}),
         'product_id': fields.many2one('product.product', 'Product',required=True, readonly=True, states={'draft': [('readonly', False)]}),
-        'product_qty': fields.float('Qty Calc', required=True,readonly=True, states={'draft': [('readonly', False)]}, help="Units for calculation" ),
+        'product_qty': fields.float('Qty Request', required=True,readonly=True, states={'draft': [('readonly', False)]}, help="Units for calculation" ),
         'product_bom_qty': fields.float('Bom Qty', required=True,readonly=True, states={'draft': [('readonly', False)]} , help="Units produced by this BoM (factor for child products)"),'product_uos': fields.many2one('product.uom', 'Product UOS', readonly=True,states={'draft': [('readonly', False)]}),
         'product_uom': fields.many2one('product.uom', 'UOM', required=True,readonly=True, states={'draft': [('readonly', False)]}),
         'product_rounding': fields.float('Product Rounding', help="Rounding applied on the product quantity. For integer only values, put 1.0",readonly=True, states={'draft': [('readonly', False)]}),
@@ -300,7 +296,7 @@ class mrp_bom(osv.osv):
         #'cost_price':fields.float('cost Price',readonly=True, states={'draft': [('readonly', False)]}),
         'standard_price': fields.float('Cost Price',  digits_compute=dp.get_precision('Purchase Price'), help="The cost of the product for BoM valuation. Especially usefull for new products.",readonly=True, states={'draft': [('readonly', False)]}),
 # FGF
-        'standard_price_subtotal':fields.function(standard_price_subtotal_calc, method=True, type='float',string='Value Line', help="The cost of the product for BoM valuation. "),
+        'standard_price_subtotal':fields.function(standard_price_subtotal_calc, method=True, type='float',string='Value Line', help="The valuation of the BoM line.(price * Qty Calc "),
         'product_qty_explode':fields.function(quantity_cum_calc, method=True, type='float',string='Qty Calc'),
         'standard_price_subtotal_explode':fields.function(standard_price_subtotal_cum_calc, method=True,type='float',string='Value BoM',help="Total Cost for the exploded BoM" ),
         'value_bom_cum':fields.function(value_bom_cum_calc, method=True,type='float',string='Value Calc'),
@@ -308,8 +304,8 @@ class mrp_bom(osv.osv):
         #'bom_line_bom': fields.function(_get_bom_line_bom, method=True, type='integer',  string='Sub-BoM', help="The confirmed BoM of a BoM-line product" ),
 
 
-        'cost_routing':fields.float('cost Routing', readonly=True,states={'draft': [('readonly', False)]}),
-        'cost_routing_bom':fields.function(cost_routing_bom_calc, method=True, type='float',string='cost Routing Calc'),
+        'cost_routing':fields.float('Cost Routing', readonly=True,states={'draft': [('readonly', False)]}),
+        'cost_routing_bom':fields.function(cost_routing_bom_calc, method=True, type='float',string='Cost Routing Calc'),
         'total':fields.function(total_cost_calc, method=True, type='float',string='Total Cost'),
         'mapping' : fields.boolean('mapping', states={'draft': [('readonly', False)]}),
         'last_modified_date': fields.datetime('modification time' ,readonly=True),
@@ -317,7 +313,7 @@ class mrp_bom(osv.osv):
                                    ('verify','To Be Confirm'),
                                    ('confirm','Confirmed'),
                                    ('invalid','Invalid'),
-                                   ('expire','Expired')], 'state',readonly=True),
+                                   ('expire','Expired')], 'State',readonly=True),
 
     }
     _defaults = {
