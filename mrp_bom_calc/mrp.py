@@ -205,7 +205,10 @@ class mrp_bom(osv.osv):
         mrp_bom_obj=self.pool.get('mrp.bom')
         value = 0.0
         for bom in self.browse(cr, uid, ids, context=context):
-            if bom.bom_lines: 
+            other_bom_ids = mrp_bom_obj.search(cr, uid, [('product_id','=',bom.product_id.id),('state','=','confirm')])
+            if other_bom_ids or not bom.bom_lines:
+                 value = bom.standard_price_pu / bom.price_unit_id.coefficient * bom.product_qty_explode
+            else:
               for bom_line in bom.bom_lines:
                  #value=mrp_bom_obj._value_cum_calc(cr,uid,bom_line.id)
                  #result[bom.id]=value - bom.cost_routing_bom
@@ -214,8 +217,6 @@ class mrp_bom(osv.osv):
                  value += bom_line.standard_price_pu / bom_line.price_unit_id.coefficient * bom_line.product_qty_explode
                  #value +=  1.0
                  #value += bom_line.value_bom_cum
-            else:
-                 value = bom.standard_price_pu / bom.price_unit_id.coefficient * bom.product_qty_explode
             result[bom.id] = value 
         return result
 
