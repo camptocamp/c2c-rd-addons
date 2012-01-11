@@ -40,7 +40,8 @@ class account_invoice_line(osv.osv):
     def _get_default_id(self, cr, uid, price_unit_id, context=None):
        print >>sys.stderr,'invoice pi_id ',price_unit_id
        pu = self.pool.get('c2c_product.price.unit')
-       return pu.get_default_id(cr, uid, price_unit_id, context)
+       if not pu: return
+       return pu.get_default_id(cr, uid, price_unit_id, context) 
         
     _columns = {
         'price_unit_id'    : fields.many2one('c2c_product.price_unit','Price Unit' ),

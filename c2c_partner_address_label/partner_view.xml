@@ -12,7 +12,8 @@
         </field>
       </field>
     </record>
-    <!-- Country -->
+
+ <!-- Country  now uses address_format
     <record model="ir.ui.view" id="c2c_res_country_label_form">
       <field name="name">c2c.res.country.label.form</field>
       <field name="model">res.country</field>
@@ -35,6 +36,7 @@
         </field>
       </field>
     </record>
+-->
     <!-- Company -->
     <record model="ir.ui.view" id="c2c_res_company_label_form">
       <field name="name">c2c.res.company.label.form</field>
