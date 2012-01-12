@@ -9,7 +9,7 @@ generated 2009-09-19 23:51:03+02""",
      "depends"      : ["base","product","stock","chricar_view_id","c2c_product_price_unit","c2c_stock_accounting","chricar_stock_dispo_production_V1"],
      "init_xml"     : [],
      "demo_xml"     : [],
-     "update_xml"   : ["stock_product_by_location_view.xml"],
+     "update_xml"   : ["stock_product_by_location_view.xml","security/ir.model.access.csv"],
      "active"       : False,
      "installable"  : True
 }
