@@ -295,8 +295,8 @@ class mrp_bom(osv.osv):
         'property_ids': fields.many2many('mrp.property', 'mrp_bom_property_rel', 'bom_id','property_id', 'Properties', readonly=True,states={'draft': [('readonly', False)]}),
         'revision_ids': fields.one2many('mrp.bom.revision', 'bom_id', 'BoM Revisions',readonly=True, states={'draft': [('readonly', False)]}),
         'revision_type': fields.selection([('numeric','numeric indices'),('alpha','alphabetical indices')], 'indice type',readonly=True, states={'draft': [('readonly', False)]}),
-        'child_ids': fields.function(_child_compute,relation='mrp.bom', method=True, string="BoM Hyerarchy", type='many2many',readonly=True, states={'draft': [('readonly', False)]}),
-        'child_complete_ids': fields.function(_child_compute,relation='mrp.bom', method=True, string="BoM Hyerarchy", type='many2many',readonly=True, states={'draft': [('readonly', False)]}),
+        'child_ids': fields.function(_child_compute,relation='mrp.bom', method=True, string="BoM Hierarchy", type='many2many',readonly=True, states={'draft': [('readonly', False)]}),
+        'child_complete_ids': fields.function(_child_compute,relation='mrp.bom', method=True, string="BoM Hierarchy", type='many2many',readonly=True, states={'draft': [('readonly', False)]}),
 
         'version_no':fields.integer('Version', readonly=True,states={'draft': [('readonly', False)]}),
         #'cost_price':fields.float('cost Price',readonly=True, states={'draft': [('readonly', False)]}),
