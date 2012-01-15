@@ -123,27 +123,9 @@ def discount_post(self, cr, uid, ids, date, journal_id, amount_paid, reconcile_i
             partner_cred = 0.0
 
         val = {}
-        cr.execute(sql)
-        # create move lines (except partner)
-        for lines in cr.fetchall(): 
-             line_vals= {
-                'journal_id': journal_id,
-                'date': date,
-                'period_id': period_id,
-                'partner_id': partner_id,
-                'name':  '',
-                'debit': round(lines.debit * ratio ,prec),
-                'credit': round(lines.credit * ratio ,prec),
-                'move_id': move_id,
-                'account_id': account_id,
-             }            
-             val.append(line_vals) 
-             debit += round(lines.debit * ratio ,prec)
-             credit += round(lines.credit * ratio ,prec)
-            
-            
+
         # create move line for partner
-          
+
         line_vals= {
                 'journal_id': journal_id,
                 'date': date,
@@ -156,18 +138,67 @@ def discount_post(self, cr, uid, ids, date, journal_id, amount_paid, reconcile_i
                 'account_id': partner_account_id,
                 'reconcile_id': reconcile_id,
                }
-        val.append(line_values) 
-   
-        # rounding errors
-        if round(open_partner_balance,prec) != -round((debit-credit),prec):
-            #FIXME - update biggest value
-            a=1
+        val.append(line_values)
 
+        cr.execute(sql)
+        # create move lines (except partner)
+        for lines in cr.fetchall(): 
+             debit_line = round(lines.debit * ratio ,prec)
+             credit_line = round(lines.credit * ratio ,prec)
+             debit += round(lines.debit * ratio ,prec)
+             credit += round(lines.credit * ratio ,prec)
+             diff = round(open_partner_balance - ( debit - credit ),prec)
+             # FIXME these are place holders , signs may have to be reversed 
+             if abs(diff) < 0.05 :
+                if diff >0 :
+                    if debit_line >0 :
+                       debit_line += diff
+                    else: 
+                       credit_line -= diff
+             else :
+                if diff <0 :
+                    if debit_line >0 :
+                       debit_line -= diff
+                    else: 
+                       credit_line += diff
+
+             line_vals= {
+                'journal_id': journal_id,
+                'date': date,
+                'period_id': period_id,
+                'partner_id': partner_id,
+                'name':  '',
+                'debit': debit_line,
+                'credit': credit_line,
+                'move_id': move_id,
+                'account_id': account_id,
+             }            
+             val.apend(line_vals)
         move_line_obj = self.pool.get('account.move.line')
-        move_line_ids = move_obj.create(cr, uid, vals, context=context)
-
+        move_line_ids = move_obj.create(cr, uid, val, context=context)
 
         # analytic lines 
+        aal_obj = self.pool.get('account.analytic.line')
+        vals = {}
+        for aal in aal_obj.search(cr, uid, [('move_id','in',ids)]):
+            # FIXME
+            # another journal ?
+            
+            val_lines= {
+                    'name': aal.name,
+                    'date': date,
+                    'account_id': aal.account_analytic_id,
+                    'amount': round(-aal.amount * ratio,prec),
+                    'product_id': aal.product_id,
+                    'general_account_id': account_id,
+                    'journal_id': aal.analytic_journal_id.id,
+                }
+            val.append(val_lines)
+        all_ids = aal_obj.create(cr, uid, val, context=context)
+
+             
+        
+            
 
 account_move()
     
