@@ -93,7 +93,7 @@ def discount_post(self, cr, uid, ids, date, journal_id, amount_paid, reconcile_i
                       account_id,
                       analytic_account_id,
                       account_tax_id,
-                      account_code_id
+                      tax_code_id
                  FROM account_move_line
                 WHERE move_id = %d
                   AND account_id not in (%s)
@@ -142,11 +142,11 @@ def discount_post(self, cr, uid, ids, date, journal_id, amount_paid, reconcile_i
 
         cr.execute(sql)
         # create move lines (except partner)
-        for lines in cr.fetchall(): 
-             debit_line = round(lines.debit * ratio ,prec)
-             credit_line = round(lines.credit * ratio ,prec)
-             debit += round(lines.debit * ratio ,prec)
-             credit += round(lines.credit * ratio ,prec)
+        for line in cr.fetchall(): 
+             debit_line = round(line.debit * ratio ,prec)
+             credit_line = round(line.credit * ratio ,prec)
+             debit += round(line.debit * ratio ,prec)
+             credit += round(line.credit * ratio ,prec)
              diff = round(open_partner_balance - ( debit - credit ),prec)
              # FIXME these are place holders , signs may have to be reversed 
              if abs(diff) < 0.05 :
@@ -162,6 +162,10 @@ def discount_post(self, cr, uid, ids, date, journal_id, amount_paid, reconcile_i
                     else: 
                        credit_line += diff
 
+             if line.tax_code_id or line.account_tax_id:
+                 # FIXME - is this a correct condition
+                 account_id = line.account.id
+
              line_vals= {
                 'journal_id': journal_id,
                 'date': date,
@@ -172,6 +176,9 @@ def discount_post(self, cr, uid, ids, date, journal_id, amount_paid, reconcile_i
                 'credit': credit_line,
                 'move_id': move_id,
                 'account_id': account_id,
+                'tax_code_id': line.tax_code_id.id,
+                'account_tax_id': line.account_tax_id.id,
+                'tax_amount': line.tax_amount,
              }            
              val.apend(line_vals)
         move_line_obj = self.pool.get('account.move.line')
