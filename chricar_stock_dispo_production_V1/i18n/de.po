@@ -2,21 +2,18 @@
 # This file contains the translation of the following modules:
 #	* chricar_stock_dispo_production_V1
 #
-# Ferdinand Gassauer <f.gassauer@chricar.at>, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: OpenERP Server 6.0.3\n"
-"Report-Msgid-Bugs-To: support@openerp.com\n"
-"POT-Creation-Date: 2011-11-06 13:47+0000\n"
-"PO-Revision-Date: 2011-11-06 15:16+0100\n"
-"Last-Translator: Ferdinand Gassauer <f.gassauer@chricar.at>\n"
-"Language-Team: German <kde-i18n-de@kde.org>\n"
+"Project-Id-Version: OpenERP Server 6.1rc1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-01-15 12:08+0000\n"
+"PO-Revision-Date: 2012-01-15 12:08+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
-"Language: de\n"
-"X-Generator: Lokalize 1.2\n"
 
 #. module: chricar_stock_dispo_production_V1
 #: field:sale.order.line,location_big_id:0
@@ -44,7 +41,7 @@ msgstr "Abfall"
 #: view:sale.order:0
 #: view:stock.move:0
 msgid "Group By..."
-msgstr "Gruppierung..."
+msgstr "Gruppiere je..."
 
 #. module: chricar_stock_dispo_production_V1
 #: view:sale.order:0
@@ -52,11 +49,6 @@ msgstr "Gruppierung..."
 #: selection:stock.move,category:0
 msgid "Faulty"
 msgstr "Fehlerhaft"
-
-#. module: chricar_stock_dispo_production_V1
-#: sql_constraint:sale.order:0
-msgid "Order Reference must be unique !"
-msgstr "Die Referenz muss eindeutig sein!"
 
 #. module: chricar_stock_dispo_production_V1
 #: help:sale.order.line,location_faulty_id:0
@@ -72,15 +64,6 @@ msgstr "Groß"
 #: help:sale.order.line,location_product_id:0
 msgid "Field where products were grown (AMA)"
 msgstr "Felder wo Prodkte geerntet wurden (AMA)"
-
-#. module: chricar_stock_dispo_production_V1
-#: model:ir.module.module,description:chricar_stock_dispo_production_V1.module_meta_information
-msgid ""
-"Dispo Produktion\n"
-"generated 2010-04-02 15:01:02+02"
-msgstr ""
-"Dispo Produktion\n"
-"generated 2010-04-02 15:01:02+02"
 
 #. module: chricar_stock_dispo_production_V1
 #: view:sale.order:0
@@ -152,9 +135,7 @@ msgstr "Bestätigt"
 #. module: chricar_stock_dispo_production_V1
 #: help:sale.order.line,location_small_id:0
 msgid "To small products will be moved to this location, defaults to source"
-msgstr ""
-"Zu kleine Produkte werden auf dieses Lager gebucht, standard ist das "
-"Herkunftslager"
+msgstr "Zu kleine Produkte werden auf dieses Lager gebucht, standard ist das Herkunftslager"
 
 #. module: chricar_stock_dispo_production_V1
 #: help:sale.order.line,location_dest_id:0
@@ -169,15 +150,8 @@ msgstr "Status"
 
 #. module: chricar_stock_dispo_production_V1
 #: sql_constraint:stock.production.lot:0
-msgid ""
-"The combination of serial number and internal reference must be unique !"
-msgstr ""
-"Die Kombination von Serinenummer und interner Referenz muss eindeutig sein."
-
-#. module: chricar_stock_dispo_production_V1
-#: view:sale.order:0
-msgid "Ordered Assale_orderrtment"
-msgstr "Ordered Assale_orderrtment"
+msgid "The combination of serial number and internal reference must be unique !"
+msgstr "Die Kombination von Serinenummer und interner Referenz muss eindeutig sein."
 
 #. module: chricar_stock_dispo_production_V1
 #: field:stock.move,order_line_id:0
@@ -201,13 +175,9 @@ msgstr "Dieser Wert wird als Qualität in jede Zeile übernommen"
 
 #. module: chricar_stock_dispo_production_V1
 #: help:stock.production.lot,global_gap_number:0
-msgid ""
-"GLOBALG.A.P introduced the GLOBALG.A.P number (GGN) to identify each legal "
-"entity regis-\n"
-"tered (individual producers) in the GLOBALG.A.P database. This 13-digit "
-"number (e.g.\n"
-"4049929000000) is unique and remains valid and attached to the legal entity "
-"as long as it exists.\n"
+msgid "GLOBALG.A.P introduced the GLOBALG.A.P number (GGN) to identify each legal entity regis-\n"
+"tered (individual producers) in the GLOBALG.A.P database. This 13-digit number (e.g.\n"
+"4049929000000) is unique and remains valid and attached to the legal entity as long as it exists.\n"
 "It serves as search key on the GLOBALG.A.P website to validate certificates.\n"
 "Remark:\n"
 "We put it here, because \n"
@@ -216,13 +186,9 @@ msgid ""
 "* is only necessary/valid for certain products\n"
 "to avoid data entry for every Sales Order\n"
 " "
-msgstr ""
-"GLOBALG.A.P introduced the GLOBALG.A.P number (GGN) to identify each legal "
-"entity regis-\n"
-"tered (individual producers) in the GLOBALG.A.P database. This 13-digit "
-"number (e.g.\n"
-"4049929000000) is unique and remains valid and attached to the legal entity "
-"as long as it exists.\n"
+msgstr "GLOBALG.A.P introduced the GLOBALG.A.P number (GGN) to identify each legal entity regis-\n"
+"tered (individual producers) in the GLOBALG.A.P database. This 13-digit number (e.g.\n"
+"4049929000000) is unique and remains valid and attached to the legal entity as long as it exists.\n"
 "It serves as search key on the GLOBALG.A.P website to validate certificates.\n"
 "Remark:\n"
 "We put it here, because \n"
@@ -265,7 +231,7 @@ msgstr "Sie müssen zwingend eine Losnummer für dieses Produkt angeben"
 #. module: chricar_stock_dispo_production_V1
 #: view:stock.move:0
 msgid "invisible"
-msgstr "invisible"
+msgstr "unsichtbar"
 
 #. module: chricar_stock_dispo_production_V1
 #: model:ir.ui.menu,name:chricar_stock_dispo_production_V1.menu_chricar_farm_production
@@ -281,7 +247,12 @@ msgstr "Ziel Lager"
 #: field:sale.order.line,product_packaging_id:0
 #: field:stock.move,product_packaging_id:0
 msgid "Packaging"
-msgstr ""
+msgstr "Verpackung"
+
+#. module: chricar_stock_dispo_production_V1
+#: constraint:stock.move:0
+msgid "You can not move products from or to a location of the type view."
+msgstr "Sie können keine Buchungen auf Sichten machen"
 
 #. module: chricar_stock_dispo_production_V1
 #: field:stock.move,category:0
@@ -334,7 +305,12 @@ msgstr "Bestelldatum"
 #. module: chricar_stock_dispo_production_V1
 #: help:stock.move,product_packaging_id:0
 msgid "Product which is used to store the main product"
-msgstr ""
+msgstr "Produkt, welches den Hauptnamen speichert"
+
+#. module: chricar_stock_dispo_production_V1
+#: view:sale.order:0
+msgid "Assortment"
+msgstr "Assortment"
 
 #. module: chricar_stock_dispo_production_V1
 #: view:sale.order:0
@@ -354,7 +330,7 @@ msgstr "bestellte Qualität"
 #. module: chricar_stock_dispo_production_V1
 #: help:sale.order.line,product_packaging_id:0
 msgid "Product wich is used to store the main product"
-msgstr ""
+msgstr "Produkt das den Hauptnamen speichert"
 
 #. module: chricar_stock_dispo_production_V1
 #: field:stock.move,packaging_qty:0
@@ -369,7 +345,7 @@ msgstr "Menge"
 #. module: chricar_stock_dispo_production_V1
 #: field:sale.order.line,prodlot_id:0
 msgid "Production Lot"
-msgstr "Produktionslos"
+msgstr "Produktions Los"
 
 #. module: chricar_stock_dispo_production_V1
 #: field:stock.move,sequence:0
@@ -405,6 +381,11 @@ msgid "Dispo Production Details"
 msgstr "Produktionsauftrag Details"
 
 #. module: chricar_stock_dispo_production_V1
+#: sql_constraint:sale.order:0
+msgid "Order Reference must be unique per Company!"
+msgstr "Bestellbezug muss je Unternehmen eindeutig sein!"
+
+#. module: chricar_stock_dispo_production_V1
 #: view:sale.order:0
 msgid "Alle"
 msgstr "Alle"
@@ -421,7 +402,6 @@ msgstr "Produktionsdatum"
 
 #. module: chricar_stock_dispo_production_V1
 #: model:ir.actions.act_window,name:chricar_stock_dispo_production_V1.chricar_stock_dispo_production_act2
-#: model:ir.module.module,shortdesc:chricar_stock_dispo_production_V1.module_meta_information
 #: model:ir.ui.menu,name:chricar_stock_dispo_production_V1.menu_chricar_stock_dispo_production_form
 #: field:sale.order.line,stock_dispo_production_ids:0
 #: view:stock.move:0
@@ -444,11 +424,6 @@ msgid "Product"
 msgstr "Produkt"
 
 #. module: chricar_stock_dispo_production_V1
-#: view:sale.order:0
-msgid "Assale_orderrtment"
-msgstr ""
-
-#. module: chricar_stock_dispo_production_V1
 #: view:stock.move:0
 msgid "Assorted"
 msgstr "Sortierung"
@@ -462,7 +437,7 @@ msgstr "Suche Auftrag"
 #. module: chricar_stock_dispo_production_V1
 #: view:sale.order:0
 msgid "Emballagen"
-msgstr "Emballagen"
+msgstr "Verpackungen"
 
 #. module: chricar_stock_dispo_production_V1
 #: help:sale.order.line,location_big_id:0
@@ -476,10 +451,8 @@ msgstr "Verbuche Eingaben täglich!"
 
 #. module: chricar_stock_dispo_production_V1
 #: constraint:stock.move:0
-msgid ""
-"Error: Negative quantities for location and/or lots are not allowed for this "
-"product or product category"
-msgstr ""
+msgid "Error: Negative quantities for location and/or lots are not allowed for this product or product category"
+msgstr "Fehler: negative Mengen sind für diesen Lagerort / Los nicht erlaubt"
 
 #. module: chricar_stock_dispo_production_V1
 #: model:ir.model,name:chricar_stock_dispo_production_V1.model_stock_production_lot
@@ -510,7 +483,7 @@ msgstr "Ziellager"
 #. module: chricar_stock_dispo_production_V1
 #: help:sale.order.line,prodlot_id:0
 msgid "Production lot is used to track the production"
-msgstr ""
+msgstr "Produktionslos verfolgt die Produktion"
 
 #. module: chricar_stock_dispo_production_V1
 #: field:sale.order.line,trading_unit_owner_id:0
@@ -540,8 +513,13 @@ msgstr "Buchung Status"
 
 #. module: chricar_stock_dispo_production_V1
 #: view:sale.order:0
+msgid "Ordered Assortment"
+msgstr "Ordered Assortment"
+
+#. module: chricar_stock_dispo_production_V1
+#: view:sale.order:0
 msgid "All in One"
-msgstr "Alle"
+msgstr "Alle in Einem"
 
 #. module: chricar_stock_dispo_production_V1
 #: view:sale.order:0
@@ -553,5 +531,4 @@ msgstr "Eingabe"
 #: field:sale.order.line,stock_dispo_production_sale_ids:0
 msgid "To Sell"
 msgstr "Verkaufsfähig"
-
 

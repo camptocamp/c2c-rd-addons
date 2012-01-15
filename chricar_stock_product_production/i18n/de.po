@@ -1,32 +1,37 @@
-# translation of de_DE.po to Deutsch
 # Translation of OpenERP Server.
 # This file contains the translation of the following modules:
 #	* chricar_stock_product_production
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: de_DE\n"
-"Report-Msgid-Bugs-To: support@openerp.com\n"
-"POT-Creation-Date: 2009-12-07 21:47:38+0000\n"
-"PO-Revision-Date: 2009-12-07 22:52+0100\n"
-"Last-Translator: \n"
-"Language-Team: Deutsch\n"
+"Project-Id-Version: OpenERP Server 6.1rc1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-01-15 12:08+0000\n"
+"PO-Revision-Date: 2012-01-15 12:08+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
-"X-Generator: KBabel 1.11.4\n"
+
+#. module: chricar_stock_product_production
+#: field:chricar.product_by_production_location,product_id:0
+#: field:chricar.product_move_by_production_location,date_planned:0
+#: field:chricar.product_move_by_production_location,product_id:0
+msgid "Product"
+msgstr "Produkt"
 
 #. module: chricar_stock_product_production
 #: field:chricar.product_by_production_location,average_price:0
-#, fuzzy
 msgid "Average Price"
-msgstr "Durch. Preis"
+msgstr "Durchschnittspreis"
 
 #. module: chricar_stock_product_production
-#: constraint:ir.model:0
-msgid "The Object name must start with x_ and not contain any special character !"
-msgstr "Der Objekt Name muss mit einem x_ starten und darf keine Sonderzeichen beinhalten"
+#: field:chricar.product_by_production_location,capacity:0
+#: field:chricar.product_move_by_production_location,capacity:0
+msgid "Capacity"
+msgstr "Kapazität"
 
 #. module: chricar_stock_product_production
 #: model:ir.model,name:chricar_stock_product_production.model_chricar_product_by_production_location
@@ -34,30 +39,29 @@ msgid "Product Production Sum"
 msgstr "Produkt Produktion Summe"
 
 #. module: chricar_stock_product_production
-#: model:ir.module.module,shortdesc:chricar_stock_product_production.module_meta_information
-msgid "Product by Stock "
-msgstr "Produkt je Lager"
-
-#. module: chricar_stock_product_production
 #: model:ir.model,name:chricar_stock_product_production.model_chricar_product_move_by_production_location
 msgid "Product moves by production location"
 msgstr "Produkt je Produktions Standort"
 
 #. module: chricar_stock_product_production
-#: field:chricar.product_by_production_location,location_id:0
-#: field:chricar.product_move_by_production_location,location_id:0
-msgid "Location"
-msgstr "Standort "
+#: field:chricar.product_move_by_production_location,period_id:0
+msgid "Period"
+msgstr "Periode"
 
 #. module: chricar_stock_product_production
-#: constraint:ir.actions.act_window:0
-msgid "Invalid model name in the action definition."
-msgstr "Ungültiger Modell Name in.der Aktion Definition"
+#: field:chricar.product_by_production_location,yield:0
+msgid "Yield"
+msgstr "Ertrag"
 
 #. module: chricar_stock_product_production
-#: field:chricar.product_by_production_location,cost_method:0
-msgid "Cost Method"
-msgstr "Bewertungsmethode"
+#: view:chricar.product_by_production_location:0
+msgid "Sum Amount"
+msgstr "Summe Betrag"
+
+#. module: chricar_stock_product_production
+#: selection:chricar.product_by_production_location,used:0
+msgid "Produced"
+msgstr "Produktion"
 
 #. module: chricar_stock_product_production
 #: field:chricar.product_by_production_location,used:0
@@ -66,43 +70,15 @@ msgid "Usage"
 msgstr "Verwendung"
 
 #. module: chricar_stock_product_production
-#: model:ir.module.module,description:chricar_stock_product_production.module_meta_information
-msgid "Shows quantity and amount of products per production location"
-msgstr "Zeigt Mengen und Werte von Pordukten je Produktionsstandort"
-
-#. module: chricar_stock_product_production
-#: field:chricar.product_by_production_location,id:0
-#: field:chricar.product_move_by_production_location,id:0
-msgid "id"
-msgstr "ID"
-
-#. module: chricar_stock_product_production
-#: field:chricar.product_by_production_location,product_id:0
-#: field:chricar.product_move_by_production_location,date_planned:0
-#: field:chricar.product_move_by_production_location,product_id:0
-msgid "Product"
-msgstr "Produkt "
+#: field:chricar.product_by_production_location,amount:0
+#: field:chricar.product_move_by_production_location,amount:0
+msgid "Amount"
+msgstr "Betrag"
 
 #. module: chricar_stock_product_production
 #: selection:chricar.product_by_production_location,used:0
 msgid "Used"
 msgstr "Verbrauch"
-
-#. module: chricar_stock_product_production
-#: field:chricar.product_by_production_location,uom_id:0
-msgid "UoM"
-msgstr "ME"
-
-#. module: chricar_stock_product_production
-#: constraint:ir.ui.view:0
-msgid "Invalid XML for View Architecture!"
-msgstr "Fehlerhafter xml Code für diese Ansicht!"
-
-#. module: chricar_stock_product_production
-#: field:chricar.product_by_production_location,amount:0
-#: field:chricar.product_move_by_production_location,amount:0
-msgid "Amount"
-msgstr "Betrag"
 
 #. module: chricar_stock_product_production
 #: view:chricar.product_by_production_location:0
@@ -112,34 +88,47 @@ msgid "Product by Production Location"
 msgstr "Produkt je Produktionsstelle"
 
 #. module: chricar_stock_product_production
-#: view:chricar.product_by_production_location:0
-msgid "invisible"
-msgstr "unsichtbar"
-
-#. module: chricar_stock_product_production
-#: field:chricar.product_by_production_location,name:0
-#: field:chricar.product_move_by_production_location,name:0
-msgid "Quantity"
-msgstr "Menge"
-
-#. module: chricar_stock_product_production
-#: field:chricar.product_move_by_production_location,period_id:0
-msgid "Period"
-msgstr "Periode "
-
-#. module: chricar_stock_product_production
-#: selection:chricar.product_by_production_location,used:0
-msgid "Produced"
-msgstr "Produktion"
-
-#. module: chricar_stock_product_production
-#: view:chricar.product_by_production_location:0
-msgid "Sum Amount"
-msgstr "Summe Betrag "
+#: field:chricar.product_by_production_location,location_id:0
+#: field:chricar.product_move_by_production_location,location_id:0
+msgid "Location"
+msgstr "Objekt"
 
 #. module: chricar_stock_product_production
 #: field:chricar.product_by_production_location,fiscalyear_id:0
 #: field:chricar.product_move_by_production_location,fiscalyear_id:0
 msgid "Year"
 msgstr "Jahr"
+
+#. module: chricar_stock_product_production
+#: help:chricar.product_by_production_location,capacity:0
+#: help:chricar.product_move_by_production_location,capacity:0
+msgid "Defines the capcity of the loction"
+msgstr "Kapazität des Lagers"
+
+#. module: chricar_stock_product_production
+#: field:chricar.product_by_production_location,cost_method:0
+msgid "Cost Method"
+msgstr "Bewertungsmethode"
+
+#. module: chricar_stock_product_production
+#: view:chricar.product_by_production_location:0
+msgid "invisible"
+msgstr "unsichtbar"
+
+#. module: chricar_stock_product_production
+#: field:chricar.product_by_production_location,id:0
+#: field:chricar.product_move_by_production_location,id:0
+msgid "id"
+msgstr "ID"
+
+#. module: chricar_stock_product_production
+#: field:chricar.product_by_production_location,uom_id:0
+msgid "UoM"
+msgstr "ME"
+
+#. module: chricar_stock_product_production
+#: field:chricar.product_by_production_location,name:0
+#: field:chricar.product_move_by_production_location,name:0
+msgid "Quantity"
+msgstr "Menge"
 

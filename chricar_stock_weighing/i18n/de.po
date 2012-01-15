@@ -2,21 +2,18 @@
 # This file contains the translation of the following modules:
 #	* chricar_stock_weighing
 #
-# Ferdinand Gassauer <f.gassauer@chricar.at>, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: OpenERP Server 6.0.3\n"
-"Report-Msgid-Bugs-To: support@openerp.com\n"
-"POT-Creation-Date: 2011-11-06 13:46+0000\n"
-"PO-Revision-Date: 2011-11-06 14:57+0100\n"
-"Last-Translator: Ferdinand Gassauer <f.gassauer@chricar.at>\n"
-"Language-Team: German <kde-i18n-de@kde.org>\n"
+"Project-Id-Version: OpenERP Server 6.1rc1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-01-15 12:08+0000\n"
+"PO-Revision-Date: 2012-01-15 12:08+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
-"Language: de\n"
-"X-Generator: Lokalize 1.2\n"
 
 #. module: chricar_stock_weighing
 #: field:stock.picking,tractor_tare:0
@@ -24,44 +21,14 @@ msgid "Tractor Tare Weight"
 msgstr "Zugmaschine Tara"
 
 #. module: chricar_stock_weighing
-#: view:mrp.production:0
-msgid "Confirmed"
-msgstr "Bestätigt"
+#: field:stock.picking,tractor_gross:0
+msgid "Tractor Gross Weight"
+msgstr "Zugmaschine Brutto"
 
 #. module: chricar_stock_weighing
-#: view:mrp.production:0
-msgid "Search "
-msgstr "Suche"
-
-#. module: chricar_stock_weighing
-#: code:addons/chricar_stock_weighing/mrp.py:96
-#, python-format
-msgid ""
-"Trigger Qty = %s',) % (product_qty))\n"
-"\n"
-"           return res\n"
-"\n"
-"stock_move()\n"
-"\n"
-"class mrp_production(osv.osv):\n"
-"    _inherit = \"mrp.production\"\n"
-"    _columns = {\n"
-"       'prodlot_id': fields.many2one('stock.production.lot', 'Production "
-"Lot', help=\"Production lot is used to adminster production lots\"),\n"
-"       'product_packaging': fields.many2one('product.packaging', 'Packaging"
-msgstr ""
-"Trigger Qty = %s',) % (product_qty))\n"
-"\n"
-"           return res\n"
-"\n"
-"stock_move()\n"
-"\n"
-"class mrp_production(osv.osv):\n"
-"    _inherit = \"mrp.production\"\n"
-"    _columns = {\n"
-"       'prodlot_id': fields.many2one('stock.production.lot', 'Production "
-"Lot', help=\"Production lot is used to adminster production lots\"),\n"
-"       'product_packaging': fields.many2one('product.packaging', 'Packaging"
+#: view:stock.move:0
+msgid "From"
+msgstr "Ab"
 
 #. module: chricar_stock_weighing
 #: field:stock.picking,date_weighing:0
@@ -84,13 +51,29 @@ msgid "Number Weighing"
 msgstr "Wiegenummer"
 
 #. module: chricar_stock_weighing
+#: field:stock.picking,trailer_number:0
+msgid "License Number Trailer"
+msgstr "Kennzeichenn Anhänger"
+
+#. module: chricar_stock_weighing
+#: constraint:stock.move:0
+msgid "You must assign a production lot for this product"
+msgstr "Sie müssen zwingend eine Losnummer für dieses Produkt angeben"
+
+#. module: chricar_stock_weighing
+#: help:mrp.production,product_packaging_id:0
+msgid "Product wich is used to store the main product"
+msgstr "Produkt das den Hauptnamen speichert"
+
+#. module: chricar_stock_weighing
 #: help:stock.picking,consignment_note:0
-msgid ""
-"Number of Consignement Note (AWB,CIM,CMR,CDT,MDT)  http://www.tis-gdv."
-"de/tis/bedingungen/trpdoku/inhalt.htm#1"
-msgstr ""
-"Konsignationsnummer (AWB,CIM,CMR,CDT,MDT)  http://www.tis-gdv."
-"de/tis/bedingungen/trpdoku/inhalt.htm#1"
+msgid "Number of Consignement Note (AWB,CIM,CMR,CDT,MDT)  http://www.tis-gdv.de/tis/bedingungen/trpdoku/inhalt.htm#1"
+msgstr "Konsignationsnummer (AWB,CIM,CMR,CDT,MDT)  http://www.tis-gdv.de/tis/bedingungen/trpdoku/inhalt.htm#1"
+
+#. module: chricar_stock_weighing
+#: view:mrp.production:0
+msgid "Field"
+msgstr "Feld"
 
 #. module: chricar_stock_weighing
 #: field:stock.picking,trailer_gross:0
@@ -98,34 +81,9 @@ msgid "Trailer Gross Weight"
 msgstr "Anhänger Brutto"
 
 #. module: chricar_stock_weighing
-#: help:mrp.production,product_packaging_id:0
-msgid "Product wich is used to store the main product"
-msgstr ""
-
-#. module: chricar_stock_weighing
-#: view:mrp.production:0
-msgid "Group By..."
-msgstr "Gruppierung..."
-
-#. module: chricar_stock_weighing
-#: view:mrp.production:0
-msgid "State"
-msgstr "Status"
-
-#. module: chricar_stock_weighing
-#: field:stock.picking,tractor_gross:0
-msgid "Tractor Gross Weight"
-msgstr "Zugmaschine Brutto"
-
-#. module: chricar_stock_weighing
-#: view:mrp.production:0
-msgid "Draft"
-msgstr "Entwurf"
-
-#. module: chricar_stock_weighing
 #: model:ir.model,name:chricar_stock_weighing.model_stock_picking
 msgid "Picking List"
-msgstr "Lieferschein"
+msgstr "Lieferschein Liste"
 
 #. module: chricar_stock_weighing
 #: field:stock.picking,tractor_number:0
@@ -138,14 +96,35 @@ msgid "Temperature"
 msgstr "Temperatur"
 
 #. module: chricar_stock_weighing
-#: view:mrp.production:0
-msgid "Scheduled Date"
-msgstr "geplantes Datum"
+#: view:stock.move:0
+msgid "Sum Quantity"
+msgstr "Sum Menge"
 
 #. module: chricar_stock_weighing
-#: view:mrp.production:0
-msgid "Product"
-msgstr "Produkt"
+#: code:addons/chricar_stock_weighing/mrp.py:96
+#, python-format
+msgid "Trigger Qty = %s',) % (product_qty))\n"
+"\n"
+"           return res\n"
+"\n"
+"stock_move()\n"
+"\n"
+"class mrp_production(osv.osv):\n"
+"    _inherit = \"mrp.production\"\n"
+"    _columns = {\n"
+"       'prodlot_id': fields.many2one('stock.production.lot', 'Production Lot', help=\"Production lot is used to adminster production lots\"),\n"
+"       'product_packaging': fields.many2one('product.packaging', 'Packaging"
+msgstr "Trigger Qty = %s',) % (product_qty))\n"
+"\n"
+"           return res\n"
+"\n"
+"stock_move()\n"
+"\n"
+"class mrp_production(osv.osv):\n"
+"    _inherit = \"mrp.production\"\n"
+"    _columns = {\n"
+"       'prodlot_id': fields.many2one('stock.production.lot', 'Production Lot', help=\"Production lot is used to adminster production lots\"),\n"
+"       'product_packaging': fields.many2one('product.packaging', 'Packaging"
 
 #. module: chricar_stock_weighing
 #: field:stock.move,aspirates:0
@@ -155,6 +134,7 @@ msgstr "Aspirieren"
 #. module: chricar_stock_weighing
 #: model:ir.actions.act_window,name:chricar_stock_weighing.chricar_weighing
 #: model:ir.ui.menu,name:chricar_stock_weighing.menu_chricar_weighing
+#: view:stock.move:0
 #: view:stock.picking:0
 msgid "Weighing"
 msgstr "Wiegungen"
@@ -167,21 +147,14 @@ msgstr "Starte Fertigungsauftrag"
 #. module: chricar_stock_weighing
 #: code:addons/chricar_stock_weighing/mrp.py:72
 #, python-format
-msgid ""
-"Trigger Qty = %s',) % (product_qty))\n"
+msgid "Trigger Qty = %s',) % (product_qty))\n"
 "        #   return res\n"
 "        #else:\n"
 "           pu    = self.pool.get('product.product"
-msgstr ""
-"Trigger Qty = %s',) % (product_qty))\n"
+msgstr "Trigger Qty = %s',) % (product_qty))\n"
 "        #   return res\n"
 "        #else:\n"
 "           pu    = self.pool.get('product.product"
-
-#. module: chricar_stock_weighing
-#: view:mrp.production:0
-msgid "Assorted"
-msgstr "Sortierung"
 
 #. module: chricar_stock_weighing
 #: constraint:stock.move:0
@@ -189,9 +162,9 @@ msgid "You try to assign a lot which is not from the same product"
 msgstr "Sie versuchen eine Losnummer ohne Bezug zu diesem Produkt zuzuweisen."
 
 #. module: chricar_stock_weighing
-#: field:stock.picking,trailer_tare:0
-msgid "Trailer Tare Weight"
-msgstr "Anhänger Tara"
+#: constraint:stock.move:0
+msgid "You can not move products from or to a location of the type view."
+msgstr "Sie können keine Buchungen auf Sichten machen"
 
 #. module: chricar_stock_weighing
 #: view:stock.picking:0
@@ -202,6 +175,11 @@ msgstr "Anhänger"
 #: view:mrp.production:0
 msgid "Post Moves Daily!"
 msgstr "täglich Verbuchen!"
+
+#. module: chricar_stock_weighing
+#: constraint:mrp.production:0
+msgid "Order quantity cannot be negative or zero!"
+msgstr "Bestellmenge muss positiv sein!"
 
 #. module: chricar_stock_weighing
 #: field:stock.picking,consignment_note:0
@@ -216,26 +194,23 @@ msgstr "Ernte"
 
 #. module: chricar_stock_weighing
 #: constraint:stock.move:0
-msgid ""
-"Error: Negative quantities for location and/or lots are not allowed for this "
-"product or product category"
-msgstr ""
-"Fehler: Negative Mengen sind für diesen LAgerort und/oder Los nicht erlaubt"
+msgid "Error: Negative quantities for location and/or lots are not allowed for this product or product category"
+msgstr "Fehler: negative Mengen sind für diesen Lagerort / Los nicht erlaubt"
 
 #. module: chricar_stock_weighing
-#: view:mrp.production:0
-msgid "Production done"
-msgstr "Produktion erledigt"
-
-#. module: chricar_stock_weighing
-#: field:stock.picking,trailer_number:0
-msgid "License Number Trailer"
-msgstr "Kennzeichenn Anhänger"
+#: view:stock.move:0
+msgid "Destination"
+msgstr "Ziel"
 
 #. module: chricar_stock_weighing
 #: field:stock.picking,tractor_net:0
 msgid "Tractor Net Weight"
 msgstr "Zugmaschine Netto"
+
+#. module: chricar_stock_weighing
+#: view:stock.move:0
+msgid "Erfassungsdatum"
+msgstr "Erfassungsdatum"
 
 #. module: chricar_stock_weighing
 #: view:mrp.production:0
@@ -253,6 +228,11 @@ msgid "Weighing Slip Number"
 msgstr "Wiegenummer"
 
 #. module: chricar_stock_weighing
+#: view:stock.move:0
+msgid "To"
+msgstr "Bis"
+
+#. module: chricar_stock_weighing
 #: field:stock.move,water_content:0
 msgid "Humidity"
 msgstr "Feuchtigkeit"
@@ -262,6 +242,11 @@ msgstr "Feuchtigkeit"
 #, python-format
 msgid "Test Error 2"
 msgstr "Test Error 2"
+
+#. module: chricar_stock_weighing
+#: view:stock.move:0
+msgid "Wiegedatum"
+msgstr "Wiegedatum"
 
 #. module: chricar_stock_weighing
 #: field:stock.picking,total_net:0
@@ -275,36 +260,20 @@ msgid "Test Error 1"
 msgstr "Test Error 1"
 
 #. module: chricar_stock_weighing
-#: model:ir.module.module,shortdesc:chricar_stock_weighing.module_meta_information
-msgid "Stock Weighing"
-msgstr "Wiegungen"
+#: field:stock.picking,total_gross:0
+msgid "Total Gross"
+msgstr "Brutto Gesamt"
 
 #. module: chricar_stock_weighing
-#: model:ir.module.module,description:chricar_stock_weighing.module_meta_information
-msgid ""
-"Stock Weighing\n"
-"Extension to carrier\n"
-"* allows to records weights of the vehicle etc\n"
-"Extension to Production\n"
-"* allows simplified data entry for harvest\n"
-"* quality attributes for stock_moves\n"
-msgstr ""
-"Stock Weighing\n"
-"Extension to carrier\n"
-"* allows to records weights of the vehicle etc\n"
-"Extension to Production\n"
-"* allows simplified data entry for harvest\n"
-"* quality attributes for stock_moves\n"
-
-#. module: chricar_stock_weighing
-#: field:stock.picking,trailer_net:0
-msgid "Trailer Net Weight"
-msgstr "Annhänger Netto"
+#: sql_constraint:mrp.production:0
+#: sql_constraint:stock.picking:0
+msgid "Reference must be unique per Company!"
+msgstr "Referenz muss je Unternehmen eindeutig sein"
 
 #. module: chricar_stock_weighing
 #: field:mrp.production,packaging_qty:0
 msgid "Packaging Qty"
-msgstr "Packungsmenge"
+msgstr "Verpackungsmenge"
 
 #. module: chricar_stock_weighing
 #: view:mrp.production:0
@@ -318,28 +287,23 @@ msgstr "Zugmaschine"
 
 #. module: chricar_stock_weighing
 #: view:mrp.production:0
-msgid "Field"
-msgstr "Feld"
+msgid "Production done"
+msgstr "Produktion erledigt"
 
 #. module: chricar_stock_weighing
 #: field:mrp.production,prodlot_id:0
 msgid "Production Lot"
-msgstr "Producktionslos"
+msgstr "Produktions Los"
 
 #. module: chricar_stock_weighing
-#: model:ir.ui.menu,name:chricar_stock_weighing.menu_chricar_farm_stock_out
-msgid "Outgoing Products"
-msgstr "Ausgehende Produkte"
+#: field:stock.picking,trailer_net:0
+msgid "Trailer Net Weight"
+msgstr "Annhänger Netto"
 
 #. module: chricar_stock_weighing
 #: model:ir.ui.menu,name:chricar_stock_weighing.menu_chricar_weighing_picking_m6
 msgid "Internal Moves"
 msgstr "Interne Lieferungen"
-
-#. module: chricar_stock_weighing
-#: constraint:stock.move:0
-msgid "You must assign a production lot for this product"
-msgstr "Sie müssen zwingend eine Losnummer für dieses Produkt angeben"
 
 #. module: chricar_stock_weighing
 #: help:mrp.production,prodlot_id:0
@@ -370,13 +334,13 @@ msgstr "Produktionsauftrag"
 
 #. module: chricar_stock_weighing
 #: view:mrp.production:0
-msgid "Cancel"
-msgstr "Abbrechen"
+msgid "Done"
+msgstr "Erledigt"
 
 #. module: chricar_stock_weighing
-#: constraint:mrp.production:0
-msgid "Order quantity cannot be negative or zero !"
-msgstr "Bestellmengen können nicht negativ oder '0' sein !"
+#: view:mrp.production:0
+msgid "Cancel"
+msgstr "Abbrechen"
 
 #. module: chricar_stock_weighing
 #: field:stock.move,protein:0
@@ -389,13 +353,12 @@ msgid "Stock Move"
 msgstr "Lagerbuchung"
 
 #. module: chricar_stock_weighing
-#: model:ir.ui.menu,name:chricar_stock_weighing.menu_chricar_weighing_picking_out
-msgid "Delivery Orders"
-msgstr "Warenauslieferung"
+#: view:mrp.production:0
+msgid "Open"
+msgstr "Offen"
 
 #. module: chricar_stock_weighing
-#: field:stock.picking,total_gross:0
-msgid "Total Gross"
-msgstr "Brutto Gesamt"
-
+#: field:stock.picking,trailer_tare:0
+msgid "Trailer Tare Weight"
+msgstr "Anhänger Tara"
 

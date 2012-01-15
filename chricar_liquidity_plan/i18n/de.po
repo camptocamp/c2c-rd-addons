@@ -1,50 +1,28 @@
-# translation of de_DE.po to
 # Translation of OpenERP Server.
 # This file contains the translation of the following modules:
 #	* chricar_liquidity_plan
 #
-# Ferdinand Gassauer <f.gassauer@chricar.at>, 2009.
 msgid ""
 msgstr ""
-"Project-Id-Version: de_DE\n"
-"Report-Msgid-Bugs-To: support@openerp.com\n"
-"POT-Creation-Date: 2009-08-31 15:36:02+0000\n"
-"PO-Revision-Date: 2009-08-31 17:39+0200\n"
-"Last-Translator: Ferdinand Gassauer <f.gassauer@chricar.at>\n"
-"Language-Team:  <en@li.org>\n"
+"Project-Id-Version: OpenERP Server 6.1rc1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-01-15 12:06+0000\n"
+"PO-Revision-Date: 2012-01-15 12:06+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
-"X-Generator: KBabel 1.11.4\n"
-
-#. module: chricar_liquidity_plan
-#: model:ir.module.module,description:chricar_liquidity_plan.module_meta_information
-msgid ""
-"Allows to plan Liquidity and cash flow\n"
-"generated 2009-08-14 15:55:18+02"
-msgstr "Liquiditäts und CashFlow Planung"
 
 #. module: chricar_liquidity_plan
 #: field:chricar.liquidity.category,name:0
 #: field:chricar.liquidity_plan,category_id:0
-#, fuzzy
 msgid "Category"
 msgstr "Kategorie"
 
 #. module: chricar_liquidity_plan
-#: constraint:ir.ui.view:0
-msgid "Invalid XML for View Architecture!"
-msgstr "Fehlerhafter xml Code für diese Ansicht!"
-
-#. module: chricar_liquidity_plan
-#: constraint:ir.model:0
-msgid "The Object name must start with x_ and not contain any special character !"
-msgstr "Der Objekt Name muss mit einem x_ starten und darf keine Sonderzeichen beinhalten"
-
-#. module: chricar_liquidity_plan
 #: field:chricar.liquidity_plan,name:0
-#, fuzzy
 msgid "Description"
 msgstr "Beschreibung"
 
@@ -54,31 +32,27 @@ msgid "chricar.liquidity.category"
 msgstr "chricar.liquidity.category"
 
 #. module: chricar_liquidity_plan
-#: field:chricar.liquidity_plan,partner_comp_accumulated:0
-msgid "Amount Cum/Comp"
-msgstr "Betrag kum/Firma"
+#: field:chricar.liquidity_plan,partner_comp_id:0
+msgid "Company"
+msgstr "Unternehmen"
 
 #. module: chricar_liquidity_plan
 #: help:chricar.liquidity.category,name:0
-#, fuzzy
 msgid "Groups Entries"
-msgstr "Gruppen Einträge"
+msgstr "Gruppiere Buchungen"
 
 #. module: chricar_liquidity_plan
 #: view:chricar.liquidity_plan:0
-#: model:ir.module.module,shortdesc:chricar_liquidity_plan.module_meta_information
 msgid "Liquidity"
 msgstr "Liquidität"
 
 #. module: chricar_liquidity_plan
-#: field:chricar.liquidity_plan,date_planning:0
-#, fuzzy
-msgid "Date"
-msgstr "Datum"
+#: view:chricar.liquidity_plan:0
+msgid "invisible"
+msgstr "unsichtbar"
 
 #. module: chricar_liquidity_plan
 #: field:chricar.liquidity_plan,amount:0
-#, fuzzy
 msgid "Amount"
 msgstr "Betrag"
 
@@ -88,23 +62,17 @@ msgid "Sum Amount"
 msgstr "Summe Betrag"
 
 #. module: chricar_liquidity_plan
-#: constraint:ir.actions.act_window:0
-msgid "Invalid model name in the action definition."
-msgstr "Ungültiger Modell name in der Definition der Aktion"
-
-#. module: chricar_liquidity_plan
 #: field:chricar.liquidity_plan,amount_cum:0
 msgid "Amount Cum"
 msgstr "Betrag kum."
 
 #. module: chricar_liquidity_plan
-#: field:chricar.liquidity_plan,code:0
-msgid "Code old"
-msgstr "Code alt"
+#: field:chricar.liquidity_plan,date_planning:0
+msgid "Date"
+msgstr "Datum"
 
 #. module: chricar_liquidity_plan
 #: field:chricar.liquidity_plan,partner_id:0
-#: model:ir.model,name:chricar_liquidity_plan.model_chricar_company
 msgid "Partner"
 msgstr "Partner"
 
@@ -115,15 +83,9 @@ msgid "Cash FLow Plan"
 msgstr "Cash FLow Plan"
 
 #. module: chricar_liquidity_plan
-#: view:chricar.liquidity_plan:0
-msgid "invisible"
-msgstr "unsichtbar"
-
-#. module: chricar_liquidity_plan
-#: field:chricar.liquidity_plan,partner_comp_id:0
-#, fuzzy
-msgid "Company"
-msgstr "Firma"
+#: field:chricar.liquidity_plan,partner_comp_accumulated:0
+msgid "Amount Cum/Comp"
+msgstr "Betrag kum/Firma"
 
 #. module: chricar_liquidity_plan
 #: help:chricar.liquidity_plan,name:0

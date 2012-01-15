@@ -2,20 +2,18 @@
 # This file contains the translation of the following modules:
 #	* chricar_budget
 #
-# Ferdinand Gassauer <f.gassauer@chricar.at>, 2010.
 msgid ""
 msgstr ""
-"Project-Id-Version: OpenERP Server 5.0.12\n"
-"Report-Msgid-Bugs-To: support@openerp.com\n"
-"POT-Creation-Date: 2010-09-13 22:40:27+0000\n"
-"PO-Revision-Date: 2010-09-14 00:47+0200\n"
-"Last-Translator: Ferdinand Gassauer <f.gassauer@chricar.at>\n"
-"Language-Team: German <kde-i18n-doc@kde.org>\n"
+"Project-Id-Version: OpenERP Server 6.1rc1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-01-15 12:06+0000\n"
+"PO-Revision-Date: 2012-01-15 12:06+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
-"X-Generator: Lokalize 1.1\n"
 
 #. module: chricar_budget
 #: view:chricar.budget:0
@@ -28,20 +26,9 @@ msgid "ha total"
 msgstr "ha Gesamt"
 
 #. module: chricar_budget
-#: constraint:ir.model:0
-msgid "The Object name must start with x_ and not contain any special character !"
-msgstr "Der Objekt Name muss mit einem x_ starten und darf keine Sonderzeichen beinhalten"
-
-#. module: chricar_budget
-#: field:c2c_budget.version,budget_ids:0
-#: view:chricar.budget:0
-#: view:chricar.budget.production:0
-#: model:ir.actions.act_window,name:chricar_budget.chricar_budget_act1
-#: model:ir.module.module,shortdesc:chricar_budget.module_meta_information
-#: model:ir.ui.menu,name:chricar_budget.menu_chricar_budget_list
-#: field:product.product,budget_ids:0
-msgid "Budget Products"
-msgstr "Budget Produkte"
+#: help:chricar.budget,harvest_period_id:0
+msgid "In this period the harvest will be evaluated using product cost price"
+msgstr "In dieser Periode wird die Ernte mit den Herstellkosten bewertet"
 
 #. module: chricar_budget
 #: help:chricar.budget,harvest_yield:0
@@ -74,19 +61,24 @@ msgid "Surface * Yield"
 msgstr "Fläche * Ertrag/ha"
 
 #. module: chricar_budget
-#: help:chricar.budget,yield_sale:0
-msgid "Planned Sales / Surface"
-msgstr "geplante Erlöse / Fläche"
+#: view:chricar.budget:0
+msgid "Sum Harvest Net"
+msgstr "Sum Ernte Netto"
+
+#. module: chricar_budget
+#: constraint:product.product:0
+msgid "Error: Invalid EAN code"
+msgstr "Fehler: ungültiger EAN Code"
 
 #. module: chricar_budget
 #: field:chricar.budget.surface,location_id:0
 msgid "Location"
-msgstr "Schlag"
+msgstr "Objekt"
 
 #. module: chricar_budget
-#: constraint:ir.actions.act_window:0
-msgid "Invalid model name in the action definition."
-msgstr "Ungültiger Modellname in der Aktionsdefinition."
+#: field:chricar.budget,harvest_soil:0
+msgid "Soil %"
+msgstr "Soil %"
 
 #. module: chricar_budget
 #: field:chricar.budget,sale_to:0
@@ -104,6 +96,11 @@ msgid "Surface (ha)"
 msgstr "Fläche"
 
 #. module: chricar_budget
+#: help:chricar.budget,harvest_soil:0
+msgid "The percentag of soil"
+msgstr "% Erde"
+
+#. module: chricar_budget
 #: field:chricar.budget,harvest_period_id:0
 msgid "Harvest Period"
 msgstr "Ernte Periode"
@@ -111,13 +108,19 @@ msgstr "Ernte Periode"
 #. module: chricar_budget
 #: model:ir.model,name:chricar_budget.model_chricar_budget_production
 msgid "chricar.budget.production"
-msgstr ""
+msgstr "chricar.budget.production"
 
 #. module: chricar_budget
 #: field:chricar.budget,product_id:0
 #: field:chricar.budget.surface,budget_id:0
+#: model:ir.model,name:chricar_budget.model_product_product
 msgid "Product"
 msgstr "Produkt"
+
+#. module: chricar_budget
+#: sql_constraint:chricar.budget:0
+msgid "Surface must be greater than 0 !"
+msgstr "Fläche mus größer als 0 sein !"
 
 #. module: chricar_budget
 #: help:chricar.budget,harvest:0
@@ -142,7 +145,12 @@ msgstr "Sum Menge"
 #. module: chricar_budget
 #: view:chricar.budget:0
 msgid "Sum ha"
-msgstr ""
+msgstr "Sum ha"
+
+#. module: chricar_budget
+#: field:chricar.budget,harvest_yield:0
+msgid "Yield/ha"
+msgstr "Ertrag/ha"
 
 #. module: chricar_budget
 #: field:chricar.budget,product_uom:0
@@ -184,17 +192,17 @@ msgstr "geplante Pruduktionsmenge * Preis"
 #. module: chricar_budget
 #: view:chricar.budget.production:0
 msgid "Budget Versions"
-msgstr "Budget Version"
-
-#. module: chricar_budget
-#: constraint:ir.ui.view:0
-msgid "Invalid XML for View Architecture!"
-msgstr "Fehlerhafter xml Code für diese Ansicht!"
+msgstr "Budget Versionen"
 
 #. module: chricar_budget
 #: field:chricar.budget.production,name:0
 msgid "Production Budget"
 msgstr "Produktion Budget"
+
+#. module: chricar_budget
+#: field:chricar.budget.surface,product_id:0
+msgid "Seed"
+msgstr "Saatgut"
 
 #. module: chricar_budget
 #: view:chricar.budget:0
@@ -205,7 +213,7 @@ msgstr "Schläge"
 #: view:chricar.budget:0
 #: field:chricar.budget,name:0
 msgid "Notes"
-msgstr "Notiz"
+msgstr "Notizen"
 
 #. module: chricar_budget
 #: field:chricar.budget,amount:0
@@ -213,16 +221,20 @@ msgid "Total Sales Planned"
 msgstr "Total geplante Erlöse"
 
 #. module: chricar_budget
-#: model:ir.actions.act_window,name:chricar_budget.chricar_budget_production_list
+#: model:ir.actions.act_window,name:chricar_budget.chricar_budget_production
 #: model:ir.ui.menu,name:chricar_budget.menu_chricar_budget_production_list
 msgid "Budget Production"
 msgstr "Budget Produktion"
 
 #. module: chricar_budget
-#: field:chricar.budget,harvest_yield:0
 #: field:chricar.budget.surface,harvest_yield:0
 msgid "Yield"
 msgstr "Ertrag"
+
+#. module: chricar_budget
+#: field:chricar.budget,harvest_yield_diff:0
+msgid "Yield Net Diff"
+msgstr "Nette Diff Ertrag"
 
 #. module: chricar_budget
 #: field:chricar.budget,yield_sale:0
@@ -235,9 +247,14 @@ msgid "Fiscal Year"
 msgstr "Geschäftsjahr"
 
 #. module: chricar_budget
-#: help:chricar.budget,harvest_period_id:0
-msgid "In this period the harvest will be evaluated using product cost price"
-msgstr "In dieser Periode wird die Ernte mit den Herstellkosten bewertet"
+#: field:c2c_budget.version,budget_ids:0
+#: view:chricar.budget:0
+#: view:chricar.budget.production:0
+#: model:ir.actions.act_window,name:chricar_budget.chricar_budget_act1
+#: model:ir.ui.menu,name:chricar_budget.menu_chricar_budget_list
+#: field:product.product,budget_ids:0
+msgid "Budget Products"
+msgstr "Budget Produkte"
 
 #. module: chricar_budget
 #: field:chricar.budget,yield_qty:0
@@ -265,21 +282,24 @@ msgid "Sum Surface"
 msgstr "Summe Flächen"
 
 #. module: chricar_budget
+#: model:ir.model,name:chricar_budget.model_c2c_budget_version
+msgid "Budget versions"
+msgstr "Budget Versionen"
+
+#. module: chricar_budget
+#: field:chricar.budget.surface,prodlot_id:0
+msgid "Production Lot"
+msgstr "Produktions Los"
+
+#. module: chricar_budget
 #: help:chricar.budget.surface,harvest_yield:0
 msgid "Harvested yield qty this year on this location"
 msgstr "Erntemenge dieses Jahres auf diesem Feld"
 
 #. module: chricar_budget
-#: field:chricar.budget,harvest_yield_diff:0
-msgid "Yield Diff"
-msgstr "Ertragsdiff"
-
-#. module: chricar_budget
-#: model:ir.module.module,description:chricar_budget.module_meta_information
-msgid ""
-"Allows to plan production and sales quantities for products sales prices\n"
-"generated 2009-08-18 23:44:30+02"
-msgstr "ermöglicht die Planung von Produktion und Verkaufsmengen und Verkaufspreisen"
+#: field:chricar.budget,harvest_net:0
+msgid "Net/ha"
+msgstr "Netto/ha"
 
 #. module: chricar_budget
 #: field:chricar.budget,location_ids:0
@@ -297,14 +317,19 @@ msgid "Sum ha used"
 msgstr "SUm ha verwendet"
 
 #. module: chricar_budget
-#: field:chricar.budget.surface,product_id:0
-msgid "Seed"
-msgstr "Saatgut"
+#: help:chricar.budget,yield_sale:0
+msgid "Planned Sales / Surface"
+msgstr "geplante Erlöse / Fläche"
+
+#. module: chricar_budget
+#: help:chricar.budget,harvest_net:0
+msgid "Harvested qty net - without soil this year"
+msgstr "Netto Ernte Menge - ohne Erde dieses Jahr"
 
 #. module: chricar_budget
 #: field:c2c_budget.version,budget_production_id:0
 msgid "Budget Produktion"
-msgstr ""
+msgstr "Budget Produktion"
 
 #. module: chricar_budget
 #: view:chricar.budget:0
@@ -331,5 +356,4 @@ msgstr "Produkt Budget"
 #: help:chricar.budget,sale_from:0
 msgid "Sale lines will be created aliquot for not individually planned sales"
 msgstr "Verkaufsbudgetzeilen werden aliquote für nicht manuell geplante Mengen gebildet"
-
 

@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: OpenERP Server 5.0.12\n"
-"Report-Msgid-Bugs-To: support@openerp.com\n"
-"POT-Creation-Date: 2010-09-13 09:55:15+0000\n"
-"PO-Revision-Date: 2010-09-13 09:55:15+0000\n"
+"Project-Id-Version: OpenERP Server 6.1rc1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-01-15 12:08+0000\n"
+"PO-Revision-Date: 2012-01-15 12:08+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,10 +16,31 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: chricar_stocklocation_moves
-#: field:chricar.report_location_moves,categ_id:0
-#: field:chricar.report_location_moves_sum,categ_id:0
+#: field:chricar.report.location.moves,categ_id:0
+#: field:chricar.report.location.moves.sum,categ_id:0
 msgid "Category"
 msgstr "Kategorie"
+
+#. module: chricar_stocklocation_moves
+#: model:ir.actions.act_window,name:chricar_stocklocation_moves.act_chricar_product_stock_open
+msgid "Stock Moves by Product"
+msgstr "Lagerbuchungen je Produkt"
+
+#. module: chricar_stocklocation_moves
+#: selection:chricar.report.location.moves,state:0
+msgid "Confirmed"
+msgstr "Bestätigt"
+
+#. module: chricar_stocklocation_moves
+#: view:chricar.report.location.moves:0
+msgid "Stock moves that are Available (Ready to process)"
+msgstr "verfügbare Lagerbuchungen (bereit zur Weiterbearbeitung)"
+
+#. module: chricar_stocklocation_moves
+#: view:chricar.report.location.moves:0
+#: model:ir.model,name:chricar_stocklocation_moves.model_chricar_report_location_moves
+msgid "Location Moves"
+msgstr "Lagerbuchung"
 
 #. module: chricar_stocklocation_moves
 #: model:ir.actions.act_window,name:chricar_stocklocation_moves.action_chricar_location_tree
@@ -28,34 +49,36 @@ msgid "Product Location Moves"
 msgstr "Produkt Lagerbuchung"
 
 #. module: chricar_stocklocation_moves
-#: constraint:ir.model:0
-msgid "The Object name must start with x_ and not contain any special character !"
-msgstr "Der Objekt Name muss mit einem x_ starten und darf keine Sonderzeichen beinhalten"
+#: field:chricar.report.location.moves,state:0
+msgid "Status"
+msgstr "Status"
 
 #. module: chricar_stocklocation_moves
-#: view:chricar.report_location_moves:0
-#: model:ir.model,name:chricar_stocklocation_moves.model_chricar_report_chricar_location_moves
-#: model:ir.model,name:chricar_stocklocation_moves.model_chricar_report_location_moves
-#: model:ir.model,name:chricar_stocklocation_moves.model_report_chricar_location_moves
-msgid "Location Moves"
-msgstr "Lagerbuchung"
+#: view:chricar.report.location.moves:0
+msgid "Group By..."
+msgstr "Gruppiere je..."
 
 #. module: chricar_stocklocation_moves
-#: field:chricar.report_location_moves,cost_price:0
-#: field:chricar.report_location_moves_sum,cost_price:0
-msgid "Cost Price"
-msgstr "Stückkosten"
+#: view:chricar.report.location.moves:0
+msgid "State"
+msgstr "Status"
 
 #. module: chricar_stocklocation_moves
-#: field:chricar.report_location_moves,location_id:0
-#: field:chricar.report_location_moves_sum,location_id:0
+#: selection:chricar.report.location.moves,state:0
+msgid "Draft"
+msgstr "Entwurf"
+
+#. module: chricar_stocklocation_moves
+#: view:chricar.report.location.moves:0
+#: field:chricar.report.location.moves,location_id:0
+#: field:chricar.report.location.moves.sum,location_id:0
 msgid "Location"
-msgstr "Lager"
+msgstr "Objekt"
 
 #. module: chricar_stocklocation_moves
-#: constraint:ir.actions.act_window:0
-msgid "Invalid model name in the action definition."
-msgstr "Ungültiger Modellname in der Aktionsdefinition."
+#: view:chricar.report.location.moves:0
+msgid "Lot"
+msgstr "Fertigungslos"
 
 #. module: chricar_stocklocation_moves
 #: model:ir.actions.act_window,name:chricar_stocklocation_moves.action_chricar_location_product_location_sum_tree
@@ -64,50 +87,101 @@ msgid "Product Location Moves Sum"
 msgstr "Produkt Lagerbuchung Summe"
 
 #. module: chricar_stocklocation_moves
-#: field:chricar.report_location_moves,usage:0
-#: field:chricar.report_location_moves_sum,usage:0
-msgid "Usage"
-msgstr "Verwendung"
+#: view:chricar.report.location.moves:0
+msgid "Expected"
+msgstr "Erwartet"
 
 #. module: chricar_stocklocation_moves
-#: view:chricar.report_location_moves:0
-#: view:chricar.report_location_moves_sum:0
+#: view:chricar.report.location.moves:0
+#: view:chricar.report.location.moves.sum:0
 msgid "Sum Cost Value"
-msgstr "Summe Herstellkosten"
+msgstr "Sum Kosten"
 
 #. module: chricar_stocklocation_moves
-#: field:chricar.report_location_moves,date_planned:0
-msgid "Date Planned"
-msgstr "Datum"
+#: view:chricar.report.location.moves:0
+msgid "Today"
+msgstr "Heute"
 
 #. module: chricar_stocklocation_moves
-#: model:ir.actions.act_window,name:chricar_stocklocation_moves.action_chricar_location_tree_intern
-#: model:ir.ui.menu,name:chricar_stocklocation_moves.menu_action_chricar_location_tree_intern
-msgid "Product Location Moves intern"
-msgstr "Produkt Lagerbuchung intern"
+#: selection:chricar.report.location.moves,state:0
+msgid "Available"
+msgstr "Verfügbar"
 
 #. module: chricar_stocklocation_moves
-#: view:chricar.report_location_moves:0
-msgid "Sum Quantity"
-msgstr "Summe Menge"
-
-#. module: chricar_stocklocation_moves
-#: field:chricar.report_location_moves,product_id:0
-#: field:chricar.report_location_moves_sum,product_id:0
+#: view:chricar.report.location.moves:0
+#: field:chricar.report.location.moves,product_id:0
+#: field:chricar.report.location.moves.sum,product_id:0
 msgid "Product"
 msgstr "Produkt"
 
 #. module: chricar_stocklocation_moves
-#: field:chricar.report_location_moves,move_value_cost:0
-#: field:chricar.report_location_moves_sum,move_value_cost:0
+#: field:chricar.report.location.moves,move_value_cost:0
+#: field:chricar.report.location.moves.sum,move_value_cost:0
 msgid "Cost Value"
-msgstr "Herstellkosten"
+msgstr "Cost Value"
 
 #. module: chricar_stocklocation_moves
-#: model:ir.module.module,description:chricar_stocklocation_moves.module_meta_information
-msgid "Moves of each location\n"
-"        "
-msgstr "Lagerbuchung je Lagerort"
+#: view:chricar.report.location.moves:0
+msgid "Sum Quantity"
+msgstr "Sum Menge"
+
+#. module: chricar_stocklocation_moves
+#: field:chricar.report.location.moves,usage:0
+#: field:chricar.report.location.moves.sum,usage:0
+msgid "Usage"
+msgstr "Verwendung"
+
+#. module: chricar_stocklocation_moves
+#: selection:chricar.report.location.moves,state:0
+msgid "Waiting"
+msgstr "Wartend"
+
+#. module: chricar_stocklocation_moves
+#: field:chricar.report.location.moves,date:0
+msgid "Date"
+msgstr "Datum"
+
+#. module: chricar_stocklocation_moves
+#: view:chricar.report.location.moves:0
+msgid "Picking"
+msgstr "Lieferscheine"
+
+#. module: chricar_stocklocation_moves
+#: view:chricar.report.location.moves:0
+msgid "Extended Filters..."
+msgstr "Erweiterte Filter..."
+
+#. module: chricar_stocklocation_moves
+#: view:chricar.report.location.moves:0
+msgid "Orders processed Today or planned for Today"
+msgstr "geplante oder erledigte heutige Bestellungen"
+
+#. module: chricar_stocklocation_moves
+#: field:chricar.report.location.moves,cost_price:0
+#: field:chricar.report.location.moves.sum,cost_price:0
+msgid "Cost Price"
+msgstr "Cost Price"
+
+#. module: chricar_stocklocation_moves
+#: field:chricar.report.location.moves,name:0
+msgid "Name"
+msgstr "Name"
+
+#. module: chricar_stocklocation_moves
+#: field:chricar.report.location.moves.sum,sale_price:0
+msgid "SAle Price"
+msgstr "Verkaufspreise"
+
+#. module: chricar_stocklocation_moves
+#: view:chricar.report.location.moves:0
+#: view:chricar.report.location.moves.sum:0
+msgid "Sum Sale Value"
+msgstr "Sum Verkaufswert"
+
+#. module: chricar_stocklocation_moves
+#: field:chricar.report.location.moves,picking_id:0
+msgid "Stock Picking"
+msgstr "Lieferscheine"
 
 #. module: chricar_stocklocation_moves
 #: model:ir.actions.act_window,name:chricar_stocklocation_moves.act_chricar_lot_stock_open
@@ -115,94 +189,79 @@ msgid "Stock Moves by Prod Lot"
 msgstr "Lagerbuchung je Los"
 
 #. module: chricar_stocklocation_moves
-#: field:chricar.report_location_moves,variants:0
-msgid "Variants"
-msgstr "Variante"
+#: view:chricar.report.location.moves:0
+msgid "Future"
+msgstr "Zukunft"
 
 #. module: chricar_stocklocation_moves
-#: constraint:ir.ui.view:0
-msgid "Invalid XML for View Architecture!"
-msgstr "Fehlerhafter xml Code für diese Ansicht!"
-
-#. module: chricar_stocklocation_moves
-#: field:chricar.report_location_moves,name:0
-msgid "Name"
-msgstr ""
-
-#. module: chricar_stocklocation_moves
-#: field:chricar.report_location_moves_sum,sale_price:0
-msgid "SAle Price"
-msgstr "Verkaufspreis"
-
-#. module: chricar_stocklocation_moves
-#: view:chricar.report_location_moves:0
-#: view:chricar.report_location_moves_sum:0
-msgid "Sum Sale Value"
-msgstr "Summe Verkaufserlös"
-
-#. module: chricar_stocklocation_moves
-#: field:chricar.report_location_moves,picking_id:0
-msgid "Stock Picking"
-msgstr "Lieferschein"
-
-#. module: chricar_stocklocation_moves
-#: model:ir.model,name:chricar_stocklocation_moves.model_chricar_report_chricar_location_moves_sum
 #: model:ir.model,name:chricar_stocklocation_moves.model_chricar_report_location_moves_sum
-#: model:ir.model,name:chricar_stocklocation_moves.model_report_chricar_location_moves_sum
 msgid "Location Product Sum"
 msgstr "Lagerbuchung Produkt Summen"
 
 #. module: chricar_stocklocation_moves
-#: field:chricar.report_location_moves,product_qty:0
-#: field:chricar.report_location_moves_sum,product_qty:0
+#: field:chricar.report.location.moves,variants:0
+msgid "Variants"
+msgstr "Varianten"
+
+#. module: chricar_stocklocation_moves
+#: field:chricar.report.location.moves,product_qty:0
+#: field:chricar.report.location.moves.sum,product_qty:0
 msgid "Quantity"
 msgstr "Menge"
 
 #. module: chricar_stocklocation_moves
-#: field:chricar.report_location_moves,move_value_sale:0
-#: field:chricar.report_location_moves_sum,move_value_sale:0
+#: field:chricar.report.location.moves,move_value_sale:0
+#: field:chricar.report.location.moves.sum,move_value_sale:0
 msgid "Sale Value"
 msgstr "Verkaufswert"
 
 #. module: chricar_stocklocation_moves
-#: model:ir.actions.act_window,name:chricar_stocklocation_moves.act_chricar_product_location_stock_open
-msgid "Stock Moves by Product and Location"
-msgstr "Lagerbuchung je Produkt und Lager"
-
-#. module: chricar_stocklocation_moves
-#: field:chricar.report_location_moves,prodlot_id:0
+#: field:chricar.report.location.moves,prodlot_id:0
 msgid "Production Lot"
-msgstr "Produktionslos"
+msgstr "Produktions Los"
 
 #. module: chricar_stocklocation_moves
-#: field:chricar.report_location_moves,sale_price:0
+#: view:chricar.report.location.moves:0
+msgid "Stock moves that are Confirmed, Available or Waiting"
+msgstr "Lagerbuchungen die bestätigt, verfügbar oder wartend sind"
+
+#. module: chricar_stocklocation_moves
+#: field:chricar.report.location.moves,sale_price:0
 msgid "Sale Price"
 msgstr "Verkaufspreis"
 
 #. module: chricar_stocklocation_moves
+#: view:chricar.report.location.moves:0
 #: model:ir.actions.act_window,name:chricar_stocklocation_moves.act_chricar_location_stock_open
 msgid "Stock Moves by Location"
-msgstr "Lagerbuchung je Lagerort"
+msgstr "Lagerbuchungen je Lagerortn"
 
 #. module: chricar_stocklocation_moves
-#: view:chricar.report_location_moves_sum:0
+#: view:chricar.report.location.moves.sum:0
 msgid "Location Product Quantities"
-msgstr "Lager Produkt Mengen"
+msgstr "Lagermengen je Lager"
 
 #. module: chricar_stocklocation_moves
-#: field:chricar.report_location_moves,period_id:0
+#: view:chricar.report.location.moves:0
+#: field:chricar.report.location.moves,period_id:0
 msgid "Period"
 msgstr "Periode"
 
 #. module: chricar_stocklocation_moves
-#: model:ir.module.module,shortdesc:chricar_stocklocation_moves.module_meta_information
-msgid "chricar_stocklocation_moves"
-msgstr ""
+#: selection:chricar.report.location.moves,state:0
+msgid "Canceled"
+msgstr "Abgebrochen"
 
 #. module: chricar_stocklocation_moves
-#: model:ir.actions.act_window,name:chricar_stocklocation_moves.act_chricar_product_stock_open
-msgid "Stock Moves by Product"
-msgstr "Lagerbuchungen je Produkt"
+#: view:chricar.report.location.moves:0
+msgid "(Category)"
+msgstr "(Category)"
+
+#. module: chricar_stocklocation_moves
+#: view:chricar.report.location.moves:0
+#: selection:chricar.report.location.moves,state:0
+msgid "Done"
+msgstr "Erledigt"
 
 #. module: chricar_stocklocation_moves
 #: model:ir.actions.act_window,name:chricar_stocklocation_moves.action_chricar_location_product_location_sum_tree_intern
@@ -211,7 +270,24 @@ msgid "Product Location Moves Sum intern"
 msgstr "Produkt Lagerbuchung Summe intern"
 
 #. module: chricar_stocklocation_moves
-#: field:chricar.report_location_moves,partner_id:0
+#: view:chricar.report.location.moves:0
+msgid "Ready"
+msgstr "Fertig"
+
+#. module: chricar_stocklocation_moves
+#: view:chricar.report.location.moves:0
+#: field:chricar.report.location.moves,partner_id:0
 msgid "Partner"
-msgstr ""
+msgstr "Partner"
+
+#. module: chricar_stocklocation_moves
+#: model:ir.actions.act_window,name:chricar_stocklocation_moves.action_chricar_location_tree_intern
+#: model:ir.ui.menu,name:chricar_stocklocation_moves.menu_action_chricar_location_tree_intern
+msgid "Product Moves Internal Locations"
+msgstr "Produkt Lagerbuchung Intern"
+
+#. module: chricar_stocklocation_moves
+#: view:chricar.report.location.moves:0
+msgid "Stock moves that have been processed"
+msgstr "verarbeitete Lagerbuchungen"
 
