@@ -51,8 +51,8 @@ def discount_post(self, cr, uid, ids, date, journal_id, amount_paid, reconcile_i
         invoice_ids = invoice_obj.search(cr, uid, [('move_id','in', ids)])
         if not invoice_ids:
            return res
-        for invoice in invoice_obj(cr, uid, invoice_ids)
-           if not invoice.payment_id or not invoice.payment_id.is_discount or invoice.residual = 0.0:
+        for invoice in invoice_obj.browse(cr, uid, invoice_ids):
+           if not invoice.payment_id or not invoice.payment_id.is_discount or invoice.residual == 0.0:
                return res
            else:
                inv_num = invoice.number
@@ -62,16 +62,16 @@ def discount_post(self, cr, uid, ids, date, journal_id, amount_paid, reconcile_i
                   to_pay = invoice.residual
                  
                payment_obj = self.pool.get('account.payment.term')
-               for pay_term_lines in payment_obj.browse(cr, uid, invoice.payment_id)
-                   if invoice.payment_id.discount_expense_account_id 
+               for pay_term_lines in payment_obj.browse(cr, uid, invoice.payment_id):
+                   if invoice.payment_id.discount_expense_account_id:
                         account_deb = invoice.payment_id.discount_expense_account_id
-                   if invoice.payment_id.discount_income_account_id
+                   if invoice.payment_id.discount_income_account_id:
                         account_cred = invoice.payment_id.discount_income_account_id
          
         account_obj = self.pool.get('account.account')
-        partner_account_ids = account_obj.search(cr, uid, [('type','in',['payable','receivable'])]
+        partner_account_ids = account_obj.search(cr, uid, [('type','in',['payable','receivable'])])
 
-        open_partner_balance = 0.0
+        open_partner_balance = 0
 
         move = self.read(cr, uid, ids, context)
         partner_id = move.partner_id.id
@@ -79,7 +79,7 @@ def discount_post(self, cr, uid, ids, date, journal_id, amount_paid, reconcile_i
             if move_line.account_id in partner_account_ids and not move_line.reconcile_id :
                 open_partner_balance  += move_line.debit or 0.0 - move_line.credit or 0.0
                 partner_account_id = move_line.account_id 
-        if open_partner_balance == to_pay + amount_paid or reconcile = 'full':
+        if open_partner_balance == to_pay + amount_paid or reconcile == 'full':
             reconcile = 'full'
         else:
             reconcile = 'partial'
@@ -87,7 +87,7 @@ def discount_post(self, cr, uid, ids, date, journal_id, amount_paid, reconcile_i
         ratio = to_pay / open_partner_balance
 
         # we have to reverse the amounts 
-        sql = "SELECT sum(debit)  as credit, 
+        sql = """SELECT sum(debit)  as credit, 
                       sum(credit) as debit,
                       sum(-tax_amount) as tax_amount,
                       account_id,
@@ -97,7 +97,7 @@ def discount_post(self, cr, uid, ids, date, journal_id, amount_paid, reconcile_i
                  FROM account_move_line
                 WHERE move_id = %d
                   AND account_id not in (%s)
-                GROUP BY account_id, analytic_account_id, account_tax_id, tax_code_id" % (move.id, partner_account_ids)
+                GROUP BY account_id, analytic_account_id, account_tax_id, tax_code_id""" % (move.id, partner_account_ids)
 
         debit = 0.0
         credit= 0.0
