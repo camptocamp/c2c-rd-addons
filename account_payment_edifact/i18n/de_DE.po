@@ -1,0 +1,126 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* account_payment_edifact
+#
+# Ferdinand Gassauer <f.gassauer@chricar.at>, 2010.
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 5.0.12\n"
+"Report-Msgid-Bugs-To: support@openerp.com\n"
+"POT-Creation-Date: 2010-08-20 12:55:37+0000\n"
+"PO-Revision-Date: 2010-08-20 15:00+0200\n"
+"Last-Translator: Ferdinand Gassauer <f.gassauer@chricar.at>\n"
+"Language-Team: German <kde-i18n-de@kde.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+"X-Generator: Lokalize 1.0\n"
+
+#. module: account_payment_edifact
+#: selection:payment.type,charges_alloc:0
+msgid "All charges borne by payor"
+msgstr "Alle Spesen zu Lasten Auftraggeber"
+
+#. module: account_payment_edifact
+#: help:payment.type,charges_alloc:0
+msgid "Default financial charges allocation"
+msgstr "Spensenaufteilung Vorgabe"
+
+#. module: account_payment_edifact
+#: help:payment.type,payment_path:0
+msgid "Enter the path on server where the payment file should be stored. Additionally the file will be attached to the payment"
+msgstr ""
+"Verzeichnis am Server, in dem die EDIFACT Datei gespeichert wird. Darüber hinaus wird die Datei dem Zahlungsauftrag als "
+"Anhang angefügt."
+
+#. module: account_payment_edifact
+#: model:ir.module.module,shortdesc:account_payment_edifact.module_meta_information
+msgid "Payment via EDIFACT"
+msgstr "Zahlung via EDIFACT"
+
+#. module: account_payment_edifact
+#: wizard_button:payment.order.payment_generate_edifact,message,end:0
+msgid "OK"
+msgstr "OK"
+
+#. module: account_payment_edifact
+#: field:payment.type,payment_path:0
+msgid "EDIFACT Path"
+msgstr "EDIFACT Verzeichnis"
+
+#. module: account_payment_edifact
+#: selection:payment.type,charges_alloc:0
+msgid "All charges borne by payee"
+msgstr "Alle Spesen trägt der Empfänger"
+
+#. module: account_payment_edifact
+#: model:ir.actions.wizard,name:account_payment_edifact.wizard_payment_edifact
+#: wizard_view:payment.order.payment_generate_edifact,message:0
+msgid "Generate EDIFACT"
+msgstr "Generiere EDIFACT"
+
+#. module: account_payment_edifact
+#: constraint:ir.ui.view:0
+msgid "Invalid XML for View Architecture!"
+msgstr "Fehlerhafter xml Code für diese Ansicht!"
+
+#. module: account_payment_edifact
+#: wizard_view:payment.order.payment_generate_edifact,message:0
+msgid "EDIFACT successfully generated"
+msgstr "EDIFACT erfolgreich generiert"
+
+#. module: account_payment_edifact
+#: model:ir.module.module,description:account_payment_edifact.module_meta_information
+msgid ""
+"\n"
+"Generates an UN/EDIFACT file for each payment order to be sent to a bank.\n"
+"\n"
+"The generation is triggered by a \"Confirm Payments\" or via wizard \"Generate EDIFACT\".\n"
+"\n"
+"This works for payment within the country as well as for payments to a foreign country.\n"
+"EDIFACT is specified by http://www.unece.org/trade/untdid/d01a/trmd/paymul_c.htm\n"
+"\n"
+"The banking accounts should preferably be specified by IBAN/BIC.\n"
+"\n"
+"For the own company IBAN/BIC must be specified.\n"
+"\n"
+"Financial charges allocation is configured to (EDIFACT: \"FCA+14\"):\n"
+"\n"
+" - inland expenses are charged to ordering customer\n"
+" - foreign expenses are charged to benefit recipient\n"
+"\n"
+"The EDIFACT business function code is taken from Payment type Code.\n"
+"This must be one out of the list described in: \n"
+"http://www.unece.org/trade/untdid/d01a/tred/tred4025.htm\n"
+"\n"
+"\n"
+"The banking information must be specified for each payment line (sic!).\n"
+"\n"
+"The bank transfer currency must be the same as the company currency.\n"
+"\n"
+"Partner addresses are determined according to the function-sequence \"invoice\"->\"default\"->\"None\".\n"
+"\n"
+"Transfer text is composed of invoice-number, invoice-date and invoice-description.\n"
+"\n"
+"The sum of the transfers to a bank account must not be negative.\n"
+"If there are such payment lines with negative amount, the lines are summed up for this bank account.  \n"
+"\n"
+"There is a default path for EDIFACT file in payment type.\n"
+"\n"
+"There is a default charge allocation in payment type.\n"
+"\n"
+"ToDo: create EDIFACT file as attachment to paymnebt order\n"
+msgstr ""
+
+#. module: account_payment_edifact
+#: selection:payment.type,charges_alloc:0
+msgid "Each pay own cost: domestic-company, foreign-partner"
+msgstr "Spesenteilung: Inland-Auftraggeber, Ausland-Empfänger"
+
+#. module: account_payment_edifact
+#: field:payment.type,charges_alloc:0
+msgid "Financial Charges Alloc"
+msgstr "Spesenteilung"
+
+

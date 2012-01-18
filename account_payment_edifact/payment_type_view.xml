@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <record id="view_payment_type_edifact_form" model="ir.ui.view">
+      <field name="name">payment.type.edifact.form</field>
+      <field name="model">payment.type</field>
+      <field name="type">form</field>
+      <field name="inherit_id" ref="account_payment.view_payment_type_form"/>
+      <field name="arch" type="xml">
+        <field name="code" position="after">
+          <field name="charges_alloc"/>
+        </field>
+      </field>
+    </record>
+  </data>
+</openerp>
