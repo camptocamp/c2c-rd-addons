@@ -2,26 +2,31 @@
 # This file contains the translation of the following modules:
 #	* chricar_stock_product_by_location
 #
-# Ferdinand Gassauer <f.gassauer@chricar.at>, 2010.
 msgid ""
 msgstr ""
-"Project-Id-Version: OpenERP Server 5.0.12\n"
-"Report-Msgid-Bugs-To: support@openerp.com\n"
-"POT-Creation-Date: 2010-10-18 23:21:59+0000\n"
-"PO-Revision-Date: 2010-10-19 01:25+0200\n"
-"Last-Translator: Ferdinand Gassauer <f.gassauer@chricar.at>\n"
-"Language-Team: German <kde-i18n-doc@kde.org>\n"
+"Project-Id-Version: OpenERP Server 6.1rc1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-01-15 12:08+0000\n"
+"PO-Revision-Date: 2012-01-15 12:08+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
-"X-Generator: Lokalize 1.1\n"
+
+#. module: chricar_stock_product_by_location
+#: field:chricar.stock_move_by_location,categ_id:0
+#: field:chricar.stock_product_by_location,categ_id:0
+#: field:chricar.stock_product_by_location_prodlot,categ_id:0
+msgid "Category"
+msgstr "Kategorie"
 
 #. module: chricar_stock_product_by_location
 #: field:chricar.stock_move_by_location,prodlot_id:0
 #: field:chricar.stock_product_by_location_prodlot,prodlot_id:0
 msgid "Production lot"
-msgstr "Produktionslos"
+msgstr "Fertigungslos"
 
 #. module: chricar_stock_product_by_location
 #: field:chricar.stock_move_by_location,average_price:0
@@ -29,11 +34,6 @@ msgstr "Produktionslos"
 #: field:chricar.stock_product_by_location_prodlot,average_price:0
 msgid "Average Price"
 msgstr "Durchschnittspreis"
-
-#. module: chricar_stock_product_by_location
-#: constraint:ir.model:0
-msgid "The Object name must start with x_ and not contain any special character !"
-msgstr "Der Objekt Name muss mit einem x_ starten und darf keine Sonderzeichen beinhalten"
 
 #. module: chricar_stock_product_by_location
 #: model:ir.model,name:chricar_stock_product_by_location.model_chricar_stock_move_by_location
@@ -44,7 +44,6 @@ msgstr "Lagerbuchung"
 #: view:chricar.stock_product_by_location:0
 #: view:chricar.stock_product_by_location_prodlot:0
 #: model:ir.actions.act_window,name:chricar_stock_product_by_location.chricar_stock_product_by_location_act1
-#: model:ir.module.module,shortdesc:chricar_stock_product_by_location.module_meta_information
 #: model:ir.ui.menu,name:chricar_stock_product_by_location.menu_chricar_stock_product_by_location_list
 #: field:product.product,stock_product_by_location_ids:0
 #: field:stock.location,stock_product_by_location_ids:0
@@ -63,21 +62,16 @@ msgstr "Lagerbuchungen je Lager"
 
 #. module: chricar_stock_product_by_location
 #: field:chricar.stock_move_by_location,production_id:0
-#, fuzzy
 msgid "Production"
-msgstr "Produktionsstätte"
+msgstr "Produktion"
 
 #. module: chricar_stock_product_by_location
 #: field:chricar.stock_move_by_location,location_id:0
 #: field:chricar.stock_product_by_location,location_id:0
 #: field:chricar.stock_product_by_location_prodlot,location_id:0
+#: model:ir.model,name:chricar_stock_product_by_location.model_stock_location
 msgid "Location"
-msgstr "Lager"
-
-#. module: chricar_stock_product_by_location
-#: constraint:ir.actions.act_window:0
-msgid "Invalid model name in the action definition."
-msgstr "Ungültiger Modellname in der Aktionsdefinition."
+msgstr "Objekt"
 
 #. module: chricar_stock_product_by_location
 #: field:chricar.stock_product_by_location,cost_method:0
@@ -86,10 +80,9 @@ msgid "Cost Method"
 msgstr "Bewertungsmethode"
 
 #. module: chricar_stock_product_by_location
-#: field:chricar.stock_move_by_location,date_planned:0
-#, fuzzy
+#: field:chricar.stock_move_by_location,date:0
 msgid "Date Planned"
-msgstr "Datum"
+msgstr "Datum geplant"
 
 #. module: chricar_stock_product_by_location
 #: field:chricar.stock_move_by_location,id:0
@@ -100,16 +93,16 @@ msgstr "ID"
 
 #. module: chricar_stock_product_by_location
 #: field:chricar.stock_move_by_location,order_line_id:0
-#, fuzzy
 msgid "Sale Order Line"
-msgstr "Auftragspositionen"
+msgstr "Verkaufauftragszeile"
 
 #. module: chricar_stock_product_by_location
 #: field:chricar.stock_move_by_location,product_id:0
 #: field:chricar.stock_product_by_location,product_id:0
 #: field:chricar.stock_product_by_location_prodlot,product_id:0
+#: model:ir.model,name:chricar_stock_product_by_location.model_product_product
 msgid "Product"
-msgstr "Produkt "
+msgstr "Produkt"
 
 #. module: chricar_stock_product_by_location
 #: view:chricar.stock_move_by_location:0
@@ -119,11 +112,21 @@ msgid "Product Moves by Location"
 msgstr "Lagerbuchungen je Lager"
 
 #. module: chricar_stock_product_by_location
-#: model:ir.module.module,description:chricar_stock_product_by_location.module_meta_information
-msgid ""
-"Shows quantity and amount of products per stock location\n"
-"generated 2009-09-19 23:51:03+02"
-msgstr "Zeigt Mengen und  Werte von Produkten je Lager"
+#: constraint:stock.move:0
+msgid "You try to assign a lot which is not from the same product"
+msgstr "Sie versuchen eine Losnummer ohne Bezug zu diesem Produkt zuzuweisen."
+
+#. module: chricar_stock_product_by_location
+#: constraint:stock.move:0
+msgid "You can not move products from or to a location of the type view."
+msgstr "Sie können keine Buchungen auf Sichten machen"
+
+#. module: chricar_stock_product_by_location
+#: field:chricar.stock_move_by_location,company_id:0
+#: field:chricar.stock_product_by_location,company_id:0
+#: field:chricar.stock_product_by_location_prodlot,company_id:0
+msgid "Company"
+msgstr "Unternehmen"
 
 #. module: chricar_stock_product_by_location
 #: model:ir.actions.act_window,name:chricar_stock_product_by_location.act_product_stock
@@ -132,14 +135,20 @@ msgstr "Produkt je Lager"
 
 #. module: chricar_stock_product_by_location
 #: field:chricar.stock_move_by_location,picking_id:0
-#, fuzzy
 msgid "Packing"
-msgstr "Packliste"
+msgstr "Lieferschein"
 
 #. module: chricar_stock_product_by_location
 #: model:ir.actions.act_window,name:chricar_stock_product_by_location.act_product_location_prodlot_2_stock_move
 msgid "Product Moves by Stock Location and ProdLot"
 msgstr "Lagerbuchungen je Lager und Prod.Los"
+
+#. module: chricar_stock_product_by_location
+#: model:ir.actions.act_window,name:chricar_stock_product_by_location.chricar_stock_move_act1
+#: model:ir.ui.menu,name:chricar_stock_product_by_location.menu_chricar_stock_move_dba_list
+#: view:stock.move:0
+msgid "Stock Moves DBA"
+msgstr "Lagerbuchungen admin"
 
 #. module: chricar_stock_product_by_location
 #: field:chricar.stock_move_by_location,product_qty_pending:0
@@ -149,6 +158,13 @@ msgid "Quantity Pending"
 msgstr "Schwebende Mengen"
 
 #. module: chricar_stock_product_by_location
+#: field:chricar.stock_move_by_location,name:0
+#: field:chricar.stock_product_by_location,name:0
+#: field:chricar.stock_product_by_location_prodlot,name:0
+msgid "Quantity"
+msgstr "Menge"
+
+#. module: chricar_stock_product_by_location
 #: field:chricar.stock_move_by_location,uom_id:0
 #: field:chricar.stock_product_by_location,uom_id:0
 #: field:chricar.stock_product_by_location_prodlot,uom_id:0
@@ -156,29 +172,33 @@ msgid "UoM"
 msgstr "ME"
 
 #. module: chricar_stock_product_by_location
-#: constraint:ir.ui.view:0
-msgid "Invalid XML for View Architecture!"
-msgstr "Fehlerhafter xml Code für diese Ansicht!"
+#: constraint:stock.move:0
+msgid "Error: Negative quantities for location and/or lots are not allowed for this product or product category"
+msgstr "Fehler: negative Mengen sind für diesen Lagerort / Los nicht erlaubt"
 
 #. module: chricar_stock_product_by_location
 #: field:chricar.stock_move_by_location,order_id:0
-#, fuzzy
 msgid "Sale Order"
 msgstr "Verkaufsauftrag"
+
+#. module: chricar_stock_product_by_location
+#: constraint:stock.move:0
+msgid "You must assign a production lot for this product"
+msgstr "Sie müssen zwingend eine Losnummer für dieses Produkt angeben"
 
 #. module: chricar_stock_product_by_location
 #: field:chricar.stock_move_by_location,move_value_cost:0
 #: field:chricar.stock_product_by_location,amount:0
 #: field:chricar.stock_product_by_location_prodlot,amount:0
 msgid "Amount"
-msgstr "Betrag "
+msgstr "Betrag"
 
 #. module: chricar_stock_product_by_location
 #: view:chricar.stock_move_by_location:0
 #: view:chricar.stock_product_by_location:0
 #: view:chricar.stock_product_by_location_prodlot:0
 msgid "invisible"
-msgstr "unsichtbar "
+msgstr "unsichtbar"
 
 #. module: chricar_stock_product_by_location
 #: model:ir.actions.act_window,name:chricar_stock_product_by_location.chricar_stock_product_by_location_prodlot_act1
@@ -187,11 +207,9 @@ msgid "Product by Stock and Production Lot"
 msgstr "Produkt je Lager und Produktionslos"
 
 #. module: chricar_stock_product_by_location
-#: field:chricar.stock_move_by_location,name:0
-#: field:chricar.stock_product_by_location,name:0
-#: field:chricar.stock_product_by_location_prodlot,name:0
-msgid "Quantity"
-msgstr "Menge"
+#: field:stock.move,avg_price_calc:0
+msgid "Avg Calc"
+msgstr "Durchschn. Preis"
 
 #. module: chricar_stock_product_by_location
 #: model:ir.model,name:chricar_stock_product_by_location.model_chricar_stock_product_by_location
@@ -200,10 +218,19 @@ msgid "Product Stock Sum"
 msgstr "Produkt Lager Summe"
 
 #. module: chricar_stock_product_by_location
+#: model:ir.model,name:chricar_stock_product_by_location.model_stock_move
+msgid "Stock Move"
+msgstr "Lagerbuchung"
+
+#. module: chricar_stock_product_by_location
+#: constraint:product.product:0
+msgid "Error: Invalid EAN code"
+msgstr "Fehler: ungültiger EAN Code"
+
+#. module: chricar_stock_product_by_location
 #: view:chricar.stock_move_by_location:0
 #: view:chricar.stock_product_by_location:0
 #: view:chricar.stock_product_by_location_prodlot:0
 msgid "Sum Amount"
 msgstr "Summe Betrag"
-
 

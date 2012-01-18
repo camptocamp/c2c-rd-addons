@@ -1,26 +1,31 @@
-# translation of de_DE.po to
 # Translation of OpenERP Server.
 # This file contains the translation of the following modules:
 #	* chricar_partner_parent_companies
 #
-# Ferdinand Gassauer <f.gassauer@chricar.at>, 2009.
 msgid ""
 msgstr ""
-"Project-Id-Version: de_DE\n"
-"Report-Msgid-Bugs-To: support@openerp.com\n"
-"POT-Creation-Date: 2009-02-26 15:25:25+0000\n"
-"PO-Revision-Date: 2009-02-26 16:29+0100\n"
-"Last-Translator: Ferdinand Gassauer <f.gassauer@chricar.at>\n"
-"Language-Team:  <en@li.org>\n"
+"Project-Id-Version: OpenERP Server 6.1rc1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-01-15 12:07+0000\n"
+"PO-Revision-Date: 2012-01-15 12:07+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
-"X-Generator: KBabel 1.11.4\n"
 
 #. module: chricar_partner_parent_companies
 #: view:res.partner:0
+#: view:res.partner.parent_company:0
+msgid "Sum Share"
+msgstr "Sum Anteil"
+
+#. module: chricar_partner_parent_companies
+#: model:ir.actions.report.xml,name:chricar_partner_parent_companies.report_partner_participation
+#: view:res.partner:0
 #: field:res.partner,participation_ids:0
+#: view:res.partner.parent_company:0
 msgid "Participations"
 msgstr "Beteiligungen"
 
@@ -30,10 +35,19 @@ msgid "Fiscal Valid From"
 msgstr "steuerl. gültig ab "
 
 #. module: chricar_partner_parent_companies
+#: view:res.partner.parent_company:0
+msgid "Group By..."
+msgstr "Gruppiere je..."
+
+#. module: chricar_partner_parent_companies
 #: field:res.partner.parent_company,state:0
-#, fuzzy
 msgid "State"
-msgstr "Zustand"
+msgstr "Status"
+
+#. module: chricar_partner_parent_companies
+#: constraint:res.partner:0
+msgid "Error: Invalid EAN code"
+msgstr "Fehler: ungültiger EAN Code"
 
 #. module: chricar_partner_parent_companies
 #: view:res.partner:0
@@ -43,46 +57,25 @@ msgid "Parent Companies"
 msgstr "Eigentümer"
 
 #. module: chricar_partner_parent_companies
-#: constraint:ir.model:0
-msgid "The Object name must start with x_ and not contain any special character !"
-msgstr "Der Objekt Name muss mit einem x_ starten und darf keine Sonderzeichen beinhalten"
-
-#. module: chricar_partner_parent_companies
 #: field:res.partner.parent_company,percentage:0
 msgid "Percentage"
 msgstr "Prozent"
 
 #. module: chricar_partner_parent_companies
-#: model:ir.module.module,description:chricar_partner_parent_companies.module_meta_information
-msgid ""
-"This module allows to define owners of a partner.\n"
-"    The owner has to be definend in OpenERP as partner.\n"
-"    Currently no check is made if max 100% of the capital is defined here\n"
-"    Contract date+number\n"
-"    legal and fiscal relevant periods\n"
-"    Added Participation tab to partners to show Parent and Participations"
-msgstr ""
-"Dieses Modul ermöglicht die Definition von Eigentümern von Partnern.\n"
-"    Der Eigentümer muss in OpenERP als Partner definiert sein.\n"
-"    Es wird nicht geprüft, ob 100% des Kapitals defniert werden\n"
-"    Vertagsnummer und -datum\n"
-"    handelsrechtliche und steuerrechtliche Gültigkeit\n"
-"    Darstellung im Reiter Beteiligungen"
+#: view:res.partner.parent_company:0
+msgid "Participation"
+msgstr "Beteiligung"
 
 #. module: chricar_partner_parent_companies
-#: field:res.partner.parent_company,contract_number:0
-msgid "Contract Number"
-msgstr "Vertragsnummer"
-
-#. module: chricar_partner_parent_companies
-#: field:res.partner.parent_company,name:0
-msgid "Share"
-msgstr "Anteil"
-
-#. module: chricar_partner_parent_companies
+#: view:res.partner.parent_company:0
 #: field:res.partner.parent_company,partner_parent_id:0
 msgid "Parent"
-msgstr "Mutter"
+msgstr "übergeordnet"
+
+#. module: chricar_partner_parent_companies
+#: view:res.partner:0
+msgid "Participations All"
+msgstr "Alle Beteiligungen"
 
 #. module: chricar_partner_parent_companies
 #: field:res.partner.parent_company,consolidation:0
@@ -95,8 +88,12 @@ msgid "res.partner.parent_company"
 msgstr "res.partner.parent_company"
 
 #. module: chricar_partner_parent_companies
+#: field:res.partner.parent_company,contract_number:0
+msgid "Contract Number"
+msgstr "Vertragsnummer"
+
+#. module: chricar_partner_parent_companies
 #: field:res.partner.parent_company,active:0
-#, fuzzy
 msgid "Active"
 msgstr "Aktiv"
 
@@ -106,9 +103,10 @@ msgid "Contract Date"
 msgstr "Vertragsdatum"
 
 #. module: chricar_partner_parent_companies
-#: constraint:ir.ui.view:0
-msgid "Invalid XML for View Architecture!"
-msgstr "Fehlerhafter xml Code für diese Ansicht!"
+#: view:res.partner:0
+#: view:res.partner.parent_company:0
+msgid "Sum Agio"
+msgstr "Sum Agio"
 
 #. module: chricar_partner_parent_companies
 #: view:res.partner:0
@@ -118,32 +116,67 @@ msgid "Notes"
 msgstr "Notizen"
 
 #. module: chricar_partner_parent_companies
+#: view:res.partner:0
+#: view:res.partner.parent_company:0
+msgid "Sum Paid in"
+msgstr "Sum Einzahlung"
+
+#. module: chricar_partner_parent_companies
+#: field:res.partner.parent_company,paid_in:0
+msgid "Paid in Share"
+msgstr "einbezahlter Anteil"
+
+#. module: chricar_partner_parent_companies
+#: field:res.partner,partner_current_ids:0
+msgid "Parent Companies Current"
+msgstr "aktulle Eingentümer"
+
+#. module: chricar_partner_parent_companies
+#: field:res.partner.parent_company,valid_from:0
+msgid "Valid From"
+msgstr "Gülti ab"
+
+#. module: chricar_partner_parent_companies
 #: field:res.partner.parent_company,valid_fiscal_until:0
 msgid "Fiscal Valid Until"
 msgstr "steuerl. gültig bis"
 
 #. module: chricar_partner_parent_companies
-#: field:res.partner.parent_company,valid_until:0
-msgid "Valid Until"
-msgstr "gültig bis"
+#: field:res.partner.parent_company,agio:0
+msgid "Agio"
+msgstr "Agio"
 
 #. module: chricar_partner_parent_companies
-#: field:res.partner.parent_company,valid_from:0
-msgid "Valid From"
-msgstr "gültig ab"
+#: view:res.partner:0
+#: view:res.partner.parent_company:0
+msgid "Sum Percentage"
+msgstr "Sum %"
+
+#. module: chricar_partner_parent_companies
+#: field:res.partner.parent_company,valid_until:0
+msgid "Valid Until"
+msgstr "Gülti bis"
+
+#. module: chricar_partner_parent_companies
+#: field:res.partner.parent_company,name:0
+msgid "Share"
+msgstr "Anteil"
 
 #. module: chricar_partner_parent_companies
 #: model:ir.actions.act_window,name:chricar_partner_parent_companies.action_partner_parent_companies_form
-msgid "Partner ID Numbers"
-msgstr "Partner ID Nummer"
+#: model:ir.ui.menu,name:chricar_partner_parent_companies.menu_partner_parent_companies_form
+msgid "Partner Participations"
+msgstr "Partner Beteiligungen"
 
 #. module: chricar_partner_parent_companies
-#: model:ir.module.module,shortdesc:chricar_partner_parent_companies.module_meta_information
-msgid "Partner Parent Companies"
-msgstr "Partner Mütter"
-
-#. module: chricar_partner_parent_companies
+#: model:ir.model,name:chricar_partner_parent_companies.model_res_partner
 #: field:res.partner.parent_company,partner_id:0
 msgid "Partner"
 msgstr "Partner"
+
+#. module: chricar_partner_parent_companies
+#: view:res.partner:0
+#: field:res.partner,participation_current_ids:0
+msgid "Participations Current"
+msgstr "Laufende Beteiligungen"
 

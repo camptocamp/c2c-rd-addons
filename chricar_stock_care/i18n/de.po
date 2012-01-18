@@ -2,21 +2,18 @@
 # This file contains the translation of the following modules:
 #	* chricar_stock_care
 #
-# Ferdinand Gassauer <f.gassauer@chricar.at>, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: OpenERP Server 6.0.3\n"
-"Report-Msgid-Bugs-To: support@openerp.com\n"
-"POT-Creation-Date: 2011-11-06 13:47+0000\n"
-"PO-Revision-Date: 2011-11-06 15:02+0100\n"
-"Last-Translator: Ferdinand Gassauer <f.gassauer@chricar.at>\n"
-"Language-Team: German <kde-i18n-de@kde.org>\n"
+"Project-Id-Version: OpenERP Server 6.1rc1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-01-15 12:07+0000\n"
+"PO-Revision-Date: 2012-01-15 12:07+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
-"Language: de\n"
-"X-Generator: Lokalize 1.2\n"
 
 #. module: chricar_stock_care
 #: view:stock.picking:0
@@ -31,7 +28,7 @@ msgstr "Aspirieren"
 #. module: chricar_stock_care
 #: model:ir.model,name:chricar_stock_care.model_stock_picking
 msgid "Picking List"
-msgstr "Lieferschein"
+msgstr "Lieferschein Liste"
 
 #. module: chricar_stock_care
 #: constraint:stock.move:0
@@ -41,7 +38,7 @@ msgstr "Sie müssen zwingend eine Losnummer für dieses Produkt angeben"
 #. module: chricar_stock_care
 #: view:stock.picking:0
 msgid "Group By..."
-msgstr "Gruppierung..."
+msgstr "Gruppiere je..."
 
 #. module: chricar_stock_care
 #: view:stock.picking:0
@@ -65,24 +62,18 @@ msgstr "Faktor"
 
 #. module: chricar_stock_care
 #: help:stock.move,location_loss_id:0
-msgid ""
-"This location will be used to move production loss from destination location"
-msgstr ""
-"Dieser Lagerort wird für die Verbuchung der Produktionsverluste verwendet"
-
-#. module: chricar_stock_care
-#: model:ir.module.module,description:chricar_stock_care.module_meta_information
-msgid ""
-"Stock Care\n"
-"generated 2010-04-03 21:47:30+02"
-msgstr ""
-"Stock Care\n"
-"generated 2010-04-03 21:47:30+02"
+msgid "This location will be used to move production loss from destination location"
+msgstr "Dieser Lagerort wird für die Verbuchung der Produktionsverluste verwendet"
 
 #. module: chricar_stock_care
 #: constraint:stock.move:0
 msgid "You try to assign a lot which is not from the same product"
 msgstr "Sie versuchen eine Losnummer ohne Bezug zu diesem Produkt zuzuweisen."
+
+#. module: chricar_stock_care
+#: constraint:stock.move:0
+msgid "You can not move products from or to a location of the type view."
+msgstr "Sie können keine Buchungen auf Sichten machen"
 
 #. module: chricar_stock_care
 #: view:stock.picking:0
@@ -91,9 +82,7 @@ msgstr "Datum"
 
 #. module: chricar_stock_care
 #: constraint:stock.move:0
-msgid ""
-"Error: Negative quantities for location and/or lots are not allowed for this "
-"product or product category"
+msgid "Error: Negative quantities for location and/or lots are not allowed for this product or product category"
 msgstr "Fehler: negative Mengen sind für diesen Lagerort / Los nicht erlaubt"
 
 #. module: chricar_stock_care
@@ -105,6 +94,11 @@ msgstr "Feuchtigkeit Ziel"
 #: selection:stock.move,activity:0
 msgid "Purify"
 msgstr "Reinigen"
+
+#. module: chricar_stock_care
+#: sql_constraint:stock.picking:0
+msgid "Reference must be unique per Company!"
+msgstr "Referenz muss je Unternehmen eindeutig sein"
 
 #. module: chricar_stock_care
 #: field:stock.move,activity:0
@@ -140,11 +134,8 @@ msgstr "Lagerbuchung"
 #: help:stock.move,factor:0
 #: help:stock.move,humidity:0
 #: help:stock.move,humidity_dest:0
-msgid ""
-"If In and Out are measured and a factor exists the quantity will be reduced"
-msgstr ""
-"Wenn Ein- und Ausgang gemessen werden und ein Faktor existiert wird die Menge "
-"reduziert"
+msgid "If In and Out are measured and a factor exists the quantity will be reduced"
+msgstr "Wenn Ein- und Ausgang gemessen werden und ein Faktor existiert wird die Menge reduziert"
 
 #. module: chricar_stock_care
 #: field:stock.move,humidity:0
@@ -168,7 +159,6 @@ msgstr "Partner"
 
 #. module: chricar_stock_care
 #: model:ir.actions.act_window,name:chricar_stock_care.chricar_stock_care_act1
-#: model:ir.module.module,shortdesc:chricar_stock_care.module_meta_information
 #: model:ir.ui.menu,name:chricar_stock_care.menu_chricar_stock_care_list
 #: view:stock.picking:0
 msgid "Stock Care"
@@ -178,5 +168,4 @@ msgstr "Lagerbetreuung"
 #: selection:stock.move,activity:0
 msgid "Check"
 msgstr "Prüfe"
-
 

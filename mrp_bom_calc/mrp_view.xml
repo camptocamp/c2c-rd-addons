@@ -10,7 +10,7 @@
       <field name="inherit_id" ref="mrp.mrp_bom_form_view"/>
       <field name="type">form</field>
       <field name="arch" type="xml">
-        <field name="product_qty" position="before">
+        <field name="product_qty" position="replace">
           <field name="standard_price"/>
           <field name="price_unit_id"/>
         </field>
@@ -75,6 +75,7 @@
             <field name="cost_routing" groups="base.group_extended"/>
           </group>
           <group string="BoM Calc" colspan="2" col="2">
+            <field name="product_qty"/>
             <field name="value_bom_cum"/>
             <field name="cost_routing_bom"/>
             <field name="total"/>
@@ -151,7 +152,7 @@
       <field name="inherit_id" ref="mrp_bom_cal_form_view2"/>
       <field name="type">form</field>
       <field name="arch" type="xml">
-        <field name="product_qty" position="after">
+        <field name="standard_price_subtotal_explode" position="after">
           <field name="product_bom_qty"/>
         </field>
       </field>

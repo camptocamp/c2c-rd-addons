@@ -87,6 +87,7 @@ class mrp_bom(osv.osv):
                                     'name': bom_line.name,
                                     'standard_price':bom_line.standard_price,
                                     'standard_price_pu':bom_line.standard_price_pu,
+                                    'price_unit_id':bom_line.price_unit_id.id,
                                     'cost_routing':bom_line.cost_routing,
                                     'product_qty':bom_line.product_qty,
                                     'bom_id':bom.id,
@@ -129,6 +130,7 @@ class mrp_bom(osv.osv):
                             'name': bom2_line.name,
                             'standard_price': bom2_line.standard_price,
                             'standard_price_pu': bom2_line.standard_price_pu,
+                            'price_unit_id':bom_line.price_unit_id.id,
                             'cost_routing':bom2_line.cost_routing,
                             'product_qty':bom2_line.product_qty,
                             'bom_id':bom.id,
@@ -208,7 +210,7 @@ class mrp_bom(osv.osv):
         mrp_bom_obj=self.pool.get('mrp.bom')
         value = 0.0
         for bom in self.browse(cr, uid, ids, context=context):
-            other_bom_ids = mrp_bom_obj.search(cr, uid, [('product_id','=',bom.product_id.id),('state','=','confirm')])
+            other_bom_ids = mrp_bom_obj.search(cr, uid, [('product_id','=',bom.product_id.id),('state','=','confirm'),('id','<>',bom.id)])
             if other_bom_ids or not bom.bom_lines:
                  value = bom.standard_price_pu / bom.price_unit_id.coefficient * bom.product_qty_explode
             else:
@@ -293,8 +295,8 @@ class mrp_bom(osv.osv):
         'property_ids': fields.many2many('mrp.property', 'mrp_bom_property_rel', 'bom_id','property_id', 'Properties', readonly=True,states={'draft': [('readonly', False)]}),
         'revision_ids': fields.one2many('mrp.bom.revision', 'bom_id', 'BoM Revisions',readonly=True, states={'draft': [('readonly', False)]}),
         'revision_type': fields.selection([('numeric','numeric indices'),('alpha','alphabetical indices')], 'indice type',readonly=True, states={'draft': [('readonly', False)]}),
-        'child_ids': fields.function(_child_compute,relation='mrp.bom', method=True, string="BoM Hyerarchy", type='many2many',readonly=True, states={'draft': [('readonly', False)]}),
-        'child_complete_ids': fields.function(_child_compute,relation='mrp.bom', method=True, string="BoM Hyerarchy", type='many2many',readonly=True, states={'draft': [('readonly', False)]}),
+        'child_ids': fields.function(_child_compute,relation='mrp.bom', method=True, string="BoM Hierarchy", type='many2many',readonly=True, states={'draft': [('readonly', False)]}),
+        'child_complete_ids': fields.function(_child_compute,relation='mrp.bom', method=True, string="BoM Hierarchy", type='many2many',readonly=True, states={'draft': [('readonly', False)]}),
 
         'version_no':fields.integer('Version', readonly=True,states={'draft': [('readonly', False)]}),
         #'cost_price':fields.float('cost Price',readonly=True, states={'draft': [('readonly', False)]}),

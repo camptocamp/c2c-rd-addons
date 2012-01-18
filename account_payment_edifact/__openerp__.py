@@ -69,11 +69,15 @@ A conversion to ASCII for all texts within the EDIFACT-file is attempted.
 , "depends"     : 
     [ "account_payment"
     , "base_iban"
-    , "account_payment_extension"
     ]
 , "init_xml"    : []
 , "demo_xml"    : []
-, "update_xml"  : ['payment_edifact_view.xml','payment_iban.xml','payment_edifact_wizard.xml']
+, "update_xml"  : 
+    [ 'payment_type_view.xml'
+    , 'payment_iban.xml'
+    , 'res_bank_view.xml'
+    , 'payment_edifact_wizard.xml'
+    ]
 , "test"        : []
 , "active"      : False
 , "installable" : True

@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
   <data>
-    <!-- Price Units -->
+    <!-- ******************
+         Price Units 
+         ******************-->
     <record model="ir.ui.view" id="c2c_product_price_unit_form">
       <field name="name">c2c_product.price_unit.form</field>
       <field name="model">c2c_product.price_unit</field>
@@ -54,8 +56,10 @@
       action="c2c_product_price_unit_act1"
       id="menu_c2c_product_price_unit_list"
       parent="product.prod_config_main"/>
-    <!-- Price Units in Product Form-->
-    <!--
+    <!-- ******************
+         Price Units in Product Form
+         ******************-->
+<!--
     <record model="ir.ui.view" id="c2c_product_list_price_unit_view1">
       <field name="name">c2c_product.price_unit.view1</field>
       <field name="model">product.product</field>
@@ -92,6 +96,9 @@
         </field>
       </field>
     </record>
+    <!-- ******************
+         Price Units in Product form
+         ******************-->
     <record model="ir.ui.view" id="c2c_product_list_price_unit_view1">
       <field name="name">c2c_product.price_unit.view1</field>
       <field name="model">product.product</field>
@@ -116,5 +123,41 @@
         </field>
       </field>
     </record>
+    <!-- ******************
+         Price Units in Product Tree
+         ******************-->
+    <record model="ir.ui.view" id="product_product_pu_tree_view">
+      <field name="name">product.product.pu.tree</field>
+      <field name="model">product.product</field>
+      <field name="inherit_id" ref="product.product_product_tree_view"/>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <field name="standard_price" position="replace">
+        <field name="standard_price" groups="c2c_product_price_unit.group_c2c_product_price_unit_manager" />
+        <field name="standard_price_pu" />
+        <field name="price_unit_id" />
+        </field>
+      </field>
+    </record>
+    <!-- ******************
+         Price Units in Product Tree
+         ******************-->
+    <record model="ir.ui.view" id="product_product_pu2_tree_view">
+      <field name="name">product.product.pu2.tree</field>
+      <field name="model">product.product</field>
+      <field name="inherit_id" ref="product.product_product_tree_view"/>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <field name="lst_price" position="replace">
+        <field name="lst_price" groups="c2c_product_price_unit.group_c2c_product_price_unit_manager" />
+        <field name="list_price_pu" />
+        <field name="list_price_unit_id" />
+        </field>
+      </field>
+    </record>
+
+
+
+
   </data>
 </openerp>
