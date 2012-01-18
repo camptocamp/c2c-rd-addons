@@ -27,185 +27,24 @@ import decimal_precision as dp
 from tools.translate import _
 
 
+class account_voucher(osv.osv):
+    _inherit = 'account.voucher'
+ 
 
-class account_move(osv.osv):
-    _inherit = "account.move"
+    def writeoff_move_line_get(self, cr, uid, voucher_id, line_total, move_id, name, company_currency, current_currency, context=None):
+       res = super(account_voucher,self).writeoff_move_line_get(cr, uid, voucher_id, line_total, move_id, name, company_currency, current_currency, context=None)
+
+       logger = netsvc.Logger()
+       logger.notifyChannel('addons.'+self._name, netsvc.LOG_WARNING, 'reconcile - voucher writeoff: %s' % res)
+
+# FGF FIXME
+# here we have to include the austrian rules
+
+       return res
+
+account_voucher()
 
 
-def discount_post(self, cr, uid, ids, date, journal_id, amount_paid, reconcile_id, reconcile='full', context=None):
-        """
-        Returns a list of ids 
-        result format: [id, ... ]
 
-        @param cr: A database cursor
-        @param uid: ID of the user currently logged in
-        @param ids: move for wich the discount move has to be generated
-        @param amount_paid negative for out payments, positive for in payments
-        @param reconcile full or partial
-        @param context: context arguments, like lang, time zone
 
-        @return: List of acount_move_line ids which have to be reconciled
-        """
-        res = []
-        invoice_obj = self.pool.get('account.invoice')
-        invoice_ids = invoice_obj.search(cr, uid, [('move_id','in', ids)])
-        if not invoice_ids:
-           return res
-        for invoice in invoice_obj.browse(cr, uid, invoice_ids):
-           if not invoice.payment_id or not invoice.payment_id.is_discount or invoice.residual == 0.0:
-               return res
-           else:
-               inv_num = invoice.number
-               if invoice.type in ['in_invoice','out_refund']:
-                  to_pay = -invoice.residual
-               else:
-                  to_pay = invoice.residual
-                 
-               payment_obj = self.pool.get('account.payment.term')
-               for pay_term_lines in payment_obj.browse(cr, uid, invoice.payment_id):
-                   if invoice.payment_id.discount_expense_account_id:
-                        account_deb = invoice.payment_id.discount_expense_account_id
-                   if invoice.payment_id.discount_income_account_id:
-                        account_cred = invoice.payment_id.discount_income_account_id
-         
-        account_obj = self.pool.get('account.account')
-        partner_account_ids = account_obj.search(cr, uid, [('type','in',['payable','receivable'])])
-
-        open_partner_balance = 0
-
-        move = self.read(cr, uid, ids, context)
-        partner_id = move.partner_id.id
-        for move_line in move:
-            if move_line.account_id in partner_account_ids and not move_line.reconcile_id :
-                open_partner_balance  += move_line.debit or 0.0 - move_line.credit or 0.0
-                partner_account_id = move_line.account_id 
-        if open_partner_balance == to_pay + amount_paid or reconcile == 'full':
-            reconcile = 'full'
-        else:
-            reconcile = 'partial'
-        # FIXME ratio for partial
-        ratio = to_pay / open_partner_balance
-
-        # we have to reverse the amounts 
-        sql = """SELECT sum(debit)  as credit, 
-                      sum(credit) as debit,
-                      sum(-tax_amount) as tax_amount,
-                      account_id,
-                      analytic_account_id,
-                      account_tax_id,
-                      tax_code_id
-                 FROM account_move_line
-                WHERE move_id = %d
-                  AND account_id not in (%s)
-                GROUP BY account_id, analytic_account_id, account_tax_id, tax_code_id""" % (move.id, partner_account_ids)
-
-        debit = 0.0
-        credit= 0.0
-        obj_precision = self.pool.get('decimal.precision')
-        prec = obj_precision.precision_get(cr, uid, 'Account')
-        move_obj = self.pool.get('account.move')
-        move_vals = {
-                'ref': inv.reference and inv.reference or inv.name,
-                'journal_id': journal_id,
-                'date': date,
-                'period_id': period_id,
-                'narration': _('Discount to ') + inv_num 
-           }
-        move_id = move_obj.create(cr, uid, move_vals, context=context)
-
-        if amount_paid > 0.0: 
-            account_id = account_deb
-            partner_deb = 0.0
-            partner_cred = abs(open_partner_balance)
-        else:
-            account_id = account_cred
-            partner_deb = abs(open_partner_balance)
-            partner_cred = 0.0
-
-        val = {}
-
-        # create move line for partner
-
-        line_vals= {
-                'journal_id': journal_id,
-                'date': date,
-                'period_id': period_id,
-                'partner_id': partner_id,
-                'name':  '',
-                'debit': partner_deb,
-                'credit': partner_cred,
-                'move_id': move_id,
-                'account_id': partner_account_id,
-                'reconcile_id': reconcile_id,
-               }
-        val.append(line_values)
-
-        cr.execute(sql)
-        # create move lines (except partner)
-        for line in cr.fetchall(): 
-             debit_line = round(line.debit * ratio ,prec)
-             credit_line = round(line.credit * ratio ,prec)
-             debit += round(line.debit * ratio ,prec)
-             credit += round(line.credit * ratio ,prec)
-             diff = round(open_partner_balance - ( debit - credit ),prec)
-             # FIXME these are place holders , signs may have to be reversed 
-             if abs(diff) < 0.05 :
-                if diff >0 :
-                    if debit_line >0 :
-                       debit_line += diff
-                    else: 
-                       credit_line -= diff
-             else :
-                if diff <0 :
-                    if debit_line >0 :
-                       debit_line -= diff
-                    else: 
-                       credit_line += diff
-
-             if line.tax_code_id or line.account_tax_id:
-                 # FIXME - is this a correct condition
-                 account_id = line.account.id
-
-             line_vals= {
-                'journal_id': journal_id,
-                'date': date,
-                'period_id': period_id,
-                'partner_id': partner_id,
-                'name':  '',
-                'debit': debit_line,
-                'credit': credit_line,
-                'move_id': move_id,
-                'account_id': account_id,
-                'tax_code_id': line.tax_code_id.id,
-                'account_tax_id': line.account_tax_id.id,
-                'tax_amount': line.tax_amount,
-             }            
-             val.apend(line_vals)
-        move_line_obj = self.pool.get('account.move.line')
-        move_line_ids = move_obj.create(cr, uid, val, context=context)
-
-        # analytic lines 
-        aal_obj = self.pool.get('account.analytic.line')
-        vals = {}
-        for aal in aal_obj.search(cr, uid, [('move_id','in',ids)]):
-            # FIXME
-            # another journal ?
-            
-            val_lines= {
-                    'name': aal.name,
-                    'date': date,
-                    'account_id': aal.account_analytic_id,
-                    'amount': round(-aal.amount * ratio,prec),
-                    'product_id': aal.product_id,
-                    'general_account_id': account_id,
-                    'journal_id': aal.analytic_journal_id.id,
-                }
-            val.append(val_lines)
-        all_ids = aal_obj.create(cr, uid, val, context=context)
-
-             
-        
-            
-
-account_move()
     
