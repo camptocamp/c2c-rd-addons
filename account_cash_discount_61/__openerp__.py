@@ -30,7 +30,7 @@ Adds Cash Discount
 necessary in Austria
 """,
     'author': 'Camptocamp Austria',
-    'depends': [ 'account' ],
+    'depends': [ 'account_voucher' ],
     'update_xml': [
     'payment_term_view.xml',
            ],
