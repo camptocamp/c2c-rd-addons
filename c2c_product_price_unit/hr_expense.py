@@ -72,7 +72,7 @@ class hr_expense_line(osv.osv):
            pu = self.pool.get('c2c_product.price_unit').browse(cr, uid, price_unit_id)
            price = price_pu / pu.coefficient
            return {'value': {field_name : price}}
-        return False
+        return {}
         
 
 hr_expense_line()

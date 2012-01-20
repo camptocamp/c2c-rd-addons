@@ -102,7 +102,7 @@ class sale_order_line(osv.osv):
             coeff = self.pool.get('c2c_product.price_unit').get_coeff(cr, uid, price_unit_id)
             price = price_pu / float(coeff) #* qty
             return {'value': {field_name : price}}
-        return False
+        return {}
 
 sale_order_line()
 

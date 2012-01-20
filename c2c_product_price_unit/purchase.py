@@ -103,13 +103,16 @@ class purchase_order_line(osv.osv):
 
 
     def onchange_price_unit(self, cr, uid, ids, field_name,qty,price_pu, price_unit_id):
-        print >>sys.stderr,'purch -68c-1 ',field_name,price_pu,price_unit_id
+        print >>sys.stderr,'purch -68c-a ',field_name,price_pu,price_unit_id
+        res = {}
         if  price_pu and  price_unit_id and qty:
+           print >>sys.stderr,'purch -68c-b ',field_name,price, coeff
            coeff = self.pool.get('c2c_product.price_unit').get_coeff(cr, uid, price_unit_id)
+           print >>sys.stderr,'purch -68c-c ',field_name,price, coeff
            price = price_pu / float(coeff) 
-           print >>sys.stderr,'purch -68c- ',field_name,price, coeff
+           print >>sys.stderr,'purch -68c-d ',field_name,price, coeff
            return {'value': {field_name : price}}
-        return False
+        return res
 
 purchase_order_line()
 

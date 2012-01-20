@@ -76,7 +76,7 @@ class stock_move(osv.osv):
            pu = self.pool.get('c2c_product.price_unit').browse(cr, uid, price_unit_id)
            price = price_pu / float(pu.coefficient)
            return {'value': {field_name : price}}
-        return False
+        return {}
         
     def onchange_product_id(self, cr, uid, ids, prod_id=False, loc_id=False,
                             loc_dest_id=False, address_id=False):
