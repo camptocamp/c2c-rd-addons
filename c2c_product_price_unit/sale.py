@@ -113,7 +113,23 @@ class sale_order(osv.osv):
     # should store price_unit_id for sales
 
     # FIXME define inv line fields like in purhcase order
-    def invoice_line_create(self, cr, uid, ids, context=None):
+
+    def inv_line_create(self, cr, uid, a, ol):
+        line = super(purchase_order, self).inv_line_create(cr, uid, a, ol)
+        print >> sys.stderr,'po line',line
+
+        price_unit_pu =  ol.price_unit_pu or 0.0
+        print >> sys.stderr,'price_unit_pu' ,price_unit_pu
+        print >> sys.stderr,'price_unit_id' ,ol.price_unit_id.id
+        #FIXME
+        line[2]['price_unit_pu'] = price_unit_pu
+        line[2]['price_unit_id'] = ol.price_unit_id.id
+        #the 2 values have to be written to the line
+        #line['value'].update({'price_unit_pu' : price_unit_pu, 'price_unit_id' : ol.price_unit_id.id })
+        print >> sys.stderr,'po line after',line
+        return line
+
+    def invoice_line_create_nok(self, cr, uid, ids, context=None):
         if context is None:
             context = {}
 
