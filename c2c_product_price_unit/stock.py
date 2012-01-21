@@ -118,6 +118,7 @@ class stock_picking(osv.osv):
           print >> sys.stderr,'price_unit invoice_line-hook coeff:', coeff
           price_unit_pu = move_line.price_unit_pu or move_line.price_unit * coeff or ''
         if move_line.sale_line_id:
+          price_unit = move_line.price_unit or ''
           price_unit_pu = move_line.price_unit_sale or ''
           price_unit_id = move_line.price_unit_sale_id.id or ''
           
