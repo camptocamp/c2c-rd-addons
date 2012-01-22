@@ -115,6 +115,10 @@ class ir_sequence(osv.osv):
     
     def _next_seq(self, cr, uid, id) :
         seq = self.browse(cr, uid, id)
+        if isinstance(seq,list): 
+           seq = self.browse(cr, uid, id)[0]
+        
+        print >> sys.stderr,'_next_seq', seq
         if seq.implementation == 'standard' :
             cr.execute("SELECT nextval('%s_%03d')" % (self._table, seq.id))
             seq.number_next = cr.fetchone()
