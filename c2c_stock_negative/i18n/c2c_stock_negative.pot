@@ -1,0 +1,74 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* c2c_stock_negative
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 6.1rc1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-01-23 22:05+0000\n"
+"PO-Revision-Date: 2012-01-23 22:05+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: c2c_stock_negative
+#: constraint:stock.move:0
+msgid "Error: Negative quantities for location and/or lots are not allowed for this product or product category"
+msgstr ""
+
+#. module: c2c_stock_negative
+#: model:ir.model,name:c2c_stock_negative.model_product_category
+msgid "Product Category"
+msgstr ""
+
+#. module: c2c_stock_negative
+#: help:product.category,allow_negative_stock:0
+#: help:product.template,allow_negative_stock:0
+msgid "Allows negative stock quantities per location / lot for this category - use with care !"
+msgstr ""
+
+#. module: c2c_stock_negative
+#: model:ir.model,name:c2c_stock_negative.model_stock_move
+msgid "Stock Move"
+msgstr ""
+
+#. module: c2c_stock_negative
+#: constraint:stock.move:0
+msgid "You try to assign a lot which is not from the same product"
+msgstr ""
+
+#. module: c2c_stock_negative
+#: constraint:product.template:0
+msgid "Error: The default UOM and the purchase UOM must be in the same category."
+msgstr ""
+
+#. module: c2c_stock_negative
+#: constraint:product.category:0
+msgid "Error ! You cannot create recursive categories."
+msgstr ""
+
+#. module: c2c_stock_negative
+#: constraint:stock.move:0
+msgid "You must assign a production lot for this product"
+msgstr ""
+
+#. module: c2c_stock_negative
+#: model:ir.model,name:c2c_stock_negative.model_product_template
+msgid "Product Template"
+msgstr ""
+
+#. module: c2c_stock_negative
+#: field:product.category,allow_negative_stock:0
+#: field:product.template,allow_negative_stock:0
+msgid "Allow Negative Stock"
+msgstr ""
+
+#. module: c2c_stock_negative
+#: constraint:stock.move:0
+msgid "You can not move products from or to a location of the type view."
+msgstr ""
+

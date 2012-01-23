@@ -1,0 +1,238 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* chricar_account_analytic
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 6.1rc1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-01-23 22:05+0000\n"
+"PO-Revision-Date: 2012-01-23 22:05+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: chricar_account_analytic
+#: view:account.account:0
+msgid "Default Taxes"
+msgstr ""
+
+#. module: chricar_account_analytic
+#: constraint:account.move.line:0
+msgid "Company must be the same for its related account and period."
+msgstr ""
+
+#. module: chricar_account_analytic
+#: constraint:account.invoice.line:0
+msgid "You must not alter a fixed analytic account.(invoiceline)"
+msgstr ""
+
+#. module: chricar_account_analytic
+#: field:account.account,account_analytic_usage:0
+msgid "Analytic Account Usage"
+msgstr ""
+
+#. module: chricar_account_analytic
+#: selection:account.account,account_analytic_usage:0
+msgid "Not allowed"
+msgstr ""
+
+#. module: chricar_account_analytic
+#: constraint:account.bank.statement.line:0
+msgid "You must assign an analytic account.(bank)"
+msgstr ""
+
+#. module: chricar_account_analytic
+#: view:account.account:0
+msgid "Analytic"
+msgstr ""
+
+#. module: chricar_account_analytic
+#: model:ir.model,name:chricar_account_analytic.model_sale_advance_payment_inv
+msgid "Sales Advance Payment Invoice"
+msgstr ""
+
+#. module: chricar_account_analytic
+#: constraint:account.bank.statement.line:0
+#: constraint:account.invoice:0
+#: constraint:account.move.line:0
+msgid "You must not alter a fixed analytic account."
+msgstr ""
+
+#. module: chricar_account_analytic
+#: constraint:account.move.line:0
+msgid "You can not create journal items on closed account."
+msgstr ""
+
+#. module: chricar_account_analytic
+#: constraint:account.move.line:0
+msgid "The date of your Journal Entry is not in the defined period! You should change the date or remove this constraint from the journal."
+msgstr ""
+
+#. module: chricar_account_analytic
+#: help:account.account,account_analytic_usage:0
+msgid "This type is used to differenciate types with\n"
+"special effects in Open ERP:\n"
+"for P&L accounts\n"
+"* fixed: will be used and user can not change it\n"
+"* mandatory: user must supply analytic account\n"
+"for balance accounts\n"
+"* optional: user may supply analytic account\n"
+"* none: no analytic account allowed"
+msgstr ""
+
+#. module: chricar_account_analytic
+#: code:addons/chricar_account_analytic/sale_make_invoice_advance.py:56
+#, python-format
+msgid "You cannot make an advance on a sales order                              that is defined as 'Automatic Invoice after delivery'."
+msgstr ""
+
+#. module: chricar_account_analytic
+#: model:ir.model,name:chricar_account_analytic.model_account_move_line
+msgid "Journal Items"
+msgstr ""
+
+#. module: chricar_account_analytic
+#: constraint:account.invoice.line:0
+msgid "You must not define an analytic account.(invoiceline)"
+msgstr ""
+
+#. module: chricar_account_analytic
+#: constraint:account.move.line:0
+msgid "You can not create journal items on an account of type view."
+msgstr ""
+
+#. module: chricar_account_analytic
+#: selection:account.account,account_analytic_usage:0
+msgid "Optional"
+msgstr ""
+
+#. module: chricar_account_analytic
+#: model:ir.model,name:chricar_account_analytic.model_account_account
+msgid "Account"
+msgstr ""
+
+#. module: chricar_account_analytic
+#: sql_constraint:account.account:0
+msgid "The code of the account must be unique per company !"
+msgstr ""
+
+#. module: chricar_account_analytic
+#: constraint:account.move.line:0
+msgid "You must assign an analytic account.(move_line) "
+msgstr ""
+
+#. module: chricar_account_analytic
+#: constraint:account.account:0
+msgid "You must assign mandatory or fixed analytic account usage for P&L accounts"
+msgstr ""
+
+#. module: chricar_account_analytic
+#: constraint:account.bank.statement.line:0
+#: constraint:account.invoice:0
+#: constraint:account.move.line:0
+msgid "You must not define an analytic account."
+msgstr ""
+
+#. module: chricar_account_analytic
+#: sql_constraint:account.invoice:0
+msgid "Invoice Number must be unique per Company!"
+msgstr ""
+
+#. module: chricar_account_analytic
+#: sql_constraint:account.move.line:0
+msgid "Wrong credit or debit value in accounting entry !"
+msgstr ""
+
+#. module: chricar_account_analytic
+#: code:addons/chricar_account_analytic/sale_make_invoice_advance.py:55
+#, python-format
+msgid "Error"
+msgstr ""
+
+#. module: chricar_account_analytic
+#: help:account.account,analytic_account_id:0
+msgid "provide Analytic Account only for default and fixed"
+msgstr ""
+
+#. module: chricar_account_analytic
+#: constraint:account.bank.statement.line:0
+msgid "The amount of the voucher must be the same amount as the one on the statement line"
+msgstr ""
+
+#. module: chricar_account_analytic
+#: selection:account.account,account_analytic_usage:0
+msgid "Fixed"
+msgstr ""
+
+#. module: chricar_account_analytic
+#: model:ir.model,name:chricar_account_analytic.model_account_bank_statement_line
+msgid "Bank Statement Line"
+msgstr ""
+
+#. module: chricar_account_analytic
+#: selection:account.account,account_analytic_usage:0
+msgid "Mandatory"
+msgstr ""
+
+#. module: chricar_account_analytic
+#: constraint:account.account:0
+msgid "Error ! You can not create recursive accounts."
+msgstr ""
+
+#. module: chricar_account_analytic
+#: constraint:account.account:0
+msgid "Configuration Error! \n"
+"You can not select an account type with a deferral method different of \"Unreconciled\" for accounts with internal type \"Payable/Receivable\"! "
+msgstr ""
+
+#. module: chricar_account_analytic
+#: model:ir.model,name:chricar_account_analytic.model_account_invoice_line
+msgid "Invoice Line"
+msgstr ""
+
+#. module: chricar_account_analytic
+#: constraint:account.move.line:0
+msgid "The selected account of your Journal Entry forces to provide a secondary currency. You should remove the secondary currency on the account or select a multi-currency view on the journal."
+msgstr ""
+
+#. module: chricar_account_analytic
+#: field:account.account,analytic_account_id:0
+#: field:account.invoice.line,analytic_account_id:0
+msgid "Analytic Account"
+msgstr ""
+
+#. module: chricar_account_analytic
+#: constraint:account.account:0
+msgid "For views usage must be: Not Allowed"
+msgstr ""
+
+#. module: chricar_account_analytic
+#: constraint:account.account:0
+msgid "You must define an analytic account for fixed, else nothing"
+msgstr ""
+
+#. module: chricar_account_analytic
+#: model:ir.model,name:chricar_account_analytic.model_account_invoice
+msgid "Invoice"
+msgstr ""
+
+#. module: chricar_account_analytic
+#: constraint:account.account:0
+msgid "Configuration Error! \n"
+"You can not define children to an account with internal type different of \"View\"! "
+msgstr ""
+
+#. module: chricar_account_analytic
+#: constraint:account.invoice.line:0
+msgid "You must assign an analytic account.(invoiceline)"
+msgstr ""
+
+#. module: chricar_account_analytic
+#: constraint:account.invoice:0
+msgid "You must assign an analytic account.(invoice)"
+msgstr ""
+

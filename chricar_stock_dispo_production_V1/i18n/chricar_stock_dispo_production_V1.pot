@@ -1,0 +1,524 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* chricar_stock_dispo_production_V1
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 6.1rc1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-01-23 22:07+0000\n"
+"PO-Revision-Date: 2012-01-23 22:07+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: chricar_stock_dispo_production_V1
+#: field:sale.order.line,location_big_id:0
+msgid "Dest. Location Big"
+msgstr ""
+
+#. module: chricar_stock_dispo_production_V1
+#: field:sale.order.line,location_small_id:0
+msgid "Dest. Location Small"
+msgstr ""
+
+#. module: chricar_stock_dispo_production_V1
+#: help:sale.order.line,location_waste_id:0
+msgid "Waste will be moved to this location, set default manually"
+msgstr ""
+
+#. module: chricar_stock_dispo_production_V1
+#: view:sale.order:0
+#: field:sale.order.line,stock_dispo_production_waste_ids:0
+#: selection:stock.move,category:0
+msgid "Waste"
+msgstr ""
+
+#. module: chricar_stock_dispo_production_V1
+#: view:sale.order:0
+#: view:stock.move:0
+msgid "Group By..."
+msgstr ""
+
+#. module: chricar_stock_dispo_production_V1
+#: view:sale.order:0
+#: field:sale.order.line,stock_dispo_production_faulty_ids:0
+#: selection:stock.move,category:0
+msgid "Faulty"
+msgstr ""
+
+#. module: chricar_stock_dispo_production_V1
+#: help:sale.order.line,location_faulty_id:0
+msgid "Faulty products will be moved to this location, set default manually"
+msgstr ""
+
+#. module: chricar_stock_dispo_production_V1
+#: selection:stock.move,category:0
+msgid "Big"
+msgstr ""
+
+#. module: chricar_stock_dispo_production_V1
+#: help:sale.order.line,location_product_id:0
+msgid "Field where products were grown (AMA)"
+msgstr ""
+
+#. module: chricar_stock_dispo_production_V1
+#: view:sale.order:0
+msgid "Special Locations"
+msgstr ""
+
+#. module: chricar_stock_dispo_production_V1
+#: view:sale.order:0
+msgid "Verkauf"
+msgstr ""
+
+#. module: chricar_stock_dispo_production_V1
+#: field:sale.order,product_names:0
+msgid "Products"
+msgstr ""
+
+#. module: chricar_stock_dispo_production_V1
+#: view:sale.order:0
+msgid "Abfall"
+msgstr ""
+
+#. module: chricar_stock_dispo_production_V1
+#: selection:stock.move,category:0
+msgid "OK"
+msgstr ""
+
+#. module: chricar_stock_dispo_production_V1
+#: view:sale.order:0
+#: view:sale.order.line:0
+msgid "Reference"
+msgstr ""
+
+#. module: chricar_stock_dispo_production_V1
+#: model:ir.model,name:chricar_stock_dispo_production_V1.model_stock_move
+msgid "Stock Move"
+msgstr ""
+
+#. module: chricar_stock_dispo_production_V1
+#: view:sale.order:0
+msgid "Untergröße"
+msgstr ""
+
+#. module: chricar_stock_dispo_production_V1
+#: help:sale.order.line,location_id:0
+msgid "Products will be taken from this location"
+msgstr ""
+
+#. module: chricar_stock_dispo_production_V1
+#: model:ir.model,name:chricar_stock_dispo_production_V1.model_sale_order
+msgid "Sales Order"
+msgstr ""
+
+#. module: chricar_stock_dispo_production_V1
+#: model:ir.model,name:chricar_stock_dispo_production_V1.model_sale_order_line
+msgid "Sales Order Line"
+msgstr ""
+
+#. module: chricar_stock_dispo_production_V1
+#: view:sale.order:0
+msgid "Customer"
+msgstr ""
+
+#. module: chricar_stock_dispo_production_V1
+#: view:sale.order:0
+#: view:stock.move:0
+msgid "Confirmed"
+msgstr ""
+
+#. module: chricar_stock_dispo_production_V1
+#: help:sale.order.line,location_small_id:0
+msgid "To small products will be moved to this location, defaults to source"
+msgstr ""
+
+#. module: chricar_stock_dispo_production_V1
+#: help:sale.order.line,location_dest_id:0
+msgid "Products will be shipped to this location"
+msgstr ""
+
+#. module: chricar_stock_dispo_production_V1
+#: view:sale.order:0
+#: view:stock.move:0
+msgid "State"
+msgstr ""
+
+#. module: chricar_stock_dispo_production_V1
+#: sql_constraint:stock.production.lot:0
+msgid "The combination of serial number and internal reference must be unique !"
+msgstr ""
+
+#. module: chricar_stock_dispo_production_V1
+#: field:stock.move,order_line_id:0
+msgid "Sale Order Line"
+msgstr ""
+
+#. module: chricar_stock_dispo_production_V1
+#: help:sale.order.line,trading_unit_owner_id:0
+msgid "This will create appropriate text on picking, packing and labels"
+msgstr ""
+
+#. module: chricar_stock_dispo_production_V1
+#: view:sale.order.line:0
+msgid "Sales Order Lines"
+msgstr ""
+
+#. module: chricar_stock_dispo_production_V1
+#: help:sale.order.line,quality:0
+msgid "This will be copied to Quality for each sale line"
+msgstr ""
+
+#. module: chricar_stock_dispo_production_V1
+#: help:stock.production.lot,global_gap_number:0
+msgid "GLOBALG.A.P introduced the GLOBALG.A.P number (GGN) to identify each legal entity regis-\n"
+"tered (individual producers) in the GLOBALG.A.P database. This 13-digit number (e.g.\n"
+"4049929000000) is unique and remains valid and attached to the legal entity as long as it exists.\n"
+"It serves as search key on the GLOBALG.A.P website to validate certificates.\n"
+"Remark:\n"
+"We put it here, because \n"
+"* it changes with every harvest and \n"
+"* may overlap calendar years and harvests periods and\n"
+"* is only necessary/valid for certain products\n"
+"to avoid data entry for every Sales Order\n"
+" "
+msgstr ""
+
+#. module: chricar_stock_dispo_production_V1
+#: view:sale.order:0
+msgid "Info"
+msgstr ""
+
+#. module: chricar_stock_dispo_production_V1
+#: field:sale.order.line,location_waste_id:0
+msgid "Dest. Location Waste"
+msgstr ""
+
+#. module: chricar_stock_dispo_production_V1
+#: view:sale.order:0
+msgid "Classified"
+msgstr ""
+
+#. module: chricar_stock_dispo_production_V1
+#: view:sale.order:0
+msgid "Sales orders"
+msgstr ""
+
+#. module: chricar_stock_dispo_production_V1
+#: selection:stock.move,category:0
+msgid "Small"
+msgstr ""
+
+#. module: chricar_stock_dispo_production_V1
+#: constraint:stock.move:0
+msgid "You must assign a production lot for this product"
+msgstr ""
+
+#. module: chricar_stock_dispo_production_V1
+#: view:stock.move:0
+msgid "invisible"
+msgstr ""
+
+#. module: chricar_stock_dispo_production_V1
+#: model:ir.ui.menu,name:chricar_stock_dispo_production_V1.menu_chricar_farm_production
+msgid "Assorting"
+msgstr ""
+
+#. module: chricar_stock_dispo_production_V1
+#: field:sale.order.line,location_dest_id:0
+msgid "Dest. Location"
+msgstr ""
+
+#. module: chricar_stock_dispo_production_V1
+#: field:sale.order.line,product_packaging_id:0
+#: field:stock.move,product_packaging_id:0
+msgid "Packaging"
+msgstr ""
+
+#. module: chricar_stock_dispo_production_V1
+#: constraint:stock.move:0
+msgid "You can not move products from or to a location of the type view."
+msgstr ""
+
+#. module: chricar_stock_dispo_production_V1
+#: field:stock.move,category:0
+#: field:stock.move,category_prod:0
+msgid "Category"
+msgstr ""
+
+#. module: chricar_stock_dispo_production_V1
+#: view:sale.order.line:0
+msgid "Post Moves"
+msgstr ""
+
+#. module: chricar_stock_dispo_production_V1
+#: field:stock.production.lot,global_gap_number:0
+msgid "Global-Gap-Nr"
+msgstr ""
+
+#. module: chricar_stock_dispo_production_V1
+#: view:sale.order:0
+msgid "Übergröße"
+msgstr ""
+
+#. module: chricar_stock_dispo_production_V1
+#: view:sale.order:0
+#: field:sale.order.line,stock_dispo_production_draft_ids:0
+#: view:stock.move:0
+msgid "Draft"
+msgstr ""
+
+#. module: chricar_stock_dispo_production_V1
+#: view:stock.move:0
+msgid "Lot"
+msgstr ""
+
+#. module: chricar_stock_dispo_production_V1
+#: view:sale.order:0
+msgid "Product Properties"
+msgstr ""
+
+#. module: chricar_stock_dispo_production_V1
+#: constraint:stock.move:0
+msgid "You try to assign a lot which is not from the same product"
+msgstr ""
+
+#. module: chricar_stock_dispo_production_V1
+#: view:sale.order:0
+msgid "Ordered Date"
+msgstr ""
+
+#. module: chricar_stock_dispo_production_V1
+#: help:stock.move,product_packaging_id:0
+msgid "Product which is used to store the main product"
+msgstr ""
+
+#. module: chricar_stock_dispo_production_V1
+#: view:sale.order:0
+msgid "Assortment"
+msgstr ""
+
+#. module: chricar_stock_dispo_production_V1
+#: view:sale.order:0
+msgid "Transport Packaging"
+msgstr ""
+
+#. module: chricar_stock_dispo_production_V1
+#: help:sale.order.line,move_state:0
+msgid "Returns true if some moves are not done"
+msgstr ""
+
+#. module: chricar_stock_dispo_production_V1
+#: field:sale.order.line,quality:0
+msgid "Ordered Quality"
+msgstr ""
+
+#. module: chricar_stock_dispo_production_V1
+#: help:sale.order.line,product_packaging_id:0
+msgid "Product wich is used to store the main product"
+msgstr ""
+
+#. module: chricar_stock_dispo_production_V1
+#: field:stock.move,packaging_qty:0
+msgid "Packaging Qty"
+msgstr ""
+
+#. module: chricar_stock_dispo_production_V1
+#: view:sale.order:0
+msgid "Quantity"
+msgstr ""
+
+#. module: chricar_stock_dispo_production_V1
+#: field:sale.order.line,prodlot_id:0
+msgid "Production Lot"
+msgstr ""
+
+#. module: chricar_stock_dispo_production_V1
+#: field:stock.move,sequence:0
+msgid "Sequence"
+msgstr ""
+
+#. module: chricar_stock_dispo_production_V1
+#: view:sale.order:0
+#: field:sale.order.line,stock_dispo_production_small_ids:0
+msgid "To Small"
+msgstr ""
+
+#. module: chricar_stock_dispo_production_V1
+#: view:sale.order:0
+#: field:sale.order.line,stock_dispo_production_big_ids:0
+msgid "To Big"
+msgstr ""
+
+#. module: chricar_stock_dispo_production_V1
+#: view:sale.order:0
+msgid "Dispo Production Order Lines"
+msgstr ""
+
+#. module: chricar_stock_dispo_production_V1
+#: view:sale.order:0
+msgid "Mangelware"
+msgstr ""
+
+#. module: chricar_stock_dispo_production_V1
+#: model:ir.actions.act_window,name:chricar_stock_dispo_production_V1.chricar_stock_dispo_production_act1
+#: model:ir.ui.menu,name:chricar_stock_dispo_production_V1.menu_chricar_stock_dispo_production_list
+msgid "Dispo Production Details"
+msgstr ""
+
+#. module: chricar_stock_dispo_production_V1
+#: sql_constraint:sale.order:0
+msgid "Order Reference must be unique per Company!"
+msgstr ""
+
+#. module: chricar_stock_dispo_production_V1
+#: view:sale.order:0
+msgid "Alle"
+msgstr ""
+
+#. module: chricar_stock_dispo_production_V1
+#: help:sale.order,product_names:0
+msgid "Shows ordered products"
+msgstr ""
+
+#. module: chricar_stock_dispo_production_V1
+#: view:sale.order:0
+msgid "Production Date"
+msgstr ""
+
+#. module: chricar_stock_dispo_production_V1
+#: model:ir.actions.act_window,name:chricar_stock_dispo_production_V1.chricar_stock_dispo_production_act2
+#: model:ir.ui.menu,name:chricar_stock_dispo_production_V1.menu_chricar_stock_dispo_production_form
+#: field:sale.order.line,stock_dispo_production_ids:0
+#: view:stock.move:0
+msgid "Dispo Production"
+msgstr ""
+
+#. module: chricar_stock_dispo_production_V1
+#: view:sale.order:0
+msgid "Sales order"
+msgstr ""
+
+#. module: chricar_stock_dispo_production_V1
+#: view:stock.move:0
+msgid "Scheduled Date"
+msgstr ""
+
+#. module: chricar_stock_dispo_production_V1
+#: view:stock.move:0
+msgid "Product"
+msgstr ""
+
+#. module: chricar_stock_dispo_production_V1
+#: view:stock.move:0
+msgid "Assorted"
+msgstr ""
+
+#. module: chricar_stock_dispo_production_V1
+#: view:sale.order:0
+#: view:stock.move:0
+msgid "Search Order"
+msgstr ""
+
+#. module: chricar_stock_dispo_production_V1
+#: view:sale.order:0
+msgid "Emballagen"
+msgstr ""
+
+#. module: chricar_stock_dispo_production_V1
+#: help:sale.order.line,location_big_id:0
+msgid "To big products will be moved to this location, defaults to source"
+msgstr ""
+
+#. module: chricar_stock_dispo_production_V1
+#: view:sale.order:0
+msgid "Post Moves (daily)"
+msgstr ""
+
+#. module: chricar_stock_dispo_production_V1
+#: constraint:stock.move:0
+msgid "Error: Negative quantities for location and/or lots are not allowed for this product or product category"
+msgstr ""
+
+#. module: chricar_stock_dispo_production_V1
+#: model:ir.model,name:chricar_stock_dispo_production_V1.model_stock_production_lot
+msgid "Production lot"
+msgstr ""
+
+#. module: chricar_stock_dispo_production_V1
+#: model:ir.actions.act_window,name:chricar_stock_dispo_production_V1.chricar_stock_dispo_production_open_move_act
+#: model:ir.ui.menu,name:chricar_stock_dispo_production_V1.menu_chricar_stock_dispo_production_open_move_form
+msgid "Dispo Production Line Open Moves"
+msgstr ""
+
+#. module: chricar_stock_dispo_production_V1
+#: view:sale.order:0
+msgid "Defaults"
+msgstr ""
+
+#. module: chricar_stock_dispo_production_V1
+#: view:sale.order:0
+msgid "All"
+msgstr ""
+
+#. module: chricar_stock_dispo_production_V1
+#: view:stock.move:0
+msgid "Dest Location"
+msgstr ""
+
+#. module: chricar_stock_dispo_production_V1
+#: help:sale.order.line,prodlot_id:0
+msgid "Production lot is used to track the production"
+msgstr ""
+
+#. module: chricar_stock_dispo_production_V1
+#: field:sale.order.line,trading_unit_owner_id:0
+msgid "Owner of Trading Unit"
+msgstr ""
+
+#. module: chricar_stock_dispo_production_V1
+#: field:sale.order.line,location_id:0
+#: view:stock.move:0
+msgid "Source Location"
+msgstr ""
+
+#. module: chricar_stock_dispo_production_V1
+#: field:sale.order.line,location_product_id:0
+msgid "Production Location"
+msgstr ""
+
+#. module: chricar_stock_dispo_production_V1
+#: field:sale.order.line,location_faulty_id:0
+msgid "Dest. Location Faulty"
+msgstr ""
+
+#. module: chricar_stock_dispo_production_V1
+#: field:sale.order.line,move_state:0
+msgid "Move State"
+msgstr ""
+
+#. module: chricar_stock_dispo_production_V1
+#: view:sale.order:0
+msgid "Ordered Assortment"
+msgstr ""
+
+#. module: chricar_stock_dispo_production_V1
+#: view:sale.order:0
+msgid "All in One"
+msgstr ""
+
+#. module: chricar_stock_dispo_production_V1
+#: view:sale.order:0
+msgid "Eingabe"
+msgstr ""
+
+#. module: chricar_stock_dispo_production_V1
+#: view:sale.order:0
+#: field:sale.order.line,stock_dispo_production_sale_ids:0
+msgid "To Sell"
+msgstr ""
+

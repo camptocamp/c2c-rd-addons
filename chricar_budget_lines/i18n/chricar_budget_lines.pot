@@ -1,0 +1,704 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* chricar_budget_lines
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 6.1rc1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-01-23 22:06+0000\n"
+"PO-Revision-Date: 2012-01-23 22:06+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: chricar_budget_lines
+#: help:chricar.budget_lines_production,quantity_base:0
+msgid "Select surface or product quantity or individual"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: field:c2c_budget.line,amount_cash_cum:0
+msgid "Cash Cum"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: view:chricar.budget:0
+msgid "Sum Sales"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: field:chricar.budget_lines_production,product_id:0
+msgid "Material-Service"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: field:chricar.budget_lines_production,budget_line_id:0
+#: field:chricar.budget_lines_sales,budget_line_id:0
+msgid "Automatically created field to link to parent c2c_budget.line"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: view:chricar.budget.line.share:0
+#: field:chricar.budget.line.share,cash_quote:0
+msgid "Cash Quote"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: view:chricar.budget:0
+#: field:chricar.budget,amount_sales_open:0
+msgid "Sales to be Planned"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: field:chricar.budget,qty_sales_open:0
+msgid "Quantity to be Planned"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: field:chricar.budget,budget_lines_sales_ids:0
+msgid "Budget Products Sales"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: help:c2c_budget.version,budget_version_next_id:0
+msgid "This version will be used if production or sales date planning concern already the next year"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: help:chricar.budget,amount_contribution:0
+msgid "Planned Detail Sales - Total Planned Costs"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: view:c2c_budget.line:0
+msgid "Total Cash"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: field:c2c_budget.line,is_current:0
+msgid "Is Current"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: field:chricar.budget.line.share,level:0
+msgid "Level"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: model:ir.actions.act_window,name:chricar_budget_lines.chricar_budget_lines_sales_act1
+#: model:ir.ui.menu,name:chricar_budget_lines.menu_chricar_budget_lines_sales_list
+msgid "Product Sales"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: view:chricar.budget:0
+#: view:chricar.budget_lines_production:0
+#: field:chricar.budget_lines_production,notes:0
+#: view:chricar.budget_lines_sales:0
+#: field:chricar.budget_lines_sales,notes:0
+msgid "Notes"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: field:c2c_budget.line,amount_p_l:0
+msgid "P&L"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: help:chricar.budget_lines_production,product_id:0
+msgid "Product or service used for production, see also BoM"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: view:chricar.budget:0
+msgid "To be Planned"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: view:c2c_budget.line:0
+msgid "Total PL"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: view:chricar.budget_lines_sales:0
+msgid "Amount Sales"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: view:chricar.budget:0
+msgid "Planned Contribution (Sales Detail)"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: field:chricar.budget_lines_production,price_factor:0
+msgid "Price Factor"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: field:chricar.budget.line.share,valid_until:0
+msgid "Valid Until"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: field:chricar.budget.line.share,valid_from:0
+msgid "Valid From"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: selection:chricar.budget_lines_production,quantity_base:0
+msgid "Surface"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: field:c2c_budget.version,is_current:0
+msgid "Is Current Budget"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: field:chricar.budget.line.share,analytic_account_id:0
+msgid "Analytic Account"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: view:chricar.budget:0
+msgid "Sum Amount"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: field:chricar.budget.line.share,name:0
+msgid "Text"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: field:chricar.budget.line.share,partner_id:0
+#: field:chricar.budget_lines_production,partner_id:0
+#: field:chricar.budget_lines_sales,partner_id:0
+msgid "Partner"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: constraint:c2c_budget.line:0
+msgid "The line's period must overlap the budget's start or end dates"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: help:chricar.budget.line.share,consolidation_only:0
+msgid "Select True to get only records for consolidation"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: help:chricar.budget,amount_contribution_total:0
+msgid "Total Planned Sales - Total Planned Costs"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: view:chricar.budget:0
+#: field:chricar.budget_lines_sales,amount_sales:0
+msgid "Sales"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: field:chricar.budget.line.share,state:0
+msgid "State"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: field:chricar.budget_lines_production,location_id:0
+msgid "Location"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: view:chricar.budget:0
+msgid "Amount Cost"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: view:chricar.budget.line.share:0
+msgid "Budget Lines Owner Share"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: view:chricar.budget:0
+msgid "Sum Amount Sales"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: help:chricar.budget_lines_sales,auto_generated:0
+msgid "Sales automatically generated from production plan"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: code:addons/chricar_budget_lines/budget_lines.py:277
+#: code:addons/chricar_budget_lines/budget_lines.py:393
+#, python-format
+msgid "Error !"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: view:chricar.budget:0
+msgid "Production Costs"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: field:chricar.budget.line.share,cal_year:0
+msgid "Calendar Year"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: field:chricar.budget.line.share,amount_orig:0
+msgid "Amount Orig"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: help:chricar.budget,amount_costs:0
+msgid "Sum of cost from detail below"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: model:ir.model,name:chricar_budget_lines.model_chricar_budget_line_share
+msgid "Chricar Budget Line Share"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: field:chricar.budget_lines_production,amount_bom:0
+#: field:chricar.budget_lines_sales,amount_bom:0
+msgid "Amount BoM"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: view:chricar.budget:0
+#: view:chricar.budget_lines_production:0
+#: view:chricar.budget_lines_sales:0
+msgid "Dates"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: constraint:c2c_budget.item:0
+msgid "Error ! You can not create recursive                 budget items structure."
+msgstr ""
+
+#. module: chricar_budget_lines
+#: help:c2c_budget.line,state:0
+msgid "Draft is exceptionally used to represent lines having not reached planned state.\n"
+"Planned is used to be included in budget sums.\n"
+"Product is used internally by product budget.\n"
+"Done is set automatically or manualy if the line materialized."
+msgstr ""
+
+#. module: chricar_budget_lines
+#: field:chricar.budget_lines_sales,budget_id:0
+msgid "Budget"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: sql_constraint:chricar.budget:0
+msgid "Surface must be greater than 0 !"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: selection:c2c_budget.line,state:0
+msgid "Planned"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: model:ir.model,name:chricar_budget_lines.model_chricar_budget
+msgid "chricar.budget"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: view:chricar.budget:0
+msgid "Generate Sale Lines"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: help:c2c_budget.item,is_p_l:0
+msgid "Check this if this budget item is P&L relevant (not for CF only like Investments)"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: field:chricar.budget.line.share,pl_quote:0
+msgid "P&L Quote"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: view:chricar.budget.line.share:0
+msgid "PL Quote"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: selection:c2c_budget.line,state:0
+msgid "Canceled"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: selection:chricar.budget_lines_production,quantity_base:0
+msgid "Individual"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: help:chricar.budget_lines_production,price_unit:0
+#: help:chricar.budget_lines_sales,price_unit:0
+msgid "Allows adjustmen of calculated Bom costs "
+msgstr ""
+
+#. module: chricar_budget_lines
+#: model:ir.actions.act_window,name:chricar_budget_lines.act_budget_version_2_lines
+#: model:ir.model,name:chricar_budget_lines.model_c2c_budget_line
+msgid "Budget Lines"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: field:chricar.budget.line.share,partner_parent_id:0
+msgid "Owner"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: field:c2c_budget.item,is_p_l:0
+msgid "Is P&L"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: field:c2c_budget.item,is_cash:0
+msgid "Is Cash Flow"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: selection:c2c_budget.line,state:0
+msgid "Draft"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: field:chricar.budget_lines_sales,auto_type:0
+msgid "Autogenerated Sales or Cost"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: view:chricar.budget.line.share:0
+#: field:chricar.budget.line.share,cash_quote_future:0
+msgid "Cash Quote Future"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: field:c2c_budget.line,state:0
+msgid "Status"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: model:ir.actions.act_window,name:chricar_budget_lines.chricar_budget_line_share_act1
+#: model:ir.ui.menu,name:chricar_budget_lines.menu_chricar_budget_line_share_list
+msgid "Budget per Owner"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: model:ir.actions.act_window,name:chricar_budget_lines.act_budget_version_2_cashflow
+msgid "CashFlow Lines"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: constraint:c2c_budget.line:0
+msgid "The line's bugdet item must belong to the budget structure                 defined in the budget"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: help:c2c_budget.version,budget_version_prev_id:0
+msgid "This version will be used if production or sales date planning still concern the previous year"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: field:chricar.budget,amount_contribution_total:0
+msgid "Total Contribution Planned"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: model:ir.actions.act_window,name:chricar_budget_lines.chricar_budget_lines_production_act1
+#: model:ir.ui.menu,name:chricar_budget_lines.menu_chricar_budget_lines_production_list
+msgid "Product Production"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: field:chricar.budget.line.share,partner_parent2_id:0
+msgid "Intermediate 1"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: field:chricar.budget.line.share,partner_parent3_id:0
+msgid "Intermediate 2"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: help:chricar.budget.line.share,consolidation:0
+#: help:chricar.budget.line.share,consolidation2:0
+#: help:chricar.budget.line.share,consolidation3:0
+msgid "True for direct ownership and partnerships, results (and cash flow) affect directly owner income statement"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: view:chricar.budget:0
+msgid "Sum Costs"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: field:chricar.budget,amount_sales:0
+msgid "Sales Detail"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: view:chricar.budget:0
+msgid "Sum Contribution"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: help:chricar.budget,amount_sales:0
+msgid "Sum of sales form details below"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: field:chricar.budget,amount_contribution:0
+msgid "Contribution"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: help:c2c_budget.item,is_cash:0
+msgid "Check this if this budget item is cash flow relevant (not for P&L only like depreciation"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: field:chricar.budget_lines_production,quantity:0
+#: field:chricar.budget_lines_sales,quantity:0
+msgid "Quantity"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: help:chricar.budget,amount_sales_open:0
+msgid "Differnce between Sales Planned and Sales Detail Planned"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: model:ir.model,name:chricar_budget_lines.model_c2c_budget_version
+msgid "Budget versions"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: view:chricar.budget:0
+msgid "Amount Production"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: field:chricar.budget,budget_lines_production_ids:0
+#: view:chricar.budget_lines_production:0
+#: view:chricar.budget_lines_sales:0
+msgid "Budget Products Production"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: view:chricar.budget_lines_production:0
+#: field:chricar.budget_lines_production,amount_cost:0
+msgid "Subtotal"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: model:ir.model,name:chricar_budget_lines.model_c2c_budget_item
+msgid "Budget items"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: field:chricar.budget.line.share,period_id:0
+msgid "Period"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: model:ir.model,name:chricar_budget_lines.model_chricar_budget_lines_production
+msgid "chricar.budget_lines_production"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: selection:chricar.budget_lines_production,quantity_base:0
+msgid "Product Quantity"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: selection:c2c_budget.line,state:0
+msgid "Done"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: field:c2c_budget.line,date_due:0
+#: field:chricar.budget.line.share,date_due:0
+msgid "Date Due"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: field:chricar.budget,amount_costs:0
+msgid "Total Cost"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: field:chricar.budget.line.share,consolidation:0
+msgid "Consolidation L1"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: field:chricar.budget.line.share,consolidation2:0
+msgid "Consolidation L2"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: field:chricar.budget.line.share,consolidation3:0
+msgid "Consolidation L3"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: view:chricar.budget_lines_production:0
+#: view:chricar.budget_lines_sales:0
+msgid "Other Info"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: code:addons/chricar_budget_lines/budget_lines.py:278
+#: code:addons/chricar_budget_lines/budget_lines.py:394
+#, python-format
+msgid "There is no budget version defined for this date"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: view:chricar.budget:0
+msgid "Production"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: field:chricar.budget.line.share,percentage:0
+msgid "Percentage"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: selection:c2c_budget.line,state:0
+#: field:chricar.budget_lines_production,budget_id:0
+msgid "Product"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: field:chricar.budget.line.share,budget_version_id:0
+msgid "Budget Version"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: field:chricar.budget_lines_production,price_unit:0
+#: field:chricar.budget_lines_sales,price_unit:0
+msgid "Price"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: field:c2c_budget.version,budget_version_next_id:0
+msgid "Budget Version of Next Year"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: help:chricar.budget_lines_production,quantity:0
+msgid "select 'Individual' to update the quantity manually "
+msgstr ""
+
+#. module: chricar_budget_lines
+#: field:chricar.budget.line.share,budget_item_id:0
+msgid "Budget Item"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: model:ir.model,name:chricar_budget_lines.model_chricar_budget_lines_sales
+msgid "chricar.budget_lines_sales"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: help:chricar.budget_lines_production,price_factor:0
+msgid "Allows adjustment of calculated BoM costs "
+msgstr ""
+
+#. module: chricar_budget_lines
+#: field:c2c_budget.version,budget_version_prev_id:0
+msgid "Budget Version of Provious Year"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: field:chricar.budget_lines_production,bom_id:0
+#: field:chricar.budget_lines_sales,bom_id:0
+msgid "BoM"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: field:chricar.budget_lines_production,quantity_base:0
+msgid "Base Quantity"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: field:chricar.budget_lines_sales,auto_generated:0
+msgid "Auto generated"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: view:chricar.budget:0
+msgid "Delete Generated Sale Lines"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: field:c2c_budget.line,amount_cash:0
+msgid "Cash"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: help:c2c_budget.line,date_due:0
+msgid "This date will be used for cashflow planning"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: field:chricar.budget_lines_production,amount_production:0
+msgid "Costs"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: view:chricar.budget:0
+#: view:chricar.budget_lines_production:0
+#: view:chricar.budget_lines_sales:0
+msgid "Values"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: field:c2c_budget.line,date_planning:0
+#: field:chricar.budget.line.share,date_planning:0
+msgid "Date Planning"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: field:chricar.budget_lines_production,price_unit_id:0
+#: field:chricar.budget_lines_sales,price_unit_id:0
+msgid "Price Unit"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: field:chricar.budget.line.share,consolidation_only:0
+msgid "Consolidation only"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: field:chricar.budget_lines_production,payment_term_id:0
+#: field:chricar.budget_lines_sales,payment_term_id:0
+msgid "Payment Term"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: view:chricar.budget_lines_sales:0
+msgid "Amount"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: view:chricar.budget_lines_production:0
+msgid "Cost"
+msgstr ""
+
+#. module: chricar_budget_lines
+#: help:chricar.budget,qty_sales_open:0
+msgid "Production quantity not planned for sale"
+msgstr ""
+

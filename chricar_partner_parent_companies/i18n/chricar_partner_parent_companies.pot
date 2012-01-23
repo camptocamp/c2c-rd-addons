@@ -1,0 +1,182 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* chricar_partner_parent_companies
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 6.1rc1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-01-23 22:06+0000\n"
+"PO-Revision-Date: 2012-01-23 22:06+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: chricar_partner_parent_companies
+#: view:res.partner:0
+#: view:res.partner.parent_company:0
+msgid "Sum Share"
+msgstr ""
+
+#. module: chricar_partner_parent_companies
+#: model:ir.actions.report.xml,name:chricar_partner_parent_companies.report_partner_participation
+#: view:res.partner:0
+#: field:res.partner,participation_ids:0
+#: view:res.partner.parent_company:0
+msgid "Participations"
+msgstr ""
+
+#. module: chricar_partner_parent_companies
+#: field:res.partner.parent_company,valid_fiscal_from:0
+msgid "Fiscal Valid From"
+msgstr ""
+
+#. module: chricar_partner_parent_companies
+#: view:res.partner.parent_company:0
+msgid "Group By..."
+msgstr ""
+
+#. module: chricar_partner_parent_companies
+#: field:res.partner.parent_company,state:0
+msgid "State"
+msgstr ""
+
+#. module: chricar_partner_parent_companies
+#: constraint:res.partner:0
+msgid "Error: Invalid EAN code"
+msgstr ""
+
+#. module: chricar_partner_parent_companies
+#: view:res.partner:0
+#: field:res.partner,partner_ids:0
+#: view:res.partner.parent_company:0
+msgid "Parent Companies"
+msgstr ""
+
+#. module: chricar_partner_parent_companies
+#: field:res.partner.parent_company,percentage:0
+msgid "Percentage"
+msgstr ""
+
+#. module: chricar_partner_parent_companies
+#: view:res.partner.parent_company:0
+msgid "Participation"
+msgstr ""
+
+#. module: chricar_partner_parent_companies
+#: view:res.partner.parent_company:0
+#: field:res.partner.parent_company,partner_parent_id:0
+msgid "Parent"
+msgstr ""
+
+#. module: chricar_partner_parent_companies
+#: view:res.partner:0
+msgid "Participations All"
+msgstr ""
+
+#. module: chricar_partner_parent_companies
+#: field:res.partner.parent_company,consolidation:0
+msgid "Consolidation"
+msgstr ""
+
+#. module: chricar_partner_parent_companies
+#: model:ir.model,name:chricar_partner_parent_companies.model_res_partner_parent_company
+msgid "res.partner.parent_company"
+msgstr ""
+
+#. module: chricar_partner_parent_companies
+#: field:res.partner.parent_company,contract_number:0
+msgid "Contract Number"
+msgstr ""
+
+#. module: chricar_partner_parent_companies
+#: field:res.partner.parent_company,active:0
+msgid "Active"
+msgstr ""
+
+#. module: chricar_partner_parent_companies
+#: field:res.partner.parent_company,contract_date:0
+msgid "Contract Date"
+msgstr ""
+
+#. module: chricar_partner_parent_companies
+#: view:res.partner:0
+#: view:res.partner.parent_company:0
+msgid "Sum Agio"
+msgstr ""
+
+#. module: chricar_partner_parent_companies
+#: view:res.partner:0
+#: view:res.partner.parent_company:0
+#: field:res.partner.parent_company,comment:0
+msgid "Notes"
+msgstr ""
+
+#. module: chricar_partner_parent_companies
+#: view:res.partner:0
+#: view:res.partner.parent_company:0
+msgid "Sum Paid in"
+msgstr ""
+
+#. module: chricar_partner_parent_companies
+#: field:res.partner.parent_company,paid_in:0
+msgid "Paid in Share"
+msgstr ""
+
+#. module: chricar_partner_parent_companies
+#: field:res.partner,partner_current_ids:0
+msgid "Parent Companies Current"
+msgstr ""
+
+#. module: chricar_partner_parent_companies
+#: field:res.partner.parent_company,valid_from:0
+msgid "Valid From"
+msgstr ""
+
+#. module: chricar_partner_parent_companies
+#: field:res.partner.parent_company,valid_fiscal_until:0
+msgid "Fiscal Valid Until"
+msgstr ""
+
+#. module: chricar_partner_parent_companies
+#: field:res.partner.parent_company,agio:0
+msgid "Agio"
+msgstr ""
+
+#. module: chricar_partner_parent_companies
+#: view:res.partner:0
+#: view:res.partner.parent_company:0
+msgid "Sum Percentage"
+msgstr ""
+
+#. module: chricar_partner_parent_companies
+#: field:res.partner.parent_company,valid_until:0
+msgid "Valid Until"
+msgstr ""
+
+#. module: chricar_partner_parent_companies
+#: field:res.partner.parent_company,name:0
+msgid "Share"
+msgstr ""
+
+#. module: chricar_partner_parent_companies
+#: model:ir.actions.act_window,name:chricar_partner_parent_companies.action_partner_parent_companies_form
+#: model:ir.ui.menu,name:chricar_partner_parent_companies.menu_partner_parent_companies_form
+msgid "Partner Participations"
+msgstr ""
+
+#. module: chricar_partner_parent_companies
+#: model:ir.model,name:chricar_partner_parent_companies.model_res_partner
+#: field:res.partner.parent_company,partner_id:0
+msgid "Partner"
+msgstr ""
+
+#. module: chricar_partner_parent_companies
+#: view:res.partner:0
+#: field:res.partner,participation_current_ids:0
+msgid "Participations Current"
+msgstr ""
+

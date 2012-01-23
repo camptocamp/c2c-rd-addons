@@ -1,0 +1,168 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* chricar_budget_compare
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 6.1rc1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-01-23 22:05+0000\n"
+"PO-Revision-Date: 2012-01-23 22:05+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: chricar_budget_compare
+#: view:chricar.budget.compare.period:0
+#: model:ir.actions.act_window,name:chricar_budget_compare.act_compare_year_2_period
+#: model:ir.actions.act_window,name:chricar_budget_compare.chricar_budget_compare_period_act1
+#: model:ir.ui.menu,name:chricar_budget_compare.menu_chricar_budget_compare_period_list
+msgid "Budget Compare Period"
+msgstr ""
+
+#. module: chricar_budget_compare
+#: field:chricar.budget.compare,real_last:0
+#: view:chricar.budget.compare.period:0
+#: field:chricar.budget.compare.period,real_last:0
+#: view:chricar.budget.compare.year:0
+#: field:chricar.budget.compare.year,real_last:0
+msgid "Real Last"
+msgstr ""
+
+#. module: chricar_budget_compare
+#: field:chricar.budget.compare,period_name_last:0
+msgid "Period Last"
+msgstr ""
+
+#. module: chricar_budget_compare
+#: field:chricar.budget.compare,type:0
+#: field:chricar.budget.compare.period,type:0
+#: field:chricar.budget.compare.year,type:0
+msgid "Type"
+msgstr ""
+
+#. module: chricar_budget_compare
+#: model:ir.model,name:chricar_budget_compare.model_chricar_budget_compare_period
+msgid "chricar.budget.compare.period"
+msgstr ""
+
+#. module: chricar_budget_compare
+#: selection:chricar.budget.compare,type:0
+#: selection:chricar.budget.compare.period,type:0
+#: selection:chricar.budget.compare.year,type:0
+msgid "Normal"
+msgstr ""
+
+#. module: chricar_budget_compare
+#: field:chricar.budget.compare,parent_id:0
+#: field:chricar.budget.compare.period,parent_id:0
+#: field:chricar.budget.compare.year,parent_id:0
+msgid "Budget Parent Item"
+msgstr ""
+
+#. module: chricar_budget_compare
+#: field:chricar.budget.compare,company_id:0
+#: field:chricar.budget.compare.period,company_id:0
+#: field:chricar.budget.compare.year,company_id:0
+msgid "Company"
+msgstr ""
+
+#. module: chricar_budget_compare
+#: field:chricar.budget.compare,item_id:0
+#: field:chricar.budget.compare.period,item_id:0
+#: field:chricar.budget.compare.year,item_id:0
+msgid "Budget Item"
+msgstr ""
+
+#. module: chricar_budget_compare
+#: field:chricar.budget.compare,budget_last:0
+#: view:chricar.budget.compare.period:0
+#: field:chricar.budget.compare.period,budget_last:0
+#: view:chricar.budget.compare.year:0
+#: field:chricar.budget.compare.year,budget_last:0
+msgid "Budget Last"
+msgstr ""
+
+#. module: chricar_budget_compare
+#: field:chricar.budget.compare,fiscalyear_id:0
+#: field:chricar.budget.compare.period,fiscalyear_id:0
+#: field:chricar.budget.compare.year,fiscalyear_id:0
+msgid "Fiscal Year"
+msgstr ""
+
+#. module: chricar_budget_compare
+#: model:ir.model,name:chricar_budget_compare.model_chricar_budget_compare_year
+msgid "chricar.budget.compare.year"
+msgstr ""
+
+#. module: chricar_budget_compare
+#: field:chricar.budget.compare,period_name_current:0
+msgid "Period Current"
+msgstr ""
+
+#. module: chricar_budget_compare
+#: model:ir.model,name:chricar_budget_compare.model_chricar_budget_compare
+msgid "chricar.budget.compare"
+msgstr ""
+
+#. module: chricar_budget_compare
+#: selection:chricar.budget.compare,type:0
+#: selection:chricar.budget.compare.period,type:0
+#: selection:chricar.budget.compare.year,type:0
+msgid "View"
+msgstr ""
+
+#. module: chricar_budget_compare
+#: field:chricar.budget.compare,real_current:0
+#: view:chricar.budget.compare.period:0
+#: field:chricar.budget.compare.period,real_current:0
+#: view:chricar.budget.compare.year:0
+#: field:chricar.budget.compare.year,real_current:0
+msgid "Real Current"
+msgstr ""
+
+#. module: chricar_budget_compare
+#: view:chricar.budget.compare.year:0
+#: model:ir.actions.act_window,name:chricar_budget_compare.chricar_budget_compare_year_act1
+#: model:ir.ui.menu,name:chricar_budget_compare.menu_chricar_budget_compare_year_list
+msgid "Budget Compare Year"
+msgstr ""
+
+#. module: chricar_budget_compare
+#: field:chricar.budget.compare,sequence:0
+#: field:chricar.budget.compare.period,sequence:0
+#: field:chricar.budget.compare.year,sequence:0
+msgid "Sequence"
+msgstr ""
+
+#. module: chricar_budget_compare
+#: field:chricar.budget.compare,period_id:0
+#: field:chricar.budget.compare,period_last_id:0
+#: field:chricar.budget.compare.period,period_id:0
+msgid "Period"
+msgstr ""
+
+#. module: chricar_budget_compare
+#: field:chricar.budget.compare,badget_version_name:0
+#: field:chricar.budget.compare,budget_version_id:0
+msgid "Budget Version"
+msgstr ""
+
+#. module: chricar_budget_compare
+#: model:ir.actions.act_window,name:chricar_budget_compare.act_compare_period_2_line
+#: model:ir.actions.act_window,name:chricar_budget_compare.act_compare_year_2_line
+msgid "Budget Lines"
+msgstr ""
+
+#. module: chricar_budget_compare
+#: field:chricar.budget.compare,budget_current:0
+#: view:chricar.budget.compare.period:0
+#: field:chricar.budget.compare.period,budget_current:0
+#: view:chricar.budget.compare.year:0
+#: field:chricar.budget.compare.year,budget_current:0
+msgid "Budget Current"
+msgstr ""
+

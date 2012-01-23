@@ -1,0 +1,359 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* chricar_budget
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 6.1rc1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-01-23 22:05+0000\n"
+"PO-Revision-Date: 2012-01-23 22:05+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: chricar_budget
+#: view:chricar.budget:0
+msgid "Sum Harvest"
+msgstr ""
+
+#. module: chricar_budget
+#: field:chricar.budget.surface,surface_location:0
+msgid "ha total"
+msgstr ""
+
+#. module: chricar_budget
+#: help:chricar.budget,harvest_period_id:0
+msgid "In this period the harvest will be evaluated using product cost price"
+msgstr ""
+
+#. module: chricar_budget
+#: help:chricar.budget,harvest_yield:0
+msgid "Harvested yield qty this year"
+msgstr ""
+
+#. module: chricar_budget
+#: view:chricar.budget:0
+msgid "Other Info"
+msgstr ""
+
+#. module: chricar_budget
+#: model:ir.model,name:chricar_budget.model_chricar_budget
+msgid "chricar.budget"
+msgstr ""
+
+#. module: chricar_budget
+#: help:chricar.budget,harvest_yield_diff:0
+msgid "Harvested yield Diff"
+msgstr ""
+
+#. module: chricar_budget
+#: help:chricar.budget.surface,name:0
+msgid "Surface of field used for this product"
+msgstr ""
+
+#. module: chricar_budget
+#: help:chricar.budget,product_qty:0
+msgid "Surface * Yield"
+msgstr ""
+
+#. module: chricar_budget
+#: view:chricar.budget:0
+msgid "Sum Harvest Net"
+msgstr ""
+
+#. module: chricar_budget
+#: constraint:product.product:0
+msgid "Error: Invalid EAN code"
+msgstr ""
+
+#. module: chricar_budget
+#: field:chricar.budget.surface,location_id:0
+msgid "Location"
+msgstr ""
+
+#. module: chricar_budget
+#: field:chricar.budget,harvest_soil:0
+msgid "Soil %"
+msgstr ""
+
+#. module: chricar_budget
+#: field:chricar.budget,sale_to:0
+msgid "Sale end"
+msgstr ""
+
+#. module: chricar_budget
+#: field:chricar.budget.surface,name:0
+msgid "ha used"
+msgstr ""
+
+#. module: chricar_budget
+#: field:chricar.budget,surface:0
+msgid "Surface (ha)"
+msgstr ""
+
+#. module: chricar_budget
+#: help:chricar.budget,harvest_soil:0
+msgid "The percentag of soil"
+msgstr ""
+
+#. module: chricar_budget
+#: field:chricar.budget,harvest_period_id:0
+msgid "Harvest Period"
+msgstr ""
+
+#. module: chricar_budget
+#: model:ir.model,name:chricar_budget.model_chricar_budget_production
+msgid "chricar.budget.production"
+msgstr ""
+
+#. module: chricar_budget
+#: field:chricar.budget,product_id:0
+#: field:chricar.budget.surface,budget_id:0
+#: model:ir.model,name:chricar_budget.model_product_product
+msgid "Product"
+msgstr ""
+
+#. module: chricar_budget
+#: sql_constraint:chricar.budget:0
+msgid "Surface must be greater than 0 !"
+msgstr ""
+
+#. module: chricar_budget
+#: help:chricar.budget,harvest:0
+msgid "Harvested qty this year"
+msgstr ""
+
+#. module: chricar_budget
+#: help:chricar.budget.surface,harvest:0
+msgid "Harvested qty this year on this location"
+msgstr ""
+
+#. module: chricar_budget
+#: field:chricar.budget,price:0
+msgid "Price"
+msgstr ""
+
+#. module: chricar_budget
+#: view:chricar.budget:0
+msgid "Sum Quantity"
+msgstr ""
+
+#. module: chricar_budget
+#: view:chricar.budget:0
+msgid "Sum ha"
+msgstr ""
+
+#. module: chricar_budget
+#: field:chricar.budget,harvest_yield:0
+msgid "Yield/ha"
+msgstr ""
+
+#. module: chricar_budget
+#: field:chricar.budget,product_uom:0
+msgid "Product UOM"
+msgstr ""
+
+#. module: chricar_budget
+#: help:chricar.budget.surface,surface_location:0
+msgid "Total surface of field"
+msgstr ""
+
+#. module: chricar_budget
+#: field:chricar.budget,product_qty:0
+msgid "Planned Quantity"
+msgstr ""
+
+#. module: chricar_budget
+#: field:chricar.budget,budget_version_id:0
+#: view:chricar.budget.production:0
+msgid "Budget Version"
+msgstr ""
+
+#. module: chricar_budget
+#: field:chricar.budget,harvest:0
+#: field:chricar.budget.surface,harvest:0
+msgid "Harvest"
+msgstr ""
+
+#. module: chricar_budget
+#: view:chricar.budget:0
+msgid "Sum Amount"
+msgstr ""
+
+#. module: chricar_budget
+#: help:chricar.budget,amount:0
+msgid "Planned Production Quantity * Price"
+msgstr ""
+
+#. module: chricar_budget
+#: view:chricar.budget.production:0
+msgid "Budget Versions"
+msgstr ""
+
+#. module: chricar_budget
+#: field:chricar.budget.production,name:0
+msgid "Production Budget"
+msgstr ""
+
+#. module: chricar_budget
+#: field:chricar.budget.surface,product_id:0
+msgid "Seed"
+msgstr ""
+
+#. module: chricar_budget
+#: view:chricar.budget:0
+msgid "Fields"
+msgstr ""
+
+#. module: chricar_budget
+#: view:chricar.budget:0
+#: field:chricar.budget,name:0
+msgid "Notes"
+msgstr ""
+
+#. module: chricar_budget
+#: field:chricar.budget,amount:0
+msgid "Total Sales Planned"
+msgstr ""
+
+#. module: chricar_budget
+#: model:ir.actions.act_window,name:chricar_budget.chricar_budget_production
+#: model:ir.ui.menu,name:chricar_budget.menu_chricar_budget_production_list
+msgid "Budget Production"
+msgstr ""
+
+#. module: chricar_budget
+#: field:chricar.budget.surface,harvest_yield:0
+msgid "Yield"
+msgstr ""
+
+#. module: chricar_budget
+#: field:chricar.budget,harvest_yield_diff:0
+msgid "Yield Net Diff"
+msgstr ""
+
+#. module: chricar_budget
+#: field:chricar.budget,yield_sale:0
+msgid "Sales/ha"
+msgstr ""
+
+#. module: chricar_budget
+#: field:chricar.budget.production,fiscalyear_id:0
+msgid "Fiscal Year"
+msgstr ""
+
+#. module: chricar_budget
+#: field:c2c_budget.version,budget_ids:0
+#: view:chricar.budget:0
+#: view:chricar.budget.production:0
+#: model:ir.actions.act_window,name:chricar_budget.chricar_budget_act1
+#: model:ir.ui.menu,name:chricar_budget.menu_chricar_budget_list
+#: field:product.product,budget_ids:0
+msgid "Budget Products"
+msgstr ""
+
+#. module: chricar_budget
+#: field:chricar.budget,yield_qty:0
+msgid "Yield qty/ha"
+msgstr ""
+
+#. module: chricar_budget
+#: model:ir.model,name:chricar_budget.model_chricar_budget_surface
+msgid "chricar.budget.surface"
+msgstr ""
+
+#. module: chricar_budget
+#: field:chricar.budget.production,budget_version_ids:0
+msgid "Budget Versions "
+msgstr ""
+
+#. module: chricar_budget
+#: field:chricar.budget,price_unit_id:0
+msgid "Price Unit"
+msgstr ""
+
+#. module: chricar_budget
+#: view:chricar.budget:0
+msgid "Sum Surface"
+msgstr ""
+
+#. module: chricar_budget
+#: model:ir.model,name:chricar_budget.model_c2c_budget_version
+msgid "Budget versions"
+msgstr ""
+
+#. module: chricar_budget
+#: field:chricar.budget.surface,prodlot_id:0
+msgid "Production Lot"
+msgstr ""
+
+#. module: chricar_budget
+#: help:chricar.budget.surface,harvest_yield:0
+msgid "Harvested yield qty this year on this location"
+msgstr ""
+
+#. module: chricar_budget
+#: field:chricar.budget,harvest_net:0
+msgid "Net/ha"
+msgstr ""
+
+#. module: chricar_budget
+#: field:chricar.budget,location_ids:0
+msgid "Location Surface used"
+msgstr ""
+
+#. module: chricar_budget
+#: help:chricar.budget,price:0
+msgid "Exected average price"
+msgstr ""
+
+#. module: chricar_budget
+#: view:chricar.budget:0
+msgid "Sum ha used"
+msgstr ""
+
+#. module: chricar_budget
+#: help:chricar.budget,yield_sale:0
+msgid "Planned Sales / Surface"
+msgstr ""
+
+#. module: chricar_budget
+#: help:chricar.budget,harvest_net:0
+msgid "Harvested qty net - without soil this year"
+msgstr ""
+
+#. module: chricar_budget
+#: field:c2c_budget.version,budget_production_id:0
+msgid "Budget Produktion"
+msgstr ""
+
+#. module: chricar_budget
+#: view:chricar.budget:0
+msgid "Accounting"
+msgstr ""
+
+#. module: chricar_budget
+#: field:chricar.budget,sale_from:0
+msgid "Sale start"
+msgstr ""
+
+#. module: chricar_budget
+#: field:chricar.budget,date_cultivation:0
+msgid "Date Cultivation"
+msgstr ""
+
+#. module: chricar_budget
+#: model:ir.actions.act_window,name:chricar_budget.act_budget_version_2_product_plan
+#: model:ir.actions.act_window,name:chricar_budget.act_product_2_product_plan
+msgid "Product Budget"
+msgstr ""
+
+#. module: chricar_budget
+#: help:chricar.budget,sale_from:0
+msgid "Sale lines will be created aliquot for not individually planned sales"
+msgstr ""
+
