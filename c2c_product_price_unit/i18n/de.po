@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 6.1rc1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-01-15 12:04+0000\n"
-"PO-Revision-Date: 2012-01-15 12:04+0000\n"
+"POT-Creation-Date: 2012-01-23 20:33+0000\n"
+"PO-Revision-Date: 2012-01-23 20:33+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -114,7 +114,7 @@ msgid "%0"
 msgstr "%0"
 
 #. module: c2c_product_price_unit
-#: code:addons/c2c_product_price_unit/sale.py:166
+#: code:addons/c2c_product_price_unit/sale.py:182
 #, python-format
 msgid "There is no income category account defined in default Properties for Product Category or Fiscal Position is not defined !"
 msgstr "Für diese Produktkategorie ist keine Ertragskonto oder keine Steuerposition definiert !"
@@ -202,7 +202,7 @@ msgid "Price Units"
 msgstr "Preis Einheiten"
 
 #. module: c2c_product_price_unit
-#: code:addons/c2c_product_price_unit/stock.py:152
+#: code:addons/c2c_product_price_unit/stock.py:157
 #, python-format
 msgid "Error, no partner !"
 msgstr "Fehler, kein Partner!"
@@ -218,7 +218,7 @@ msgid "stock.partial.picking.line"
 msgstr "stock.partial.picking.line"
 
 #. module: c2c_product_price_unit
-#: code:addons/c2c_product_price_unit/wizard/purchase_line_invoice.py:160
+#: code:addons/c2c_product_price_unit/wizard/purchase_line_invoice.py:172
 #, python-format
 msgid "Supplier Invoices"
 msgstr "Lieferanten Rechnungen"
@@ -265,9 +265,9 @@ msgid "invisible"
 msgstr "unsichtbar"
 
 #. module: c2c_product_price_unit
-#: code:addons/c2c_product_price_unit/sale.py:147
-#: code:addons/c2c_product_price_unit/sale.py:165
-#: code:addons/c2c_product_price_unit/wizard/purchase_line_invoice.py:124
+#: code:addons/c2c_product_price_unit/sale.py:163
+#: code:addons/c2c_product_price_unit/sale.py:181
+#: code:addons/c2c_product_price_unit/wizard/purchase_line_invoice.py:136
 #, python-format
 msgid "Error !"
 msgstr "Fehler! "
@@ -290,7 +290,7 @@ msgid "Price Unit"
 msgstr "Preis Einheit"
 
 #. module: c2c_product_price_unit
-#: code:addons/c2c_product_price_unit/sale.py:148
+#: code:addons/c2c_product_price_unit/sale.py:164
 #, python-format
 msgid "There is no income account defined for this product: \"%s\" (id:%d)"
 msgstr "Für dieses Produkt ist kein Ertragskonto definiert: \"%s\" (id:%d)"
@@ -321,7 +321,7 @@ msgid "Stock Move"
 msgstr "Lagerbuchung"
 
 #. module: c2c_product_price_unit
-#: code:addons/c2c_product_price_unit/wizard/purchase_line_invoice.py:125
+#: code:addons/c2c_product_price_unit/wizard/purchase_line_invoice.py:137
 #, python-format
 msgid "There is no expense account defined for this product: \"%s\" (id:%d)"
 msgstr "Für diese Produkt ist kein Aufwandskonto definiert: \"%s\" (id:%d)"
@@ -365,7 +365,7 @@ msgid "Sales Order Line"
 msgstr "Auftragsposition"
 
 #. module: c2c_product_price_unit
-#: code:addons/c2c_product_price_unit/stock.py:153
+#: code:addons/c2c_product_price_unit/stock.py:158
 #, python-format
 msgid "Please put a partner on the picking list if you want to generate invoice."
 msgstr "Bitte Partner für die Erstellung einer Rechnung eingeben"
