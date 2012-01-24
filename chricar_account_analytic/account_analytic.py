@@ -212,7 +212,7 @@ for balance accounts
     def check_analytic_account_none(self, cr, uid, ids, account_id, analytic_account_id):
         if account_id:
             account = self.browse(cr, uid,  account_id)
-            if account.analytic_account_id and account.account_analytic_usage == 'none':
+            if analytic_account_id and account.account_analytic_usage == 'none':
                 #print >> sys.stderr, 'Data Error', 'no analytic account allowed for ',account.name
                 return False
         return True
