@@ -35,7 +35,7 @@ class account_move(osv.osv):
            period_id = [context.get('period_id')]
         print >> sys.stderr,'post move period_id', period_id
         invoice_obj = context.get('invoice')
-        if not journal_id:
+        if invoice_obj and not journal_id:
            journal_id = invoice_obj.journal_id.id
         print >> sys.stderr,'post move journal', journal_id
         jour_obj = self.pool.get('account.journal')

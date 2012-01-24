@@ -33,7 +33,7 @@ class ir_sequence(osv.osv):
         self.check_read(cr, uid)
         company_ids = self.pool.get('res.company').search(cr, uid, [], order='company_id', context=context) + [False]
         fy_seq_id = sequence_id
-        if context['fiscalyear_id'] :
+        if context and context['fiscalyear_id'] :
           fy = context['fiscalyear_id'] 
           print >> sys.stderr,'fy', fy
           if fy:
