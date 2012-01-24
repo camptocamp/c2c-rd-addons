@@ -15,5 +15,18 @@
         </field>
       </field>
     </record>
+    <record model="ir.ui.view" id="c2c_account_journal_seq_tree">
+      <field name="name">account.journal.seq.tree</field>
+      <field name="model">account.journal</field>
+      <field name="inherit_id" ref="account.view_account_journal_tree"/>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <field name="company_id" position="after">
+          <field name="sequence_id"/>
+        </field>
+      </field>
+    </record>
+
+
   </data>
 </openerp>

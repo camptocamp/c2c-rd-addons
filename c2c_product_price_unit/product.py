@@ -44,7 +44,8 @@ class c2c_product_price_unit(osv.osv):
     _order = "coefficient asc,name"
 
     def get_coeff(self, cr, uid, price_unit_id, context=None):
-        if context is None:
+    #def get_coeff(self, cr, uid, price_unit_id):
+        if not context:
             context = {}
         
         print >> sys.stderr , 'price_unit_id',  price_unit_id 

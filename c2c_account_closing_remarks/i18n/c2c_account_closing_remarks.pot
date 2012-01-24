@@ -1,0 +1,106 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* c2c_account_closing_remarks
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 6.1rc1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-01-23 22:03+0000\n"
+"PO-Revision-Date: 2012-01-23 22:03+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: c2c_account_closing_remarks
+#: field:account.closing.text,account_id:0
+#: model:ir.model,name:c2c_account_closing_remarks.model_account_account
+msgid "Account"
+msgstr ""
+
+#. module: c2c_account_closing_remarks
+#: model:ir.actions.act_window,name:c2c_account_closing_remarks.action_account_closing_text
+#: model:ir.ui.menu,name:c2c_account_closing_remarks.menu_action_account_closing_text
+msgid "Closing Text"
+msgstr ""
+
+#. module: c2c_account_closing_remarks
+#: constraint:account.account:0
+msgid "Configuration Error! \n"
+"You can not select an account type with a deferral method different of \"Unreconciled\" for accounts with internal type \"Payable/Receivable\"! "
+msgstr ""
+
+#. module: c2c_account_closing_remarks
+#: constraint:account.account:0
+msgid "You must assign mandatory or fixed analytic account usage for P&L accounts"
+msgstr ""
+
+#. module: c2c_account_closing_remarks
+#: field:account.closing.text,company_id:0
+msgid "Company"
+msgstr ""
+
+#. module: c2c_account_closing_remarks
+#: sql_constraint:account.account:0
+msgid "The code of the account must be unique per company !"
+msgstr ""
+
+#. module: c2c_account_closing_remarks
+#: model:ir.actions.act_window,help:c2c_account_closing_remarks.action_account_closing_text
+msgid "Closing text per fiscal year"
+msgstr ""
+
+#. module: c2c_account_closing_remarks
+#: model:ir.model,name:c2c_account_closing_remarks.model_account_closing_text
+msgid "account.closing.text"
+msgstr ""
+
+#. module: c2c_account_closing_remarks
+#: constraint:account.account:0
+msgid "For views usage must be: Not Allowed"
+msgstr ""
+
+#. module: c2c_account_closing_remarks
+#: field:account.closing.text,fiscalyear_id:0
+msgid "Fiscal Year"
+msgstr ""
+
+#. module: c2c_account_closing_remarks
+#: view:account.closing.text:0
+msgid "Accounts"
+msgstr ""
+
+#. module: c2c_account_closing_remarks
+#: field:account.account,account_closing_remark_ids:0
+msgid "Account Closing Text"
+msgstr ""
+
+#. module: c2c_account_closing_remarks
+#: view:account.account:0
+msgid "Closing text"
+msgstr ""
+
+#. module: c2c_account_closing_remarks
+#: constraint:account.account:0
+msgid "Configuration Error! \n"
+"You can not define children to an account with internal type different of \"View\"! "
+msgstr ""
+
+#. module: c2c_account_closing_remarks
+#: constraint:account.account:0
+msgid "You must define an analytic account for fixed, else nothing"
+msgstr ""
+
+#. module: c2c_account_closing_remarks
+#: field:account.closing.text,closing_text:0
+msgid "Closing Remarks"
+msgstr ""
+
+#. module: c2c_account_closing_remarks
+#: constraint:account.account:0
+msgid "Error ! You can not create recursive accounts."
+msgstr ""
+

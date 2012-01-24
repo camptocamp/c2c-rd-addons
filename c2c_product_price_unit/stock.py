@@ -51,6 +51,8 @@ class stock_move(osv.osv):
                             help='Price using "Price Units"') ,
         'price_unit'       : fields.float(string='Unit Price internal',  digits=(16, 8), \
                             help="""Product's cost for accounting stock valuation."""),
+        'price_unit_sale'  : fields.float(string='Unit Price Sale',  digits=(16, 8), \
+                            help="""Product's sale for accounting stock valuation."""),
 
         'price_unit_sale_id' : fields.many2one('c2c_product.price_unit','Price Unit Sale'),
         'price_unit_coeff':fields.float(string='Price/Coeff internal',digits=(16,8) ),
@@ -76,7 +78,7 @@ class stock_move(osv.osv):
            pu = self.pool.get('c2c_product.price_unit').browse(cr, uid, price_unit_id)
            price = price_pu / float(pu.coefficient)
            return {'value': {field_name : price}}
-        return False
+        return {}
         
     def onchange_product_id(self, cr, uid, ids, prod_id=False, loc_id=False,
                             loc_dest_id=False, address_id=False):
@@ -103,26 +105,29 @@ class stock_picking(osv.osv):
     def _invoice_line_hook(self, cr, uid, move_line, invoice_line_id):
         '''Call after the creation of the invoice line'''
         print >> sys.stderr,'price_unit invoice_line-hook',move_line,invoice_line_id
+        print >> sys.stderr,'price_unit invoice_line-hook move_line',move_line.id, move_line.price_unit_id,move_line.price_unit_pu
         # move_line => stock_move
         # invoice_line_id
         invoice_line_obj = self.pool.get('account.invoice.line')
-        stock_move_obj = self.pool.get('stock.move')
-        stock_move = stock_move_obj.browse(cr, uid, move_line, context=None)
-        if stock_move.price_unit_id:
-            price_unit_id = self.pool.get('c2c_product.price_unit').get_default_id(cr, uid, stock_move.price_unit_id.id)
-        else:
+        if move_line.purchase_line_id:
+          if not move_line.price_unit_id:
             price_unit_id = self.pool.get('c2c_product.price_unit').get_default_id(cr, uid, None)
-        coeff = self.pool.get('c2c_product.price_unit').get_coeff(cr, uid, price_unit_id)
-        print >> sys.stderr,'price_unit invoice_line-hook price',stock_move.price_unit , coeff
-        if stock_move.price_unit:
-            price_unit_pu = stock_move.price_unit * coeff  
-        else:
-            price_unit_pu = None
+          else:
+            price_unit_id = move_line.price_unit_id.id
+          coeff = self.pool.get('c2c_product.price_unit').get_coeff(cr, uid, price_unit_id)
+          print >> sys.stderr,'price_unit invoice_line-hook coeff:', coeff
+          price_unit_pu = move_line.price_unit_pu or move_line.price_unit * coeff or ''
+        if move_line.sale_line_id:
+          price_unit = move_line.price_unit or ''
+          price_unit_pu = move_line.price_unit_sale or ''
+          price_unit_id = move_line.price_unit_sale_id.id or ''
+          
         invoice_vals = {
                'price_unit_id' : price_unit_id,
                'price_unit_pu' : price_unit_pu,
                }
         invoice_line_obj.write(cr, uid, [invoice_line_id], invoice_vals, context=None)
+        #print >> sys.stderr,'price_unit invoice_line-hook vals:',move_line.price_unit , coeff, invoice_vals
 
         return
 

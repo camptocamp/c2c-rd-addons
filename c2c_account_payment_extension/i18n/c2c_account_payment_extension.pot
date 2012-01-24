@@ -1,0 +1,57 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* c2c_account_payment_extension
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 6.1rc1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-01-23 22:03+0000\n"
+"PO-Revision-Date: 2012-01-23 22:03+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: c2c_account_payment_extension
+#: sql_constraint:account.invoice:0
+msgid "Invoice Number must be unique per Company!"
+msgstr ""
+
+#. module: c2c_account_payment_extension
+#: constraint:account.invoice:0
+msgid "You must not define an analytic account."
+msgstr ""
+
+#. module: c2c_account_payment_extension
+#: constraint:res.partner:0
+msgid "Error: Invalid EAN code"
+msgstr ""
+
+#. module: c2c_account_payment_extension
+#: model:ir.model,name:c2c_account_payment_extension.model_payment_type
+msgid "Payment types"
+msgstr ""
+
+#. module: c2c_account_payment_extension
+#: model:ir.model,name:c2c_account_payment_extension.model_account_invoice
+msgid "Invoice"
+msgstr ""
+
+#. module: c2c_account_payment_extension
+#: model:ir.model,name:c2c_account_payment_extension.model_res_partner
+msgid "Partner"
+msgstr ""
+
+#. module: c2c_account_payment_extension
+#: constraint:account.invoice:0
+msgid "You must not alter a fixed analytic account."
+msgstr ""
+
+#. module: c2c_account_payment_extension
+#: constraint:account.invoice:0
+msgid "You must assign an analytic account.(invoice)"
+msgstr ""
+

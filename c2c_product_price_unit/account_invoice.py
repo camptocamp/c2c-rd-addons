@@ -88,12 +88,13 @@ class account_invoice_line(osv.osv):
        return res
 
     def onchange_price_unit(self, cr, uid, ids, field_name, qty, price_pu, price_unit_id):
+        res = {}
         if  price_pu and  price_unit_id and qty:
            coeff = self.pool.get('c2c_product.price_unit').get_coeff(cr, uid, price_unit_id)
            price = price_pu / float(coeff) 
            print  >>sys.stderr, 'invoice res q', field_name,qty,price_pu,price_unit_id,price
            return {'value': {field_name : price}}
-        return False
+        return res
 
 account_invoice_line()
 

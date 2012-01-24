@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 6.1rc1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-01-15 12:04+0000\n"
-"PO-Revision-Date: 2012-01-15 12:04+0000\n"
+"POT-Creation-Date: 2012-01-23 20:34+0000\n"
+"PO-Revision-Date: 2012-01-23 20:34+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -21,14 +21,19 @@ msgid "Error: Negative quantities for location and/or lots are not allowed for t
 msgstr "Fehler: negative Mengen sind für diesen Lagerort / Los nicht erlaubt"
 
 #. module: c2c_stock_accounting
+#: constraint:stock.move:0
+msgid "You try to assign a lot which is not from the same product"
+msgstr "Sie versuchen eine Losnummer ohne Bezug zu diesem Produkt zuzuweisen."
+
+#. module: c2c_stock_accounting
 #: model:ir.model,name:c2c_stock_accounting.model_stock_move
 msgid "Stock Move"
 msgstr "Lagerbuchung"
 
 #. module: c2c_stock_accounting
-#: field:stock.move,price_unit_sale:0
-msgid "Sale Price"
-msgstr "Verkaufspreis"
+#: constraint:stock.move:0
+msgid "You must assign a production lot for this product"
+msgstr "Sie müssen zwingend eine Losnummer für dieses Produkt angeben"
 
 #. module: c2c_stock_accounting
 #: constraint:stock.move:0
@@ -47,9 +52,9 @@ msgid "Period"
 msgstr "Periode"
 
 #. module: c2c_stock_accounting
-#: constraint:stock.move:0
-msgid "You must assign a production lot for this product"
-msgstr "Sie müssen zwingend eine Losnummer für dieses Produkt angeben"
+#: help:stock.move,price_unit_sale:0
+msgid "Product's sale for accounting stock valuation."
+msgstr "Product's sale for accounting stock valuation."
 
 #. module: c2c_stock_accounting
 #: field:stock.move,analytic_account_id:0
@@ -57,9 +62,9 @@ msgid "Analytic Account"
 msgstr "Analyse Konto"
 
 #. module: c2c_stock_accounting
-#: constraint:stock.move:0
-msgid "You try to assign a lot which is not from the same product"
-msgstr "Sie versuchen eine Losnummer ohne Bezug zu diesem Produkt zuzuweisen."
+#: field:stock.move,price_unit_sale:0
+msgid "Unit Price Sale"
+msgstr "Unit Price Sale"
 
 #. module: c2c_stock_accounting
 #: field:stock.move,move_value_cost:0

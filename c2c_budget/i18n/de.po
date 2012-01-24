@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 6.1rc1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-01-15 12:03+0000\n"
-"PO-Revision-Date: 2012-01-15 12:03+0000\n"
+"POT-Creation-Date: 2012-01-23 20:33+0000\n"
+"PO-Revision-Date: 2012-01-23 20:33+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,9 +16,9 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: c2c_budget
-#: model:ir.actions.wizard,name:c2c_budget.wizard_budget_by_period
-msgid "Budget By Periods"
-msgstr "Budget je Periode"
+#: field:c2c_budget.version,name:0
+msgid "Version Name"
+msgstr "Version Name"
 
 #. module: c2c_budget
 #: code:addons/c2c_budget/report/budget_vs_reality.py:45
@@ -42,7 +42,6 @@ msgid "Bold"
 msgstr "Fett"
 
 #. module: c2c_budget
-#: wizard_view:c2c_budget.validate_budget_structure,init:0
 #: model:ir.actions.wizard,name:c2c_budget.action_validate_budget_structure
 #: model:ir.actions.wizard,name:c2c_budget.wizard_validate_budget_structure
 msgid "Validate Budget Structure"
@@ -50,36 +49,19 @@ msgstr "Überprüfe Budgetstruktur"
 
 #. module: c2c_budget
 #: field:c2c_budget.item,company_id:0
-#: wizard_field:c2c_budget.validate_budget_structure,init,company:0
 #: field:c2c_budget.version,company_id:0
 msgid "Company"
 msgstr "Unternehmen"
 
 #. module: c2c_budget
-#: wizard_view:c2c_budget.validate_budget_structure,init:0
-msgid "Filter By Company"
-msgstr "Filter je Unternehmen"
+#: constraint:account.period:0
+msgid "Error ! The duration of the Period(s) is/are invalid. "
+msgstr "Fehler! Die Dauer der Periode(n) ist ungültig "
 
 #. module: c2c_budget
-#: selection:budget.by.periods,init,periods_nbr:0
-msgid "0"
-msgstr "0"
-
-#. module: c2c_budget
-#: selection:budget.by.periods,init,periods_nbr:0
-msgid "4"
-msgstr "4"
-
-#. module: c2c_budget
-#: wizard_view:c2c_budget.validate_budget_structure,init:0
-#: wizard_field:c2c_budget.validate_budget_structure,init,result:0
-msgid "Result To Display"
-msgstr "Anzuzeigende Ergebnisse"
-
-#. module: c2c_budget
-#: selection:budget.by.periods,init,periods_nbr:0
-msgid "8"
-msgstr "8"
+#: model:ir.actions.wizard,name:c2c_budget.wizard_budget_by_period
+msgid "Budget By Periods"
+msgstr "Budget je Periode"
 
 #. module: c2c_budget
 #: field:c2c_budget.version,user_id:0
@@ -87,35 +69,14 @@ msgid "User In Charge"
 msgstr "Zuständiger Benutzer"
 
 #. module: c2c_budget
-#: wizard_field:budgetlines.from.aa,init,versions:0
 #: view:c2c_budget.version:0
 msgid "Budgets Versions"
 msgstr "Budget Versionen"
 
 #. module: c2c_budget
-#: selection:c2c_budget.validate_budget_structure,init,result:0
-msgid "Accounts Linked Twice"
-msgstr "doppelt verlinkte Konten"
-
-#. module: c2c_budget
-#: selection:budget.by.periods,init,periods_nbr:0
-msgid "11"
-msgstr "11"
-
-#. module: c2c_budget
 #: model:ir.model,name:c2c_budget.model_account_account
 msgid "Account"
 msgstr "Konto"
-
-#. module: c2c_budget
-#: help:c2c_budget.validate_budget_structure,init,account_type:0
-msgid "Filter results by account"
-msgstr "Filter Ergebnisse je Konto"
-
-#. module: c2c_budget
-#: wizard_button:c2c_budget.validate_budget_structure,init,show_result:0
-msgid "Ok"
-msgstr "Ok"
 
 #. module: c2c_budget
 #: field:c2c_budget.item,level:0
@@ -133,26 +94,15 @@ msgid "Notes"
 msgstr "Notizen"
 
 #. module: c2c_budget
-#: wizard_field:budget.advanced_search,init,items:0
 #: view:c2c_budget.item:0
 #: model:ir.ui.menu,name:c2c_budget.menu_budget_item_list
 msgid "Budget Items"
 msgstr "Budget Zeile"
 
 #. module: c2c_budget
-#: selection:c2c_budget.item,style:0
-msgid "Invisible"
-msgstr "Unsichtbar"
-
-#. module: c2c_budget
 #: field:c2c_budget.line,amount:0
 msgid "Amount"
 msgstr "Betrag"
-
-#. module: c2c_budget
-#: selection:budget.by.periods,init,periods_nbr:0
-msgid "12"
-msgstr "12"
 
 #. module: c2c_budget
 #: field:c2c_budget.item,account:0
@@ -188,9 +138,9 @@ msgid "Analytic Account"
 msgstr "Analyse Konto"
 
 #. module: c2c_budget
-#: wizard_field:budget.by.periods,init,display_next:0
-msgid "Display Next"
-msgstr "Zeige Nächste"
+#: constraint:account.account:0
+msgid "For views usage must be: Not Allowed"
+msgstr "Für Sichten muss die Verwendung: Nicht erlaubt sein"
 
 #. module: c2c_budget
 #: view:c2c_budget.item:0
@@ -240,53 +190,15 @@ msgid "Item Chart Webkit"
 msgstr "Positions Plan Webkit"
 
 #. module: c2c_budget
-#: wizard_button:budget.by.periods,init,print:0
-#: wizard_button:budget.consolidation,init,print:0
-#: wizard_button:budget.vs.reality,init,print:0
-#: wizard_button:compare.budget.versions,init,print:0
-msgid "Print"
-msgstr "Drucke"
-
-#. module: c2c_budget
-#: wizard_view:c2c_budget.validate_budget_structure,init:0
-msgid "Filter By Account Type"
-msgstr "Filter je Kontotyp"
-
-#. module: c2c_budget
-#: wizard_field:c2c_budget.validate_budget_structure,init,account_type:0
-msgid "Account Type"
-msgstr "Kontotyp"
-
-#. module: c2c_budget
 #: field:c2c_budget.item,type:0
 msgid "Type"
 msgstr "Typ"
-
-#. module: c2c_budget
-#: wizard_field:budget.by.periods,init,display_previous:0
-msgid "Display Previous"
-msgstr "Zeige Vorige"
-
-#. module: c2c_budget
-#: constraint:account.account:0
-msgid "For views usage must be: Not Allowed"
-msgstr "Für Sichten muss die Verwendung: Nicht erlaubt sein"
 
 #. module: c2c_budget
 #: field:c2c_budget,create_date:0
 #: field:c2c_budget.version,create_date:0
 msgid "Creation Date"
 msgstr "Erzeugungsdatum"
-
-#. module: c2c_budget
-#: selection:budget.by.periods,init,periods_nbr:0
-msgid "3"
-msgstr "3"
-
-#. module: c2c_budget
-#: selection:budget.by.periods,init,periods_nbr:0
-msgid "7"
-msgstr "7"
 
 #. module: c2c_budget
 #: view:c2c_budget.item:0
@@ -306,7 +218,6 @@ msgid "Error ! You can not create recursive                 budget items structu
 msgstr "Fehler ! Sie dürfen keine rekursiven Budgetpositienen anlegen."
 
 #. module: c2c_budget
-#: wizard_field:budget.consolidation,init,versions:0
 #: view:c2c_budget:0
 msgid "Versions"
 msgstr "Versionen"
@@ -319,18 +230,7 @@ msgid "Budget"
 msgstr "Budget"
 
 #. module: c2c_budget
-#: selection:c2c_budget.validate_budget_structure,init,result:0
-msgid "Orphans Accounts"
-msgstr "verweiste Konten"
-
-#. module: c2c_budget
-#: wizard_field:budgetlines.from.aa,init,period_end:0
-msgid "End Period"
-msgstr "Ende Periode"
-
-#. module: c2c_budget
 #: code:addons/c2c_budget/report/compare_versions.py:45
-#: wizard_view:compare.budget.versions,init:0
 #: model:ir.actions.wizard,name:c2c_budget.wizard_compare_versions
 #, python-format
 msgid "Versions Comparing"
@@ -348,30 +248,13 @@ msgid "Analytic Budget Lines"
 msgstr "Analyse Budget Zeilen"
 
 #. module: c2c_budget
-#: wizard_view:budget.consolidation,init:0
-msgid "Select Periods (empty for all)"
-msgstr "Wähle Perioden (leer für alle)"
-
-#. module: c2c_budget
 #: field:c2c_budget.item,balance_real:0
 msgid "Balance REAL"
 msgstr "Saldo Ist"
 
 #. module: c2c_budget
-#: wizard_field:compare.budget.versions,init,version_1:0
-msgid "Version 1"
-msgstr "Version 1"
-
-#. module: c2c_budget
-#: wizard_field:compare.budget.versions,init,version_2:0
-msgid "Version 2"
-msgstr "Version 2"
-
-#. module: c2c_budget
-#: wizard_field:budget.consolidation,init,currency:0
 #: field:c2c_budget.line,currency_id:0
 #: field:c2c_budget.version,currency_id:0
-#: wizard_field:compare.budget.versions,init,currency:0
 msgid "Currency"
 msgstr "Währung"
 
@@ -381,9 +264,9 @@ msgid "You must define an analytic account for fixed, else nothing"
 msgstr "You must define an analytic account for fixed, else nothing"
 
 #. module: c2c_budget
-#: model:ir.actions.act_window,name:c2c_budget.dblc_budget_structure
-msgid "Open Item"
-msgstr "Öffne Position"
+#: model:ir.model,name:c2c_budget.model_c2c_budget_report_abstraction
+msgid "Report Abstraction"
+msgstr "Report Abstrakt"
 
 #. module: c2c_budget
 #: model:ir.actions.wizard,name:c2c_budget.wizard_budget_vs_reality
@@ -423,7 +306,6 @@ msgstr "Stiel"
 
 #. module: c2c_budget
 #: code:addons/c2c_budget/report/budget_consolidation.py:45
-#: wizard_view:budget.consolidation,init:0
 #: model:ir.actions.wizard,name:c2c_budget.wizard_budget_consolidation
 #, python-format
 msgid "Budget Consolidation"
@@ -453,16 +335,6 @@ msgid "Total Amount"
 msgstr "Total Amount"
 
 #. module: c2c_budget
-#: selection:budget.by.periods,init,periods_nbr:0
-msgid "2"
-msgstr "2"
-
-#. module: c2c_budget
-#: selection:budget.by.periods,init,periods_nbr:0
-msgid "6"
-msgstr "6"
-
-#. module: c2c_budget
 #: field:c2c_budget,active:0
 #: field:c2c_budget.item,active:0
 msgid "Active"
@@ -474,21 +346,11 @@ msgid "Here is a simple example: result=(%(ebitda)f+%(ebit)f)*2"
 msgstr "Ein Beispiel: result=(%(ebitda)f+%(ebit)f)*2"
 
 #. module: c2c_budget
-#: constraint:account.period:0
-msgid "Error ! The duration of the Period(s) is/are invalid. "
-msgstr "Fehler! Die Dauer der Periode(n) ist ungültig "
-
-#. module: c2c_budget
 #: code:addons/c2c_budget/report/budget_vs_reality.py:98
 #: code:addons/c2c_budget/report/budget_vs_reality.py:99
 #, python-format
 msgid "Actual"
 msgstr "Aktuell"
-
-#. module: c2c_budget
-#: wizard_view:budgetlines.from.aa,init:0
-msgid "Limits"
-msgstr "Beschränkungen"
 
 #. module: c2c_budget
 #: view:c2c_budget.item:0
@@ -499,11 +361,6 @@ msgstr "Start your formula by 'result=' and use standard math symbols with items
 #: field:c2c_budget.version,ref_date:0
 msgid "Reference Date"
 msgstr "Referenz Datum"
-
-#. module: c2c_budget
-#: wizard_field:budget.by.periods,init,from_date:0
-msgid "Starting From:"
-msgstr "Beginn ab:"
 
 #. module: c2c_budget
 #: field:c2c_budget.item,children_ids:0
@@ -561,25 +418,6 @@ msgid "Period"
 msgstr "Periode"
 
 #. module: c2c_budget
-#: wizard_field:budget.advanced_search,init,periods:0
-#: wizard_field:budget.consolidation,init,periods:0
-#: wizard_field:budget.vs.reality,init,periods:0
-#: wizard_field:compare.budget.versions,init,periods:0
-msgid "Periods"
-msgstr "Perioden"
-
-#. module: c2c_budget
-#: wizard_button:budget.advanced_search,init,end:0
-#: wizard_button:budget.by.periods,init,end:0
-#: wizard_button:budget.consolidation,init,end:0
-#: wizard_button:budget.vs.reality,init,end:0
-#: wizard_button:budgetlines.from.aa,init,end:0
-#: wizard_button:c2c_budget.validate_budget_structure,init,end:0
-#: wizard_button:compare.budget.versions,init,end:0
-msgid "Cancel"
-msgstr "Abbrechen"
-
-#. module: c2c_budget
 #: view:c2c_budget.item:0
 msgid "Children"
 msgstr "Kinder"
@@ -591,24 +429,9 @@ msgid "Budgets Structure"
 msgstr "Budget Struktur"
 
 #. module: c2c_budget
-#: wizard_button:budgetlines.from.aa,init,showlines:0
-msgid "Open budget lines"
-msgstr "Öffne Budgetzeilen"
-
-#. module: c2c_budget
-#: field:c2c_budget.version,name:0
-msgid "Version Name"
-msgstr "Version Name"
-
-#. module: c2c_budget
 #: field:c2c_budget.item,parent_id:0
 msgid "Parent Item"
 msgstr "Übergeordnete Position"
-
-#. module: c2c_budget
-#: wizard_view:budget.consolidation,init:0
-msgid "Select Versions (max 10 versions)"
-msgstr "Wähle Versionen  (max 10)"
 
 #. module: c2c_budget
 #: code:addons/c2c_budget/report/budget_by_period.py:190
@@ -637,29 +460,19 @@ msgid "Account period"
 msgstr "Zeitraum"
 
 #. module: c2c_budget
-#: selection:budget.by.periods,init,periods_nbr:0
-msgid "1"
-msgstr "1"
-
-#. module: c2c_budget
-#: selection:budget.by.periods,init,periods_nbr:0
-msgid "5"
-msgstr "5"
-
-#. module: c2c_budget
 #: field:c2c_budget.line,budget_item_id:0
 msgid "Budget Item"
 msgstr "Budget Position"
 
 #. module: c2c_budget
-#: selection:budget.by.periods,init,periods_nbr:0
-msgid "9"
-msgstr "9"
+#: selection:c2c_budget.item,style:0
+msgid "Invisible"
+msgstr "Unsichtbar"
 
 #. module: c2c_budget
-#: model:ir.model,name:c2c_budget.model_c2c_budget_report_abstraction
-msgid "Report Abstraction"
-msgstr "Report Abstrakt"
+#: model:ir.actions.act_window,name:c2c_budget.dblc_budget_structure
+msgid "Open Item"
+msgstr "Öffne Position"
 
 #. module: c2c_budget
 #: code:addons/c2c_budget/report/budget_by_period.py:165
@@ -671,19 +484,9 @@ msgid "Structure"
 msgstr "Struktur"
 
 #. module: c2c_budget
-#: selection:budget.by.periods,init,periods_nbr:0
-msgid "10"
-msgstr "10"
-
-#. module: c2c_budget
 #: field:c2c_budget,end_date:0
 msgid "End Date"
 msgstr "Ende Datum"
-
-#. module: c2c_budget
-#: wizard_field:budgetlines.from.aa,init,period_start:0
-msgid "Start Period"
-msgstr "Start Period"
 
 #. module: c2c_budget
 #: field:c2c_budget,name:0
@@ -692,24 +495,9 @@ msgid "Name"
 msgstr "Name"
 
 #. module: c2c_budget
-#: wizard_button:budget.advanced_search,init,open:0
-msgid "Show lines"
-msgstr "Zeige Zeilen"
-
-#. module: c2c_budget
-#: wizard_field:budget.by.periods,init,compare_item:0
-msgid "Ref. For % Comparing: "
-msgstr "Ref. für % Vergleich: "
-
-#. module: c2c_budget
 #: view:c2c_budget.item:0
 msgid "Reports"
 msgstr "Reports"
-
-#. module: c2c_budget
-#: wizard_field:budget.by.periods,init,periods_nbr:0
-msgid "Nb Periods"
-msgstr "Anz Perioden"
 
 #. module: c2c_budget
 #: sql_constraint:account.period:0
@@ -727,30 +515,10 @@ msgid "Sequence"
 msgstr "Sequenz"
 
 #. module: c2c_budget
-#: wizard_view:c2c_budget.validate_budget_structure,init:0
-msgid "Results"
-msgstr "Ergebnisse"
-
-#. module: c2c_budget
-#: wizard_view:compare.budget.versions,init:0
-msgid "Select periods (empty for all)"
-msgstr "Wähle Perioden (leer für alle)"
-
-#. module: c2c_budget
 #: model:ir.actions.wizard,name:c2c_budget.wizard_search_budget_lines
 #: model:ir.ui.menu,name:c2c_budget.menu_wizard_search_budget_lines
 msgid "Budget Lines Search"
 msgstr "Budget Zeilen Suche"
-
-#. module: c2c_budget
-#: wizard_view:c2c_budget.validate_budget_structure,init:0
-msgid "Filters"
-msgstr "Filter"
-
-#. module: c2c_budget
-#: wizard_view:budgetlines.from.aa,init:0
-msgid "Budgets Versions (empty for all)"
-msgstr "Budget Versionen (leer für alle)"
 
 #. module: c2c_budget
 #: code:addons/c2c_budget/report/budget_by_period.py:125
