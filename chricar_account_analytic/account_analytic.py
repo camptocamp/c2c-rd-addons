@@ -24,6 +24,8 @@ import time
 from osv import fields,osv
 import pooler
 import sys
+import netsvc
+from tools.translate import _
 
 # ************************************
 # account_account
@@ -192,28 +194,35 @@ for balance accounts
 #
 
     def check_analytic_account_exists(self, cr, uid, ids, account_id, analytic_account_id ):
-        
         if account_id:
+            logger = netsvc.Logger() 
             account = self.browse(cr, uid,  account_id)
             if account.account_analytic_usage in ('mandatory','fixed') and not analytic_account_id :
-                #print >> sys.stderr, 'Data Error', 'There is no analytic account defined for ',account.name
+                logger.notifyChannel('addons.'+self._name, netsvc.LOG_INFO,'missing analyitc account for FGF:  %s '%(account.name))
                 return False
         return True
 
     def check_analytic_account_fixed(self, cr, uid, ids, account_id, analytic_account_id):
         
         if account_id:
+            logger = netsvc.Logger() 
             account = self.browse(cr, uid,  account_id)
+            if analytic_account_id:
+                analytic = self.pool.get('account.analytic.account').browse(cr, uid,  analytic_account_id)
+                analytic_name = analytic.name
+            else:
+                analytic_name = _('No analytic account specified')
             if account.account_analytic_usage == 'fixed' and account.analytic_account_id.id != analytic_account_id :
-                #print >> sys.stderr, 'Data Error', 'Wrong analytic account for ',account.name
+                logger.notifyChannel('addons.'+self._name, netsvc.LOG_INFO,'wrong analyitc account for FGF:  %s %s'%(account.name, analytic_name))
                 return False
         return True
 
     def check_analytic_account_none(self, cr, uid, ids, account_id, analytic_account_id):
         if account_id:
+            logger = netsvc.Logger() 
             account = self.browse(cr, uid,  account_id)
             if analytic_account_id and account.account_analytic_usage == 'none':
-                #print >> sys.stderr, 'Data Error', 'no analytic account allowed for ',account.name
+                logger.notifyChannel('addons.'+self._name, netsvc.LOG_INFO,'no analytic account allowed for FGF:  %s '%(account.name))
                 return False
         return True
 
@@ -284,7 +293,7 @@ class account_move_line(osv.osv):
         (_check_analytic_account_fixed,
             'You must not alter a fixed analytic account.', ['analytic_account_id']),
         (_check_analytic_account_none,
-            'You must not define an analytic account.', ['analytic_account_id']),
+            'You must not define an analytic account.(accont_move_line)', ['analytic_account_id']),
         ]
 
     def create(self, cr, uid, vals, context=None, check=True):
@@ -326,7 +335,7 @@ class account_bank_statement_line(osv.osv):
         (_check_analytic_account_fixed,
             'You must not alter a fixed analytic account.', ['analytic_account_id']),
         (_check_analytic_account_none,
-            'You must not define an analytic account.', ['analytic_account_id']),
+            'You must not define an analytic account.(bankstatement line)', ['analytic_account_id']),
         ]
 
     def onchange_account(self, cr, uid, ids, account_id,tax_id, amount, partner_id):
@@ -412,12 +421,16 @@ class account_invoice_line(osv.osv):
     def _check_analytic_account_fixed(self, cr, uid, ids):
         for move in self.browse(cr, uid, ids):
             account_obj = self.pool.get('account.account')
-            return  account_obj.check_analytic_account_fixed(cr,uid,ids,move.account_id.id,move.account_analytic_id.id)
+            if move.invoice_id.state == 'open':
+                 return  account_obj.check_analytic_account_fixed(cr,uid,ids,move.account_id.id,move.account_analytic_id.id)
+            return True
 
     def _check_analytic_account_none(self, cr, uid, ids):
         for move in self.browse(cr, uid, ids):
             account_obj = self.pool.get('account.account')
-            return  account_obj.check_analytic_account_none(cr,uid,ids,move.account_id.id,move.account_analytic_id.id)
+            if move.invoice_id.state == 'open':
+                return  account_obj.check_analytic_account_none(cr,uid,ids,move.account_id.id,move.account_analytic_id.id)
+            return  True
         
     _constraints = [
         (_check_analytic_account_exists,

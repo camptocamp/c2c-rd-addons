@@ -55,7 +55,7 @@ other  - naming !!!
 ./auction/auction.py
        """,
      "category"     : "Accounting & Finance",
-     "depends"      : ["base","account","chricar_bank_vat","sale"],
+     "depends"      : ["base","account","chricar_bank_vat","sale","stock",],
      "init_xml"     : [],
      "demo_xml"     : [],
      "update_xml"   : ["account_analytic_view.xml"],
