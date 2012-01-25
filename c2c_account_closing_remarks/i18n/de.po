@@ -6,14 +6,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 6.1rc1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-01-23 20:32+0000\n"
-"PO-Revision-Date: 2012-01-23 20:32+0000\n"
-"Last-Translator: <>\n"
+"POT-Creation-Date: 2012-01-23 22:03+0000\n"
+"PO-Revision-Date: 2012-01-24 00:06+0000\n"
+"Last-Translator: Joël Grand-Guillaume @ CampToCamp "
+"<joel.grandguillaume@camptocamp.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: \n"
-"Plural-Forms: \n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2012-01-25 05:46+0000\n"
+"X-Generator: Launchpad (build 14719)\n"
 
 #. module: c2c_account_closing_remarks
 #: field:account.closing.text,account_id:0
@@ -29,15 +31,21 @@ msgstr "Abschluss Text"
 
 #. module: c2c_account_closing_remarks
 #: constraint:account.account:0
-msgid "Configuration Error! \n"
-"You can not select an account type with a deferral method different of \"Unreconciled\" for accounts with internal type \"Payable/Receivable\"! "
-msgstr "Konfiguration Fehler! \n"
-"You can not select an account type with a deferral method different of \"Unreconciled\" for accounts with internal type \"Payable/Receivable\"! "
+msgid ""
+"Configuration Error! \n"
+"You can not select an account type with a deferral method different of "
+"\"Unreconciled\" for accounts with internal type \"Payable/Receivable\"! "
+msgstr ""
+"Konfiguration Fehler! \n"
+"You can not select an account type with a deferral method different of "
+"\"Unreconciled\" for accounts with internal type \"Payable/Receivable\"! "
 
 #. module: c2c_account_closing_remarks
 #: constraint:account.account:0
-msgid "You must assign mandatory or fixed analytic account usage for P&L accounts"
-msgstr "You must assign mandatory or fixed analytic account usage for P&L accounts"
+msgid ""
+"You must assign mandatory or fixed analytic account usage for P&L accounts"
+msgstr ""
+"You must assign mandatory or fixed analytic account usage for P&L accounts"
 
 #. module: c2c_account_closing_remarks
 #: field:account.closing.text,company_id:0
@@ -86,10 +94,13 @@ msgstr "Abschluss Text"
 
 #. module: c2c_account_closing_remarks
 #: constraint:account.account:0
-msgid "Configuration Error! \n"
-"You can not define children to an account with internal type different of \"View\"! "
-msgstr "Konfiguration Fehler! \n"
-"Sie dürfen nur Sichten auswählen"
+msgid ""
+"Configuration Error! \n"
+"You can not define children to an account with internal type different of "
+"\"View\"! "
+msgstr ""
+"Konfiguration Fehler! \n"
+"Sie dürfen nur Sichten auswählen "
 
 #. module: c2c_account_closing_remarks
 #: constraint:account.account:0
@@ -105,4 +116,3 @@ msgstr "Abschluss Anmerkungen"
 #: constraint:account.account:0
 msgid "Error ! You can not create recursive accounts."
 msgstr "Fehler! Sie können keine rekursiven Konten definieren."
-

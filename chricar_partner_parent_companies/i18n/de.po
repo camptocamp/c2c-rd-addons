@@ -6,14 +6,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 6.1rc1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-01-23 20:35+0000\n"
-"PO-Revision-Date: 2012-01-23 20:35+0000\n"
-"Last-Translator: <>\n"
+"POT-Creation-Date: 2012-01-23 22:06+0000\n"
+"PO-Revision-Date: 2012-01-24 01:27+0000\n"
+"Last-Translator: Joël Grand-Guillaume @ CampToCamp "
+"<joel.grandguillaume@camptocamp.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: \n"
-"Plural-Forms: \n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2012-01-25 05:46+0000\n"
+"X-Generator: Launchpad (build 14719)\n"
 
 #. module: chricar_partner_parent_companies
 #: view:res.partner:0
@@ -32,7 +34,7 @@ msgstr "Beteiligungen"
 #. module: chricar_partner_parent_companies
 #: field:res.partner.parent_company,valid_fiscal_from:0
 msgid "Fiscal Valid From"
-msgstr "steuerl. gültig ab "
+msgstr "steuerl. gültig ab"
 
 #. module: chricar_partner_parent_companies
 #: view:res.partner.parent_company:0
@@ -179,4 +181,3 @@ msgstr "Partner"
 #: field:res.partner,participation_current_ids:0
 msgid "Participations Current"
 msgstr "Laufende Beteiligungen"
-

@@ -46,7 +46,7 @@ This module installs everything for Blaustauden
 ,"account_payment"
 ,"account_payment_customer_data"
 ,"account_payment_edifact"
-,"account_payment_extension"
+#,"account_payment_extension"
 ,"account_payment_sepa"
 ,"account_voucher"
 ,"analytic"

@@ -6,14 +6,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 6.1rc1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-01-23 20:33+0000\n"
-"PO-Revision-Date: 2012-01-23 20:33+0000\n"
-"Last-Translator: <>\n"
+"POT-Creation-Date: 2012-01-23 22:03+0000\n"
+"PO-Revision-Date: 2012-01-24 00:13+0000\n"
+"Last-Translator: Joël Grand-Guillaume @ CampToCamp "
+"<joel.grandguillaume@camptocamp.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: \n"
-"Plural-Forms: \n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2012-01-25 05:46+0000\n"
+"X-Generator: Launchpad (build 14719)\n"
 
 #. module: c2c_budget
 #: field:c2c_budget.version,name:0
@@ -33,7 +35,9 @@ msgstr "Budget c2c"
 
 #. module: c2c_budget
 #: constraint:c2c_budget.line:0
-msgid "The line's bugdet item must belong to the budget structure                 defined in the budget"
+msgid ""
+"The line's bugdet item must belong to the budget structure                 "
+"defined in the budget"
 msgstr "Die BUdgetposition muss zur Budgetstruktur gehören"
 
 #. module: c2c_budget
@@ -149,8 +153,10 @@ msgstr "Konten"
 
 #. module: c2c_budget
 #: constraint:account.account:0
-msgid "You must assign mandatory or fixed analytic account usage for P&L accounts"
-msgstr "You must assign mandatory or fixed analytic account usage for P&L accounts"
+msgid ""
+"You must assign mandatory or fixed analytic account usage for P&L accounts"
+msgstr ""
+"You must assign mandatory or fixed analytic account usage for P&L accounts"
 
 #. module: c2c_budget
 #: constraint:account.analytic.account:0
@@ -202,8 +208,12 @@ msgstr "Erzeugungsdatum"
 
 #. module: c2c_budget
 #: view:c2c_budget.item:0
-msgid "For item of type 'view', you can define a method of calculation based on other items."
-msgstr "Für Sichten kann eine Rechenregel basierend auf anderen Positionen definiert werden"
+msgid ""
+"For item of type 'view', you can define a method of calculation based on "
+"other items."
+msgstr ""
+"Für Sichten kann eine Rechenregel basierend auf anderen Positionen definiert "
+"werden"
 
 #. module: c2c_budget
 #: field:c2c_budget,budget_version_ids:0
@@ -214,7 +224,8 @@ msgstr "Budget Versionen"
 
 #. module: c2c_budget
 #: constraint:c2c_budget.item:0
-msgid "Error ! You can not create recursive                 budget items structure."
+msgid ""
+"Error ! You can not create recursive                 budget items structure."
 msgstr "Fehler ! Sie dürfen keine rekursiven Budgetpositienen anlegen."
 
 #. module: c2c_budget
@@ -284,10 +295,13 @@ msgstr "Budget Zeilen"
 
 #. module: c2c_budget
 #: constraint:account.account:0
-msgid "Configuration Error! \n"
-"You can not define children to an account with internal type different of \"View\"! "
-msgstr "Konfiguration Fehler! \n"
-"Sie dürfen nur Sichten auswählen"
+msgid ""
+"Configuration Error! \n"
+"You can not define children to an account with internal type different of "
+"\"View\"! "
+msgstr ""
+"Konfiguration Fehler! \n"
+"Sie dürfen nur Sichten auswählen "
 
 #. module: c2c_budget
 #: field:c2c_budget,start_date:0
@@ -354,8 +368,14 @@ msgstr "Aktuell"
 
 #. module: c2c_budget
 #: view:c2c_budget.item:0
-msgid "Start your formula by 'result=' and use standard math symbols with items codes surrounded by %()f . Items' codes will be replaced by items' values and then parsed in python code. So be sure to be python compilant."
-msgstr "Start your formula by 'result=' and use standard math symbols with items codes surrounded by %()f . Items' codes will be replaced by items' values and then parsed in python code. So be sure to be python compilant."
+msgid ""
+"Start your formula by 'result=' and use standard math symbols with items "
+"codes surrounded by %()f . Items' codes will be replaced by items' values "
+"and then parsed in python code. So be sure to be python compilant."
+msgstr ""
+"Start your formula by 'result=' and use standard math symbols with items "
+"codes surrounded by %()f . Items' codes will be replaced by items' values "
+"and then parsed in python code. So be sure to be python compilant."
 
 #. module: c2c_budget
 #: field:c2c_budget.version,ref_date:0
@@ -397,10 +417,14 @@ msgstr "Code"
 
 #. module: c2c_budget
 #: constraint:account.account:0
-msgid "Configuration Error! \n"
-"You can not select an account type with a deferral method different of \"Unreconciled\" for accounts with internal type \"Payable/Receivable\"! "
-msgstr "Konfiguration Fehler! \n"
-"You can not select an account type with a deferral method different of \"Unreconciled\" for accounts with internal type \"Payable/Receivable\"! "
+msgid ""
+"Configuration Error! \n"
+"You can not select an account type with a deferral method different of "
+"\"Unreconciled\" for accounts with internal type \"Payable/Receivable\"! "
+msgstr ""
+"Konfiguration Fehler! \n"
+"You can not select an account type with a deferral method different of "
+"\"Unreconciled\" for accounts with internal type \"Payable/Receivable\"! "
 
 #. module: c2c_budget
 #: model:ir.model,name:c2c_budget.model_c2c_budget_item
@@ -409,8 +433,12 @@ msgstr "Budget Position"
 
 #. module: c2c_budget
 #: constraint:account.period:0
-msgid "Invalid period ! Some periods overlap or the date period is not in the scope of the fiscal year. "
-msgstr "Ungültige Periode! Diese überlappen oder liegen außerhalb des Geschäftsjahres "
+msgid ""
+"Invalid period ! Some periods overlap or the date period is not in the scope "
+"of the fiscal year. "
+msgstr ""
+"Ungültige Periode! Diese überlappen oder liegen außerhalb des "
+"Geschäftsjahres "
 
 #. module: c2c_budget
 #: field:c2c_budget.line,period_id:0
@@ -526,4 +554,3 @@ msgstr "Budget Zeilen Suche"
 #, python-format
 msgid "Total"
 msgstr "Total"
-

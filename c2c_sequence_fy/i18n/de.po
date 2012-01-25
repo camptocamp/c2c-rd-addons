@@ -6,14 +6,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 6.1rc1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-01-23 20:34+0000\n"
-"PO-Revision-Date: 2012-01-23 20:34+0000\n"
-"Last-Translator: <>\n"
+"POT-Creation-Date: 2012-01-23 22:04+0000\n"
+"PO-Revision-Date: 2012-01-24 00:25+0000\n"
+"Last-Translator: Joël Grand-Guillaume @ CampToCamp "
+"<joel.grandguillaume@camptocamp.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: \n"
-"Plural-Forms: \n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2012-01-25 05:46+0000\n"
+"X-Generator: Launchpad (build 14719)\n"
 
 #. module: c2c_sequence_fy
 #: sql_constraint:ir.sequence.type:0
@@ -22,8 +24,10 @@ msgstr "`code` muss eindeutig sein"
 
 #. module: c2c_sequence_fy
 #: constraint:account.move:0
-msgid "You can not create more than one move per period on centralized journal"
-msgstr "Sie können nur eine Buchung je Periode für zentralisierte Journale erzeugen"
+msgid ""
+"You can not create more than one move per period on centralized journal"
+msgstr ""
+"Sie können nur eine Buchung je Periode für zentralisierte Journale erzeugen"
 
 #. module: c2c_sequence_fy
 #: selection:account.journal,create_sequence:0
@@ -70,8 +74,12 @@ msgstr "Fehler! Der Beginn des geschäftsjahres muss vor dem Ende liegen."
 #. module: c2c_sequence_fy
 #: help:account.journal,create_sequence:0
 #: help:ir.sequence.type,create_sequence:0
-msgid "Sequence will be created on the fly using the code of the journal and for fy the fy prefix to compose the prefix"
-msgstr "Sequence will be created on the fly using the code of the journal and for fy the fy prefix to compose the prefix"
+msgid ""
+"Sequence will be created on the fly using the code of the journal and for fy "
+"the fy prefix to compose the prefix"
+msgstr ""
+"Sequence will be created on the fly using the code of the journal and for fy "
+"the fy prefix to compose the prefix"
 
 #. module: c2c_sequence_fy
 #: model:ir.model,name:c2c_sequence_fy.model_account_journal
@@ -98,8 +106,12 @@ msgstr "Create per Fiscal Year"
 
 #. module: c2c_sequence_fy
 #: view:ir.sequence.installer:0
-msgid "You may choose to replace all '(year)' prefix and suffix occurrences by '(fy)'."
-msgstr "You may choose to replace all '(year)' prefix and suffix occurrences by '(fy)'."
+msgid ""
+"You may choose to replace all '(year)' prefix and suffix occurrences by "
+"'(fy)'."
+msgstr ""
+"You may choose to replace all '(year)' prefix and suffix occurrences by "
+"'(fy)'."
 
 #. module: c2c_sequence_fy
 #: model:ir.model,name:c2c_sequence_fy.model_ir_sequence
@@ -108,8 +120,12 @@ msgstr "ir.sequence"
 
 #. module: c2c_sequence_fy
 #: model:ir.actions.act_window,help:c2c_sequence_fy.action_sequence_configuration_installer
-msgid "For all accounting-based sequences it is better to use the fiscal year instead of the calendar year."
-msgstr "Für alle Buchhaltungssequenzen ist es besser das Geschäftsjahr statt se Kalenderjahres zu verwenden."
+msgid ""
+"For all accounting-based sequences it is better to use the fiscal year "
+"instead of the calendar year."
+msgstr ""
+"Für alle Buchhaltungssequenzen ist es besser das Geschäftsjahr statt se "
+"Kalenderjahres zu verwenden."
 
 #. module: c2c_sequence_fy
 #: field:account.journal,prefix_pattern:0
@@ -147,8 +163,12 @@ msgstr "Geschäftsjahr"
 
 #. module: c2c_sequence_fy
 #: constraint:account.journal:0
-msgid "Configuration error! The currency chosen should be shared by the default accounts too."
-msgstr "Configuration error! The currency chosen should be shared by the default accounts too."
+msgid ""
+"Configuration error! The currency chosen should be shared by the default "
+"accounts too."
+msgstr ""
+"Configuration error! The currency chosen should be shared by the default "
+"accounts too."
 
 #. module: c2c_sequence_fy
 #: help:ir.sequence.type,prefix_pattern:0
@@ -158,7 +178,9 @@ msgstr "Präfix Muster der Sequenz"
 #. module: c2c_sequence_fy
 #: view:ir.sequence:0
 msgid "Current Fiscal Year: %(fy)s (see sequence code in fiscalyear)"
-msgstr "Laufendes Geschäftsjahr: %(fy)s (beachte Sequenz-Code im Geschäftsjahrferdinand)"
+msgstr ""
+"Laufendes Geschäftsjahr: %(fy)s (beachte Sequenz-Code im "
+"Geschäftsjahrferdinand)"
 
 #. module: c2c_sequence_fy
 #: view:ir.sequence:0
@@ -204,16 +226,26 @@ msgstr "Ersetz Kalender- durch Geschäftsjahr"
 #. module: c2c_sequence_fy
 #: sql_constraint:account.journal:0
 msgid "The code of the journal must be unique per company !"
-msgstr "Die Kurzbezeichnung des Journals sollte eindeutig sein je Unternehmen (Mandant)."
+msgstr ""
+"Die Kurzbezeichnung des Journals sollte eindeutig sein je Unternehmen "
+"(Mandant)."
 
 #. module: c2c_sequence_fy
 #: help:account.fiscalyear,sequence_code:0
-msgid "This code will be used to format the start date of the fiscalyear for the placeholder 'fy' defined for sequences as prefix and suffix.\n"
-"Example: a fiscal year starting on March 1st with a sequence code %Ya will generate 2011a.\n"
-"This allows to handle multiple fiscal years per calendar year and fiscal years not matching calendar years easily"
-msgstr "This code will be used to format the start date of the fiscalyear for the placeholder 'fy' defined for sequences as prefix and suffix.\n"
-"Example: a fiscal year starting on March 1st with a sequence code %Ya will generate 2011a.\n"
-"This allows to handle multiple fiscal years per calendar year and fiscal years not matching calendar years easily"
+msgid ""
+"This code will be used to format the start date of the fiscalyear for the "
+"placeholder 'fy' defined for sequences as prefix and suffix.\n"
+"Example: a fiscal year starting on March 1st with a sequence code %Ya will "
+"generate 2011a.\n"
+"This allows to handle multiple fiscal years per calendar year and fiscal "
+"years not matching calendar years easily"
+msgstr ""
+"This code will be used to format the start date of the fiscalyear for the "
+"placeholder 'fy' defined for sequences as prefix and suffix.\n"
+"Example: a fiscal year starting on March 1st with a sequence code %Ya will "
+"generate 2011a.\n"
+"This allows to handle multiple fiscal years per calendar year and fiscal "
+"years not matching calendar years easily"
 
 #. module: c2c_sequence_fy
 #: view:ir.sequence:0
@@ -224,4 +256,3 @@ msgstr "Abgekürzter Sequenz Code: %(stc)s"
 #: help:account.journal,suffix_pattern:0
 msgid "Suffix pattern for the sequence if not defined in sequence"
 msgstr "Suffix pattern for the sequence if not defined in sequence"
-
