@@ -6,17 +6,60 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 5.0.14\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
-"POT-Creation-Date: 2010-11-22 10:19:32+0000\n"
-"PO-Revision-Date: 2010-11-22 10:19:32+0000\n"
-"Last-Translator: <>\n"
+"POT-Creation-Date: 2012-01-23 22:04+0000\n"
+"PO-Revision-Date: 2012-01-24 01:31+0000\n"
+"Last-Translator: Joël Grand-Guillaume @ CampToCamp "
+"<joel.grandguillaume@camptocamp.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: \n"
-"Plural-Forms: \n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2012-01-25 05:46+0000\n"
+"X-Generator: Launchpad (build 14719)\n"
 
 #. module: c2c_reporting_tools
-#: model:ir.module.module,shortdesc:c2c_reporting_tools.module_meta_information
-msgid "c2c Reporting Tools. A library that provide a new way to create clean reports efficiently"
-msgstr "c2c Reporting Tools. A library that provide a new way to create clean reports efficiently"
+#: code:addons/c2c_reporting_tools/flowables/timebox_chart.py:102
+#, python-format
+msgid "Months"
+msgstr ""
 
+#. module: c2c_reporting_tools
+#: code:addons/c2c_reporting_tools/flowables/timebox_chart.py:104
+#, python-format
+msgid "Days"
+msgstr ""
+
+#. module: c2c_reporting_tools
+#: code:addons/c2c_reporting_tools/flowables/timebox_chart.py:101
+#, python-format
+msgid "Years"
+msgstr ""
+
+#. module: c2c_reporting_tools
+#: code:addons/c2c_reporting_tools/flowables/simple_row_table.py:134
+#, python-format
+msgid "User"
+msgstr ""
+
+#. module: c2c_reporting_tools
+#: code:addons/c2c_reporting_tools/flowables/simple_row_table.py:138
+#, python-format
+msgid "Time"
+msgstr ""
+
+#. module: c2c_reporting_tools
+#: code:addons/c2c_reporting_tools/flowables/timebox_chart.py:103
+#, python-format
+msgid "Weeks"
+msgstr ""
+
+#. module: c2c_reporting_tools
+#: code:addons/c2c_reporting_tools/flowables/simple_row_table.py:137
+#, python-format
+msgid "Projects"
+msgstr ""
+
+#. module: c2c_reporting_tools
+#: model:ir.model,name:c2c_reporting_tools.model_c2c_helper
+msgid "c2c_helper"
+msgstr ""
