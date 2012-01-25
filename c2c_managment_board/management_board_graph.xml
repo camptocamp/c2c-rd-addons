@@ -7,16 +7,16 @@
       <field name="type">form</field>
       <field name="arch" type="xml">
         <form string="Manager Board">
-          <hpaned position="100">
-            <child1>
-              <action colspan="4" name="%(action_report_sale_order_board_tree)d" string="Sales Orders" view_mode="graph,tree"/>
-              <action colspan="4" name="%(action_report_invoice_board_tree)d" string="Invoices" view_mode="graph,tree"/>
-            </child1>
-            <child2>
-              <action colspan="4" name="%(action_report_purchase_order_board_tree)d" string="Purchase Orders" view_mode="graph,tree"/>
-              <action colspan="4" name="%(action_report_finance_board_tree)d" string="Finance" view_mode="graph,tree"/>
-            </child2>
-          </hpaned>
+          <board style="1-1">
+            <column>
+              <action name="%(action_report_sale_order_board_tree)d" string="Sales Orders" />
+              <action name="%(action_report_invoice_board_tree)d" string="Invoices" />
+            </column>
+            <column>
+              <action name="%(action_report_purchase_order_board_tree)d" string="Purchase Orders" />
+              <action name="%(action_report_finance_board_tree)d" string="Finance" />
+            </column>
+          </board>
         </form>
       </field>
     </record>
