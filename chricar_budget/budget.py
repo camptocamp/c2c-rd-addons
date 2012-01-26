@@ -265,7 +265,7 @@ class chricar_budget_surface(osv.osv):
                                    and l.id = s.location_id
                                    and s.product_id = %d
                                    and s.location_id = %d
-                                   and to_char(date_planned,'YYYY-MM-DD') between '%s' and '%s'""" % (product,location,fy_date_start,fy_date_stop))
+                                   and to_char(date_expected,'YYYY-MM-DD') between '%s' and '%s'""" % (product,location,fy_date_start,fy_date_stop))
             harvest = cr.fetchone()
             harvest = harvest[0]
             print >>sys.stderr,'harvest detail 2',product,location, fy_date_start, fy_date_stop,harvest
