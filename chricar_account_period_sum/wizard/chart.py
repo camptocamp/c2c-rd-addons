@@ -156,7 +156,7 @@ class account_chart_sum(osv.osv_memory):
             result = rep_obj.read(cr, uid, [id], context=context)[0]
             #FIXME 
             # does not open report
-        print >>sys.stderr, 'result ', result
+        #print >>sys.stderr, 'result ', result
 
         result['periods'] = []
         if data['period_from'] and data['period_to']:
@@ -207,7 +207,7 @@ class account_chart_sum(osv.osv_memory):
         context.update({'open':'report'})
         print >> sys.stderr, 'context after',context
         res= self.account_chart_sum_open( cr, uid, ids, context)
-        print >> sys.stderr, 'after res', res
+        #print >> sys.stderr, 'after res', res
 
         ##print  >> sys.stderr, 'webkit',  report_sxw.report_sxw('report.account_account.tree_sum',
         ##               'account.account', 
