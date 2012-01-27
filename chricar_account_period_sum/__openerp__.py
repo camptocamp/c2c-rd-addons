@@ -68,7 +68,7 @@
 
     """,
     "category" : "Generic Modules/Others",
-    "depends" : ["base","report_webkit", "account", "c2c_account_closing_remarks", "chricar_view_id"],
+    "depends" : ["base","report_webkit", "account", "c2c_account_closing_remarks", "chricar_view_id","report_webkit_chapter_server"],
     "init_xml" : [],
     "demo_xml" : [],
     "update_xml" : ["chricar_account_period_sum_view.xml","wizard/chart.xml","security/rule.xml","security/ir.model.access.csv","report_chart.xml"],
