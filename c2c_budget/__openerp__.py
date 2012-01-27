@@ -52,7 +52,8 @@
                         "c2c_budget_view.xml",
                         "c2c_budget_wizard.xml",
                         "security/ir.model.access.csv",
-                        "report_chart.xml"
+                        "report_chart.xml",
+                        "wizard/chart.xml"
                     ],
     "active": False,
     "installable": True

@@ -1,4 +1,10 @@
 <html>
+%if context['data'] and context['data'].get('form'):
+  <%form = True%>
+%else:
+  <%form = False%>
+%endif
+
 <head>
                 <b>Budget Structure</b> requested by ${user.name}
 </head>
@@ -16,21 +22,36 @@
 
 <p>
 Selection:
-%if context['data'] :
-<%doc>
-    FIXME - print default or actual paramaters
-            waiting for Nicalas to fix bug and pass form params
-</%doc>
+%if form :
+
   <table>
             <tr>
-            <td>budget: year to current month</td>
-            <td>real: year to current month </td>
+            <td>current year: ${context['data']['form']['period_from_name']} - ${context['data']['form']['period_to_name']}</td>
+<!-- not yet defined
+            <td>previous year: ${context['data']['form']['period_prev_from_name']} - ${context['data']['form']['period_prev_to_name']}</td>
+-->
+%if context['data']['form']['print_previous_1000'] == 1:
+            <td>previous year in 1000</td>
+%endif
+%if form and context['data']['form']['print_views_only'] == 1:
+            <td>print only views</td>
+%endif
+            </tr>
+  </table>
+
+%else:
+  <table>
+            <tr>
+            <td>current: all posted</td>
+            <td>previous: year to current month </td>
             </tr>
   </table>
 %endif
-<p>
+</p>
+
+
+
 <%chapter = helper.chapter() %>
-<% chapter.__init__() %>
 
 
     <table  >

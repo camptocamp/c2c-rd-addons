@@ -35,3 +35,4 @@ import advanced_search
 import compare_versions
 import budget_consolidation
 import budget_vs_reality
+import chart
