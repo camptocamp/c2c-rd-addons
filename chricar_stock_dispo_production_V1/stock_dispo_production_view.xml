@@ -333,31 +333,37 @@ Modification of Parents (only for matching table prefixes)
                 <page string="Defaults">
                   <field
                     domain="[('usage', '=', 'internal')]"
+                    colspan="4"
                     name="location_id"/>
                   <field
                     domain="[('usage', 'in', ['internal','customer'])]"
+                    colspan="4"
                     name="location_dest_id"/>
                   <separator colspan="4" string="Special Locations"/>
                   <field
                     domain="[('usage', '=', 'internal')]"
+                    colspan="4"
                     name="location_big_id"/>
                   <field
                     domain="[('usage', '=', 'internal')]"
+                    colspan="4"
                     name="location_faulty_id"/>
                   <field
                     domain="[('usage', '=', 'internal')]"
+                    colspan="4"
                     name="location_small_id"/>
                   <field
                     domain="[('usage', '=', 'inventory')]"
+                    colspan="4"
                     name="location_waste_id"/>
                   <separator colspan="4" string="Product Properties"/>
                   <field name="quality" required="True" string="Ordered Assortment"/>
-                  <field name="location_product_id" required="True"/>
                   <field
                     context="{'location_id':location_id, 'product_id':product_id}"
                     domain="[('product_id','=',product_id)]"
                     name="prodlot_id"
                     required="True"/>
+                  <field name="location_product_id" required="True" colspan="4"/>
                   <separator colspan="4" string="Transport Packaging"/>
                   <field name="product_packaging_id"/>
                   <field name="trading_unit_owner_id" colspan="4"/>
