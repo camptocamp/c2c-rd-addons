@@ -151,7 +151,7 @@ class account_account(osv.osv):
             return res
 
     def __compute_prev_sum(self, cr, uid, ids, field_names, arg=None, context=None,
-                  query='', query_params=''):
+                  query=None, query_params=None):
         """ compute the balance, debit and/or credit for the provided
         account ids
         Arguments:
@@ -169,7 +169,7 @@ class account_account(osv.osv):
         }
         #get all the necessary accounts
         children_and_consolidated = self._get_children_and_consol(cr, uid, ids, context=context)
-        #self.logger.notifyChannel('addons.'+self._name, netsvc.LOG_DEBUG,'Children: %s'%children_and_consolidated)
+        self.logger.notifyChannel('addons.'+self._name, netsvc.LOG_DEBUG,'Children: %s'%children_and_consolidated)
 
         #compute for each account the balance/debit/credit from the move lines
         accounts = {}
@@ -208,17 +208,19 @@ class account_account(osv.osv):
             # ON l.account_id = tmp.id
             # or make _get_children_and_consol return a query and join on that
             if not query_params:
-                 query_params = 'null'
+                 query_params = ''
+            params = (', '.join(map(str,children_and_consolidated)))
             request = ("SELECT l.account_id as id, " +\
                        ', '.join(map(mapping.__getitem__, field_names)) +
                        " FROM account_account_period_sum l" \
                        " WHERE l.account_id IN (%s) " \
                             + filters +
-                       " GROUP BY l.account_id") % (query_params)
+                       " GROUP BY l.account_id") % (params)
             #params = (tuple(children_and_consolidated),) 
-            params = (', '.join(map(str,children_and_consolidated)))
-            #self.logger.notifyChannel('addons.'+self._name, netsvc.LOG_DEBUG,'Request: %s'%request)
-            #self.logger.notifyChannel('addons.'+self._name, netsvc.LOG_DEBUG,'Params: %s'%params)
+            #params = (tuple(children_and_consolidated),) + query_params
+            #params = (', '.join(map(str,children_and_consolidated)))
+            self.logger.notifyChannel('addons.'+self._name, netsvc.LOG_DEBUG,'Request: %s'%request)
+            self.logger.notifyChannel('addons.'+self._name, netsvc.LOG_DEBUG,'Params: %s'%params)
             cr.execute(request, params)
             self.logger.notifyChannel('addons.'+self._name, netsvc.LOG_DEBUG,
                                       'Status: %s'%cr.statusmessage)

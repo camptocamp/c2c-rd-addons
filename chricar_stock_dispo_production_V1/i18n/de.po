@@ -384,7 +384,7 @@ msgstr "zu groß"
 #. module: chricar_stock_dispo_production_V1
 #: view:sale.order:0
 msgid "Dispo Production Order Lines"
-msgstr "Prouktionsauftragszeilen"
+msgstr "Produktionsauftragszeilen"
 
 #. module: chricar_stock_dispo_production_V1
 #: view:sale.order:0
