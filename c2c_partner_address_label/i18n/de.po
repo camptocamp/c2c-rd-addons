@@ -6,14 +6,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 6.1rc1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-01-23 20:33+0000\n"
-"PO-Revision-Date: 2012-01-23 20:33+0000\n"
-"Last-Translator: <>\n"
+"POT-Creation-Date: 2012-01-23 22:04+0000\n"
+"PO-Revision-Date: 2012-01-24 00:17+0000\n"
+"Last-Translator: Joël Grand-Guillaume @ CampToCamp "
+"<joel.grandguillaume@camptocamp.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: \n"
-"Plural-Forms: \n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2012-01-27 05:56+0000\n"
+"X-Generator: Launchpad (build 14727)\n"
 
 #. module: c2c_partner_address_label
 #: constraint:res.company:0
@@ -57,8 +59,12 @@ msgstr "Rechts"
 
 #. module: c2c_partner_address_label
 #: help:res.company,address_label_position:0
-msgid "Position of address window on standard company enevlops. Many reports do not use this yet"
-msgstr "Position des Fensters auf den Fensterkuverts. (Viele Reports unterstützen das nicht)"
+msgid ""
+"Position of address window on standard company enevlops. Many reports do not "
+"use this yet"
+msgstr ""
+"Position des Fensters auf den Fensterkuverts. (Viele Reports unterstützen "
+"das nicht)"
 
 #. module: c2c_partner_address_label
 #: field:res.partner.address,address_label:0
@@ -85,4 +91,3 @@ msgstr "Konfiguration"
 #: selection:res.company,address_label_position:0
 msgid "Left"
 msgstr "Links"
-

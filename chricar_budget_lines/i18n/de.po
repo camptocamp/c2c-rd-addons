@@ -6,14 +6,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 6.1rc1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-01-23 20:35+0000\n"
-"PO-Revision-Date: 2012-01-23 20:35+0000\n"
-"Last-Translator: <>\n"
+"POT-Creation-Date: 2012-01-23 22:06+0000\n"
+"PO-Revision-Date: 2012-01-24 01:09+0000\n"
+"Last-Translator: Joël Grand-Guillaume @ CampToCamp "
+"<joel.grandguillaume@camptocamp.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: \n"
-"Plural-Forms: \n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2012-01-27 05:56+0000\n"
+"X-Generator: Launchpad (build 14727)\n"
 
 #. module: chricar_budget_lines
 #: help:chricar.budget_lines_production,quantity_base:0
@@ -65,13 +67,17 @@ msgstr "Budget Produkterlöse"
 
 #. module: chricar_budget_lines
 #: help:c2c_budget.version,budget_version_next_id:0
-msgid "This version will be used if production or sales date planning concern already the next year"
-msgstr "Dises Version wird verwendet, wenn das geplante Datum bereits im Folgejahr llegt"
+msgid ""
+"This version will be used if production or sales date planning concern "
+"already the next year"
+msgstr ""
+"Dises Version wird verwendet, wenn das geplante Datum bereits im Folgejahr "
+"llegt"
 
 #. module: chricar_budget_lines
 #: help:chricar.budget,amount_contribution:0
 msgid "Planned Detail Sales - Total Planned Costs"
-msgstr "geplante Detailerlöse - gesamte geplante Kosten "
+msgstr "geplante Detailerlöse - gesamte geplante Kosten"
 
 #. module: chricar_budget_lines
 #: view:c2c_budget.line:0
@@ -278,16 +284,21 @@ msgstr "Datum"
 
 #. module: chricar_budget_lines
 #: constraint:c2c_budget.item:0
-msgid "Error ! You can not create recursive                 budget items structure."
+msgid ""
+"Error ! You can not create recursive                 budget items structure."
 msgstr "Fehler ! Sie dürfen keine rekursiven Budgetpositienen anlegen."
 
 #. module: chricar_budget_lines
 #: help:c2c_budget.line,state:0
-msgid "Draft is exceptionally used to represent lines having not reached planned state.\n"
+msgid ""
+"Draft is exceptionally used to represent lines having not reached planned "
+"state.\n"
 "Planned is used to be included in budget sums.\n"
 "Product is used internally by product budget.\n"
 "Done is set automatically or manualy if the line materialized."
-msgstr "Draft is exceptionally used to represent lines having not reached planned state.\n"
+msgstr ""
+"Draft is exceptionally used to represent lines having not reached planned "
+"state.\n"
 "Planned is used to be included in budget sums.\n"
 "Product is used internally by product budget.\n"
 "Done is set automatically or manualy if the line materialized."
@@ -319,8 +330,12 @@ msgstr "Generate Sale Lines"
 
 #. module: chricar_budget_lines
 #: help:c2c_budget.item,is_p_l:0
-msgid "Check this if this budget item is P&L relevant (not for CF only like Investments)"
-msgstr "Check this if this budget item is P&L relevant (not for CF only like Investments)"
+msgid ""
+"Check this if this budget item is P&L relevant (not for CF only like "
+"Investments)"
+msgstr ""
+"Check this if this budget item is P&L relevant (not for CF only like "
+"Investments)"
 
 #. module: chricar_budget_lines
 #: field:chricar.budget.line.share,pl_quote:0
@@ -346,7 +361,7 @@ msgstr "Individuell"
 #: help:chricar.budget_lines_production,price_unit:0
 #: help:chricar.budget_lines_sales,price_unit:0
 msgid "Allows adjustmen of calculated Bom costs "
-msgstr "Erlaubt die anpassung der Stücklistenkosten"
+msgstr "Erlaubt die anpassung der Stücklistenkosten "
 
 #. module: chricar_budget_lines
 #: model:ir.actions.act_window,name:chricar_budget_lines.act_budget_version_2_lines
@@ -403,13 +418,18 @@ msgstr "CashFlow Lines"
 
 #. module: chricar_budget_lines
 #: constraint:c2c_budget.line:0
-msgid "The line's bugdet item must belong to the budget structure                 defined in the budget"
+msgid ""
+"The line's bugdet item must belong to the budget structure                 "
+"defined in the budget"
 msgstr "Die BUdgetposition muss zur Budgetstruktur gehören"
 
 #. module: chricar_budget_lines
 #: help:c2c_budget.version,budget_version_prev_id:0
-msgid "This version will be used if production or sales date planning still concern the previous year"
-msgstr "Dises Version wird verwendet, wenn das geplante datum noch im Vorjahr llegt"
+msgid ""
+"This version will be used if production or sales date planning still concern "
+"the previous year"
+msgstr ""
+"Dises Version wird verwendet, wenn das geplante datum noch im Vorjahr llegt"
 
 #. module: chricar_budget_lines
 #: field:chricar.budget,amount_contribution_total:0
@@ -436,8 +456,12 @@ msgstr "Intermediate 2"
 #: help:chricar.budget.line.share,consolidation:0
 #: help:chricar.budget.line.share,consolidation2:0
 #: help:chricar.budget.line.share,consolidation3:0
-msgid "True for direct ownership and partnerships, results (and cash flow) affect directly owner income statement"
-msgstr "True for direct ownership and partnerships, results (and cash flow) affect directly owner income statement"
+msgid ""
+"True for direct ownership and partnerships, results (and cash flow) affect "
+"directly owner income statement"
+msgstr ""
+"True for direct ownership and partnerships, results (and cash flow) affect "
+"directly owner income statement"
 
 #. module: chricar_budget_lines
 #: view:chricar.budget:0
@@ -466,8 +490,12 @@ msgstr "Deckungsbeitrag"
 
 #. module: chricar_budget_lines
 #: help:c2c_budget.item,is_cash:0
-msgid "Check this if this budget item is cash flow relevant (not for P&L only like depreciation"
-msgstr "Check this if this budget item is cash flow relevant (not for P&L only like depreciation"
+msgid ""
+"Check this if this budget item is cash flow relevant (not for P&L only like "
+"depreciation"
+msgstr ""
+"Check this if this budget item is cash flow relevant (not for P&L only like "
+"depreciation"
 
 #. module: chricar_budget_lines
 #: field:chricar.budget_lines_production,quantity:0
@@ -602,7 +630,7 @@ msgstr "Budget Version des Folgejahres"
 #. module: chricar_budget_lines
 #: help:chricar.budget_lines_production,quantity:0
 msgid "select 'Individual' to update the quantity manually "
-msgstr "Wähle \"individiell\" um die Menge manuell einzugeben"
+msgstr "Wähle \"individiell\" um die Menge manuell einzugeben "
 
 #. module: chricar_budget_lines
 #: field:chricar.budget.line.share,budget_item_id:0
@@ -617,7 +645,7 @@ msgstr "chricar.budget_lines_sales"
 #. module: chricar_budget_lines
 #: help:chricar.budget_lines_production,price_factor:0
 msgid "Allows adjustment of calculated BoM costs "
-msgstr "erlaubt die ANpassung von ermittelten Stücklistewerten"
+msgstr "erlaubt die ANpassung von ermittelten Stücklistewerten "
 
 #. module: chricar_budget_lines
 #: field:c2c_budget.version,budget_version_prev_id:0
@@ -704,4 +732,3 @@ msgstr "Cost"
 #: help:chricar.budget,qty_sales_open:0
 msgid "Production quantity not planned for sale"
 msgstr "Produktionsmenge nicht für Verkauf"
-

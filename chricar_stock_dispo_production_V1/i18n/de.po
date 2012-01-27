@@ -6,14 +6,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 6.1rc1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-01-23 20:36+0000\n"
-"PO-Revision-Date: 2012-01-23 20:36+0000\n"
-"Last-Translator: <>\n"
+"POT-Creation-Date: 2012-01-23 22:07+0000\n"
+"PO-Revision-Date: 2012-01-24 01:34+0000\n"
+"Last-Translator: Joël Grand-Guillaume @ CampToCamp "
+"<joel.grandguillaume@camptocamp.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: \n"
-"Plural-Forms: \n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2012-01-27 05:56+0000\n"
+"X-Generator: Launchpad (build 14727)\n"
 
 #. module: chricar_stock_dispo_production_V1
 #: field:sale.order.line,location_big_id:0
@@ -135,7 +137,9 @@ msgstr "Bestätigt"
 #. module: chricar_stock_dispo_production_V1
 #: help:sale.order.line,location_small_id:0
 msgid "To small products will be moved to this location, defaults to source"
-msgstr "Zu kleine Produkte werden auf dieses Lager gebucht, standard ist das Herkunftslager"
+msgstr ""
+"Zu kleine Produkte werden auf dieses Lager gebucht, standard ist das "
+"Herkunftslager"
 
 #. module: chricar_stock_dispo_production_V1
 #: help:sale.order.line,location_dest_id:0
@@ -150,8 +154,10 @@ msgstr "Status"
 
 #. module: chricar_stock_dispo_production_V1
 #: sql_constraint:stock.production.lot:0
-msgid "The combination of serial number and internal reference must be unique !"
-msgstr "Die Kombination von Serinenummer und interner Referenz muss eindeutig sein."
+msgid ""
+"The combination of serial number and internal reference must be unique !"
+msgstr ""
+"Die Kombination von Serinenummer und interner Referenz muss eindeutig sein."
 
 #. module: chricar_stock_dispo_production_V1
 #: field:stock.move,order_line_id:0
@@ -175,10 +181,15 @@ msgstr "Dieser Wert wird als Qualität in jede Zeile übernommen"
 
 #. module: chricar_stock_dispo_production_V1
 #: help:stock.production.lot,global_gap_number:0
-msgid "GLOBALG.A.P introduced the GLOBALG.A.P number (GGN) to identify each legal entity regis-\n"
-"tered (individual producers) in the GLOBALG.A.P database. This 13-digit number (e.g.\n"
-"4049929000000) is unique and remains valid and attached to the legal entity as long as it exists.\n"
-"It serves as search key on the GLOBALG.A.P website to validate certificates.\n"
+msgid ""
+"GLOBALG.A.P introduced the GLOBALG.A.P number (GGN) to identify each legal "
+"entity regis-\n"
+"tered (individual producers) in the GLOBALG.A.P database. This 13-digit "
+"number (e.g.\n"
+"4049929000000) is unique and remains valid and attached to the legal entity "
+"as long as it exists.\n"
+"It serves as search key on the GLOBALG.A.P website to validate "
+"certificates.\n"
 "Remark:\n"
 "We put it here, because \n"
 "* it changes with every harvest and \n"
@@ -186,10 +197,15 @@ msgid "GLOBALG.A.P introduced the GLOBALG.A.P number (GGN) to identify each lega
 "* is only necessary/valid for certain products\n"
 "to avoid data entry for every Sales Order\n"
 " "
-msgstr "GLOBALG.A.P introduced the GLOBALG.A.P number (GGN) to identify each legal entity regis-\n"
-"tered (individual producers) in the GLOBALG.A.P database. This 13-digit number (e.g.\n"
-"4049929000000) is unique and remains valid and attached to the legal entity as long as it exists.\n"
-"It serves as search key on the GLOBALG.A.P website to validate certificates.\n"
+msgstr ""
+"GLOBALG.A.P introduced the GLOBALG.A.P number (GGN) to identify each legal "
+"entity regis-\n"
+"tered (individual producers) in the GLOBALG.A.P database. This 13-digit "
+"number (e.g.\n"
+"4049929000000) is unique and remains valid and attached to the legal entity "
+"as long as it exists.\n"
+"It serves as search key on the GLOBALG.A.P website to validate "
+"certificates.\n"
 "Remark:\n"
 "We put it here, because \n"
 "* it changes with every harvest and \n"
@@ -295,7 +311,8 @@ msgstr "Produkt Eigenschaften"
 #. module: chricar_stock_dispo_production_V1
 #: constraint:stock.move:0
 msgid "You try to assign a lot which is not from the same product"
-msgstr "Sie versuchen eine Losnummer ohne Bezug zu diesem Produkt zuzuweisen."
+msgstr ""
+"Sie versuchen eine Losnummer ohne Bezug zu diesem Produkt zuzuweisen."
 
 #. module: chricar_stock_dispo_production_V1
 #: view:sale.order:0
@@ -367,7 +384,7 @@ msgstr "zu groß"
 #. module: chricar_stock_dispo_production_V1
 #: view:sale.order:0
 msgid "Dispo Production Order Lines"
-msgstr "Prouktionsauftragszeilen"
+msgstr "Produktionsauftragszeilen"
 
 #. module: chricar_stock_dispo_production_V1
 #: view:sale.order:0
@@ -451,7 +468,9 @@ msgstr "Verbuche Eingaben täglich!"
 
 #. module: chricar_stock_dispo_production_V1
 #: constraint:stock.move:0
-msgid "Error: Negative quantities for location and/or lots are not allowed for this product or product category"
+msgid ""
+"Error: Negative quantities for location and/or lots are not allowed for this "
+"product or product category"
 msgstr "Fehler: negative Mengen sind für diesen Lagerort / Los nicht erlaubt"
 
 #. module: chricar_stock_dispo_production_V1
@@ -531,4 +550,3 @@ msgstr "Eingabe"
 #: field:sale.order.line,stock_dispo_production_sale_ids:0
 msgid "To Sell"
 msgstr "Verkaufsfähig"
-

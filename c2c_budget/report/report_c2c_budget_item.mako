@@ -29,9 +29,9 @@ Selection:
   </table>
 %endif
 <p>
-<%
-chapter.__init__()
-%>
+<%chapter = helper.chapter() %>
+<% chapter.__init__() %>
+
 
     <table  >
 

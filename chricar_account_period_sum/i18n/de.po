@@ -6,14 +6,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 6.1rc1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-01-23 20:34+0000\n"
-"PO-Revision-Date: 2012-01-23 20:34+0000\n"
-"Last-Translator: <>\n"
+"POT-Creation-Date: 2012-01-23 22:05+0000\n"
+"PO-Revision-Date: 2012-01-24 00:59+0000\n"
+"Last-Translator: Joël Grand-Guillaume @ CampToCamp "
+"<joel.grandguillaume@camptocamp.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: \n"
-"Plural-Forms: \n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2012-01-27 05:56+0000\n"
+"X-Generator: Launchpad (build 14727)\n"
 
 #. module: chricar_account_period_sum
 #: constraint:account.move.line:0
@@ -119,12 +121,16 @@ msgstr "Summe Geschäftsjahr Període"
 #. module: chricar_account_period_sum
 #: sql_constraint:account.journal:0
 msgid "The code of the journal must be unique per company !"
-msgstr "Die Kurzbezeichnung des Journals sollte eindeutig sein je Unternehmen (Mandant)."
+msgstr ""
+"Die Kurzbezeichnung des Journals sollte eindeutig sein je Unternehmen "
+"(Mandant)."
 
 #. module: chricar_account_period_sum
 #: constraint:account.account:0
-msgid "You must assign mandatory or fixed analytic account usage for P&L accounts"
-msgstr "You must assign mandatory or fixed analytic account usage for P&L accounts"
+msgid ""
+"You must assign mandatory or fixed analytic account usage for P&L accounts"
+msgstr ""
+"You must assign mandatory or fixed analytic account usage for P&L accounts"
 
 #. module: chricar_account_period_sum
 #: field:account.journal,is_opening_balance:0
@@ -181,8 +187,12 @@ msgstr "vorh. kum."
 
 #. module: chricar_account_period_sum
 #: constraint:account.move.line:0
-msgid "The date of your Journal Entry is not in the defined period! You should change the date or remove this constraint from the journal."
-msgstr "The date of your Journal Entry is not in the defined period! You should change the date or remove this constraint from the journal."
+msgid ""
+"The date of your Journal Entry is not in the defined period! You should "
+"change the date or remove this constraint from the journal."
+msgstr ""
+"The date of your Journal Entry is not in the defined period! You should "
+"change the date or remove this constraint from the journal."
 
 #. module: chricar_account_period_sum
 #: constraint:account.account:0
@@ -235,13 +245,24 @@ msgstr "Saldo Vorjahr"
 
 #. module: chricar_account_period_sum
 #: help:account.journal,is_opening_balance:0
-msgid "check this and use this journal for closing fiscal year, the opening balance moves will not be added to chricar periods sum as opening balance is a special period 00"
-msgstr "Dieses Journal wird für den Jahresabschluss verwendet. Die Buchungen werden nicht in die Eröffnungsbilanz einbezogen"
+msgid ""
+"check this and use this journal for closing fiscal year, the opening balance "
+"moves will not be added to chricar periods sum as opening balance is a "
+"special period 00"
+msgstr ""
+"Dieses Journal wird für den Jahresabschluss verwendet. Die Buchungen werden "
+"nicht in die Eröffnungsbilanz einbezogen"
 
 #. module: chricar_account_period_sum
 #: constraint:account.move.line:0
-msgid "The selected account of your Journal Entry forces to provide a secondary currency. You should remove the secondary currency on the account or select a multi-currency view on the journal."
-msgstr "The selected account of your Journal Entry forces to provide a secondary currency. You should remove the secondary currency on the account or select a multi-currency view on the journal."
+msgid ""
+"The selected account of your Journal Entry forces to provide a secondary "
+"currency. You should remove the secondary currency on the account or select "
+"a multi-currency view on the journal."
+msgstr ""
+"The selected account of your Journal Entry forces to provide a secondary "
+"currency. You should remove the secondary currency on the account or select "
+"a multi-currency view on the journal."
 
 #. module: chricar_account_period_sum
 #: model:ir.model,name:chricar_account_period_sum.model_account_account_period_sum
@@ -265,10 +286,13 @@ msgstr "Periode Werte"
 
 #. module: chricar_account_period_sum
 #: constraint:account.account:0
-msgid "Configuration Error! \n"
-"You can not define children to an account with internal type different of \"View\"! "
-msgstr "Konfiguration Fehler! \n"
-"Sie dürfen nur Sichten auswählen"
+msgid ""
+"Configuration Error! \n"
+"You can not define children to an account with internal type different of "
+"\"View\"! "
+msgstr ""
+"Konfiguration Fehler! \n"
+"Sie dürfen nur Sichten auswählen "
 
 #. module: chricar_account_period_sum
 #: model:ir.model,name:chricar_account_period_sum.model_account_chart_sum
@@ -355,7 +379,7 @@ msgstr "Summe Perioden"
 #. module: chricar_account_period_sum
 #: field:account.chart.sum,chart_account_id:0
 msgid "Chart of Account "
-msgstr "Kontenplan"
+msgstr "Kontenplan "
 
 #. module: chricar_account_period_sum
 #: field:account.chart.sum,print_views_only:0
@@ -398,15 +422,23 @@ msgstr "Code"
 
 #. module: chricar_account_period_sum
 #: constraint:account.account:0
-msgid "Configuration Error! \n"
-"You can not select an account type with a deferral method different of \"Unreconciled\" for accounts with internal type \"Payable/Receivable\"! "
-msgstr "Konfiguration Fehler! \n"
-"You can not select an account type with a deferral method different of \"Unreconciled\" for accounts with internal type \"Payable/Receivable\"! "
+msgid ""
+"Configuration Error! \n"
+"You can not select an account type with a deferral method different of "
+"\"Unreconciled\" for accounts with internal type \"Payable/Receivable\"! "
+msgstr ""
+"Konfiguration Fehler! \n"
+"You can not select an account type with a deferral method different of "
+"\"Unreconciled\" for accounts with internal type \"Payable/Receivable\"! "
 
 #. module: chricar_account_period_sum
 #: constraint:account.period:0
-msgid "Invalid period ! Some periods overlap or the date period is not in the scope of the fiscal year. "
-msgstr "Ungültige Periode! Diese überlappen oder liegen außerhalb des Geschäftsjahres "
+msgid ""
+"Invalid period ! Some periods overlap or the date period is not in the scope "
+"of the fiscal year. "
+msgstr ""
+"Ungültige Periode! Diese überlappen oder liegen außerhalb des "
+"Geschäftsjahres "
 
 #. module: chricar_account_period_sum
 #: field:account.account.period.sum.cur.prev,name:0
@@ -488,8 +520,15 @@ msgstr "Report Ausgabe Kontrolle"
 
 #. module: chricar_account_period_sum
 #: model:ir.actions.act_window,help:chricar_account_period_sum.action_account_chart1_sum
-msgid "Display your company chart of accounts per fiscal year and filter by period. Have a complete tree view of all journal items per account code by clicking on an account."
-msgstr "Anzeige Ihres Kontenplans nach Geschäftsjahr und Filter für die Periode inklusive Anzeige der Verkehrszahlen. Durch Klick auf ein Konto können Sie dann eine Ansicht auf die einzelnen Buchungspositionen aus den Journalen bekommen."
+msgid ""
+"Display your company chart of accounts per fiscal year and filter by period. "
+"Have a complete tree view of all journal items per account code by clicking "
+"on an account."
+msgstr ""
+"Anzeige Ihres Kontenplans nach Geschäftsjahr und Filter für die Periode "
+"inklusive Anzeige der Verkehrszahlen. Durch Klick auf ein Konto können Sie "
+"dann eine Ansicht auf die einzelnen Buchungspositionen aus den Journalen "
+"bekommen."
 
 #. module: chricar_account_period_sum
 #: field:account.account_with_postings,name:0
@@ -524,7 +563,7 @@ msgstr "Summe Geschäftsjahr Periode"
 #. module: chricar_account_period_sum
 #: model:ir.model,name:chricar_account_period_sum.model_account_account_fy_period_sum
 msgid "Account Fiscalyear Period Sum"
-msgstr "Summe Konto Geschäftsjahr Periode "
+msgstr "Summe Konto Geschäftsjahr Periode"
 
 #. module: chricar_account_period_sum
 #: field:account.account_period_sum,sum_fy_period_id:0
@@ -566,8 +605,12 @@ msgstr "Drucke Abschlus Anmerkungen"
 
 #. module: chricar_account_period_sum
 #: constraint:account.journal:0
-msgid "Configuration error! The currency chosen should be shared by the default accounts too."
-msgstr "Configuration error! The currency chosen should be shared by the default accounts too."
+msgid ""
+"Configuration error! The currency chosen should be shared by the default "
+"accounts too."
+msgstr ""
+"Configuration error! The currency chosen should be shared by the default "
+"accounts too."
 
 #. module: chricar_account_period_sum
 #: field:account.account.period.sum.cur.prev,date_start:0
@@ -581,4 +624,3 @@ msgstr "Anfangsdatum"
 #: model:ir.model,name:chricar_account_period_sum.model_account_journal
 msgid "Journal"
 msgstr "Journal"
-

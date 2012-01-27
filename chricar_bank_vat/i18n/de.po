@@ -6,14 +6,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 6.1rc1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-01-23 20:35+0000\n"
-"PO-Revision-Date: 2012-01-23 20:35+0000\n"
-"Last-Translator: <>\n"
+"POT-Creation-Date: 2012-01-23 22:05+0000\n"
+"PO-Revision-Date: 2012-01-24 01:02+0000\n"
+"Last-Translator: Joël Grand-Guillaume @ CampToCamp "
+"<joel.grandguillaume@camptocamp.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: \n"
-"Plural-Forms: \n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2012-01-27 05:56+0000\n"
+"X-Generator: Launchpad (build 14727)\n"
 
 #. module: chricar_bank_vat
 #: model:ir.model,name:chricar_bank_vat.model_account_bank_statement_line
@@ -26,7 +28,7 @@ msgstr "Bankauszug Buchungen"
 #: code:addons/chricar_bank_vat/bank_account_vat.py:181
 #, python-format
 msgid "Error !"
-msgstr "Fehler! "
+msgstr "Fehler!"
 
 #. module: chricar_bank_vat
 #: help:account.bank.statement.line,tax_id:0
@@ -89,12 +91,16 @@ msgstr "Ust nicht erlaubt wenn Partner Definiert ist"
 #: code:addons/chricar_bank_vat/bank_account_vat.py:82
 #, python-format
 msgid "Lines \"%s\" with VAT must not have partner account "
-msgstr "Zeile \"%s\" mit USt darf kein Partnereintrag haben"
+msgstr "Zeile \"%s\" mit USt darf kein Partnereintrag haben "
 
 #. module: chricar_bank_vat
 #: constraint:account.bank.statement.line:0
-msgid "The amount of the voucher must be the same amount as the one on the statement line"
-msgstr "Der Betrag des Zahlungsbelegs sollte mit dem Betrag der Position auf dem Bankauszug übereinstimmen."
+msgid ""
+"The amount of the voucher must be the same amount as the one on the "
+"statement line"
+msgstr ""
+"Der Betrag des Zahlungsbelegs sollte mit dem Betrag der Position auf dem "
+"Bankauszug übereinstimmen."
 
 #. module: chricar_bank_vat
 #: constraint:account.bank.statement.line:0
@@ -111,4 +117,3 @@ msgstr "You must not alter a fixed analytic account."
 #: help:account.bank.statement.line,amount_net:0
 msgid "Amount Net"
 msgstr "Betrag Netto"
-

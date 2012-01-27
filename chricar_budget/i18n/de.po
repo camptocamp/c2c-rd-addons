@@ -6,14 +6,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 6.1rc1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-01-23 20:35+0000\n"
-"PO-Revision-Date: 2012-01-23 20:35+0000\n"
-"Last-Translator: <>\n"
+"POT-Creation-Date: 2012-01-23 22:05+0000\n"
+"PO-Revision-Date: 2012-01-24 01:03+0000\n"
+"Last-Translator: Joël Grand-Guillaume @ CampToCamp "
+"<joel.grandguillaume@camptocamp.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: \n"
-"Plural-Forms: \n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2012-01-27 05:56+0000\n"
+"X-Generator: Launchpad (build 14727)\n"
 
 #. module: chricar_budget
 #: view:chricar.budget:0
@@ -269,7 +271,7 @@ msgstr "chricar.budget.surface"
 #. module: chricar_budget
 #: field:chricar.budget.production,budget_version_ids:0
 msgid "Budget Versions "
-msgstr "Budget Versionen"
+msgstr "Budget Versionen "
 
 #. module: chricar_budget
 #: field:chricar.budget,price_unit_id:0
@@ -355,5 +357,6 @@ msgstr "Produkt Budget"
 #. module: chricar_budget
 #: help:chricar.budget,sale_from:0
 msgid "Sale lines will be created aliquot for not individually planned sales"
-msgstr "Verkaufsbudgetzeilen werden aliquote für nicht manuell geplante Mengen gebildet"
-
+msgstr ""
+"Verkaufsbudgetzeilen werden aliquote für nicht manuell geplante Mengen "
+"gebildet"

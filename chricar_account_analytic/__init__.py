@@ -22,3 +22,4 @@
 
 import account_analytic
 import sale_make_invoice_advance
+import stock

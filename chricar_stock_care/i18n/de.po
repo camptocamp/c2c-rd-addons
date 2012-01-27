@@ -6,14 +6,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 6.1rc1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-01-23 20:36+0000\n"
-"PO-Revision-Date: 2012-01-23 20:36+0000\n"
-"Last-Translator: <>\n"
+"POT-Creation-Date: 2012-01-23 22:07+0000\n"
+"PO-Revision-Date: 2012-01-24 01:36+0000\n"
+"Last-Translator: Joël Grand-Guillaume @ CampToCamp "
+"<joel.grandguillaume@camptocamp.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: \n"
-"Plural-Forms: \n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2012-01-27 05:56+0000\n"
+"X-Generator: Launchpad (build 14727)\n"
 
 #. module: chricar_stock_care
 #: view:stock.picking:0
@@ -62,13 +64,16 @@ msgstr "Faktor"
 
 #. module: chricar_stock_care
 #: help:stock.move,location_loss_id:0
-msgid "This location will be used to move production loss from destination location"
-msgstr "Dieser Lagerort wird für die Verbuchung der Produktionsverluste verwendet"
+msgid ""
+"This location will be used to move production loss from destination location"
+msgstr ""
+"Dieser Lagerort wird für die Verbuchung der Produktionsverluste verwendet"
 
 #. module: chricar_stock_care
 #: constraint:stock.move:0
 msgid "You try to assign a lot which is not from the same product"
-msgstr "Sie versuchen eine Losnummer ohne Bezug zu diesem Produkt zuzuweisen."
+msgstr ""
+"Sie versuchen eine Losnummer ohne Bezug zu diesem Produkt zuzuweisen."
 
 #. module: chricar_stock_care
 #: constraint:stock.move:0
@@ -82,7 +87,9 @@ msgstr "Datum"
 
 #. module: chricar_stock_care
 #: constraint:stock.move:0
-msgid "Error: Negative quantities for location and/or lots are not allowed for this product or product category"
+msgid ""
+"Error: Negative quantities for location and/or lots are not allowed for this "
+"product or product category"
 msgstr "Fehler: negative Mengen sind für diesen Lagerort / Los nicht erlaubt"
 
 #. module: chricar_stock_care
@@ -134,8 +141,11 @@ msgstr "Lagerbuchung"
 #: help:stock.move,factor:0
 #: help:stock.move,humidity:0
 #: help:stock.move,humidity_dest:0
-msgid "If In and Out are measured and a factor exists the quantity will be reduced"
-msgstr "Wenn Ein- und Ausgang gemessen werden und ein Faktor existiert wird die Menge reduziert"
+msgid ""
+"If In and Out are measured and a factor exists the quantity will be reduced"
+msgstr ""
+"Wenn Ein- und Ausgang gemessen werden und ein Faktor existiert wird die "
+"Menge reduziert"
 
 #. module: chricar_stock_care
 #: field:stock.move,humidity:0
@@ -168,4 +178,3 @@ msgstr "Lagerbetreuung"
 #: selection:stock.move,activity:0
 msgid "Check"
 msgstr "Prüfe"
-

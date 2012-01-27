@@ -27,8 +27,9 @@ import math
 #from _common import rounding
 import re  
 from tools.translate import _
-        
 import sys
+import netsvc
+
 
 #----------------------------------------------------------
 #  Account Invoice Line INHERIT
@@ -104,11 +105,9 @@ class stock_picking(osv.osv):
 
     def _invoice_line_hook(self, cr, uid, move_line, invoice_line_id):
         '''Call after the creation of the invoice line'''
-        print >> sys.stderr,'price_unit invoice_line-hook',move_line,invoice_line_id
-        print >> sys.stderr,'price_unit invoice_line-hook move_line',move_line.id, move_line.price_unit_id,move_line.price_unit_pu
-        # move_line => stock_move
-        # invoice_line_id
-        invoice_line_obj = self.pool.get('account.invoice.line')
+        #res = super(stock_picking,self)._invoice_line_hook(cr, uid, move_line, invoice_line_id)
+        logger = netsvc.Logger()
+        logger.notifyChannel('addons.'+self._name, netsvc.LOG_INFO,'price unit stock line hook FGF:  %s '%(invoice_line_id))
         if move_line.purchase_line_id:
           if not move_line.price_unit_id:
             price_unit_id = self.pool.get('c2c_product.price_unit').get_default_id(cr, uid, None)
@@ -122,16 +121,12 @@ class stock_picking(osv.osv):
           price_unit_pu = move_line.price_unit_sale or ''
           price_unit_id = move_line.price_unit_sale_id.id or ''
           
-        invoice_vals = {
-               'price_unit_id' : price_unit_id,
-               'price_unit_pu' : price_unit_pu,
-               }
-        invoice_line_obj.write(cr, uid, [invoice_line_id], invoice_vals, context=None)
-        #print >> sys.stderr,'price_unit invoice_line-hook vals:',move_line.price_unit , coeff, invoice_vals
+        inv_line_obj = self.pool.get('account.invoice.line')
+        inv_line_obj.write(cr, uid, invoice_line_id, {'price_unit_id': price_unit_id, 'price_unit_pu': price_unit_pu})
 
-        return
+        return  super(stock_picking, self)._invoice_line_hook(cr, uid, move_line, invoice_line_id)
 
-    def action_invoice_create1(self, cr, uid, ids, journal_id=False,
+    def action_invoice_create_nok(self, cr, uid, ids, journal_id=False,
             group=False, type='out_invoice', context=None):
         """ Creates invoice based on the invoice state selected for picking.
         @param journal_id: Id of journal

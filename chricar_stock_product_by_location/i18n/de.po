@@ -6,14 +6,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 6.1rc1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-01-23 20:36+0000\n"
-"PO-Revision-Date: 2012-01-23 20:36+0000\n"
-"Last-Translator: <>\n"
+"POT-Creation-Date: 2012-01-23 22:07+0000\n"
+"PO-Revision-Date: 2012-01-24 01:37+0000\n"
+"Last-Translator: Joël Grand-Guillaume @ CampToCamp "
+"<joel.grandguillaume@camptocamp.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: \n"
-"Plural-Forms: \n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2012-01-27 05:56+0000\n"
+"X-Generator: Launchpad (build 14727)\n"
 
 #. module: chricar_stock_product_by_location
 #: field:chricar.stock_move_by_location,categ_id:0
@@ -48,7 +50,7 @@ msgstr "Lagerbuchung"
 #: field:product.product,stock_product_by_location_ids:0
 #: field:stock.location,stock_product_by_location_ids:0
 msgid "Product by Stock "
-msgstr "Produkt je Lager"
+msgstr "Produkt je Lager "
 
 #. module: chricar_stock_product_by_location
 #: model:ir.actions.act_window,name:chricar_stock_product_by_location.act_product_stock_prodlot
@@ -114,7 +116,8 @@ msgstr "Lagerbuchungen je Lager"
 #. module: chricar_stock_product_by_location
 #: constraint:stock.move:0
 msgid "You try to assign a lot which is not from the same product"
-msgstr "Sie versuchen eine Losnummer ohne Bezug zu diesem Produkt zuzuweisen."
+msgstr ""
+"Sie versuchen eine Losnummer ohne Bezug zu diesem Produkt zuzuweisen."
 
 #. module: chricar_stock_product_by_location
 #: constraint:stock.move:0
@@ -173,7 +176,9 @@ msgstr "ME"
 
 #. module: chricar_stock_product_by_location
 #: constraint:stock.move:0
-msgid "Error: Negative quantities for location and/or lots are not allowed for this product or product category"
+msgid ""
+"Error: Negative quantities for location and/or lots are not allowed for this "
+"product or product category"
 msgstr "Fehler: negative Mengen sind für diesen Lagerort / Los nicht erlaubt"
 
 #. module: chricar_stock_product_by_location
@@ -233,4 +238,3 @@ msgstr "Fehler: ungültiger EAN Code"
 #: view:chricar.stock_product_by_location_prodlot:0
 msgid "Sum Amount"
 msgstr "Summe Betrag"
-
