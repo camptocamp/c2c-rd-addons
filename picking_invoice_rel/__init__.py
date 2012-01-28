@@ -30,3 +30,5 @@
 ##############################################################################
 import invoice
 import stock
+import purchase
+import sale

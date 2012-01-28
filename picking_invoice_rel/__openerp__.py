@@ -35,7 +35,7 @@
         Adds reference between Invoce and Picking
                     """,
     "version" : "0.9",
-    "depends" : ["base", "stock", "account"],
+    "depends" : ["base", "stock", "account","purchase","sale"],
     "category": "Accounting",
     "author" : "Camptocamp SA - Ferdinand Gassauer",
     "url": "http://www.camptocamp.com/",

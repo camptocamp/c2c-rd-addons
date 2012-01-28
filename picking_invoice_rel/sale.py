@@ -22,24 +22,23 @@
 from osv import fields, osv
 import netsvc
 
-class stock_picking(osv.osv):
-    _inherit = "stock.picking"
+class sale_order(osv.osv):
+    _inherit = "purchase.order"
 
-    _columns = {
-        'invoice_ids': fields.many2many('account.invoice', 'picking_invoice_rel', 'picking_id', 'invoice_id', 'Invoices'),
-    }
+    def action_invoice_create(self, cr, uid, ids, grouped=False, states=['confirmed', 'done', 'exception'], date_inv = False, context=None):
+        res = super(sale_order, self).action_invoice_create(self, cr, uid, ids, grouped, states, date_inv, context)
+        logger = netsvc.Logger()
+        logger.notifyChannel('addons.'+self._name, netsvc.LOG_INFO,'SO inv create ids,res:%s %s'%(ids,res))
 
-
-    def action_invoice_create(self, cr, uid, ids, journal_id=False,
-            group=False, type='out_invoice', context=None):
-        res = super(stock_picking,self).action_invoice_create(cr, uid, ids, journal_id,
-            group, type, context)
-        picking_id = res.keys()[0]
-        invoice_ids = res.values()[0]
+        invoice_ids = res
         if not isinstance(invoice_ids,list):
            invoice_ids = [invoice_ids]
-        self.write(cr, uid, picking_id, {'invoice_ids' : [(6,0, invoice_ids )]}, context=context) 
-        return res
+        picking_obj = self.pool.get('stock.picking')
+        picking_ids = picking_obj.search(cr, uid, [('sale_id','in',ids)])
+        logger.notifyChannel('addons.'+self._name, netsvc.LOG_INFO,'PO inv create picking_ids:%s'%(picking_ids))
+        for picking_id in picking_ids:
+            picking_obj.write(cr, uid, picking_id, {'invoice_ids' : [(6,0, invoice_ids )]}, context=context) 
+        return ress
 
-stock_picking()
+sale_order()
 
