@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <record id="invoice_picking_form" model="ir.ui.view">
+      <field name="name">account.invoice.picking.form</field>
+      <field name="model">account.invoice</field>
+      <field name="type">form</field>
+      <field name="inherit_id" ref="account.invoice_form"/>
+      <field name="arch" type="xml">
+        <page string="Invoice" position="after">
+          <page string="Pickings">
+            <field name="picking_ids" colspan="4"/>
+          </page>
+        </page>
+      </field>
+    </record>
+    <record id="invoice_supplier_picking_form" model="ir.ui.view">
+      <field name="name">account.invoice.supplier.picking.form</field>
+      <field name="model">account.invoice</field>
+      <field name="type">form</field>
+      <field name="inherit_id" ref="account.invoice_supplier_form"/>
+      <field name="arch" type="xml">
+        <page string="Invoice" position="after">
+          <page string="Pickings">
+            <field name="picking_ids" colspan="4"/>
+          </page>
+        </page>
+      </field>
+    </record>
+  </data>
+</openerp>
