@@ -34,11 +34,16 @@ class stock_move(osv.osv):
                             loc_dest_id, address_id)
         if prod_id :
             product_obj = self.pool.get('product.product').browse(cr, uid, prod_id, context=False)
-            loc_id = product_obj.property_stock_location.id or  product_obj.categ_id.property_stock_location.id or ''
-            print >> sys.stderr,'on change productid ', res
-            print >> sys.stderr,'on change productid loc ',loc_id 
-            res['value'].update({'location_id' : loc_id})
-            print >> sys.stderr,'on change productid ', res
+            product_loc_id = product_obj.property_stock_location.id or  product_obj.categ_id.property_stock_location.id or ''
+            if loc_id:
+               loc = self.pool.get('stock.location').browse(cr, uid, loc_id, context=False)
+               if loc.usage == 'supplier':
+                   res['value']['location_dest_id'] = product_loc_id
+            else:
+                   res['value']['location_id'] = product_loc_id
+            #print >> sys.stderr,'on change productid ', res
+            #print >> sys.stderr,'on change productid loc ',loc_id 
+            #print >> sys.stderr,'on change productid ', res
             
         return res
 stock_move()
