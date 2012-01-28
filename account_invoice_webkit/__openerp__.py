@@ -37,7 +37,7 @@
            using address lebel field with addressee's country specific zip position
                     """,
     "version" : "0.9",
-    "depends" : ["base", "account", "report_webkit","report_webkit_c2c_templates","c2c_partner_address_label","sale_margin_invoice_rel","chricar_account_analytic","c2c_product_price_unit"],
+    "depends" : ["base", "account", "report_webkit","report_webkit_c2c_templates","c2c_partner_address_label","picking_invoice_rel","chricar_account_analytic","c2c_product_price_unit"],
     "category": "Accounting & Finance",
     "author" : "Camptocamp SA - NBessi, Ferdinand Gassauer",
     "url": "http://www.camptocamp.com/",
