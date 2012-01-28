@@ -108,11 +108,13 @@ class stock_picking(osv.osv):
         #res = super(stock_picking,self)._invoice_line_hook(cr, uid, move_line, invoice_line_id)
         logger = netsvc.Logger()
         logger.notifyChannel('addons.'+self._name, netsvc.LOG_INFO,'price unit stock line hook FGF:  %s '%(invoice_line_id))
+        price_unit_id = ''
+        price_unit_pu = ''
         if move_line.price_unit_id:
             price_unit_id =  move_line.price_unit_id.id
         if move_line.price_unit_pu:
             price_unit_pu =  move_line.price_unit_pu
-        if not price_unit_id:
+        if not price_unit_id or not price_unit_pu:
          if move_line.purchase_line_id:
           if not move_line.price_unit_id:
             price_unit_id = self.pool.get('c2c_product.price_unit').get_default_id(cr, uid, None)
@@ -123,8 +125,8 @@ class stock_picking(osv.osv):
           price_unit_pu = move_line.price_unit_pu or move_line.price_unit * coeff or ''
          if move_line.sale_line_id:
           price_unit = move_line.price_unit or ''
-          price_unit_pu = move_line.price_unit_sale or ''
-          price_unit_id = move_line.price_unit_sale_id.id or ''
+          price_unit_pu = move_line.price_unit or ''
+          price_unit_id = move_line.price_unit_id.id or ''
           
         inv_line_obj = self.pool.get('account.invoice.line')
         inv_line_obj.write(cr, uid, invoice_line_id, {'price_unit_id': price_unit_id, 'price_unit_pu': price_unit_pu})
