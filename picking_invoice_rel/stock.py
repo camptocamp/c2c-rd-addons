@@ -29,6 +29,13 @@ class stock_picking(osv.osv):
         'invoice_ids': fields.many2many('account.invoice', 'picking_invoice_rel', 'picking_id', 'invoice_id', 'Invoices'),
     }
 
+    def init(self, cr):
+      # This is a helper to guess "old" Relations between pickings and invoices
+      cr.execute("""
+insert into picking_invoice_rel(picking_id,invoice_id) select p.id,i.id from stock_picking p, account_invoice i
+where p.name = split_part(i.origin,':',1) and (p.id,i.id) not in (select picking_id,invoice_id from picking_invoice_rel);
+""")
+
 
     def action_invoice_create(self, cr, uid, ids, journal_id=False,
             group=False, type='out_invoice', context=None):
