@@ -4,7 +4,7 @@
 # Copyright (c) 2010 Camptocamp SA (http://www.camptocamp.com) 
 # All Right Reserved
 #
-# Author : Ferdinand GAssauer (Camptocamp Austria)
+# Author : Ferdinand Gassauer (Camptocamp Austria)
 #
 # WARNING: This program as such is intended to be used by professional
 # programmers who take the whole responsability of assessing all potential
@@ -41,6 +41,7 @@
     "url": "http://www.camptocamp.com/",
     "data": ["invoice_view.xml",
              "picking_view.xml",
+             "stock_view.xml",
                    ],
     "installable" : True,
     "active" : False,
