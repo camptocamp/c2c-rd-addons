@@ -1,0 +1,14 @@
+<openerp>
+<data noupdate="1">
+
+<!--
+Groups which may access pciking invoice relation - especially stock workers
+-->
+<record model="res.groups" id="picking_invoice_rel.group">
+<field name="name">Allowed to see picking invoice relation</field>
+</record>
+
+    </data>
+</openerp>
+
+

@@ -42,6 +42,8 @@
     "data": ["invoice_view.xml",
              "picking_view.xml",
              "stock_view.xml",
+             "security/group.xml",
+             "security/ir.model.access.csv",
                    ],
     "installable" : True,
     "active" : False,
