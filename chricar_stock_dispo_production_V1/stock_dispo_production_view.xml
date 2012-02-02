@@ -455,6 +455,7 @@ Modification of Parents (only for matching table prefixes)
                               name="date_expected"
                               select="1"/>
                           </group>
+                          <newline/>
                           <group string="Info" groups="base.group_extended">
                             <field
                               attrs="{ 'readonly': [('state','!=','draft')]} "
@@ -502,6 +503,9 @@ Modification of Parents (only for matching table prefixes)
                               attrs="{ 'readonly': [('state','!=','draft')]} "
                               invisible="1"
                               name="date"/>
+                      <field
+                        name="state"
+                        readonly="1"/>
                           </group>
                         </form>
                       </field>
@@ -628,6 +632,9 @@ Modification of Parents (only for matching table prefixes)
                             attrs="{ 'readonly': [('state','!=','draft')]} "
                             invisible="1"
                             name="date"/>
+                      <field
+                        name="state"
+                        readonly="1"/>
                         </form>
                       </field>
                       <field colspan="2" name="stock_dispo_production_small_ids" nolabel="1" widget="one2many_list">
@@ -751,6 +758,9 @@ Modification of Parents (only for matching table prefixes)
                             attrs="{ 'readonly': [('state','!=','draft')]} "
                             invisible="1"
                             name="date"/>
+                      <field
+                        name="state"
+                        readonly="1"/>
                         </form>
                       </field>
                     </group>
@@ -876,6 +886,9 @@ Modification of Parents (only for matching table prefixes)
                             attrs="{ 'readonly': [('state','!=','draft')]} "
                             invisible="1"
                             name="date"/>
+                      <field
+                        name="state"
+                        readonly="1"/>
                         </form>
                       </field>
                       <field colspan="2" name="stock_dispo_production_waste_ids" nolabel="1" widget="one2many_list">
@@ -999,6 +1012,9 @@ Modification of Parents (only for matching table prefixes)
                             attrs="{ 'readonly': [('state','!=','draft')]} "
                             invisible="1"
                             name="date"/>
+                      <field
+                        name="state"
+                        readonly="1"/>
                         </form>
                       </field>
                     </group>
@@ -1056,7 +1072,6 @@ Modification of Parents (only for matching table prefixes)
                         attrs="{ 'readonly': [('state','!=','draft')]} "
                         name="move_value_cost"/>
                       <field
-                        attrs="{ 'readonly': [('state','!=','draft')]} "
                         name="state"
                         readonly="1"/>
                       <field
@@ -1090,6 +1105,7 @@ Modification of Parents (only for matching table prefixes)
                           name="date_expected"
                           select="1"/>
                       </group>
+                      <newline/>
                       <group string="Info" groups="base.group_extended">
                         <field
                           attrs="{ 'readonly': [('state','!=','draft')]} "
@@ -1135,6 +1151,10 @@ Modification of Parents (only for matching table prefixes)
                           attrs="{ 'readonly': [('state','!=','draft')]} "
                           invisible="1"
                           name="date"/>
+                      <field
+                        name="state"
+                        readonly="1"/>
+
                       </group>
                     </form>
                   </field>
