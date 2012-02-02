@@ -434,6 +434,10 @@ Modification of Parents (only for matching table prefixes)
                             attrs="{ 'readonly': [('state','!=','draft')]} "
                             invisible="1"
                             name="date"/>
+                          <field
+                            readonly="1"
+                            invisible="1"
+                            name="state"/>
                         </tree>
                         <form string="To Sell">
                           <group string="Eingabe">
@@ -569,6 +573,11 @@ Modification of Parents (only for matching table prefixes)
                             attrs="{ 'readonly': [('state','!=','draft')]} "
                             invisible="1"
                             name="date"/>
+                          <field
+                            readonly="1"
+                            invisible="1"
+                            name="state"/>
+
                         </tree>
                         <form string="To Big">
                           <field
@@ -695,6 +704,11 @@ Modification of Parents (only for matching table prefixes)
                             attrs="{ 'readonly': [('state','!=','draft')]} "
                             invisible="1"
                             name="date"/>
+                          <field
+                            readonly="1"
+                            invisible="1"
+                            name="state"/>
+
                         </tree>
                         <form string="To Small">
                           <field
@@ -823,6 +837,11 @@ Modification of Parents (only for matching table prefixes)
                             attrs="{ 'readonly': [('state','!=','draft')]} "
                             invisible="1"
                             name="date"/>
+                          <field
+                            readonly="1"
+                            invisible="1"
+                            name="state"/>
+
                         </tree>
                         <form string="Faulty">
                           <field
@@ -949,6 +968,11 @@ Modification of Parents (only for matching table prefixes)
                             attrs="{ 'readonly': [('state','!=','draft')]} "
                             invisible="1"
                             name="date"/>
+                          <field
+                            readonly="1"
+                            invisible="1"
+                            name="state"/>
+
                         </tree>
                         <form string="Waste">
                           <field
