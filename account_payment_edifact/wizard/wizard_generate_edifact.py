@@ -38,14 +38,12 @@ class wizard_generate_edifact(osv.osv_memory) :
     _description = "Generate EDIFACT"
 
     def payment_send(self, cr, uid, ids, context) :
-        print ">>>>>>", ids, context ###############
         bank_obj = self.pool.get('res.bank')
         bank_ids = bank_obj.search(cr, uid, [])
         bank_obj.retrofit_country(cr, uid, bank_ids)
         
         order_obj = self.pool.get('payment.order')
-        order_ids = order_obj.search(cr, uid, [('state', '!=', 'cancel')])
-        order_obj.generate_edifact(cr, uid, order_ids, context)
+        order_obj.generate_edifact(cr, uid, context['active_ids'], context)
     # end def payment_send
 # end class wizard_generate_edifact
 wizard_generate_edifact()
