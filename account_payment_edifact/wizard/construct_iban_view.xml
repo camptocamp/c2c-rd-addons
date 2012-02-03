@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <record model="ir.ui.view" id="res_partner_bank_construct_iban_form_view">
+      <field name="name">res.partner.bank.construct.iban</field>
+      <field name="model">res.partner.bank.construct.iban</field>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <form>
+          <button
+            name="convert"
+            string="Convert to IBAN"
+            type="object"
+            default_focus="1"/>
+        </form>
+      </field>
+    </record>
+    <record id="action_res_partner_bank_construct_iban" model="ir.actions.act_window">
+      <field name="name">Convert to IBAN</field>
+      <field name="res_model">res.partner.bank.construct.iban</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">form</field>
+      <field name="view_id" ref="res_partner_bank_construct_iban_form_view"/>
+      <field name="target">new</field>
+    </record>
+  </data>
+</openerp>
