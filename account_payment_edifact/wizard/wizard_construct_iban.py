@@ -35,7 +35,7 @@ from tools.translate import _
 
 class wizard_construct_iban(osv.osv_memory) :
     _name = "res.partner.bank.construct.iban"
-    _description = "Convert to IBAN"
+    _description = "Convert account number to IBAN"
     
     def convert(self, cr, uid, ids, context):
         bank_obj         = self.pool.get('res.bank')

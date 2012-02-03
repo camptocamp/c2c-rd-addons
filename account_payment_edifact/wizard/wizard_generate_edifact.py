@@ -36,6 +36,9 @@ from tools.translate import _
 class wizard_generate_edifact(osv.osv_memory) :
     _name = "payment.order.edifact"
     _description = "Generate EDIFACT"
+
+    import sys
+    print >>sys.stderr, ">>>>>>>>>>>>>>>>>>>>>>", self._inherit #################
     
     def payment_send(self, cr, uid, data, context):
         bank_obj = self.pool.get('res.bank')
