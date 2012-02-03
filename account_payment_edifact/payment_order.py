@@ -216,7 +216,7 @@ class payment_order(osv.osv) :
                     , 'currency'  : line.currency.name
                     , 'move_name' : (" ".join(customer_ref))[0:35]
                     , 'customer_data' : None
-                    , 'fca'       : order.mode.type.charges_alloc
+                    , 'fca'       : order.mode.charges_alloc
                     , 'name'      : self._u2a(line.partner_id.name).upper()[0:35]
                     , 'street'    : self._u2a(p_address.street).upper()[0:35]
                     , 'city'      : self._u2a(p_address.city).upper()[0:35]
@@ -262,7 +262,7 @@ class payment_order(osv.osv) :
                         , 'currency'  : line.currency.name
                         , 'move_name' : (" ".join(customer_ref))[0:28] # smaller for AEF
                         , 'customer_data' : customer_data
-                        , 'fca'       : order.mode.type.charges_alloc
+                        , 'fca'       : order.mode.charges_alloc
                         , 'name'      : self._u2a(line.partner_id.name).upper()[0:35]
                         , 'street'    : self._u2a(p_address.street).upper()[0:35]
                         , 'city'      : self._u2a(p_address.city).upper()[0:35]
