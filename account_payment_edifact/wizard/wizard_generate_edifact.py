@@ -63,3 +63,5 @@ wizard_generate_edifact()
 
 import sys
 print >>sys.stderr, ">>>>>>>>>>>>>>>>>>>>>>", dir(wizard_generate_edifact) #################
+print >>sys.stderr, ">>>>>>>>>>>>>>>>>>>>>>", wizard_generate_edifact._inherit #################
+print >>sys.stderr, ">>>>>>>>>>>>>>>>>>>>>>", wizard_generate_edifact._name #################
