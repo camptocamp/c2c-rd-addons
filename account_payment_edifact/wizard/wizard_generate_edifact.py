@@ -38,7 +38,7 @@ class wizard_generate_edifact(osv.osv_memory) :
     _description = "Generate EDIFACT"
 
     import sys
-    print >>sys.stderr, ">>>>>>>>>>>>>>>>>>>>>>", self._inherit #################
+    print >>sys.stderr, ">>>>>>>>>>>>>>>>>>>>>>", _inherit #################
     
     def payment_send(self, cr, uid, data, context):
         bank_obj = self.pool.get('res.bank')
