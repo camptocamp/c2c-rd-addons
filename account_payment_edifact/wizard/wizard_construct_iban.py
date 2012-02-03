@@ -30,35 +30,32 @@
 # 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 ###############################################
-import wizard
-import pooler
+from osv import fields, osv
 from tools.translate import _
 
-class wizard_construct_iban(wizard.interface):
+class wizard_construct_iban(osv.osv_memory) :
+    _name = "res.partner.bank.construct.iban"
+    _description = "Convert to IBAN"
     
-    def _construct_iban(self, cr, uid, data, context):
-        pool      = pooler.get_pool(cr.dbname)
-        bank_obj  = pool.get('res.bank')
-        partner_bank_obj = pool.get('res.partner.bank')
-        if data['model'] == 'res.bank':
-            ids = data['ids']
-        else :
-            ids = bank_obj.search(cr, uid, [('country', '!=', False)])
-        for bank in bank_obj.browse (cr, uid, ids) :
-            for partner_bank in partner_bank_obj.browse(cr, uid, partner_bank_obj.search(cr, uid, [('bank', '=', bank.id)])):
+    def convert(self, cr, uid, ids, context):
+        bank_obj         = self.pool.get('res.bank')
+        partner_bank_obj = self.pool.get('res.partner.bank')
+        bank_ids = bank_obj.search(cr, uid, [('country', '!=', False)])
+        for bank in bank_obj.browse(cr, uid, bank_ids) :
+            partner_bank_ids = partner_bank_obj.search(cr, uid, [('bank', '=', bank.id)])
+            for partner_bank in partner_bank_obj.browse(cr, uid, partner_bank_ids):
                 partner_bank_obj.convert2iban(cr, uid, [partner_bank.id], context)
-        return {}
-    # end def _construct_iban
+    # end def convert
     
-    states = \
-        { 'init' : 
-            { 'actions' : []
-            , 'result'  : 
-                { 'type'   : 'action'
-                , 'action' : _construct_iban
-                , 'state'  : 'end'
-                }
-            }
-        }
+#    states = \
+#        { 'init' : 
+#            { 'actions' : []
+#            , 'result'  : 
+#                { 'type'   : 'action'
+#                , 'action' : convert
+#                , 'state'  : 'end'
+#                }
+#            }
+#        }
 # end class wizard_construct_iban
-wizard_construct_iban("res.bank.construct_iban")
+wizard_construct_iban()
