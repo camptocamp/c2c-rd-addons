@@ -153,11 +153,12 @@ class payment_order(osv.osv) :
             s.append("RFF+PQ:%(move_name)s'" % l)
         if l['customer_data'] :
             s.append("RFF+AEF:%(customer_data)s'" % l)
-        if interntl :
+#        if interntl :
+        if True : # 
             s.append("FCA+%(fca)s'" % l)
             s.append("FII+BF+%(iban)s:%(name)s+%(bic)s:25:5'" % l)
-        else :
-            s.append("FII+BF+%(account)s:%(name)s+:::%(blz)s:25:137+%(bank_country)s'" % l) # sgr12
+#        else :
+#            s.append("FII+BF+%(account)s:%(name)s+:::%(blz)s:25:137+%(bank_country)s'" % l) # sgr12
         s.append("NAD+BE+++%(name)s+%(street)s+%(city)s+%(zip)s+%(country)s'" % l) # sgr3
         s.append("PRC+11'")
         s.append("FTX+PMD+++%(reference)s'" % l)
@@ -177,7 +178,7 @@ class payment_order(osv.osv) :
             bic = ''
             if p_bank.bank.bic:
                 bic     = p_bank.bank.bic.replace(" ", "").upper()
-            blz          = p_bank.bank.name # no BLZ!
+#            blz          = self._u2a(p_bank.bank.name).upper() # no BLZ!
             bank_name    = self._u2a(p_bank.bank.name).upper()[0:70]
             bank_country = "" if not p_bank.bank.country else p_bank.bank.country.code
             if [l for l in lines if l.amount <= 0.0] :
@@ -212,7 +213,7 @@ class payment_order(osv.osv) :
                     , 'iban'      : iban
                     , 'account'   : account
                     , 'bic'       : bic
-                    , 'blz'       : blz
+#                    , 'blz'       : blz
                     , 'currency'  : line.currency.name
                     , 'move_name' : (" ".join(customer_ref))[0:35]
                     , 'customer_data' : None
@@ -258,7 +259,7 @@ class payment_order(osv.osv) :
                         , 'iban'      : iban
                         , 'account'   : account
                         , 'bic'       : bic
-                        , 'blz'       : blz
+#                        , 'blz'       : blz
                         , 'currency'  : line.currency.name
                         , 'move_name' : (" ".join(customer_ref))[0:28] # smaller for AEF
                         , 'customer_data' : customer_data
