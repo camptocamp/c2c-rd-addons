@@ -47,20 +47,5 @@
         </xpath>
       </field>
     </record>
-    <record model="ir.ui.view" id="view_payment_order_form2_convert2iban">
-      <field name="name">payment.order.form2.convert2iban</field>
-      <field name="model">payment.order</field>
-      <field name="inherit_id" ref="account_payment.view_payment_order_form"/>
-      <field name="type">form</field>
-      <field name="arch" type="xml">
-        <xpath expr="/form/field[@name='line_ids']" position="before">
-          <button
-            attrs="{'invisible':[('state','=','done')]}"
-            name="convert2iban"
-            string="Convert to IBAN"
-            type="object"/>
-        </xpath>
-      </field>
-    </record>
   </data>
 </openerp>

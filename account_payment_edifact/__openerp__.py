@@ -46,7 +46,7 @@ This works for payment within the country as well as for payments to a foreign c
 
 EDIFACT is specified by http://www.unece.org/trade/untdid/d01a/trmd/paymul_c.htm
 
-The banking accounts should preferably be specified by IBAN/BIC.
+The banking accounts must be specified by IBAN/BIC.
 
 For the own bank IBAN/BIC must be specified.
 
@@ -73,10 +73,11 @@ A conversion to ASCII for all texts within the EDIFACT-file is attempted.
 , "init_xml"    : []
 , "demo_xml"    : []
 , "update_xml"  : 
-    [ 'payment_type_view.xml'
+    [ 'payment_mode_view.xml'
     , 'payment_iban.xml'
     , 'res_bank_view.xml'
     , 'payment_edifact_wizard.xml'
+    , 'wizard/generate_edifact_view.xml'
     ]
 , "test"        : []
 , "active"      : False

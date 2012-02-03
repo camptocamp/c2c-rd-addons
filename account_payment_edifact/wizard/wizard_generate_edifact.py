@@ -30,38 +30,20 @@
 # 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 ###############################################
-import wizard
-import pooler
+from osv import fields, osv
 from tools.translate import _
 
-class wizard_generate_edifact(wizard.interface):
-    
-    def _payment_send(self, cr, uid, data, context):
-        pool      = pooler.get_pool(cr.dbname)
-        order_obj = pool.get('payment.order')
-        
-        bank_obj = pool.get('res.bank')
+class wizard_generate_edifact(osv.osv_memory) :
+    _name = "payment.order.edifact"
+    _description = "Generate EDIFACT"
+
+    def payment_send(self, cr, uid, ids, context) :
+        bank_obj = self.pool.get('res.bank')
         bank_ids = bank_obj.search(cr, uid, [])
         bank_obj.retrofit_country(cr, uid, bank_ids)
         
-        if data['model'] == 'payment.order':
-            ids = data['ids']
-        else :
-            ids = order_obj.search(cr, uid, [('state', '!=', 'cancel')])
-        order_obj.generate_edifact(cr, uid, ids, context)
-        return {}
-    # end def _payment_send
-    
-    states = \
-        { 'init' : 
-            { 'actions' : []
-            , 'result'  : 
-                { 'type'   : 'action'
-                , 'action' : _payment_send
-                , 'state'  : 'end'
-                }
-            }
-        }
+        order_obj = self.pool.get('payment.order')
+        order_obj.generate_edifact(cr, uid, context['active_ids'], context)
+    # end def payment_send
 # end class wizard_generate_edifact
-
-wizard_generate_edifact("payment.order.payment_generate_edifact")
+wizard_generate_edifact()

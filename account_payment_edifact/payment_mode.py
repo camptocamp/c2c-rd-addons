@@ -33,8 +33,8 @@
 from osv import fields, osv
 from tools.translate import _
 
-class payment_type(osv.osv) :
-    _inherit = "payment.type"
+class payment_mode(osv.osv) :
+    _inherit = "payment.mode"
     # http://www.unece.org/trade/untdid/d00a/tred/tred4471.htm
     _columns = \
         { 'charges_alloc' : fields.selection
@@ -78,5 +78,5 @@ class payment_type(osv.osv) :
             )
         }
     _defaults = {'charges_alloc'    : lambda *a: '14'}
-# end class payment_type
-payment_type()
+# end class payment_mode
+payment_mode()

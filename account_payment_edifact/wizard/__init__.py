@@ -31,4 +31,3 @@
 #
 ###############################################
 import wizard_generate_edifact
-import wizard_construct_iban
