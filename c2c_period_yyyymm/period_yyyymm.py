@@ -59,7 +59,8 @@ class account_fiscalyear(osv.osv):
     def init(self,cr):
         cr.execute("""update account_period
                          set name = to_char(date_stop,'YYYYMM'),
-                             code = to_char(date_stop,'YYYYMM');
+                             code = to_char(date_stop,'YYYYMM')
+                            where name not like to_char(date_stop,'YYYYMM')||'%';
                   """)          
                   
 account_fiscalyear()

@@ -5,7 +5,7 @@
 # (<http://www.swing-system.com>)
 # Copyright (C) ChriCar Beteiligungs- und Beratungs- GmbH
 # all rights reserved
-#    10-MAR-2011 (GK) created
+#    05-MAR-2011 (GK) created
 #
 # WARNING: This program as such is intended to be used by professional
 # programmers who take the whole responsability of assessing all potential
@@ -22,43 +22,28 @@
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU Affero General Public License for more details.
+# GNU General Public License for more details.
 #
-# You should have received a copy of the GNU Affero General Public License
+# You should have received a copy of the GNU General Public License
 # along with this program; if not, see <http://www.gnu.org/licenses/> or
 # write to the Free Software Foundation, Inc.,
 # 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 ###############################################
-import wizard
-import pooler
+from osv import fields, osv
 from tools.translate import _
 
-class wizard_construct_iban(wizard.interface):
+class payment_line(osv.osv):
+    _inherit = 'payment.line'
     
-    def _construct_iban(self, cr, uid, data, context):
-        pool      = pooler.get_pool(cr.dbname)
-        bank_obj  = pool.get('res.bank')
-        partner_bank_obj = pool.get('res.partner.bank')
-        if data['model'] == 'res.bank':
-            ids = data['ids']
-        else :
-            ids = bank_obj.search(cr, uid, [('country', '!=', False)])
-        for bank in bank_obj.browse (cr, uid, ids) :
-            for partner_bank in partner_bank_obj.browse(cr, uid, partner_bank_obj.search(cr, uid, [('bank', '=', bank.id)])):
-                partner_bank_obj.convert2iban(cr, uid, [partner_bank.id], context)
-        return {}
-    # end def _construct_iban
-    
-    states = \
-        { 'init' : 
-            { 'actions' : []
-            , 'result'  : 
-                { 'type'   : 'action'
-                , 'action' : _construct_iban
-                , 'state'  : 'end'
-                }
-            }
+    _columns = \
+        { 'bank_account_type': fields.related
+            ( 'bank_id'
+            , 'state'
+            , type      = 'char', size=16
+            , store     = False
+            , relation  = 'res.partner_bank'
+            , string    = 'Bank Account Type'
+            )
         }
-# end class wizard_construct_iban
-wizard_construct_iban("res.bank.construct_iban")
+payment_line()

@@ -7,7 +7,7 @@
       <field name="type">form</field>
       <field name="inherit_id" ref="account.invoice_form"/>
       <field name="arch" type="xml">
-        <page string="Invoice" position="after">
+        <page string="Other Info" position="after">
           <page string="Pickings">
             <field name="picking_ids" colspan="4" nolabel="1"/>
           </page>
@@ -20,7 +20,7 @@
       <field name="type">form</field>
       <field name="inherit_id" ref="account.invoice_supplier_form"/>
       <field name="arch" type="xml">
-        <page string="Invoice" position="after">
+        <page string="Other Info" position="after">
           <page string="Pickings">
             <field name="picking_ids" colspan="4" nolabel="1"/>
           </page>
