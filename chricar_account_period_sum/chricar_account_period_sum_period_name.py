@@ -43,8 +43,8 @@ class account_fiscalyear(osv.osv):
        update account_period
           set name = to_char(date_start,'YYYYMM'),
               code = to_char(date_start,'YYYYMM')
-        where name != to_char(date_start,'YYYYMM')
-           or code != to_char(date_start,'YYYYMM');
+        where name not like  to_char(date_start,'YYYYMM')||'%'
+           or code not like to_char(date_start,'YYYYMM')||'%';
        """)
 
 
