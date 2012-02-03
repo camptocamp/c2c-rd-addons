@@ -32,7 +32,7 @@
 ###############################################
 import unicode2ascii
 import res_bank
-import res_partner_bank
+import payment_line
 import payment_mode
 import payment_order
 import wizard
