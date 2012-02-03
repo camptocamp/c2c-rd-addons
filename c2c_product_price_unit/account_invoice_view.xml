@@ -67,8 +67,10 @@
       </field>
     </record>
 
+
+
+
     <!-- Supplier -->
-    <!-- does not exist any more 20110707
     <record model="ir.ui.view" id="c2c_product_invoice_supplier_form_view">
       <field name="name">c2c_product.invoice_supplier_form.view</field>
       <field name="model">account.invoice</field>
@@ -101,6 +103,5 @@
         </field>
       </field>
     </record>
--->
   </data>
 </openerp>
