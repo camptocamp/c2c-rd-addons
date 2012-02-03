@@ -61,7 +61,7 @@ class wizard_generate_edifact(osv.osv_memory) :
 
 wizard_generate_edifact()
 
-import sys
-print >>sys.stderr, ">>>>>>>>>>>>>>>>>>>>>>", dir(wizard_generate_edifact) #################
-print >>sys.stderr, ">>>>>>>>>>>>>>>>>>>>>>", wizard_generate_edifact._inherits #################
-print >>sys.stderr, ">>>>>>>>>>>>>>>>>>>>>>", wizard_generate_edifact._name #################
+#import sys
+#print >>sys.stderr, ">>>>>>>>>>>>>>>>>>>>>>", dir(wizard_generate_edifact) #################
+#print >>sys.stderr, ">>>>>>>>>>>>>>>>>>>>>>", wizard_generate_edifact._inherits #################
+#print >>sys.stderr, ">>>>>>>>>>>>>>>>>>>>>>", wizard_generate_edifact._name #################
