@@ -177,7 +177,7 @@ class payment_order(osv.osv) :
             bic = ''
             if p_bank.bank.bic:
                 bic     = p_bank.bank.bic.replace(" ", "").upper()
-            blz          = p_bank.bank.code
+            blz          = p_bank.bank.name # no BLZ!
             bank_name    = self._u2a(p_bank.bank.name).upper()[0:70]
             bank_country = "" if not p_bank.bank.country else p_bank.bank.country.code
             if [l for l in lines if l.amount <= 0.0] :

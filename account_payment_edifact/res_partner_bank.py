@@ -39,7 +39,7 @@ class res_partner_bank(osv.osv) :
     def _construct_iban(self, p_bank):
         iban    = False
         account = p_bank.acc_number
-        blz     = p_bank.bank.code
+        blz     = p_bank.bank.name # no BLZ!
         if p_bank.bank.country :
             country = p_bank.bank.country.code
             if   country == "AT":

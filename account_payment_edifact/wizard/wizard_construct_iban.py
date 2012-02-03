@@ -46,16 +46,5 @@ class wizard_construct_iban(osv.osv_memory) :
             for partner_bank in partner_bank_obj.browse(cr, uid, partner_bank_ids):
                 partner_bank_obj.convert2iban(cr, uid, [partner_bank.id], context)
     # end def convert
-    
-#    states = \
-#        { 'init' : 
-#            { 'actions' : []
-#            , 'result'  : 
-#                { 'type'   : 'action'
-#                , 'action' : convert
-#                , 'state'  : 'end'
-#                }
-#            }
-#        }
 # end class wizard_construct_iban
 wizard_construct_iban()

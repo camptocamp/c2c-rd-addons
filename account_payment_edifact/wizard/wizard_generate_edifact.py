@@ -46,22 +46,5 @@ class wizard_generate_edifact(osv.osv_memory) :
         order_ids = order_obj.search(cr, uid, [('state', '!=', 'cancel')])
         order_obj.generate_edifact(cr, uid, order_ids, context)
     # end def payment_send
-    
-#    states = \
-#        { 'init' : 
-#            { 'actions' : []
-#            , 'result'  : 
-#                { 'type'   : 'action'
-#                , 'action' : _payment_send
-#                , 'state'  : 'end'
-#                }
-#            }
-#        }
 # end class wizard_generate_edifact
-
 wizard_generate_edifact()
-
-#import sys
-#print >>sys.stderr, ">>>>>>>>>>>>>>>>>>>>>>", dir(wizard_generate_edifact) #################
-#print >>sys.stderr, ">>>>>>>>>>>>>>>>>>>>>>", wizard_generate_edifact._inherits #################
-#print >>sys.stderr, ">>>>>>>>>>>>>>>>>>>>>>", wizard_generate_edifact._name #################
