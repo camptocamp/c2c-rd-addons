@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data noupdate="1">
-        <record forcecreate="1" id="seq_type_rec_payment_order" model="ir.sequence.type">
+        <record id="seq_type_rec_payment_order" model="ir.sequence.type">
             <field name="name">Receivable payment order</field>
             <field name="code">rec.payment.order</field>
         </record>
