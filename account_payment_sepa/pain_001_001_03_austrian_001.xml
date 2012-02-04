@@ -1,0 +1,62 @@
+<Document>
+  <CstmrCdtTrfInitn>
+    <GrpHdr>
+      <MsgId text-eval="time.strftime('%Y%m%d%H%M%S')"/>
+      <CreDtTm text-eval="time.strftime('%Y-%m-%dT%H:%M:%S')"/>
+      <NbOfTxs text-eval="sum(len(l) for date,l in sepa_payments(order,company).iteritems())"/>
+      <CtrlSum text-eval="order.total"/>
+      <InitgPty>
+        <Nm text-eval="order.mode.bank_id.iban.replace(' ','').upper()[0:35]"/>
+      </InitgPty>
+    </GrpHdr>
+    <PmtInf var="date,p_banks" loop-eval="sepa_payments(order,company).iteritems()">
+      <PmtInfId text-eval="time.strftime('%Y%m%d%H%M%S')"/>
+      <PmtMtd text-eval="'TRF'"/>
+      <CtrlSum text-eval="sum(line.amount for line in p_banks)"/>
+      <ReqdExctnDt text-eval="date"/>
+      <Dbtr>
+        <Nm text-eval="company.name[0:70]"/>
+        <Id>
+          <OrgId>
+            <BICOrBEI text-eval="order.mode.bank_id.bank.bic.replace(' ','').upper()"/>
+          </OrgId>
+        </Id>
+      </Dbtr>
+      <DbtrAcct>
+        <Id>
+          <IBAN text-eval="order.mode.bank_id.iban.replace(' ','').upper()"/>
+        </Id>
+        <Ccy text-eval="company.currency_id.name.upper()"/>
+      </DbtrAcct>
+      <DbtrAgt>
+        <FinInstnId>
+          <BIC text-eval="order.mode.bank_id.bank.bic.replace(' ','').upper()"/>
+        </FinInstnId>
+      </DbtrAgt>
+      <CdtTrfTxInf var="line" seq-eval="p_banks">
+        <PmtId>
+          <EndToEndId text-eval="line.customer_data[0:35]"/>
+        </PmtId>
+        <Amt>
+          <InstdAmt attr-name="Ccy" attr-eval="company.currency_id.name.upper()" text-eval="line.amount"/>
+        </Amt>
+        <CdtrAgt>
+          <FinInstnId>
+            <BIC text-eval="line.p_bank.bank.bic.replace(' ','').upper()"/>
+          </FinInstnId>
+        </CdtrAgt>
+        <Cdtr>
+          <Nm text-eval="line.partner_id.name[0:70]"/>
+        </Cdtr>
+        <CdtrAcct>
+          <Id>
+            <IBAN text-eval="line.p_bank.iban.replace(' ','').upper()"/>
+          </Id>
+        </CdtrAcct>
+        <RmtInf>
+          <Ustrd text-eval="line.references[0:140]"/>
+        </RmtInf>
+      </CdtTrfTxInf>
+    </PmtInf>
+  </CstmrCdtTrfInitn>
+</Document>
