@@ -44,7 +44,7 @@ class wizard_generate_sepa_credit_transfer(wizard.interface):
         else :
             ids = order_obj.search(cr, uid, [('state', '!=', 'cancel')]) 
         order_obj.generate_sepa_credit_transfer(cr, uid, ids, context)
-        return {'result' : {'type' : 'state', 'state' : 'end'}}
+        return {}
     # end def _payment_send
     
     states = \

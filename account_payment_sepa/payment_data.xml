@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<openerp>
+  <data>
+    <record model="res.request.link" id="res_request_link_bank">
+      <field name="name">Bank</field>
+      <field name="object">res.bank</field>
+    </record>
+  </data>
+</openerp>
