@@ -199,10 +199,12 @@
                       <field name="balance_prev"/>
                       <field name="diff"/>
                       <field name="diff_pro"/>
+<!--
                       <field name="balance_curr_cum"/>
                       <field name="balance_prev_cum"/>
                       <field name="balance_diff_cum"/>
                       <field name="balance_diff_pro_cum"/>
+-->
                     </tree>
                     <form string="Period Delta Sums">
                       <group colspan="4" col="8">
