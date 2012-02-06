@@ -408,9 +408,13 @@ class account_account_period_sum_delta(osv.osv):
 
         for res in cr.dictfetchall():
                 print >>sys.stderr, 'res ', res
-                periods[res['id']] = res
-                print >>sys.stderr, 'periods ', periods
-        #print >>sys.stderr, 'periods ', periods
+                for k, v in res.iteritems(): 
+                   if k == 'id':
+                      k1 = k
+                      v1 = v  
+                del res[k1]
+                periods[v1] = res
+        print >>sys.stderr, 'periods ', periods
         return periods
 
     _columns = {
