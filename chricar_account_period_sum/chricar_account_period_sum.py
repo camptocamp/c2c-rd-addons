@@ -435,7 +435,7 @@ class account_account_period_sum_delta(osv.osv):
 
       #'balance_cumulative' : fields.float   ('Balance cumulativ', digits_compute=dp.get_precision('Account')    ,readonly=True),
     }
-#    _order = 'name'
+    _order = 'name'
     
     def init(self, cr):
       drop_view_if_exists(cr, "account_account_period_sum_delta")
