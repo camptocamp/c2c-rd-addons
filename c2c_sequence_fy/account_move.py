@@ -67,7 +67,9 @@ class account_move(osv.osv):
                        print >> sys.stderr,'per_id C', period_id
                        period_id = period_obj.find(cr, uid, invoice_obj.date_invoice, context)
                    print >> sys.stderr,'per_id D', period_id
-                   
+                
+                if not isinstance(period_id, list) :
+                    period_id = [period_id] 
                 for period in period_obj.browse(cr, uid, period_id):
                     print >> sys.stderr,'fy_id', period
                     fy_id = period.fiscalyear_id.id

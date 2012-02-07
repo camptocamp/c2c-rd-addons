@@ -34,16 +34,16 @@ td {margin: 0px; padding: 3px; border: 1px solid lightgrey;  vertical-align: top
       <tbody 
         <tr>
           <td>${msg.date or ''|entity}  </td>
-          <td>${msg.name or ''|entity}  </td>
+          <td>${msg.subject or ''|entity}  </td>
         </tr>
         <tr>
           <td>
-            <p>${msg.message or ''|entity}  </p>
+            <p>${msg.subject or ''|entity}  </p>
           </td>
           <td>
-       %if  msg.description:
+       %if  msg.body_text:
           <table> 
-            %for line in msg.description.split('\n'):  
+            %for line in msg.body_text.split('\n'):  
               <tr><td style="border:white" ">${line or ''|entity}</td></tr>
             %endfor
          </table>

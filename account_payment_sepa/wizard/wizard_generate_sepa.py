@@ -30,33 +30,16 @@
 # 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 ###############################################
-import wizard
-import pooler
-from tools.translate import _
+from osv import fields, osv
 
-class wizard_generate_sepa_credit_transfer(wizard.interface):
+class wizard_generate_sepa_credit_transfer(osv.osv_memory) :
+    _name = "payment.order.sepa"
+    _description = "Generate SEPA"
     
-    def _payment_send(self, cr, uid, data, context):
-        pool      = pooler.get_pool(cr.dbname)
-        order_obj = pool.get('payment.order')
-        if data['model'] == 'payment.order':
-            ids = data['ids']
-        else :
-            ids = order_obj.search(cr, uid, [('state', '!=', 'cancel')]) 
-        order_obj.generate_sepa_credit_transfer(cr, uid, ids, context)
-        return {'result' : {'type' : 'state', 'state' : 'end'}}
-    # end def _payment_send
-    
-    states = \
-        { 'init' : 
-            { 'actions' : []
-            , 'result'  : 
-                { 'type'   : 'action'
-                , 'action' : _payment_send
-                , 'state'  : 'end'
-                }
-            }
-        }
-# end class wizard_generate_sepa_pain_001_001_03_austrian_001
-
-wizard_generate_sepa_credit_transfer("payment.order.wizard_generate_sepa_credit_transfer")
+    def payment_send(self, cr, uid, ids, context):
+        order_obj = self.pool.get('payment.order')
+        order_obj.generate_sepa_credit_transfer(cr, uid, context['active_ids'], context)
+        return {'type' : 'ir.actions.act_window_close'}
+    # end def payment_send
+# end class wizard_generate_sepa_credit_transfer
+wizard_generate_sepa_credit_transfer()

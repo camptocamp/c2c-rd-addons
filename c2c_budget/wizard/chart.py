@@ -146,7 +146,7 @@ class budget_item_chart(osv.osv_memory):
 
         print >>sys.stderr, 'open', context.get('open'), data['period_from'][0],  data['period_to'][0]
         if context.get('open')  == 'view':
-            result = mod_obj.get_object_reference(cr, uid, 'c2c_budget_item', 'action_budget_item_chart')
+            result = mod_obj.get_object_reference(cr, uid, 'c2c_budget', 'open_budget_items_tree')
             id = result and result[1] or False
             result = act_obj.read(cr, uid, [id], context=context)[0]
         elif context.get('open') == 'report':

@@ -53,7 +53,7 @@ Based on previous work of Pablo Rocandio & Zikzakmedia (version for 4.2).
         'security/ir.model.access.csv',
         "payment_wizard.xml",
         "payment_view.xml",
-        "payment_sequence.xml",
+#        "payment_sequence.xml",
         ],
     "active": False,
     "installable": True,

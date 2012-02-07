@@ -89,7 +89,7 @@ work per task
               help="Last year work"
               icon="terp-go-year"
               string="Last Yr"/>
-            <separator orientation="vertical"/>
+            <newline/>
             <field name="project_id"/>
             <field name="task_id"/>
             <field name="user_id"/>
