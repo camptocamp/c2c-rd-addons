@@ -105,7 +105,8 @@ class account_fy_period_sum(osv.osv):
       'date_stop'	   : fields.date    ('Date Stop' ,readonly=True),
       'move_line_ids'      : fields.one2many('account.move.line','account_period_sum_id','Account_moves'),
     }
-    _order = 'date_start asc,name'
+    _order = 'date_start, name'
+
     def init(self, cr):
       drop_view_if_exists(cr, "account_account_fy_period_sum")
       cr.execute("""
@@ -143,10 +144,24 @@ class account_fy_period_sum(osv.osv):
              p.date_stop
          """)
 
+    def cmp_func(self):
+        def cmp (a, b) :
+            if a.date_start == b.date_start :
+                if a.name == b.name :
+                    return 0
+                elif a.name < b.name :
+                    return -1
+                else :
+                    return 1
+            elif a.date_start < b.date_start :
+                return -1
+            else :
+                return 1
+
+        return cmp 
+    # end def cmp_func
+
 account_fy_period_sum()
-
-
-
 
 class account_fiscalyear_sum(osv.osv):
     _name = "account.account_fiscalyear_sum"
@@ -155,41 +170,46 @@ class account_fiscalyear_sum(osv.osv):
 
     # to avoid view_id
     class one2many_periods (fields.one2many):
+
         def get (self, cr, obj, ids, name, user=None, offset=0, context=None, values={}):
                 res = {}
+                _obj = obj.pool.get (self._obj)
                 for id in ids :
                     res[id] = []
                     print "ID",id
-                    fy = pooler.get_pool(cr.dbname).get('account.account_fiscalyear_sum').browse(cr, user, id, context=context)
-                    ids2 = obj.pool.get (self._obj).search \
+                    fy = _obj.browse(cr, user, id, context=context)
+                    ids2 = _obj.search \
                         ( cr
                         , user
-                        , [ ('company_id', '=', fy.company_id.id)
-                          , ('account_id', '=', fy.account_id.id)
+                        , [ ('company_id',    '=', fy.company_id.id)
+                          , ('account_id',    '=', fy.account_id.id)
                           , ('fiscalyear_id', '=', fy.fiscalyear_id.id)
                           ]
                         , limit = self._limit
                         )
-                    for r in ids2:
-                        print >> sys.stderr,'r_ids2 ', r
-                        res [fy.id].append( r )
-
-
+#                    for r in ids2:
+#                        print >> sys.stderr,'r_ids2 ', r
+#                        res [fy.id].append( r )
+                for r in sorted(_obj.browse(cr, user, ids2, context=context), cmp=_obj.cmp_func()) :
+                    res[r.id].append(r.id)
                 return res
             #  set missing
     # end class one2many_periods
+
     class one2many_per_delta (fields.one2many):
+
         def get (self, cr, obj, ids, name, user=None, offset=0, context=None, values={}):
             res = {}
+            _obj = obj.pool.get (self._obj)
+            fy_sum_obj = obj.pool.get('account.account_fiscalyear_sum')
             for id in ids : 
                 res[id] = []
-                fy = pooler.get_pool(cr.dbname).get('account.account_fiscalyear_sum').browse(cr, user, id, context=context)
-                delta_obj = pooler.get_pool(cr.dbname).get('account.account.period.sum.delta')
-                ids3 = delta_obj.search \
+                fy = _obj.browse(cr, user, id, context=context)
+                ids2 = delta_obj.search \
                         ( cr
                         , user
-                        , [ ('company_id', '=', fy.company_id.id)
-                          , ('account_id', '=', fy.account_id.id)
+                        , [ ('company_id',    '=', fy.company_id.id)
+                          , ('account_id',    '=', fy.account_id.id)
                           , ('fiscalyear_id', '=', fy.fiscalyear_id.id)
                           ]   
                         , limit = self._limit
@@ -199,42 +219,43 @@ class account_fiscalyear_sum(osv.osv):
                 #             and account_id = %s
                 #             and fiscalyear_id = %s
                 #             order by name""" , (fy.company_id.id,fy.account_id.id,fy.fiscalyear_id.id))
-                #ids3 = cr.fetchall()
+                #ids2 = cr.fetchall()
 
-                print >> sys.stderr,'ids3 ', ids3
-                def _cmp(a, b) :
-                   if a.name < b.name : return -1
-                   elif a.name > b.name : return 1
-                   #else :
-                   #   if  a.move_id.name < b.move_id.name : return -1
-                   #  elif a.move_id.name > b.move_id.name : return 1
-                   return 0
-                # end def _cmp
+                print >> sys.stderr,'ids2 ', ids2
+#                def _cmp(a, b) :
+#                   if a.name < b.name : return -1
+#                   elif a.name > b.name : return 1
+#                   #else :
+#                   #   if  a.move_id.name < b.move_id.name : return -1
+#                   #  elif a.move_id.name > b.move_id.name : return 1
+#                   return 0
+#                # end def _cmp
 
-                for r in ids3:
-                #for r in sorted(delta_obj.browse(cr, user, ids3, context), cmp=lambda a, b: _cmp(a, b)):
-                #TypeError: browse_record(account.account.period.sum.delta, 1761010) is not JSON serializable
-                   print >> sys.stderr,'r_ids3 ', r
-                   res [fy.id].append( r )
+#                for r in ids2:
+#                #for r in sorted(delta_obj.browse(cr, user, ids2, context), cmp=lambda a, b: _cmp(a, b)):
+#                #TypeError: browse_record(account.account.period.sum.delta, 1761010) is not JSON serializable
+#                   print >> sys.stderr,'r_ids2 ', r
+#                   res [fy.id].append( r )
+                for r in sorted(_obj.browse(cr, user, ids2, context=context), cmp=_obj.cmp_func()) :
+                    res[r.id].append(r.id)
             return res
     
     _columns = {
       'company_id'         : fields.many2one('res.company', 'Company', required=True),
-      'account_id'         : fields.many2one('account.account', 'Account'       ,readonly=True),
-      'name'               : fields.char    ('Fiscal Year', size =16,           readonly=True),
+      'account_id'         : fields.many2one('account.account', 'Account', readonly=True),
+      'name'               : fields.char    ('Fiscal Year', size =16, readonly=True),
       'fiscalyear_id'      : fields.many2one('account.fiscalyear' , 'Fiscal Year',readonly=True),
-      'debit'              : fields.float   ('Debit', digits_compute=dp.get_precision('Account'),            readonly=True ),
-      'credit'             : fields.float   ('Credit', digits_compute=dp.get_precision('Account'),           readonly=True),
-      'balance'            : fields.float   ('Balance', digits_compute=dp.get_precision('Account'),          readonly=True),
-      'opening_balance'    : fields.float   ('Opening Balance', digits_compute=dp.get_precision('Account'),  readonly=True),
-      'date_start'           : fields.date    ('Date Start',readonly=True),
+      'debit'              : fields.float   ('Debit', digits_compute=dp.get_precision('Account'), readonly=True ),
+      'credit'             : fields.float   ('Credit', digits_compute=dp.get_precision('Account'), readonly=True),
+      'balance'            : fields.float   ('Balance', digits_compute=dp.get_precision('Account'), readonly=True),
+      'opening_balance'    : fields.float   ('Opening Balance', digits_compute=dp.get_precision('Account'), readonly=True),
+      'date_start'         : fields.date    ('Date Start',readonly=True),
       'date_stop'          : fields.date    ('Date Stop' ,readonly=True),
       #'sum_fy_period_ids'  : fields.one2many('account.account_fy_period_sum','sum_fy_period_id','Fiscal Year Period Sum'),
-      'sum_fy_period_ids'  : one2many_periods('account.account_fy_period_sum','Fiscal Year Period Sum', readonly=True, ),
-      'sum_fy_period_delta_ids'  : one2many_per_delta('account.account.period.sum.delta','Fiscal Year Period Delta', readonly=True, ),
+      'sum_fy_period_ids'  : one2many_periods('account.account_fy_period_sum', 'id', 'Fiscal Year Period Sum', readonly=True),
+      'sum_fy_period_delta_ids' : one2many_per_delta('account.account.period.sum.delta', 'id','Fiscal Year Period Delta', readonly=True),
       'code'               : fields.related ('account_id','code',type='char', size=8,string='Code'),
       #'closing_text_ids'   : one2many_periods('account.closing.text','id','Closing Text', readonly=True, ),
-
     }
     _order = 'name desc'
 
@@ -461,7 +482,17 @@ group by company_id,account_id, name, period_id,fiscalyear_id,date_start
 having company_id >0
 ;
 """)
+
+    def cmp_func(self):
+        def cmp (a, b) :
+            if a.name == b.name :
+                return 0
+            elif a.name < b.name :
+                return -1
+            else :
+                return 1
+
+        return cmp 
+    # end def cmp_func
 account_account_period_sum_delta()
-
-
 
