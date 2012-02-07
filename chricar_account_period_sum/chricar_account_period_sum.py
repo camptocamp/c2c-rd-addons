@@ -202,7 +202,18 @@ class account_fiscalyear_sum(osv.osv):
                 #ids3 = cr.fetchall()
 
                 print >> sys.stderr,'ids3 ', ids3
+                def _cmp(a, b) :
+                   if a.name < b.name : return -1
+                   elif a.name > b.name : return 1
+                   #else :
+                   #   if  a.move_id.name < b.move_id.name : return -1
+                   #  elif a.move_id.name > b.move_id.name : return 1
+                   return 0
+                # end def _cmp
+
                 for r in ids3:
+                #for r in sorted(delta_obj.browse(cr, user, ids3, context), cmp=lambda a, b: _cmp(a, b)):
+                #TypeError: browse_record(account.account.period.sum.delta, 1761010) is not JSON serializable
                    print >> sys.stderr,'r_ids3 ', r
                    res [fy.id].append( r )
             return res
