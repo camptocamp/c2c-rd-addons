@@ -54,7 +54,10 @@ The "payment day" is, if unspecified or in the past, the file-creation-date.
     ]
 , "init_xml"    : ["payment_data.xml"]
 , "demo_xml"    : []
-, "update_xml"  : ["payment_sepa_wizard.xml"]
+, "update_xml"  : 
+    [ "payment_sepa_wizard.xml"
+    , "wizard/generate_edifact_view.xml"
+    ]
 , "test"        : []
 , "active"      : False
 , "installable" : True

@@ -31,7 +31,6 @@
 #
 ###############################################
 from osv import fields, osv
-from tools.translate import _
 
 class wizard_generate_edifact(osv.osv_memory) :
     _name = "payment.order.edifact"
