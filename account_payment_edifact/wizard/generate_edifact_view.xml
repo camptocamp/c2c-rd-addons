@@ -7,6 +7,10 @@
       <field name="type">form</field>
       <field name="arch" type="xml">
         <form>
+          <button 
+            icon="gtk-cancel"
+            special="cancel"
+            string="Cancel"/>
           <button
             name="payment_send"
             string="Generate EDIFACT"

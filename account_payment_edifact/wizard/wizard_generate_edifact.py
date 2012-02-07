@@ -44,6 +44,7 @@ class wizard_generate_edifact(osv.osv_memory) :
         
         order_obj = self.pool.get('payment.order')
         order_obj.generate_edifact(cr, uid, context['active_ids'], context)
+        return {'type' : 'ir.actions.act_window_close'}
     # end def payment_send
 # end class wizard_generate_edifact
 wizard_generate_edifact()
