@@ -34,28 +34,28 @@
     </record>
 
     <record id="process_transition_init_generate" model="process.transition">
-      <field name="transition_ids" eval="[((6,0),[])]"/>
+      <field name="transition_ids" eval="[(6,0,[])]"/>
       <field name="name">Generate</field>
       <field name="note">Start generation of XML-file</field>
       <field name="source_node_id" model="process.node" ref="process_node_init"/> 
-      <field name="source_node_id" model="process.node" ref="process_node_generate"/> 
+      <field name="target_node_id" model="process.node" ref="process_node_generate"/> 
     </record>
     <record id="process_transition_init_filter" model="process.transition">
-      <field name="transition_ids" eval="[((6,0),[])]"/>
+      <field name="transition_ids" eval="[(6,0,[])]"/>
       <field name="name">Select Filter</field>
       <field name="note">Select a filter</field>
       <field name="source_node_id" model="process.node" ref="process_node_init"/> 
-      <field name="source_node_id" model="process.node" ref="process_node_filter"/> 
+      <field name="target_node_id" model="process.node" ref="process_node_filter"/> 
     </record>
     <record id="process_transition_filter_generate" model="process.transition">
-      <field name="transition_ids" eval="[((6,0),[])]"/>
+      <field name="transition_ids" eval="[(6,0,[])]"/>
       <field name="name">Generate</field>
       <field name="note">Start generation of XML-file</field>
       <field name="source_node_id" model="process.node" ref="process_node_filter"/> 
-      <field name="source_node_id" model="process.node" ref="process_node_generate"/> 
+      <field name="target_node_id" model="process.node" ref="process_node_generate"/> 
     </record>
     <record id="process_transition_filter_filter" model="process.transition">
-      <field name="transition_ids" eval="[((6,0),[])]"/>
+      <field name="transition_ids" eval="[(6,0,[])]"/>
       <field name="name">Select a new Filter</field>
       <field name="note">Select a new Filter</field>
       <field name="source_node_id" model="process.node" ref="process_node_filter"/> 
