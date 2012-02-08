@@ -32,7 +32,7 @@
       <field name="process_id" ref="process_generate_xml"/>
       <field name="flow_start" eval="0"/>
     </record>
-
+    <!-- 
     <record id="process_transition_init_generate" model="process.transition">
       <field name="transition_ids" eval="[(6,0,[])]"/>
       <field name="name">Generate</field>
@@ -61,6 +61,7 @@
       <field name="source_node_id" model="process.node" ref="process_node_filter"/> 
       <field name="source_node_id" model="process.node" ref="process_node_filter"/> 
     </record>
+    -->
     <!-- 
     <record id="process_transition_action_init_generate" model="process.transition.action">
       <field name="name">Generate</field>
