@@ -10,17 +10,33 @@
     <record id="act_init" model="workflow.activity">
       <field name="wkf_id" ref="workflow_generate_xml"/>
       <field name="name">init</field>
-      <field name="flow_start">True</field>
+      <field name="kind">function</field>
+      <field name="action">_decide()</field>
+      <field name="flow_start" eval="True"/>
+      <field name="flow_stop" eval="False"/>
     </record>
     <record id="act_filter" model="workflow.activity">
       <field name="wkf_id" ref="workflow_generate_xml"/>
       <field name="name">filter</field>
-      <field name="flow_start">False</field>
+      <field name="kind">function</field>
+      <field name="action">_decide()</field>
+      <field name="flow_start" eval="False"/>
+      <field name="flow_stop" eval="False"/>
     </record>
     <record id="act_generate" model="workflow.activity">
       <field name="wkf_id" ref="workflow_generate_xml"/>
       <field name="name">generate</field>
-      <field name="flow_start">False</field>
+      <field name="kind">function</field>
+      <field name="action">_decide()</field>
+      <field name="flow_start" eval="False"/>
+      <field name="flow_stop" eval="True"/>
+    </record>
+    <record id="act_cancel" model="workflow.activity">
+      <field name="wkf_id" ref="workflow_generate_xml"/>
+      <field name="name">cancel</field>
+      <field name="kind">stopall</field>
+      <field name="flow_start" eval="False"/>
+      <field name="flow_stop" eval="True"/>
     </record>
 
     <record id="trans_init_generate" model="workflow.transition">
@@ -38,6 +54,14 @@
     <record id="trans_filter_init" model="workflow.transition">
       <field name="act_from" ref="act_filter"/>
       <field name="act_to" ref="act_init"/>
+    </record>
+    <record id="trans_init_cancel" model="workflow.transition">
+      <field name="act_from" ref="act_init"/>
+      <field name="act_to" ref="act_cancel"/>
+    </record>
+    <record id="trans_filter_cancel" model="workflow.transition">
+      <field name="act_from" ref="act_filter"/>
+      <field name="act_to" ref="act_cancel"/>
     </record>
   </data>
 </openerp>
