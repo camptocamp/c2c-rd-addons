@@ -35,9 +35,9 @@
       <field name="act_from" ref="act_filter"/>
       <field name="act_to" ref="act_generate"/>
     </record>
-    <record id="trans_filter_filter" model="workflow.transition">
+    <record id="trans_filter_init" model="workflow.transition">
       <field name="act_from" ref="act_filter"/>
-      <field name="act_to" ref="act_filter"/>
+      <field name="act_to" ref="act_init"/>
     </record>
   </data>
 </openerp>
