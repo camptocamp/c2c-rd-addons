@@ -59,9 +59,9 @@
       <field name="name">Select a new Filter</field>
       <field name="note">Select a new Filter</field>
       <field name="source_node_id" model="process.node" ref="process_node_filter"/> 
-      <field name="source_node_id" model="process.node" ref="process_node_generate"/> 
+      <field name="source_node_id" model="process.node" ref="process_node_filter"/> 
     </record>
-    
+    <!-- 
     <record id="process_transition_action_init_generate" model="process.transition.action">
       <field name="name">Generate</field>
       <field name="action">init</field>
@@ -86,5 +86,6 @@
       <field name="state">object</field>
       <field name="transition_id" ref="process_transition_filter_filter"/>
     </record>
+    -->
   </data>
 </openerp>
