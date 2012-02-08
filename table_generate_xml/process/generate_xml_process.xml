@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <record id="process_generate_xml" model="process.process">
+      <field name="name">Generate XML</field>
+      <field name="model_id" ref="ir.model"/>
+      <field name="active" eval="1"/>
+    </record>
+
+    <record id="process_node_init" model="process.node">
+      <field name="name">Select Table</field>
+      <field name="model_id" ref="ir.model"/>
+      <field name="menu_id" ref=""/>
+      <field name="kind">state</field>
+      <field name="note">Select a table</field>
+      <field name="process_id" ref="process.generate.xml.init"/>
+      <field name="subflow_id" ref="process_generate_xml"/>
+      <field name="flow_start" eval="1"/>
+    </record>
+    <record id="process_node_filter" model="process.node">
+      <field name="name">Select Filter</field>
+      <field name="model_id" ref="ir.model"/>
+      <field name="kind">state</field>
+      <field name="note">Select a filter</field>
+      <field name="process_id" ref="process.generate.xml.filter"/>
+      <field name="subflow_id" ref="process_generate_xml"/>
+      <field name="flow_start" eval="0"/>
+    </record>
+    <record id="process_node_generate" model="process.node">
+      <field name="name">Generate</field>
+      <field name="model_id" ref="ir.model"/>
+      <field name="kind">state</field>
+      <field name="note">Generate the XML</field>
+      <field name="process_id" ref="process.generate.xml.generate"/>
+      <field name="subflow_id" ref="process_generate_xml"/>
+      <field name="flow_start" eval="0"/>
+    </record>
+
+    <record id="process_transition_init_generate" model="process.transition">
+      <field name="transition_ids" eval="[((6,0),[])]"/>
+      <field name="name">Generate</field>
+      <field name="note">Start generation of XML-file</field>
+      <field name="source_node_id" model="process.node" ref="process_node_init"/> 
+      <field name="source_node_id" model="process.node" ref="process_node_generate"/> 
+    </record>
+    <record id="process_transition_init_filter" model="process.transition">
+      <field name="transition_ids" eval="[((6,0),[])]"/>
+      <field name="name">Select Filter</field>
+      <field name="note">Select a filter</field>
+      <field name="source_node_id" model="process.node" ref="process_node_init"/> 
+      <field name="source_node_id" model="process.node" ref="process_node_filter"/> 
+    </record>
+    <record id="process_transition_filter_generate" model="process.transition">
+      <field name="transition_ids" eval="[((6,0),[])]"/>
+      <field name="name">Generate</field>
+      <field name="note">Start generation of XML-file</field>
+      <field name="source_node_id" model="process.node" ref="process_node_filter"/> 
+      <field name="source_node_id" model="process.node" ref="process_node_generate"/> 
+    </record>
+    <record id="process_transition_filter_filter" model="process.transition">
+      <field name="transition_ids" eval="[((6,0),[])]"/>
+      <field name="name">Select a new Filter</field>
+      <field name="note">Select a new Filter</field>
+      <field name="source_node_id" model="process.node" ref="process_node_filter"/> 
+      <field name="source_node_id" model="process.node" ref="process_node_generate"/> 
+    </record>
+    
+    <record id="process_transition_action_init_generate" model="process.transition.action">
+      <field name="name">Generate</field>
+      <field name="action">init</field>
+      <field name="state">object</field>
+      <field name="transition_id" ref="process_transition_init_generate"/>
+    </record>
+    <record id="process_transition_action_init_filter" model="process.transition.action">
+      <field name="name">Select Filter</field>
+      <field name="action">filter</field>
+      <field name="state">object</field>
+      <field name="transition_id" ref="process_transition_init_filter"/>
+    </record>
+    <record id="process_transition_action_filter_generate" model="process.transition.action">
+      <field name="name">Generate</field>
+      <field name="action">generate</field>
+      <field name="state">object</field>
+      <field name="transition_id" ref="process_transition_filter_generate"/>
+    </record>
+    <record id="process_transition_action_filter_filter" model="process.transition.action">
+      <field name="name">Generate</field>
+      <field name="action">filter2</field>
+      <field name="state">object</field>
+      <field name="transition_id" ref="process_transition_filter_filter"/>
+    </record>
+  </data>
+</openerp>

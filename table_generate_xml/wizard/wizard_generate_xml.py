@@ -30,14 +30,13 @@
 # 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 ###############################################
-import wizard
-import pooler
-from osv import osv
+from osv import fields, osv
 from tools.translate import _
-from lxml import etree
 import base64
 
-class wizard_generate_xml(wizard.interface):
+class wizard_generate_xml(osv.osv_memory):
+    _name = "generate.xml"
+    _description = "Generate XML"
 
     _init_form = \
 """<?xml version="1.0"?>
@@ -91,33 +90,17 @@ class wizard_generate_xml(wizard.interface):
             }
         }
 
-    def _remove_attachments(self, cr, uid, model, description, context=None):
-        pool      = pooler.get_pool(cr.dbname)
+    def _manage_attachments(self, cr, uid, model, text, name, description, context=None):
+        pool = pooler.get_pool(cr.dbname)
         attachment_obj = pool.get('ir.attachment')
-        att_ids = attachment_obj.search \
-            ( cr, uid
-            , [ ('res_model', '=', model._table_name)
-              , ('res_id', '=', model.id)
-              , ('description', '=', description)
-              , ('datas_fname', '=', "%s.xml" % description)
-              ]
-            )
-        if att_ids :
-            attachment_obj.unlink(cr, uid, att_ids, context=context)
-    # end def _remove_attachments
-
-    def _manage_attachments(self, cr, uid, model, text, description, context=None):
-        pool      = pooler.get_pool(cr.dbname)
-        attachment_obj = pool.get('ir.attachment')
-        self._remove_attachments(cr, uid, model, description, context=context)
-        title = description.lower().replace(" ", "_")
+        title = name.lower().replace(" ", "_")
         vals  = \
             { 'name'         : title
             , 'datas'        : text
-            , 'datas_fname'  : "%s.xml" % description
+            , 'datas_fname'  : "%s.xml" % name
             , 'res_model'    : model._table_name
             , 'res_id'       : model.id
-            , 'description'  : description
+            , 'description'  : "%s" % (description, )
             }
         attachment_obj.create(cr, uid, vals, context=context)
     # end def _manage_attachments
@@ -146,10 +129,11 @@ class wizard_generate_xml(wizard.interface):
             self._manage_attachments \
                 ( cr, uid
                 , model
-                , base64.encodestring(etree.tostring(xml, encoding="iso-8859-1", pretty_print=True))
+                , base64.encodestring(etree.tostring(xml, pretty_print=True))
                 , self.table_obj._name
+                , " and ".join('"%s" %s %s' % (s[0], s[1], s[2]) for s in self._filters)
                 )
-        return {'result' : {'type' : 'state', 'state' : 'end'}}
+        return {}
     # end def _generate
 
     def _filter(self, cr, uid, data, res_get=False) :
@@ -167,7 +151,7 @@ class wizard_generate_xml(wizard.interface):
                 if v._type in ("many2many", "one2many", "related", "function") : continue
                 if hasattr(v, "_fnct") and v._fnct : continue
                 self._filter_fields['attribute']['selection'].append((k,k))
-        return {'result' : {'type' : 'state', 'state' : 'add_filter'}}
+        return {}
     # end def _filter
 
     def _decide(self, cr, uid, data, res_get=False) :
@@ -178,14 +162,11 @@ class wizard_generate_xml(wizard.interface):
             return 'form'
     # end def _decide
 
-    def _filter2(self, cr, uid, data, res_get=False) :
+    def _decide2(self, cr, uid, data, res_get=False) :
         form = data['form']
         self._add_filter(form)
-        if form['result']['state'] == 'add_filter' :
-            return 'filter'
-        else :
-            return 'generate'
-    # end def _filter2
+        return 'filter'
+    # end def _decide2
 
     states = \
         { 'init' : 
@@ -217,7 +198,7 @@ class wizard_generate_xml(wizard.interface):
             { 'actions' : []
             , 'result'  : 
               { 'type'       : 'choice'
-              , 'next_state' : _filter2
+              , 'next_state' : _decide2
               }
             }
         , 'generate' :
@@ -230,4 +211,4 @@ class wizard_generate_xml(wizard.interface):
             }
         }
 # end class wizard_generate_xml
-wizard_generate_xml ('ir.model.wizard_generate_xml')
+wizard_generate_xml ()
