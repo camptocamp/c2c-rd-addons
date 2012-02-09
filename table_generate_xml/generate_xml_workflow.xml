@@ -27,7 +27,7 @@
       <field name="wkf_id" ref="workflow_generate_xml"/>
       <field name="name">generate</field>
       <field name="kind">function</field>
-      <field name="action">_decide()</field>
+      <field name="action">generate()</field>
       <field name="flow_start" eval="False"/>
       <field name="flow_stop" eval="True"/>
     </record>

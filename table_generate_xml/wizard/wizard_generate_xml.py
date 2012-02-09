@@ -90,6 +90,26 @@ class wizard_generate_xml(osv.osv_memory):
             }
         }
 
+    _selection = \
+        {'='  : 'Equal'
+        ,'!=' : 'Not Equal'
+        ,'>'  : 'Greater'
+        ,'>=' : 'Greater or Equal'
+        ,'<'  : 'Less'
+        ,'<=' : 'Less or Equal'
+        ,'in' : 'In'
+        }
+    _columns = \
+        { 'attribute' : fields.selection([], 'Attribute', required=True)
+        , 'compare'   : fields.selection(_selection,'Comparison', required=True)
+        , 'value'     : fields.char     ('Value', size=64, required=True)
+        }
+    _defaults = \
+        { 'attribute' : lambda *a: 'id'
+        , 'compare'   : lambda *a: '='
+        , 'value'     : lambda *a: ''
+        }
+
     def _manage_attachments(self, cr, uid, model, text, name, description, context=None):
         pool = pooler.get_pool(cr.dbname)
         attachment_obj = pool.get('ir.attachment')
