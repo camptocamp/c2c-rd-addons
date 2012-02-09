@@ -100,7 +100,7 @@ class wizard_generate_xml(osv.osv_memory):
         ,'in' : 'In'
         }
     _columns = \
-        { 'attribute' : fields.selection([], 'Attribute', required=True)
+        { 'attribute' : fields.char     ('Attribute', size=64, required=True)
         , 'compare'   : fields.selection(_selection,'Comparison', required=True)
         , 'value'     : fields.char     ('Value', size=64, required=True)
         }
