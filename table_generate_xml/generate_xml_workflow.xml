@@ -18,7 +18,7 @@
     <record id="act_form" model="workflow.activity">
       <field name="wkf_id" ref="workflow_generate_xml"/>
       <field name="name">form</field>
-      <field name="kind">state</field>
+      <field name="kind">dummy</field>
       <field name="flow_start" eval="False"/>
       <field name="flow_stop" eval="False"/>
     </record>
