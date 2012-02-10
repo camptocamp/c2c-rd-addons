@@ -126,6 +126,7 @@ class wizard_generate_xml(osv.osv_memory):
     # end def _manage_attachments
 
     def _add_filter(self, form) :
+        print "_add_filter" ######################
         if form and form['attribute'] and form['compare'] :
             if self.table_obj._columns[form['attribute']]._type in ("int", "float", "boolean") :
                 value = form['value'].upper()
@@ -135,6 +136,7 @@ class wizard_generate_xml(osv.osv_memory):
     # end def _add_filter
         
     def _generate(self, cr, uid, data, res_get=False) :
+        print "_generate" ######################
         pool      = pooler.get_pool(cr.dbname)
         model_obj = pool.get('ir.model')
         if data['model'] == 'ir.model':
@@ -157,6 +159,7 @@ class wizard_generate_xml(osv.osv_memory):
     # end def _generate
 
     def _filter(self, cr, uid, data, res_get=False) :
+        print "_filter" ######################
         pool      = pooler.get_pool(cr.dbname)
         model_obj = pool.get('ir.model')
         if data['model'] == 'ir.model':
@@ -168,13 +171,15 @@ class wizard_generate_xml(osv.osv_memory):
         self._filter_fields['attribute']['selection'] = []
         if self.table_obj :
             for k,v in self.table_obj._columns.iteritems() :
-                if v._type in ("many2many", "one2many", "related", "function") : continue
+                if v._type in ("many2many", "one2many", "related", "function") : 
+                    continue
                 if hasattr(v, "_fnct") and v._fnct : continue
                 self._filter_fields['attribute']['selection'].append((k,k))
         return {}
     # end def _filter
 
     def _decide(self, cr, uid, data, res_get=False) :
+        print "_decide" ######################
         self._filters = []
         if data['model'] == 'ir.model':
             return 'filter'
@@ -183,6 +188,7 @@ class wizard_generate_xml(osv.osv_memory):
     # end def _decide
 
     def _decide2(self, cr, uid, data, res_get=False) :
+        print "_decide2" ######################
         form = data['form']
         self._add_filter(form)
         return 'filter'
@@ -202,7 +208,11 @@ class wizard_generate_xml(osv.osv_memory):
               { 'type'   : 'form'
               , 'arch'   : _init_form
               , 'fields' : _init_fields
-              , 'state'  : [('end', 'Cancel'), ('generate', 'Generate'), ('filter', 'Filter')]
+              , 'state'  : 
+                    [ ('end', 'Cancel')
+                    , ('generate', 'Generate')
+                    , ('filter', 'Filter')
+                    ]
               }
             }
         , 'filter' :
@@ -211,7 +221,11 @@ class wizard_generate_xml(osv.osv_memory):
               { 'type'   : 'form'
               , 'arch'   : _filter_form
               , 'fields' : _filter_fields
-              , 'state'  : [('end', 'Cancel'), ('generate', 'Generate'), ('add_filter', 'Next Filter')]
+              , 'state'  : 
+                    [ ('end', 'Cancel')
+                    , ('generate', 'Generate')
+                    , ('add_filter', 'Next Filter')
+                    ]
               }
             }
         , 'add_filter' :
