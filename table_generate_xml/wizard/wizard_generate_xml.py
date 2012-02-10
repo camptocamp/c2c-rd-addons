@@ -91,13 +91,13 @@ class wizard_generate_xml(osv.osv_memory):
         }
 
     _selection = \
-        {'='  : 'Equal'
-        ,'!=' : 'Not Equal'
-        ,'>'  : 'Greater'
-        ,'>=' : 'Greater or Equal'
-        ,'<'  : 'Less'
-        ,'<=' : 'Less or Equal'
-        ,'in' : 'In'
+        { '='  : 'Equal'
+        , '!=' : 'Not Equal'
+        , '>'  : 'Greater'
+        , '>=' : 'Greater or Equal'
+        , '<'  : 'Less'
+        , '<=' : 'Less or Equal'
+        , 'in' : 'In'
         }
     _columns = \
         { 'attribute' : fields.char     ('Attribute', size=64, required=True)
@@ -194,55 +194,5 @@ class wizard_generate_xml(osv.osv_memory):
         return 'filter'
     # end def _decide2
 
-    states = \
-        { 'init' : 
-            { 'actions' : []
-            , 'result'  : 
-              { 'type'       : 'choice'
-              , 'next_state' : _decide
-              }
-            }
-        , 'form' :
-            { 'actions' : []
-            , 'result'  : 
-              { 'type'   : 'form'
-              , 'arch'   : _init_form
-              , 'fields' : _init_fields
-              , 'state'  : 
-                    [ ('end', 'Cancel')
-                    , ('generate', 'Generate')
-                    , ('filter', 'Filter')
-                    ]
-              }
-            }
-        , 'filter' :
-            { 'actions' : [_filter]
-            , 'result'  : 
-              { 'type'   : 'form'
-              , 'arch'   : _filter_form
-              , 'fields' : _filter_fields
-              , 'state'  : 
-                    [ ('end', 'Cancel')
-                    , ('generate', 'Generate')
-                    , ('add_filter', 'Next Filter')
-                    ]
-              }
-            }
-        , 'add_filter' :
-            { 'actions' : []
-            , 'result'  : 
-              { 'type'       : 'choice'
-              , 'next_state' : _decide2
-              }
-            }
-        , 'generate' :
-            { 'actions' : []
-            , 'result'  :
-              { 'type'   : 'action'
-              , 'action' : _generate
-              , 'state'  : 'end'
-              }
-            }
-        }
 # end class wizard_generate_xml
 wizard_generate_xml ()

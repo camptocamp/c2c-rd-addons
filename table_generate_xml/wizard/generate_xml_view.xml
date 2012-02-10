@@ -3,7 +3,7 @@
   <data>
     <record model="ir.ui.view" id="generate_xml_init_form_view">
       <field name="name">generate.xml.init.form</field>
-      <field name="model">ir.model</field>
+      <field name="model">generate.xml</field>
       <field name="type">form</field>
       <field name="arch" type="xml">
         <form>
@@ -31,7 +31,7 @@
     </record>
     <record model="ir.ui.view" id="generate_xml_init_filter_view">
       <field name="name">generate.xml.filter.form</field>
-      <field name="model">ir.model</field>
+      <field name="model">generate.xml</field>
       <field name="type">form</field>
       <field name="arch" type="xml">
         <form>
@@ -63,6 +63,14 @@
       <field name="view_type">form</field>
       <field name="view_mode">form</field>
       <field name="view_id" ref="generate_xml_init_form_view"/>
+      <field name="target">new</field>
+    </record>
+    <record id="action_generate_xml" model="ir.actions.act_window">
+      <field name="name">Select a filter</field>
+      <field name="res_model">generate.xml</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">form</field>
+      <field name="view_id" ref="generate_xml_init_filter_view"/>
       <field name="target">new</field>
     </record>
   </data>

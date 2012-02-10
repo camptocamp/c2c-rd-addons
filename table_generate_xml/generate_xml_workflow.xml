@@ -58,6 +58,10 @@
       <field name="act_from" ref="act_init"/>
       <field name="act_to" ref="act_form"/>
     </record>
+    <record id="trans_init_filter" model="workflow.transition">
+      <field name="act_from" ref="act_init"/>
+      <field name="act_to" ref="act_filter"/>
+    </record>
     <record id="trans_form_filter" model="workflow.transition">
       <field name="act_from" ref="act_form"/>
       <field name="act_to" ref="act_filter"/>
@@ -66,7 +70,7 @@
       <field name="act_from" ref="act_filter"/>
       <field name="act_to" ref="act_generate"/>
     </record>
-    <record id="trans_filter_add_filtert" model="workflow.transition">
+    <record id="trans_filter_add_filter" model="workflow.transition">
       <field name="act_from" ref="act_filter"/>
       <field name="act_to" ref="act_add_filter"/>
     </record>
