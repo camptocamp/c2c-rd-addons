@@ -1,0 +1,94 @@
+<?xml version="1.0"?>
+<openerp>
+  <data>
+    <record id="workflow_generate_xml" model="workflow">
+      <field name="name">Generate XML Workflow</field>
+      <field name="osv">ir.model</field>
+      <field name="on_create">True</field>
+    </record>
+    
+    <record id="act_init" model="workflow.activity">
+      <field name="wkf_id" ref="workflow_generate_xml"/>
+      <field name="name">init</field>
+      <field name="kind">function</field>
+      <field name="action">_decide()</field>
+      <field name="flow_start" eval="True"/>
+      <field name="flow_stop" eval="False"/>
+    </record>
+    <record id="act_form" model="workflow.activity">
+      <field name="wkf_id" ref="workflow_generate_xml"/>
+      <field name="name">form</field>
+      <field name="kind">dummy</field>
+      <field name="flow_start" eval="False"/>
+      <field name="flow_stop" eval="False"/>
+    </record>
+    <record id="act_filter" model="workflow.activity">
+      <field name="wkf_id" ref="workflow_generate_xml"/>
+      <field name="name">filter</field>
+      <field name="kind">function</field>
+      <field name="action">_decide()</field>
+      <field name="flow_start" eval="False"/>
+      <field name="flow_stop" eval="False"/>
+    </record>
+    <record id="act_add_filter" model="workflow.activity">
+      <field name="wkf_id" ref="workflow_generate_xml"/>
+      <field name="name">add_filter</field>
+      <field name="kind">function</field>
+      <field name="action">_decide2()</field>
+      <field name="flow_start" eval="False"/>
+      <field name="flow_stop" eval="False"/>
+    </record>
+    <record id="act_generate" model="workflow.activity">
+      <field name="wkf_id" ref="workflow_generate_xml"/>
+      <field name="name">generate</field>
+      <field name="kind">function</field>
+      <field name="action">generate()</field>
+      <field name="flow_start" eval="False"/>
+      <field name="flow_stop" eval="True"/>
+    </record>
+    <record id="act_cancel" model="workflow.activity">
+      <field name="wkf_id" ref="workflow_generate_xml"/>
+      <field name="name">cancel</field>
+      <field name="kind">stopall</field>
+      <field name="flow_start" eval="False"/>
+      <field name="flow_stop" eval="True"/>
+    </record>
+
+    <record id="trans_init_form" model="workflow.transition">
+      <field name="act_from" ref="act_init"/>
+      <field name="act_to" ref="act_form"/>
+    </record>
+    <record id="trans_init_filter" model="workflow.transition">
+      <field name="act_from" ref="act_init"/>
+      <field name="act_to" ref="act_filter"/>
+    </record>
+    <record id="trans_form_filter" model="workflow.transition">
+      <field name="act_from" ref="act_form"/>
+      <field name="act_to" ref="act_filter"/>
+    </record>
+    <record id="trans_filter_generate" model="workflow.transition">
+      <field name="act_from" ref="act_filter"/>
+      <field name="act_to" ref="act_generate"/>
+    </record>
+    <record id="trans_filter_add_filter" model="workflow.transition">
+      <field name="act_from" ref="act_filter"/>
+      <field name="act_to" ref="act_add_filter"/>
+    </record>
+    <record id="trans_add_filter_filter" model="workflow.transition">
+      <field name="act_from" ref="act_add_filter"/>
+      <field name="act_to" ref="act_filter"/>
+    </record>
+    <record id="trans_form_cancel" model="workflow.transition">
+      <field name="act_from" ref="act_form"/>
+      <field name="act_to" ref="act_cancel"/>
+    </record>
+    <record id="trans_generate_cancel" model="workflow.transition">
+      <field name="act_from" ref="act_generate"/>
+      <field name="act_to" ref="act_cancel"/>
+    </record>
+    <record id="trans_filter_cancel" model="workflow.transition">
+      <field name="act_from" ref="act_filter"/>
+      <field name="act_to" ref="act_cancel"/>
+    </record>
+  </data>
+</openerp>

@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0"?>
 <openerp>
   <data>
-    <wizard
-      id="wizard_generate_xml"
-      model="ir.model"
-      name="ir.model.wizard_generate_xml"
-      string="Generate XML"/>
+    <wizard 
+      string="Generate XML"
+      id="wizard_generate_xml" 
+      name="ir.model.wizard_generate_xml" 
+      model="ir.model"/>
   </data>
 </openerp>

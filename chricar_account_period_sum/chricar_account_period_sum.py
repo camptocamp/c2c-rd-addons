@@ -211,11 +211,11 @@ class account_fiscalyear_sum(osv.osv):
                    return 0
                 # end def _cmp
 
-                for r in ids3:
-                #for r in sorted(delta_obj.browse(cr, user, ids3, context), cmp=lambda a, b: _cmp(a, b)):
+                #for r in ids3:
+                for r in sorted(delta_obj.browse(cr, user, ids3, context), cmp=lambda a, b: _cmp(a, b)):
                 #TypeError: browse_record(account.account.period.sum.delta, 1761010) is not JSON serializable
-                   print >> sys.stderr,'r_ids3 ', r
-                   res [fy.id].append( r )
+                   print >> sys.stderr,'r_ids3 ', r, r.name
+                   res [fy.id].append( r.id )
             return res
     
     _columns = {
@@ -230,8 +230,8 @@ class account_fiscalyear_sum(osv.osv):
       'date_start'           : fields.date    ('Date Start',readonly=True),
       'date_stop'          : fields.date    ('Date Stop' ,readonly=True),
       #'sum_fy_period_ids'  : fields.one2many('account.account_fy_period_sum','sum_fy_period_id','Fiscal Year Period Sum'),
-      'sum_fy_period_ids'  : one2many_periods('account.account_fy_period_sum','Fiscal Year Period Sum', readonly=True, ),
-      'sum_fy_period_delta_ids'  : one2many_per_delta('account.account.period.sum.delta','Fiscal Year Period Delta', readonly=True, ),
+      'sum_fy_period_ids'  : one2many_periods('account.account_fy_period_sum','id','Fiscal Year Period Sum', readonly=True, ),
+      'sum_fy_period_delta_ids'  : one2many_per_delta('account.account.period.sum.delta','id','Fiscal Year Period Delta', readonly=True, ),
       'code'               : fields.related ('account_id','code',type='char', size=8,string='Code'),
       #'closing_text_ids'   : one2many_periods('account.closing.text','id','Closing Text', readonly=True, ),
 
@@ -400,7 +400,7 @@ class account_account_period_sum_delta(osv.osv):
         lines = period_sum_delta_obj.search(cr, uid, [('account_id','=',account_id),('fiscalyear_id','=',fiscalyear_id)], context=context)
         print >> sys.stderr, 'lines ',line1.id, lines
         filters = " AND l.id in (%s)" %  (','.join(map(str,lines)) )
-        request = ("SELECT l.id as id, " +\
+        request = ("SELECT l.id as id, l.name,  " +\
                        ', '.join(map(mapping.__getitem__, field_names)) +
                        " FROM account_account_period_sum_delta l, account_account_period_sum_delta p" \
                        " WHERE l.fiscalyear_id = " + str(fiscalyear_id) + \
@@ -409,7 +409,7 @@ class account_account_period_sum_delta(osv.osv):
                        "   AND p.account_id = l.account_id " \
                        "   AND p.date_start <= l.date_start " \
                             + filters +
-                        " GROUP BY l.id")
+                        " GROUP BY l.id,l.name  ORDER by l.name")
         
         print >>sys.stderr, 'request ', request
         #params = (tuple(period_ids),) #+ query_params
@@ -446,7 +446,7 @@ class account_account_period_sum_delta(osv.osv):
 
       #'balance_cumulative' : fields.float   ('Balance cumulativ', digits_compute=dp.get_precision('Account')    ,readonly=True),
     }
-    _order = 'name'
+    #_order = 'name'
     
     def init(self, cr):
       drop_view_if_exists(cr, "account_account_period_sum_delta")

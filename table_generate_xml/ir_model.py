@@ -48,7 +48,7 @@ class ir_model(osv.osv):
         return []
     # end def _unique_list
     
-    def _attr_args(self, cr, table, type, model_list=None) :
+    def _xml_attr_args(self, cr, table, type, model_list=None) :
         attr_model = None
         if model_list :
             for child in model_list.iter("table") :
@@ -71,20 +71,20 @@ class ir_model(osv.osv):
                     if w._type in self.transitive_type : continue
                     result.append({"name" : l, "type" : w._type})
         return result
-    # end def _attr_args
+    # end def _xml_attr_args
 
-    def _attr_search(self, cr, table_obj, model_list=None) :
+    def _xml_attr_search(self, cr, table_obj, model_list=None) :
         result = {}
         for k,v in table_obj._columns.items () :
             if v._obj : ###################################
-                result[k] = self._attr_args(cr, v._obj, v._type, model_list)
+                result[k] = self._xml_attr_args(cr, v._obj, v._type, model_list)
         return result
-    # end def _attr_search
+    # end def _xml_attr_search
 
     def generate_tree(self, cr, uid, table_obj, search=[], model_list=None):
         table = table_obj._name
         table_obj._log_access = True
-        attr_search = self._attr_search(cr, table_obj, model_list)
+        attr_search = self._xml_attr_search(cr, table_obj, model_list)
 
         root = etree.Element("openerp")
         data = etree.SubElement(root, "data")
@@ -102,7 +102,9 @@ class ir_model(osv.osv):
             where = " where %s" % (" and ".join('"%s" %s %s' % (s[0], s[1], s[2]) for s in search))
         else :
             where = ""
-        cr.execute('select id from %s %s order by %s;' % (table_obj._table, where, order))
+        sql = "select id from %s%s order by %s;" % (table_obj._table, where, order)
+        data.append(etree.Comment(sql))
+        cr.execute(sql)
         res = cr.fetchall()
         for id in [x[0] for x in res] :
             obj = table_obj.browse(cr, uid, id) # reduce memory consumption!
@@ -149,7 +151,7 @@ class ir_model(osv.osv):
                                 % (attr_model, attr_id, table, id))
                             )
                     attr_ref = attr_obj.browse(cr, uid, ids[0])
-                    ref_search = self._attr_args(cr, attr_model, v._type, model_list)
+                    ref_search = self._xml_attr_args(cr, attr_model, v._type, model_list)
                     for search in ref_search :
                         attr_attr = getattr (attr_ref, search["name"])
                         search_list.append((search["name"], attr_attr, search["type"]))
