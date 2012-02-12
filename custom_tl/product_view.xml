@@ -11,7 +11,7 @@
       <field name="type">form</field>
       <field name="arch" type="xml">
         <field name="weight_net" position="after">
-             <field name="weigth_drip_off"/>
+             <field name="weight_drip_off"/>
         </field>
       </field>
     </record>
