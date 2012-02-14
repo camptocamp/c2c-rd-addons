@@ -42,6 +42,7 @@ class wizard_generate_edifact(osv.osv_memory) :
         bank_obj.retrofit_country(cr, uid, bank_ids)
         
         order_obj = self.pool.get('payment.order')
+        print ">>>>>>>", context ################
         order_obj.generate_edifact(cr, uid, context['active_ids'], context)
         return {'type' : 'ir.actions.act_window_close'}
     # end def payment_send
