@@ -24,7 +24,7 @@
 {
     'name': 'Prohibit negative stock quantities',
     'version': '0.7',
-    'category': 'Inventory Control',
+    'category': 'Warehouse Management',
     'description': """
 Add check to prohibit negative real stock quantites per location and/or lot
 """,

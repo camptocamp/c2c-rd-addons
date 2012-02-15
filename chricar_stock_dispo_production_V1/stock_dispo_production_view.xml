@@ -333,31 +333,37 @@ Modification of Parents (only for matching table prefixes)
                 <page string="Defaults">
                   <field
                     domain="[('usage', '=', 'internal')]"
+                    colspan="4"
                     name="location_id"/>
                   <field
                     domain="[('usage', 'in', ['internal','customer'])]"
+                    colspan="4"
                     name="location_dest_id"/>
                   <separator colspan="4" string="Special Locations"/>
                   <field
                     domain="[('usage', '=', 'internal')]"
+                    colspan="4"
                     name="location_big_id"/>
                   <field
                     domain="[('usage', '=', 'internal')]"
+                    colspan="4"
                     name="location_faulty_id"/>
                   <field
                     domain="[('usage', '=', 'internal')]"
+                    colspan="4"
                     name="location_small_id"/>
                   <field
                     domain="[('usage', '=', 'inventory')]"
+                    colspan="4"
                     name="location_waste_id"/>
                   <separator colspan="4" string="Product Properties"/>
-                  <field name="quality" required="True" string="Ordered Assale_orderrtment"/>
-                  <field name="location_product_id" required="True"/>
+                  <field name="quality" required="True" string="Ordered Assortment"/>
                   <field
                     context="{'location_id':location_id, 'product_id':product_id}"
                     domain="[('product_id','=',product_id)]"
                     name="prodlot_id"
                     required="True"/>
+                  <field name="location_product_id" required="True" colspan="4"/>
                   <separator colspan="4" string="Transport Packaging"/>
                   <field name="product_packaging_id"/>
                   <field name="trading_unit_owner_id" colspan="4"/>
@@ -370,7 +376,7 @@ Modification of Parents (only for matching table prefixes)
                           <field
                             attrs="{ 'readonly': [('state','!=','draft')]} "
                             name="name"
-                            string="Assale_orderrtment"/>
+                            string="Assortment"/>
                           <field
                             attrs="{ 'readonly': [('state','!=','draft')]} "
                             name="product_qty"
@@ -428,6 +434,10 @@ Modification of Parents (only for matching table prefixes)
                             attrs="{ 'readonly': [('state','!=','draft')]} "
                             invisible="1"
                             name="date"/>
+                          <field
+                            readonly="1"
+                            invisible="1"
+                            name="state"/>
                         </tree>
                         <form string="To Sell">
                           <group string="Eingabe">
@@ -443,12 +453,13 @@ Modification of Parents (only for matching table prefixes)
                               attrs="{ 'readonly': [('state','!=','draft')]} "
                               name="name"
                               select="1"
-                              string="Assale_orderrtment"/>
+                              string="Assortment"/>
                             <field
                               attrs="{ 'readonly': [('state','!=','draft')]} "
                               name="date_expected"
                               select="1"/>
                           </group>
+                          <newline/>
                           <group string="Info" groups="base.group_extended">
                             <field
                               attrs="{ 'readonly': [('state','!=','draft')]} "
@@ -496,6 +507,9 @@ Modification of Parents (only for matching table prefixes)
                               attrs="{ 'readonly': [('state','!=','draft')]} "
                               invisible="1"
                               name="date"/>
+                      <field
+                        name="state"
+                        readonly="1"/>
                           </group>
                         </form>
                       </field>
@@ -506,7 +520,7 @@ Modification of Parents (only for matching table prefixes)
                           <field
                             attrs="{ 'readonly': [('state','!=','draft')]} "
                             name="name"
-                            string="Assale_orderrtment"/>
+                            string="Assortment"/>
                           <field
                             attrs="{ 'readonly': [('state','!=','draft')]} "
                             name="product_qty"
@@ -559,6 +573,11 @@ Modification of Parents (only for matching table prefixes)
                             attrs="{ 'readonly': [('state','!=','draft')]} "
                             invisible="1"
                             name="date"/>
+                          <field
+                            readonly="1"
+                            invisible="1"
+                            name="state"/>
+
                         </tree>
                         <form string="To Big">
                           <field
@@ -622,6 +641,9 @@ Modification of Parents (only for matching table prefixes)
                             attrs="{ 'readonly': [('state','!=','draft')]} "
                             invisible="1"
                             name="date"/>
+                      <field
+                        name="state"
+                        readonly="1"/>
                         </form>
                       </field>
                       <field colspan="2" name="stock_dispo_production_small_ids" nolabel="1" widget="one2many_list">
@@ -629,7 +651,7 @@ Modification of Parents (only for matching table prefixes)
                           <field
                             attrs="{ 'readonly': [('state','!=','draft')]} "
                             name="name"
-                            string="Assale_orderrtment"/>
+                            string="Assortment"/>
                           <field
                             attrs="{ 'readonly': [('state','!=','draft')]} "
                             name="product_qty"
@@ -682,6 +704,11 @@ Modification of Parents (only for matching table prefixes)
                             attrs="{ 'readonly': [('state','!=','draft')]} "
                             invisible="1"
                             name="date"/>
+                          <field
+                            readonly="1"
+                            invisible="1"
+                            name="state"/>
+
                         </tree>
                         <form string="To Small">
                           <field
@@ -745,6 +772,9 @@ Modification of Parents (only for matching table prefixes)
                             attrs="{ 'readonly': [('state','!=','draft')]} "
                             invisible="1"
                             name="date"/>
+                      <field
+                        name="state"
+                        readonly="1"/>
                         </form>
                       </field>
                     </group>
@@ -754,7 +784,7 @@ Modification of Parents (only for matching table prefixes)
                           <field
                             attrs="{ 'readonly': [('state','!=','draft')]} "
                             name="name"
-                            string="Assale_orderrtment"/>
+                            string="Assortment"/>
                           <field
                             attrs="{ 'readonly': [('state','!=','draft')]} "
                             name="product_qty"
@@ -807,6 +837,11 @@ Modification of Parents (only for matching table prefixes)
                             attrs="{ 'readonly': [('state','!=','draft')]} "
                             invisible="1"
                             name="date"/>
+                          <field
+                            readonly="1"
+                            invisible="1"
+                            name="state"/>
+
                         </tree>
                         <form string="Faulty">
                           <field
@@ -870,6 +905,9 @@ Modification of Parents (only for matching table prefixes)
                             attrs="{ 'readonly': [('state','!=','draft')]} "
                             invisible="1"
                             name="date"/>
+                      <field
+                        name="state"
+                        readonly="1"/>
                         </form>
                       </field>
                       <field colspan="2" name="stock_dispo_production_waste_ids" nolabel="1" widget="one2many_list">
@@ -877,7 +915,7 @@ Modification of Parents (only for matching table prefixes)
                           <field
                             attrs="{ 'readonly': [('state','!=','draft')]} "
                             name="name"
-                            string="Assale_orderrtment"/>
+                            string="Assortment"/>
                           <field
                             attrs="{ 'readonly': [('state','!=','draft')]} "
                             name="product_qty"
@@ -930,6 +968,11 @@ Modification of Parents (only for matching table prefixes)
                             attrs="{ 'readonly': [('state','!=','draft')]} "
                             invisible="1"
                             name="date"/>
+                          <field
+                            readonly="1"
+                            invisible="1"
+                            name="state"/>
+
                         </tree>
                         <form string="Waste">
                           <field
@@ -993,6 +1036,9 @@ Modification of Parents (only for matching table prefixes)
                             attrs="{ 'readonly': [('state','!=','draft')]} "
                             invisible="1"
                             name="date"/>
+                      <field
+                        name="state"
+                        readonly="1"/>
                         </form>
                       </field>
                     </group>
@@ -1010,7 +1056,7 @@ Modification of Parents (only for matching table prefixes)
                         attrs="{ 'readonly': [('state','!=','draft')]} "
                         name="name"
                         select="1"
-                        string="Assale_orderrtment"/>
+                        string="Assortment"/>
                       <field
                         attrs="{ 'readonly': [('state','!=','draft')]} "
                         name="product_qty"
@@ -1050,7 +1096,6 @@ Modification of Parents (only for matching table prefixes)
                         attrs="{ 'readonly': [('state','!=','draft')]} "
                         name="move_value_cost"/>
                       <field
-                        attrs="{ 'readonly': [('state','!=','draft')]} "
                         name="state"
                         readonly="1"/>
                       <field
@@ -1078,12 +1123,13 @@ Modification of Parents (only for matching table prefixes)
                           attrs="{ 'readonly': [('state','!=','draft')]} "
                           name="name"
                           select="1"
-                          string="Assale_orderrtment"/>
+                          string="Assortment"/>
                         <field
                           attrs="{ 'readonly': [('state','!=','draft')]} "
                           name="date_expected"
                           select="1"/>
                       </group>
+                      <newline/>
                       <group string="Info" groups="base.group_extended">
                         <field
                           attrs="{ 'readonly': [('state','!=','draft')]} "
@@ -1129,6 +1175,10 @@ Modification of Parents (only for matching table prefixes)
                           attrs="{ 'readonly': [('state','!=','draft')]} "
                           invisible="1"
                           name="date"/>
+                      <field
+                        name="state"
+                        readonly="1"/>
+
                       </group>
                     </form>
                   </field>

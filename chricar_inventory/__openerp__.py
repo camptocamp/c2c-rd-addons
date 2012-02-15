@@ -9,7 +9,7 @@ generated 2009-02-11 16:03:53+01""",
      "depends"      : ["base","stock","chricar_top"],
      "init_xml"     : [],
      "demo_xml"     : [],
-     "update_xml"   : ["inventory_view.xml"],
+     "update_xml"   : ["inventory_view.xml","security/group.xml","security/ir.model.access.csv"],
      "active"       : False,
      "installable"  : True
 }

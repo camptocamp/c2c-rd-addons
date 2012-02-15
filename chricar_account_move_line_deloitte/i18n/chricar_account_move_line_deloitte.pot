@@ -1,0 +1,246 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* chricar_account_move_line_deloitte
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 6.1rc1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-01-23 22:05+0000\n"
+"PO-Revision-Date: 2012-01-23 22:05+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: chricar_account_move_line_deloitte
+#: field:chricar.account_move_line_deloitte,ba:0
+msgid "BA"
+msgstr ""
+
+#. module: chricar_account_move_line_deloitte
+#: field:chricar.account_move_line_deloitte,bc:0
+msgid "BC"
+msgstr ""
+
+#. module: chricar_account_move_line_deloitte
+#: field:chricar.account_move_line_deloitte,analytic_account:0
+msgid "Analytic Account Deloitte"
+msgstr ""
+
+#. module: chricar_account_move_line_deloitte
+#: field:chricar.account_move_line_deloitte,fix:0
+msgid "Fix"
+msgstr ""
+
+#. module: chricar_account_move_line_deloitte
+#: model:ir.actions.act_window,name:chricar_account_move_line_deloitte.chricar_account_import_deny_act1
+#: model:ir.ui.menu,name:chricar_account_move_line_deloitte.menu_chricar_account_import_deny_list
+msgid "Account Moves Deloitte Import Deny"
+msgstr ""
+
+#. module: chricar_account_move_line_deloitte
+#: view:chricar.account_move_line_deloitte:0
+#: field:chricar.account_move_line_deloitte,period_id:0
+msgid "Period"
+msgstr ""
+
+#. module: chricar_account_move_line_deloitte
+#: model:ir.model,name:chricar_account_move_line_deloitte.model_chricar_account_move_import_deny
+msgid "chricar.account_move_import_deny"
+msgstr ""
+
+#. module: chricar_account_move_line_deloitte
+#: view:chricar.account_move_line_deloitte:0
+msgid "Group By..."
+msgstr ""
+
+#. module: chricar_account_move_line_deloitte
+#: field:chricar.account_opening_deloitte,name:0
+msgid "Account Name"
+msgstr ""
+
+#. module: chricar_account_move_line_deloitte
+#: model:ir.model,name:chricar_account_move_line_deloitte.model_chricar_account_tax_code_deloitte
+msgid "chricar.account_tax_code_deloitte"
+msgstr ""
+
+#. module: chricar_account_move_line_deloitte
+#: model:ir.ui.menu,name:chricar_account_move_line_deloitte.menu_chricar_account_deloitte
+msgid "Deloitte"
+msgstr ""
+
+#. module: chricar_account_move_line_deloitte
+#: view:chricar.account_move_line_deloitte:0
+#: field:chricar.account_move_line_deloitte,account_type_name:0
+msgid "Account Type"
+msgstr ""
+
+#. module: chricar_account_move_line_deloitte
+#: field:chricar.account_tax_code_deloitte,account_id:0
+msgid "Tax Account"
+msgstr ""
+
+#. module: chricar_account_move_line_deloitte
+#: field:chricar.account_move_line_deloitte,fnr:0
+msgid "FNR"
+msgstr ""
+
+#. module: chricar_account_move_line_deloitte
+#: field:chricar.account_move_line_deloitte,lc:0
+msgid "LC"
+msgstr ""
+
+#. module: chricar_account_move_line_deloitte
+#: model:ir.model,name:chricar_account_move_line_deloitte.model_chricar_account_move_line_deloitte
+msgid "chricar.account_move_line_deloitte"
+msgstr ""
+
+#. module: chricar_account_move_line_deloitte
+#: view:chricar.account_move_line_deloitte:0
+msgid "Search Order"
+msgstr ""
+
+#. module: chricar_account_move_line_deloitte
+#: field:chricar.account_move_import_deny,company_id:0
+#: field:chricar.account_move_line_deloitte,company_id:0
+#: field:chricar.account_opening_deloitte,company_id:0
+#: field:chricar.account_tax_code_deloitte,company_id:0
+msgid "Company"
+msgstr ""
+
+#. module: chricar_account_move_line_deloitte
+#: field:chricar.account_move_import_deny,date_stop:0
+msgid "Date Stop"
+msgstr ""
+
+#. module: chricar_account_move_line_deloitte
+#: model:ir.model,name:chricar_account_move_line_deloitte.model_chricar_account_opening_deloitte
+msgid "chricar.account_opening_deloitte"
+msgstr ""
+
+#. module: chricar_account_move_line_deloitte
+#: field:chricar.account_move_line_deloitte,date:0
+#: field:chricar.account_opening_deloitte,date:0
+msgid "Date"
+msgstr ""
+
+#. module: chricar_account_move_line_deloitte
+#: model:ir.actions.act_window,name:chricar_account_move_line_deloitte.chricar_account_tax_code_deloitte_act1
+#: model:ir.ui.menu,name:chricar_account_move_line_deloitte.menu_chricar_account_tax_code_deloitte_list
+msgid "Account Tax Code Deloitte"
+msgstr ""
+
+#. module: chricar_account_move_line_deloitte
+#: field:chricar.account_move_line_deloitte,account:0
+msgid "Account Deloitte"
+msgstr ""
+
+#. module: chricar_account_move_line_deloitte
+#: field:chricar.account_move_line_deloitte,tax_code:0
+msgid "Tax Code"
+msgstr ""
+
+#. module: chricar_account_move_line_deloitte
+#: field:chricar.account_move_line_deloitte,counter_account:0
+msgid "Counter Account"
+msgstr ""
+
+#. module: chricar_account_move_line_deloitte
+#: field:chricar.account_move_import_deny,name:0
+#: field:chricar.account_move_line_deloitte,name:0
+msgid "Voucher"
+msgstr ""
+
+#. module: chricar_account_move_line_deloitte
+#: view:chricar.account_move_line_deloitte:0
+#: field:chricar.account_move_line_deloitte,account_id:0
+#: field:chricar.account_opening_deloitte,account:0
+msgid "Account"
+msgstr ""
+
+#. module: chricar_account_move_line_deloitte
+#: field:chricar.account_tax_code_deloitte,percent:0
+msgid "Percent"
+msgstr ""
+
+#. module: chricar_account_move_line_deloitte
+#: view:chricar.account_move_import_deny:0
+#: view:chricar.account_tax_code_deloitte:0
+msgid "Account Moves Import Deny"
+msgstr ""
+
+#. module: chricar_account_move_line_deloitte
+#: field:chricar.account_move_line_deloitte,amount:0
+#: field:chricar.account_opening_deloitte,amount:0
+msgid "Amount"
+msgstr ""
+
+#. module: chricar_account_move_line_deloitte
+#: view:chricar.account_move_import_deny:0
+#: view:chricar.account_move_line_deloitte:0
+#: view:chricar.account_opening_deloitte:0
+#: view:chricar.account_tax_code_deloitte:0
+msgid "invisible"
+msgstr ""
+
+#. module: chricar_account_move_line_deloitte
+#: field:chricar.account_move_import_deny,code:0
+#: field:chricar.account_tax_code_deloitte,code:0
+msgid "Code"
+msgstr ""
+
+#. module: chricar_account_move_line_deloitte
+#: field:chricar.account_tax_code_deloitte,name:0
+msgid "Tax Name"
+msgstr ""
+
+#. module: chricar_account_move_line_deloitte
+#: view:chricar.account_opening_deloitte:0
+#: model:ir.actions.act_window,name:chricar_account_move_line_deloitte.chricar_account_opening_deloitte_act1
+#: model:ir.ui.menu,name:chricar_account_move_line_deloitte.menu_chricar_account_opening_deloitte_list
+msgid "Account Opening Balance"
+msgstr ""
+
+#. module: chricar_account_move_line_deloitte
+#: view:chricar.account_move_line_deloitte:0
+#: field:chricar.account_move_line_deloitte,fiscalyear_id:0
+msgid "Fiscal Year"
+msgstr ""
+
+#. module: chricar_account_move_line_deloitte
+#: view:chricar.account_move_line_deloitte:0
+#: field:chricar.account_move_line_deloitte,analytic_account_id:0
+msgid "Analytic Account"
+msgstr ""
+
+#. module: chricar_account_move_line_deloitte
+#: field:chricar.account_move_line_deloitte,description:0
+msgid "text"
+msgstr ""
+
+#. module: chricar_account_move_line_deloitte
+#: view:chricar.account_move_line_deloitte:0
+#: view:chricar.account_opening_deloitte:0
+msgid "Sum Amount"
+msgstr ""
+
+#. module: chricar_account_move_line_deloitte
+#: field:chricar.account_move_import_deny,date_start:0
+msgid "Date Start"
+msgstr ""
+
+#. module: chricar_account_move_line_deloitte
+#: field:chricar.account_move_line_deloitte,symbol:0
+msgid "Symbol"
+msgstr ""
+
+#. module: chricar_account_move_line_deloitte
+#: view:chricar.account_move_line_deloitte:0
+#: model:ir.actions.act_window,name:chricar_account_move_line_deloitte.chricar_account_move_line_deloitte_act1
+#: model:ir.ui.menu,name:chricar_account_move_line_deloitte.menu_chricar_account_move_line_deloitte_list
+msgid "Account Moves Deloitte"
+msgstr ""
+

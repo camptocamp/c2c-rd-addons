@@ -1,0 +1,88 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* c2c_partner_address_label
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 6.1rc1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-01-23 22:04+0000\n"
+"PO-Revision-Date: 2012-01-23 22:04+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: c2c_partner_address_label
+#: constraint:res.company:0
+msgid "Error! You can not create recursive companies."
+msgstr ""
+
+#. module: c2c_partner_address_label
+#: model:ir.model,name:c2c_partner_address_label.model_res_partner_address
+msgid "Partner Addresses"
+msgstr ""
+
+#. module: c2c_partner_address_label
+#: model:ir.actions.report.xml,name:c2c_partner_address_label.report_label_test_mako
+msgid "Label Test"
+msgstr ""
+
+#. module: c2c_partner_address_label
+#: model:ir.model,name:c2c_partner_address_label.model_res_country
+msgid "Country"
+msgstr ""
+
+#. module: c2c_partner_address_label
+#: sql_constraint:res.country:0
+msgid "The code of the country must be unique !"
+msgstr ""
+
+#. module: c2c_partner_address_label
+#: sql_constraint:res.country:0
+msgid "The name of the country must be unique !"
+msgstr ""
+
+#. module: c2c_partner_address_label
+#: model:ir.model,name:c2c_partner_address_label.model_res_company
+msgid "Companies"
+msgstr ""
+
+#. module: c2c_partner_address_label
+#: selection:res.company,address_label_position:0
+msgid "Right"
+msgstr ""
+
+#. module: c2c_partner_address_label
+#: help:res.company,address_label_position:0
+msgid "Position of address window on standard company enevlops. Many reports do not use this yet"
+msgstr ""
+
+#. module: c2c_partner_address_label
+#: field:res.partner.address,address_label:0
+msgid "Address Label"
+msgstr ""
+
+#. module: c2c_partner_address_label
+#: sql_constraint:res.company:0
+msgid "The company name must be unique !"
+msgstr ""
+
+#. module: c2c_partner_address_label
+#: view:res.company:0
+#: field:res.company,address_label_position:0
+msgid "Address Window Position"
+msgstr ""
+
+#. module: c2c_partner_address_label
+#: view:res.company:0
+msgid "Configuration"
+msgstr ""
+
+#. module: c2c_partner_address_label
+#: selection:res.company,address_label_position:0
+msgid "Left"
+msgstr ""
+

@@ -13,7 +13,7 @@ class report_webkit_html(report_sxw.rml_parse):
             'locale': locale,
         })
 
-report_sxw.report_sxw('report.c2c_budget.tree_webkit',
+report_sxw.report_sxw('report.c2c_budget.item.chart',
                        'c2c_budget.item',
                        'addons/c2c_budget/report/report_c2c_budget_item.mako',
                        parser=report_webkit_html)

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <report
+      auto="False"
+      file="chricar_partner_parent_companies/report/report_partner_participations.mako"
+      id="report_partner_participation"
+      model="res.partner"
+      name="report.report_partner_participation"
+      report_type="webkit"
+      string="Participations"/>
+  </data>
+</openerp>

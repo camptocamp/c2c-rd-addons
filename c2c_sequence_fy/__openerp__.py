@@ -21,41 +21,54 @@
 ##############################################################################
 
 
-{
-    'name': 'Sequence Financial Year Extension fy',
-    'version': '0.7',
-    'category': 'Accounting',
-    'description': """
-This module adds i
-* "fy" and "cj" as placeholder for prefix and suffix.
+{ 'name'        : 'Sequence Financial Year Extension fy (for v61 and above'
+, 'version'     : '0.8'
+, 'category'    : 'Accounting & Finance'
+, 'description' : """
+This module adds 
+* "fy", "stn", "stc" and "jn" as placeholder for prefix and suffix.
 
-* creation rules for missing sequences in ir_sequence_type 
-   if a not existing sequence is requested it will be created on the fly
-   * if no prefix is defined in sequence_types a prefix will be created using 
-     the first characters of each word of then name of the sequence type
-     Example "Account Invoice In" will pe "AAI-"
+* creation rules for missing sequences in ir_sequence_type and account journal
+   if a not existing sequence is requested it will be created on the fly.
+   * if no prefix pattern is defined in sequence-codes, a name will be created using 
+     the first characters of each word of then name of the sequence-code
+     Example "Account Invoice In" will be "AAI-"
 
-=== fy ===
-This allows gapless numbering per fiscal year.
-This sequence code will be used to format the start date of the fiscalyear for the placeholder 'fy' defined for sequences as prefix and suffix.
-Example a fiscal year starting on March 1st with a sequence code %Ya will generate 2011a.
-This allows to handle multiple fiscal years per calendar year and fiscal years not matching caledar years easily.
-This module replaces all (year) prefix and suffix occurences but will return same results as (year) for calendar year = fiscal year
-as long as the sequence code is not defined.
-=== cj ===
-This allows to use the code of the journal as place holder.
+* "fy" (fiscal year)
+  This allows contiguous numbering per fiscal year.
+  This sequence code will be used to format the start date of the fiscal year 
+  for the placeholder 'fy' defined for sequences as prefix and suffix.
+  Example a fiscal year starting on March 1st with a sequence code %Ya will generate 2011a.
+  This allows to handle multiple fiscal years per calendar year and fiscal years not matching calendar years easily.
 
-This module is a prerequisit to automatically generated new fiscal years , periods and associated sequences using fy in prefix instead of hard coding 
+* "stn" (sequence-type-name)
+  This allows to use the (abbreviated) sequence-code name as placeholder.
 
-ToDo: cj
-""",
-    'author': 'Camptocamp Austria',
-    'depends': [ 'base','account' ],
-    'update_xml': ['ir_sequence_view.xml',
-       ],
-    #'update_xml': ['product_view.xml'],
-    'demo_xml': [],
-    'installable': True,
-    'active': False,
+* "stc" (sequence-type-code)
+  This allows to use the (abbreviated) sequence-code code as placeholder.
+
+* "jn" (journal-name)
+  This allows to use the (abbreviated) journal name as placeholder.
+  
+If no prefix/suffix is specified, the prefix/suffix of the sequence-code is used. 
+
+This module is a prerequisite to automatically generated new fiscal years, periods and associated sequences 
+using '(fy)' instead of hard coding.
+
+* Configuration wizard:
+  During configuration you may choose to replace all '(year)' prefix and suffix occurrences by '(fy)'.
+"""
+, 'author'      : 'Camptocamp Austria'
+, 'depends'     : ['account']
+, 'update_xml'  : 
+    [ 'ir_sequence_view.xml'
+    , 'account_fiscalyear_view.xml'
+    , 'ir_sequence_type_view.xml'
+    , 'ir_sequence_installer_view.xml'
+    , 'account_view.xml'
+    ]
+, 'demo_xml'    : []
+, 'installable' : True
+, 'active'      : False
 }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

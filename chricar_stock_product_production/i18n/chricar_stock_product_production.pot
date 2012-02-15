@@ -1,0 +1,134 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* chricar_stock_product_production
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 6.1rc1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-01-23 22:07+0000\n"
+"PO-Revision-Date: 2012-01-23 22:07+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: chricar_stock_product_production
+#: field:chricar.product_by_production_location,product_id:0
+#: field:chricar.product_move_by_production_location,date_planned:0
+#: field:chricar.product_move_by_production_location,product_id:0
+msgid "Product"
+msgstr ""
+
+#. module: chricar_stock_product_production
+#: field:chricar.product_by_production_location,average_price:0
+msgid "Average Price"
+msgstr ""
+
+#. module: chricar_stock_product_production
+#: field:chricar.product_by_production_location,capacity:0
+#: field:chricar.product_move_by_production_location,capacity:0
+msgid "Capacity"
+msgstr ""
+
+#. module: chricar_stock_product_production
+#: model:ir.model,name:chricar_stock_product_production.model_chricar_product_by_production_location
+msgid "Product Production Sum"
+msgstr ""
+
+#. module: chricar_stock_product_production
+#: model:ir.model,name:chricar_stock_product_production.model_chricar_product_move_by_production_location
+msgid "Product moves by production location"
+msgstr ""
+
+#. module: chricar_stock_product_production
+#: field:chricar.product_move_by_production_location,period_id:0
+msgid "Period"
+msgstr ""
+
+#. module: chricar_stock_product_production
+#: field:chricar.product_by_production_location,yield:0
+msgid "Yield"
+msgstr ""
+
+#. module: chricar_stock_product_production
+#: view:chricar.product_by_production_location:0
+msgid "Sum Amount"
+msgstr ""
+
+#. module: chricar_stock_product_production
+#: selection:chricar.product_by_production_location,used:0
+msgid "Produced"
+msgstr ""
+
+#. module: chricar_stock_product_production
+#: field:chricar.product_by_production_location,used:0
+#: field:chricar.product_move_by_production_location,used:0
+msgid "Usage"
+msgstr ""
+
+#. module: chricar_stock_product_production
+#: field:chricar.product_by_production_location,amount:0
+#: field:chricar.product_move_by_production_location,amount:0
+msgid "Amount"
+msgstr ""
+
+#. module: chricar_stock_product_production
+#: selection:chricar.product_by_production_location,used:0
+msgid "Used"
+msgstr ""
+
+#. module: chricar_stock_product_production
+#: view:chricar.product_by_production_location:0
+#: model:ir.actions.act_window,name:chricar_stock_product_production.chricar_product_by_production_location_act1
+#: model:ir.ui.menu,name:chricar_stock_product_production.menu_chricar_product_by_production_location_list
+msgid "Product by Production Location"
+msgstr ""
+
+#. module: chricar_stock_product_production
+#: field:chricar.product_by_production_location,location_id:0
+#: field:chricar.product_move_by_production_location,location_id:0
+msgid "Location"
+msgstr ""
+
+#. module: chricar_stock_product_production
+#: field:chricar.product_by_production_location,fiscalyear_id:0
+#: field:chricar.product_move_by_production_location,fiscalyear_id:0
+msgid "Year"
+msgstr ""
+
+#. module: chricar_stock_product_production
+#: help:chricar.product_by_production_location,capacity:0
+#: help:chricar.product_move_by_production_location,capacity:0
+msgid "Defines the capcity of the loction"
+msgstr ""
+
+#. module: chricar_stock_product_production
+#: field:chricar.product_by_production_location,cost_method:0
+msgid "Cost Method"
+msgstr ""
+
+#. module: chricar_stock_product_production
+#: view:chricar.product_by_production_location:0
+msgid "invisible"
+msgstr ""
+
+#. module: chricar_stock_product_production
+#: field:chricar.product_by_production_location,id:0
+#: field:chricar.product_move_by_production_location,id:0
+msgid "id"
+msgstr ""
+
+#. module: chricar_stock_product_production
+#: field:chricar.product_by_production_location,uom_id:0
+msgid "UoM"
+msgstr ""
+
+#. module: chricar_stock_product_production
+#: field:chricar.product_by_production_location,name:0
+#: field:chricar.product_move_by_production_location,name:0
+msgid "Quantity"
+msgstr ""
+

@@ -113,6 +113,7 @@ def search_entries(self, cr, uid, data, context=None):
     for line in line_obj.browse(cr, uid, line_ids) :
         if line.partner_id.payment_block : continue
         if line.invoice.payment_block : continue
+        if not line.partner_id : continue
         if balance_filter and not ((line.partner_id.debit - line.partner_id.credit) >= min_balance) : 
             continue
         ids.append(line.id)

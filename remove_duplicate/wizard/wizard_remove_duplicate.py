@@ -137,28 +137,13 @@ class wizard_remove_duplicate(wizard.interface):
                 ( _('Input Error !')
                 , _('Old IDs %s are not contained in model %s.') % (old_ids, model.model)
                 )
-        sqls = []
         for m in model_obj.browse(cr, uid, model_obj.search(cr, uid, [('model', '!=', model.model)])) :
             t_obj = pool.get(m.model)
             if not t_obj : continue
             for name, spec in t_obj._columns.items() :
                 if "2one" in spec._type and spec._obj == model.model :
-                    sqls.append \
-                        ('''UPDATE "%s" SET "%s"=%s WHERE "%s" IN (%s);'''
-                            % (t_obj._table, name, new_id, name, ",".join("%s" % x for x in old_ids))
-                        )
-        sqls.append \
-            ('''DELETE FROM "%s" WHERE id IN (%s);''' 
-                % (table_obj._table, ",".join("%s" % x for x in old_ids))
-            )
-        try :
-            cr.execute("".join(sqls))
-        except Exception, e:
-            raise wizard.except_wizard \
-                ( _('Data Error !')
-                , _('Database modification failed (probably another duplicate) with exception %s for SQL: \n%s' 
-                    % (str(e), "\n".join(sqls)))
-                )
+                    t_obj.write(cr, uid, old_ids, {name : new_id})
+        t_obj.unlink(cr, uid, old_ids)
     # end def _remove_from_table
 
     states = \

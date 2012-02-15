@@ -184,8 +184,8 @@ class stock_move(osv.osv):
 
       def _avg_price_calc(self, cr, uid, ids, field_names=None, arg=False, context=None):
         res = {}
-        avg_price = 0.0
         for move in self.browse(cr, uid, ids, context=context):
+            avg_price = 0.0
             if move.product_qty and move.move_value_cost and move.product_qty != 0.0 and move.move_value_cost != 0.0:
                 avg_price = move.move_value_cost / move.product_qty
             res[move.id] = avg_price

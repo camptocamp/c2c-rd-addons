@@ -1,0 +1,73 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* report_webkit_c2c_templates
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 6.1rc1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-01-23 22:09+0000\n"
+"PO-Revision-Date: 2012-01-23 22:09+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: report_webkit_c2c_templates
+#: model:ir.model,name:report_webkit_c2c_templates.model_ir_header_webkit
+msgid "ir.header_webkit"
+msgstr ""
+
+#. module: report_webkit_c2c_templates
+#: sql_constraint:res.company:0
+msgid "The company name must be unique !"
+msgstr ""
+
+#. module: report_webkit_c2c_templates
+#: field:res.company,commercial_register:0
+msgid "Commercial Register"
+msgstr ""
+
+#. module: report_webkit_c2c_templates
+#: field:res.company,registered_office:0
+msgid "Registered Office"
+msgstr ""
+
+#. module: report_webkit_c2c_templates
+#: help:res.company,commercial_register:0
+msgid "Commerical Register to be printed on webkit invoice"
+msgstr ""
+
+#. module: report_webkit_c2c_templates
+#: constraint:res.company:0
+msgid "Error! You can not create recursive companies."
+msgstr ""
+
+#. module: report_webkit_c2c_templates
+#: help:res.company,company_bank_id:0
+msgid "Bank Account Number, default own company bank account to be printed with webkit"
+msgstr ""
+
+#. module: report_webkit_c2c_templates
+#: field:ir.header_webkit,report_company_bank_id:0
+#: field:res.company,company_bank_id:0
+msgid "Bank Account"
+msgstr ""
+
+#. module: report_webkit_c2c_templates
+#: model:ir.model,name:report_webkit_c2c_templates.model_res_company
+msgid "Companies"
+msgstr ""
+
+#. module: report_webkit_c2c_templates
+#: help:res.company,registered_office:0
+msgid "Register Office to be printed on webkit invoice"
+msgstr ""
+
+#. module: report_webkit_c2c_templates
+#: help:ir.header_webkit,report_company_bank_id:0
+msgid "Bank Account Number, company bank account to be printed with this webkit template"
+msgstr ""
+

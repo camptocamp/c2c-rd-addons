@@ -6,7 +6,7 @@
 Budget Produktion 
 ==============================================
 -->
-    <record model="ir.ui.view" id="chricar_budget_production_list">
+    <record model="ir.ui.view" id="chricar_budget_production_tree">
       <field name="name">chricar.budget.production.list</field>
       <field name="model">chricar.budget.production</field>
       <field name="priority">1</field>
@@ -14,7 +14,7 @@ Budget Produktion
       <field name="arch" type="xml">
         <tree string="Budget Products" editable="bottom">
           <field name="fiscalyear_id"/>
-          <field name="name" select="1"/>
+          <field name="name" />
         </tree>
       </field>
     </record>
@@ -24,32 +24,36 @@ Budget Produktion
       <field name="priority">1</field>
       <field name="type">form</field>
       <field name="arch" type="xml">
-        <form string="Budget Products" editable="bottom">
+        <form string="Budget Products" >
           <field name="fiscalyear_id"/>
-          <field name="name" select="1"/>
-          <field name="budget_version_ids" widget="many2many" nolabel="1" select="1" colspan="4">
+          <field name="name" />
+          <field name="budget_version_ids"  nolabel="1" colspan="4">
             <tree string="Budget Version" editable="bottom">
-              <field name="name" select="1"/>
-              <field name="is_current" select="1"/>
-              <field name="budget_id" select="1"/>
+              <field name="name" />
+<!--
+              <field name="is_current" />
+-->
+              <field name="budget_id" />
             </tree>
             <form string="Budget Versions">
-              <field name="name" select="1"/>
-              <field name="is_current" select="1"/>
-              <field name="budget_id" select="1" readonly="1"/>
+              <field name="name" />
+<!--
+              <field name="is_current" />
+-->
+              <field name="budget_id"  readonly="1"/>
             </form>
           </field>
         </form>
       </field>
     </record>
-    <record model="ir.actions.act_window" id="chricar_budget_production_list">
+    <record model="ir.actions.act_window" id="chricar_budget_production">
       <field name="res_model">chricar.budget.production</field>
       <field name="name">Budget Production</field>
       <field name="view_type">form</field>
       <field name="view_mode">tree,form</field>
     </record>
     <menuitem
-      action="chricar_budget_production_list"
+      action="chricar_budget_production"
       id="menu_chricar_budget_production_list"
       parent="c2c_budget.menu_budget_c2c"
       sequence="150"/>

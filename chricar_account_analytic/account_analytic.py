@@ -24,8 +24,10 @@ import time
 from osv import fields,osv
 import pooler
 import sys
+import netsvc
+from tools.translate import _
 
-# ***************3Y*********************
+# ************************************
 # account_account
 # ************************************
 
@@ -192,39 +194,65 @@ for balance accounts
 #
 
     def check_analytic_account_exists(self, cr, uid, ids, account_id, analytic_account_id ):
-        
         if account_id:
+            logger = netsvc.Logger() 
             account = self.browse(cr, uid,  account_id)
             if account.account_analytic_usage in ('mandatory','fixed') and not analytic_account_id :
-                #print >> sys.stderr, 'Data Error', 'There is no analytic account defined for ',account.name
+                logger.notifyChannel('addons.'+self._name, netsvc.LOG_INFO,'missing analyitc account for FGF:  %s '%(account.name))
                 return False
         return True
 
     def check_analytic_account_fixed(self, cr, uid, ids, account_id, analytic_account_id):
         
         if account_id:
+            logger = netsvc.Logger() 
             account = self.browse(cr, uid,  account_id)
+            if analytic_account_id:
+                analytic = self.pool.get('account.analytic.account').browse(cr, uid,  analytic_account_id)
+                analytic_name = analytic.name
+            else:
+                analytic_name = _('No analytic account specified')
             if account.account_analytic_usage == 'fixed' and account.analytic_account_id.id != analytic_account_id :
-                #print >> sys.stderr, 'Data Error', 'Wrong analytic account for ',account.name
+                logger.notifyChannel('addons.'+self._name, netsvc.LOG_INFO,'wrong analyitc account for FGF:  %s %s'%(account.name, analytic_name))
                 return False
         return True
 
     def check_analytic_account_none(self, cr, uid, ids, account_id, analytic_account_id):
         if account_id:
+            logger = netsvc.Logger() 
             account = self.browse(cr, uid,  account_id)
-            if account.analytic_account_id and account.account_analytic_usage == 'none':
-                #print >> sys.stderr, 'Data Error', 'no analytic account allowed for ',account.name
+            if analytic_account_id and account.account_analytic_usage == 'none':
+                logger.notifyChannel('addons.'+self._name, netsvc.LOG_INFO,'no analytic account allowed for FGF:  %s '%(account.name))
                 return False
         return True
 
 account_account()
 
-# *****************3Y*******************
+# ************************************
 # account_move_line
 # ************************************
 class account_move_line(osv.osv):
     _inherit = "account.move.line"
-    
+   
+
+    def _analytic_account_id(self, cr, uid, ids=False, context=None):
+        # FIXME - do not know if this ever will return a valid analytic account
+        res = ''
+        if ids:
+            line = self.browse(cr, uid, ids)
+            if not line.analytic_account_id and line.account_id and line.account_id.analytic_account_id:
+                res = line.account_id.analytic_account_id.id
+        return res
+ 
+    _columns = {
+       # FIXME why readonly ?? FGF 20111231
+       #'analytic_account_id': fields.many2one('account.analytic.account', 'Analytic Account', readonly=True)
+    }
+ 
+    _defaults = {
+       'analytic_account_id' :  _analytic_account_id,
+    }
+
 
     def onchange_account(self, cr, uid, ids, account_id,tax_id, amount, partner_id):
 
@@ -265,8 +293,17 @@ class account_move_line(osv.osv):
         (_check_analytic_account_fixed,
             'You must not alter a fixed analytic account.', ['analytic_account_id']),
         (_check_analytic_account_none,
-            'You must not define an analytic account.', ['analytic_account_id']),
+            'You must not define an analytic account.(accont_move_line)', ['analytic_account_id']),
         ]
+
+    def create(self, cr, uid, vals, context=None, check=True):
+        if not vals.get('analytic_account_id') :
+             account_id = vals.get('account_id')
+             if account_id:
+               for account in self.pool.get('account.account').browse(cr, uid, [account_id] , context=context):
+                 if account.account_analytic_usage in [ 'fixed', 'mandatory'] and account.analytic_account_id:
+                     vals['analytic_account_id'] = account.analytic_account_id.id 
+        return super(account_move_line, self).create(cr, uid, vals, context=context) 
 
 account_move_line()
 
@@ -298,7 +335,7 @@ class account_bank_statement_line(osv.osv):
         (_check_analytic_account_fixed,
             'You must not alter a fixed analytic account.', ['analytic_account_id']),
         (_check_analytic_account_none,
-            'You must not define an analytic account.', ['analytic_account_id']),
+            'You must not define an analytic account.(bankstatement line)', ['analytic_account_id']),
         ]
 
     def onchange_account(self, cr, uid, ids, account_id,tax_id, amount, partner_id):
@@ -343,6 +380,9 @@ account_bank_statement_line()
 class account_invoice_line(osv.osv):
     _inherit = "account.invoice.line"
 
+    _columns = {
+       'analytic_account_id': fields.many2one('account.analytic.account', 'Analytic Account', readonly=True)
+    }
     # we need this to fill default analytic for imported invoice lines
     def write(self, cr, uid, ids, vals, context=None):
         if not vals.get('account_analytic_id',False) and  vals.get('account_id',False):
@@ -381,12 +421,16 @@ class account_invoice_line(osv.osv):
     def _check_analytic_account_fixed(self, cr, uid, ids):
         for move in self.browse(cr, uid, ids):
             account_obj = self.pool.get('account.account')
-            return  account_obj.check_analytic_account_fixed(cr,uid,ids,move.account_id.id,move.account_analytic_id.id)
+            if move.invoice_id.state == 'open':
+                 return  account_obj.check_analytic_account_fixed(cr,uid,ids,move.account_id.id,move.account_analytic_id.id)
+            return True
 
     def _check_analytic_account_none(self, cr, uid, ids):
         for move in self.browse(cr, uid, ids):
             account_obj = self.pool.get('account.account')
-            return  account_obj.check_analytic_account_none(cr,uid,ids,move.account_id.id,move.account_analytic_id.id)
+            if move.invoice_id.state == 'open':
+                return  account_obj.check_analytic_account_none(cr,uid,ids,move.account_id.id,move.account_analytic_id.id)
+            return  True
         
     _constraints = [
         (_check_analytic_account_exists,

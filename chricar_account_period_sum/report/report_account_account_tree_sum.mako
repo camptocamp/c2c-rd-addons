@@ -70,6 +70,7 @@ Selection:
 %endif
 </p>
 
+<%chapter = helper.chapter() %>
 <%chapter.__init__()%>
 
 <%setLang(user.context_lang)%>

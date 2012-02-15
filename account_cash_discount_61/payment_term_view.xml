@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_payment_term_disc_tree" model="ir.ui.view">
+            <field name="name">account.payment.term.disc.tree</field>
+            <field name="model">account.payment.term</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Payment Term">
+                    <field name="name"/>
+                    <field name="is_discount"/>
+                    <field name="active"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <record id="view_payment_term_disc_form" model="ir.ui.view">
+            <field name="name">account.payment.term.disc.form</field>
+            <field name="model">account.payment.term</field>
+            <field name="inherit_id" ref="account.view_payment_term_form"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+               <xpath expr="/form/field[@name='name']" position="after">
+                       <field name="is_discount"/>
+                </xpath>
+            </field>
+	</record>
+        <record id="view_payment_term_line_disc_tree" model="ir.ui.view">
+            <field name="name">account.payment.term.line.disc.tree</field>
+            <field name="model">account.payment.term.line</field>
+            <field name="inherit_id" ref="account.view_payment_term_line_tree"/>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+               <xpath expr="/tree/field[@name='days2']" position="after">
+                    <field name="discount" />
+                    <field name="discount_expense_account_id"/>
+                    <field name="discount_income_account_id"/>
+                    <field name="is_discount" invisible="1"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_payment_term_line_disc_form" model="ir.ui.view">
+            <field name="name">account.payment.term.line.disc.form</field>
+            <field name="model">account.payment.term.line</field>
+            <field name="inherit_id" ref="account.view_payment_term_line_form"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+<!--
+               <xpath expr="/form/separator[@string='Example']" position="before">
+               <xpath expr="/form/group/group" position="after">
+-->
+               <xpath expr="/form/group" position="inside">
+                    <group colspan="4" col="4"  attrs="{'invisible': [('is_discount', '=', False)]}">
+                    <separator string="Discount Computation" colspan="4"/>
+                    <field name="discount" on_change="onchange_discount(discount)"/>
+                    <newline/>
+                    <field name="discount_expense_account_id"/>
+                    <field name="discount_income_account_id"/>
+                    <field name="is_discount" invisible="1"/>
+                    </group>
+                    <newline/>
+                </xpath>
+            </field>
+        </record>
+
+
+
+        <record model="ir.actions.act_window.view" id="action_payment_term_disc_tree">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_payment_term_disc_tree"/>
+            <field name="act_window_id" ref="account.action_payment_term_form"/>
+        </record>
+        <record model="ir.actions.act_window.view" id="action_bank_statement_periodic_form_bank">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_payment_term_disc_form"/>
+            <field name="act_window_id" ref="account.action_payment_term_form"/>
+        </record>
+
+    </data>
+</openerp>
+ 

@@ -10,7 +10,7 @@ generated 2009-07-11 14:55:52+02""",
      "depends"      : ["base","chricar_room","chricar_top"],
      "init_xml"     : [],
      "demo_xml"     : [],
-     "update_xml"   : ["invoice_view.xml"],
+     "update_xml"   : ["invoice_view.xml","security/ir.model.access.csv"],
      "active"       : False,
      "installable"  : True
 }

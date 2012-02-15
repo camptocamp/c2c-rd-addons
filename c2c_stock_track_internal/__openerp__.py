@@ -24,7 +24,7 @@
 {
     'name': 'Stock track internal moves',
     'version': '0.7',
-    'category': 'Inventory Control',
+    'category': 'Warehouse Management',
     'description': """
 Requires production lot for internal moves 
 """,

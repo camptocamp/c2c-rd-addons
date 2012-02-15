@@ -124,7 +124,7 @@ class stock_move(osv.osv):
         else:
 	    product = self.pool.get('product.product').browse(cr, uid, [product_id])[0]
             if product:
-                move_value_cost = round(product.average_price * product_qty,2)
+                move_value_cost = round(product.standard_price * product_qty,2)
   
         #category = 'small'
         result['name'] = name

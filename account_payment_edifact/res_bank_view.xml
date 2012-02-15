@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <!-- bank, make country mandatory-->
+    <record model="ir.ui.view" id="c2c_view_res_bank_form">
+      <field name="name">res.bank.form.country_mandatory</field>
+      <field name="model">res.bank</field>
+      <field name="inherit_id" ref="base.view_res_bank_form"/>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <field name="country" position="replace">
+          <field name="country" select="2" required="1"/>
+        </field>
+      </field>
+    </record>
+  </data>
+</openerp>

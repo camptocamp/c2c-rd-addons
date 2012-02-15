@@ -36,7 +36,7 @@ from mx import DateTime
 import time
 import netsvc
 from osv import fields,osv
-import ir
+#import ir
 from tools import config
 from tools.translate import _
 import tools

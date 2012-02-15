@@ -22,25 +22,31 @@
 
 
 from osv import fields, osv
-import sys
 
 class purchase_order(osv.osv):
     _inherit = "purchase.order"
-    _order = 'id desc'
+    _order = 'date_order desc, id desc'
 
 purchase_order()
 
 class sale_order(osv.osv):
     _inherit = "sale.order"
-    _order = 'id desc'
+    _order = 'date_order desc, id desc'
 
 sale_order()
 
 class stock_picking(osv.osv):
     _inherit = "stock.picking"
-    _order = 'id desc'
+    _order = 'date desc, id desc'
 
 stock_picking()
+
+class stock_move(osv.osv):
+    _inherit = "stock.move"
+    _order = 'date desc, id desc'
+
+stock_move()
+
 
 class account_invoice(osv.osv):
     _inherit = "account.invoice"

@@ -50,7 +50,8 @@ class account_period(osv.osv):
             cr.execute("""select id from account_period
                        where company_id = %s
                          and date_start = %s
-                         and special = %s """, ( p.company_id.id, date_start, p.special))
+                         and special = %s """, ( p.company_id.id or p.fiscalyear_id.company_id.id, date_start, p.special))
+ 
             res[p.id] = cr.fetchone() #or False
             #print >>sys.stderr, 'prev id', res
         return res
@@ -170,7 +171,7 @@ class account_fiscalyear_sum(osv.osv):
                         , limit = self._limit
                         )
                     for r in ids2:
-                        #print >> sys.stderr,'r_ids2 ', r
+                        print >> sys.stderr,'r_ids2 ', r
                         res [fy.id].append( r )
 
 
@@ -183,18 +184,38 @@ class account_fiscalyear_sum(osv.osv):
             for id in ids : 
                 res[id] = []
                 fy = pooler.get_pool(cr.dbname).get('account.account_fiscalyear_sum').browse(cr, user, id, context=context)
+                delta_obj = pooler.get_pool(cr.dbname).get('account.account.period.sum.delta')
+                ids3 = delta_obj.search \
+                        ( cr
+                        , user
+                        , [ ('company_id', '=', fy.company_id.id)
+                          , ('account_id', '=', fy.account_id.id)
+                          , ('fiscalyear_id', '=', fy.fiscalyear_id.id)
+                          ]   
+                        , limit = self._limit
+                        ) 
+                #cr.execute("""select id from account_account_period_sum_delta
+                #           where company_id = %s
+                #             and account_id = %s
+                #             and fiscalyear_id = %s
+                #             order by name""" , (fy.company_id.id,fy.account_id.id,fy.fiscalyear_id.id))
+                #ids3 = cr.fetchall()
 
-                cr.execute("""select id from account_account_period_sum_delta
-                           where company_id = %s
-                             and account_id = %s
-                             and fiscalyear_id = %s
-                             order by name""" , (fy.company_id.id,fy.account_id.id,fy.fiscalyear_id.id))
-                ids3 = cr.fetchall()
-            #print >> sys.stderr,'ids3 ', ids3
-                for r in ids3:
-                   #print >> sys.stderr,'r_ids3 ', r[0]
-                   res [fy.id].append( r[0] )
-                
+                print >> sys.stderr,'ids3 ', ids3
+                def _cmp(a, b) :
+                   if a.name < b.name : return -1
+                   elif a.name > b.name : return 1
+                   #else :
+                   #   if  a.move_id.name < b.move_id.name : return -1
+                   #  elif a.move_id.name > b.move_id.name : return 1
+                   return 0
+                # end def _cmp
+
+                #for r in ids3:
+                for r in sorted(delta_obj.browse(cr, user, ids3, context), cmp=lambda a, b: _cmp(a, b)):
+                #TypeError: browse_record(account.account.period.sum.delta, 1761010) is not JSON serializable
+                   print >> sys.stderr,'r_ids3 ', r, r.name
+                   res [fy.id].append( r.id )
             return res
     
     _columns = {
@@ -370,39 +391,41 @@ class account_account_period_sum_delta(osv.osv):
 
         params = 0
         periods = {}
-
+        res = {}
 
         for line1 in self.browse(cr, uid, ids, context=context):
             account_id = line1.account_id.id
             fiscalyear_id = line1.fiscalyear_id.id 
         period_sum_delta_obj = self.pool.get('account.account.period.sum.delta')
-        period_ids = period_sum_delta_obj.search(cr, uid, [('account_id','=',account_id),('fiscalyear_id','=',fiscalyear_id)], context=context)
-            
-        #print >> sys.stderr, 'period_ids',line1.id, period_ids
-            
-
-        #filters = " AND date_start <=  to_date('%s','YYYY-MM-DD') AND fiscalyear_id = %s " % (line1.date_start, line1.fiscalyear_id.id)
-        filters = " "
-        
-        request = ("SELECT l.id, " +\
+        lines = period_sum_delta_obj.search(cr, uid, [('account_id','=',account_id),('fiscalyear_id','=',fiscalyear_id)], context=context)
+        print >> sys.stderr, 'lines ',line1.id, lines
+        filters = " AND l.id in (%s)" %  (','.join(map(str,lines)) )
+        request = ("SELECT l.id as id, l.name,  " +\
                        ', '.join(map(mapping.__getitem__, field_names)) +
                        " FROM account_account_period_sum_delta l, account_account_period_sum_delta p" \
-                       " WHERE l.id in %s " \
-                       "   AND l.fiscalyear_id = " + str(fiscalyear_id) + \
+                       " WHERE l.fiscalyear_id = " + str(fiscalyear_id) + \
                        "   AND l.account_id = " + str(account_id) + \
                        "   AND p.fiscalyear_id = l.fiscalyear_id " \
                        "   AND p.account_id = l.account_id " \
                        "   AND p.date_start <= l.date_start " \
                             + filters +
-                        " GROUP BY l.id")
+                        " GROUP BY l.id,l.name  ORDER by l.name")
         
         print >>sys.stderr, 'request ', request
-        params = (tuple(period_ids),) + query_params
-        cr.execute(request, params)
+        #params = (tuple(period_ids),) #+ query_params
+        #params = (','.join(map(str,period_ids)) )
+        #print >>sys.stderr, 'params', params
+        cr.execute(request)
+
         for res in cr.dictfetchall():
-                periods [res['id']] = res
-                #print >>sys.stderr, 'periods res ', res
-        #print >>sys.stderr, 'periods ', periods
+                print >>sys.stderr, 'res ', res
+                for k, v in res.iteritems(): 
+                   if k == 'id':
+                      k1 = k
+                      v1 = v  
+                del res[k1]
+                periods[v1] = res
+        print >>sys.stderr, 'periods ', periods
         return periods
 
     _columns = {
@@ -423,7 +446,7 @@ class account_account_period_sum_delta(osv.osv):
 
       #'balance_cumulative' : fields.float   ('Balance cumulativ', digits_compute=dp.get_precision('Account')    ,readonly=True),
     }
-#    _order = 'name'
+    #_order = 'name'
     
     def init(self, cr):
       drop_view_if_exists(cr, "account_account_period_sum_delta")

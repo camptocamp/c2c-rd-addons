@@ -41,6 +41,7 @@ import re
 
 
 class c2c_helper(osv.osv):
+    _name = "c2c_helper"
     """ a class that provide useful methods for template development """
     
     # format of the dates

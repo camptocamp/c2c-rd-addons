@@ -30,11 +30,11 @@
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 ##############################################################################
-import core
-import flowables
-import templates
-import reports
-import c2c_helper
+#import core
+#import flowables
+#import templates
+#import reports
+#import c2c_helper
 
 
 # We will add this module in the pathes of Python

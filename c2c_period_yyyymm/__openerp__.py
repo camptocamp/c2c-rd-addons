@@ -24,7 +24,7 @@
 {
     'name': 'Changes period name to yyyymm',
     'version': '1.0',
-    'category': 'Tools',
+    'category': 'Accounting & Finance',
     'description': """
     This module changes the period name and code from mm/yyyy to yyyymm for easy data entry and sorting by name and code.
     period_id will be added to stock_move, account_move_line etc and monthly resources can be easily selected avoiding the

@@ -147,6 +147,56 @@
               </group>
               <newline/>
               <notebook colspan="4">
+                <page string="Periods Compare">
+                  <field name="sum_fy_period_delta_ids" widget="one2many_list" colspan="4" nolabel="1" readonly="1">
+                    <tree string="Periods Compare">
+                      <field name="name"/>
+                      <field name="balance_curr"/>
+                      <field name="balance_prev"/>
+                      <field name="diff"/>
+                      <field name="diff_pro"/>
+                      <field name="balance_curr_cum"/>
+                      <field name="balance_prev_cum"/>
+                      <field name="balance_diff_cum"/>
+                      <field name="balance_diff_pro_cum"/>
+                    </tree>
+                    <form string="Periods Compare">
+                      <group colspan="4" col="8">
+                        <field name="name"/>
+                        <field name="balance_curr"/>
+                        <field name="balance_prev"/>
+                        <field name="diff"/>
+                        <field name="diff_pro"/>
+                        <field name="balance_curr_cum"/>
+                        <field name="balance_prev_cum"/>
+                        <field name="balance_diff_cum"/>
+                        <field name="balance_diff_pro_cum"/>
+                      </group>
+                      <newline/>
+                      <!--
+                      <field name="move_line_ids" widget="one2many_list" colspan="4" nolabel="1" readonly="1">
+                        <tree string="Move Lines">
+                          <field name="statement_id"/>
+                          <field name="move_id"/>
+                          <field name="name"/>
+                          <field name="partner_id"/>
+                          <field name="ref"/>
+                          <field name="debit"/>
+                          <field name="credit"/>
+                          <field name="currency_id"/>
+                          <field name="amount_currency"/>
+                          <field name="tax_code_id"/>
+                          <field name="tax_amount"/>
+                          <field name="date"/>
+                          <field name="date_maturity"/>
+                   <field name="invoice"/>
+                   <field name="analytic_lines"/>
+                        </tree>
+                      </field>
+                   -->
+                    </form>
+                  </field>
+                </page>
                 <page string="Period Values">
                   <field name="sum_fy_period_ids" widget="one2many_list" colspan="4" nolabel="1" readonly="1">
                     <tree string="Period Sums">
@@ -191,56 +241,7 @@
                     </form>
                   </field>
                 </page>
-                <page string="Period Delta">
-                  <field name="sum_fy_period_delta_ids" widget="one2many_list" colspan="4" nolabel="1" readonly="1">
-                    <tree string="Period Delta Sums">
-                      <field name="name"/>
-                      <field name="balance_curr"/>
-                      <field name="balance_prev"/>
-                      <field name="diff"/>
-                      <field name="diff_pro"/>
-                      <field name="balance_curr_cum"/>
-                      <field name="balance_prev_cum"/>
-                      <field name="balance_diff_cum"/>
-                      <field name="balance_diff_pro_cum"/>
-                    </tree>
-                    <form string="Period Delta Sums">
-                      <group colspan="4" col="8">
-                        <field name="name"/>
-                        <field name="balance_curr"/>
-                        <field name="balance_prev"/>
-                        <field name="diff"/>
-                        <field name="diff_pro"/>
-                        <field name="balance_curr_cum"/>
-                        <field name="balance_prev_cum"/>
-                        <field name="balance_diff_cum"/>
-                        <field name="balance_diff_pro_cum"/>
-                      </group>
-                      <newline/>
-                      <!--
-                      <field name="move_line_ids" widget="one2many_list" colspan="4" nolabel="1" readonly="1">
-                        <tree string="Move Lines">
-                          <field name="statement_id"/>
-                          <field name="move_id"/>
-                          <field name="name"/>
-                          <field name="partner_id"/>
-                          <field name="ref"/>
-                          <field name="debit"/>
-                          <field name="credit"/>
-                          <field name="currency_id"/>
-                          <field name="amount_currency"/>
-                          <field name="tax_code_id"/>
-                          <field name="tax_amount"/>
-                          <field name="date"/>
-                          <field name="date_maturity"/>
-                   <field name="invoice"/>
-                   <field name="analytic_lines"/>
-                        </tree>
-                      </field>
-                   -->
-                    </form>
-                  </field>
-                </page>
+
                 <!--
                 <page string="Closing Remarks">
                   <field name="closing_text_ids" widget="one2many_list" colspan="4" nolabel="1">

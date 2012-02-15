@@ -31,7 +31,7 @@
         <field name="product_id" position="replace">
           <field
             colspan="4"
-            context="{'partner_id':parent.partner_id,'quantity':product_qty,'pricelist':parent.pricelist_id,'uom':product_uom,'warehouse':parent.warehouse_id}"
+            context="{'partner_id':parent.partner_id,'pricelist':parent.pricelist_id,'uom':product_uom,'warehouse':parent.warehouse_id}"
             name="product_id"
             on_change="product_id_change_2c2_pu(parent.pricelist_id,product_id,product_qty,product_uom,parent.partner_id, parent.date_order,parent.fiscal_position,date_planned,name,price_unit_pu,notes,price_unit_id)"/>
         </field>

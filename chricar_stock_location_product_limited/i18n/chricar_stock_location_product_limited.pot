@@ -1,0 +1,62 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* chricar_stock_location_product_limited
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 6.1rc1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-01-23 22:07+0000\n"
+"PO-Revision-Date: 2012-01-23 22:07+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: chricar_stock_location_product_limited
+#: model:ir.actions.wizard,name:chricar_stock_location_product_limited.location_product
+msgid "Products by Location without 0 Quantity"
+msgstr ""
+
+#. module: chricar_stock_location_product_limited
+#: wizard_field:stock.location.products.modified,init,from_date:0
+msgid "From"
+msgstr ""
+
+#. module: chricar_stock_location_product_limited
+#: wizard_view:stock.location.products.modified,init:0
+msgid "Stock Location Analysis"
+msgstr ""
+
+#. module: chricar_stock_location_product_limited
+#: wizard_view:stock.location.products.modified,init:0
+msgid "View Stock of Products"
+msgstr ""
+
+#. module: chricar_stock_location_product_limited
+#: wizard_view:stock.location.products.modified,init:0
+msgid "(Keep empty to open the current situation)"
+msgstr ""
+
+#. module: chricar_stock_location_product_limited
+#: wizard_field:stock.location.products.modified,init,to_date:0
+msgid "To"
+msgstr ""
+
+#. module: chricar_stock_location_product_limited
+#: wizard_field:stock.location.products.modified,init,display_with_zero_qty:0
+msgid "Display products with 0 qty"
+msgstr ""
+
+#. module: chricar_stock_location_product_limited
+#: wizard_button:stock.location.products.modified,init,end:0
+msgid "Cancel"
+msgstr ""
+
+#. module: chricar_stock_location_product_limited
+#: wizard_button:stock.location.products.modified,init,open:0
+msgid "Open Products"
+msgstr ""
+

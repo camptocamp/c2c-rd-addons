@@ -144,7 +144,7 @@ class account_chart_sum(osv.osv_memory):
             context = {}
         data = self.read(cr, uid, ids, [], context=context)[0]
 
-        print >>sys.stderr, 'open', context.get('open')
+        print >>sys.stderr, 'open', context.get('open'), data['period_from'][0],  data['period_to'][0]
         if context.get('open')  == 'view':
             result = mod_obj.get_object_reference(cr, uid, 'chricar_account_period_sum', 'action_account_chart_sum')
             id = result and result[1] or False
@@ -156,17 +156,18 @@ class account_chart_sum(osv.osv_memory):
             result = rep_obj.read(cr, uid, [id], context=context)[0]
             #FIXME 
             # does not open report
-        print >>sys.stderr, 'result ', result
+        #print >>sys.stderr, 'result ', result
 
         result['periods'] = []
         if data['period_from'] and data['period_to']:
-            result['periods'] = period_obj.build_ctx_periods(cr, uid, data['period_from'], data['period_to'])
-            result['context'] = str({'fiscalyear': data['fiscalyear'], 'periods': result['periods']  })
+            result['periods'] = period_obj.build_ctx_periods(cr, uid, data['period_from'][0], data['period_to'][0])
+            result['context'] = str({'fiscalyear': data['fiscalyear'][0], 'periods': result['periods']  })
         if data['period_prev_from'] and data['period_prev_to']:
-            result['periods_prev'] = period_obj.build_ctx_periods(cr, uid, data['period_prev_from'], data['period_prev_to'])
+            result['periods_prev'] = period_obj.build_ctx_periods(cr, uid, data['period_prev_from'][0], data['period_prev_to'][0])
             if result['periods_prev']:
-                result['context'] = str({'fiscalyear': data['fiscalyear'], 
-                                'chart_account_id' : data['chart_account_id'],
+                #print >>sys.stderr, 'previous periods', result['periods_prev'], data['period_prev_from'],  data['period_prev_to']
+                result['context'] = str({'fiscalyear': data['fiscalyear'][0], 
+                                'chart_account_id' : data['chart_account_id'][0],
                                 'periods': result['periods'], 'periods_prev' : result['periods_prev'] ,
                                 'print_all_zero'  : data['print_all_zero'],
                                 'print_chapter'   : data['print_chapter'],
@@ -177,16 +178,16 @@ class account_chart_sum(osv.osv_memory):
                                 })
 
         if data['fiscalyear']:
-            result['name'] += ':' + fy_obj.read(cr, uid, [data['fiscalyear']], context=context)[0]['code'] 
+            result['name'] += ':' + fy_obj.read(cr, uid, [data['fiscalyear'][0]], context=context)[0]['code'] 
         if data['period_from']:
-            result['name'] += ' ' + period_obj.read(cr, uid, [data['period_from']], context=context)[0]['code'] 
+            result['name'] += ' ' + period_obj.read(cr, uid, [data['period_from'][0]], context=context)[0]['code'] 
         if data['period_to']:
-            result['name'] += '-' + period_obj.read(cr, uid, [data['period_to']], context=context)[0]['code'] 
+            result['name'] += '-' + period_obj.read(cr, uid, [data['period_to'][0]], context=context)[0]['code'] 
 
         if data['period_prev_from']:
-            result['name'] += ' ' + period_obj.read(cr, uid, [data['period_prev_from']], context=context)[0]['code'] 
+            result['name'] += ' ' + period_obj.read(cr, uid, [data['period_prev_from'][0]], context=context)[0]['code'] 
         if data['period_prev_to']:
-            result['name'] += '-' + period_obj.read(cr, uid, [data['period_prev_to']], context=context)[0]['code'] 
+            result['name'] += '-' + period_obj.read(cr, uid, [data['period_prev_to'][0]], context=context)[0]['code'] 
 
         #print >> sys.stderr, 'wiz',result
         return result
@@ -206,7 +207,7 @@ class account_chart_sum(osv.osv_memory):
         context.update({'open':'report'})
         print >> sys.stderr, 'context after',context
         res= self.account_chart_sum_open( cr, uid, ids, context)
-        print >> sys.stderr, 'after res', res
+        #print >> sys.stderr, 'after res', res
 
         ##print  >> sys.stderr, 'webkit',  report_sxw.report_sxw('report.account_account.tree_sum',
         ##               'account.account', 
@@ -215,22 +216,22 @@ class account_chart_sum(osv.osv_memory):
 
         data = self.read(cr, uid, ids, [], context=context)[0]
         period_obj = self.pool.get('account.period')
-        data.update({'period_from_name' :  period_obj.read(cr, uid, [data['period_from']], context=context)[0]['code']})
-        data.update({'period_to_name' :  period_obj.read(cr, uid, [data['period_to']], context=context)[0]['code']})
-        data.update({'period_prev_from_name' :  period_obj.read(cr, uid, [data['period_prev_from']], context=context)[0]['code'] or ''})
-        data.update({'period_prev_to_name' :  period_obj.read(cr, uid, [data['period_prev_to']], context=context)[0]['code'] or ''})
+        data.update({'period_from_name' :  period_obj.read(cr, uid, [data['period_from'][0]], context=context)[0]['code']})
+        data.update({'period_to_name' :  period_obj.read(cr, uid, [data['period_to'][0]], context=context)[0]['code']})
+        data.update({'period_prev_from_name' :  period_obj.read(cr, uid, [data['period_prev_from'][0]], context=context)[0]['code'] or ''})
+        data.update({'period_prev_to_name' :  period_obj.read(cr, uid, [data['period_prev_to'][0]], context=context)[0]['code'] or ''})
 
         if data['period_from'] and data['period_to']:
-            periods = period_obj.build_ctx_periods(cr, uid, data['period_from'], data['period_to'])
+            periods = period_obj.build_ctx_periods(cr, uid, data['period_from'][0], data['period_to'][0])
             context.update({'fiscalyear': data['fiscalyear'], 'periods': periods  })
 
         if data['period_prev_from'] and data['period_prev_to']:
-            periods_prev = period_obj.build_ctx_periods(cr, uid, data['period_prev_from'], data['period_prev_to'])
+            periods_prev = period_obj.build_ctx_periods(cr, uid, data['period_prev_from'][0], data['period_prev_to'][0])
             context.update({'periods_prev': periods_prev  })
 
         # get ids
         account_obj = self.pool.get('account.account')
-        account_ids = account_obj._get_children_and_consol(cr, uid, [data['chart_account_id']] , context)
+        account_ids = account_obj._get_children_and_consol(cr, uid, [data['chart_account_id'][0]] , context)
         datas = {
              'ids': account_ids,
              'model': 'ir.ui.menu',

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <record model="ir.ui.view" id="payment_order_edifact_form_view">
+      <field name="name">payment.order.edifact.form.view</field>
+      <field name="model">payment.order.edifact</field>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <form>
+          <button 
+            icon="gtk-cancel"
+            special="cancel"
+            string="Cancel"/>
+          <button
+            name="payment_send"
+            string="Generate"
+            type="object"
+            default_focus="1"/>
+        </form>
+      </field>
+    </record>
+    <record id="action_payment_order_edifact" model="ir.actions.act_window">
+      <field name="name">Generate EDIFACT</field>
+      <field name="res_model">payment.order.edifact</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">form</field>
+      <field name="view_id" ref="payment_order_edifact_form_view"/>
+      <field name="target">new</field>
+    </record>
+  </data>
+</openerp>

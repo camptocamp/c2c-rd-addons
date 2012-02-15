@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+   <data>
+
+<act_window
+    domain="[('sale_id', '=', active_id)]"
+    id="act_sale_order_2_stock_picking"
+    name="Deliveries"
+    res_model="stock.picking"
+    groups="base.group_extended"
+    src_model="sale.order"
+    view_id="stock.view_picking_out_tree"
+    context="{'default_sale_id': active_id, 'contact_display': 'partner'}" />
+
+    </data>
+</openerp>
+

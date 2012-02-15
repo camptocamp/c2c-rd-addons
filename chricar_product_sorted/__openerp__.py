@@ -7,7 +7,7 @@
      "description"  : """returns product sorted by category,name, variant
   
      """,
-     "category"     : "Client Modules/ChriCar Addons",
+     "category"     : "Warehouse Management",
      "depends"      : ["base","product"],
      "init_xml"     : [],
      "demo_xml"     : [],

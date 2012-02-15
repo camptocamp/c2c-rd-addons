@@ -24,7 +24,7 @@
 {
     'name': 'Sale Delivery Partner',
     'version': '0.7',
-    'category': 'Sale',
+    'category': 'Sales Management',
     'description': """
 This module allows 
 * to use any partner as delivery address 

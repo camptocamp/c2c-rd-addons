@@ -75,6 +75,15 @@ c2c_budget_version()
 class c2c_budget_line(osv.osv):
      _inherit = 'c2c_budget.line'
 
+     def on_change_date(self, cr, uid, ids, date_planning):
+        period_ids= self.pool.get('account.period').search(cr,uid,[('date_start','<=',date_planning),('date_stop','>=',date_planning )])
+        result ={}
+        if len(period_ids):
+           period_id=period_ids[0]
+           result['period_id'] = period_id
+        result['date_due'] = date_planning
+        return {'value':result}
+
      def _amount_cash(self, cr, uid, ids, name, args, context=None):
         res = {}
         for line in self.browse(cr, uid, ids, context=context):
@@ -215,7 +224,7 @@ class chricar_budget_lines_production(osv.osv):
        'bom_id'             : fields.many2one('mrp.bom','BoM'),
        'budget_id'          : fields.many2one('chricar.budget','Product', required=True),
        #'budget_item_id'     : fields.many2one('c2c_budget.item','Budget Item', required=True),
-       'budget_line_id'     : fields.many2one('c2c_budget.line','Budget Line', required=True),
+       #'budget_line_id'     : fields.many2one('c2c_budget.line','Budget Line', required=True),
        #'date_due'           : fields.date    ('Date Due', required=True, help="This date will be used for cashflow planning"),
        #'date_planning'      : fields.date    ('Date Planning', required=True),
        'location_id'        : fields.many2one('stock.location','Location'),
@@ -343,7 +352,7 @@ class chricar_budget_lines_sales(osv.osv):
        #'amount'       : fields.function(_amount_total, method=True, string='Subtotal' ,digits=(16,0) , store=True),
        'bom_id'             : fields.many2one('mrp.bom','BoM'),
        'budget_id'          : fields.many2one('chricar.budget','Budget', required=True),
-       'budget_line_id'     : fields.many2one('c2c_budget.line','Budget Line', required=True),
+       #'budget_line_id'     : fields.many2one('c2c_budget.line','Budget Line', required=True),
        #'budget_item_id'     : fields.many2one('c2c_budget.item','Budget Item',required=True),
        #'date_due'           : fields.date    ('Date Due', required=True, help="This date will be used for cashflow planning"),
        #'date_planning'      : fields.date    ('Date Planning', required=True),
@@ -743,18 +752,6 @@ chricar_budget()
 #      }
 #stock_location()
 
-class c2c_budget_line(osv.osv):
-     _inherit = "c2c_budget.line"
-
-     def on_change_date(self, cr, uid, ids, date_planning):
-        period_ids= self.pool.get('account.period').search(cr,uid,[('date_start','<=',date_planning),('date_stop','>=',date_planning )])
-        result ={}
-        if len(period_ids):
-           period_id=period_ids[0]
-           result['period_id'] = period_id
-        result['date_due'] = date_planning
-        return {'value':result}
-c2c_budget_line()
 
 
 class chricar_budget_line_share(osv.osv):

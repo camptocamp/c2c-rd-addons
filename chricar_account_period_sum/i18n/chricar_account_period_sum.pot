@@ -1,0 +1,582 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* chricar_account_period_sum
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 6.1rc1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-01-23 22:05+0000\n"
+"PO-Revision-Date: 2012-01-23 22:05+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: chricar_account_period_sum
+#: constraint:account.move.line:0
+msgid "You must assign an analytic account.(move_line) "
+msgstr ""
+
+#. module: chricar_account_period_sum
+#: view:account.chart.sum:0
+msgid "Print Chart"
+msgstr ""
+
+#. module: chricar_account_period_sum
+#: model:ir.actions.act_window,name:chricar_account_period_sum.action_account_fy_chricar
+#: model:ir.ui.menu,name:chricar_account_period_sum.chricar_menu_action_account_fy_chricar
+msgid "Account FY Sums"
+msgstr ""
+
+#. module: chricar_account_period_sum
+#: field:account.account.period.sum.delta,balance_curr_cum:0
+msgid "Curr Cum"
+msgstr ""
+
+#. module: chricar_account_period_sum
+#: field:account.account.period.sum.cur.prev,company_id:0
+#: field:account.account.period.sum.delta,company_id:0
+#: field:account.account_fiscalyear_sum,company_id:0
+#: field:account.account_fy_period_sum,company_id:0
+#: field:account.account_period_sum,company_id:0
+#: field:account.account_with_postings,company_id:0
+msgid "Company"
+msgstr ""
+
+#. module: chricar_account_period_sum
+#: constraint:account.period:0
+msgid "Error ! The duration of the Period(s) is/are invalid. "
+msgstr ""
+
+#. module: chricar_account_period_sum
+#: field:account.account.period.sum.cur.prev,account_id:0
+#: field:account.account.period.sum.delta,account_id:0
+#: field:account.account_fiscalyear_sum,account_id:0
+#: field:account.account_fy_period_sum,account_id:0
+#: field:account.account_period_sum,account_id:0
+#: model:ir.model,name:chricar_account_period_sum.model_account_account
+msgid "Account"
+msgstr ""
+
+#. module: chricar_account_period_sum
+#: field:account.move.line,account_period_sum_id:0
+msgid "Period Sum"
+msgstr ""
+
+#. module: chricar_account_period_sum
+#: constraint:account.move.line:0
+msgid "You must not define an analytic account."
+msgstr ""
+
+#. module: chricar_account_period_sum
+#: view:account.account_with_postings:0
+msgid "Period Delta"
+msgstr ""
+
+#. module: chricar_account_period_sum
+#: field:account.chart.sum,print_opening_dc:0
+msgid "Print opening balance, debit and credit columns"
+msgstr ""
+
+#. module: chricar_account_period_sum
+#: sql_constraint:account.move.line:0
+msgid "Wrong credit or debit value in accounting entry !"
+msgstr ""
+
+#. module: chricar_account_period_sum
+#: constraint:account.account:0
+msgid "Error ! You can not create recursive accounts."
+msgstr ""
+
+#. module: chricar_account_period_sum
+#: model:ir.model,name:chricar_account_period_sum.model_account_account_fiscalyear_sum
+msgid "Account Fiscalyear Sum"
+msgstr ""
+
+#. module: chricar_account_period_sum
+#: field:account.chart.sum,period_from:0
+msgid "Start period"
+msgstr ""
+
+#. module: chricar_account_period_sum
+#: field:account.account_with_postings,reconcile:0
+msgid "Reconcile"
+msgstr ""
+
+#. module: chricar_account_period_sum
+#: field:account.chart.sum,period_to:0
+msgid "End period"
+msgstr ""
+
+#. module: chricar_account_period_sum
+#: field:account.account_with_postings,sum_fy_period_ids:0
+msgid "Sum Fiscal Year Periods"
+msgstr ""
+
+#. module: chricar_account_period_sum
+#: sql_constraint:account.journal:0
+msgid "The code of the journal must be unique per company !"
+msgstr ""
+
+#. module: chricar_account_period_sum
+#: constraint:account.account:0
+msgid "You must assign mandatory or fixed analytic account usage for P&L accounts"
+msgstr ""
+
+#. module: chricar_account_period_sum
+#: field:account.journal,is_opening_balance:0
+msgid "Is Opening Balance Journal"
+msgstr ""
+
+#. module: chricar_account_period_sum
+#: field:account.chart.sum,print_previous_1000:0
+msgid "Print previous balance in 1000"
+msgstr ""
+
+#. module: chricar_account_period_sum
+#: field:account.account_fy_period_sum,move_line_ids:0
+msgid "Account_moves"
+msgstr ""
+
+#. module: chricar_account_period_sum
+#: model:ir.actions.report.xml,name:chricar_account_period_sum.report_account_account_tree_sum
+msgid "Account Chart Enhanced"
+msgstr ""
+
+#. module: chricar_account_period_sum
+#: sql_constraint:account.account:0
+msgid "The code of the account must be unique per company !"
+msgstr ""
+
+#. module: chricar_account_period_sum
+#: field:account.account_with_postings,shortcut:0
+msgid "Shortcut"
+msgstr ""
+
+#. module: chricar_account_period_sum
+#: view:account.account_with_postings:0
+msgid "Period Delta Sums"
+msgstr ""
+
+#. module: chricar_account_period_sum
+#: field:account.account,debit_sum:0
+#: field:account.account_fiscalyear_sum,debit:0
+#: field:account.account_fy_period_sum,debit:0
+#: field:account.account_period_sum,debit:0
+msgid "Debit"
+msgstr ""
+
+#. module: chricar_account_period_sum
+#: field:account.account_with_postings,user_type:0
+msgid "Account Type"
+msgstr ""
+
+#. module: chricar_account_period_sum
+#: field:account.account.period.sum.delta,balance_prev_cum:0
+msgid "Prev Cum"
+msgstr ""
+
+#. module: chricar_account_period_sum
+#: constraint:account.move.line:0
+msgid "The date of your Journal Entry is not in the defined period! You should change the date or remove this constraint from the journal."
+msgstr ""
+
+#. module: chricar_account_period_sum
+#: constraint:account.account:0
+msgid "For views usage must be: Not Allowed"
+msgstr ""
+
+#. module: chricar_account_period_sum
+#: field:account.period,prev_fy_period:0
+msgid "Period Prev FY"
+msgstr ""
+
+#. module: chricar_account_period_sum
+#: field:account.account_fiscalyear_sum,date_stop:0
+#: field:account.account_fy_period_sum,date_stop:0
+msgid "Date Stop"
+msgstr ""
+
+#. module: chricar_account_period_sum
+#: field:account.account_fy_period_sum,balance_cumulative:0
+msgid "Balance cumulativ"
+msgstr ""
+
+#. module: chricar_account_period_sum
+#: view:account.account:0
+#: view:account.account_with_postings:0
+msgid "Chart of accounts"
+msgstr ""
+
+#. module: chricar_account_period_sum
+#: view:account.chart.sum:0
+msgid "Account charts"
+msgstr ""
+
+#. module: chricar_account_period_sum
+#: model:ir.actions.act_window,name:chricar_account_period_sum.action_account_chart1_sum
+#: model:ir.actions.act_window,name:chricar_account_period_sum.action_account_chart_sum
+#: model:ir.ui.menu,name:chricar_account_period_sum.menu_action_account_chart_sum
+msgid "Chart of Accounts Sum"
+msgstr ""
+
+#. module: chricar_account_period_sum
+#: field:account.account.period.sum.delta,balance_diff_cum:0
+msgid "Diff Cum"
+msgstr ""
+
+#. module: chricar_account_period_sum
+#: field:account.account,balance_prev_sum:0
+msgid "Balance Prev Year"
+msgstr ""
+
+#. module: chricar_account_period_sum
+#: help:account.journal,is_opening_balance:0
+msgid "check this and use this journal for closing fiscal year, the opening balance moves will not be added to chricar periods sum as opening balance is a special period 00"
+msgstr ""
+
+#. module: chricar_account_period_sum
+#: constraint:account.move.line:0
+msgid "The selected account of your Journal Entry forces to provide a secondary currency. You should remove the secondary currency on the account or select a multi-currency view on the journal."
+msgstr ""
+
+#. module: chricar_account_period_sum
+#: model:ir.model,name:chricar_account_period_sum.model_account_account_period_sum
+msgid "Account Period Sum"
+msgstr ""
+
+#. module: chricar_account_period_sum
+#: field:account.account_with_postings,currency_id:0
+msgid "Currency"
+msgstr ""
+
+#. module: chricar_account_period_sum
+#: constraint:account.account:0
+msgid "You must define an analytic account for fixed, else nothing"
+msgstr ""
+
+#. module: chricar_account_period_sum
+#: view:account.account_with_postings:0
+msgid "Period Values"
+msgstr ""
+
+#. module: chricar_account_period_sum
+#: constraint:account.account:0
+msgid "Configuration Error! \n"
+"You can not define children to an account with internal type different of \"View\"! "
+msgstr ""
+
+#. module: chricar_account_period_sum
+#: model:ir.model,name:chricar_account_period_sum.model_account_chart_sum
+msgid "Account chart (sum)"
+msgstr ""
+
+#. module: chricar_account_period_sum
+#: field:account.account.period.sum.delta,balance_diff_pro_cum:0
+msgid "Diff Cum %"
+msgstr ""
+
+#. module: chricar_account_period_sum
+#: view:account.account_fiscalyear_sum:0
+#: view:account.account_with_postings:0
+msgid "Fiscal Year Sums"
+msgstr ""
+
+#. module: chricar_account_period_sum
+#: field:account.account_with_postings,note:0
+msgid "Note"
+msgstr ""
+
+#. module: chricar_account_period_sum
+#: model:ir.model,name:chricar_account_period_sum.model_account_account_period_sum_cur_prev
+msgid "Account Period Sum current previous"
+msgstr ""
+
+#. module: chricar_account_period_sum
+#: field:account.account,opening_balance_sum:0
+#: field:account.account_fiscalyear_sum,opening_balance:0
+msgid "Opening Balance"
+msgstr ""
+
+#. module: chricar_account_period_sum
+#: sql_constraint:account.period:0
+msgid "The name of the period must be unique per company!"
+msgstr ""
+
+#. module: chricar_account_period_sum
+#: constraint:account.move.line:0
+msgid "You must not alter a fixed analytic account."
+msgstr ""
+
+#. module: chricar_account_period_sum
+#: view:account.chart.sum:0
+msgid "Periods Prev Year"
+msgstr ""
+
+#. module: chricar_account_period_sum
+#: constraint:account.fiscalyear:0
+msgid "Error! The start date of the fiscal year must be before his end date."
+msgstr ""
+
+#. module: chricar_account_period_sum
+#: field:account.chart.sum,period_prev_to:0
+msgid "End period prev FY"
+msgstr ""
+
+#. module: chricar_account_period_sum
+#: field:account.account.period.sum.delta,diff:0
+msgid "Diff Period"
+msgstr ""
+
+#. module: chricar_account_period_sum
+#: view:account.account_with_postings:0
+msgid "Move Lines"
+msgstr ""
+
+#. module: chricar_account_period_sum
+#: model:ir.model,name:chricar_account_period_sum.model_account_move_line
+msgid "Journal Items"
+msgstr ""
+
+#. module: chricar_account_period_sum
+#: constraint:account.move.line:0
+msgid "You can not create journal items on an account of type view."
+msgstr ""
+
+#. module: chricar_account_period_sum
+#: view:account.account_with_postings:0
+msgid "Period Sums"
+msgstr ""
+
+#. module: chricar_account_period_sum
+#: field:account.chart.sum,chart_account_id:0
+msgid "Chart of Account "
+msgstr ""
+
+#. module: chricar_account_period_sum
+#: field:account.chart.sum,print_views_only:0
+msgid "Print only accounts of type view"
+msgstr ""
+
+#. module: chricar_account_period_sum
+#: field:account.account_fiscalyear_sum,sum_fy_period_delta_ids:0
+msgid "Fiscal Year Period Delta"
+msgstr ""
+
+#. module: chricar_account_period_sum
+#: model:ir.model,name:chricar_account_period_sum.model_triggger
+msgid "triggger"
+msgstr ""
+
+#. module: chricar_account_period_sum
+#: field:account.account,balance_sum:0
+#: field:account.account_fiscalyear_sum,balance:0
+msgid "Balance"
+msgstr ""
+
+#. module: chricar_account_period_sum
+#: model:ir.actions.act_window,name:chricar_account_period_sum.action_account_tree_chricar
+#: model:ir.model,name:chricar_account_period_sum.model_account_account_with_postings
+#: model:ir.ui.menu,name:chricar_account_period_sum.chricar_menu_action_account_tree_chricar
+msgid "Accounts with Postings"
+msgstr ""
+
+#. module: chricar_account_period_sum
+#: field:account.chart.sum,print_chapter:0
+msgid "Print chapter column"
+msgstr ""
+
+#. module: chricar_account_period_sum
+#: field:account.account_fiscalyear_sum,code:0
+#: field:account.account_with_postings,code:0
+msgid "Code"
+msgstr ""
+
+#. module: chricar_account_period_sum
+#: constraint:account.account:0
+msgid "Configuration Error! \n"
+"You can not select an account type with a deferral method different of \"Unreconciled\" for accounts with internal type \"Payable/Receivable\"! "
+msgstr ""
+
+#. module: chricar_account_period_sum
+#: constraint:account.period:0
+msgid "Invalid period ! Some periods overlap or the date period is not in the scope of the fiscal year. "
+msgstr ""
+
+#. module: chricar_account_period_sum
+#: field:account.account.period.sum.cur.prev,name:0
+#: field:account.account.period.sum.cur.prev,period_id:0
+#: field:account.account.period.sum.delta,name:0
+#: field:account.account.period.sum.delta,period_id:0
+#: field:account.account_fy_period_sum,name:0
+#: field:account.account_fy_period_sum,period_id:0
+#: field:account.account_period_sum,name:0
+#: field:account.account_period_sum,period_id:0
+msgid "Period"
+msgstr ""
+
+#. module: chricar_account_period_sum
+#: field:account.chart.sum,print_all_zero:0
+msgid "Print lines with all zero"
+msgstr ""
+
+#. module: chricar_account_period_sum
+#: field:account.chart.sum,fiscalyear:0
+msgid "Fiscal year"
+msgstr ""
+
+#. module: chricar_account_period_sum
+#: view:account.chart.sum:0
+msgid "Periods"
+msgstr ""
+
+#. module: chricar_account_period_sum
+#: view:account.chart.sum:0
+msgid "Cancel"
+msgstr ""
+
+#. module: chricar_account_period_sum
+#: constraint:account.move.line:0
+msgid "Company must be the same for its related account and period."
+msgstr ""
+
+#. module: chricar_account_period_sum
+#: field:account.account_with_postings,sum_fiscalyear_ids:0
+msgid "Sum Fiscal Years"
+msgstr ""
+
+#. module: chricar_account_period_sum
+#: field:account.account.period.sum.cur.prev,balance_curr:0
+#: field:account.account.period.sum.cur.prev,balance_prev:0
+msgid "Balance Current Period"
+msgstr ""
+
+#. module: chricar_account_period_sum
+#: field:account.account.period.sum.delta,diff_pro:0
+msgid "Diff Period %"
+msgstr ""
+
+#. module: chricar_account_period_sum
+#: view:account.chart.sum:0
+msgid "Open Charts"
+msgstr ""
+
+#. module: chricar_account_period_sum
+#: model:ir.model,name:chricar_account_period_sum.model_account_period
+msgid "Account period"
+msgstr ""
+
+#. module: chricar_account_period_sum
+#: field:account.chart.sum,period_prev_from:0
+msgid "Start period prev FY"
+msgstr ""
+
+#. module: chricar_account_period_sum
+#: model:ir.model,name:chricar_account_period_sum.model_account_account_period_sum_delta
+msgid "Account Period Sum Delta"
+msgstr ""
+
+#. module: chricar_account_period_sum
+#: view:account.chart.sum:0
+msgid "Report Output Controls"
+msgstr ""
+
+#. module: chricar_account_period_sum
+#: model:ir.actions.act_window,help:chricar_account_period_sum.action_account_chart1_sum
+msgid "Display your company chart of accounts per fiscal year and filter by period. Have a complete tree view of all journal items per account code by clicking on an account."
+msgstr ""
+
+#. module: chricar_account_period_sum
+#: field:account.account_with_postings,name:0
+msgid "Name"
+msgstr ""
+
+#. module: chricar_account_period_sum
+#: field:account.account.period.sum.delta,balance_prev:0
+msgid "Prev Period"
+msgstr ""
+
+#. module: chricar_account_period_sum
+#: field:account.account_with_postings,sum_period_ids:0
+msgid "Sum Periods"
+msgstr ""
+
+#. module: chricar_account_period_sum
+#: field:account.account.period.sum.cur.prev,fiscalyear_id:0
+#: field:account.account.period.sum.delta,fiscalyear_id:0
+#: field:account.account_fiscalyear_sum,fiscalyear_id:0
+#: field:account.account_fiscalyear_sum,name:0
+#: field:account.account_fy_period_sum,fiscalyear_id:0
+#: model:ir.model,name:chricar_account_period_sum.model_account_fiscalyear
+msgid "Fiscal Year"
+msgstr ""
+
+#. module: chricar_account_period_sum
+#: field:account.account_fiscalyear_sum,sum_fy_period_ids:0
+msgid "Fiscal Year Period Sum"
+msgstr ""
+
+#. module: chricar_account_period_sum
+#: model:ir.model,name:chricar_account_period_sum.model_account_account_fy_period_sum
+msgid "Account Fiscalyear Period Sum"
+msgstr ""
+
+#. module: chricar_account_period_sum
+#: field:account.account_period_sum,sum_fy_period_id:0
+msgid "Account FY id"
+msgstr ""
+
+#. module: chricar_account_period_sum
+#: field:account.account.period.sum.delta,balance_curr:0
+msgid "Curr Period"
+msgstr ""
+
+#. module: chricar_account_period_sum
+#: constraint:account.move.line:0
+msgid "You can not create journal items on closed account."
+msgstr ""
+
+#. module: chricar_account_period_sum
+#: field:account.account,credit_sum:0
+#: field:account.account_fiscalyear_sum,credit:0
+#: field:account.account_fy_period_sum,credit:0
+#: field:account.account_period_sum,credit:0
+msgid "Credit"
+msgstr ""
+
+#. module: chricar_account_period_sum
+#: field:account.account_fy_period_sum,balance:0
+msgid "Balance Period"
+msgstr ""
+
+#. module: chricar_account_period_sum
+#: sql_constraint:account.journal:0
+msgid "The name of the journal must be unique per company !"
+msgstr ""
+
+#. module: chricar_account_period_sum
+#: field:account.chart.sum,print_closing_remarks:0
+msgid "Print closing remarks"
+msgstr ""
+
+#. module: chricar_account_period_sum
+#: constraint:account.journal:0
+msgid "Configuration error! The currency chosen should be shared by the default accounts too."
+msgstr ""
+
+#. module: chricar_account_period_sum
+#: field:account.account.period.sum.cur.prev,date_start:0
+#: field:account.account.period.sum.delta,date_start:0
+#: field:account.account_fiscalyear_sum,date_start:0
+#: field:account.account_fy_period_sum,date_start:0
+msgid "Date Start"
+msgstr ""
+
+#. module: chricar_account_period_sum
+#: model:ir.model,name:chricar_account_period_sum.model_account_journal
+msgid "Journal"
+msgstr ""
+

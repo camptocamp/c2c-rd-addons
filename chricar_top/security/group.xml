@@ -1,0 +1,17 @@
+<openerp>
+<data noupdate="1">
+
+<!--
+Users Groups
+-->
+<record model="res.groups" id="chricar_top.group_real_estate">
+<field name="name">Real Estate</field>
+</record>
+<record model="res.groups" id="chricar_top.group_real_estate_tax">
+<field name="name">Real Estate Tax</field>
+</record>
+
+    </data>
+</openerp>
+
+

@@ -2,11 +2,11 @@
 <openerp>
   <data>
     <!-- location -->
-    <record model="ir.ui.view" id="view_location_form_values">
-      <field name="name">location.form.values.view</field>
+    <record model="ir.ui.view" id="view_location_capacity_form">
+      <field name="name">stock.location.capacity.form</field>
       <field name="model">stock.location</field>
       <field name="inherit_id" ref="stock.view_location_form"/>
-      <field name="type">form</field>
+      <field name="type">tree</field>
       <field name="arch" type="xml">
         <field name="posz" position="after">
           <field name="capacity"/>

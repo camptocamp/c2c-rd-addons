@@ -60,7 +60,8 @@
       <field name="arch" type="xml">
         <notebook>
           <page string="Interest Rates">
-            <field name="account_interest_ids"/>
+            <separator colspan="4" string="General interest rates"/>
+            <field colspan="4" name="account_interest_ids" nolabel="1"/>
             <separator colspan="4" string="Account specific interest rates"/>
             <field colspan="4" name="account_account_interest_ids" nolabel="1">
               <form string="Interests">

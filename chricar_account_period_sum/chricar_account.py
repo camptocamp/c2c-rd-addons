@@ -74,7 +74,7 @@ class account_account(osv.osv):
             #    wheres.append(aml_query.strip())
             #filters = " AND ".join(wheres)
             # self.logger.notifyChannel('addons.'+self._name, netsvc.LOG_DEBUG,'Filters: %s'%filters)
-            #filters = ' AND period_id in ( select id from account_period where fiscalyear_id = %s ) ' % context.get('fiscalyear', False) 
+            #filters = ' AND period_id in ( select id from account_period where fiscalyear_id in ( %s ) ) ' % context.get('fiscalyear', False) 
             if context.get('periods', False):
                 periods = context.get('periods', False)
             else:
@@ -83,13 +83,13 @@ class account_account(osv.osv):
                fiscalyear_pool = self.pool.get('account.fiscalyear')
                fy_id = fiscalyear_pool.search(cr, uid, [('date_start','<=',date), ('date_stop','>=',date)])
                period_pool = self.pool.get('account.period')
-               periods = period_pool.search(cr, uid, [('fiscalyear_id','=',fy_id)])
+               periods = period_pool.search(cr, uid, [('fiscalyear_id','in',fy_id)])
             
             self.logger.notifyChannel('addons.'+self._name, netsvc.LOG_DEBUG,'Periods: %s'%periods)
             # FIXME - tuple must not return ',' if only one period is available - period_id in ( p,) should be period_id in ( p )
             filters = ''
             if periods: 
-                filters = ' AND period_id in %s ' % (tuple(periods),)
+                filters = ' AND period_id in (%s) ' % (','.join(map(str,periods)) )
             #self.logger.notifyChannel('addons.'+self._name, netsvc.LOG_DEBUG,'Filters: %s'%filters)
             # IN might not work ideally in case there are too many
             # children_and_consolidated, in that case join on a
@@ -151,7 +151,7 @@ class account_account(osv.osv):
             return res
 
     def __compute_prev_sum(self, cr, uid, ids, field_names, arg=None, context=None,
-                  query='', query_params=()):
+                  query=None, query_params=None):
         """ compute the balance, debit and/or credit for the provided
         account ids
         Arguments:
@@ -169,7 +169,7 @@ class account_account(osv.osv):
         }
         #get all the necessary accounts
         children_and_consolidated = self._get_children_and_consol(cr, uid, ids, context=context)
-        #self.logger.notifyChannel('addons.'+self._name, netsvc.LOG_DEBUG,'Children: %s'%children_and_consolidated)
+        self.logger.notifyChannel('addons.'+self._name, netsvc.LOG_DEBUG,'Children: %s'%children_and_consolidated)
 
         #compute for each account the balance/debit/credit from the move lines
         accounts = {}
@@ -194,10 +194,10 @@ class account_account(osv.osv):
                fiscalyear_pool = self.pool.get('account.fiscalyear')
                fy_id = fiscalyear_pool.search(cr, uid, [('date_start','<=',date), ('date_stop','>=',date)])
                period_pool = self.pool.get('account.period')
-               periods_prev = period_pool.search(cr, uid, [('fiscalyear_id','=',fy_id),('date_start','<=',date)])
+               periods_prev = period_pool.search(cr, uid, [('fiscalyear_id','in',fy_id),('date_start','<=',date)])
             #self.logger.notifyChannel('addons.'+self._name, netsvc.LOG_DEBUG,'Filters: %s'%filters)
             if periods_prev and len(periods_prev) > 0:
-               filters = ' AND period_id in %s ' % (tuple(periods_prev),)
+               filters = ' AND period_id in (%s) ' % (','.join(map(str,periods_prev)) )
             else:
                filters = ' AND 1=2'
             # IN might not work ideally in case there are too many
@@ -207,15 +207,20 @@ class account_account(osv.osv):
             # INNER JOIN (VALUES (id1), (id2), (id3), ...) AS tmp (id)
             # ON l.account_id = tmp.id
             # or make _get_children_and_consol return a query and join on that
+            if not query_params:
+                 query_params = ''
+            params = (', '.join(map(str,children_and_consolidated)))
             request = ("SELECT l.account_id as id, " +\
                        ', '.join(map(mapping.__getitem__, field_names)) +
                        " FROM account_account_period_sum l" \
-                       " WHERE l.account_id IN %s " \
+                       " WHERE l.account_id IN (%s) " \
                             + filters +
-                       " GROUP BY l.account_id")
-            params = (tuple(children_and_consolidated),) + query_params
-            #self.logger.notifyChannel('addons.'+self._name, netsvc.LOG_DEBUG,'Request: %s'%request)
-            #self.logger.notifyChannel('addons.'+self._name, netsvc.LOG_DEBUG,'Params: %s'%params)
+                       " GROUP BY l.account_id") % (params)
+            #params = (tuple(children_and_consolidated),) 
+            #params = (tuple(children_and_consolidated),) + query_params
+            #params = (', '.join(map(str,children_and_consolidated)))
+            self.logger.notifyChannel('addons.'+self._name, netsvc.LOG_DEBUG,'Request: %s'%request)
+            self.logger.notifyChannel('addons.'+self._name, netsvc.LOG_DEBUG,'Params: %s'%params)
             cr.execute(request, params)
             self.logger.notifyChannel('addons.'+self._name, netsvc.LOG_DEBUG,
                                       'Status: %s'%cr.statusmessage)

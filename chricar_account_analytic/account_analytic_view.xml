@@ -89,9 +89,27 @@ Modification of Invoice Line - change trigger
             groups="base.group_user"
             name="account_id"
             on_change="onchange_account(parent.fiscal_position,account_id,account_analytic_id)"/>
+<!--
+          <field
+            name="analytic_account_id" />
+-->
         </field>
       </field>
     </record>
+
+
+    <record model="ir.ui.view" id="c2c_purchase_analytic_account_invoice_line_tree_view">
+      <field name="name">c2c_product.analytic_account_invoice_line_tree.view</field>
+      <field name="model">account.invoice.line</field>
+      <field name="inherit_id" ref="account.view_invoice_line_tree"/>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <field name="account_id" position="after">
+          <field name="account_analytic_id"/>
+        </field>
+      </field>
+    </record>
+
     <!--
 ==============================================
 Modification of Bank statement - change trigger

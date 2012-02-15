@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <record model="ir.ui.view" id="constraint_check_one_form">
+      <field name="name">constraint.check_one.form</field>
+      <field name="model">constraint.check_one</field>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <form string="check_ones">
+          <group colspan="4">
+            <field name="name" select="1" colspan="4"/>
+            <field name="condition" colspan="4"/>
+            <field name="table" select="1"/>
+            <field name="object"/>
+            <field name="filter" select="1" colspan="4"/>
+            <field name="enable" select="1"/>
+            <field name="company_id" select="1" groups="base.group_multi_company"/>
+            <button
+              colspan="4"
+              name="button_test"
+              string="Test this rule"
+              type="object"/>
+            <button
+              colspan="4"
+              name="button_start"
+              string="Start constraint checking"
+              type="object"/>
+            <button
+              colspan="4"
+              name="button_stop"
+              string="Stop constraint checking"
+              type="object"/>
+          </group>
+        </form>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="constraint_check_one_list">
+      <field name="name">constraint.check_one.list</field>
+      <field name="model">constraint.check_one</field>
+      <field name="type">tree</field>
+      <field name="arch" type="xml">
+        <tree string="check_ones" editable="top">
+          <field name="table" select="1"/>
+          <field name="name" select="1"/>
+          <field name="object"/>
+          <field name="condition"/>
+          <field name="filter" select="1"/>
+          <field name="enable" select="1"/>
+          <field name="company_id" select="1" groups="base.group_multi_company"/>
+        </tree>
+      </field>
+    </record>
+    <record model="ir.actions.act_window" id="constraint_check_one_act1">
+      <field name="name">Exists</field>
+      <field name="res_model">constraint.check_one</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="view_id" ref="constraint_check_one_list"/>
+    </record>
+    <record model="ir.actions.act_window.view" id="constraint_check_one_act1_view1">
+      <field name="sequence" eval="2"/>
+      <field name="view_mode">form</field>
+      <field name="view_id" ref="constraint_check_one_form"/>
+      <field name="act_window_id" ref="constraint_check_one_act1"/>
+    </record>
+    <record model="ir.actions.act_window.view" id="constraint_check_one_act1_view2">
+      <field name="sequence" eval="1"/>
+      <field name="view_mode">tree</field>
+      <field name="view_id" ref="constraint_check_one_list"/>
+      <field name="act_window_id" ref="constraint_check_one_act1"/>
+    </record>
+    <record model="ir.ui.view" id="constraint_check_for_all_form">
+      <field name="name">constraint.check_for_all.form</field>
+      <field name="model">constraint.check_for_all</field>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <form string="check_for_alls">
+          <group colspan="4">
+            <field name="name" select="1" colspan="4"/>
+            <field name="condition" colspan="4"/>
+            <field name="table" select="1"/>
+            <field name="object"/>
+            <field name="sequence"/>
+            <field name="var"/>
+            <field name="filter" select="1" colspan="4"/>
+            <field name="enable" select="1"/>
+            <field name="company_id" select="1" groups="base.group_multi_company"/>
+            <button
+              colspan="4"
+              name="button_test"
+              string="Test this rule"
+              type="object"/>
+            <button
+              colspan="4"
+              name="button_start"
+              string="Start constraint checking"
+              type="object"/>
+            <button
+              colspan="4"
+              name="button_stop"
+              string="Stop constraint checking"
+              type="object"/>
+          </group>
+        </form>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="constraint_check_for_all_list">
+      <field name="name">constraint.check_for_all.list</field>
+      <field name="model">constraint.check_for_all</field>
+      <field name="type">tree</field>
+      <field name="arch" type="xml">
+        <tree string="check_for_alls" editable="top">
+          <field name="table" select="1"/>
+          <field name="name" select="1"/>
+          <field name="object"/>
+          <field name="condition"/>
+          <field name="filter" select="1"/>
+          <field name="enable" select="1"/>
+          <field name="company_id" select="1" groups="base.group_multi_company"/>
+        </tree>
+      </field>
+    </record>
+    <record model="ir.actions.act_window" id="constraint_check_for_all_act1">
+      <field name="name">For All</field>
+      <field name="res_model">constraint.check_for_all</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="view_id" ref="constraint_check_for_all_list"/>
+    </record>
+    <record model="ir.actions.act_window.view" id="constraint_check_for_all_act1_view1">
+      <field name="sequence" eval="2"/>
+      <field name="view_mode">form</field>
+      <field name="view_id" ref="constraint_check_for_all_form"/>
+      <field name="act_window_id" ref="constraint_check_for_all_act1"/>
+    </record>
+    <record model="ir.actions.act_window.view" id="constraint_check_for_all_act1_view2">
+      <field name="sequence" eval="1"/>
+      <field name="view_mode">tree</field>
+      <field name="view_id" ref="constraint_check_for_all_list"/>
+      <field name="act_window_id" ref="constraint_check_for_all_act1"/>
+    </record>
+    <menuitem
+      id="menu_constraints"
+      name="Constraints"
+      groups="group_constraint_admin"
+      parent="base.menu_custom"/>
+    <menuitem
+      action="constraint_check_one_act1"
+      id="menu_constraint_check_one_list"
+      groups="group_constraint_admin"
+      parent="menu_constraints"/>
+    <menuitem
+      action="constraint_check_for_all_act1"
+      id="menu_constraint_check_for_all_list"
+      groups="group_constraint_admin"
+      parent="menu_constraints"/>
+  </data>
+</openerp>

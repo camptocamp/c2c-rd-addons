@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <!--
+    Bill of Materials
+    -->
+    <record id="mrp_bom_cal_form_view" model="ir.ui.view">
+      <field name="name">mrp.bom.form</field>
+      <field name="model">mrp.bom</field>
+      <field name="inherit_id" ref="mrp.mrp_bom_form_view"/>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <field name="product_qty" position="replace">
+          <field name="standard_price"/>
+          <field name="price_unit_id"/>
+        </field>
+      </field>
+    </record>
+    <record id="mrp_bom_cal_tree_view" model="ir.ui.view">
+      <field name="name">mrp.bom.tree</field>
+      <field name="model">mrp.bom</field>
+      <field name="inherit_id" ref="mrp.mrp_bom_tree_view"/>
+      <field name="type">tree</field>
+      <field name="arch" type="xml">
+        <field name="product_uom" position="replace">
+          <field name="product_qty_explode" />
+          <field name="qty_available" />
+          <field name="virtual_available" />
+          <field name="product_uom"/>
+          <field name="standard_price"/>
+          <field name="standard_price_pu"/>
+          <field name="price_unit_id"/>
+          <field name="standard_price_subtotal"/>
+          <field name="standard_price_subtotal_explode"/>
+          <field name="value_bom_cum"/>
+          <field name="cost_routing"/>
+          <field name="cost_routing_bom"/>
+          <field name="total"/>
+        </field>
+      </field>
+    </record>
+    <record id="mrp_bom_cal_tree_view_version" model="ir.ui.view">
+      <field name="name">mrp.bom.tree</field>
+      <field name="model">mrp.bom</field>
+      <field name="inherit_id" ref="mrp_bom_cal_tree_view"/>
+      <field name="type">tree</field>
+      <field name="arch" type="xml">
+        <field name="name" position="after">
+          <field name="version_no" string="Version"/>
+          <field name="state"/>
+        </field>
+      </field>
+    </record>
+    <record id="mrp_bom_cal_form_view1" model="ir.ui.view">
+      <field name="name">mrp.bom.form</field>
+      <field name="model">mrp.bom</field>
+      <field name="inherit_id" ref="mrp_bom_cal_form_view"/>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <field name="routing_id" position="replace">
+          <field
+            attrs="{'invisible':[('bom_id','=',False)]}"
+            name="product_qty_explode"/>
+          <field name="standard_price_pu"/>
+          <field name="standard_price_subtotal"/>
+          <newline/>
+          <field name="standard_price_subtotal_explode"/>
+          <newline/>
+          <group string="Routing" colspan="2" col="2" groups="base.group_extended">
+            <field
+              groups="base.group_extended"
+              name="routing_id"
+              on_change="onchange_routing_id(routing_id)"
+              select="2"/>
+            <field name="cost_routing" groups="base.group_extended"/>
+          </group>
+          <group string="BoM Calc" colspan="2" col="2">
+            <field name="product_qty"/>
+            <field name="value_bom_cum"/>
+            <field name="cost_routing_bom"/>
+            <field name="total"/>
+          </group>
+        </field>
+      </field>
+    </record>
+
+    <record id="mrp_bom_cal_form_view_c2c" model="ir.ui.view">
+      <field name="name">mrp.bom.form2</field>
+      <field name="model">mrp.bom</field>
+      <field name="inherit_id" ref="mrp_bom_cal_form_view1"/>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+      <xpath expr="/form/notebook/page[@string='Components']/field[@name='bom_lines']/tree[@string='Components']/field[@name='product_uom']" position="after">
+            <field name="standard_price_pu_rel"/>
+            <field name="standard_price_pu"/>
+            <field name="price_unit_id"/>
+            <field name="standard_price_subtotal"/>
+            <field name="value_bom_cum"/>
+            <field name="product_qty_explode"/>
+            <field name="qty_available"/>
+            <field name="virtual_available"/>
+            <field name="bom_line_bom"/>
+      </xpath>
+      </field>
+    </record>
+
+    <record id="mrp_bom_cal_form_view2" model="ir.ui.view">
+      <field name="name">mrp.bom.form</field>
+      <field name="model">mrp.bom</field>
+      <field name="inherit_id" ref="mrp_bom_cal_form_view1"/>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <field colspan="4" name="bom_lines" nolabel="1" widget="one2many_list" position="after">
+          <group col="10" colspan="4" attrs="{'invisible':[('bom_id','!=',False)]}">
+            <field name="version_no"/>
+            <field name="state" readonly="1"/>
+            <button
+              name="wkf_verify"
+              states="draft"
+              string="To be confirm"/>
+            <button
+              name="wkf_confirm"
+              states="verify"
+              string="Confirm"/>
+            <button
+              name="wkf_invalid"
+              states="confirm"
+              string="Invalid"/>
+            <button
+              name="wkf_expire"
+              states="confirm"
+              string="Expire"/>
+            <group colspan="1" col="1">
+              <button
+                name="action_version"
+                states="confirm"
+                string="New Version"
+                type="object"/>
+            </group>
+            <button
+              name="action_draft"
+              states="verify,confirm,invalid"
+              string="Set To Draft"
+              type="object"/>
+          </group>
+        </field>
+      </field>
+    </record>
+    <record id="mrp_routing_cost_form_view3" model="ir.ui.view">
+      <field name="name">mrp.bom.form</field>
+      <field name="model">mrp.bom</field>
+      <field name="inherit_id" ref="mrp_bom_cal_form_view2"/>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <field name="standard_price_subtotal_explode" position="after">
+          <field name="product_bom_qty"/>
+        </field>
+      </field>
+    </record>
+    <record id="mrp_bom_form_action_confirmation" model="ir.actions.act_window">
+      <field name="name">Bill of Materials To be Confirmed</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">mrp.bom</field>
+      <field name="view_type">form</field>
+      <field name="domain">[('bom_id','=',False),('state','=','verify')]</field>
+      <field name="view_id" ref="mrp.mrp_bom_tree_view"/>
+    </record>
+    <menuitem
+      action="mrp_bom_form_action_confirmation"
+      id="menu_mrp_bom_form_action_confirmation"
+      parent="mrp.menu_mrp_configuration"/>
+  </data>
+</openerp>

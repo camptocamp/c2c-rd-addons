@@ -44,14 +44,16 @@
                     "base",
                     "account",
                     "c2c_reporting_tools",
-                    "chricar_account_period_sum"
+                    "chricar_account_period_sum",
+                    "report_webkit_chapter_server"
                 ],
     "init_xml" : [],
     "update_xml" : [
                         "c2c_budget_view.xml",
                         "c2c_budget_wizard.xml",
                         "security/ir.model.access.csv",
-                        "report_chart.xml"
+                        "report_chart.xml",
+                        "wizard/chart.xml"
                     ],
     "active": False,
     "installable": True

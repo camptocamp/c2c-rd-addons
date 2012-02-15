@@ -24,7 +24,7 @@
 {
     'name': 'Product Price Unit',
     'version': '0.7',
-    'category': 'Inventory Control',
+    'category': 'Warehouse Management',
     'description': """
 Attention the module must be installed and upgraded immediately to complete all modifications
 
@@ -80,8 +80,10 @@ ToDo:
                    'product_view.xml',
                    'purchase_view.xml',
                    'sale_view.xml',
+                   'stock_view.xml',
                    'account_invoice_view.xml',
-                  ],
+                   'wizard/stock_partial_picking_view.xml',
+                 ],
     #'update_xml': ['product_view.xml'],
     'demo_xml': [],
     'installable': True,

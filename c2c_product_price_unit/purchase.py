@@ -32,6 +32,21 @@ import sys
 #----------------------------------------------------------
 class purchase_order_line(osv.osv):
     _inherit = "purchase.order.line"
+
+    def _get_default_id(self, cr, uid, price_unit_id, context=None):
+       pu = self.pool.get('c2c_product.price.unit')
+       if not pu: return 1.0
+       return pu.get_default_id(cr, uid, price_unit_id, context)
+
+    def _get_default_price_unit_pu(self, cr, uid, price_unit_id, context=None):
+       pu = self.browse(cr, uid, price_unit_id)
+       res  = 0.0
+       if not pu:
+           return res
+       for p in pu:
+           res = p.price_unit
+       return res
+
     _columns = \
         { 'price_unit_id' : fields.many2one('c2c_product.price_unit','Price Unit', required=True)
         , 'price_unit_pu' : fields.float
@@ -46,7 +61,12 @@ class purchase_order_line(osv.osv):
             , digits=(16,8)
             , help="""Product's cost for accounting stock valuation. It is the base price for the supplier price."""),
         }
-
+    _defaults = {
+        'price_unit_id'   : _get_default_id,
+        'price_unit_pu'   : _get_default_price_unit_pu,
+        'price_unit'      : 0.0
+        }
+        
     def init(self, cr):
       cr.execute("""
           update purchase_order_line set price_unit_pu = price_unit  where price_unit_pu is null;
@@ -63,38 +83,36 @@ class purchase_order_line(osv.osv):
 
        if product:
            prod = self.pool.get('product.product').browse(cr, uid, product)
-           if not price_unit_id:
-               price_unit_id = prod.price_unit_id.id
-       
-           coeff = self.pool.get('c2c_product.price_unit').get_coeff(cr, uid, price_unit_id)
-           price_unit = False 
-           if price_unit_pu and coeff and qty: 
-                price_unit = price_unit_pu / float( coeff ) * qty
-       
-           print >>sys.stderr,'purch -68- ',price_unit_id, price_unit , coeff, price_unit_pu
            res['value'] = super(purchase_order_line, self).product_id_change( cr, uid, ids, pricelist, product, qty, uom,
                partner_id, date_order, fiscal_position, date_planned,
-               name, price_unit, notes)['value']
-           print >>sys.stderr,'purch -68a- ',price_unit_id, price_unit , coeff, price_unit_pu
+               name, price_unit_pu, notes)['value']
+           if not price_unit_id:
+               price_unit_id = prod.price_unit_id.id
+           coeff = self.pool.get('c2c_product.price_unit').get_coeff(cr, uid, price_unit_id)
+           #if not price_unit_pu:
+           #     price_unit_pu = prod.price_unit_pu
+       
+           print >>sys.stderr,'purch -68a- ',price_unit_id, price_unit_pu  
            print >>sys.stderr,'purch -68b- ',res['value']
-           # FIXME - check for product price returned in res['value']['price_unit']
-           if not price_unit_pu:
-               price_unit_pu =  res['value']['price_unit'] * coeff
            
            res['value']['price_unit_id'] = price_unit_id
-           res['value']['price_unit_pu'] = price_unit_pu
-           res['value']['price_unit']    = price_unit
+           res['value']['price_unit_pu'] =  res['value']['price_unit'] * coeff
+           #res['value']['price_unit']    = price_unit_pu / float(coeff)
+           print >>sys.stderr,'purch -68c- ',res['value']
        return res
 
 
     def onchange_price_unit(self, cr, uid, ids, field_name,qty,price_pu, price_unit_id):
-        print >>sys.stderr,'purch -68c-1 ',field_name,price_pu,price_unit_id
+        print >>sys.stderr,'purch -68c-a ',field_name,price_pu,price_unit_id
+        res = {}
         if  price_pu and  price_unit_id and qty:
+           print >>sys.stderr,'purch -68c-b ',field_name
            coeff = self.pool.get('c2c_product.price_unit').get_coeff(cr, uid, price_unit_id)
-           price = qty * price_pu / float(coeff) 
-           print >>sys.stderr,'purch -68c- ',field_name,price, coeff
+           print >>sys.stderr,'purch -68c-c ',field_name,coeff
+           price = price_pu / float(coeff) 
+           print >>sys.stderr,'purch -68c-d ',field_name,price, coeff
            return {'value': {field_name : price}}
-        return False
+        return res
 
 purchase_order_line()
 
@@ -127,6 +145,14 @@ class purchase_order(osv.osv):
         #line['value'].update({'price_unit_pu' : price_unit_pu, 'price_unit_id' : ol.price_unit_id.id })
         print >> sys.stderr,'po line after',line
         return line
+
+
+    def _prepare_order_line_move(self, cr, uid, order, order_line, picking_id, context=None):
+        res = super(purchase_order,self)._prepare_order_line_move( cr, uid, order, order_line, picking_id, context)
+        price_unit_id = order_line.price_unit_id.id
+        price_unit_pu = order_line.price_unit_pu
+        res.update({'price_unit_id' : price_unit_id,'price_unit_pu' : price_unit_pu})
+        return res
 
 purchase_order()
 

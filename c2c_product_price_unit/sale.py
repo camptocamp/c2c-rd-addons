@@ -36,6 +36,21 @@ import sys
 #----------------------------------------------------------
 class sale_order_line(osv.osv):
     _inherit = "sale.order.line"
+
+    def _get_default_id(self, cr, uid, price_unit_id, context=None):
+       pu = self.pool.get('c2c_product.price.unit')
+       if not pu: return 1.0
+       return pu.get_default_id(cr, uid, price_unit_id, context)
+
+    def _get_default_price_unit_pu(self, cr, uid, price_unit_id, context=None):
+       pu = self.browse(cr, uid, price_unit_id)
+       res  = 0.0
+       if not pu:
+           return res
+       for p in pu:
+           res = p.price_unit
+       return res
+
     _columns = {
         'price_unit_id'    : fields.many2one('c2c_product.price_unit','Price Unit', required=True),
         'price_unit_pu'    : fields.float(string='Unit Price',digits_compute=dp.get_precision('Sale Price') , required=True, \
@@ -43,6 +58,12 @@ class sale_order_line(osv.osv):
         'price_unit'       : fields.float(string='Unit Price internal', required=True, digits=(16, 8), \
                             help="""Product's cost for accounting stock valuation. It is the base price for the supplier price."""),
     }
+    _defaults = {
+        'price_unit_id'   : _get_default_id,
+        'price_unit_pu'   : _get_default_price_unit_pu,
+        'price_unit'      : 0.0
+        }
+
 
     def init(self, cr):
       cr.execute("""
@@ -57,28 +78,31 @@ class sale_order_line(osv.osv):
             uom=False, qty_uos=0, uos=False, name='', partner_id=False,
             lang=False, update_tax=True, date_order=False, packaging=False, fiscal_position=False, flag=False,context={}):
        res = {}
-       res['value'] = super(sale_order_line, self).product_id_change( cr, uid, ids, pricelist, product, qty, 
-            uom, qty_uos, uos, name, partner_id, 
-            lang, update_tax, date_order, packaging, fiscal_position, flag,context)['value']
-       print >>sys.stderr,'sale a',   res['value']  
+       print >>sys.stderr,'sale a0',   qty,qty_uos,uos,uom
+       res = super(sale_order_line, self).product_id_change( cr, uid, ids, pricelist, product, qty=qty, 
+                uom=uom, qty_uos=qty_uos, uos=uos, name=name,
+                partner_id=partner_id, lang=lang, update_tax=update_tax,
+                date_order=date_order)
+       print >>sys.stderr,'sale a1',   res['value']  
        if product:
            prod = self.pool.get('product.product').browse(cr, uid, product)
            price_unit_id = prod.list_price_unit_id.id
            print >>sys.stderr,'sale pu',   price_unit_id, product, u'prod.name'
            res['value']['price_unit_id'] = price_unit_id
+           print >>sys.stderr,'sale pu2',  res['value']
      
            if res['value']['price_unit'] and qty:
                coeff = self.pool.get('c2c_product.price_unit').get_coeff(cr, uid, price_unit_id)
-               res['value']['price_unit_pu'] = res['value']['price_unit'] * coeff * qty
+               res['value']['price_unit_pu'] = res['value']['price_unit'] * coeff 
                print >>sys.stderr,'sale 2',coeff, res['value']['price_unit'],   res['value']  
        return res
 
     def onchange_price_unit(self, cr, uid, ids, field_name,qty, price_pu, price_unit_id):
         if  price_pu and  price_unit_id and qty:
             coeff = self.pool.get('c2c_product.price_unit').get_coeff(cr, uid, price_unit_id)
-            price = price_pu / float(coeff) * qty
+            price = price_pu / float(coeff) #* qty
             return {'value': {field_name : price}}
-        return False
+        return {}
 
 sale_order_line()
 
@@ -89,82 +113,27 @@ class sale_order(osv.osv):
     # should store price_unit_id for sales
 
     # FIXME define inv line fields like in purhcase order
-    def invoice_line_create(self, cr, uid, ids, context=None):
-        if context is None:
-            context = {}
 
-        def _get_line_qty(line):
-            if (line.order_id.invoice_quantity=='order') or not line.procurement_id:
-                if line.product_uos:
-                    return line.product_uos_qty or 0.0
-                return line.product_uom_qty
-            else:
-                return self.pool.get('procurement.order').quantity_get(cr, uid,
-                        line.procurement_id.id, context=context)
+    def inv_line_create(self, cr, uid, a, ol):
+        line = super(purchase_order, self).inv_line_create(cr, uid, a, ol)
+        print >> sys.stderr,'po line',line
 
-        def _get_line_uom(line):
-            if (line.order_id.invoice_quantity=='order') or not line.procurement_id:
-                if line.product_uos:
-                    return line.product_uos.id
-                return line.product_uom.id
-            else:
-                return self.pool.get('procurement.order').uom_get(cr, uid,
-                        line.procurement_id.id, context=context)
+        price_unit_pu =  ol.price_unit_pu or 0.0
+        print >> sys.stderr,'price_unit_pu' ,price_unit_pu
+        print >> sys.stderr,'price_unit_id' ,ol.price_unit_id.id
+        #FIXME
+        line[2]['price_unit_pu'] = price_unit_pu
+        line[2]['price_unit_id'] = ol.price_unit_id.id
+        #the 2 values have to be written to the line
+        #line['value'].update({'price_unit_pu' : price_unit_pu, 'price_unit_id' : ol.price_unit_id.id })
+        print >> sys.stderr,'po line after',line
+        return line
 
-        create_ids = []
-        sales = {}
-        for line in self.browse(cr, uid, ids, context=context):
-            if not line.invoiced:
-                if line.product_id:
-                    a = line.product_id.product_tmpl_id.property_account_income.id
-                    if not a:
-                        a = line.product_id.categ_id.property_account_income_categ.id
-                    if not a:
-                        raise osv.except_osv(_('Error !'),
-                                _('There is no income account defined ' \
-                                        'for this product: "%s" (id:%d)') % \
-                                        (line.product_id.name, line.product_id.id,))
-                else:
-                    prop = self.pool.get('ir.property').get(cr, uid,
-                            'property_account_income_categ', 'product.category',
-                            context=context)
-                    a = prop and prop.id or False
-                uosqty = _get_line_qty(line)
-                uos_id = _get_line_uom(line)
-                pu = 0.0
-                if uosqty:
-                    pu = round(line.price_unit * line.product_uom_qty / uosqty,
-                            self.pool.get('decimal.precision').precision_get(cr, uid, 'Sale Price'))
-                fpos = line.order_id.fiscal_position or False
-                a = self.pool.get('account.fiscal.position').map_account(cr, uid, fpos, a)
-                if not a:
-                    raise osv.except_osv(_('Error !'),
-                                _('There is no income category account defined in default Properties for Product Category or Fiscal Position is not defined !'))
-                inv_id = self.pool.get('account.invoice.line').create(cr, uid, {
-                    'name': line.name,
-                    'origin': line.order_id.name,
-                    'account_id': a,
-                    'price_unit': pu,
-                    'price_unit_pu': line.price_unit_pu,
-                    'price_unit_id': line.price_unit_id.id,
-                    'quantity': uosqty,
-                    'discount': line.discount,
-                    'uos_id': uos_id,
-                    'product_id': line.product_id.id or False,
-                    'invoice_line_tax_id': [(6, 0, [x.id for x in line.tax_id])],
-                    'note': line.notes,
-                    'account_analytic_id': line.order_id.project_id and line.order_id.project_id.id or False,
-                })
-                cr.execute('insert into sale_order_line_invoice_rel (order_line_id,invoice_id) values (%s,%s)', (line.id, inv_id))
-                self.write(cr, uid, [line.id], {'invoiced': True})
-                sales[line.order_id.id] = True
-                create_ids.append(inv_id)
-        # Trigger workflow events
-        wf_service = netsvc.LocalService("workflow")
-        for sid in sales.keys():
-            wf_service.trg_write(uid, 'sale.order', sid, cr)
-        return create_ids
 
+    def _prepare_order_line_move(self, cr, uid, order, line, picking_id, date_planned, context=None):
+        res = super(sale_order,self)._prepare_order_line_move( cr, uid, order, line, picking_id, date_planned, context)
+        res.update({'price_unit_sale_id': line.price_unit_id.id , 'price_unit_sale':line.price_unit_pu , 'price_unit_id': line.product_id.price_unit_id.id})
+        return res
 
 sale_order()
 

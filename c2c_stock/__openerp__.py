@@ -24,7 +24,7 @@
 {
     'name': 'Stock Extensions',
     'version': '0.7',
-    'category': 'Inventory Control',
+    'category': 'Warehouse Management',
     'description': """
 Adds some info fields to stock location
 """,
@@ -34,7 +34,7 @@ Adds some info fields to stock location
        ],
     #'update_xml': ['product_view.xml'],
     'demo_xml': [],
-    'installable': True,
+    'installable': False,
     'active': False,
 }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
