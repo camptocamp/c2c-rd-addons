@@ -47,8 +47,7 @@
       <field name="inherit_id" ref="product.product_normal_form_view"/>
       <field name="type">form</field>
       <field name="arch" type="xml">
-        <page string="Suppliers" position="after">
-           <page string="Purchase Info">
+        <field name="seller_ids" position="before">
           <group colspan="2" col="2">
              <field name="supplier"/>
              <field name="purchase_unit"/>
@@ -61,8 +60,7 @@
              <field name="purchase_container_gross_weight"/>
              <field name="purchase_container_dimension"/>
           </group>
-           </page>
-        </page>
+        </field>
       </field>
     </record>
 
