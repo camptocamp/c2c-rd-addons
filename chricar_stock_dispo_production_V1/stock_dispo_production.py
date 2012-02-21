@@ -57,12 +57,12 @@ class stock_move(osv.osv):
        #'location_dest_id'   : fields.many2one('stock.location', 'Dest. Location',readonly=True, states={'draft': [('readonly', False)]}),
        #'move_id'            : fields.many2one('stock.move','Picking Line', select=True,readonly=True,),
        #'name'               : fields.char    ('Quality', size=16 ,readonly=True, states={'draft': [('readonly', False)]}),
-       'order_line_id'      : fields.many2one('sale.order.line','Sale Order Line', select=True, required=True,readonly=True,),
+       'order_line_id'      : fields.many2one('sale.order.line','Sale Order Line', select=True, required=True,readonly=True, ondelete='restrict',),
        #'quantity'           : fields.float   ('Quantity', required=True,readonly=True, states={'draft': [('readonly', False)]}),
        'sequence'           : fields.integer ('Sequence', size=16, ),
        #'state'              : fields.char    ('State', size=16, readonly=True),
        #'prodlot_id'         : fields.many2one('stock.production.lot', 'Production Lot', help="Production lot is used to track production"),
-       'product_packaging_id' : fields.many2one('product.product', 'Packaging', help='Product wich is used to store the main product') ,
+       'product_packaging_id' : fields.many2one('product.product', 'Packaging', help='Product wich is used to store the main product', ondelete='restrict') ,
        'packaging_qty'      : fields.integer ('Packaging Qty'),
 
 
@@ -377,24 +377,24 @@ class sale_order_line(osv.osv):
        'quality'           : fields.char    ('Ordered Quality', size=16,help="This will be copied to Quality for each sale line", \
                        readonly=True, states={'draft': [('readonly', False)],'confirmed': [('readonly', False)] }), 
        'location_product_id' : fields.many2one('stock.location', 'Production Location', help="Field where products were grown (AMA)", \
-                       readonly=True, states={'draft': [('readonly', False)],'confirmed': [('readonly', False)] }),
+                       readonly=True, states={'draft': [('readonly', False)],'confirmed': [('readonly', False)] }, ondelete='restrict'),
        'location_id'       : fields.many2one('stock.location', 'Source Location', help="Products will be taken from this location", \
-                       readonly=True, states={'draft': [('readonly', False)],'confirmed': [('readonly', False)] }),
+                       readonly=True, states={'draft': [('readonly', False)],'confirmed': [('readonly', False)] }, ondelete='restrict'),
        'location_dest_id'  : fields.many2one('stock.location', 'Dest. Location', help="Products will be shipped to this location", \
-                       readonly=True, states={'draft': [('readonly', False)],'confirmed': [('readonly', False)] }),
+                       readonly=True, states={'draft': [('readonly', False)],'confirmed': [('readonly', False)] }, ondelete='restrict'),
        'location_big_id'   : fields.many2one('stock.location', 'Dest. Location Big', help="To big products will be moved to this location, defaults to source", \
-                       readonly=True, states={'draft': [('readonly', False)],'confirmed': [('readonly', False)] }),
+                       readonly=True, states={'draft': [('readonly', False)],'confirmed': [('readonly', False)] }, ondelete='restrict'),
        'location_small_id' : fields.many2one('stock.location', 'Dest. Location Small', help="To small products will be moved to this location, defaults to source", \
-                       readonly=True, states={'draft': [('readonly', False)],'confirmed': [('readonly', False)] }),
+                       readonly=True, states={'draft': [('readonly', False)],'confirmed': [('readonly', False)] }, ondelete='restrict'),
        'location_faulty_id': fields.many2one('stock.location', 'Dest. Location Faulty', help="Faulty products will be moved to this location, set default manually", \
-                       readonly=True, states={'draft': [('readonly', False)],'confirmed': [('readonly', False)] }),
+                       readonly=True, states={'draft': [('readonly', False)],'confirmed': [('readonly', False)] }, ondelete='restrict'),
        'location_waste_id' : fields.many2one('stock.location', 'Dest. Location Waste', help="Waste will be moved to this location, set default manually", \
-                       readonly=True, states={'draft': [('readonly', False)],'confirmed': [('readonly', False)] }),
+                       readonly=True, states={'draft': [('readonly', False)],'confirmed': [('readonly', False)] }, ondelete='restrict'),
        'trading_unit_owner_id': fields.many2one('res.partner','Owner of Trading Unit', help="This will create appropriate text on picking, packing and labels", \
-                       readonly=True, states={'draft': [('readonly', False)],'confirmed': [('readonly', False)] }),
+                       readonly=True, states={'draft': [('readonly', False)],'confirmed': [('readonly', False)] }, ondelete='restrict'),
        'prodlot_id': fields.many2one('stock.production.lot', 'Production Lot', \
                        readonly=True, states={'draft': [('readonly', False)],'confirmed': [('readonly', False)] }, \
-                       help="Production lot is used to track the production"),  
+                       help="Production lot is used to track the production", ondelete='restrict'),  
        'stock_dispo_production_sale_ids'  : one2many_sale('stock.move','order_line_id','To Sell', \
                        readonly=True, states={'draft': [('readonly', False)],'confirmed': [('readonly', False)] }),
        'stock_dispo_production_small_ids' : one2many_small('stock.move','order_line_id','To Small', \
@@ -409,7 +409,7 @@ class sale_order_line(osv.osv):
                        readonly=True, states={'draft': [('readonly', False)],'confirmed': [('readonly', False)] }),
        'stock_dispo_production_ids': fields.one2many('stock.move','order_line_id','Dispo Production', \
                        readonly=True, states={'draft': [('readonly', False)],'confirmed': [('readonly', False)] }),
-       'product_packaging_id' : fields.many2one('product.product', 'Packaging', help='Product wich is used to store the main product') ,
+       'product_packaging_id' : fields.many2one('product.product', 'Packaging', help='Product wich is used to store the main product', ondelete='restrict') ,
        'move_state'           : fields.function(_move_state, method=True, type='boolean', string='Move State' ,help="Returns true if some moves are not done", readonly=True, store=True),
     }
     
