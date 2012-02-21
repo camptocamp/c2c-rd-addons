@@ -32,6 +32,17 @@ class product_template(osv.osv):
 
     _columns = {
          'weight_drip_off': fields.float('Dripp Off Weight'),
+         'product_line': fields.selection([('fix','Fix'),('seasonal','Seasonal')],'Product Line'),
+         'name_engl': fields.char('Name engl',size=32),
+         'minimum_durability': fields.integer('Minimum Durability in Month'),
+         'supplier': fields.char('Supplier',size=64),
+         'purchase_unit': fields.char('Purchase Unit',size=64),
+         'purchase_container': fields.char('Purchase Container',size=64),
+         'purchase_container_net_weight': fields.float('Purchase Container Net Weight'),
+         'purchase_container_tara_weight': fields.float('Purchase Container Tara Weight'),
+         'purchase_container_gross_weight': fields.float('Purchase Container Gross Weight'),
+         'purchase_container_dimension': fields.char('Purchase Container Dimension',size=64),
+         'portions_per_container': fields.char('Portions per Container',size=64),
     }
 
 product_template()
