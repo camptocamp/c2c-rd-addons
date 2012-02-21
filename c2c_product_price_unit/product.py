@@ -48,27 +48,27 @@ class c2c_product_price_unit(osv.osv):
         if not context:
             context = {}
         
-        print >> sys.stderr , 'price_unit_id',  price_unit_id 
+        #print >> sys.stderr , 'price_unit_id',  price_unit_id 
         coeff = 1.0
         if price_unit_id:
            cr.execute('select coefficient from c2c_product_price_unit where id=%s' , (price_unit_id,))
         #res = cr.fetchone()[0] or 1.0
            coeff = cr.fetchone()[0]
-           print >> sys.stderr , 'coeff', coeff
+           #print >> sys.stderr , 'coeff', coeff
         return coeff
     
     def get_default_id(self, cr, uid, price_unit_id, context=None):
         if context is None:
             context = {}
         
-        print >> sys.stderr , 'price_unit_id',  price_unit_id 
+        #print >> sys.stderr , 'price_unit_id',  price_unit_id 
         
         if not price_unit_id:
            cr.execute('select min(id) from c2c_product_price_unit where coefficient=1' )
         #res = cr.fetchone()[0] or 1.0
            price_unit_id = cr.fetchone()[0] or ''
 
-           print >> sys.stderr , 'pu default', price_unit_id
+           #print >> sys.stderr , 'pu default', price_unit_id
         return price_unit_id
      
 
@@ -83,7 +83,7 @@ class product_template(osv.osv):
 
 
     def _get_default_id(self, cr, uid, price_unit_id, context=None):
-       print >>sys.stderr,'invoice pi_id ',price_unit_id
+       #print >>sys.stderr,'invoice pi_id ',price_unit_id
        pu = self.pool.get('c2c_product.price.unit')
        if not pu: return
        return pu.get_default_id(cr, uid, price_unit_id, context)
