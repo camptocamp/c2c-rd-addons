@@ -35,7 +35,7 @@ from tools.translate import _
 import base64
 
 class wizard_generate_xml(osv.osv_memory):
-    _name = "ir.mode.generate.xml"
+    _name = "ir.model.generate.xml"
     _description = "Generate XML"
 
     _init_form = \
