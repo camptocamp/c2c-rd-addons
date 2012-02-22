@@ -110,9 +110,7 @@ class wizard_generate_xml(osv.osv_memory):
         , 'value'     : lambda *a: ''
         }
     
-    def init(self, cr) :
-        self._filters = []
-    # end def init
+    _filters = []
 
     def _manage_attachments(self, cr, uid, model, text, name, description, context=None):
         pool = pooler.get_pool(cr.dbname)
