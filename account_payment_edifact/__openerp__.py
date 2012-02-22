@@ -76,7 +76,6 @@ A conversion to ASCII for all texts within the EDIFACT-file is attempted.
     [ 'payment_mode_view.xml'
     , 'payment_iban.xml'
     , 'res_bank_view.xml'
-    , 'payment_edifact_wizard.xml'
     , 'wizard/generate_edifact_view.xml'
     ]
 , "test"        : []
