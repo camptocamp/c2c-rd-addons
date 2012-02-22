@@ -1,10 +1,20 @@
 <?xml version="1.0"?>
 <openerp>
   <data>
+  <!-- 
     <wizard 
-      string="Generate XML"
+      string="Generate XML Wizard"
       id="wizard_generate_xml" 
       name="ir.model.wizard_generate_xml" 
       model="ir.model"/>
+    -->
+    <act_window
+      name="Generate XML W"
+      res_model="ir.model.wizard_generate_xml"
+      src_model="ir.model"
+      view_mode="form"
+      target="new"
+      key2="client_action_multi"
+      id="generate_xml_act_window"/>
   </data>
 </openerp>
