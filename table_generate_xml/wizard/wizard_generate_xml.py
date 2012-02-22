@@ -91,14 +91,14 @@ class wizard_generate_xml(osv.osv_memory):
 #        }
 
     _selection = \
-        { '='  : 'Equal'
-        , '!=' : 'Not Equal'
-        , '>'  : 'Greater'
-        , '>=' : 'Greater or Equal'
-        , '<'  : 'Less'
-        , '<=' : 'Less or Equal'
-        , 'in' : 'In'
-        }
+        [ ('=',  _('Equal'))
+        , ('!=', _('Not Equal'))
+        , ('>',  _('Greater'))
+        , ('>=', _('Greater or Equal'))
+        , ('<',  _('Less'))
+        , ('<=', _('Less or Equal'))
+        , ('in', _('In'))
+        ]
     _columns = \
         { 'attribute' : fields.char     ('Attribute', size=64, required=True)
         , 'compare'   : fields.selection(_selection, 'Comparison', required=True)
