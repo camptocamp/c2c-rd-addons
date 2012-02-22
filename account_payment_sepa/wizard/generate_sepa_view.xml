@@ -6,7 +6,7 @@
       <field name="model">payment.order.sepa</field>
       <field name="type">form</field>
       <field name="arch" type="xml">
-        <form>
+        <form string="Generate SEPA Credit Transfer Form">
           <button 
             icon="gtk-cancel"
             special="cancel"

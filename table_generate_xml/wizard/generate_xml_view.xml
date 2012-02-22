@@ -6,7 +6,7 @@
       <field name="model">ir.model.generate.xml</field>
       <field name="type">form</field>
       <field name="arch" type="xml">
-        <form>
+        <form string="Generate XML Form">
         <!-- 
           <field 
             name="model_ids"
@@ -70,7 +70,7 @@
     <!-- 
     <record id="action_generate_xml" model="ir.actions.act_window">
       <field name="name">Generate XML Action</field>
-      <field name="res_model">generate.xml</field>
+      <field name="res_model">ir.model.generate.xml</field>
       <field name="view_type">form</field>
       <field name="view_mode">form</field>
       <field name="view_id" ref="generate_xml_init_form_view"/>
@@ -78,7 +78,7 @@
     </record>
     <record id="action_select_filter" model="ir.actions.act_window">
       <field name="name">Select a filter</field>
-      <field name="res_model">generate.xml</field>
+      <field name="res_model">ir.model.generate.xml</field>
       <field name="view_type">form</field>
       <field name="view_mode">form</field>
       <field name="view_id" ref="generate_xml_init_filter_view"/>

@@ -178,8 +178,8 @@ class wizard_generate_xml(osv.osv_memory):
         return {}
     # end def _filter
 
-    def _decide(self, cr, uid, data, res_get=False) :
-        print "_decide" ######################
+    def _decide(self, cr, uid, ids, context) :
+        print "_decide", context ######################
         self._filters = []
         if data['model'] == 'ir.model':
             return 'filter'

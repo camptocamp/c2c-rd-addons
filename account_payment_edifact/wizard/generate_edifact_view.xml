@@ -6,7 +6,7 @@
       <field name="model">payment.order.edifact</field>
       <field name="type">form</field>
       <field name="arch" type="xml">
-        <form>
+        <form string="Generate EDIFACT Credit Transfer Form">
           <button 
             icon="gtk-cancel"
             special="cancel"
@@ -27,6 +27,7 @@
       target="new"
       key2="client_action_multi"
       id="generate_edifact_act_window"/>
+    <!-- 
     <record id="action_payment_order_edifact" model="ir.actions.act_window">
       <field name="name">Generate EDIFACT test</field>
       <field name="res_model">payment.order.edifact</field>
@@ -35,5 +36,6 @@
       <field name="view_id" ref="payment_order_edifact_form_view"/>
       <field name="target">new</field>
     </record>
+    -->
   </data>
 </openerp>
