@@ -33,6 +33,7 @@
 from osv import fields, osv
 from tools.translate import _
 import base64
+from lxml import etree
 
 class wizard_generate_xml(osv.osv_memory):
     _name = "ir.model.generate.xml"
@@ -135,13 +136,12 @@ class wizard_generate_xml(osv.osv_memory):
                 ( _('Data Error !')
                 , _('You can only select a single table for generation')
                 )
-        model = model_obj.browse(cr, uid, ids[0])
-        return self.pool.get(model.model)
+        return model_obj.browse(cr, uid, ids[0]), self.pool.get(model.model)
     # end def _table_obj
 
     def add_filter(self, cr, uid, ids, context) :
         print "add_filter", context, self._filters ######################
-        table_obj = self._table_obj(cr, uid, context)
+        model, table_obj = self._table_obj(cr, uid, context)
         if context and context['attribute'] and context['compare'] :
             if table_obj._columns[context['attribute']]._type in ("int", "float", "boolean") :
                 value = context['value'].upper()
@@ -153,9 +153,8 @@ class wizard_generate_xml(osv.osv_memory):
     def generate(self, cr, uid, ids, context) :
         print "generate", context, self._filters ######################
         model_obj = self.pool.get('ir.model')
-        table_obj = self._table_obj(cr, uid, context)
+        model, table_obj = self._table_obj(cr, uid, context)
         if table_obj is not None and not isinstance(table_obj, osv.osv_memory) :
-#            self.add_filter(context['form'])
             xml = model_obj.generate_tree(cr, uid, table_obj, search=self._filters)
             self._manage_attachments \
                 ( cr, uid
