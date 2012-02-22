@@ -125,18 +125,18 @@ class wizard_generate_xml(osv.osv_memory):
         attachment_obj.create(cr, uid, vals, context=context)
     # end def _manage_attachments
 
-    def _add_filter(self, form) :
-        print "_add_filter" ######################
+    def add_filter(self, cr, uid, ids, context) :
+        print "add_filter" ######################
         if form and form['attribute'] and form['compare'] :
             if self.table_obj._columns[form['attribute']]._type in ("int", "float", "boolean") :
                 value = form['value'].upper()
             else :
                 value = "'%s'" % form['value']
             self._filters.append((form['attribute'], form['compare'], value))
-    # end def _add_filter
+    # end def add_filter
         
-    def _generate(self, cr, uid, data, res_get=False) :
-        print "_generate" ######################
+    def generate(self, cr, uid, ids, context) :
+        print "generate" ######################
         pool      = pooler.get_pool(cr.dbname)
         model_obj = pool.get('ir.model')
         if data['model'] == 'ir.model':
@@ -146,7 +146,7 @@ class wizard_generate_xml(osv.osv_memory):
         model = model_obj.browse(cr, uid, model_id)
         self.table_obj = pool.get(model.model)
         if self.table_obj is not None and not isinstance(self.table_obj, osv.osv_memory) :
-            self._add_filter(data['form'])
+            self.add_filter(data['form'])
             xml = model_obj.generate_tree(cr, uid, self.table_obj, search=self._filters)
             self._manage_attachments \
                 ( cr, uid
@@ -156,10 +156,10 @@ class wizard_generate_xml(osv.osv_memory):
                 , " and ".join('"%s" %s %s' % (s[0], s[1], s[2]) for s in self._filters)
                 )
         return {}
-    # end def _generate
+    # end def generate
 
-    def _filter(self, cr, uid, data, res_get=False) :
-        print "_filter" ######################
+    def filter(self, cr, uid, data, res_get=False) :
+        print "filter" ######################
         pool      = pooler.get_pool(cr.dbname)
         model_obj = pool.get('ir.model')
         if data['model'] == 'ir.model':
@@ -176,23 +176,23 @@ class wizard_generate_xml(osv.osv_memory):
                 if hasattr(v, "_fnct") and v._fnct : continue
                 self._filter_fields['attribute']['selection'].append((k,k))
         return {}
-    # end def _filter
+    # end def filter
 
-    def _decide(self, cr, uid, ids, context) :
-        print "_decide", context ######################
+    def decide(self, cr, uid, ids, context) :
+        print "decide", context ######################
         self._filters = []
         if context['model'] == 'ir.model':
             return 'filter'
         else :
             return 'form'
-    # end def _decide
+    # end def decide
 
-    def _decide2(self, cr, uid, data, res_get=False) :
-        print "_decide2" ######################
+    def decide2(self, cr, uid, data, res_get=False) :
+        print "decide2" ######################
         form = data['form']
-        self._add_filter(form)
+        self.add_filter(form)
         return 'filter'
-    # end def _decide2
+    # end def decide2
 
 # end class wizard_generate_xml
 wizard_generate_xml ()
