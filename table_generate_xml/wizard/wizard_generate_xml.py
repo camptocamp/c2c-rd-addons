@@ -152,6 +152,7 @@ class wizard_generate_xml(osv.osv_memory):
         
     def generate(self, cr, uid, ids, context) :
         print "generate", context, self._filters ######################
+        model_obj = self.pool.get('ir.model')
         table_obj = self._table_obj(cr, uid, context)
         if table_obj is not None and not isinstance(table_obj, osv.osv_memory) :
 #            self.add_filter(context['form'])
