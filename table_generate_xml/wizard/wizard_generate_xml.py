@@ -154,7 +154,7 @@ class wizard_generate_xml(osv.osv_memory):
         print "generate", context, self._filters ######################
         table_obj = self._table_obj(cr, uid, context)
         if table_obj is not None and not isinstance(table_obj, osv.osv_memory) :
-            self.add_filter(context['form'])
+#            self.add_filter(context['form'])
             xml = model_obj.generate_tree(cr, uid, table_obj, search=self._filters)
             self._manage_attachments \
                 ( cr, uid
