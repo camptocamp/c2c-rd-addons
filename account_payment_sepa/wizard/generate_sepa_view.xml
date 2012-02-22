@@ -19,13 +19,15 @@
         </form>
       </field>
     </record>
+    <!-- 
     <record id="action_payment_order_sepa" model="ir.actions.act_window">
-      <field name="name">Generate SEPA t</field>
+      <field name="name">Generate SEPA</field>
       <field name="res_model">payment.order.sepa</field>
       <field name="view_type">form</field>
       <field name="view_mode">form</field>
       <field name="view_id" ref="payment_order_sepa_form_view"/>
       <field name="target">new</field>
     </record>
+    -->
   </data>
 </openerp>
