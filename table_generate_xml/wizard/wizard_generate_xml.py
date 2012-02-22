@@ -136,7 +136,8 @@ class wizard_generate_xml(osv.osv_memory):
                 ( _('Data Error !')
                 , _('You can only select a single table for generation')
                 )
-        return model_obj.browse(cr, uid, ids[0]), self.pool.get(model.model)
+        model = model_obj.browse(cr, uid, ids[0])
+        return model, self.pool.get(model.model)
     # end def _table_obj
 
     def add_filter(self, cr, uid, ids, context) :
