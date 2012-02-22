@@ -41,7 +41,7 @@
 , "demo_xml"    : []
 , "update_xml"  : 
     [ 'table_generate_xml_wizard.xml'
-    , 'generate_xml_workflow.xml'
+#    , 'generate_xml_workflow.xml'
 #    , 'process/generate_xml_process.xml'
     , 'wizard/generate_xml_view.xml'
     ]
