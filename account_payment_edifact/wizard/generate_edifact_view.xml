@@ -19,6 +19,7 @@
         </form>
       </field>
     </record>
+    <!-- 
     <record id="action_payment_order_edifact" model="ir.actions.act_window">
       <field name="name">Generate EDIFACT</field>
       <field name="res_model">payment.order.edifact</field>
@@ -27,5 +28,6 @@
       <field name="view_id" ref="payment_order_edifact_form_view"/>
       <field name="target">new</field>
     </record>
+    -->
   </data>
 </openerp>
