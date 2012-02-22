@@ -60,7 +60,7 @@
     </record>
     -->
     <act_window
-      name="Generate XML W"
+      name="Generate XML"
       res_model="ir.model.generate.xml"
       src_model="ir.model"
       view_mode="form"

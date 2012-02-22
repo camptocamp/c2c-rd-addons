@@ -38,57 +38,57 @@ class wizard_generate_xml(osv.osv_memory):
     _name = "ir.model.generate.xml"
     _description = "Generate XML"
 
-    _init_form = \
-"""<?xml version="1.0"?>
-<form string="Generate XML files">
-  <separator colspan="4" string="Generate XML"/>
-  <field 
-    name="model_ids" 
-    domain="[('state','=','base')]" 
-    height="200" 
-    width="500" 
-    nolabel="1"/>
-</form>
-"""
-    _init_fields = \
-        { 'model_ids': 
-            { 'string'   :'Model'
-            , 'type'     :'many2many'
-            , 'required' : True
-            , 'relation' : 'ir.model' 
-            }
-        }
-    _filter_form = \
-"""<?xml version="1.0"?>
-<form string="Select Filter">
-  <field name="attribute" colspan="1" nolabel="1"/>
-  <field name="compare" colspan="1" nolabel="1"/>
-  <field name="value" colspan="2" nolabel="1"/>
-</form>"""
-    _filter_fields = \
-        { 'attribute': 
-            { 'string'    : 'Attribute'
-            , 'type'      : 'selection'
-            , 'selection' : []
-            }
-        , 'compare': 
-            { 'string'    : 'Comparison'
-            , 'type'      : 'selection'
-            , 'selection' : 
-                [ ('=','Equal')
-                , ('!=', 'Not Equal')
-                , ('>', 'Greater')
-                , ('>=', 'Greater or Equal')
-                , ('<', 'Less')
-                , ('<=', 'Less or Equal')
-                , ('in', 'In')
-                ]
-            }
-        , 'value': 
-            { 'string'    : 'Value'
-            , 'type'      : 'char', 'size': 64
-            }
-        }
+#    _init_form = \
+#"""<?xml version="1.0"?>
+#<form string="Generate XML files">
+#  <separator colspan="4" string="Generate XML"/>
+#  <field 
+#    name="model_ids" 
+#    domain="[('state','=','base')]" 
+#    height="200" 
+#    width="500" 
+#    nolabel="1"/>
+#</form>
+#"""
+#    _init_fields = \
+#        { 'model_ids': 
+#            { 'string'   :'Model'
+#            , 'type'     :'many2many'
+#            , 'required' : True
+#            , 'relation' : 'ir.model' 
+#            }
+#        }
+#    _filter_form = \
+#"""<?xml version="1.0"?>
+#<form string="Select Filter">
+#  <field name="attribute" colspan="1" nolabel="1"/>
+#  <field name="compare" colspan="1" nolabel="1"/>
+#  <field name="value" colspan="2" nolabel="1"/>
+#</form>"""
+#    _filter_fields = \
+#        { 'attribute': 
+#            { 'string'    : 'Attribute'
+#            , 'type'      : 'selection'
+#            , 'selection' : []
+#            }
+#        , 'compare': 
+#            { 'string'    : 'Comparison'
+#            , 'type'      : 'selection'
+#            , 'selection' : 
+#                [ ('=','Equal')
+#                , ('!=', 'Not Equal')
+#                , ('>', 'Greater')
+#                , ('>=', 'Greater or Equal')
+#                , ('<', 'Less')
+#                , ('<=', 'Less or Equal')
+#                , ('in', 'In')
+#                ]
+#            }
+#        , 'value': 
+#            { 'string'    : 'Value'
+#            , 'type'      : 'char', 'size': 64
+#            }
+#        }
 
     _selection = \
         { '='  : 'Equal'
@@ -101,7 +101,7 @@ class wizard_generate_xml(osv.osv_memory):
         }
     _columns = \
         { 'attribute' : fields.char     ('Attribute', size=64, required=True)
-        , 'compare'   : fields.selection(_selection,'Comparison', required=True)
+        , 'compare'   : fields.selection(_selection, 'Comparison', required=True)
         , 'value'     : fields.char     ('Value', size=64, required=True)
         }
     _defaults = \
@@ -181,7 +181,7 @@ class wizard_generate_xml(osv.osv_memory):
     def _decide(self, cr, uid, ids, context) :
         print "_decide", context ######################
         self._filters = []
-        if data['model'] == 'ir.model':
+        if context['model'] == 'ir.model':
             return 'filter'
         else :
             return 'form'
