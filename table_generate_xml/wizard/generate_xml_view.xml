@@ -3,7 +3,7 @@
   <data>
     <record model="ir.ui.view" id="generate_xml_init_form_view">
       <field name="name">generate.xml.init.form</field>
-      <field name="model">generate.xml</field>
+      <field name="model">ir.model.generate.xml</field>
       <field name="type">form</field>
       <field name="arch" type="xml">
         <form>
@@ -29,9 +29,10 @@
         </form>
       </field>
     </record>
+    <!-- 
     <record model="ir.ui.view" id="generate_xml_init_filter_view">
       <field name="name">generate.xml.filter.form</field>
-      <field name="model">generate.xml</field>
+      <field name="model">ir.model.generate.xml</field>
       <field name="type">form</field>
       <field name="arch" type="xml">
         <form>
@@ -57,6 +58,15 @@
         </form>
       </field>
     </record>
+    -->
+    <act_window
+      name="Generate XML W"
+      res_model="ir.model.generate.xml"
+      src_model="ir.model"
+      view_mode="form"
+      target="new"
+      key2="client_action_multi"
+      id="generate_xml_act_window"/>
     <!-- 
     <record id="action_generate_xml" model="ir.actions.act_window">
       <field name="name">Generate XML Action</field>

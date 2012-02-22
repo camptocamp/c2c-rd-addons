@@ -19,6 +19,14 @@
         </form>
       </field>
     </record>
+    <act_window
+      name="Generate EDIFACT Credit Transfer"
+      res_model="payment.order.edifact"
+      src_model="payment.order"
+      view_mode="form"
+      target="new"
+      key2="client_action_multi"
+      id="generate_edifact_act_window"/>
     <!-- 
     <record id="action_payment_order_edifact" model="ir.actions.act_window">
       <field name="name">Generate EDIFACT</field>
