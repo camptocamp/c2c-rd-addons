@@ -109,6 +109,10 @@ class wizard_generate_xml(osv.osv_memory):
         , 'compare'   : lambda *a: '='
         , 'value'     : lambda *a: ''
         }
+    
+    def init(self, cr) :
+        self._filters = []
+    # end def init
 
     def _manage_attachments(self, cr, uid, model, text, name, description, context=None):
         pool = pooler.get_pool(cr.dbname)
@@ -125,37 +129,43 @@ class wizard_generate_xml(osv.osv_memory):
         attachment_obj.create(cr, uid, vals, context=context)
     # end def _manage_attachments
 
+    def _table_obj(self, cr, uid, context) :
+        model_obj = self.pool.get('ir.model')
+        ids = context['active_ids']
+        if len(ids) > 1 :
+            raise osv.except_osv \
+                ( _('Data Error !')
+                , _('You can only select a single table for generation')
+                )
+        model = model_obj.browse(cr, uid, ids[0])
+        return self.pool.get(model.model)
+    # end def _table_obj
+
     def add_filter(self, cr, uid, ids, context) :
-        print "add_filter" ######################
-        if form and form['attribute'] and form['compare'] :
-            if self.table_obj._columns[form['attribute']]._type in ("int", "float", "boolean") :
-                value = form['value'].upper()
+        print "add_filter", context, self._filters ######################
+        table_obj = self._table_obj(cr, uid, context)
+        if context and context['attribute'] and context['compare'] :
+            if table_obj._columns[context['attribute']]._type in ("int", "float", "boolean") :
+                value = context['value'].upper()
             else :
-                value = "'%s'" % form['value']
-            self._filters.append((form['attribute'], form['compare'], value))
+                value = "'%s'" % context['value']
+            self._filters.append((context['attribute'], context['compare'], value))
     # end def add_filter
         
     def generate(self, cr, uid, ids, context) :
-        print "generate" ######################
-        pool      = pooler.get_pool(cr.dbname)
-        model_obj = pool.get('ir.model')
-        if data['model'] == 'ir.model':
-            model_id = data['ids'][0]
-        else :
-            model_id = data['form']['model_ids'][0][2][0] 
-        model = model_obj.browse(cr, uid, model_id)
-        self.table_obj = pool.get(model.model)
-        if self.table_obj is not None and not isinstance(self.table_obj, osv.osv_memory) :
-            self.add_filter(data['form'])
-            xml = model_obj.generate_tree(cr, uid, self.table_obj, search=self._filters)
+        print "generate", context, self._filters ######################
+        table_obj = self._table_obj(cr, uid, context)
+        if table_obj is not None and not isinstance(table_obj, osv.osv_memory) :
+            self.add_filter(context['form'])
+            xml = model_obj.generate_tree(cr, uid, table_obj, search=self._filters)
             self._manage_attachments \
                 ( cr, uid
                 , model
                 , base64.encodestring(etree.tostring(xml, pretty_print=True))
-                , self.table_obj._name
+                , table_obj._name
                 , " and ".join('"%s" %s %s' % (s[0], s[1], s[2]) for s in self._filters)
                 )
-        return {}
+        return {'type' : 'ir.actions.act_window_close'}
     # end def generate
 
     def filter(self, cr, uid, data, res_get=False) :
