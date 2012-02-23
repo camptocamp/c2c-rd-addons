@@ -21,10 +21,14 @@
               special="cancel"
               string="Cancel"/>
             <button
-              name="_decide"
-              string="Next"
+              name="generate"
+              string="Generate"
               type="object"
               default_focus="1"/>
+            <button
+              name="add_filter"
+              string="Add Filter"
+              type="object"/>
           </group>
         </form>
       </field>
@@ -60,7 +64,7 @@
     </record>
     -->
     <act_window
-      name="Generate XML W"
+      name="Generate XML"
       res_model="ir.model.generate.xml"
       src_model="ir.model"
       view_mode="form"
