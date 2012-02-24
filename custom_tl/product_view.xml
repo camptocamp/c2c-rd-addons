@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>              
+        <!-- ******************
+         product form
+         ******************-->
+    <record model="ir.ui.view" id="tl_product_view">
+      <field name="name">tl.product.view</field>
+      <field name="model">product.product</field>
+      <field name="inherit_id" ref="product.product_normal_form_view"/>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <field name="weight_net" position="after">
+             <field name="weight_drip_off"/>
+        </field>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="tl_product_view2">
+      <field name="name">tl.product2.view</field>
+      <field name="model">product.product</field>
+      <field name="inherit_id" ref="product.product_normal_form_view"/>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <field name="categ_id" position="after">
+             <field name="product_line"/>
+             <field name="minimum_durability"/>
+        </field>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="tl_product_view3">
+      <field name="name">tl.product3.view</field>
+      <field name="model">product.product</field>
+      <field name="inherit_id" ref="product.product_normal_form_view"/>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <field name="name" position="after">
+             <field name="name_engl"/>
+        </field>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="tl_product_view4">
+      <field name="name">tl.product4.view</field>
+      <field name="model">product.product</field>
+      <field name="inherit_id" ref="product.product_normal_form_view"/>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <field name="seller_ids" position="before">
+          <group colspan="2" col="2">
+             <field name="supplier"/>
+             <field name="purchase_unit"/>
+             <field name="purchase_container"/>
+             <field name="portions_per_container"/>
+          </group>
+          <group colspan="2" col="2">
+             <field name="purchase_container_net_weight"/>
+             <field name="purchase_container_tara_weight"/>
+             <field name="purchase_container_gross_weight"/>
+             <field name="purchase_container_dimension"/>
+          </group>
+        </field>
+      </field>
+    </record>
+
+
+  </data>
+</openerp>
+
+<!--
+         'product_line': fields.selection([('fix','Fix'),('seasonal','Seasonal')],'Product Line'),
+         'name_engl': fields.char('Name engl',size=32),
+         'minimu_durability': fields.char('Minimum Durability',size=32),
+         'supplier': fields.char('Supplier',size=64),
+         'purchase_unit': fields.char('Purchase Unit',size=64),
+         'purchase_container': fields.char('Purchase Container',size=64),
+         'purchase_container_net_weight': fields.float('Purchase Container Net Weight'),
+         'purchase_container_tara_weight': fields.float('Purchase Container Tara Weight'),
+         'purchase_container_gross_weight': fields.float('Purchase Container Gross Weight'),
+         'purchase_container_dimension': fields.char('Purchase Container Dimension',size=64),
+         'portions_per_container': fields.char('Portions per Container',size=64),
+-->

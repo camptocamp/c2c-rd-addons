@@ -6,7 +6,7 @@
       <field name="model">payment.order.sepa</field>
       <field name="type">form</field>
       <field name="arch" type="xml">
-        <form>
+        <form string="Generate SEPA Credit Transfer Form">
           <button 
             icon="gtk-cancel"
             special="cancel"
@@ -19,6 +19,15 @@
         </form>
       </field>
     </record>
+    <act_window
+      name="Generate SEPA Credit Transfer"
+      res_model="payment.order.sepa"
+      src_model="payment.order"
+      view_mode="form"
+      target="new"
+      key2="client_action_multi"
+      id="generate_sepa_act_window"/>
+    <!-- 
     <record id="action_payment_order_sepa" model="ir.actions.act_window">
       <field name="name">Generate SEPA</field>
       <field name="res_model">payment.order.sepa</field>
@@ -27,5 +36,6 @@
       <field name="view_id" ref="payment_order_sepa_form_view"/>
       <field name="target">new</field>
     </record>
+    -->
   </data>
 </openerp>

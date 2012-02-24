@@ -29,7 +29,7 @@ class purchase_line_invoice(osv.osv_memory):
     _inherit = 'purchase.order.line_invoice'
     
     def makeInvoices(self, cr, uid, ids, context=None):
-        res = super(purchase.order.line_invoice,self). makeInvoices(cr, uid, ids, context=None)
+        res = super(purchase.order.line_invoice,self).makeInvoices(cr, uid, ids, context=None)
         logger = netsvc.Logger()
         logger.notifyChannel('addons.'+self._name, netsvc.LOG_INFO,'makeInvoices FGF: %s ' % (res))
 #FIXME 
