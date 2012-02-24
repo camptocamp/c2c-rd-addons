@@ -88,7 +88,7 @@ Modification of Invoice Line - change trigger
             domain="[('company_id', '=', parent.company_id), ('journal_id', '=', parent.journal_id), ('type', '&lt;&gt;', 'view')]"
             groups="base.group_user"
 	    name="account_id"
-            on_change="onchange_account_id(product_id, partner_id, inv_type, parent.fiscal_position, account_id, account_analytic_id)"/>
+            on_change="onchange_account(product_id, parent.partner_id, parent.inv_type, parent.fiscal_position, account_id, account_analytic_id)"/>
 <!--
           <field
             name="analytic_account_id" />

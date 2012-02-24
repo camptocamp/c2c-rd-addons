@@ -393,20 +393,20 @@ class account_invoice_line(osv.osv):
 
         return super(account_invoice_line, self).write(cr, uid, ids, vals, context)
 
-    def onchange_account_id(self, cr, uid, ids, product_id, partner_id, inv_type, fiscal_position, account_id, account_analytic_id):
-
+    def onchange_account(self, cr, uid, ids, product_id, partner_id, inv_type, fiscal_position, account_id, account_analytic_id):
+        logger = netsvc.Logger() 
+        logger.notifyChannel('addons.'+self._name, netsvc.LOG_INFO, 'FGF analytic account partner: %s' % partner_id )
         result = super(account_invoice_line,self).onchange_account_id(cr, uid, ids, product_id, partner_id, inv_type, fiscal_position,account_id)
+        logger.notifyChannel('addons.'+self._name, netsvc.LOG_INFO, 'FGF analytic account Res: %s' % result)
         if not account_id or account_analytic_id: 
-             return {}
-        #print >> sys.stderr, ' invoice line ', result
+             return result
         account_obj =  self.pool.get('account.account')
         res = account_obj.get_analytic(cr, uid, ids, account_id)
-        #print >> sys.stderr, ' invoice line ', result, res
-        v1 = result.get('value')
-        v2 = res.get('value')
-        if v2:
-           v1.update(v2)
-        #print >> sys.stderr, ' invoice line -2 ', result
+        logger.notifyChannel('addons.'+self._name, netsvc.LOG_INFO, 'FGF analytic account analytic: %s' % res)
+        result['value'].update( res['value'])
+#res['value'].update({'user_id': data_event.user_id.id})
+
+        logger.notifyChannel('addons.'+self._name, netsvc.LOG_INFO, 'FGF analytic account analytic final: %s' % result)
         return result
 
     def _check_analytic_account_exists(self, cr, uid, ids):
