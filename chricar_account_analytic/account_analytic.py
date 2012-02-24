@@ -393,9 +393,9 @@ class account_invoice_line(osv.osv):
 
         return super(account_invoice_line, self).write(cr, uid, ids, vals, context)
 
-    def onchange_account(self, cr, uid, ids, fiscal_position, account_id, account_analytic_id):
+    def onchange_account_id(self, cr, uid, ids, product_id, partner_id, inv_type, fiscal_position, account_id, account_analytic_id):
 
-        result = super(account_invoice_line,self).onchange_account_id(cr, uid, ids,fiscal_position,account_id)
+        result = super(account_invoice_line,self).onchange_account_id(cr, uid, ids, product_id, partner_id, inv_type, fiscal_position,account_id)
         if not account_id or account_analytic_id: 
              return {}
         #print >> sys.stderr, ' invoice line ', result
