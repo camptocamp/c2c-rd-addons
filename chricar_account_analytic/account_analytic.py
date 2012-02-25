@@ -27,6 +27,10 @@ import sys
 import netsvc
 from tools.translate import _
 
+import logging
+_logger = logging.getLogger('chricar_account_analytic')
+
+
 # ************************************
 # account_account
 # ************************************
@@ -394,19 +398,16 @@ class account_invoice_line(osv.osv):
         return super(account_invoice_line, self).write(cr, uid, ids, vals, context)
 
     def onchange_account(self, cr, uid, ids, product_id, partner_id, inv_type, fiscal_position, account_id, account_analytic_id):
-        logger = netsvc.Logger() 
-        logger.notifyChannel('addons.'+self._name, netsvc.LOG_INFO, 'FGF analytic account partner: %s' % partner_id )
+        _logger.info('FGF analytic account analytic A: %s' % account_id)
         result = super(account_invoice_line,self).onchange_account_id(cr, uid, ids, product_id, partner_id, inv_type, fiscal_position,account_id)
-        logger.notifyChannel('addons.'+self._name, netsvc.LOG_INFO, 'FGF analytic account Res: %s' % result)
+        _logger.info('FGF analytic account analytic B: %s' % result)
         if not account_id or account_analytic_id: 
              return result
         account_obj =  self.pool.get('account.account')
         res = account_obj.get_analytic(cr, uid, ids, account_id)
-        logger.notifyChannel('addons.'+self._name, netsvc.LOG_INFO, 'FGF analytic account analytic: %s' % res)
+        _logger.info('FGF analytic account analytic final: %s' % res)
         result['value'].update( res['value'])
-#res['value'].update({'user_id': data_event.user_id.id})
-
-        logger.notifyChannel('addons.'+self._name, netsvc.LOG_INFO, 'FGF analytic account analytic final: %s' % result)
+        _logger.info('FGF analytic account analytic final: %s' % result)
         return result
 
     def _check_analytic_account_exists(self, cr, uid, ids):
