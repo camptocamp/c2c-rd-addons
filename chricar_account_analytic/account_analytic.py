@@ -405,8 +405,9 @@ class account_invoice_line(osv.osv):
              return result
         account_obj =  self.pool.get('account.account')
         res = account_obj.get_analytic(cr, uid, ids, account_id)
-        _logger.info('FGF analytic account analytic final: %s' % res)
-        result['value'].update( res['value'])
+        _logger.info('FGF analytic account analytic res: %s' % res)
+        if res:
+            result['value'].update( res['value'])
         _logger.info('FGF analytic account analytic final: %s' % result)
         return result
 
