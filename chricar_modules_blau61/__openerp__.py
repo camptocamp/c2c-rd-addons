@@ -33,7 +33,7 @@ This module installs everything for Blaustauden
 "account"
 ,"account_accountant"
 ,"account_analytic_analysis"
-,"account_analytic_billing_rate"
+#,"account_analytic_billing_rate"
 ,"account_analytic_default"
 ,"account_anglo_saxon"
 ,"account_asset"
