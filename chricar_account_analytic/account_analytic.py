@@ -195,17 +195,14 @@ for balance accounts
 
     def check_analytic_account_exists(self, cr, uid, ids, account_id, analytic_account_id ):
         if account_id:
-            logger = netsvc.Logger() 
             account = self.browse(cr, uid,  account_id)
             if account.account_analytic_usage in ('mandatory','fixed') and not analytic_account_id :
-                logger.notifyChannel('addons.'+self._name, netsvc.LOG_INFO,'missing analyitc account for FGF:  %s '%(account.name))
                 return False
         return True
 
     def check_analytic_account_fixed(self, cr, uid, ids, account_id, analytic_account_id):
         
         if account_id:
-            logger = netsvc.Logger() 
             account = self.browse(cr, uid,  account_id)
             if analytic_account_id:
                 analytic = self.pool.get('account.analytic.account').browse(cr, uid,  analytic_account_id)
@@ -213,16 +210,13 @@ for balance accounts
             else:
                 analytic_name = _('No analytic account specified')
             if account.account_analytic_usage == 'fixed' and account.analytic_account_id.id != analytic_account_id :
-                logger.notifyChannel('addons.'+self._name, netsvc.LOG_INFO,'wrong analyitc account for FGF:  %s %s'%(account.name, analytic_name))
                 return False
         return True
 
     def check_analytic_account_none(self, cr, uid, ids, account_id, analytic_account_id):
         if account_id:
-            logger = netsvc.Logger() 
             account = self.browse(cr, uid,  account_id)
             if analytic_account_id and account.account_analytic_usage == 'none':
-                logger.notifyChannel('addons.'+self._name, netsvc.LOG_INFO,'no analytic account allowed for FGF:  %s '%(account.name))
                 return False
         return True
 
@@ -262,8 +256,11 @@ class account_move_line(osv.osv):
         
         account_obj =  self.pool.get('account.account')
         res = account_obj.get_analytic(cr, uid, ids, account_id)
-        if res:
+        if result and res:
             result['value'].update( res['value'])
+        elif not result and res:
+            result = res
+
         return result
 
     def _check_analytic_account_exists(self, cr, uid, ids):
@@ -344,10 +341,14 @@ class account_bank_statement_line(osv.osv):
         
         account_obj =  self.pool.get('account.account')
         res = account_obj.get_analytic(cr, uid, ids, account_id)
-        if res:
+        _logger.info('FGF bank change %s:%s', result, res)
+
+        if result and res:
             result['value'].update( res['value'])
+        elif not result and res:
+            result = res
         
-        return {'value':v1}
+        return result
 
 
     #def onchange_account_id_analytic(self, cr, uid, ids, account_id, analytic_account_id=False):
@@ -392,8 +393,11 @@ class account_invoice_line(osv.osv):
              return result
         account_obj =  self.pool.get('account.account')
         res = account_obj.get_analytic(cr, uid, ids, account_id)
-        if res:
+        if result and res:
             result['value'].update( res['value'])
+        elif not result and res:
+            result = res
+            
         return result
 
     def _check_analytic_account_exists(self, cr, uid, ids):
