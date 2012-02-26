@@ -33,7 +33,7 @@ class report_webkit_html(report_sxw.rml_parse):
             'uid': uid,
         })
         
-report_sxw.report_sxw('report.account.invoice.webkit',
+report_sxw.report_sxw('report.account.invoice_c2c.webkit',
                        'account.invoice', 
                        'addons/account_invoice_webkit/report/account_invoice_webkit.mako',
                        parser=report_webkit_html)
