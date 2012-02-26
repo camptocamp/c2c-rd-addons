@@ -120,7 +120,6 @@ for balance accounts
          return True
 
     def _check_analytic_account_view(self, cr, uid, ids):
-         #print >>sys.stderr, "TEST ****** _check_analytic_account_view"
          account = self.browse(cr, uid, ids[0])
          if account.type == 'view' and account.account_analytic_usage != ('none'):
                 return False
@@ -156,7 +155,6 @@ for balance accounts
     def create(self, cr, uid, vals, context=None):
         if context is None:
             context = {}
-        #print >> sys.stderr,'account vals ', vals
         
         if not vals.get('account_analytic_usage'):
             usage = 'none'
@@ -166,7 +164,6 @@ for balance accounts
                    if user_type.close_method == 'none':
                       usage = 'mandatory'
             vals.update({'account_analytic_usage': usage})           
-        #print >> sys.stderr,'account vals usage', usage, vals
                        
         res = super(account_account, self).create(cr, uid, vals, context)
         return res
@@ -187,7 +184,6 @@ for balance accounts
         return res
 
     def _check_analytic_account_view(self, cr, uid, ids):
-         #print >>sys.stderr, "TEST ****** _check_analytic_account_view"
          account = self.browse(cr, uid, ids[0])
          if account.type == 'view' and account.account_analytic_usage != ('none'):
                 return False
@@ -266,10 +262,8 @@ class account_move_line(osv.osv):
         
         account_obj =  self.pool.get('account.account')
         res = account_obj.get_analytic(cr, uid, ids, account_id)
-        v1 = result.get('value')
-        v2 = res.get('value')
-        if v2:
-            v1.update(v2)
+        if res:
+            result['value'].update( res['value'])
         return result
 
     def _check_analytic_account_exists(self, cr, uid, ids):
@@ -350,13 +344,8 @@ class account_bank_statement_line(osv.osv):
         
         account_obj =  self.pool.get('account.account')
         res = account_obj.get_analytic(cr, uid, ids, account_id)
-        v1 = result.get('value')
-        v2 = res.get('value')
-        if v2 :
-           if v1:
-               v1.update(v2)
-           else:
-               v1 = v2
+        if res:
+            result['value'].update( res['value'])
         
         return {'value':v1}
 
@@ -398,25 +387,19 @@ class account_invoice_line(osv.osv):
         return super(account_invoice_line, self).write(cr, uid, ids, vals, context)
 
     def onchange_account(self, cr, uid, ids, product_id, partner_id, inv_type, fiscal_position, account_id, account_analytic_id):
-        _logger.info('FGF analytic account analytic A: %s' % account_id)
         result = super(account_invoice_line,self).onchange_account_id(cr, uid, ids, product_id, partner_id, inv_type, fiscal_position,account_id)
-        _logger.info('FGF analytic account analytic B: %s' % result)
         if not account_id or account_analytic_id: 
              return result
         account_obj =  self.pool.get('account.account')
         res = account_obj.get_analytic(cr, uid, ids, account_id)
-        _logger.info('FGF analytic account analytic res: %s' % res)
         if res:
             result['value'].update( res['value'])
-        _logger.info('FGF analytic account analytic final: %s' % result)
         return result
 
     def _check_analytic_account_exists(self, cr, uid, ids):
         for move in self.browse(cr, uid, ids):  
             account_obj = self.pool.get('account.account')
-            #print >> sys.stderr, 'invoice - check analytic for ', u'move.account_id.name'
             if move.invoice_id.state == 'open':
-                #print >> sys.stderr, 'invoice - check analytic for open'
                 return  account_obj.check_analytic_account_exists(cr,uid,ids,move.account_id.id,move.account_analytic_id.id)
             return True
 
@@ -453,9 +436,7 @@ class account_invoice(osv.osv):
         for invoice in self.browse(cr, uid, ids):  
           for move in invoice.invoice_line:
             account_obj = self.pool.get('account.account')
-            #print >> sys.stderr, 'invoice - check analytic for ', u'move.account_id.name'
             if move.invoice_id.state == 'open':
-                #print >> sys.stderr, 'invoice - check analytic for open'
                 return  account_obj.check_analytic_account_exists(cr,uid,ids,move.account_id.id,move.account_analytic_id.id)
           return True
 
