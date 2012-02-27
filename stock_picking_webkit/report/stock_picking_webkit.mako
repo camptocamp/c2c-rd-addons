@@ -95,7 +95,7 @@ ${pick.address_id.address_label}
     %elif pick.type == 'delivery' :
     <span class="title">${_("Delivery")} ${pick.name or ''|entity}</span> 
     %elif pick.type == 'internal' :
-    <span class="title">${_("Internal Picking")} ${pick.name or ''|entity}</span> 
+    <span class="title">${_("Internal Packing")} ${pick.name or ''|entity}</span> 
     %endif
 %if pick.state == 'cancel':
    <span class="title"> ${pick.state} </span>
@@ -107,7 +107,7 @@ ${pick.address_id.address_label}
           %if pick.origin and pick.origin not in [ pick.sale_id.name,pick.purchase_id.name]  :
             <td>${_("Document")}</td>
           %endif
-            <td style="white-space:nowrap">${_("Picking Date")}</td>
+            <td style="white-space:nowrap">${_("Packing Date")}</td>
           %if pick.carrier_id:
             <td style="white-space:nowrap">${_("Carrier")}</td>
           %endif

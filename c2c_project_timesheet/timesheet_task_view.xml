@@ -13,7 +13,7 @@ work per task
       <field name="arch" type="xml">
         <tree string="Task Work" editable="bottom">
           <field name="project_id" readonly="1"/>
-          <field name="task_id"/>
+          <field name="task_id" domain="[('state','=','open')]"/>
           <field name="name"/>
           <field name="hours" sum="Hours"  widget="float_time"/>
           <field name="date"/>
@@ -30,7 +30,7 @@ work per task
       <field name="arch" type="xml">
         <form string="Task Work">
           <field name="project_id" readonly="1"/>
-          <field name="task_id"/>
+          <field name="task_id" domain="[('state','=','open')]"/>
           <field name="name"/>
           <field name="hours"  widget="float_time"/>
           <field name="date"/>

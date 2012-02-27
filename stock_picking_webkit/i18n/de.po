@@ -7,15 +7,15 @@ msgstr ""
 "Project-Id-Version: OpenERP Server 6.1rc1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-01-23 22:09+0000\n"
-"PO-Revision-Date: 2012-01-24 02:16+0000\n"
+"PO-Revision-Date: 2012-02-26 17:42+0000\n"
 "Last-Translator: Joël Grand-Guillaume @ CampToCamp "
 "<joel.grandguillaume@camptocamp.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2012-02-24 05:12+0000\n"
-"X-Generator: Launchpad (build 14860)\n"
+"X-Launchpad-Export-Date: 2012-02-27 05:52+0000\n"
+"X-Generator: Launchpad (build 14868)\n"
 
 #. module: stock_picking_webkit
 #: report:addons/stock_picking_webkit/report/stock_picking_webkit.mako:190
@@ -44,7 +44,7 @@ msgstr "Produktion"
 
 #. module: stock_picking_webkit
 #: model:ir.model,name:stock_picking_webkit.model_stock_picking
-msgid "Picking List"
+msgid "Packing List"
 msgstr "Lieferschein Liste"
 
 #. module: stock_picking_webkit
@@ -64,8 +64,8 @@ msgstr "Dokument"
 
 #. module: stock_picking_webkit
 #: model:ir.actions.report.xml,name:stock_picking_webkit.stock_picking_webkit
-msgid "WebKit Picking"
-msgstr "WebKit Picking"
+msgid "WebKit Packing"
+msgstr "WebKit Packing"
 
 #. module: stock_picking_webkit
 #: field:stock.picking,print_uom:0
@@ -111,12 +111,12 @@ msgstr "Hänger"
 
 #. module: stock_picking_webkit
 #: report:addons/stock_picking_webkit/report/stock_picking_webkit.mako:110
-msgid "Picking Date"
+msgid "Packing Date"
 msgstr "Lieferschein Datum"
 
 #. module: stock_picking_webkit
 #: report:addons/stock_picking_webkit/report/stock_picking_webkit.mako:98
-msgid "Internal Picking"
+msgid "Internal Packing"
 msgstr "Interne Lieferung"
 
 #. module: stock_picking_webkit
