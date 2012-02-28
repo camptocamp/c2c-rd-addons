@@ -109,16 +109,16 @@ class product_product(osv.osv):
         _logger = logging.getLogger(__name__)
         _logger.info('FGF stock_location_product  ids %s', res_all)
         _logger.info('FGF stock_location_product context %s', context)
+        _logger.info('FGF stock_location_product context print %s', context.get('display_with_zero_qty'))
         res = []
-        if context.get('display_with_zero_qty') and context.get('display_with_zero_qty') == False :
-        #if context.get('location') :
+        if not context.get('location') or  context.get('display_with_zero_qty',True) :
+            _logger.info('FGF stock_location_product all')
+            res = res_all
+        else:
             _logger.info('FGF stock_location_product only not 0')
             for prod in self.browse(cr,uid,res_all,context):
                 if prod.qty_available <> 0.0 or prod.virtual_available <> 0.0:
                     res.append(prod.id)
-        else:
-            _logger.info('FGF stock_location_product all')
-            res = res_all
  
         return res
       
