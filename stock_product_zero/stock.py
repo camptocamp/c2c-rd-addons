@@ -115,7 +115,7 @@ class product_product(osv.osv):
             _logger.info('FGF stock_location_product all')
             res = res_all
         else:
-            digits = 3
+            digits = self.pool.get('decimal.precision').precision_get(cr, uid, 'Product UoM')
             _logger.info('FGF stock_location_product only not 0 , digits %s ', digits)
             for prod in self.browse(cr,uid,res_all,context):
                 if round(prod.qty_available,digits) <> 0.0 or round(prod.virtual_available,digits) <> 0.0:
