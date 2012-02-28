@@ -23,40 +23,28 @@
 
 from osv import fields, osv
 import sys
+import logging
 
 class stock_location_product(osv.osv_memory):
-    _name = "stock.location.product"
-    _description = "Products by Location"
+    _inherit = "stock.location.product"
     _columns = {
-        'from_date': fields.datetime('From'),
-        'to_date': fields.datetime('To'),
         'display_with_zero_qty' : fields.boolean('Display lines with zero'),
     }
 
-    def action_open_window(self, cr, uid, ids, context=None):
-        """ To open location wise product information specific to given duration
-         @param self: The object pointer.
-         @param cr: A database cursor
-         @param uid: ID of the user currently logged in
-         @param ids: An ID or list of IDs if we want more than one 
-         @param context: A standard dictionary 
-         @return: Invoice type
-        """
-        mod_obj = self.pool.get('ir.model.data')
-        for location_obj in self.read(cr, uid, ids, ['from_date', 'to_date','display_with_zero_qty']):
-            return {
-                'name': False,
-                'view_type': 'form',
-                'view_mode': 'tree,form',
-                'res_model': 'product.product',
-                'type': 'ir.actions.act_window',
-                'context': {'location': context['active_id'],
-                       'from_date': location_obj['from_date'],
-                       'to_date': location_obj['to_date'],
-                       'display_with_zero_qty': location_obj['display_with_zero_qty'],
-                },
-                'domain': [('type', '<>', 'service')],
-            }
+    
+    def action_open_window_1(self, cr, uid, ids, context=None):
+        res = super(stock_location_product, self).action_open_window( cr, uid, ids, context=None)
+        _logger = logging.getLogger(__name__)
+        # FIXME logging seems not to work in memory objects
+        _logger.info('FGF stock_location_product action_open_window pre %s', res) 
+
+        location_products = self.read(cr, uid, ids, ['display_with_zero_qty'], context=context)
+        # FIXME - I am not able to defin display_with_zero_qty in context
+        if location_products:
+            res['context']['display_with_zero_qty']= location_products['display_with_zero_qty']
+
+        _logger.info('FGF stock_location_product action_open_window post %s', res) 
+        return res
 
 stock_location_product()
 
@@ -70,32 +58,42 @@ class product_product(osv.osv):
     def read_test(self,cr, uid, ids, fields=None, context=None, load='_classic_read'):
         res_all = super(product_product, self).read(cr,uid, ids, fields, context, load='_classic_read')
         res = []
-        #if not context.get('display_with_zero_qty') or  \
-        #      (context.get('display_with_zero_qty')  and context.get('display_with_zero_qty') == True):
-        if context.get('display_with_zero_qty') == False:
-          for prod in res_all:
-            qty = prod.get('qty_available')
-            vir = prod.get('virtual_available')
-            if qty <> 0.0 or vir <> 0.0:
-               res.append(prod) 
-        else: 
-            res = res_all
+        _logger = logging.getLogger(__name__)
+        _logger.info('FGF stock_location_product read ids %s', res_all)
+        if  1==1: #context.get('display_with_zero_qty') and context.get('display_with_zero_qty') == False:
+          _logger.info('FGF stock_location_product read  only not null')
+         
+#          for prod in self.browse(cr, uid, res_all):
+#            qty = prod.get('qty_available')
+#            vir = prod.get('virtual_available')
+#            if qty <> 0.0 or vir <> 0.0:
+#               res.append(prod) 
+#        else: 
+#          _logger.info('FGF stock_location_product  all')
+        res = res_all
         # FIXME - result should be sorted by name 
         # http://wiki.python.org/moin/SortingListsOfDictionaries - returns (unicode?) error on name  
         return res
         
-    def search_test(self, cr, uid, args, offset=0, limit=None,
+    def search(self, cr, uid, args, offset=0, limit=None,
                 order=None, context=None, count=False):
         res_all = super(product_product, self).search(cr, uid, args, offset, limit,
                 order, context=context, count=count)
+        _logger = logging.getLogger(__name__)
+        _logger.info('FGF stock_location_product  ids %s', res_all)
+        _logger.info('FGF stock_location_product context %s', context)
         res = []
-        #print >> sys.stderr, 'res_all search', res_all
-        if context.get('display_with_zero_qty') == False:
+        # FIXME - I am not able to defin display_with_zero_qty in context
+        #if context.get('display_with_zero_qty') and context.get('display_with_zero_qty') == False :
+        if context.get('location') :
+            _logger.info('FGF stock_location_product only not 0')
             for prod in self.browse(cr,uid,res_all,context):
                 if prod.qty_available <> 0.0 or prod.virtual_available <> 0.0:
                     res.append(prod.id)
-        else:    
+        else:
+            _logger.info('FGF stock_location_product all')
             res = res_all
+ 
         return res
       
 product_product()
