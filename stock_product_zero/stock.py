@@ -22,7 +22,7 @@
 
 
 from osv import fields, osv
-import sys
+import decimal_precision as dp
 import logging
 _logger = logging.getLogger(__name__)
 
@@ -115,9 +115,10 @@ class product_product(osv.osv):
             _logger.info('FGF stock_location_product all')
             res = res_all
         else:
-            _logger.info('FGF stock_location_product only not 0')
+            digits = 3
+            _logger.info('FGF stock_location_product only not 0 , digits %s ', digits)
             for prod in self.browse(cr,uid,res_all,context):
-                if prod.qty_available <> 0.0 or prod.virtual_available <> 0.0:
+                if round(prod.qty_available,digits) <> 0.0 or round(prod.virtual_available,digits) <> 0.0:
                     res.append(prod.id)
  
         return res
