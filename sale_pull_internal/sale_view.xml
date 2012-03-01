@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <!-- location -->
+    <record model="ir.ui.view" id="view_location_seq">
+      <field name="name">view_location_sequence.view</field>
+      <field name="model">stock.location</field>
+      <field name="inherit_id" ref="stock.view_location_form"/>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <field name="location_id" position="after">
+          <field name="sequence" />
+        </field>
+      </field>
+    </record>
+
+     <!-- SO -->
+    <record model="ir.ui.view" id="view_sale_order_tree_pull">
+      <field name="name">view_sale_order_pull.view</field>
+      <field name="model">sale.order</field>
+      <field name="inherit_id" ref="sale.view_order_tree"/>
+      <field name="type">tree</field>
+      <field name="arch" type="xml">
+        <field name="state" position="after">
+          <field name="state_internal" />
+        </field>
+      </field>
+    </record>
+
+    <record id="view_sale_order_make_pull_internal" model="ir.ui.view">
+            <field name="name">Create Pull Pickings</field>
+            <field name="model">sale.order.pull.internal</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Create Pull Pickings">
+                    <separator colspan="4" string="Do you really want to create pull pickings ?" />
+<!--
+                    <field name="grouped"/>
+                    <newline/>
+                    <field name="invoice_date"/>
+                    <separator string="" colspan="6"/>
+                    -->
+                    <button special="cancel" string="Cancel" icon="gtk-cancel"/>
+                    <button name="make_picking_internal" string="Create Pull Pickings" type="object" icon="terp-gtk-go-back-rtl"/>
+               </form>
+            </field>
+        </record>
+
+
+        <record id="action_order_pull_internal" model="ir.actions.act_window">
+            <field name="name">Create Pull Pickings</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sale.order.pull.internal</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_sale_order_make_pull_internal"/>
+            <field name="target">new</field>
+            <field name="multi">True</field>
+
+        </record>
+
+
+        <record model="ir.values" id="order_pull_internal">
+            <field name="model_id" ref="sale.model_sale_order" />
+            <field name="name">Create Pull Pickings</field>
+            <field name="key2">client_action_multi</field>
+            <field name="value" eval="'ir.actions.act_window,' + str(ref('action_order_pull_internal'))" />
+            <field name="key">action</field>
+            <field name="model">sale.order</field>  
+        </record>
+
+  </data>
+</openerp>
