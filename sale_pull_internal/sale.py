@@ -72,14 +72,18 @@ class sale_order(osv.osv):
         # FIXME uncomment# order.write(cr, uid, order_ids,{'state_internal':'calculation'} )
 
         order_ids2 = (', '.join(map(str,order_ids)))
-        cr.execute("""select product_id, sum(product_uom_qty) as qty_requested
-                   from sale_order_line
-                  where order_id in (%s)
-                  group by product_id""" % order_ids2)
+        cr.execute("""select shop_id, product_id, sum(product_uom_qty) as qty_requested
+                   from sale_order_line l,
+                        sale_order o
+                  where o.id = l.order_id
+                    and order_id in (%s)
+                  group by o.shop_id, product_id""" % order_ids2)
         for product_qty in cr.dictfetchall():
             _logger.info('FGF sale pull internal %s' % (product_qty))
             product_id = product_qty['product_id']
+            shop_id = product_qty['shop_id']
             qty_requested = product_qty['qty_requested']
+            # select source destination
             cr.execute("""select id
                    from stock_location
                   where sequence is not null
@@ -89,20 +93,27 @@ class sale_order(osv.osv):
                 location_id = loc[0]
                 context['location_id'] = loc[0]
                 _logger.info('FGF sale location id %s ' % (context))
-                qty_avail = product_obj.get_product_available(cr, uid, [product_id] , context)
-                _logger.info('FGF sale location product %s %s ' % (product_id, qty_avail))
-                if qty_avail > qty_requested:
+                qty_availiable = product_obj.get_product_available(cr, uid, [product_id] , context)
+                qty_avail = qty_availiable.get(product_id)
+                _logger.info('FGF sale location product %s %s %s ' % (product_id, qty_avail, qty_requested))
+                ml = {'shop_id':shop_id, 'location_id':location_id, 'product_id': product_id,}
+                if qty_requested > 0 and qty_avail >0:
+                  if qty_avail > qty_requested:
                     qty_requested = 0.0
-                    move_lines.append({'location_id':location_id, 'product_id': product_id, 'product_qty':qty_requested })
+                    ml.update({'product_qty':qty_requested})
+                    move_lines.append(ml)
                     if location_id not in loc_ids:
                         loc_ids.append(location_id)
-                else:
+                  elif qty_available > 0 and qty_avail > qty_requested:
                     qty_requested = qty_requested - qty_avail
-                    move_lines.append({'location_id':location_id, 'product_id': product_id, 'product_qty':qty_avail })
+                    ml.update({'product_qty':qty_avail})
+                    move_lines.append(ml)
                     if location_id not in loc_ids:
                         loc_ids.append(location_id)
+                
             if qty_requested > 0.0:
                 back_log_lines.append({'product_id': product_id, 'product_qty':qty_requested})
+        _logger.info('FGF back_log lines %s ' % (back_log_lines))
 
             
         # now we create a stock_picking for each location
@@ -142,10 +153,10 @@ class sale_order(osv.osv):
                 if line['location_id'] == loc:
                     ml = pick
                     prod_lot_id = ''
-                    lot_ids = lot_obj.search(cr, uid, [('product_id','=',product_id)])
+                    lot_ids = lot_obj.search(cr, uid, [('product_id','=',line['product_id'])])
                     for lot in lot_obj.browse(cr, uid, lot_ids, context=None):
                        if lot.stock_available > 0:
-                           prod_lot_id = lot.id[0] 
+                           prod_lot_id = lot.id
                     mlt = {
                        'name'  : 'x',
                        'product_id' : line['product_id'],
