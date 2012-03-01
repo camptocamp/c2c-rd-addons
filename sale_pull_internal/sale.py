@@ -56,10 +56,11 @@ class sale_order(osv.osv):
         move_obj = self.pool.get('stock.move')
         lot_obj = self.pool.get('stock.production.lot')
         company_obj = self.pool.get('res.company')
+        shop_obj = self.pool.get('sale.shop')
 
         if not context.get('company_id'):
             company_id = company_obj._company_default_get(cr, uid, 'stock.company', context=context),
-            context['company_id'] = company_id
+            context['company_id'] = company_id[0]
 
         order_ids =[]
 
@@ -83,7 +84,10 @@ class sale_order(osv.osv):
             product_id = product_qty['product_id']
             shop_id = product_qty['shop_id']
             qty_requested = product_qty['qty_requested']
-            # select source destination
+            for shop in shop_obj.browse(cr, uid, [shop_id], context=context):
+                location_dest_id = shop.warehouse_id.lot_output_id.id
+                address_id = shop.warehouse_id.partner_address_id and shop.warehouse_id.partner_address_id.id 
+            # select source location
             cr.execute("""select id
                    from stock_location
                   where sequence is not null
