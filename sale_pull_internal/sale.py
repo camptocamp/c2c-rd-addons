@@ -117,7 +117,6 @@ class sale_order(osv.osv):
                 
             if qty_requested > 0.0:
                 back_log_lines.append({'product_id': product_id, 'product_qty':qty_requested})
-        _logger.info('FGF back_log lines %s ' % (back_log_lines))
 
             
         # now we create a stock_picking for each location
@@ -200,8 +199,8 @@ class sale_order_pull_internal(osv.osv_memory):
             context = {}
         record_id = context and context.get('active_id', False)
         order = self.pool.get('sale.order').browse(cr, uid, record_id, context=context)
-        if order.state != 'progress':
-            raise osv.except_osv(_('Warning !'),'You can only internal pull pickings from SO in progres.')
+        #if order.state != 'progress':
+        #    raise osv.except_osv(_('Warning !'),'You can only internal pull pickings from SO in progres.')
         return False
 
 
