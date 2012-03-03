@@ -28,6 +28,9 @@
 #
 ##############################################################################
 
+from osv import fields,osv
+import pooler
+
 
 
 class chricar_account_move_line_igel_transfer(osv.osv_memory):

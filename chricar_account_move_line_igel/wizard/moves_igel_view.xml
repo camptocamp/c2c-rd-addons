@@ -34,10 +34,10 @@
 
         </record>
         <record model="ir.values" id="chricar_account_move_line_igel_wizard_val">
-            <field name="model_id" ref=chricar_account_move_line_igel".model_chricar_account_move_line_igel" />
+            <field name="model_id" ref="model_chricar_account_move_line_igel" />
             <field name="name">Transfer to OpenERP</field>
             <field name="key2">client_action_multi</field>
-            <field name="value" eval="'ir.actions.act_window,' + str(ref('action_order_pull_internal'))" />
+            <field name="value" eval="'ir.actions.act_window,' + str(ref('chricar_account_move_line_igel_wizard_act'))" />
             <field name="key">action</field>
             <field name="model">chricar.account.move.line.igel</field>
         </record>
