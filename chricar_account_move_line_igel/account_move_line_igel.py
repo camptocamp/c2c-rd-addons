@@ -179,33 +179,40 @@ class chricar_account_move_line_igel(osv.osv):
          _logger.info('FGF loop voucher ' )
          journal_id = journal_obj.search(cr, uid, [('code','=','Igel')], context=context)[0]
 
-         cr.execute("""select distinct company_id, period_id, ba_nr||'-'||bel_nr as ref, date
+         cr.execute("""select distinct company_id, period_id, ba_nr||'-'||bel_nr as name, date
                   from chricar_account_move_line_igel
                  where id in (%s)""" % (','.join(map(str,acc_igel_ids)) ))
          for move in cr.dictfetchall():
                
-             _logger.info('FGF move %s' % (move))
+             #_logger.info('FGF move %s' % (move))
              vals = move
              vals.update({
                 'journal_id' : journal_id,
                 'state'      : 'draft',
              })
-             _logger.info('FGF move vals %s' % (vals))
-             _logger.info('FGF move context %s' % (context))
+             #_logger.info('FGF move vals %s' % (vals))
            
              move_id = move_obj.create(cr, uid, vals, {} )
              _logger.info('FGF move_id = %s' % (move_id))
+             cr.execute("""select account_id, period_id, company_id, betrag_soll as debit, betrag_haben as credit, text as name
+                             from chricar_account_move_line_igel
+                            where company_id = %s
+                              and period_id  = %s
+                              and ba_nr||'-'||bel_nr = '%s'""" % ( vals['company_id'], vals['period_id'], vals['name'] ))
+             for line in cr.dictfetchall():
+                 l = line
+                 l['move_id'] = move_id
+                 if l['debit'] < 0 or l['credit'] < 0:
+                    l['debit'] = line['credit']
+                    l['credit'] = line['debit']
+                 #_logger.info('FGF move lines%s' % (l))
+                 move_line_obj.create(cr, uid, l)
 
- 
-         
-         # create move
-         
-
-         # create move lines
+             
 
          # create analytic lines
 
-         #return
+         return
 
 
 chricar_account_move_line_igel()
