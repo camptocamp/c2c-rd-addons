@@ -35,10 +35,11 @@
 import time
 from osv import fields,osv
 import pooler
+import logging
 
 class chricar_account_move_line_igel(osv.osv):
      _name = "chricar.account.move.line.igel"
-
+     _logger = logging.getLogger(__name__)
      _columns = {
        'company_id'         : fields.many2one('res.company', 'Company', required=True),
        'kanzlei'            : fields.integer ('Kanzlei'),
@@ -71,10 +72,82 @@ class chricar_account_move_line_igel(osv.osv):
 }
 
      _defaults = {
-        'company_id' : lambda self,cr,uid,c: self.pool.get('res.users').browse(cr, uid, uid, c).company_id.id,
+        'company_id' : lambda self,cr,uid,c: self.pool.get('res.users').browse(cr, uid, uid, context).company_id.id,
 }
      _order =   "name"
 
      _sql_constraints = [('key_uniq','unique(kanzlei,klient,fiscalyear_id,name)', 'Journalrow must be unique for kanzlei/klient/fiscalyear_id,buchungszeile!')]
+
+     def transfer_igel_moves(self, cr, uid, ids, context=None):
+         _logger = logging.getLogger(__name__)
+         if not context:
+            context = {}
+         account_obj = self.pool.get('account.account')
+         analytic_obj = self.pool.get('account.analytic.account')
+         move_obj = self.pool.get('account.move')
+         move_line_obj = self.pool.get('account.move.line')
+         analytic_line_obj = self.pool.get('account.analytic.line')
+         
+         if context.get('company_id'):
+              company_id = context.get('company_id')
+         else:
+              company_id = self.pool.get('res.users').browse(cr, uid, uid, context).company_id.id
+
+         # create  missing accounts
+         acc_ids = account_obj.search(cr, uid, [('company_id','=',company_id)])
+         _logger.info('FGF account ids %s' % (acc_ids))
+         acc_names = []
+         for acc in  account_obj.browse(cr, uid, acc_ids, context=None):
+             acc_names.append(acc.name)
+         _logger.info('FGF account names %s' % (acc_names))
+
+         acc_igel_ids = self.search(cr, uid, [('company_id','=',company_id)])
+	 _logger.info('FGF account igel ids %s' % (acc_igel_ids))
+	 acc_igel_names = []
+         for igel_acc in  self.browse(cr, uid, acc_igel_ids, context=None):
+             acc_igel_names.append(igel_acc.kontoname)
+	 _logger.info('FGF account igel names %s' % (acc_igel_names))
+
+         now =  time.strftime("%Y%m%d%H%M%S")
+         counter= 0
+         user_type = self.pool.get('account.account.type').search(cr, uid, [('code','=','view')])[0]
+         parent_id = account_obj.search(cr, uid, [('parent_id','=',False)])[0]
+         for acc_igel_name in acc_igel_names:
+             if acc_igel_name not in acc_names:
+                 counter += 1
+                 vals = {
+                   'name' : acc_igel_name,
+                   'code' : 'i-'+now+'-'+str(counter),
+                   'type' : 'other',  
+                   'user_type' : user_type,
+                   'currency_mode' : 'current',
+                   'parent_id' : parent_id,
+                 } 
+                 _logger.info('FGF new account %s' % (vals))
+                 account_obj.create(cr, uid, vals, context)
+          
+         # create missing analytic accounts
+         aacc_ids = account_obj.search(cr, uid, [('company_id','=',company_id)])
+         aacc_names = []
+         for aacc in  account_obj.browse(cr, uid, aacc_ids, context=None):
+             aacc_names.append(aacc.code)
+
+         aacc_igel_ids = self.search(cr, uid, [('company_id','=',company_id)])
+         aacc_igel_names = []
+         for igel_aacc in  self.browse(cr, uid, aacc_igel_ids, context=None):
+             aacc_igel_names.append(igel_aacc.kst_nr)
+
+         counter= 0
+         
+         for aacc_igel_name in aacc_igel_names:
+             if aacc_igel_name not in aacc_names:
+                 counter += 1
+                 val = {
+                   'code' : aacc_igel_name,
+                   'name' : 'i-'+now+'-'+str(counter),
+                 } 
+                 analytic_obj.create(cr, uid, val)
+          
+
 
 chricar_account_move_line_igel()

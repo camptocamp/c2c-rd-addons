@@ -9,7 +9,9 @@
      "depends"      : ["base","account"],
      "init_xml"     : [],
      "demo_xml"     : [],
-     "update_xml"   : ["account_move_line_igel_view.xml","security/rule.xml","security/ir.model.access.csv"],
+     "update_xml"   : ["account_move_line_igel_view.xml",
+		       "wizard/moves_igel_view.xml",
+		       "security/rule.xml","security/ir.model.access.csv"],
      "active"       : False,
      "installable"  : True
 }
