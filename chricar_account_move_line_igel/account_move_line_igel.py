@@ -77,4 +77,7 @@ class chricar_account_move_line_igel(osv.osv):
 
      _sql_constraints = [('key_uniq','unique(kanzlei,klient,fiscalyear_id,name)', 'Journalrow must be unique for kanzlei/klient/fiscalyear_id,buchungszeile!')]
 
+     def transfer_igel_moves(cr, uid, ids, context=None)
+         a='1'
+
 chricar_account_move_line_igel()
