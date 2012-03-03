@@ -9,6 +9,7 @@
             <field name="arch" type="xml">
                 <form string="Create Pull Pickings">
                     <separator colspan="4" string="Do you really want to transfer Igel moves to OpenERP ?" />
+                    <separator colspan="4" string="Attention - this programm is really slow !!!" />
 <!--
                     <field name="grouped"/>
                     <newline/>

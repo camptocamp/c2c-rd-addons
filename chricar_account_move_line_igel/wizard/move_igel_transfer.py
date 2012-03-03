@@ -62,5 +62,6 @@ class chricar_account_move_line_igel_transfer(osv.osv_memory):
             context = {}
         data = self.read(cr, uid, ids)[0]
         igel_obj.transfer_igel_moves(cr, uid, context.get(('active_ids'), []), )
+        return
 
 chricar_account_move_line_igel_transfer()
