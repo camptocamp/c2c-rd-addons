@@ -52,6 +52,16 @@ class chricar_account_move_line_igel_transfer(osv.osv_memory):
         #    raise osv.except_osv(_('Warning !'),'You can only internal pull pickings from SO in progres.')
         return False
 
+    def but_autodetect(self, cr, uid, ids, context=None):
+        igel_obj = self.pool.get('chricar.account.move.line.igel')
+        mod_obj = self.pool.get('ir.model.data')
+        act_obj = self.pool.get('ir.actions.act_window')
+        new_pick = []
+        if context is None:
+            context = {}
+        data = self.read(cr, uid, ids)[0]
+        igel_obj.autodetect(cr, uid, context.get(('active_ids'), []), )
+        return
 
     def but_transfer_igel_moves(self, cr, uid, ids, context=None):
         igel_obj = self.pool.get('chricar.account.move.line.igel')

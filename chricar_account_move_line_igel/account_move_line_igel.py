@@ -83,7 +83,7 @@ class chricar_account_move_line_igel(osv.osv):
 
      _sql_constraints = [('key_uniq','unique(kanzlei,klient,fiscalyear_id,name)', 'Journalrow must be unique for kanzlei/klient/fiscalyear_id,buchungszeile!')]
 
-     def transfer_igel_moves(self, cr, uid, ids, context=None):
+     def autodetect(self, cr, uid, ids, context=None):
          _logger = logging.getLogger(__name__)
          if not context:
             context = {}
@@ -106,7 +106,7 @@ class chricar_account_move_line_igel(osv.osv):
          location_ids = location_obj.search(cr, uid, [('company_id','=',company_id)])
          _logger.info('FGF location ids %s' % (location_ids))
 
-         acc_igel_ids = self.search(cr, uid, [('company_id','=',company_id),('state','<>','done')])
+         acc_igel_ids = self.search(cr, uid, [('company_id','=',company_id),('state','not in',('progress','done'))])
          if not acc_igel_ids:
              return
          self.write(cr, uid, acc_igel_ids, {'state': 'progress'} )
@@ -211,8 +211,31 @@ class chricar_account_move_line_igel(osv.osv):
 
              self.write(cr, uid, igel_move.id, vals ,context) 
 
-         
 
+     def transfer_igel_moves(self, cr, uid, ids, context=None):
+         _logger = logging.getLogger(__name__)
+         if not context:
+            context = {}
+         account_obj = self.pool.get('account.account')
+         analytic_obj = self.pool.get('account.analytic.account')
+         analytic_line_obj = self.pool.get('account.analytic.line')
+         analytic_jour_obj = self.pool.get('account.analytic.journal')
+         move_obj = self.pool.get('account.move')
+         move_line_obj = self.pool.get('account.move.line')
+         analytic_line_obj = self.pool.get('account.analytic.line')
+         period_obj = self.pool.get('account.period')
+         journal_obj = self.pool.get('account.journal')
+         top_obj = self.pool.get('chricar.top')
+         location_obj = self.pool.get('stock.location')
+         
+         if context.get('company_id'):
+              company_id = context.get('company_id')
+         else:
+              company_id = self.pool.get('res.users').browse(cr, uid, uid, context).company_id.id
+
+         acc_igel_ids = self.search(cr, uid, [('company_id','=',company_id),('state','=','progress')])
+         if not acc_igel_ids:
+             return
          # loop over vouchers
          #_logger.info('FGF loop voucher ' )
          journal_id = journal_obj.search(cr, uid, [('code','=','Igel')], context=context)[0]
