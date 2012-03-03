@@ -33,6 +33,7 @@
 #
 ###############################################
 import time
+from datetime import datetime
 from osv import fields,osv
 import pooler
 import logging
@@ -50,12 +51,15 @@ class chricar_account_move_line_igel(osv.osv):
        'kontoname'          : fields.char    ('Kontoname', size=64),
        'ba_nr'              : fields.char    ('BA-Nr',size=8),
        'periode'            : fields.integer ('Periode'),
+       'period_id'          : fields.many2one('account.period', 'Period ERP', required=True, states={'posted':[('readonly',True)]}),
        'buchungsdatum'      : fields.char    ('Buchungsdatum',size=16),
+       'date'               : fields.date    ('Buchungsdatum ERP'),
        'bel_nr'             : fields.char    ('Bel.Nr',size=16),
        'name'               : fields.integer ('Journalzeile'),
        'belegdatum'         : fields.char    ('Belegdatum',size=16),
        'gegenkonto'         : fields.char    ('Gegenkonto',size=16),
        'kst_nr'             : fields.char    ('KstNr',size=16),
+       'analytic_account_id': fields.many2one('account.analytic.account', 'Analytic Account'),
        'text'               : fields.char    ('Text',size=128),
        'betrag_soll'        : fields.float   ('Betrag (Soll)'),
        'betrag_haben'       : fields.float   ('Betrag (Haben)'),
@@ -68,11 +72,12 @@ class chricar_account_move_line_igel(osv.osv):
        'team'               : fields.char    ('Team',size=16),
        'klientengruppe'     : fields.char    ('Klientengruppe',size=16),
        'zessionsname'       : fields.char    ('Zessionsname',size=16),
-       'analytic_account_id': fields.many2one('account.analytic.account', 'Analytic Account'),
+       'state'              : fields.selection([('draft','Draft'), ('progress','Progress'), ('done','Done')], 'State', required=True,)
 }
 
      _defaults = {
         'company_id' : lambda self,cr,uid,c: self.pool.get('res.users').browse(cr, uid, uid, context).company_id.id,
+        'state' : 'draft',
 }
      _order =   "name"
 
@@ -87,6 +92,8 @@ class chricar_account_move_line_igel(osv.osv):
          move_obj = self.pool.get('account.move')
          move_line_obj = self.pool.get('account.move.line')
          analytic_line_obj = self.pool.get('account.analytic.line')
+         period_obj = self.pool.get('account.period')
+         journal_obj = self.pool.get('account.journal')
          
          if context.get('company_id'):
               company_id = context.get('company_id')
@@ -147,7 +154,58 @@ class chricar_account_move_line_igel(osv.osv):
                    'name' : 'i-'+now+'-'+str(counter),
                  } 
                  analytic_obj.create(cr, uid, val)
-          
+         # update igel moves
+         self.write(cr, uid, acc_igel_ids, {'state': 'progress'} )
+
+         for igel_move in self.browse(cr, uid, acc_igel_ids, context=context):
+             try:
+                date =  datetime.strptime(igel_move.buchungsdatum,"%Y/%m/%d")
+             except:
+                date =  datetime.strptime(igel_move.buchungsdatum,"%m/%d/%Y")
+#             _logger.info('FGF date %s' % (date))
+             date = date.strftime('%Y-%m-%d')
+#             _logger.info('FGF date %s' % (date))
+             vals = {
+                'date':date,
+                'period_id' : period_obj.find(cr, uid, date, context=context)[0],
+                'account_id' : account_obj.search(cr, uid, [('name','=', igel_move.kontoname)])[0],
+                'analytic_account_id' : analytic_obj.search(cr, uid, [('code','=', igel_move.kst_nr)])[0],
+             }
+             self.write(cr, uid, igel_move.id, vals ,context) 
+
+         
+
+         # loop over vouchers
+         _logger.info('FGF loop voucher ' )
+         journal_id = journal_obj.search(cr, uid, [('code','=','Igel')], context=context)[0]
+
+         cr.execute("""select distinct company_id, period_id, ba_nr||'-'||bel_nr as ref, date
+                  from chricar_account_move_line_igel
+                 where id in (%s)""" % (','.join(map(str,acc_igel_ids)) ))
+         for move in cr.dictfetchall():
+               
+             _logger.info('FGF move %s' % (move))
+             vals = move
+             vals.update({
+                'journal_id' : journal_id,
+                'state'      : 'draft',
+             })
+             _logger.info('FGF move vals %s' % (vals))
+             _logger.info('FGF move context %s' % (context))
+           
+             move_id = move_obj.create(cr, uid, vals, {} )
+             _logger.info('FGF move_id = %s' % (move_id))
+
+ 
+         
+         # create move
+         
+
+         # create move lines
+
+         # create analytic lines
+
+         #return
 
 
 chricar_account_move_line_igel()

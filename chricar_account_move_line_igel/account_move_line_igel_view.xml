@@ -48,12 +48,15 @@ Account Moves Igel account_move_line_igel
           <field name="kontoname"/>
           <field name="ba_nr"/>
           <field name="periode"/>
+          <field name="period_id"/>
           <field name="buchungsdatum"/>
+          <field name="date"/>
           <field name="bel_nr"/>
           <field name="name"/>
           <field name="belegdatum"/>
           <field name="gegenkonto"/>
           <field name="kst_nr"/>
+          <field name="analytic_account_id"/>
           <field name="text"/>
           <field name="betrag_soll"/>
           <field name="betrag_haben"/>
@@ -62,11 +65,11 @@ Account Moves Igel account_move_line_igel
           <field name="ust_betrag"/>
           <field name="fwc"/>
           <field name="fw_betrag"/>
-          <field name="betreuer"/>
-          <field name="team"/>
-          <field name="klientengruppe"/>
-          <field name="zessionsname"/>
-          <field name="analytic_account_id"/>
+          <field name="betreuer" invisible="1"/>
+          <field name="team" invisible="1"/>
+          <field name="klientengruppe" invisible="1"/>
+          <field name="zessionsname" invisible="1"/>
+          <field name="state" />
         </form>
       </field>
     </record>
@@ -86,7 +89,9 @@ Account Moves Igel account_move_line_igel
           <field name="kontoname"/>
           <field name="ba_nr"/>
           <field name="periode"/>
+          <field name="period_id"/>
           <field name="buchungsdatum"/>
+          <field name="date"/>
           <field name="bel_nr"/>
           <field name="name"/>
           <field name="belegdatum"/>
@@ -105,6 +110,7 @@ Account Moves Igel account_move_line_igel
           <field name="team"/>
           <field name="klientengruppe"/>
           <field name="zessionsname"/>
+          <field name="state" />
         </tree>
       </field>
     </record>
