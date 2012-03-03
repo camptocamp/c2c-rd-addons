@@ -8,7 +8,7 @@
             <field name="type">form</field>
             <field name="arch" type="xml">
                 <form string="Create Pull Pickings">
-                    <separator colspan="4" string="Do you really want to create pull pickings ?" />
+                    <separator colspan="4" string="Do you really want to transfer Igel moves to OpenERP ?" />
 <!--
                     <field name="grouped"/>
                     <newline/>

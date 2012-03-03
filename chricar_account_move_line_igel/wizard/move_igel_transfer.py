@@ -53,8 +53,8 @@ class chricar_account_move_line_igel_transfer(osv.osv_memory):
         return False
 
 
-    def but_transfer_igel_moves_(self, cr, uid, ids, context=None):
-        igel_obj = self.pool.get('chricar.account.move.line.igel.transfer')
+    def but_transfer_igel_moves(self, cr, uid, ids, context=None):
+        igel_obj = self.pool.get('chricar.account.move.line.igel')
         mod_obj = self.pool.get('ir.model.data')
         act_obj = self.pool.get('ir.actions.act_window')
         new_pick = []
