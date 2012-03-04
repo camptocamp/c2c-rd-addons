@@ -2,9 +2,9 @@
 <openerp>
   <data>
 
-    <record id="chricar_account_move_deloitte_igel_wizard" model="ir.ui.view">
+    <record id="chricar_account_move_deloitte_wizard" model="ir.ui.view">
             <field name="name">Transfer to OpenERP</field>
-            <field name="model">chricar.account.move.deloitte.igel.transfer</field>
+            <field name="model">chricar.account.move.deloitte.transfer</field>
             <field name="type">form</field>
             <field name="arch" type="xml">
                 <form string="Create Pull Pickings">
@@ -18,30 +18,30 @@
                     -->
                     <button special="cancel" string="Cancel" icon="gtk-cancel"/>
                     <button name="but_autodetect" string="Autodetect Accounts" type="object" icon="terp-gtk-go-back-rtl"/>
-                    <button name="but_transfer_igel_moves" string="Transfer to OpenERP" type="object" icon="terp-gtk-go-back-rtl"/>
+                    <button name="but_transfer_deloitte_moves" string="Transfer to OpenERP" type="object" icon="terp-gtk-go-back-rtl"/>
                </form>
             </field>
         </record>
 
 
-        <record id="chricar_account_move_deloitte_igel_wizard_act" model="ir.actions.act_window">
+        <record id="chricar_account_move_deloitte_wizard_act" model="ir.actions.act_window">
             <field name="name">Transfer to OpenERP</field>
             <field name="type">ir.actions.act_window</field>
-            <field name="res_model">chricar.account.move.deloitte.igel.transfer</field>
+            <field name="res_model">chricar.account.move.line.deloitte.transfer</field>
             <field name="view_type">form</field>
             <field name="view_mode">form</field>
-            <field name="view_id" ref="chricar_account_move_deloitte_igel_wizard"/>
+            <field name="view_id" ref="chricar_account_move_deloitte_wizard"/>
             <field name="target">new</field>
             <field name="multi">True</field>
 
         </record>
-        <record model="ir.values" id="chricar_account_move_deloitte_igel_wizard_val">
-            <field name="model_id" ref="model_chricar_account_move_deloitte_igel" />
+        <record model="ir.values" id="chricar_account_move_deloitte_wizard_val">
+            <field name="model_id" ref="model_chricar_account_move_line_deloitte" />
             <field name="name">Transfer to OpenERP</field>
             <field name="key2">client_action_multi</field>
-            <field name="value" eval="'ir.actions.act_window,' + str(ref('chricar_account_move_deloitte_igel_wizard_act'))" />
+            <field name="value" eval="'ir.actions.act_window,' + str(ref('chricar_account_move_deloitte_wizard_act'))" />
             <field name="key">action</field>
-            <field name="model">chricar.account.move.deloitte.igel</field>
+            <field name="model">chricar.account_move_line_deloitte</field>
         </record>
 
   </data>

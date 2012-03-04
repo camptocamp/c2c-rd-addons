@@ -99,7 +99,11 @@ class chricar_account_move_line_deloitte(osv.osv):
          for move in self.browse(cr, uid, ids):
              result[move.id] = False
              if move.account and move.company_id:
-                 account_ids= self.pool.get('account.account').search(cr,uid,[('company_id','=',move.company_id.id),('code','=',move.account)])
+                 if len(move.account) == 4:
+                     acc = move.account
+                 else:
+                     acc = move.account[:2]+'00'
+                 account_ids= self.pool.get('account.account').search(cr,uid,[('company_id','=',move.company_id.id),('code','=',acc)])
                  if len(account_ids):
                      result[move.id] = account_ids[0]
          return result
@@ -217,7 +221,7 @@ class chricar_account_move_line_deloitte(osv.osv):
          aacc_ids = account_obj.search(cr, uid, [('company_id','=',company_id)])
          aacc_codes = []
          for aacc in  account_obj.browse(cr, uid, aacc_ids, context=None):
-             aacc_codess.append(aacc.code)
+             aacc_codes.append(aacc.code)
 
          aacc_deloitte_ids = self.search(cr, uid, [('company_id','=',company_id)])
          aacc_deloitte_codes = []
@@ -240,9 +244,9 @@ class chricar_account_move_line_deloitte(osv.osv):
          for deloitte_move in self.browse(cr, uid, acc_deloitte_ids, context=context):
               vals = {}
               if not deloitte_move.account_id:
-                   vals['account_id'] =  account_obj.search(cr, uid, [('code','=', deloitte_move.account)])[0],
+                   vals['account_id'] =  account_obj.search(cr, uid, [('code','=', deloitte_move.account)])[0]
               if not deloitte_move.analytic_account_id:
-                   vals['analytic_account_id'] :  analyitc_obj.search(cr, uid, [('code','=', deloitte_move.anayltic_account)])[0],
+                   vals['analytic_account_id'] =  analytic_obj.search(cr, uid, [('code','=', deloitte_move.analytic_account)])[0]
               if vals:
                   self.write(cr, uid, deloitte_move.id, vals ,context)
                   
