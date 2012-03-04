@@ -338,7 +338,7 @@ class chricar_account_move_line_deloitte(osv.osv):
          for move in cr.dictfetchall():
              vals = move
              d =  datetime.strptime(move['date'],"%d.%m.%y")
-             date = d.strftime('%Y-%m-%d')
+             date = d.strftime('%Y-%m-%d') 
              vals.update({
                 'journal_id' : journal_id,
                 'state'      : 'draft',
@@ -468,7 +468,74 @@ vals['company_id'], vals['period_id'], vals['name'], )
              for line in cr.dictfetchall():
                  self.create_move(cr, uid, line, vals, context )
         
+         journal_id = journal_obj.search(cr, uid, [('code','=','DEN')], context=context)[0]
+         journal_analyitc_id = analytic_jour_obj.search(cr, uid, [('code','=','Deloitte')], context=context)[0]
+         context['journal_analyitc_id'] = journal_analyitc_id
+         period_ids = self.search(cr, uid, [('state', '=', 'progress')])
+         ##########################
+         #create a move to neutralize the OpenERP move_lines
+         ##########################
+         cr.execute("""
+             select distinct period_id, date_start 
+               from chricar_account_move_line_deloitte d,
+                    account_period p
+              where period_id in (%s)""" % (','.join(map(str,period_ids)) ))
+         for move in cr.dictfetchall():
+             vals = move
+             vals.update({
+                'journal_id' : journal_id,
+                'state'      : 'draft',
+                'name'       : 'neutral',
+             })
+             #_logger.info('FGF move vals %s' % (vals))
+             move_id = move_obj.create(cr, uid, vals,{} )
+             context['move_id'] = move_id
+             cr.execute("""
+select account_id,amn.date,amn.journal_id,amn.id,amn.period_id, analytic_account_id,
+   case when sum(case when debit is null then 0 else debit end) > 0 then  sum(case when debit is null then 0 else debit end) else 0 end as cred,
+   case when sum(case when debit is null then 0 else debit end) < 0 then -sum(case when debit is null then 0 else debit end) else 0 end as deb,
+  'valid'
+  from account_move_line aml,
+       account_move am,
+       account_journal aj,
+       account_move amn,  -- neutral move
+       account_journal ajn
+ where aj.id = am.journal_id
+   and aj.name not in ( 'Deloitte')
+   and aj.is_opening_balance = False
+   and aml.move_id = am.id
+   and am.period_id = amn.period_id
+   and ajn.name = 'Deloitte neutral'
+   and ajn.id = amn.journal_id
+   and aml.state='valid'
+   and am.period_id = %s
+   --and am.state='posted'
+ group by account_id,amn.date,amn.journal_id,amn.id,amn.period_id,analytic_account_id
+ having sum(case when debit is null then 0 else debit end) != 0
+union all
+select aml.account_id, analytic_account_id,
+   case when sum(case when credit is null then 0 else credit end) < 0 then -sum(case when credit is null then 0 else credit end) else 0 end as credit,
+   case when sum(case when credit is null then 0 else credit end) > 0 then  sum(case when credit is null then 0 else credit end) else 0 end as debit
+  from account_move_line aml,
+       account_move am,
+       account_journal aj 
+ where aj.id = am.journal_id
+   and aj.code != 'DE'
+   and aj.is_opening_balance = False
+   and aml.move_id = am.id
+   and aml.state='valid'
+   and am.period_id = %s
+   --and am.state='posted'
+ group by account_id,amn.date,amn.journal_id,amn.id,amn.period_id,analytic_account_id
+having sum(case when credit is null then 0 else credit end) != 0
+""" % (move['period_id'],move['period_id']))
+        
+             for line in cr.dictfetchall():
+                 self.create_move(cr, uid, line, vals, context )
+         
+         self.write(cr, uid, acc_deloitte_ids, {'state': 'done'} )
 
+         return 
 
 chricar_account_move_line_deloitte()
 
