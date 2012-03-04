@@ -207,6 +207,7 @@ generated 2009-10-17 12:10:57+02
                         <field name="account_type_name"/>
                         <field name="analytic_account"/>
                         <field name="analytic_account_id"/>
+                        <field name="state"/>
                         <field name="company_id" groups="base.group_multi_company" widget="selection"/>
                     </group>
                     <newline/>
@@ -241,6 +242,7 @@ generated 2009-10-17 12:10:57+02
           <field name="analytic_account" select="1"/>
           <field name="analytic_account_id" select="1"/>
           <field name="counter_account" select="1"/>
+          <field name="counter_account_id" select="1"/>
           <field name="amount" select="1"/>
           <field name="tax_code" select="1"/>
           <field name="description" select="1"/>
@@ -273,9 +275,11 @@ generated 2009-10-17 12:10:57+02
           <field name="analytic_account" select="1"/>
           <field name="analytic_account_id" select="1"/>
           <field name="counter_account" select="1"/>
+          <field name="counter_account_id" select="1"/>
           <field name="amount" select="1" sum="Sum Amount"/>
           <field name="tax_code" select="1"/>
           <field name="description" select="1"/>
+          <field name="state"/>
           <field name="lc"/>
           <field name="bc"/>
           <field name="fix"/>

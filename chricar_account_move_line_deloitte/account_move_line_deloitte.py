@@ -107,6 +107,21 @@ class chricar_account_move_line_deloitte(osv.osv):
                  if len(account_ids):
                      result[move.id] = account_ids[0]
          return result
+
+     def _counter_account_id(self, cr, uid, ids, name, arg, context):
+         result = {}
+         for move in self.browse(cr, uid, ids):
+             result[move.id] = False
+             if move.counter_account and move.company_id:
+                 if len(move.counter_account) == 4:
+                     acc = move.counter_account
+                 else:
+                     acc = move.counter_account[:2]+'00'
+                 account_ids= self.pool.get('account.account').search(cr,uid,[('company_id','=',move.company_id.id),('code','=',acc)])
+                 if len(account_ids):
+                     result[move.id] = account_ids[0]
+         return result
+
      
      def _period_id(self, cr, uid, ids, name, arg, context):
          result = {}
@@ -142,7 +157,8 @@ class chricar_account_move_line_deloitte(osv.osv):
 
        'ba'                 : fields.char    ('BA', size=8),
        'bc'                 : fields.char    ('BC', size=8),
-       'counter_account'    : fields.char    ('Counter Account', size=8),
+       'counter_account'    : fields.char    ('Counter Account Deloitte', size=8),
+       'counter_account_id' : fields.function(_counter_account_id, method=True, string="Counter Account",type='many2one', relation='account.account',  select="1", store=True ),
        'date'               : fields.char    ('Date', size=16, required=True),
        'period_id'          : fields.function(_period_id, method=True, string="Period",type='many2one', relation='account.period', store=True, select="1",  ),
        'fiscalyear_id'      : fields.related ('period_id', 'fiscalyear_id', string='Fiscal Year', type='many2one', relation='account.fiscalyear', store=True),
@@ -262,23 +278,25 @@ class chricar_account_move_line_deloitte(osv.osv):
          l['period_id'] = vals['period_id']
          l['move_id'] = context['move_id']
          analytic_usage = ''
-         _logger.info('FGF move_line = %s' % (l))
+         #_logger.info('FGF move_line = %s' % (l))
          for acc in account_obj.browse(cr, uid, [line['account_id']], context):
                  analytic_usage =  acc.account_analytic_usage
                  if analytic_usage == 'none':
                      l['analytic_account_id'] = ''
-                 _logger.info('FGF move_line = %s' % (l))
+                 #_logger.info('FGF move_line = %s' % (l))
                  move_line_id = move_line_obj.create(cr, uid, l)
 
                  if l['analytic_account_id']:
                     l['general_account_id'] = line['account_id']
                     l['account_id'] = line['analytic_account_id']
                     l['journal_id'] = context['journal_analyitc_id']
+                    l['ref'] = line['name']
                     l['move_id'] = move_line_id
                     if l['debit'] > 0.0 :
                        l['amount'] = -l['debit']
                     else:
                        l['amount'] = l['credit']
+                    #_logger.info('FGF move_analyitc line = %s' % (l))
                     analytic_line_obj.create(cr, uid, l)
 
 
@@ -314,7 +332,7 @@ class chricar_account_move_line_deloitte(osv.osv):
          journal_analyitc_id = analytic_jour_obj.search(cr, uid, [('code','=','Deloitte')], context=context)[0]
          context['journal_analyitc_id'] = journal_analyitc_id
  
-         cr.execute("""select distinct company_id, period_id, 'D'||'-'||symbol||'-'||name as name, date
+         cr.execute("""select distinct company_id, period_id, symbol||'-'||name||'-D' as name, date
                   from chricar_account_move_line_deloitte
                  where id in (%s)""" % (','.join(map(str,acc_deloitte_ids)) ))
          for move in cr.dictfetchall():
@@ -326,7 +344,7 @@ class chricar_account_move_line_deloitte(osv.osv):
                 'state'      : 'draft',
                 'date'       : date
              })
-             _logger.info('FGF move vals %s' % (vals))
+             #_logger.info('FGF move vals %s' % (vals))
              move_id = move_obj.create(cr, uid, vals, {} )
              context['move_id'] = move_id 
              #_logger.info('FGF move_id = %s' % (move_id))
@@ -336,7 +354,7 @@ class chricar_account_move_line_deloitte(osv.osv):
 select d.account_id,date, d.description as name, d.analytic_account_id,
        case when d.amount > 0 then d.amount else 0 end as debit,
        case when d.amount < 0 then -d.amount else 0 end as credit,
-       'valid'
+       'valid' as state 
   from chricar_account_move_line_deloitte d,
        account_account ac,
        account_account_type at
@@ -345,14 +363,14 @@ select d.account_id,date, d.description as name, d.analytic_account_id,
    and at.id = ac.user_type
    and d.company_id = %s
    and d.period_id = %s
-   and 'D'||'-'||symbol||'-'||d.name = '%s'
+   and symbol||'-'||d.name||'-D' = '%s'
    and (at.close_method != 'none' or tax_code is null)
 union all
 -- tax code account - net
 select d.account_id,date, d.description as name, d.analytic_account_id,
        case when d.amount > 0 then round( d.amount / (1+tc.percent),2) else 0 end as debit,
        case when d.amount < 0 then round(-d.amount / (1+tc.percent),2) else 0 end as credit,
-       'valid'
+       'valid' as state
   from chricar_account_move_line_deloitte d,
        account_account ac,
        account_account_type at,
@@ -364,13 +382,13 @@ select d.account_id,date, d.description as name, d.analytic_account_id,
    and at.close_method = 'none'
    and d.company_id = %s
    and d.period_id = %s
-   and 'D'||'-'||symbol||'-'||d.name = '%s'
+   and symbol||'-'||d.name||'-D' = '%s'
 union all
 -- tax code account - tax - avoid rounding differnces !!!
 select tc.account_id,date, d.description as name, d.analytic_account_id,
        case when d.amount > 0 then  d.amount - round( d.amount / (1+tc.percent),2) else 0 end as debit,
        case when d.amount < 0 then -d.amount - round(-d.amount / (1+tc.percent),2) else 0 end as credit,
-       'valid'
+       'valid' as state
   from chricar_account_move_line_deloitte d,
        account_account ac,
        account_account_type at,
@@ -383,62 +401,62 @@ select tc.account_id,date, d.description as name, d.analytic_account_id,
    and percent > 0
    and d.company_id = %s
    and d.period_id = %s
-   and 'D'||'-'||symbol||'-'||d.name = '%s'
+   and symbol||'-'||d.name||'-D' = '%s'
 
 union all
 -- counter account
--- no tax code account
-select d.account_id,date, d.description as name, d.analytic_account_id,
+-- no tax code account 
+select d.counter_account_id,date, d.description as name, d.analytic_account_id,
        case when d.amount < 0 then -d.amount else 0 end as debit,
        case when d.amount > 0 then  d.amount else 0 end as credit,
-       'valid'
+       'valid' as state
   from chricar_account_move_line_deloitte d,
        account_account ac,
        account_account_type at
  where 
-   ac.id = d.account_id
+   ac.id = d.counter_account_id
    and at.id = ac.user_type
    and (at.close_method != 'none' or tax_code is null)
    and d.company_id = %s
    and d.period_id = %s
-   and 'D'||'-'||symbol||'-'||d.name = '%s'
+   and symbol||'-'||d.name||'-D' = '%s'
 union all
 -- tax code account - net
-select d.account_id,date, d.description as name, d.analytic_account_id,
+select d.counter_account_id,date, d.description as name, d.analytic_account_id,
        case when d.amount < 0 then round(-d.amount / (1+tc.percent),2) else 0 end as debit,
        case when d.amount > 0 then round( d.amount / (1+tc.percent),2) else 0 end as credit,
-       'valid'
+       'valid' as state
   from chricar_account_move_line_deloitte d,
        account_account ac,
        account_account_type at,
        chricar_account_tax_code_deloitte tc
  where 
-   ac.id = d.account_id
+   ac.id = d.counter_account_id
    and tc.code = d.tax_code
    and at.id = ac.user_type
    and at.close_method = 'none'
    and d.company_id = %s
    and d.period_id = %s
-   and 'D'||'-'||symbol||'-'||d.name = '%s'
+   and symbol||'-'||d.name||'-D' = '%s'
 union all
 -- tax code account - tax - avoid rounding differnces !!!
 select tc.account_id,date, d.description as name, d.analytic_account_id,
        case when d.amount < 0 then -d.amount - round(-d.amount / (1+tc.percent),2) else 0 end as debit,
        case when d.amount > 0 then  d.amount - round( d.amount / (1+tc.percent),2) else 0 end as credit,
-       'valid'
+       'valid' as state
   from chricar_account_move_line_deloitte d,
        account_account ac,
        account_account_type at,
        chricar_account_tax_code_deloitte tc
  where 
-   ac.id = d.account_id
+   ac.id = d.counter_account_id
    and tc.code = d.tax_code
    and at.id = ac.user_type
    and at.close_method = 'none'
    and percent > 0
    and d.company_id = %s
    and d.period_id = %s
-   and 'D'||'-'||symbol||'-'||d.name = '%s' 
+   and symbol||'-'||d.name||'-D' = '%s' 
             """ % ( 
 vals['company_id'], vals['period_id'], vals['name'], \
 vals['company_id'], vals['period_id'], vals['name'], \
