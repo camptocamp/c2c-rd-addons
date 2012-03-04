@@ -36,6 +36,7 @@ from datetime import datetime
 import time
 from osv import fields,osv
 import pooler
+import logging
 
 class chricar_account_move_import_deny(osv.osv):
      _name = "chricar.account_move_import_deny"
@@ -148,10 +149,102 @@ class chricar_account_move_line_deloitte(osv.osv):
        'name'               : fields.char    ('Voucher', size=16, required=True),
        'symbol'             : fields.char    ('Symbol', size=8),
        'tax_code'           : fields.char    ('Tax Code', size=8),
+       'state'              : fields.selection([('draft','Draft'), ('progress','Progress'), ('done','Done')], 'State', required=True,)
 }
      _defaults = {
        'company_id': lambda self,cr,uid,c: self.pool.get('res.users').browse(cr, uid, uid, c).company_id.id,
+        'state' : 'draft',
 }
      _order = "name"
+
+     def autodetect(self, cr, uid, ids, context=None):
+         _logger = logging.getLogger(__name__)
+         if not context:
+            context = {}
+         account_obj = self.pool.get('account.account')
+         analytic_obj = self.pool.get('account.analytic.account')
+         analytic_line_obj = self.pool.get('account.analytic.line')
+         analytic_jour_obj = self.pool.get('account.analytic.journal')
+         move_obj = self.pool.get('account.move')
+         move_line_obj = self.pool.get('account.move.line')
+         analytic_line_obj = self.pool.get('account.analytic.line')
+         period_obj = self.pool.get('account.period')
+         journal_obj = self.pool.get('account.journal')
+         top_obj = self.pool.get('chricar.top')
+         location_obj = self.pool.get('stock.location')
+
+         if context.get('company_id'):
+              company_id = context.get('company_id')
+         else:
+              company_id = self.pool.get('res.users').browse(cr, uid, uid, context).company_id.id
+              context['company_id'] = company_id
+
+         acc_deloitte_ids = self.search(cr, uid, [('company_id','=',company_id),('state','not in',('progress','done'))])
+         if not acc_deloitte_ids:
+             return
+         self.write(cr, uid, acc_deloitte_ids, {'state': 'progress'} )
+         acc_ids = account_obj.search(cr, uid, [('company_id','=',company_id)])
+         #_logger.info('FGF account ids %s' % (acc_ids))
+         acc_codes = []
+         for acc in  account_obj.browse(cr, uid, acc_ids, context=None):
+             acc_codes.append(acc.code)
+         #_logger.info('FGF account names %s' % (acc_names))
+
+         #_logger.info('FGF account deloitte ids %s' % (acc_deloitte_ids))
+         acc_deloitte_codes = []
+         for deloitte_acc in  self.browse(cr, uid, acc_deloitte_ids, context=None):
+             acc_deloitte_codes.append(deloitte_acc.account)
+         
+         now =  time.strftime("%Y%m%d%H%M%S")
+         counter= 0
+         user_type = self.pool.get('account.account.type').search(cr, uid, [('code','=','view')])[0]
+         parent_id = account_obj.search(cr, uid, [('parent_id','=',False)])[0]
+         for acc_deloitte_code in acc_deloitte_codes:
+             if acc_deloitte_code not in acc_codes:
+                 counter += 1
+                 vals = {
+                   'name' : acc_deloitte_code,
+                   'code' : 'i-'+now+'-'+str(counter),
+                   'type' : 'other',
+                   'user_type' : user_type,
+                   'currency_mode' : 'current',
+                   'parent_id' : parent_id,
+                 }
+                 _logger.info('FGF new account %s' % (vals))
+                 account_obj.create(cr, uid, vals, context)
+
+         # create missing analytic accounts
+         aacc_ids = account_obj.search(cr, uid, [('company_id','=',company_id)])
+         aacc_codes = []
+         for aacc in  account_obj.browse(cr, uid, aacc_ids, context=None):
+             aacc_codess.append(aacc.code)
+
+         aacc_deloitte_ids = self.search(cr, uid, [('company_id','=',company_id)])
+         aacc_deloitte_codes = []
+         for deloitte_aacc in  self.browse(cr, uid, aacc_deloitte_ids, context=None):
+             if deloitte_aacc.analytic_account:
+                  aacc_deloitte_codes.append(deloitte_aacc.analytic_account)
+
+         counter= 0
+
+         for aacc_deloitte_code in aacc_deloitte_codes:
+             if aacc_deloitte_code and aacc_deloitte_code not in aacc_codes:
+                 counter += 1
+                 val = {
+                   'code' : aacc_deloitte_code,
+                   'name' : 'i-'+now+'-'+str(counter),
+                 }
+                 analytic_obj.create(cr, uid, val)
+
+         # update deloitte moves
+         for deloitte_move in self.browse(cr, uid, acc_deloitte_ids, context=context):
+              vals = {}
+              if not deloitte_move.account_id:
+                   vals['account_id'] =  account_obj.search(cr, uid, [('code','=', deloitte_move.account)])[0],
+              if not deloitte_move.analytic_account_id:
+                   vals['analytic_account_id'] :  analyitc_obj.search(cr, uid, [('code','=', deloitte_move.anayltic_account)])[0],
+              if vals:
+                  self.write(cr, uid, deloitte_move.id, vals ,context)
+                  
 chricar_account_move_line_deloitte()
 
