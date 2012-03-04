@@ -143,5 +143,64 @@ Modification of Bank statement - change trigger
         </xpath>
       </field>
     </record>
+    <!--
+==============================================
+Modification of Bank statement - change trigger
+==============================================
+-->
+        <record id="view_account_analytic_line_period_tree" model="ir.ui.view">
+            <field name="name">account.analytic.line.period.tree</field>
+            <field name="model">account.analytic.line</field>
+            <field name="type">tree</field>
+            <field name="inherit_id" ref="account.view_account_analytic_line_tree"/>
+            <field name="arch" type="xml">
+               <xpath expr="/tree/field[@name='date']" position="after">
+                  <field name="period_id"/>
+               </xpath>
+            </field>
+        </record>
+
+        <record id="view_account_analytic_line_journal_tree" model="ir.ui.view">
+            <field name="name">account.analytic.line.journal.tree</field>
+            <field name="model">account.analytic.line</field>
+            <field name="type">tree</field>
+            <field name="inherit_id" ref="account.view_account_analytic_line_tree"/>
+            <field name="arch" type="xml">
+               <xpath expr="/tree/field[@name='journal_id']" position="replace">
+                  <field name="journal_id"/>
+               </xpath>
+            </field>
+        </record>
+
+        <record id="view_account_analytic_line_acc_tree" model="ir.ui.view">
+            <field name="name">account.analytic.line.acc.tree</field>
+            <field name="model">account.analytic.line</field>
+            <field name="type">tree</field>
+            <field name="inherit_id" ref="account.view_account_analytic_line_tree"/>
+            <field name="arch" type="xml">
+               <xpath expr="/tree/field[@name='general_account_id']" position="replace">
+                  <field name="general_account_id"/>
+               </xpath>
+            </field>
+        </record>
+
+
+
+        <record id="view_account_analytic_line_period_filter" model="ir.ui.view">
+            <field name="name">account.analytic.line.period.filter</field>
+            <field name="model">account.analytic.line</field>
+            <field name="type">search</field>
+            <field name="inherit_id" ref="account.view_account_analytic_line_filter"/>
+            <field name="arch" type="xml">
+               <xpath expr="/search/group/field[@name='date']" position="after">
+                  <field name="period_id"/>
+                  <field name="general_account_id"/>
+                  <field name="journal_id"/>
+               </xpath>
+            </field>
+        </record>
+
+
+
   </data>
 </openerp>

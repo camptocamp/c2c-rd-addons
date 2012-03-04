@@ -471,3 +471,12 @@ class account_invoice(osv.osv):
 
 
 account_invoice()
+
+class account_analytic_line(osv.osv):
+    _inherit = "account.analytic.line"
+    _columns = {
+        'period_id': fields.related('move_id', 'period_id', string='Period', type='many2one', relation='account.period', required=True, select=True, readonly=True,)
+    } 
+
+account_analytic_line()
+
