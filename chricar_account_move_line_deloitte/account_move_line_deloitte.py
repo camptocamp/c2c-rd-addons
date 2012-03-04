@@ -249,6 +249,208 @@ class chricar_account_move_line_deloitte(osv.osv):
                    vals['analytic_account_id'] =  analytic_obj.search(cr, uid, [('code','=', deloitte_move.analytic_account)])[0]
               if vals:
                   self.write(cr, uid, deloitte_move.id, vals ,context)
-                  
+
+     def create_move(self, cr, uid, line, vals, context ):
+         _logger = logging.getLogger(__name__)
+         account_obj = self.pool.get('account.account')
+         move_line_obj = self.pool.get('account.move.line')
+         analytic_line_obj = self.pool.get('account.analytic.line')
+         l = line
+         l['journal_id'] = vals['journal_id']
+         l['state'] = 'draft'
+         l['date'] = vals['date']
+         l['period_id'] = vals['period_id']
+         l['move_id'] = context['move_id']
+         analytic_usage = ''
+         _logger.info('FGF move_line = %s' % (l))
+         for acc in account_obj.browse(cr, uid, [line['account_id']], context):
+                 analytic_usage =  acc.account_analytic_usage
+                 if analytic_usage == 'none':
+                     l['analytic_account_id'] = ''
+                 _logger.info('FGF move_line = %s' % (l))
+                 move_line_id = move_line_obj.create(cr, uid, l)
+
+                 if l['analytic_account_id']:
+                    l['general_account_id'] = line['account_id']
+                    l['account_id'] = line['analytic_account_id']
+                    l['journal_id'] = context['journal_analyitc_id']
+                    l['move_id'] = move_line_id
+                    if l['debit'] > 0.0 :
+                       l['amount'] = -l['debit']
+                    else:
+                       l['amount'] = l['credit']
+                    analytic_line_obj.create(cr, uid, l)
+
+
+
+
+     def transfer_deloitte_moves(self, cr, uid, ids, context=None):
+         _logger = logging.getLogger(__name__)
+         if not context:
+            context = {}
+         account_obj = self.pool.get('account.account')
+         analytic_obj = self.pool.get('account.analytic.account')
+         analytic_line_obj = self.pool.get('account.analytic.line')
+         analytic_jour_obj = self.pool.get('account.analytic.journal')
+         move_obj = self.pool.get('account.move')
+         move_line_obj = self.pool.get('account.move.line')
+         analytic_line_obj = self.pool.get('account.analytic.line')
+         period_obj = self.pool.get('account.period')
+         journal_obj = self.pool.get('account.journal')
+         top_obj = self.pool.get('chricar.top')
+         location_obj = self.pool.get('stock.location')
+         
+         if context.get('company_id'):
+              company_id = context.get('company_id')
+         else:
+              company_id = self.pool.get('res.users').browse(cr, uid, uid, context).company_id.id
+              context['company_id'] = company_id
+
+         acc_deloitte_ids = self.search(cr, uid, [('company_id','=',company_id),('state','=','progress')])
+         if not acc_deloitte_ids:
+             return
+
+         journal_id = journal_obj.search(cr, uid, [('code','=','DE')], context=context)[0]
+         journal_analyitc_id = analytic_jour_obj.search(cr, uid, [('code','=','Deloitte')], context=context)[0]
+         context['journal_analyitc_id'] = journal_analyitc_id
+ 
+         cr.execute("""select distinct company_id, period_id, 'D'||'-'||symbol||'-'||name as name, date
+                  from chricar_account_move_line_deloitte
+                 where id in (%s)""" % (','.join(map(str,acc_deloitte_ids)) ))
+         for move in cr.dictfetchall():
+             vals = move
+             d =  datetime.strptime(move['date'],"%d.%m.%y")
+             date = d.strftime('%Y-%m-%d')
+             vals.update({
+                'journal_id' : journal_id,
+                'state'      : 'draft',
+                'date'       : date
+             })
+             _logger.info('FGF move vals %s' % (vals))
+             move_id = move_obj.create(cr, uid, vals, {} )
+             context['move_id'] = move_id 
+             #_logger.info('FGF move_id = %s' % (move_id))
+             # FGF 20120304 - this code is copied from a 2 years old working sql procedure !
+             # writing in python from scratch would look much different
+             cr.execute("""
+select d.account_id,date, d.description as name, d.analytic_account_id,
+       case when d.amount > 0 then d.amount else 0 end as debit,
+       case when d.amount < 0 then -d.amount else 0 end as credit,
+       'valid'
+  from chricar_account_move_line_deloitte d,
+       account_account ac,
+       account_account_type at
+ where 
+   ac.id = d.account_id
+   and at.id = ac.user_type
+   and d.company_id = %s
+   and d.period_id = %s
+   and 'D'||'-'||symbol||'-'||d.name = '%s'
+   and (at.close_method != 'none' or tax_code is null)
+union all
+-- tax code account - net
+select d.account_id,date, d.description as name, d.analytic_account_id,
+       case when d.amount > 0 then round( d.amount / (1+tc.percent),2) else 0 end as debit,
+       case when d.amount < 0 then round(-d.amount / (1+tc.percent),2) else 0 end as credit,
+       'valid'
+  from chricar_account_move_line_deloitte d,
+       account_account ac,
+       account_account_type at,
+       chricar_account_tax_code_deloitte tc
+ where 
+   ac.id = d.account_id
+   and tc.code = d.tax_code
+   and at.id = ac.user_type
+   and at.close_method = 'none'
+   and d.company_id = %s
+   and d.period_id = %s
+   and 'D'||'-'||symbol||'-'||d.name = '%s'
+union all
+-- tax code account - tax - avoid rounding differnces !!!
+select tc.account_id,date, d.description as name, d.analytic_account_id,
+       case when d.amount > 0 then  d.amount - round( d.amount / (1+tc.percent),2) else 0 end as debit,
+       case when d.amount < 0 then -d.amount - round(-d.amount / (1+tc.percent),2) else 0 end as credit,
+       'valid'
+  from chricar_account_move_line_deloitte d,
+       account_account ac,
+       account_account_type at,
+       chricar_account_tax_code_deloitte tc
+ where 
+   ac.id = d.account_id
+   and tc.code = d.tax_code
+   and at.id = ac.user_type
+   and at.close_method = 'none'
+   and percent > 0
+   and d.company_id = %s
+   and d.period_id = %s
+   and 'D'||'-'||symbol||'-'||d.name = '%s'
+
+union all
+-- counter account
+-- no tax code account
+select d.account_id,date, d.description as name, d.analytic_account_id,
+       case when d.amount < 0 then -d.amount else 0 end as debit,
+       case when d.amount > 0 then  d.amount else 0 end as credit,
+       'valid'
+  from chricar_account_move_line_deloitte d,
+       account_account ac,
+       account_account_type at
+ where 
+   ac.id = d.account_id
+   and at.id = ac.user_type
+   and (at.close_method != 'none' or tax_code is null)
+   and d.company_id = %s
+   and d.period_id = %s
+   and 'D'||'-'||symbol||'-'||d.name = '%s'
+union all
+-- tax code account - net
+select d.account_id,date, d.description as name, d.analytic_account_id,
+       case when d.amount < 0 then round(-d.amount / (1+tc.percent),2) else 0 end as debit,
+       case when d.amount > 0 then round( d.amount / (1+tc.percent),2) else 0 end as credit,
+       'valid'
+  from chricar_account_move_line_deloitte d,
+       account_account ac,
+       account_account_type at,
+       chricar_account_tax_code_deloitte tc
+ where 
+   ac.id = d.account_id
+   and tc.code = d.tax_code
+   and at.id = ac.user_type
+   and at.close_method = 'none'
+   and d.company_id = %s
+   and d.period_id = %s
+   and 'D'||'-'||symbol||'-'||d.name = '%s'
+union all
+-- tax code account - tax - avoid rounding differnces !!!
+select tc.account_id,date, d.description as name, d.analytic_account_id,
+       case when d.amount < 0 then -d.amount - round(-d.amount / (1+tc.percent),2) else 0 end as debit,
+       case when d.amount > 0 then  d.amount - round( d.amount / (1+tc.percent),2) else 0 end as credit,
+       'valid'
+  from chricar_account_move_line_deloitte d,
+       account_account ac,
+       account_account_type at,
+       chricar_account_tax_code_deloitte tc
+ where 
+   ac.id = d.account_id
+   and tc.code = d.tax_code
+   and at.id = ac.user_type
+   and at.close_method = 'none'
+   and percent > 0
+   and d.company_id = %s
+   and d.period_id = %s
+   and 'D'||'-'||symbol||'-'||d.name = '%s' 
+            """ % ( 
+vals['company_id'], vals['period_id'], vals['name'], \
+vals['company_id'], vals['period_id'], vals['name'], \
+vals['company_id'], vals['period_id'], vals['name'], \
+vals['company_id'], vals['period_id'], vals['name'], \
+vals['company_id'], vals['period_id'], vals['name'], \
+vals['company_id'], vals['period_id'], vals['name'], )
+)
+             for line in cr.dictfetchall():
+                 self.create_move(cr, uid, line, vals, context )
+        
+
+
 chricar_account_move_line_deloitte()
 
