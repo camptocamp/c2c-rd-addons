@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+
+    <record model="ir.ui.view" id="view_order_form_inherit_1">
+      <field name="name">sale.order.form.inherit_1</field>
+      <field name="model">sale.order</field>
+      <field name="inherit_id" ref="sale.view_order_form"/>
+      <field name="priority">30</field>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <xpath expr="/form/notebook/page/field/form/notebook/page/group/field[@name='product_uos']" position="after">
+              <field groups="product.group_uos" name="product_uos_qty_helper" />
+        </xpath>
+      </field>
+    </record>
+
+
+  </data>
+</openerp>
