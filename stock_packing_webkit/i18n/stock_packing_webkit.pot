@@ -1,0 +1,193 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+# 	* stock_picking_webkit
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 6.1rc1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-01-23 22:09+0000\n"
+"PO-Revision-Date: 2012-01-24 02:16+0000\n"
+"Last-Translator: Joël Grand-Guillaume @ CampToCamp <joel."
+"grandguillaume@camptocamp.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2012-02-26 05:16+0000\n"
+"X-Generator: Launchpad (build 14860)\n"
+
+#. module: stock_picking_webkit
+#: report:addons/stock_picking_webkit/report/stock_picking_webkit.mako:190
+msgid "Gross"
+msgstr ""
+
+#. module: stock_picking_webkit
+#: report:addons/stock_picking_webkit/report/stock_picking_webkit.mako:92
+msgid "Delivery In"
+msgstr ""
+
+#. module: stock_picking_webkit
+#: report:addons/stock_picking_webkit/report/stock_picking_webkit.mako:185
+msgid "Tare"
+msgstr ""
+
+#. module: stock_picking_webkit
+#: report:addons/stock_picking_webkit/report/stock_picking_webkit.mako:65
+msgid "E-mail"
+msgstr ""
+
+#. module: stock_picking_webkit
+#: report:addons/stock_picking_webkit/report/stock_picking_webkit.mako:94
+msgid "Production"
+msgstr ""
+
+#. module: stock_picking_webkit
+#: model:ir.model,name:stock_picking_webkit.model_stock_picking
+msgid "Packing List"
+msgstr ""
+
+#. module: stock_picking_webkit
+#: report:addons/stock_picking_webkit/report/stock_picking_webkit.mako:41
+msgid "Mail"
+msgstr ""
+
+#. module: stock_picking_webkit
+#: report:addons/stock_picking_webkit/report/stock_picking_webkit.mako:180
+msgid "Net"
+msgstr ""
+
+#. module: stock_picking_webkit
+#: report:addons/stock_picking_webkit/report/stock_picking_webkit.mako:108
+msgid "Document"
+msgstr ""
+
+#. module: stock_picking_webkit
+#: model:ir.actions.report.xml,name:stock_picking_webkit.stock_picking_webkit
+msgid "WebKit Packing"
+msgstr ""
+
+#. module: stock_picking_webkit
+#: field:stock.picking,print_uom:0
+msgid "Print UoM if different from UoS"
+msgstr ""
+
+#. module: stock_picking_webkit
+#: report:addons/stock_picking_webkit/report/stock_picking_webkit.mako:151
+msgid "UoS"
+msgstr ""
+
+#. module: stock_picking_webkit
+#: report:addons/stock_picking_webkit/report/stock_picking_webkit.mako:38
+#: report:addons/stock_picking_webkit/report/stock_picking_webkit.mako:62
+msgid "Fax"
+msgstr ""
+
+#. module: stock_picking_webkit
+#: report:addons/stock_picking_webkit/report/stock_picking_webkit.mako:147
+msgid "Description"
+msgstr ""
+
+#. module: stock_picking_webkit
+#: report:addons/stock_picking_webkit/report/stock_picking_webkit.mako:27
+#: report:addons/stock_picking_webkit/report/stock_picking_webkit.mako:76
+msgid "Shipping Address"
+msgstr ""
+
+#. module: stock_picking_webkit
+#: report:addons/stock_picking_webkit/report/stock_picking_webkit.mako:96
+msgid "Delivery"
+msgstr ""
+
+#. module: stock_picking_webkit
+#: report:addons/stock_picking_webkit/report/stock_picking_webkit.mako:35
+msgid "Phone"
+msgstr ""
+
+#. module: stock_picking_webkit
+#: report:addons/stock_picking_webkit/report/stock_picking_webkit.mako:178
+msgid "Trailer"
+msgstr ""
+
+#. module: stock_picking_webkit
+#: report:addons/stock_picking_webkit/report/stock_picking_webkit.mako:110
+msgid "Packing Date"
+msgstr ""
+
+#. module: stock_picking_webkit
+#: report:addons/stock_picking_webkit/report/stock_picking_webkit.mako:98
+msgid "Internal Packing"
+msgstr ""
+
+#. module: stock_picking_webkit
+#: report:addons/stock_picking_webkit/report/stock_picking_webkit.mako:47
+#: report:addons/stock_picking_webkit/report/stock_picking_webkit.mako:71
+msgid "Customer"
+msgstr ""
+
+#. module: stock_picking_webkit
+#: report:addons/stock_picking_webkit/report/stock_picking_webkit.mako:44
+#: report:addons/stock_picking_webkit/report/stock_picking_webkit.mako:68
+msgid "VAT"
+msgstr ""
+
+#. module: stock_picking_webkit
+#: report:addons/stock_picking_webkit/report/stock_picking_webkit.mako:112
+msgid "Carrier"
+msgstr ""
+
+#. module: stock_picking_webkit
+#: sql_constraint:stock.picking:0
+msgid "Reference must be unique per Company!"
+msgstr ""
+
+#. module: stock_picking_webkit
+#: report:addons/stock_picking_webkit/report/stock_picking_webkit.mako:178
+msgid "Tractor"
+msgstr ""
+
+#. module: stock_picking_webkit
+#: report:addons/stock_picking_webkit/report/stock_picking_webkit.mako:149
+msgid "Quantity"
+msgstr ""
+
+#. module: stock_picking_webkit
+#: report:addons/stock_picking_webkit/report/stock_picking_webkit.mako:59
+msgid "Tel"
+msgstr ""
+
+#. module: stock_picking_webkit
+#: report:addons/stock_picking_webkit/report/stock_picking_webkit.mako:118
+#: report:addons/stock_picking_webkit/report/stock_picking_webkit.mako:178
+msgid "Weight"
+msgstr ""
+
+#. module: stock_picking_webkit
+#: report:addons/stock_picking_webkit/report/stock_picking_webkit.mako:115
+msgid "Reference"
+msgstr ""
+
+#. module: stock_picking_webkit
+#: report:addons/stock_picking_webkit/report/stock_picking_webkit.mako:152
+msgid "Source Location"
+msgstr ""
+
+#. module: stock_picking_webkit
+#: report:addons/stock_picking_webkit/report/stock_picking_webkit.mako:90
+msgid "Delivery Out"
+msgstr ""
+
+#. module: stock_picking_webkit
+#: report:addons/stock_picking_webkit/report/stock_picking_webkit.mako:153
+msgid "Destination Location"
+msgstr ""
+
+#. module: stock_picking_webkit
+#: report:addons/stock_picking_webkit/report/stock_picking_webkit.mako:151
+msgid "UoS Qty"
+msgstr ""
+
+#. module: stock_picking_webkit
+#: report:addons/stock_picking_webkit/report/stock_picking_webkit.mako:149
+msgid "UoM"
+msgstr ""
