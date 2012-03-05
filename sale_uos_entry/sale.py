@@ -25,10 +25,11 @@ from osv import fields, osv
 from tools.translate import _
 import netsvc
 import logging
+import decimal_precision as dp
 
 
 class sale_order_line(osv.osv):
-    _inherit = "sale.orderi.line"    
+    _inherit = "sale.order.line"    
 
     _columns = {
                  'product_uos_qty_helper': fields.float('Quantity (UoS)' ,digits_compute= dp.get_precision('Product UoS'), readonly=True, states={'draft': [('readonly', False)]}),
@@ -37,18 +38,39 @@ class sale_order_line(osv.osv):
     def product_id_change_helper(self, cr, uid, ids, pricelist, product, qty=0,
             uom=False, qty_uos=0, uos=False, name='', partner_id=False,
             lang=False, update_tax=True, date_order=False, packaging=False, fiscal_position=False, flag=False, context=None):
+        _logger = logging.getLogger(__name__)
+        _logger.info('FGF sale uos' )
 
-        qty_coeff =  qty
+        qty_helper =  qty
         if uos and qty_uos != 0 :
+            _logger.info('FGF sale uos ,qty %s,%s' %( uos, qty_uos ))
+            _logger.info('FGF sale uos ,qty %s,%s' %( uom, qty ))
             product_obj = self.pool.get('product.product')
-            for product in product_obj.browse(cr, uid, [product], context)
-                 qty_coeff = qty_uos_helper / product_obj.uos_coeff
+            for prod in product_obj.browse(cr, uid, [product], context):
+                 qty_helper = qty_uos / (prod.uos_coeff or 1)
+                 #qty_helper = qty_uos / 0.004
             
+        _logger.info('FGF sale uos qty_helper %s' % (qty_helper) )
 
-        res = super(sale_order_line, self).product_id_change(cr, uid, ids, pricelist, product, qty_coeff,
+        res = super(sale_order_line, self).product_id_change(cr, uid, ids, pricelist, product, qty_helper,
             uom, qty_uos, uos, name, partner_id,
             lang, update_tax, date_order, packaging, fiscal_position, flag, context)
+        _logger.info('FGF sale uos res %s' % (res) )
         return res    
             
+    def product_id_change(self, cr, uid, ids, pricelist, product, qty=0,
+            uom=False, qty_uos=0, uos=False, name='', partner_id=False,
+            lang=False, update_tax=True, date_order=False, packaging=False, fiscal_position=False, flag=False, context=None):
+        _logger = logging.getLogger(__name__)
+        _logger.info('FGF sale uos' )
+
+        res = super(sale_order_line, self).product_id_change(cr, uid, ids, pricelist, product, qty,
+            uom, qty_uos, uos, name, partner_id,
+            lang, update_tax, date_order, packaging, fiscal_position, flag, context)
+        res['value']['product_uos_qty_helper'] = res['value']['product_uos_qty']
+        _logger.info('FGF sale uos res %s' % (res) )
+        return res    
+
+
 sale_order_line()
 
