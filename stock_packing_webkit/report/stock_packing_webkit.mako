@@ -43,9 +43,6 @@ ${_("Mail")}: ${pick.address_id.email|entity} <br>
         %if pick.partner_id.vat :
 ${_("VAT")}: ${pick.partner_id.vat|entity} <br>
         %endif
-        %if pick.partner_customer_id and  pick.address_id and pick.partner_customer_id.id != pick.address_id.partner_id.id :
-${_("Customer")}: ${pick.partner_customer_id.name|entity} <br>
-        %endif
    
          </td>
 
@@ -66,9 +63,6 @@ ${_("E-mail")}: ${pick.address_id.email|entity} <br>
         %endif
         %if pick.partner_id.vat :
 ${_("VAT")}: ${pick.partner_id.vat|entity} <br>
-        %endif
-        %if pick.partner_customer_id and pick.address_id and pick.partner_customer_id.id != pick.address_id.partner_id.id :
-${_("Customer")}: ${pick.partner_customer_id.name|entity} <br>
         %endif
 
          </td>
@@ -114,9 +108,6 @@ ${pick.address_id.address_label}
           %if pick.sale_id or pick_purchase_id:
             <td style="white-space:nowrap">${_("Reference")}</td>
           %endif
-          %if pick.total_gross:
-            <td>${_("Weight")}</td>
-          %endif
         </tr>
         <tr>
             %if pick.origin and pick.origin not in [ pick.sale_id.name,pick.purchase_id.name]  :
@@ -135,9 +126,6 @@ ${pick.address_id.address_label}
            %endif
            %if pick.sale_id or pick_purchase_id:
              <td>${pick.sale_id.name or pick.purchase_id.name or ''}</td>
-           %endif
-          %if pick.total_gross:
-         <td>${pick.total_gross}</td></tr>
            %endif
     </table>
     <h1><br /></h1>
@@ -173,29 +161,8 @@ ${pick.address_id.address_label}
         </tbody>
     </table>
 <br>
-       %if pick.tractor_gross :
-    <table style="text-align:right;border:1px solid grey;width:40%">
-        <tr style="text-align:left;border:1px solid grey;"><th>${_("Weight")}</th> <th>${_("Tractor")}</th>  <th>${_("Trailer")}</th> </tr>
-        <tr>
-            <td style="text-align:left;">${_("Net")}</td>
-            <td>${ formatLang(pick.tractor_net or '')}</td>
-            <td>${ formatLang(pick.trailer_net or '') }</td>
-        </tr>
-        <tr>
-            <td style="text-align:left;">${_("Tare")}</td>
-            <td >${ formatLang(pick.tractor_tare or '')}</td>
-            <td i>${ formatLang(pick.trailer_tare or '') }</td>
-        </tr>
-        <tr>
-            <td style="text-align:left;">${_("Gross")}</td>
-            <td >${ formatLang(pick.tractor_gross or '')}</td>
-            <td >${ formatLang(pick.trailer_gross or '') }</td>
-        </tr>
-        %endif
-    </table>        
-
-    %if pick.note_print:
-    <pre>${pick.note_print}</pre>
+    %if pick.note:
+    <pre>${pick.note}</pre>
     %endif:
     <p style="page-break-after:always"></p>
     %endfor 
