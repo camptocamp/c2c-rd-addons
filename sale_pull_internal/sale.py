@@ -63,10 +63,11 @@ class sale_order(osv.osv):
             context['company_id'] = company_id[0]
 
         order_ids =[]
-
         move_lines = []
         back_log_lines = []
         loc_ids = []
+        main_location_id = False
+
         for order in self.browse(cr, uid, ids, context):
             if not order.state_internal and order.state == 'progress':
                 order_ids.append(order.id)
@@ -95,6 +96,8 @@ class sale_order(osv.osv):
             for loc in cr.fetchall():
                 _logger.info('FGF sale location %s ' % (loc))
                 location_id = loc[0]
+                if not main_location_id:
+                     main_location_id = location_id
                 context['location_id'] = loc[0]
                 _logger.info('FGF sale location id %s ' % (context))
                 qty_availiable = product_obj.get_product_available(cr, uid, [product_id] , context)
@@ -130,7 +133,6 @@ class sale_order(osv.osv):
                 #'stock_journal_id': stock_journal_id #FIXME do not know where this comes from
                 }
 
-        location_dest_id = 1      # FIXME
         move_vals = {
                 'location_dest_id' : location_dest_id,
                 }
@@ -175,7 +177,36 @@ class sale_order(osv.osv):
 
         if back_log_lines:
             _logger.info('FGF back_log lines %s ' % (back_log_lines))
-            # FIXME - must write an internal pick
+            pick = pick_vals
+            # create residual picking - must be processed manually
+            loc = main_location_id
+            pick['location_id'] = loc
+            address_id = location_obj.read(cr,uid,loc)['address_id']
+            if address_id:
+                pick['address_id'] = address_id
+            pick['name'] = sequence_obj.get(cr, uid, seq_obj_name)
+            pick['origin'] = _('back log')
+            picking_id = picking_obj.create(cr, uid, pick, context=context)
+            for l in back_log_lines:
+                line = dict(l)
+                ml = pick
+                prod_lot_id = ''
+                mlt = {
+                       'name'  : 'x',
+                       'product_id' : line['product_id'],
+                       'product_uom' : product_obj.read(cr, uid, line['product_id'])['uom_id'][0],
+                       'product_qty' : line['product_qty'],
+                       'picking_id'  : picking_id,
+                       'prodlot_id'  : prod_lot_id,
+                       }
+                ml.update(mlt)
+                ml.update(move_vals)
+                _logger.info('FGF sale move line %s ' % (ml))
+                move_obj.create(cr, uid, ml,  context=context)
+            
+            
+                 
+            
 
         # FIXME uncomment# order.write(cr, uid, order_ids,{'state_internal':'calculated'} )
 
