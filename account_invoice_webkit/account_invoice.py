@@ -46,11 +46,10 @@ class account_invoice(osv.osv):
         res = {}
         invoice_line_obj = self.pool.get('account.invoice.line')
         for invoice in self.browse(cr, uid, ids, context=context):
+	  print_price_unit_id = False
           if not 'price_unit_id' in invoice_line_obj._columns:
              res[invoice.id] = False
-             return res
-	  print_price_unit_id = False
-	  if invoice.invoice_line:
+	  elif invoice.invoice_line:
             for line in invoice.invoice_line:
                 if line.price_unit_id and line.price_unit_id.coefficient != 1.0:
 		   print_price_unit_id = True
