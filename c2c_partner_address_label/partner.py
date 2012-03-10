@@ -25,6 +25,7 @@ import tools
 import pooler
 from tools.translate import _
 import netsvc
+import logging
 
 
 # new in 6.1 label_format
@@ -77,10 +78,10 @@ class res_partner_address(osv.osv):
     _inherit = 'res.partner.address'
  
     def _address_label(self, cr, uid, ids, name, arg, context=None):
-        logger = netsvc.Logger()            
+        _logger = logging.getLogger(__name__)
         res = {}
         for a in self.browse(cr,uid,ids,context):
-            logger.notifyChannel('addons.'+self._name, netsvc.LOG_INFO,'address_label street FGF:  %s '%(a.street))
+            _logger.info('FGF address_label street %s' % (a.street))
             lf ='\n'
             l = a.partner_id.name or ''
             if a.partner_id.title:
@@ -99,7 +100,7 @@ class res_partner_address(osv.osv):
             
             address = self._display_address(cr,uid,a)
             res[a.id] = l + lf + address
-            logger.notifyChannel('addons.'+self._name, netsvc.LOG_INFO,'address_label 2 FGF:  %s '%(res[a.id]))
+            _logger.info('FGF address_label %s' % (res[a.id]))
             return res
 
 # new in 6.1 labe_format        
