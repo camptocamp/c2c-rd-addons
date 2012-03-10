@@ -137,10 +137,10 @@ ${inv.address_invoice_id.address_label}
         <tr>
           %if inv.name or inv.origin:
             <td>
-            %if not inv.origin or inv.origin and inv.origin.find(inv.name) == -1 :
+            %if not inv.origin or inv.origin and inv.name and inv.origin.find(inv.name) == -1 :
                ${inv.name or ''} 
             %endif
-            %if inv.origin and inv.origin.find(inv.name) == -1 and inv.origin != inv.name:
+            %if inv.origin and inv.name and inv.origin.find(inv.name) == -1 and inv.origin != inv.name:
               <br>
             %endif
             %if inv.origin and inv.origin != inv.name:
