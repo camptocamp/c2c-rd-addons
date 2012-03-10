@@ -45,9 +45,9 @@
       <field name="type">form</field>
       <field name="arch" type="xml">
         <page string="Configuration" position="inside">
-          <group col="2">
+          <group colspan="2" col="4">
             <separator string="Address Window Position" colspan="4"/>
-            <field name="company_address_id" colspan="4"/>
+            <field name="company_address_id"  colspan="4"/>
             <field name="address_label_position"/>
           </group>
         </page>
