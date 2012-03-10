@@ -154,7 +154,7 @@ This module installs everything for Blaustauden
 ,"hr_timesheet_print"
 ,"hr_timesheet_sheet"
 ,"import_base"
-,"import_sugarcrm"
+#,"import_sugarcrm"
 ,"knowledge"
 ,"mail"
 ,"marketing"
