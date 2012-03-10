@@ -44,7 +44,11 @@ class account_invoice(osv.osv):
 
     def _print_price_unit_id(self, cr, uid, ids, name, args, context=None):
         res = {}
+        invoice_line_obj = self.pool.get('account.invoice.line')
         for invoice in self.browse(cr, uid, ids, context=context):
+          if not 'price_unit_id' in invoice_line_obj._columns:
+             res[invoice.id] = False
+             return res
 	  print_price_unit_id = False
 	  if invoice.invoice_line:
             for line in invoice.invoice_line:

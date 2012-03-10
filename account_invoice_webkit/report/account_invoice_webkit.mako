@@ -162,7 +162,11 @@ ${inv.address_invoice_id.address_label}
     <table >
         <thead>
           <tr>
-            <th>${_("Description")}</th><th class>${_("Taxes")}</th><th class style="text-align:left;">${_("QTY")}</th><th class>${_("Unit")}</th><th style="text-align:left;white-space:nowrap;">${_("Unit Price")}</th>
+            <th>${_("Description")}</th>
+            <th class>${_("Taxes")}</th>
+            <th class style="text-align:left;">${_("QTY")}</th>
+            <th class>${_("Unit")}</th>
+            <th style="text-align:left;white-space:nowrap;">${_("Unit Price")}</th>
           %if inv.print_price_unit_id == True:
             <th style="text-align:left;">${_("Price/Unit")}</th>
           %endif
@@ -178,7 +182,7 @@ ${inv.address_invoice_id.address_label}
            <td>${line.name|entity}</td><td>${ ', '.join([ tax.name or '' for tax in line.invoice_line_tax_id ])|entity}</td>
            <td style="white-space:nowrap;text-align:right;">${line.quantity}</td>
            <td style="white-space:nowrap;text-align:left;">${line.uos_id.name or _("Unit")}</td>
-           <td style="white-space:nowrap;text-align:right;">${formatLang(line.price_unit_pu or line.price_unit,digits=2)}</td>
+           <td style="white-space:nowrap;text-align:right;">${formatLang('price_unit_pu' in line._columns and line.price_unit_pu or line.price_unit,digits=2)}</td>
           %if inv.print_price_unit_id == True:
            <td style="white-space:nowrap;text-align:left;">${line.price_unit_id.name or ''}</td>
           %endif
