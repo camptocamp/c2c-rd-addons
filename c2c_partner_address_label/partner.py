@@ -61,6 +61,7 @@ import netsvc
 class res_company(osv.osv):
     _inherit = 'res.company'
     _columns = {
+        'company_address_id':fields.many2one('res.partner.address', 'Address for Report Header', domain="[('partner_id', '=', partner_id)]"),
         'address_label_position' : fields.selection([('left','Left'),('right','Right')], string="Address Window Position", help="Position of address window on standard company enevlops. Many reports do not use this yet"),
     }
     _defaults = {

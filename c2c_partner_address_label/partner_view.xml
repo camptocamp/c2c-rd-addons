@@ -47,6 +47,7 @@
         <page string="Configuration" position="inside">
           <group col="2">
             <separator string="Address Window Position" colspan="2"/>
+            <field name="company_address_id"/>
             <field name="address_label_position"/>
           </group>
         </page>
