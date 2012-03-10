@@ -43,8 +43,7 @@ class sale_order_line(osv.osv):
 
         qty_helper =  qty
         if uos and qty_uos != 0 :
-            _logger.info('FGF sale uos ,qty %s,%s' %( uos, qty_uos ))
-            _logger.info('FGF sale uos ,qty %s,%s' %( uom, qty ))
+            _logger.info('FGF sale uom,uos ,qty, qty_uos %s,%s,%s,%s' %( uom,uos, qty, qty_uos ))
             product_obj = self.pool.get('product.product')
             for prod in product_obj.browse(cr, uid, [product], context):
                  qty_helper = qty_uos / (prod.uos_coeff or 1)
@@ -56,6 +55,7 @@ class sale_order_line(osv.osv):
             uom, qty_uos, uos, name, partner_id,
             lang, update_tax, date_order, packaging, fiscal_position, flag, context)
         _logger.info('FGF sale uos res %s' % (res) )
+        res['value']['product_uom_qty'] = qty_helper
         return res    
             
     def product_id_change(self, cr, uid, ids, pricelist, product, qty=0,

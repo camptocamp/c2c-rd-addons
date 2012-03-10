@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <record model="ir.ui.view" id="product_normal_form_view_uos_inv">
+      <field name="name">product.normal.form.view.uos.inv</field>
+      <field name="model">product.product</field>
+      <field name="inherit_id" ref="product.product_normal_form_view"/>
+      <field name="priority">30</field>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <xpath expr="/form/notebook/page[@string='Information']/group/field[@name='uos_coeff']" position="before">
+              <field groups="product.group_uos" name="uos_coeff_inv"
+                 on_change="uos_coeff_inv_change(uos_coeff_inv)" />
+        </xpath>
+      </field>
+    </record>
+  </data>
+</openerp>

@@ -30,7 +30,7 @@ This modul allows to enter Uom or Uos quantities in sale order
 """,
     'author': 'Camptocamp Austria',
     'depends': [ 'sale' ],
-    'update_xml': ['sale_view.xml',
+    'update_xml': ['sale_view.xml','product_view.xml'
        ],
     #'update_xml': ['product_view.xml'],
     'demo_xml': [],
