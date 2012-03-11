@@ -12,7 +12,7 @@
        page-break-after:auto;
        border-collapse: collapse;
        cellspacing="0";
-       font-size:12px;
+       font-size:10px;
            }
      td { margin: 0px; padding: 3px; border: 1px solid lightgrey;  vertical-align: top; }
      pre {font-family:helvetica; font-size:13;}
@@ -91,12 +91,12 @@ ${pick.address_id.address_label}
     %elif pick.type == 'internal' :
     <span class="title">${_("Internal Packing")} ${pick.name or ''|entity}</span> 
     %endif
-%if pick.state == 'cancel':
+%if pick.state != 'done':
    <span class="title"> ${pick.state} </span>
 %endif 
     <br/>
     <br/>
-    <table  style="width:90%">
+    <table  style="width:100%">
         <tr>
           %if pick.origin and pick.origin not in [ pick.sale_id.name,pick.purchase_id.name]  :
             <td>${_("Document")}</td>
@@ -129,7 +129,7 @@ ${pick.address_id.address_label}
            %endif
     </table>
     <h1><br /></h1>
-    <table style="width:90%">
+    <table style="width:100%">
         <thead>
           <tr>
             <th>${_("Description")}</th>
@@ -137,6 +137,13 @@ ${pick.address_id.address_label}
             <th style="text-align:center;">${_("Quantity")}</th><th class style="text-align:left;">${_("UoM")}</th>
 %endif
             <th style="text-align:center;white-space:nowrap">${_("UoS Qty")}</th><th style="text-align:left;white-space:nowrap;">${_("UoS")}</th>
+%if pick.print_ean:
+            <th style="text-align:center;">${_("EAN")}</th>
+%endif
+%if pick.print_packing:
+            <th style="text-align:center;">${_("Pack")}</th>
+            <th style="text-align:center;">${_("Packaging")}</th>
+%endif
             <th style="text-align:center;">${_("Source Location")}</th>
             <th style="text-align:center;">${_("Destination Location")}</th>
          </tr>
@@ -151,6 +158,13 @@ ${pick.address_id.address_label}
 %endif
            <td style="white-space:nowrap;text-align:right;">${str(line.product_uos_qty).replace(',000','') or '0'}</td>
            <td style="white-space:nowrap;text-align:left;">${line.product_uos.name or ''}</td>
+%if pick.print_ean:
+           <td style="white-space:nowrap;text-align:left;">${line.product_packaging.ean or line.product_id.ean13 or ''}</td>
+%endif
+%if pick.print_packing:
+           <td style="white-space:normal;text-align:left;">${line.product_packaging.qty and line.product_qty/line.product_packaging.qty or ''}</td>
+           <td style="white-space:normal;text-align:left;">${line.product_packaging and line.product_packaging.ul.name or ''} ${line.product_packaging and _(" / " or '')} ${line.product_packaging and line.product_packaging.qty or ''} ${line.product_packaging and line.product_id.uom_id.name or ''}</td>
+%endif
            <td style="white-space:nowrap;text-align:left;">${line.location_id.name or ''}</td>
            <td style="white-space:nowrap;text-align:left;">${line.location_dest_id.name or ''}</td>
         </tr>
@@ -160,10 +174,38 @@ ${pick.address_id.address_label}
         %endfor
         </tbody>
     </table>
+
+%if pick.note and 'note_print' not in pick._columns:
 <br>
-    %if pick.note:
     <pre>${pick.note}</pre>
-    %endif:
+%endif:
+%if 'note_print' in pick._columns and pick.note_print:
+<br>
+    <pre>${pick.note_print}</pre>
+%endif:
+
+%if 'tracktor_gross' in pick._columns and pick.tractor_gross:
+<br>
+    <table style="text-align:right;border:1px solid grey;width:40%">
+        <tr style="text-align:left;border:1px solid grey;"><th>${_("Weight")}</th> <th>${_("Tractor")}</th>  <th>${_("Trailer")}</th> </tr>
+        <tr>
+            <td style="text-align:left;">${_("Net")}</td>
+            <td>${ formatLang(pick.tractor_net or '')}</td>
+            <td>${ formatLang(pick.trailer_net or '') }</td>
+        </tr>
+        <tr>
+            <td style="text-align:left;">${_("Tare")}</td>
+            <td >${ formatLang(pick.tractor_tare or '')}</td>
+            <td i>${ formatLang(pick.trailer_tare or '') }</td>
+        </tr>
+        <tr>
+            <td style="text-align:left;">${_("Gross")}</td>
+            <td >${ formatLang(pick.tractor_gross or '')}</td>
+            <td >${ formatLang(pick.trailer_gross or '') }</td>
+        </tr>
+    </table>
+%endif       
+
     <p style="page-break-after:always"></p>
     %endfor 
 </body>
