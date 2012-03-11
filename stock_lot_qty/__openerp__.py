@@ -30,9 +30,7 @@
 """,
     'author': 'Camptocamp Austria',
     'depends': [ 'stock'],
-    'update_xml': [
-       ],
-    #'update_xml': ['product_view.xml'],
+    'update_xml': [],
     'demo_xml': [],
     'installable': True,
     'active': False,
