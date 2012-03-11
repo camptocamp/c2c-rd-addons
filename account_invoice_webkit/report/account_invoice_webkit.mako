@@ -121,41 +121,31 @@ ${inv.address_invoice_id.address_label}
     <br/>
     <table >
         <tr>
-           %if inv.name or inv.origin:
-            <td>${_("Document")}</td>
-           %endif
-          %if inv.reference and inv.name and inv.reference != inv.name:
-            <td style="white-space:nowrap">${_("Reference")}</td>
+          %if inv.name :
+            <td>${_("Customer Ref")}</td>
+          %endif
+          %if inv.name :
+            <td>${_("Origin")}</td>
+          %endif
+          %if inv.reference:
+            <td>${_("Reference")}</td>
           %endif
             <td style="white-space:nowrap">${_("Invoice Date")}</td>
             <td style="white-space:nowrap">${_("Payment Term")}</td>
-          %if inv.client_order_ref and inv.client_order_ref not in inv.name:
-            <td style="white-space:nowrap">${_("Partner Reference")}</td>
-          %endif
             <td>${_("Curr")}</td>
         </tr>
         <tr>
-          %if inv.name or inv.origin:
-            <td>
-            %if not inv.origin or inv.origin and inv.name and inv.origin.find(inv.name) == -1 :
-               ${inv.name or ''} 
-            %endif
-            %if inv.origin and inv.name and inv.origin.find(inv.name) == -1 and inv.origin != inv.name:
-              <br>
-            %endif
-            %if inv.origin and inv.origin != inv.name:
-               ${inv.origin or ''}
-            %endif
-            </td>
+          %if inv.name :
+            <td>${inv.name.rfind(':') > 0 and inv.name[:inv.name.rfind(':')] or inv.name}</td>
           %endif
-           %if inv.reference and inv.name and inv.reference != inv.name:
-         <td>${inv.reference}</td>
-           %endif
+          %if inv.origin :
+            <td>${inv.origin} </td>
+          %endif
+          %if inv.reference :
+             <td>${inv.reference}</td>
+          %endif
           <td>${formatLang(inv.date_invoice, date=True)|entity}</td>
           <td>${inv.payment_term.name or ''}</td>
-          %if inv.client_order_ref and inv.client_order_ref not in inv.name:
-            <td >${inv.client_order_ref}</td>
-          %endif
          <td>${inv.currency_id.name}</td></tr>
     </table>
     <h1><br /></h1>

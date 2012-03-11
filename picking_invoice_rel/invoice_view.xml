@@ -44,5 +44,18 @@
       </field>
     </record>
 
+    <record id="invoice_tree_ref" model="ir.ui.view">
+      <field name="name">invoice.tree.ref</field>
+      <field name="model">account.invoice</field>
+      <field name="type">tree</field>
+      <field name="inherit_id" ref="account.invoice_tree"/>
+      <field name="arch" type="xml">
+          <field name="partner_id" position="after" >
+            <field name="name"/>
+          </field>
+      </field>
+    </record>
+
+
   </data>
 </openerp>
