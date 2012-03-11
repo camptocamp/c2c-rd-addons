@@ -108,6 +108,9 @@ ${pick.address_id.address_label}
           %if pick.sale_id or pick_purchase_id:
             <td style="white-space:nowrap">${_("Reference")}</td>
           %endif
+          %if pick.sale_id and pick.sale_id.client_order_ref :
+            <td style="white-space:nowrap">${_("Client Ref")}</td>
+          %endif
         </tr>
         <tr>
             %if pick.origin and pick.origin not in [ pick.sale_id.name,pick.purchase_id.name]  :
@@ -121,12 +124,15 @@ ${pick.address_id.address_label}
             %endif
             %if pick.carrier_id:
              <td>
-               ${pick.carrier_id }
+               ${pick.carrier_id.name }
              </td>
            %endif
            %if pick.sale_id or pick_purchase_id:
              <td>${pick.sale_id.name or pick.purchase_id.name or ''}</td>
            %endif
+          %if pick.sale_id and pick.sale_id.client_order_ref :
+            <td style="white-space:nowrap">${pick.sale_id.client_order_ref}</td>
+          %endif
     </table>
     <h1><br /></h1>
     <table style="width:100%">
@@ -184,24 +190,38 @@ ${pick.address_id.address_label}
     <pre>${pick.note_print}</pre>
 %endif:
 
-%if 'tracktor_gross' in pick._columns and pick.tractor_gross:
+%if 'tractor_gross' in pick._columns and pick.tractor_gross:
 <br>
     <table style="text-align:right;border:1px solid grey;width:40%">
-        <tr style="text-align:left;border:1px solid grey;"><th>${_("Weight")}</th> <th>${_("Tractor")}</th>  <th>${_("Trailer")}</th> </tr>
+        <tr style="text-align:right;border:1px solid grey;">
+            <th/> 
+            <th>${_("Tractor")}</th>  
+            <th>${_("Trailer")}</th> 
+            <th>${_("Total")}</th> 
+        </tr>
+        <tr>
+            <td style="text-align:left;">${_("License Plate")}</td>
+            <td>${ pick.tractor_number or ''}</td>
+            <td>${ pick.trailer_number or ''}</td>
+            <td/>
+        </tr>
         <tr>
             <td style="text-align:left;">${_("Net")}</td>
             <td>${ formatLang(pick.tractor_net or '')}</td>
-            <td>${ formatLang(pick.trailer_net or '') }</td>
+            <td>${ formatLang(pick.trailer_net or '')}</td>
+            <td>${ formatLang(pick.total_net or '')}</td>
         </tr>
         <tr>
             <td style="text-align:left;">${_("Tare")}</td>
             <td >${ formatLang(pick.tractor_tare or '')}</td>
             <td i>${ formatLang(pick.trailer_tare or '') }</td>
+            <td/>
         </tr>
         <tr>
             <td style="text-align:left;">${_("Gross")}</td>
             <td >${ formatLang(pick.tractor_gross or '')}</td>
             <td >${ formatLang(pick.trailer_gross or '') }</td>
+            <td>${ formatLang(pick.total_gross or '')}</td>
         </tr>
     </table>
 %endif       
