@@ -3,7 +3,9 @@
 <data>
 
     <!--************************** PARTNERS - default bank **************************-->
-    <record model="ir.ui.view" id="view_partner_form">
+<!-- defekt FIXME
+    <record model="ir.ui.view" id="view_partner_form1">
+        <field name="name">view.partner.form1</field>
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="account.view_partner_property_form"/>
         <field name="arch" type="xml">
@@ -14,6 +16,7 @@
     </record>
 
     <record model="ir.ui.view" id="view_partner_form2">
+        <field name="name">view.partner.form2</field>
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="account.view_partner_property_form"/>
         <field name="arch" type="xml">
@@ -22,7 +25,7 @@
             </tree>
         </field>
     </record>
-
+-->
     <record model="ir.ui.view" id="view_partner_form3">
         <field name="name">view.partner.form3 </field>
         <field name="model">res.partner.bank</field>
