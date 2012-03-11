@@ -9,7 +9,8 @@
         
         <record id="ir_header_webkit_c2c_austria" model="ir.header_webkit">
             
-            <field name="footer_html"><![CDATA[<html>
+            <field name="footer_html"><![CDATA[
+<html>
     <head>
         <meta content="text/html; charset=UTF-8" http-equiv="content-type"/>
         <script>
@@ -25,7 +26,7 @@
             }
         </script>
     </head>
-    
+
       <body style="border:0; margin: 0;" onload="subst()">
         <table style="border-top: 1px solid black; width: 100%">
             <tr >
@@ -34,24 +35,24 @@ ${_("Registered Office:")} ${company.registered_office or ''}<br>
 ${_("Commercial Register:")} ${company.commercial_register or ''}<br>
 ${_("VAT:")} ${company.partner_id.vat or ''}
                 </td>
-                <td style="text-align:left;font-size:9;width:45%;" >
-${company.company_bank_id.bank.name}<br>
-  %if company.company_bank_id.iban:
-${_("SWIFT:")} ${company.company_bank_id.bank.bic}<br>
-${_("IBAN:")} ${company.company_bank_id.iban}
-  %endif
+                <td style="white-space:normal;text-align:left;font-size:9;width:30 %;" >
+${_("Bank:")} ${company.partner_id.bank_ids[0].bank.name}<br>
+${_("IBAN:")} ${company.partner_id.bank_ids[0].acc_number}<br>
+${_("BIC:")} ${company.partner_id.bank_ids[0].bank_bic}
 </td>
                 <td style="text-align:left;font-size:9;width:5%;" >${_("Page")} <span class="page"/></td>
                 <td style="text-align:left;font-size:9;width:5%;">  of  <span class="topage"/></td>
             </tr>
         </table>
       </body>
-</html>]]></field>
+</html>
+            ]]></field>
 
             <field eval="&quot;&quot;&quot;Portrait&quot;&quot;&quot;" name="orientation"/>
             <field eval="&quot;&quot;&quot;A4&quot;&quot;&quot;" name="format"/>
             
-            <field name="html"><![CDATA[<html>
+            <field name="html"><![CDATA[
+<html>
     <head>
         <meta content="text/html; charset=UTF-8" http-equiv="content-type"/>
         <script>
@@ -74,14 +75,14 @@ ${_("IBAN:")} ${company.company_bank_id.iban}
         <table class="header" style="border-collapse: collapse;border-bottom: 0px solid black; width: 100% ;font-size:10;">
             <tr>
                 <td style="border-bottom: 1px solid grey;">${helper.embed_logo_by_name('company_logo', height=70)}</td>
-		<td style="border-bottom: 1px solid grey;width:40%";><b>${company.partner_id.name |entity}</b><br>
-${company.partner_id.address and company.partner_id.address[0].street or ''|entity}<br>
-${company.partner_id.address and company.partner_id.address[0].zip or ''|entity}
-${company.partner_id.address and company.partner_id.address[0].city or ''|entity}<br>
-${company.partner_id.address and company.partner_id.address[0].country_id.name or ''|entity}</td>
+                <td style="border-bottom: 1px solid grey;width:40%";><b>${company.partner_id.name |entity}</b><br>
+${company.company_address_id and company.company_address_id.street or ''|entity}<br>
+${company.company_address_id and company.company_address_id.zip or ''|entity}
+${company.company_address_id and company.company_address_id.city or ''|entity}<br>
+${company.company_address_id and  company.company_address_id.country_id and company.company_address_id.country_id.name or ''|entity}</td>
             </tr>
             <tr>
-	      <td style="border-bottom: 0px solid white;">${company.rml_header1 or ''}</td>
+              <td style="border-bottom: 0px solid white;">${company.rml_header1 or ''}</td>
               <td style="border-bottom: 0px solid white;">
 
 <table class="header" style="border-collapse: collapse;border-bottom: 0px solid white; width: 100% ;font-size:10;">
@@ -101,7 +102,9 @@ ${company.partner_id.address and company.partner_id.address[0].email or ''|entit
 </td>
    </tr>
         </table> ${_debug or ''} </body>
-</html>]]>
+</html>
+
+            ]]>
 </field>
             <field eval="40.0" name="margin_top"/>
             <field eval="20.0" name="margin_bottom"/>
