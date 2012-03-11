@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+<!-- adding customer ref to sale tree view -->
+
+    <record id="view_view_order_tree_client_ref" model="ir.ui.view">
+      <field name="name">view.view.order.tree.client.ref</field>
+      <field name="model">sale.order</field>
+      <field name="type">tree</field>
+      <field name="inherit_id" ref="sale.view_order_tree"/>
+      <field name="arch" type="xml">
+          <field name="name" position="after" >
+            <field name="client_order_ref" />
+          </field>
+      </field>
+    </record>
+
+
+
+  </data>
+</openerp>
