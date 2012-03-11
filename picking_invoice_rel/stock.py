@@ -27,6 +27,8 @@ class stock_picking(osv.osv):
 
     _columns = {
         'invoice_ids': fields.many2many('account.invoice', 'picking_invoice_rel', 'picking_id', 'invoice_id', 'Invoices'),
+        'client_order_ref'  : fields.related ('sale_id', 'client_order_ref', type="char", relation="sale.order", string="Client Ref", readonly = True ),
+
     }
 
     def init(self, cr):
