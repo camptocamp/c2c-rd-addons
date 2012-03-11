@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
   <data>
+<!-- add picking invoice relation -->
     <record id="invoice_picking_form" model="ir.ui.view">
       <field name="name">account.invoice.picking.form</field>
       <field name="model">account.invoice</field>
@@ -27,5 +28,21 @@
         </page>
       </field>
     </record>
+<!-- add invoice sale relation -->
+
+    <record id="invoice_sale_order_form" model="ir.ui.view">
+      <field name="name">invoice.sale.order.form</field>
+      <field name="model">account.invoice</field>
+      <field name="type">form</field>
+      <field name="inherit_id" ref="account.invoice_form"/>
+      <field name="arch" type="xml">
+        <page string="Other Info" position="after">
+          <page string="Sale Orders" position="after">
+            <field name="sale_order_ids" colspan="4" nolabel="1"/>
+          </page>
+        </page>
+      </field>
+    </record>
+
   </data>
 </openerp>
