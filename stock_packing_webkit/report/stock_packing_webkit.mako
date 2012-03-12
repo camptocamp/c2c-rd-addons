@@ -120,7 +120,7 @@ ${pick.address_id.address_label}
             %endif
              <td>
             %if pick.max_date:
-               ${pick.max_date[:10]}</td>
+               ${pick.max_date and pick.max_date[:10] or ''}</td>
             %endif
             %if pick.carrier_id:
              <td>
