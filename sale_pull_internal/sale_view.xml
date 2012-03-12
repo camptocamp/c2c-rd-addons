@@ -34,6 +34,7 @@
             <field name="arch" type="xml">
                 <form string="Create Pull Pickings">
                     <separator colspan="4" string="Do you really want to create pull pickings ?" />
+                    <separator colspan="4" string='This programm will processs ALL Sale Orders with state "in progress" '/>
 <!--
                     <field name="grouped"/>
                     <newline/>
