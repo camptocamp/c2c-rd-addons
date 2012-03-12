@@ -38,10 +38,22 @@ class stock_picking(osv.osv):
 	  print_uom = False
 	  if picking.move_lines:
             for line in picking.move_lines:
-                if line.product_uom != line.product_uos :
+                if not line.product_uos or line.product_uos and line.product_uom != line.product_uos:
 		   print_uom = True
           res[picking.id] =  print_uom
         return res
+
+    def _print_uos(self, cr, uid, ids, name, args, context=None):
+        res = {}
+        for picking in self.browse(cr, uid, ids, context=context):
+          print_uos = False
+          if picking.move_lines:
+            for line in picking.move_lines:
+                if line.product_uos:
+                   print_uos = True
+          res[picking.id] =  print_uos
+        return res
+
 
     def _print_packing(self, cr, uid, ids, name, args, context=None):
         res = {}
@@ -68,6 +80,7 @@ class stock_picking(osv.osv):
         
     _columns = {
               'print_uom': fields.function(_print_uom, method=True, type='boolean', string='Print UoM if different from UoS',),
+              'print_uos': fields.function(_print_uos, method=True, type='boolean', string='Print UoS if exists',),
               'print_packing': fields.function(_print_packing, method=True, type='boolean', string='Print Packing Info if available',),
               'print_ean': fields.function(_print_ean, method=True, type='boolean', string='Print EAN if available',),
     }

@@ -142,7 +142,9 @@ ${pick.address_id.address_label}
 %if pick.print_uom:
             <th style="text-align:center;">${_("Quantity")}</th><th class style="text-align:left;">${_("UoM")}</th>
 %endif
+%if pick.print_uos:
             <th style="text-align:center;white-space:nowrap">${_("UoS Qty")}</th><th style="text-align:left;white-space:nowrap;">${_("UoS")}</th>
+%endif
 %if pick.print_ean:
             <th style="text-align:center;">${_("EAN")}</th>
 %endif
@@ -162,8 +164,10 @@ ${pick.address_id.address_label}
            <td style="white-space:nowrap;text-align:right;">${str(line.product_qty).replace(',000','') or '0'}</td>
            <td style="white-space:nowrap;text-align:left;">${line.product_uom.name or ''}</td>
 %endif
+%if pick.print_uos:
            <td style="white-space:nowrap;text-align:right;">${str(line.product_uos_qty).replace(',000','') or '0'}</td>
            <td style="white-space:nowrap;text-align:left;">${line.product_uos.name or ''}</td>
+%endif
 %if pick.print_ean:
            <td style="white-space:nowrap;text-align:left;">${line.product_packaging.ean or line.product_id.ean13 or ''}</td>
 %endif
