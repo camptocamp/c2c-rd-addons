@@ -204,9 +204,6 @@ class sale_order(osv.osv):
                 _logger.info('FGF sale move line %s ' % (ml))
                 move_obj.create(cr, uid, ml,  context=context)
             
-            
-                 
-            
 
         # FIXME uncomment# order.write(cr, uid, order_ids,{'state_internal':'calculated'} )
 
