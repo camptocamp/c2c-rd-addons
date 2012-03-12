@@ -142,11 +142,15 @@ class sale_order(osv.osv):
                 'invoice_state': 'none',
                 'state': 'draft',
                 'date_done': time.strftime('%Y-%m-%d %H:%M:%S'),
+                'max_date': time.strftime('%Y-%m-%d %H:%M:%S'),
+                'min_date': time.strftime('%Y-%m-%d %H:%M:%S'),
                 #'stock_journal_id': stock_journal_id #FIXME do not know where this comes from
                 }
 
         move_vals = {
                 'location_dest_id' : location_dest_id,
+                'date': time.strftime('%Y-%m-%d %H:%M:%S'),
+                'date_expected': time.strftime('%Y-%m-%d %H:%M:%S'),
                 }
 
         sequence_obj = self.pool.get('ir.sequence')
