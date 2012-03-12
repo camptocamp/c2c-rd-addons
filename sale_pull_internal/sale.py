@@ -77,17 +77,18 @@ class sale_order(osv.osv):
         # FIXME uncomment# order.write(cr, uid, order_ids,{'state_internal':'calculation'} )
 
         order_ids2 = (', '.join(map(str,order_ids)))
-        cr.execute("""select shop_id, product_id, product_packaging, sum(product_uom_qty) as qty_requested
+        cr.execute("""select shop_id, product_id, l.name, product_packaging, sum(product_uom_qty) as qty_requested
                    from sale_order_line l,
                         sale_order o
                   where o.id = l.order_id
                     and order_id in (%s)
-                  group by o.shop_id, product_id, product_packaging""" % order_ids2)
+                  group by o.shop_id, product_id, l.name, product_packaging""" % order_ids2)
         for product_qty in cr.dictfetchall():
             #_logger.info('FGF sale pull internal %s' % (product_qty))
             product_id = product_qty['product_id']
             shop_id = product_qty['shop_id']
             product_packaging = product_qty['product_packaging']
+            name = product_qty['name']
             qty_requested = product_qty['qty_requested']
             for shop in shop_obj.browse(cr, uid, [shop_id], context=context):
                 if not location_dest_id:
@@ -110,7 +111,7 @@ class sale_order(osv.osv):
                     qty_available = product.qty_available
                 #qty_avail = qty_availiable.get(product_id)
                 #_logger.info('FGF sale location product %s %s %s ' % (product_id, qty_available, qty_requested))
-                ml = {'shop_id':shop_id, 'location_id':location_id,  'location_dest_id':location_dest_id, 'product_id': product_id, 'product_packaging': product_packaging}
+                ml = {'shop_id':shop_id, 'location_id':location_id,  'location_dest_id':location_dest_id, 'product_id': product_id, 'name': name, 'product_packaging': product_packaging}
                 if qty_requested > 0 and qty_available >0:
                   if qty_available >= qty_requested:
                     ml.update({'product_qty':qty_requested})
@@ -132,7 +133,7 @@ class sale_order(osv.osv):
                         loc_ids.append(location_id)
                 
             if qty_requested > 0.0:
-                back_log_lines.append({'product_id': product_id, 'product_qty':qty_requested})
+                back_log_lines.append({'product_id': product_id, 'product_qty':qty_requested, 'name':name, 'product_packaging': product_packaging})
 
             
         # now we create a stock_picking for each location
@@ -181,7 +182,7 @@ class sale_order(osv.osv):
                        if lot.stock_available > 0:
                            prod_lot_id = lot.id
                     mlt = {
-                       'name'  : 'x',
+                       'name'  :  line['name'],
                        'product_id' : line['product_id'],
                        'product_uom' : product_obj.read(cr, uid, line['product_id'])['uom_id'][0],
                        'product_qty' : line['product_qty'],
@@ -211,7 +212,7 @@ class sale_order(osv.osv):
                 ml = pick
                 prod_lot_id = ''
                 mlt = {
-                       'name'  : 'x',
+                       'name'  : line['name'],
                        'product_id' : line['product_id'],
                        'product_uom' : product_obj.read(cr, uid, line['product_id'])['uom_id'][0],
                        'product_qty' : line['product_qty'],
