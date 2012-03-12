@@ -192,9 +192,9 @@ class sale_order(osv.osv):
             # create residual picking - must be processed manually
             loc = main_location_id
             pick['location_id'] = loc
-            address_id = location_obj.read(cr,uid,loc)['address_id'][0]
-            if address_id:
-                pick['address_id'] = address_id
+            address = location_obj.read(cr,uid,loc)['address_id']
+            if address:
+                pick['address_id'] = address[0]
             pick['name'] = sequence_obj.get(cr, uid, seq_obj_name)
             pick['origin'] = _('back log')
             picking_id = picking_obj.create(cr, uid, pick, context=context)
