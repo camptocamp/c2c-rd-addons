@@ -75,9 +75,17 @@ class sale_order_line(osv.osv):
             uom=False, qty_uos=0, uos=False, name='', partner_id=False,
             lang=False, update_tax=True, date_order=False, packaging=False, fiscal_position=False, flag=False, context=None):
         _logger = logging.getLogger(__name__)
-        _logger.info('FGF sale uos' )
+        _logger.info('FGF sale uos product %s qty %s' % (product,qty))
 
-        res = super(sale_order_line, self).product_id_change(cr, uid, ids, pricelist, product, qty,
+        #FIXME - must set product_packaging and qty to the minimum multiple found in product_packaging
+        product_obj = self.pool.get('product.product')
+        qty2= qty
+        if product:
+          for products in product_obj.browse(cr, uid, [product], context):
+            if products.packaging and products.packaging[0].qty and qty == 1 and products.packaging[0].qty != 1 :
+                qty2 = products.packaging[0].qty
+        _logger.info('FGF sale uos product %s qty2 %s' % (product,qty2))
+        res = super(sale_order_line, self).product_id_change(cr, uid, ids, pricelist, product, qty2,
             uom, qty_uos, uos, name, partner_id,
             lang, update_tax, date_order, packaging, fiscal_position, flag, context)
         res['value']['product_uos_qty_helper'] = res['value']['product_uos_qty']
