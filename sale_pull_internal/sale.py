@@ -75,7 +75,7 @@ class sale_order(osv.osv):
         back_log_lines = []
         loc_ids = []
         for order in self.browse(cr, uid, ids, context):
-            if not order.state_internal and order.state == 'progress':
+            if order.state == 'progress' and not order.state_internal and not order.pull_intern_date:
                 order_ids.append(order.id)
         #order.write(cr, uid, order_ids,{'state_internal':'calculation'}, context)
 
@@ -83,10 +83,8 @@ class sale_order(osv.osv):
         cr.execute("""select shop_id, product_id, l.name, product_packaging, sum(product_uom_qty) as qty_requested
                    from sale_order_line l,
                         sale_order o
-                  where o.id = l.order_id
-                    and order_id in (%s)
-                    and o.state = 'progress'
-                    and o.pull_intern_date is null
+                  where l.order_id in (%s)
+                    and l.order_id = o.id
                   group by o.shop_id, product_id, l.name, product_packaging""" % order_ids2)
         for product_qty in cr.dictfetchall():
             #_logger.info('FGF sale pull internal %s' % (product_qty))
@@ -206,9 +204,8 @@ class sale_order(osv.osv):
             # create residual picking - must be processed manually
             loc = main_location_id
             pick['location_id'] = loc
-            address_id = location_obj.read(cr,uid,loc)['address_id'][0]
-            if address_id:
-                pick['address_id'] = address_id
+            for add in location_obj.browse(cr, uid, [loc], context):
+                pick['address_id'] = add.address_id.id
             pick['name'] = sequence_obj.get(cr, uid, seq_obj_name)
             pick['origin'] = _('back log')
             picking_id = picking_obj.create(cr, uid, pick, context=context)
@@ -223,6 +220,7 @@ class sale_order(osv.osv):
                        'product_qty' : line['product_qty'],
                        'picking_id'  : picking_id,
                        'prodlot_id'  : prod_lot_id,
+                       'product_packaging': line['product_packaging'],
                        }
                 ml.update(mlt)
                 ml.update(move_vals)
