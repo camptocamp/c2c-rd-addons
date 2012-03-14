@@ -78,6 +78,8 @@ class sale_order(osv.osv):
             if order.state == 'progress' and not order.state_internal and not order.pull_intern_date:
                 order_ids.append(order.id)
         #order.write(cr, uid, order_ids,{'state_internal':'calculation'}, context)
+        if not order_ids:
+            return
 
         order_ids2 = (', '.join(map(str,order_ids)))
         cr.execute("""select shop_id, product_id, l.name, product_packaging, sum(product_uom_qty) as qty_requested
