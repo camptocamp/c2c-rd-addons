@@ -22,15 +22,16 @@
 
 
 {
-    'name': 'Sale Order UoS Data Entry',
+    'name': 'Sale Order UoS Data Entry, Show Packing Info',
     'version': '0.7',
     'category': 'Warehouse Management',
     'description': """
 This modul allows to enter Uom or Uos quantities in sale order
+and shows packing Info
 """,
     'author': 'Camptocamp Austria',
-    'depends': [ 'sale' ],
-    'update_xml': ['sale_view.xml','product_view.xml'
+    'depends': [ 'sale','stock' ],
+    'update_xml': ['sale_view.xml','product_view.xml','stock_view.xml',
        ],
     #'update_xml': ['product_view.xml'],
     'demo_xml': [],

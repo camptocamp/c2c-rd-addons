@@ -22,10 +22,26 @@
       <field name="priority">30</field>
       <field name="type">form</field>
       <field name="arch" type="xml">
-        <xpath expr="/form/notebook/page[@string='Sales Order']/field/form/notebook/page[@string='Order Line']/group/field[@name='product_uos_qty']" position="attributes">
+         <xpath expr="/form/notebook/page[@string='Sales Order']/field/form/notebook/page[@string='Order Line']/group/field[@name='product_uos_qty']" position="attributes"> 
           <attribute name="invisible">1</attribute>
         </xpath>
       </field>
+    </record>
+<!-- show packagin in sale order line tree view -->
+    <record model="ir.ui.view" id="view_order_form_inherit_package">
+      <field name="name">sale.order.form.inherit_package</field>
+      <field name="model">sale.order</field>
+      <field name="inherit_id" ref="sale.view_order_form"/>
+      <field name="priority">30</field>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <xpath expr="/form/notebook/page[@string='Sales Order']/field[@name='order_line']/tree/field[@name='discount']" position="before">
+            <field name="parcel_qty"/>
+            <field name="product_packaging"/>
+            <field name="content_qty"/>
+        </xpath>
+      </field>
+
     </record>
   </data>
 </openerp>

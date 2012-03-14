@@ -31,8 +31,21 @@ import decimal_precision as dp
 class sale_order_line(osv.osv):
     _inherit = "sale.order.line"    
 
+
+    def _parcel_qty(self, cursor, user, ids, name, arg, context=None):
+        res = {}
+        for sale in self.browse(cursor, user, ids, context=context):
+            if sale.product_packaging and sale.product_packaging.qty:
+                res[sale.id] = sale.product_uom_qty / sale.product_packaging.qty 
+            else:
+                res[sale.id] = None
+        return res
+
     _columns = {
-                 'product_uos_qty_helper': fields.float('Quantity (UoS)' ,digits_compute= dp.get_precision('Product UoS'), readonly=True, states={'draft': [('readonly', False)]}),
+        'product_uos_qty_helper': fields.float('Quantity (UoS)' ,digits_compute= dp.get_precision('Product UoS'), readonly=True, states={'draft': [('readonly', False)]}),
+        'parcel_qty': fields.function(_parcel_qty, string='Parcel Qty', type='float'),
+        'content_qty':fields.related('product_packaging','qty',type='float',string='Content Qty',readonly=True, store=True),
+
     }
 
     def product_id_change_helper(self, cr, uid, ids, pricelist, product, qty=0,
