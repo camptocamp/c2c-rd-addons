@@ -40,15 +40,18 @@ class sale_order(osv.osv):
     
 
     _columns = {
+        'pull_intern_date' : fields.datetime('Creation of internal Pull'),
         'state_internal': fields.selection([('', 'Unused'), ('calculation', 'Calculation'), ('calculated', 'Calculated')], 'Internal Pull Calcualtion', \
                 help="This indicates the status of the internal pull calculation"),
     }
+
 
 
     def order_pull_internal(self, cr, uid, ids, context=None):
         if not context:
             context = {}
         _logger = logging.getLogger(__name__)
+        now = time.strftime('%Y-%m-%d %H:%M:%S'),
         #_logger.info('FGF sale pull internal context %s' % (context))
         location_dest_id = ''
         if context['form'] and context['form']['location_dest_id']:
@@ -74,7 +77,7 @@ class sale_order(osv.osv):
         for order in self.browse(cr, uid, ids, context):
             if not order.state_internal and order.state == 'progress':
                 order_ids.append(order.id)
-        # FIXME uncomment# order.write(cr, uid, order_ids,{'state_internal':'calculation'} )
+        #order.write(cr, uid, order_ids,{'state_internal':'calculation'}, context)
 
         order_ids2 = (', '.join(map(str,order_ids)))
         cr.execute("""select shop_id, product_id, l.name, product_packaging, sum(product_uom_qty) as qty_requested
@@ -82,6 +85,8 @@ class sale_order(osv.osv):
                         sale_order o
                   where o.id = l.order_id
                     and order_id in (%s)
+                    and o.state = 'progress'
+                    and o.pull_intern_date is null
                   group by o.shop_id, product_id, l.name, product_packaging""" % order_ids2)
         for product_qty in cr.dictfetchall():
             #_logger.info('FGF sale pull internal %s' % (product_qty))
@@ -142,16 +147,16 @@ class sale_order(osv.osv):
                 'move_type' : 'direct',
                 'invoice_state': 'none',
                 'state': 'draft',
-                'date_done': time.strftime('%Y-%m-%d %H:%M:%S'),
-                'max_date': time.strftime('%Y-%m-%d %H:%M:%S'),
-                'min_date': time.strftime('%Y-%m-%d %H:%M:%S'),
+                'date_done': now,
+                'max_date': now,
+                'min_date': now,
                 #'stock_journal_id': stock_journal_id #FIXME do not know where this comes from
                 }
 
         move_vals = {
                 'location_dest_id' : location_dest_id,
-                'date': time.strftime('%Y-%m-%d %H:%M:%S'),
-                'date_expected': time.strftime('%Y-%m-%d %H:%M:%S'),
+                'date': now,
+                'date_expected': now,
                 }
 
         sequence_obj = self.pool.get('ir.sequence')
@@ -224,7 +229,8 @@ class sale_order(osv.osv):
                 #_logger.info('FGF sale move line %s ' % (ml))
                 move_obj.create(cr, uid, ml,  context=context)
             
-        # FIXME uncomment# order.write(cr, uid, order_ids,{'state_internal':'calculated'} )
+        # FIXME uncomment# order.write(cr, uid, order_ids,{'state_internal':'calculated','pull_intern_date':now} )
+        self.write(cr, uid, order_ids, {'state_internal':'calculated','pull_intern_date':now}, context=None )
 
         return
 
