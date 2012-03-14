@@ -9,6 +9,7 @@
             <field name="arch" type="xml">
                 <form string="Create Pull Pickings">
                     <separator colspan="4" string="Do you really want to transfer Igel moves to OpenERP ?" />
+                    <separator colspan="4" string="Attention - this programm is really slow !!!" />
 <!--
                     <field name="grouped"/>
                     <newline/>
@@ -16,6 +17,7 @@
                     <separator string="" colspan="6"/>
                     -->
                     <button special="cancel" string="Cancel" icon="gtk-cancel"/>
+                    <button name="but_autodetect" string="Autodetect Accounts" type="object" icon="terp-gtk-go-back-rtl"/>
                     <button name="but_transfer_igel_moves" string="Transfer to OpenERP" type="object" icon="terp-gtk-go-back-rtl"/>
                </form>
             </field>

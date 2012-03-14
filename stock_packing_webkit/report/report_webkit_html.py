@@ -20,21 +20,20 @@
 #
 ##############################################################################
 
+import time
+from report import report_sxw
+from osv import osv
 
-{
-    'name': 'Link from Objects to Wiki Pages',
-    'version': '0.9',
-    'category': 'Knowledge Management',
-    'description': """
-    This module creates a link from each object to a wiki page
-""",
-    'author': 'Camptocamp Austria',
-    'depends': [ 'wiki' ],
-    'update_xml': ['wiki_object_view.xml',
-       ],
-    #'update_xml': ['product_view.xml'],
-    'demo_xml': [],
-    'installable': True,
-    'active': False,
-}
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+class report_webkit_html(report_sxw.rml_parse):
+    def __init__(self, cr, uid, name, context):
+        super(report_webkit_html, self).__init__(cr, uid, name, context=context)
+        self.localcontext.update({
+            'time': time,
+            'cr':cr,
+            'uid': uid,
+        })
+        
+report_sxw.report_sxw('report.stock.packing.webkit',
+                       'stock.picking', 
+                       'addons/stock_packing_webkit/report/stock_packing_webkit.mako',
+                       parser=report_webkit_html)

@@ -126,7 +126,7 @@ ${pick.address_id.address_label}
             %endif
              <td>
             %if pick.max_date:
-               ${pick.max_date}</td>
+               ${pick.max_date[:10]}</td>
             %endif
             %if pick.carrier_id:
              <td>
@@ -167,7 +167,7 @@ ${pick.address_id.address_label}
            <td style="white-space:nowrap;text-align:left;">${line.location_dest_id.name or ''}</td>
         </tr>
         %if line.note :
-        <tr><td colspan="6" style="border-style:none"><pre style="font-family:Helvetica;padding-left:20px;font-size:10">${line.note |entity}</pre></td></tr>
+        <tr><td colspan="6" style="border-style:none"><style="font-family:Helvetica;padding-left:20px;font-size:10;"white-space:nowrap;">${line.note |entity}</pre></td></tr>
         %endif
         %endfor
         </tbody>

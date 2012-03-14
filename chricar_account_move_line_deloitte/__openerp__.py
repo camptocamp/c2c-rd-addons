@@ -10,7 +10,9 @@ generated 2009-10-17 12:10:57+02""",
      "depends"      : ["base","account"],
      "init_xml"     : [],
      "demo_xml"     : [],
-     "update_xml"   : ["account_move_line_deloitte_view.xml","security/rule.xml","security/ir.model.access.csv"],
+     "update_xml"   : ["account_move_line_deloitte_view.xml",
+                       "wizard/moves_deloitte_view.xml",
+                       "security/rule.xml","security/ir.model.access.csv"],
      "active"       : False,
      "installable"  : True
 }

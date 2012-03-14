@@ -38,7 +38,7 @@ class sale_order(osv.osv):
         logger.notifyChannel('addons.'+self._name, netsvc.LOG_INFO,'PO inv create picking_ids:%s'%(picking_ids))
         for picking_id in picking_ids:
             picking_obj.write(cr, uid, picking_id, {'invoice_ids' : [(6,0, invoice_ids )]}, context=context) 
-        return ress
+        return res
 
 sale_order()
 

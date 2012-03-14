@@ -43,6 +43,32 @@
       </field>
     </record>
 
+<!-- Adding Sales Order Reference to internal picking -->
+        <record id="stock_picking_inherit_sale" model="ir.ui.view">
+            <field name="name">Intern picking Inherited</field>
+            <field name="model">stock.picking</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="arch" type="xml">
+                <field name="move_type" position="after">
+                    <field name="sale_id"/>
+                    <field name="client_order_ref"/>
+                </field>
+            </field>
+        </record>
+
+<!-- Adding Sales Client Order Reference to Delivery -->
+        <record id="view_picking_out_tree_client_ref" model="ir.ui.view">
+            <field name="name">view.picking.out.tree.client.ref</field>
+            <field name="model">stock.picking</field>
+            <field name="type">tree</field>
+            <field name="inherit_id" ref="stock.view_picking_out_tree"/>
+            <field name="arch" type="xml">
+                <field name="partner_id" position="after">
+                    <field name="client_order_ref"/>
+                </field>
+            </field>
+        </record>
 
   </data>
 </openerp>

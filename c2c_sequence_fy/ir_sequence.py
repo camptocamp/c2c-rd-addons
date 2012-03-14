@@ -186,7 +186,8 @@ class ir_sequence(osv.osv):
                 , 'padding'        : 3
                 , 'implementation' : 'no_gap'
                 }
-            new_id = self.create(cr, uid, values)
+            # we have to set uid = 1, because creating a sequence is granted to the module not to a user group
+            new_id = self.create(cr, 1, values)
             seq = self._next_seq(cr, uid, new_id)
             return self._format(cr, uid, seq, context)
         else :

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <report
+      auto="False"
+      file="stock_packing_webkit/report/stock_packing_webkit.mako"
+      id="stock_packing_webkit"
+      model="stock.picking"
+      name="stock.packing.webkit"
+      report_type="webkit"
+      string="WebKit Packing"/>
+  </data>
+</openerp>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+<!-- show packag in picking tree views -->
+    <record model="ir.ui.view" id="view_picking_out_form_package">
+      <field name="name">view.picking.out.form.package</field>
+      <field name="model">stock.picking</field>
+      <field name="inherit_id" ref="stock.view_picking_out_form"/>
+      <field name="priority">30</field>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <xpath expr="/form/notebook/page[@string='Products']/field[@name='move_lines']/tree/field[@name='product_uos']" position="after">
+            <field name="parcel_qty"/>
+            <field name="product_packaging"/>
+            <field name="content_qty"/>
+        </xpath>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_picking_form_package">
+      <field name="name">view.picking.form.package</field>
+      <field name="model">stock.picking</field>
+      <field name="inherit_id" ref="stock.view_picking_form"/>
+      <field name="priority">30</field>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <xpath expr="/form/notebook/page[@string='Products']/field[@name='move_lines']/tree/field[@name='product_uos']" position="after">
+            <field name="parcel_qty"/>
+            <field name="product_packaging"/>
+            <field name="content_qty"/>
+        </xpath>
+      </field>
+    </record>
+
+
+  </data>
+</openerp>
