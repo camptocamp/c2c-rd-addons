@@ -42,7 +42,7 @@ class stock_move(osv.osv):
 
     _columns = {
         'parcel_qty': fields.function(_parcel_qty, string='Parcel Qty', type='float'),
-        'content_qty':fields.related('product_packaging','qty',type='float',string='Content Qty',readonly=True, store=True),
+        'content_qty':fields.related('product_packaging','qty',type='float',string='Content Qty',readonly=True),
     }
 
 stock_move()
