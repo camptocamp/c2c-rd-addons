@@ -151,7 +151,7 @@ class payment_order(osv.osv) :
         s.append("MOA+9:%(amount)s:%(currency)s'" % l)
         if l['move_name'] :
             s.append("RFF+PQ:%(move_name)s'" % l)
-        if l['customer_data'] :
+        if l['customer_data'] and not interntl :
             s.append("RFF+AEF:%(customer_data)s'" % l)
         s.append("FCA+%(fca)s'" % l)
         s.append("FII+BF+%(iban)s:%(name)s+%(bic)s:25:5'" % l)
