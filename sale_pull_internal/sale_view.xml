@@ -27,6 +27,18 @@
       </field>
     </record>
 
+    <record model="ir.ui.view" id="view_order_form_pull">
+      <field name="name">view.order.form.pull</field>
+      <field name="model">sale.order</field>
+      <field name="inherit_id" ref="sale.view_order_form"/>
+      <field name="type">tree</field>
+      <field name="arch" type="xml">
+        <field name="date_confirm" position="after">
+          <field name="pull_intern_date" />
+        </field>
+      </field>
+    </record>
+
     <record id="view_sale_order_make_pull_internal" model="ir.ui.view">
             <field name="name">Create Pull Pickings</field>
             <field name="model">sale.order.pull.internal</field>
