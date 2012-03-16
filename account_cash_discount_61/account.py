@@ -25,6 +25,7 @@ import netsvc
 from osv import fields, osv
 import decimal_precision as dp
 from tools.translate import _
+import logging
 
 
 class account_voucher(osv.osv):
@@ -32,16 +33,41 @@ class account_voucher(osv.osv):
  
 
     def writeoff_move_line_get(self, cr, uid, voucher_id, line_total, move_id, name, company_currency, current_currency, context=None):
-       res = super(account_voucher,self).writeoff_move_line_get(cr, uid, voucher_id, line_total, move_id, name, company_currency, current_currency, context=None)
+        res = super(account_voucher,self).writeoff_move_line_get(cr, uid, voucher_id, line_total, move_id, name, company_currency, current_currency, context=None)
+        _logger = logging.getLogger(__name__)
+        _logger.info('reconcile - voucher writeoff A voucher_id, move_id: %s %s' % (voucher_id, move_id ))
+        _logger.info('reconcile - voucher writeoff B context: %s' % context)
+        _logger.info('reconcile - voucher writeoff: %s' % res)
 
-       logger = netsvc.Logger()
-       logger.notifyChannel('addons.'+self._name, netsvc.LOG_WARNING, 'reconcile - voucher writeoff: %s' % res)
+      
 
 # FGF FIXME
 # here we have to include the austrian rules
+# 1) the write off has to be splitted aliquoted between
+#    VAT
+#    Net
+#    of the underlying invoice (move)
+# 2) it's a "full reconcile"
+#
+# we search matching reconcile from this move_id in move lines - find move_id - which is stored in account-invoice
+        move_obj = self.pool.get('account.move')
+        move_line_ob = self.pool.get('account.move.line')
+        invoice_obj = self.pool.get('account.invoice')
+        ctx = context
+       
+        #for move_line in move_line_ob.search(cr, uid, [('move_id','=',move_id):
+           
 
-       return res
-
+       
+       
+        return res
+       
+    def action_move_line_create(self, cr, uid, ids, context=None):
+        res = super(account_voucher,self).action_move_line_create(self, cr, uid, ids, context)
+        _logger = logging.getLogger(__name__)
+        _logger.info('reconcile - action_move_line_create  voucher ids %s' % (ids))
+        
+        
 account_voucher()
 
 
