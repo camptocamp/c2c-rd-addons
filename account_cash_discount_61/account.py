@@ -201,7 +201,7 @@ class account_voucher(osv.osv):
                        'credit' : tax_move['base_discount_amount'],
                        'account_id' : tax_move['discount_income_account_id'],
                        'tax_code_id' : tax_move['base_code_id'],
-                       'tax_amount' : -tax_move['base_discount_amount'],
+                       'tax_amount' : tax_move['base_discount_amount'],
                     })
                     write_off_credit -= tax_move['base_discount_amount']
                 _logger.info('reconcile - base credit: %s' % mlt)
@@ -221,7 +221,7 @@ class account_voucher(osv.osv):
                        'credit' : tax_move['tax_discount_amount'],
                        'account_id' : tax_move['account_id'],
                        'tax_code_id' : tax_move['tax_code_id'],
-                       'tax_amount' : -tax_move['tax_discount_amount'],
+                       'tax_amount' : tax_move['tax_discount_amount'],
                     })
                     write_off_credit -= tax_move['tax_discount_amount']
                 move_line_obj.create(cr, uid, mlt)
@@ -231,8 +231,8 @@ class account_voucher(osv.osv):
                 mlt.update({
                        'debit' : 'write_off_debit',
                        'account_id' : tax_move['discount_expense_account_id'],
-                       'tax_code_id' : '',
-                       'tax_amount' : '',
+                       'tax_code_id' : False,
+                       'tax_amount' : False,
                     })
                 move_line_obj.create(cr, uid, mlt)
             if not float_is_zero(write_off_credit, prec): 
@@ -240,8 +240,8 @@ class account_voucher(osv.osv):
                 mlt.update({
                        'credit' : write_off_credit,
                        'account_id' : tax_move['discount_income_account_id'],
-                       'tax_code_id' : '',
-                       'tax_amount' : '',
+                       'tax_code_id' : False,
+                       'tax_amount' : False,
                     })
                 move_line_obj.create(cr, uid, mlt)
             
