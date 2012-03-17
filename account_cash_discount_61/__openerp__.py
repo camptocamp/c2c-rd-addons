@@ -27,7 +27,23 @@
     'category': 'Accounting & Finance',
     'description': """
 Adds Cash Discount
-necessary in Austria
+necessary in Austria (Germany?)
+Manual:
+* Define cash discount in Payment Terms
+** one line percent with discount - you should enter 2 for 2% 
+** one line balance
+this will create  account moves as usual
+* Payment - enter payment amount
+** select BOTH invoice amounts to pay
+the reconciliation will 
+* gnerate aliquot moves to correct tax base and tax amount (required)
+* assign only ONE reconcile id to alle reconciled lines
+
+ToDo:
+* automatically select all move_lines of an invoice if invoice payment term has is_discount flag set
+* invoice lines: allow to specify amount for discount if not total line amount is subject to cash discount
+* create analytic lines dor discount
+* mapping for accounts (fiscal position) - if necessary ?
 """,
     'author': 'Camptocamp Austria',
     'depends': [ 'account_voucher' ],

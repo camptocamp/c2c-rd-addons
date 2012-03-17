@@ -26,6 +26,8 @@ from osv import fields, osv
 import decimal_precision as dp
 from tools.translate import _
 import logging
+from tools import float_round, float_is_zero, float_compare
+
 
 class account_move_line(osv.osv):
     _inherit = 'account.move.line'
@@ -56,8 +58,11 @@ class account_voucher(osv.osv):
         move_line_obj = self.pool.get('account.move.line')
         voucher_obj = self.pool.get('account.voucher')
         invoice_obj = self.pool.get('account.invoice')
+        invoice_tax_obj = self.pool.get('account.invoice.tax')
         move_reconcile_obj = self.pool.get('account.move.reconcile')
-        
+        obj_precision = self.pool.get('decimal.precision')
+        prec = obj_precision.precision_get(cr, uid, 'Account')
+ 
         _logger = logging.getLogger(__name__)
         _logger.info('reconcile - action_move_line_create  voucher ids, context %s,%s' % (ids, context))
         res = super(account_voucher,self).action_move_line_create(cr, uid, ids, context)
@@ -109,15 +114,30 @@ class account_voucher(osv.osv):
                 invoice_ids = [invoice_ids]
             invoice_discount_ids = []    
             invoice_total = 0.0
+            invoice_net = 0.0
             for invoice in invoice_obj.browse(cr, uid, invoice_ids):
                 if invoice.payment_term.is_discount:
                     invoice_discount_ids.append(invoice.id)
                     invoice_total += invoice.amount_total
+                    invoice_net += invoice.amount_untaxed
+            tax_base_total = 0.0
+            tax_total = 0.0
+            invoice_tax_ids = invoice_tax_obj.search(cr, uid, [('invoice_id','in',invoice_ids)])
+            for tax in invoice_tax_obj.browse(cr, uid, invoice_tax_ids):
+                tax_base_total += tax.base_amount
+                tax_total += tax.tax_amount
+             
             if write_off_debit > 0:
                 factor = write_off_debit / invoice_total
             else:
                 factor = write_off_credit / invoice_total
-
+            _logger.info('reconcile - compare: %s invoice_net= %s, factor : %s' % (invoice_net, tax_base_total, factor))
+            #if not float_is_zero(invoice_net - tax_base_total, prec):
+            #if round(invoice_net - tax_base_total, prec) != 0.00:
+            #    _logger.info('reconcile - recalculate factor ')
+            factor = factor * (tax_base_total / invoice_net)
+            _logger.info('reconcile - recalculate factor %s' % factor)
+                
             _logger.info('reconcile - invoice_discount_ids: %s invoice_total= %s, factor: %s' % (invoice_discount_ids, invoice_total, factor))
             
             invoice_discount_ids2 = ','.join([str(id) for id in invoice_discount_ids])
@@ -206,18 +226,22 @@ class account_voucher(osv.osv):
                     write_off_credit -= tax_move['tax_discount_amount']
                 move_line_obj.create(cr, uid, mlt)
                 # remaining not taxable amount 
-            if write_off_debit > 0:
+            if not float_is_zero(write_off_debit, prec):
                 mlt = ml
                 mlt.update({
                        'debit' : 'write_off_debit',
-                       'account_id' : tax_move['discount_expense_account_id']
+                       'account_id' : tax_move['discount_expense_account_id'],
+                       'tax_code_id' : '',
+                       'tax_amount' : '',
                     })
                 move_line_obj.create(cr, uid, mlt)
-            if write_off_credit > 0: 
+            if not float_is_zero(write_off_credit, prec): 
                 mlt = ml
                 mlt.update({
                        'credit' : write_off_credit,
-                       'account_id' : tax_move['discount_income_account_id']
+                       'account_id' : tax_move['discount_income_account_id'],
+                       'tax_code_id' : '',
+                       'tax_amount' : '',
                     })
                 move_line_obj.create(cr, uid, mlt)
             
