@@ -56,6 +56,7 @@ class account_voucher(osv.osv):
         move_line_obj = self.pool.get('account.move.line')
         voucher_obj = self.pool.get('account.voucher')
         invoice_obj = self.pool.get('account.invoice')
+        move_reconcile_obj = self.pool.get('account.move.reconcile')
         
         _logger = logging.getLogger(__name__)
         _logger.info('reconcile - action_move_line_create  voucher ids, context %s,%s' % (ids, context))
@@ -67,8 +68,10 @@ class account_voucher(osv.osv):
 
             _logger.info('reconcile - action_move_line_create  voucher lines %s' % (lines))
             reconcile_ids = []
+            reconcile_base_id = ''
             write_off_debit = 0.0
             write_off_credit = 0.0
+            partner_id = ''
             for line in move_line_obj.browse(cr, uid, lines):
                 _logger.info('reconcile voucher reconcile_id, acc_id, partner_id %s,%s %s %s' % (line.reconcile_id.id, line.account_id.id, line.partner_id.id, line.name))
                 
@@ -76,7 +79,11 @@ class account_voucher(osv.osv):
                 
                 if line.reconcile_id and line.reconcile_id.id not in reconcile_ids:
                     reconcile_ids.append(line.reconcile_id.id)
-                    partner_id = line.partner_id.id
+                    if not partner_id and line.partner_id:
+                        partner_id = line.partner_id.id
+                    if not reconcile_base_id: 
+                        reconcile_base_id = line.reconcile_id.id
+                    
                 if line.is_write_off:
                     write_off_debit += line.debit
                     write_off_credit += line.credit
@@ -120,6 +127,7 @@ class account_voucher(osv.osv):
                        split_part(pi.value_reference,',',2)::int as discount_income_account_id,
                        split_part(pe.value_reference,',',2)::int as discount_expense_account_id,
                        t.account_id,
+                       t.tax_code_id, t.base_code_id, 
                        sum(base_amount) as base_amount, sum(tax_amount) as tax_amount,
                        sum(tax_amount) * %s as tax_discount_amount,
                        sum(base_amount) * %s as base_discount_amount
@@ -136,7 +144,7 @@ class account_voucher(osv.osv):
                        and pl.discount > 0
                        and pi.res_id = 'account.payment.term.line,'||pl.id and pi.name ='discount_income_account_id'
                        and pe.res_id = 'account.payment.term.line,'||pl.id and pe.name ='discount_expense_account_id'
-                     group by 1,2,3,4,5""" % (factor, factor, invoice_discount_ids2))
+                     group by 1,2,3,4,5,6,7""" % (factor, factor, invoice_discount_ids2))
             tax_moves = cr.dictfetchall()
             if not tax_moves:
                 _logger.info('reconcile - no tax_lines: %s' % res)
@@ -154,6 +162,7 @@ class account_voucher(osv.osv):
                    'debit' : 0.0,
                    'credit' : 0.0,
                    'company_id' : r_line.company_id.id,
+                   'name' : _('Discount'),
                 }
 
             for tax_move in tax_moves:
@@ -162,13 +171,17 @@ class account_voucher(osv.osv):
                 if write_off_debit > 0.0:
                     mlt.update({
                        'debit' : tax_move['base_discount_amount'],
-                       'account_id' : tax_move['discount_expense_account_id']
+                       'account_id' : tax_move['discount_expense_account_id'],
+                       'tax_code_id' : tax_move['base_code_id'],
+                       'tax_amount' : tax_move['base_discount_amount'],
                     })
                     write_off_debit -= tax_move['base_discount_amount']
                 else:
                     mlt.update({
                        'credit' : tax_move['base_discount_amount'],
-                       'account_id' : tax_move['discount_income_account_id']
+                       'account_id' : tax_move['discount_income_account_id'],
+                       'tax_code_id' : tax_move['base_code_id'],
+                       'tax_amount' : -tax_move['base_discount_amount'],
                     })
                     write_off_credit -= tax_move['base_discount_amount']
                 _logger.info('reconcile - base credit: %s' % mlt)
@@ -178,13 +191,17 @@ class account_voucher(osv.osv):
                 if write_off_debit > 0.0:
                     mlt.update({
                        'debit' : tax_move['tax_discount_amount'],
-                       'account_id' : tax_move['account_id']
+                       'account_id' : tax_move['account_id'],
+                       'tax_code_id' : tax_move['tax_code_id'],
+                       'tax_amount' : tax_move['tax_discount_amount'],
                     })
                     write_off_debit -= tax_move['tax_discount_amount']
                 else:
                     mlt.update({
                        'credit' : tax_move['tax_discount_amount'],
-                       'account_id' : tax_move['account_id']
+                       'account_id' : tax_move['account_id'],
+                       'tax_code_id' : tax_move['tax_code_id'],
+                       'tax_amount' : -tax_move['tax_discount_amount'],
                     })
                     write_off_credit -= tax_move['tax_discount_amount']
                 move_line_obj.create(cr, uid, mlt)
@@ -205,9 +222,15 @@ class account_voucher(osv.osv):
                 move_line_obj.create(cr, uid, mlt)
             
             move_line_obj.unlink(cr, uid,  [write_off_id])
-                
-
-
+            # set only ONE reconcile_id (instead of 2 or more)
+            reconcile_lines_to_update = move_line_obj.search(cr, uid, [('reconcile_id','in',reconcile_ids),('reconcile_id','!=',reconcile_base_id)])
+            move_line_obj.write(cr, uid, reconcile_lines_to_update,{'reconcile_id':reconcile_base_id})    
+            # delete unused recocile lines
+            reconcile_ids_to_delete = [] 
+            for r_id in reconcile_ids:
+                if r_id != reconcile_base_id:
+                    reconcile_ids_to_delete.append(r_id)
+            move_reconcile_obj.unlink(cr, uid, reconcile_ids_to_delete)
                 
         return res
         
