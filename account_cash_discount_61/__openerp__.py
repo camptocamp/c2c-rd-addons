@@ -36,21 +36,22 @@ Manual:
 this will create  account moves as usual
 
 * Pay Invoice - enter payment amount
-** select BOTH invoice amounts to pay
+** select BOTH invoice amounts (net and balance) to pay
 
 * Periodical Processing - manual reconciliation
-** choose positions to reconcile
+** choose all positions to reconcile
 
 The reconciliation will 
-* gnerate aliquot moves to correct tax base and tax amount (required)
+* gnerate aliquot move lines to correct tax base and tax amount (required)
 * assign only ONE reconcile id to alle reconciled lines
 
-ToDo:
-* automatically select all move_lines of an invoice if invoice payment term has is_discount flag set
+Not covered/ToDo:
+* pay invoice: automatically select all move_lines of an invoice if invoice payment term has is_discount flag set
 * invoice lines: allow to specify amount for discount if not total line amount is subject to cash discount
 * create analytic lines for discount - using the anlalytic accounts of the invoice
-* mapping for accounts (fiscal position) - if necessary ?
+* mapping for accounts (fiscal position) 
 * automatic reconciliation
+* multi currency
 * reconcile invoice while entering bank statement line (IMHO does [again] not work as expected)
 """,
     'author': 'Camptocamp Austria',

@@ -20,6 +20,7 @@
 #
 ##############################################################################
 
+# FIXME remove logger lines or change to debug
  
 import netsvc
 from osv import fields, osv
@@ -84,13 +85,12 @@ class account_move_line(osv.osv):
         obj_precision = self.pool.get('decimal.precision')
         prec = obj_precision.precision_get(cr, uid, 'Account')
 
-
-        _logger.info('reconcile - action_move_line_create  voucher lines %s' % (lines))
         reconcile_ids = []
         reconcile_base_id = ''
         write_off_debit = 0.0
         write_off_credit = 0.0
         partner_id = ''
+        # collect necessary data
         for line in move_line_obj.browse(cr, uid, lines):
             _logger.info('reconcile voucher reconcile_id, acc_id, partner_id %s,%s %s %s' % (line.reconcile_id.id, line.account_id.id, line.partner_id.id, line.name))
                 
@@ -144,6 +144,7 @@ class account_move_line(osv.osv):
                 for tax in invoice.tax_line:
                     tax_base_total += tax.base_amount
                     tax_total += tax.tax_amount
+        # process of invoicees with cash discount
         if invoice_discount_ids:
             #tax_base_total = 0.0
             #tax_total = 0.0
@@ -158,12 +159,8 @@ class account_move_line(osv.osv):
                 factor = write_off_credit / invoice_total
             _logger.info('reconcile - compare: %s invoice_discount_net= %s, factor : %s' % (invoice_discount_net, tax_base_total, factor))
             #if not float_is_zero(invoice_discount_net - tax_base_total, prec):
-            #if round(invoice_discount_net - tax_base_total, prec) != 0.00:
-            #    _logger.info('reconcile - recalculate factor ')
             factor = factor * (tax_base_total / invoice_discount_net)
-            #factor = factor * (invoice_discount_total / invoice_total )
             _logger.info('reconcile - recalculate factor %s' % factor)
-                
             _logger.info('reconcile - invoice_discount_ids: %s invoice_discount_total= %s, factor: %s' % (invoice_discount_ids, invoice_discount_total, factor))
             
             invoice_discount_ids2 = ','.join([str(id) for id in invoice_discount_ids])
@@ -192,12 +189,13 @@ class account_move_line(osv.osv):
                        and pe.res_id = 'account.payment.term.line,'||pl.id and pe.name ='discount_expense_account_id'
                      group by 1,2,3,4,5,6,7""" % (factor, factor, invoice_discount_ids2))
             tax_moves = cr.dictfetchall()
-            if not tax_moves:
-                _logger.info('reconcile - no tax_lines: %s' % res)
-                return True
+            #if not tax_moves:
+            #    _logger.info('reconcile - no tax_lines: %s' % res)
+            #    return True
+
             _logger.info('reconcile - tax_moves: %s' % tax_moves)
-            tax_cum_amount=0.0
             # get interesting data from write off record, which later will be deleted
+            #tax_cum_amount=0.0
             for r_line in move_line_obj.browse(cr, uid, [write_off_id]):
                 ml = {
                    'move_id' : r_line.move_id.id,
@@ -212,6 +210,7 @@ class account_move_line(osv.osv):
                 }
 
             for tax_move in tax_moves:
+                # FIXME code can be simplified / condensed
                 #base
                 mlt = ml
                 if write_off_debit > 0.0:
@@ -255,7 +254,8 @@ class account_move_line(osv.osv):
                     })
                     write_off_credit -= tax_move['tax_discount_amount']
                 move_line_obj.create(cr, uid, mlt)
-                # remaining not taxable amount 
+
+            # create move lines for remaining not discountable amount 
             if not float_is_zero(write_off_debit, prec):
                 mlt = ml
                 mlt.update({
@@ -277,6 +277,7 @@ class account_move_line(osv.osv):
                     })
                 move_line_obj.create(cr, uid, mlt)
             
+            # delete originial move
             move_line_obj.unlink(cr, uid,  [write_off_id], context)
             # set only ONE reconcile_id (instead of 2 or more)
             reconcile_lines_to_update = move_line_obj.search(cr, uid, [('reconcile_id','in',reconcile_ids),('reconcile_id','!=',reconcile_base_id)])
@@ -295,6 +296,7 @@ class account_move_line(osv.osv):
         _logger = logging.getLogger(__name__)
         move_line_obj = self.pool.get('account.move.line')
         lines_selected = []
+        # FIXME better solution ??
         if context.get('active_ids'):
           for l in  context.get('active_ids'):
             _logger.info('reconcile move_line lines_selected %s l %s' % (lines_selected, l))
@@ -318,7 +320,7 @@ class account_move_line(osv.osv):
         lines = move_line_obj.search(cr, uid, [('move_id','in', move_id)])
         lines_up = move_line_obj.search(cr, uid, [('move_id','in', move_id),('id','not in',write_off_line_ids)])
         
-        context['is_discount'] = True
+        context['is_discount'] = True # to avoid _check_update which prohibits altering reconciled lines - of this transaction
         move_line_obj.write(cr, uid, lines_up, {'is_write_off' : True});
         move_line_obj.reconcile_cash_discount(cr, uid, ids, move_id, lines, write_off_line_ids, context)
         context['is_discount'] = False
