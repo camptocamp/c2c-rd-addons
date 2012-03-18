@@ -140,7 +140,8 @@ class wizard_generate_xml(osv.osv_memory):
     # end def _table_obj
 
     def add_filter(self, cr, uid, ids, context) :
-        print "add_filter", context, self._filters ######################
+        import sys ######
+        print >>sys.stderr, "add_filter", context, self._filters ######################
         model, table_obj = self._table_obj(cr, uid, context)
         if context and context['attribute'] and context['compare'] :
             if table_obj._columns[context['attribute']]._type in ("int", "float", "boolean") :
@@ -151,7 +152,8 @@ class wizard_generate_xml(osv.osv_memory):
     # end def add_filter
         
     def generate(self, cr, uid, ids, context) :
-        print "generate", context, self._filters ######################
+        import sys ######
+        print >>sys.stderr, "generate", context, self._filters ######################
         model_obj = self.pool.get('ir.model')
         model, table_obj = self._table_obj(cr, uid, context)
         if table_obj is not None and not isinstance(table_obj, osv.osv_memory) :
@@ -167,7 +169,8 @@ class wizard_generate_xml(osv.osv_memory):
     # end def generate
 
     def filter(self, cr, uid, data, res_get=False) :
-        print "filter" ######################
+        import sys ######
+        print >>sys.stderr, "filter" ######################
         model_obj = self.pool.get('ir.model')
         if data['model'] == 'ir.model':
             model_id = data['ids'][0]
@@ -186,7 +189,8 @@ class wizard_generate_xml(osv.osv_memory):
     # end def filter
 
     def decide(self, cr, uid, ids, context) :
-        print "decide", context ######################
+        import sys ######
+        print >>sys.stderr, "decide", context ######################
         self._filters = []
         if context['model'] == 'ir.model':
             return 'filter'
@@ -195,7 +199,8 @@ class wizard_generate_xml(osv.osv_memory):
     # end def decide
 
     def decide2(self, cr, uid, data, res_get=False) :
-        print "decide2" ######################
+        import sys ######
+        print >>sys.stderr, "decide2" ######################
         form = data['form']
         self.add_filter(form)
         return 'filter'
