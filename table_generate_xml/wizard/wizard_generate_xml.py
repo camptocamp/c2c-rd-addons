@@ -124,7 +124,7 @@ class wizard_generate_xml(osv.osv_memory):
             , 'res_id'       : model.id
             , 'description'  : "%s" % (description, )
             }
-        attachment_obj.create(cr, uid, vals, context=context)
+#        attachment_obj.create(cr, uid, vals, context=context) ##### does not work with module "document"
     # end def _manage_attachments
 
     def _table_obj(self, cr, uid, context) :
