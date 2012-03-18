@@ -114,8 +114,7 @@ class wizard_generate_xml(osv.osv_memory):
     _filters = []
 
     def _manage_attachments(self, cr, uid, model, text, name, description, context=None):
-        pool = pooler.get_pool(cr.dbname)
-        attachment_obj = pool.get('ir.attachment')
+        attachment_obj = self.pool.get('ir.attachment')
         title = name.lower().replace(" ", "_")
         vals  = \
             { 'name'         : title
@@ -169,8 +168,7 @@ class wizard_generate_xml(osv.osv_memory):
 
     def filter(self, cr, uid, data, res_get=False) :
         print "filter" ######################
-        pool      = pooler.get_pool(cr.dbname)
-        model_obj = pool.get('ir.model')
+        model_obj = self.pool.get('ir.model')
         if data['model'] == 'ir.model':
             model_id = data['ids'][0]
         else :
