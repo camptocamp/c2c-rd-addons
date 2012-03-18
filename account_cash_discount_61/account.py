@@ -240,6 +240,7 @@ class account_move_line(osv.osv):
                        'debit' : tax_move['tax_discount_amount'],
                        'credit':0.0,
                        'account_id' : tax_move['account_id'],
+                       'analytic_account_id' : False,
                        'tax_code_id' : tax_move['tax_code_id'],
                        'tax_amount' : tax_move['tax_discount_amount'],
                     })
@@ -249,6 +250,7 @@ class account_move_line(osv.osv):
                        'debit' : 0.0,
                        'credit' : tax_move['tax_discount_amount'],
                        'account_id' : tax_move['account_id'],
+                       'analytic_account_id' : False,
                        'tax_code_id' : tax_move['tax_code_id'],
                        'tax_amount' : tax_move['tax_discount_amount'],
                     })
