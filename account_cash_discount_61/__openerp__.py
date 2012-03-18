@@ -41,6 +41,8 @@ this will create  account moves as usual
 * Periodical Processing - manual reconciliation
 ** choose all positions to reconcile
 
+ALWAYS choose "Reconcile with Write-Off"
+
 The reconciliation will 
 * gnerate aliquot move lines to correct tax base and tax amount (required)
 * assign only ONE reconcile id to alle reconciled lines
@@ -53,6 +55,7 @@ Not covered/ToDo:
 * automatic reconciliation
 * multi currency
 * reconcile invoice while entering bank statement line (IMHO does [again] not work as expected)
+* rename "Write Off" button
 """,
     'author': 'Camptocamp Austria',
     'depends': [ 'account_voucher' ],
