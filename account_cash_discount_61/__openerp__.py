@@ -27,7 +27,37 @@
     'category': 'Accounting & Finance',
     'description': """
 Adds Cash Discount
-necessary in Austria
+necessary in Austria (Germany?)
+
+Manual:
+* Define cash discount in Payment Terms
+** one line percent with discount - you should enter 2 for 2% 
+** one line balance
+this will create  account moves as usual
+
+* Pay Invoice - enter payment amount
+** select BOTH invoice amounts (net and balance) to pay
+
+* Periodical Processing - manual reconciliation
+** choose all positions to reconcile
+
+ALWAYS choose "Reconcile with Write-Off"
+
+The reconciliation will 
+* gnerate aliquot(!) move lines to correct tax base and tax amount (required)
+** this may generate unexpected discount/write off amounts if one partner has invoices with and without cash discount
+** the situation many be become very complex if many payments, invocies with and without discounts are reconciled
+* assign only ONE reconcile id to alle reconciled lines
+
+Not covered/ToDo:
+* pay invoice: automatically select all move_lines of an invoice if invoice payment term has is_discount flag set
+* invoice lines: allow to specify amount for discount if not total line amount is subject to cash discount
+* create analytic lines for discount - using the anlalytic accounts of the invoice
+* mapping for accounts (fiscal position) 
+* automatic reconciliation
+* multi currency
+* reconcile invoice while entering bank statement line (IMHO does [again] not work as expected)
+* rename "Write Off" button
 """,
     'author': 'Camptocamp Austria',
     'depends': [ 'account_voucher' ],
