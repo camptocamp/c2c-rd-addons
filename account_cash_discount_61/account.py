@@ -131,32 +131,40 @@ class account_move_line(osv.osv):
             invoice_ids = [invoice_ids]
         invoice_discount_ids = []    
         invoice_total = 0.0
-        invoice_net = 0.0
+        invoice_discount_total = 0.0
+        invoice_discount_net = 0.0
+        tax_base_total = 0.0
+        tax_total = 0.0
         for invoice in invoice_obj.browse(cr, uid, invoice_ids):
+            invoice_total += invoice.amount_total
             if invoice.payment_term.is_discount:
                 invoice_discount_ids.append(invoice.id)
-                invoice_total += invoice.amount_total
-                invoice_net += invoice.amount_untaxed
+                invoice_discount_total += invoice.amount_total
+                invoice_discount_net += invoice.amount_untaxed
+                for tax in invoice.tax_line:
+                    tax_base_total += tax.base_amount
+                    tax_total += tax.tax_amount
         if invoice_discount_ids:
-            tax_base_total = 0.0
-            tax_total = 0.0
-            invoice_tax_ids = invoice_tax_obj.search(cr, uid, [('invoice_id','in',invoice_discount_ids)])
-            for tax in invoice_tax_obj.browse(cr, uid, invoice_tax_ids):
-                tax_base_total += tax.base_amount
-                tax_total += tax.tax_amount
+            #tax_base_total = 0.0
+            #tax_total = 0.0
+            #invoice_tax_ids = invoice_tax_obj.search(cr, uid, [('invoice_id','in',invoice_discount_ids)])
+            #for tax in invoice_tax_obj.browse(cr, uid, invoice_tax_ids):
+            #    tax_base_total += tax.base_amount
+            #    tax_total += tax.tax_amount
              
             if write_off_debit > 0:
                 factor = write_off_debit / invoice_total
             else:
                 factor = write_off_credit / invoice_total
-            _logger.info('reconcile - compare: %s invoice_net= %s, factor : %s' % (invoice_net, tax_base_total, factor))
-            #if not float_is_zero(invoice_net - tax_base_total, prec):
-            #if round(invoice_net - tax_base_total, prec) != 0.00:
+            _logger.info('reconcile - compare: %s invoice_discount_net= %s, factor : %s' % (invoice_discount_net, tax_base_total, factor))
+            #if not float_is_zero(invoice_discount_net - tax_base_total, prec):
+            #if round(invoice_discount_net - tax_base_total, prec) != 0.00:
             #    _logger.info('reconcile - recalculate factor ')
-            factor = factor * (tax_base_total / invoice_net)
+            factor = factor * (tax_base_total / invoice_discount_net)
+            #factor = factor * (invoice_discount_total / invoice_total )
             _logger.info('reconcile - recalculate factor %s' % factor)
                 
-            _logger.info('reconcile - invoice_discount_ids: %s invoice_total= %s, factor: %s' % (invoice_discount_ids, invoice_total, factor))
+            _logger.info('reconcile - invoice_discount_ids: %s invoice_discount_total= %s, factor: %s' % (invoice_discount_ids, invoice_discount_total, factor))
             
             invoice_discount_ids2 = ','.join([str(id) for id in invoice_discount_ids])
             # group 
@@ -251,7 +259,7 @@ class account_move_line(osv.osv):
             if not float_is_zero(write_off_debit, prec):
                 mlt = ml
                 mlt.update({
-                       'debit' : 'write_off_debit',
+                       'debit' : write_off_debit,
                        'credit':0.0,
                        'account_id' : tax_move['discount_expense_account_id'],
                        'tax_code_id' : False,
