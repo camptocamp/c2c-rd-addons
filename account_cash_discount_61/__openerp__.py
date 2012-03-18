@@ -44,7 +44,9 @@ this will create  account moves as usual
 ALWAYS choose "Reconcile with Write-Off"
 
 The reconciliation will 
-* gnerate aliquot move lines to correct tax base and tax amount (required)
+* gnerate aliquot(!) move lines to correct tax base and tax amount (required)
+** this may generate unexpected discount/write off amounts if one partner has invoices with and without cash discount
+** the situation many be become very complex if many payments, invocies with and without discounts are reconciled
 * assign only ONE reconcile id to alle reconciled lines
 
 Not covered/ToDo:
