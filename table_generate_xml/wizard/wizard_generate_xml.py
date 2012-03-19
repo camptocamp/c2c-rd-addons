@@ -106,8 +106,6 @@ class wizard_generate_xml(osv.osv_memory):
     # end def _table_obj
 
     def add_filter(self, cr, uid, ids, context) :
-#        raise Exception, str(("add_filter", context, self._filters)) ######################
-#        model, table_obj = self._table_obj(cr, uid, context)
         data_obj = self.pool.get('ir.model.data')
         data_ids = data_obj.search \
             ( cr, uid
@@ -128,7 +126,6 @@ class wizard_generate_xml(osv.osv_memory):
     # end def add_filter
 
     def generate(self, cr, uid, ids, context) :
-#        raise Exception, str(("generate", context, self._filters)) ######################
         model_obj = self.pool.get('ir.model')
         model, table_obj = self._table_obj(cr, uid, context)
         if table_obj is not None and not isinstance(table_obj, osv.osv_memory) :
@@ -166,7 +163,7 @@ class wizard_generate_xml_filter(osv.osv_memory):
     _defaults = \
         { 'attribute' : lambda *a: 'id'
         , 'compare'   : lambda *a: '='
-        , 'value'     : lambda *a: ''
+        , 'value'     : lambda *a: '1'
         }
 
     def _table_obj(self, cr, uid, context) :
