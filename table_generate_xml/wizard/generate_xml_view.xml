@@ -33,7 +33,7 @@
         <form>
           <notebook>
             <page>
-              <field widget="one2many_list" nolabel="1">
+              <field name="." widget="one2many_list" nolabel="1">
                 <tree>
                   <field name="attribute" colspan="1" nolabel="1"/>
                   <field name="compare" colspan="1" nolabel="1"/>
