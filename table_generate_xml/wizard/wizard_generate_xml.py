@@ -117,10 +117,10 @@ class wizard_generate_xml(osv.osv_memory):
         res_id = data_obj.read(cr, uid, data_ids, fields=['res_id'], context=context)[0]['res_id']
         return \
             { 'name'      : 'my test'
-            , 'view_type' : 'tree'
+            , 'view_type' : 'form'
             , 'view_mode' : 'tree,form'
             , 'res_model' : 'ir.model.generate.xml.filter'
-            , 'views'     : [(res_id, 'tree')]
+            , 'views'     : [(res_id, 'form')]
             , 'target'    : 'new'
             , 'context'   : context
             , 'type'      : 'ir.actions.act_window'
