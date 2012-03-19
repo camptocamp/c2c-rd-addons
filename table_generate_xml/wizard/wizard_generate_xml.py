@@ -140,8 +140,7 @@ class wizard_generate_xml(osv.osv_memory):
     # end def _table_obj
 
     def add_filter(self, cr, uid, ids, context) :
-        import sys ######
-        print >>sys.stderr, "add_filter", context, self._filters ######################
+        raise ("add_filter", context, self._filters) ######################
         model, table_obj = self._table_obj(cr, uid, context)
         if context and context['attribute'] and context['compare'] :
             if table_obj._columns[context['attribute']]._type in ("int", "float", "boolean") :
@@ -152,8 +151,7 @@ class wizard_generate_xml(osv.osv_memory):
     # end def add_filter
         
     def generate(self, cr, uid, ids, context) :
-        import sys ######
-        print >>sys.stderr, "generate", context, self._filters ######################
+        raise ("generate", context, self._filters) ######################
         model_obj = self.pool.get('ir.model')
         model, table_obj = self._table_obj(cr, uid, context)
         if table_obj is not None and not isinstance(table_obj, osv.osv_memory) :
