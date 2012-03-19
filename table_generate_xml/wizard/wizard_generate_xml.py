@@ -108,12 +108,19 @@ class wizard_generate_xml(osv.osv_memory):
     def add_filter(self, cr, uid, ids, context) :
 #        raise Exception, str(("add_filter", context, self._filters)) ######################
 #        model, table_obj = self._table_obj(cr, uid, context)
+        data_obj = self.pool.get('ir.model.data')
+        data_ids = data_obj.search \
+            ( cr, uid
+            , [('model', '=', 'ir.ui.view'), ('name', '=', 'generate_xml_init_filter_view')]
+            , context=context
+            )
+        res_id = data_obj.read(cr, uid, data_ids, fields=['res_id'], context=context)[0]['res_id']
         return \
-            { 'name'      : 'test'
+            { 'name'      : 'my test'
             , 'view_type' : 'tree'
             , 'view_mode' : 'tree,form'
             , 'res_model' : 'ir.model.generate.xml.filter'
-            , 'view_id'   : False
+            , 'views'     : [(res_id, 'tree')]
             , 'target'    : 'new'
             , 'context'   : context
             , 'type'      : 'ir.actions.act_window'
