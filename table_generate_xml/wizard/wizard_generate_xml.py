@@ -93,20 +93,6 @@ class wizard_generate_xml(osv.osv_memory):
 
     _filters = []
 
-    def _manage_attachments(self, cr, uid, model, text, name, description, context=None):
-        attachment_obj = self.pool.get('ir.attachment')
-        title = name.lower().replace(" ", "_")
-        vals  = \
-            { 'name'         : title
-            , 'datas'        : text
-            , 'datas_fname'  : "%s.xml" % name
-            , 'res_model'    : model._table_name
-            , 'res_id'       : model.id
-            , 'description'  : "%s" % (description, )
-            }
-#        attachment_obj.create(cr, uid, vals, context=context) ##### does not work with module "document"
-    # end def _manage_attachments
-
     def _table_obj(self, cr, uid, context) :
         model_obj = self.pool.get('ir.model')
         ids = context['active_ids']
@@ -121,8 +107,17 @@ class wizard_generate_xml(osv.osv_memory):
 
     def add_filter(self, cr, uid, ids, context) :
 #        raise Exception, str(("add_filter", context, self._filters)) ######################
-        model, table_obj = self._table_obj(cr, uid, context)
-        return {'type' : 'ir.model.generate.xml.filter'}
+#        model, table_obj = self._table_obj(cr, uid, context)
+        return \
+            { 'name'      : 'test'
+            , 'view_type' : 'tree'
+            , 'view_mode' : 'tree,form'
+            , 'res_model' : 'ir.model.generate.xml.filter'
+            , 'view_id'   : False
+            , 'target'    : 'new'
+            , 'context'   : context
+            , 'type'      : 'ir.actions.act_window'
+            }
     # end def add_filter
 
     def generate(self, cr, uid, ids, context) :
@@ -131,7 +126,7 @@ class wizard_generate_xml(osv.osv_memory):
         model, table_obj = self._table_obj(cr, uid, context)
         if table_obj is not None and not isinstance(table_obj, osv.osv_memory) :
             xml = model_obj.generate_tree(cr, uid, table_obj, search=self._filters)
-            self._manage_attachments \
+            model_obj.manage_attachments \
                 ( cr, uid
                 , model
                 , base64.encodestring(etree.tostring(xml, pretty_print=True))
@@ -199,7 +194,7 @@ class wizard_generate_xml_filter(osv.osv_memory):
         model, table_obj = self._table_obj(cr, uid, context)
         if table_obj is not None and not isinstance(table_obj, osv.osv_memory) :
             xml = model_obj.generate_tree(cr, uid, table_obj, search=self._filters)
-            self._manage_attachments \
+            model_obj.manage_attachments \
                 ( cr, uid
                 , model
                 , base64.encodestring(etree.tostring(xml, pretty_print=True))
@@ -228,25 +223,6 @@ class wizard_generate_xml_filter(osv.osv_memory):
                 self._filter_fields['attribute']['selection'].append((k,k))
         return {}
     # end def filter
-
-    def decide(self, cr, uid, ids, context) :
-        import sys ######
-        print >>sys.stderr, "decide", context ######################
-        self._filters = []
-        if context['model'] == 'ir.model':
-            return 'filter'
-        else :
-            return 'form'
-    # end def decide
-
-    def decide2(self, cr, uid, data, res_get=False) :
-        import sys ######
-        print >>sys.stderr, "decide2" ######################
-        form = data['form']
-        self.add_filter(form)
-        return 'filter'
-    # end def decide2
-
 # end class wizard_generate_xml_filter
-wizard_generate_xml_filter ()
+wizard_generate_xml_filter()
 
