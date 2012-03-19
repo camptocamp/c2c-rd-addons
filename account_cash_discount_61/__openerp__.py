@@ -50,6 +50,7 @@ The reconciliation will
 * assign only ONE reconcile id to alle reconciled lines
 
 Not covered/ToDo:
+* currently supports only one discount line Ex: 14 days 2%, 30 days net (and NOT 14 days 3%, 30 days 2%, 60 net)
 * pay invoice: automatically select all move_lines of an invoice if invoice payment term has is_discount flag set
 * invoice lines: allow to specify amount for discount if not total line amount is subject to cash discount
 * create analytic lines for discount - using the anlalytic accounts of the invoice

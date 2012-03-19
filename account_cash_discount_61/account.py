@@ -212,7 +212,7 @@ class account_move_line(osv.osv):
             for tax_move in tax_moves:
                 # FIXME code can be simplified / condensed
                 #base
-                mlt = ml
+                mlt = dict(ml)
                 if write_off_debit > 0.0:
                     mlt.update({
                        'debit' : tax_move['base_discount_amount'],
@@ -234,7 +234,7 @@ class account_move_line(osv.osv):
                 _logger.info('reconcile - base credit: %s' % mlt)
                 move_line_obj.create(cr, uid, mlt)
                 # tax
-                mlt = ml
+                mlt = dict(ml)
                 if write_off_debit > 0.0:
                     mlt.update({
                        'debit' : tax_move['tax_discount_amount'],
@@ -259,7 +259,7 @@ class account_move_line(osv.osv):
 
             # create move lines for remaining not discountable amount 
             if not float_is_zero(write_off_debit, prec):
-                mlt = ml
+                mlt = dict(ml)
                 mlt.update({
                        'debit' : write_off_debit,
                        'credit':0.0,
@@ -269,7 +269,7 @@ class account_move_line(osv.osv):
                     })
                 move_line_obj.create(cr, uid, mlt)
             if not float_is_zero(write_off_credit, prec): 
-                mlt = ml
+                mlt = dict(ml)
                 mlt.update({
                        'credit' : write_off_credit,
                        'debit' : 0.0,
@@ -297,34 +297,33 @@ class account_move_line(osv.osv):
     def reconcile(self, cr, uid, ids, type='auto', writeoff_acc_id=False, writeoff_period_id=False, writeoff_journal_id=False, context=None):
         _logger = logging.getLogger(__name__)
         move_line_obj = self.pool.get('account.move.line')
+
         lines_selected = []
-        # FIXME better solution ??
         if context.get('active_ids'):
-          for l in  context.get('active_ids'):
-            _logger.info('reconcile move_line lines_selected %s l %s' % (lines_selected, l))
-            lines_selected.append(str(l))
-            
+            lines_selected = list(context.get('active_ids'))
         _logger.info('reconcile move_line lines_selected %s, context %s' % (lines_selected, context))
+
         res = super(account_move_line, self).reconcile(cr, uid, ids, type, writeoff_acc_id, writeoff_period_id, writeoff_journal_id, context)
         if not lines_selected:
             return res 
-        lines_ids_returned = context.get('active_ids')
+        lines_ids_returned = list(context.get('active_ids'))
         _logger.info('FGF reconcile  lines_selected %s, lines_ids_returned %s' % (lines_selected, lines_ids_returned))
+
         write_off_line_ids = []
-        if not isinstance(lines_ids_returned,list): 
-            lines_ids_returned = [lines_ids_returned]
         for line_id in lines_ids_returned:
-            if str(line_id) not in lines_selected:
+            if line_id not in lines_selected:
                 write_off_line_ids.append(line_id)
         _logger.info('FGF reconcile move_line reconcile_id %s, write_off_line_ids %s, context %s' % (res, write_off_line_ids, context))
+
+        move_ids =[]
         for move_line in move_line_obj.browse(cr, uid, write_off_line_ids):
-            move_id = [move_line.move_id.id]
-        lines = move_line_obj.search(cr, uid, [('move_id','in', move_id)])
-        lines_up = move_line_obj.search(cr, uid, [('move_id','in', move_id),('id','not in',write_off_line_ids)])
+            move_ids.append(move_line.move_id.id)
+        lines = move_line_obj.search(cr, uid, [('move_id','in', move_ids)])
+        lines_up = move_line_obj.search(cr, uid, [('move_id','in', move_ids),('id','not in',write_off_line_ids)])
         
         context['is_discount'] = True # to avoid _check_update which prohibits altering reconciled lines - of this transaction
         move_line_obj.write(cr, uid, lines_up, {'is_write_off' : True});
-        move_line_obj.reconcile_cash_discount(cr, uid, ids, move_id, lines, write_off_line_ids, context)
+        move_line_obj.reconcile_cash_discount(cr, uid, ids, move_ids, lines, write_off_line_ids, context)
         context['is_discount'] = False
 
         return res
