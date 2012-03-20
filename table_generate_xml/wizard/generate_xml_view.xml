@@ -39,13 +39,6 @@
               icon="gtk-cancel"
               special="cancel"
               string="Cancel"/>
-              <!-- 
-            <button
-              name="add_filter"
-              string="Next Filter"
-              type="object"
-              default_focus="1"/>
-              -->
             <button
               name="generate"
               string="generate"
