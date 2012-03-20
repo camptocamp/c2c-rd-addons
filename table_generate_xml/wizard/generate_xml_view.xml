@@ -34,6 +34,8 @@
           <field name="attribute" colspan="1" nolabel="1"/>
           <field name="compare" colspan="1" nolabel="1"/>
           <field name="value" colspan="2" nolabel="1"/>
+        </tree>
+        <form>
           <group col="6" colspan="4">
             <button 
               icon="gtk-cancel"
@@ -45,7 +47,7 @@
               type="object"
               default_focus="1"/>
           </group>
-        </tree>
+        </form>
       </field>
     </record>
     <act_window
