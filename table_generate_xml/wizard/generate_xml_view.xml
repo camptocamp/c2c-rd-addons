@@ -28,14 +28,14 @@
     <record model="ir.ui.view" id="generate_xml_init_filter_view">
       <field name="name">generate.xml.filter.tree</field>
       <field name="model">ir.model.generate.xml.filter</field>
-      <field name="type">tree</field>
+      <field name="type">form</field>
       <field name="arch" type="xml">
-        <tree string="Filters" editable="top">
-          <field name="attribute" colspan="1" nolabel="1"/>
-          <field name="compare" colspan="1" nolabel="1"/>
-          <field name="value" colspan="2" nolabel="1"/>
-        </tree>
         <form>
+          <tree string="Filters" editable="top">
+            <field name="attribute" colspan="1" nolabel="1"/>
+            <field name="compare" colspan="1" nolabel="1"/>
+            <field name="value" colspan="2" nolabel="1"/>
+          </tree>
           <group col="6" colspan="4">
             <button 
               icon="gtk-cancel"
