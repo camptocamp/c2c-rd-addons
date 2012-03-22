@@ -23,6 +23,8 @@
 # FIXME remove logger lines or change to debug
  
 from osv import fields, osv
+from tools.translate import _
+
 
 
 class account_invoice(osv.osv):
@@ -36,6 +38,10 @@ class account_invoice(osv.osv):
         for i in invoices:
             if i['move_id']:
                 move_ids.append(i['move_id'][0])
+                for move in account_move_obj.browse(cr, uid, move_ids):
+                    if not move.journal_id.reopen_posted:
+                        raise osv.except_osv(_('Error !'), _('You can not reopen invoice of this journal! You need to need to set "Allow Update Posted Entries" first'))
+                    
             if i['payment_ids']:
                 account_move_line_obj = self.pool.get('account.move.line')
                 pay_ids = account_move_line_obj.browse(cr, uid, i['payment_ids'])
