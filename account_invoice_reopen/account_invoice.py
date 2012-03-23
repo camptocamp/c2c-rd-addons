@@ -25,6 +25,7 @@
 from osv import fields, osv
 from tools.translate import _
 import logging
+import time
 
 
 
@@ -81,32 +82,49 @@ class account_invoice(osv.osv):
                         raise osv.except_osv(_('Error !'), _('You can not reopen an invoice which is partially paid! You need to unreconcile related payment entries first!'))
 
         # First, set the invoices as cancelled and detach the move ids
-        #self.write(cr, uid, ids, {'state':'draft_reset'})
+        self.write(cr, uid, ids, {'move_id': False})
+        
         if move_ids:
             # second, invalidate the move(s)
             # account_move_obj.button_cancel(cr, uid, move_ids, context=context)
             # delete the move this invoice was pointing to
             # Note that the corresponding move_lines and move_reconciles
             # will be automatically deleted too
-            account_move_obj.write(cr, uid, move_ids, {'state':'draft'})
+            now = time.strftime(' [%Y%m%d %H%M%S]')
+
+            for move in account_move_obj.browse(cr , uid, move_ids):
+                # unlink from invoice
+                #account_move_obj.unlink(cr, uid, [move.id], context=context)
+                name = move.name + now
+                account_move_obj.write(cr, uid, [move.id], {'name':name})
+                move_copy_id = account_move_obj.copy(cr, uid, move.id)
+                name = name + '*'
+                cr.execute("""update account_move_line
+                                 set debit=credit, credit=debit
+                               where move_id = %s;""" % (move_copy_id))
+                account_move_obj.write(cr, uid, [move_copy_id], {'name':name})
+                account_move_obj.button_validate(cr, uid, [move_copy_id], context=None)
+            
+              
         self._log_event(cr, uid, ids, -1.0, 'Reopened Invoice')
         return True
 
-    def action_move_create(self, cr, uid, ids, context=None):
-        move_obj = self.pool.get('account.move')
-        move_ids = [] # ones that we will need to update
-        for inv in self.browse(cr, uid, ids, context=context):
-            if inv.move_id:
-                move_ids.append(inv.move_id.id)
-            else:
-                super(account_invoice, self).action_move_create(cr, uid, ids, context)
-        if move_ids:
-            move_obj.write(cr, uid, move_ids, {'state':'posted'})
+    #def action_move_create(self, cr, uid, ids, context=None):
+    #    move_obj = self.pool.get('account.move')
+    #    move_ids = [] # ones that we will need to update
+    #    for inv in self.browse(cr, uid, ids, context=context):
+    #        if inv.move_id:
+    #            move_ids.append(inv.move_id.id)
+    #        else:
+    #            super(account_invoice, self).action_move_create(cr, uid, ids, context)
+    #    if move_ids:
+    #        move_obj.write(cr, uid, move_ids, {'state':'posted'})
 
     def action_number(self, cr, uid, ids, context=None):
         for inv in self.browse(cr, uid, ids, context=context):
             if not inv.internal_number:
                 super(account_invoice, self).action_number(cr, uid, ids, context)
+        return True
 
 
 account_invoice()
