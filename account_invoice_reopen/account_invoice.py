@@ -24,11 +24,42 @@
  
 from osv import fields, osv
 from tools.translate import _
+import logging
+
 
 
 
 class account_invoice(osv.osv):
     _inherit = "account.invoice"
+ 
+    def _get_state(self, cr, uid, ids, context=None):
+        _logger = logging.getLogger(__name__)
+
+        res = list(super(account_invoice, self)._columns['state'].selection)
+        res.append(('draft_reset','Reset to draft'))
+        _logger.info('FGF invoice states  %s' % (res) )
+
+        return res 
+
+    _columns ={
+# FIXME the _get_state raises error
+#        'state': fields.selection(selection=_get_state, string='State', required=True),
+        'state': fields.selection([
+            ('draft','Draft'),
+            ('draft_reset','Reset to Draft'),
+            ('proforma','Pro-forma'),
+            ('proforma2','Pro-forma'),
+            ('open','Open'),
+            ('paid','Paid'),
+            ('cancel','Cancelled')
+            ],'State', select=True, readonly=True,
+            help=' * The \'Draft\' state is used when a user is encoding a new and unconfirmed Invoice. \
+            \n* The \'Pro-forma\' when invoice is in Pro-forma state,invoice does not have an invoice number. \
+            \n* The \'Open\' state is used when user create invoice,a invoice number is generated.Its in open state till user does not pay invoice. \
+            \n* The \'Paid\' state is set automatically when the invoice is paid. Its related journal entries may or may not be reconciled. \
+            \n* The \'Cancelled\' state is used when user cancel invoice.'),
+
+    }
 
     def action_reopen(self, cr, uid, ids, *args):
         context = {} # TODO: Use context from arguments
@@ -50,7 +81,7 @@ class account_invoice(osv.osv):
                         raise osv.except_osv(_('Error !'), _('You can not reopen an invoice which is partially paid! You need to unreconcile related payment entries first!'))
 
         # First, set the invoices as cancelled and detach the move ids
-        self.write(cr, uid, ids, {'state':'draft'})
+        #self.write(cr, uid, ids, {'state':'draft_reset'})
         if move_ids:
             # second, invalidate the move(s)
             # account_move_obj.button_cancel(cr, uid, move_ids, context=context)
