@@ -24,7 +24,7 @@
                 </xpath>
             </field>
         </record>
-
+<!--
         <record id="invoice_reopen_form_inherit2" model="ir.ui.view">
             <field name="name">invoice.reopen.form.inherit2</field>
             <field name="model">account.invoice</field>
@@ -48,7 +48,7 @@
                 </field>
             </field>
         </record>
-
+-->
         <record id="invoice_supplier_reopen_form_inherit" model="ir.ui.view">
             <field name="name">invoice.supplier.reopen.form.inherit</field>
             <field name="model">account.invoice</field>
@@ -61,6 +61,7 @@
             </field>
         </record>
 
+<!--
         <record id="invoice_supplier_reopen_form_inherit2" model="ir.ui.view">
             <field name="name">invoice.supplier.reopen.form.inherit2</field>
             <field name="model">account.invoice</field>
@@ -84,7 +85,7 @@
                 </field>
             </field>
         </record>
-
+-->
 
     </data>
 </openerp>

@@ -30,10 +30,16 @@ Allows reopeing of unpaid invoices.
 =====================================
 
 This module allows to reopen (set to draft) unpaid invoices.
-It requires audit module and sets audit trail for invoice related data to log changes.
+To comply with good accounting practice the existing posted move associated
+with the invoice will be renamed (add [YYMMDD HHMISS]) and a new move (same name ending with *)
+will be created with reversed debit/credit.
+The renamed and new lines are reconciled.
+If the invoice is printed AND stored as attachment the attachment will be renamed too.
+This allows to change all content of the invoice if necessary.
+
     """,
     'website': 'http://www.camptocamp.com',
-    "depends" : ["account","audittrail"],
+    "depends" : ["account"],
     'init_xml': [],
     'update_xml': ['account_reopen_view.xml','account_invoice_workflow.xml' ],
     'demo_xml': [],

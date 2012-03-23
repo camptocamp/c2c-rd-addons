@@ -33,38 +33,39 @@ import time
 class account_invoice(osv.osv):
     _inherit = "account.invoice"
  
-    def _get_state(self, cr, uid, ids, context=None):
-        _logger = logging.getLogger(__name__)
+#   def _get_state(self, cr, uid, ids, context=None):
+#       _logger = logging.getLogger(__name__)
 
-        res = list(super(account_invoice, self)._columns['state'].selection)
-        res.append(('draft_reset','Reset to draft'))
-        _logger.info('FGF invoice states  %s' % (res) )
+#       res = list(super(account_invoice, self)._columns['state'].selection)
+#       res.append(('draft_reset','Reset to draft'))
+#       _logger.info('FGF invoice states  %s' % (res) )
 
-        return res 
+#       return res 
 
-    _columns ={
+#   _columns ={
 # FIXME the _get_state raises error
 #        'state': fields.selection(selection=_get_state, string='State', required=True),
-        'state': fields.selection([
-            ('draft','Draft'),
-            ('draft_reset','Reset to Draft'),
-            ('proforma','Pro-forma'),
-            ('proforma2','Pro-forma'),
-            ('open','Open'),
-            ('paid','Paid'),
-            ('cancel','Cancelled')
-            ],'State', select=True, readonly=True,
-            help=' * The \'Draft\' state is used when a user is encoding a new and unconfirmed Invoice. \
-            \n* The \'Pro-forma\' when invoice is in Pro-forma state,invoice does not have an invoice number. \
-            \n* The \'Open\' state is used when user create invoice,a invoice number is generated.Its in open state till user does not pay invoice. \
-            \n* The \'Paid\' state is set automatically when the invoice is paid. Its related journal entries may or may not be reconciled. \
-            \n* The \'Cancelled\' state is used when user cancel invoice.'),
+#       'state': fields.selection([
+#           ('draft','Draft'),
+#           ('draft_reset','Reset to Draft'),
+#           ('proforma','Pro-forma'),
+#           ('proforma2','Pro-forma'),
+#           ('open','Open'),
+#           ('paid','Paid'),
+#           ('cancel','Cancelled')
+#           ],'State', select=True, readonly=True,
+#           help=' * The \'Draft\' state is used when a user is encoding a new and unconfirmed Invoice. \
+#           \n* The \'Pro-forma\' when invoice is in Pro-forma state,invoice does not have an invoice number. \
+#           \n* The \'Open\' state is used when user create invoice,a invoice number is generated.Its in open state till user does not pay invoice. \
+#           \n* The \'Paid\' state is set automatically when the invoice is paid. Its related journal entries may or may not be reconciled. \
+#           \n* The \'Cancelled\' state is used when user cancel invoice.'),
 
-    }
+#   }
 
     def action_reopen(self, cr, uid, ids, *args):
         context = {} # TODO: Use context from arguments
         account_move_obj = self.pool.get('account.move')
+        account_move_line_obj = self.pool.get('account.move.line')
         invoices = self.read(cr, uid, ids, ['move_id', 'payment_ids'])
         move_ids = [] # ones that we will need to update
         for i in invoices:
@@ -104,7 +105,14 @@ class account_invoice(osv.osv):
                                where move_id = %s;""" % (move_copy_id))
                 account_move_obj.write(cr, uid, [move_copy_id], {'name':name})
                 account_move_obj.button_validate(cr, uid, [move_copy_id], context=None)
-            
+                # reconcile 
+                r_id = self.pool.get('account.move.reconcile').create(cr, uid, {'type': 'auto'})
+                line_ids = account_move_line_obj.search(cr, uid, [('move_id','in',[move_copy_id, move.id])])
+                lines_to_reconile = []
+                for ltr in account_move_line_obj.browse(cr, uid, line_ids):
+                    if ltr.account_id.id in (ltr.partner_id.property_account_payable.id, ltr.partner_id.property_account_receivable.id):
+                         lines_to_reconile.append(ltr.id)
+                account_move_line_obj.write(cr, uid, lines_to_reconile, {'reconcile_id':r_id})
               
         self._log_event(cr, uid, ids, -1.0, 'Reopened Invoice')
         return True

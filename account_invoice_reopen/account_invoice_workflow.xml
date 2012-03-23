@@ -5,7 +5,7 @@
             <field name="wkf_id" ref="account.wkf"/>
             <field name="name">reopen</field>
             <field name="action">action_reopen()
-write({'state':'draft_reset'})</field>
+write({'state':'draft'})</field>
             <field name="kind">function</field>
         </record>
         <record id="t12o" model="workflow.transition">
