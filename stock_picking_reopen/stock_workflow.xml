@@ -15,7 +15,7 @@
             <field name="wkf_id" ref="stock.wkf_picking"/>
             <field name="name">reopen</field>
             <field name="action">action_reopen()
-write({'state':'draft'})</field>
+write({'state':'confirmed'})</field>
             <field name="kind">function</field>
         </record>
         
@@ -36,6 +36,16 @@ write({'state':'draft'})</field>
             <field name="act_from" ref="act_reopen"/>
             <field name="act_to" ref="stock.act_cancel"/>
             <field name="signal">button_cancel</field>
+        </record>
+        <record id="trans_confirmed_assigned_back2" model="workflow.transition">
+            <field name="act_from" ref="act_reopen"/>
+            <field name="act_to" ref="stock.act_confirmed"/>
+            <field name="condition">not test_assigned()</field>
+        </record>
+        <record id="trans_confirmed_assigned2" model="workflow.transition">
+            <field name="act_from" ref="act_reopen"/>
+            <field name="act_to" ref="stock.act_assigned"/>
+            <field name="condition">test_assigned()</field>
         </record>
 
 

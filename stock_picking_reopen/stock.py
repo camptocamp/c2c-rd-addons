@@ -57,6 +57,13 @@ class stock_picking(osv.osv):
     
 
     def action_reopen(self, cr, uid, ids, context=None):
+        move_line_obj = self.pool.get('stock.move')
+        for pick in self.browse(cr, uid, ids):
+            ml_ids = []
+            for ml in pick.move_lines:
+                ml_ids.append(ml.id)
+            move_line_obj.write(cr, uid, ml_ids, {'state':'confirmed'})
+            
         return True
 
 
