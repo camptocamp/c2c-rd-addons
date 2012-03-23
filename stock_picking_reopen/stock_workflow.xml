@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+<!--
+        <record id="act_reopen" model="workflow.activity">
+            <field name="wkf_id" ref="stock.wkf_picking"/>
+            <field name="name">reopen</field>
+            <field name="action">action_reopen()
+write({'state':'draft'})</field>
+            <field name="kind">function</field>
+        </record>
+        
+        <record id="trans_confirmed_reopen" model="workflow.transition">
+            <field name="act_from" ref="stock.act_done"/>
+            <field name="act_to" ref="act_reopen"/>
+            <field name="condition">allow_reopen()</field>
+            <field name="signal">picking_reopen</field>
+        </record>
+-->
+
+
+    </data>
+</openerp>
