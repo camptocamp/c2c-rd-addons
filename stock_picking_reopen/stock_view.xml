@@ -20,7 +20,7 @@
             <field name="inherit_id" ref="stock.view_picking_out_form"/>
             <field name="arch" type="xml">
                 <button name="action_process" position="after">
-                    <button name="button_reopen" type="object" states="done" string="Reset To Draft" icon="gtk-convert" groups="base.group_extended"/>
+                    <button name="button_reopen" states="done" string="Reset To Draft" icon="gtk-convert" groups="base.group_extended"/>
                 </button>
             </field>
         </record>

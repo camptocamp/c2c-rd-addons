@@ -60,20 +60,14 @@ class stock_picking(osv.osv):
         return True
 
 
-    def button_reopen(self, cr, uid, ids, context=None):
-        _logger = logging.getLogger(__name__)   
-        self.allow_reopen(cr, uid, ids, context)
-        _logger.info('FGF picking allow open  '   )
-        self.write(cr, uid, ids, {'state':'draft'})
-#        wf_service = netsvc.LocalService("workflow")
-#        for pick_id in ids:
-#            wf_service.trg_delete(uid, 'stock.picking', pick_id, cr)
-#            wf_service.trg_create(uid, 'stock.picking', pick_id, cr)
-#        return True
-
-        _logger.info('FGF picking draft  '   )
-        self.log_picking(cr, uid, ids, context=context)
-        _logger.info('FGF picking log'   )
+#    def button_reopen(self, cr, uid, ids, context=None):
+#        _logger = logging.getLogger(__name__)   
+#        self.allow_reopen(cr, uid, ids, context)
+#        _logger.info('FGF picking allow open  '   )
+#        self.write(cr, uid, ids, {'state':'draft'})
+#        _logger.info('FGF picking draft  '   )
+#        self.log_picking(cr, uid, ids, context=context)
+#        _logger.info('FGF picking log'   )
 
         
     
