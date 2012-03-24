@@ -25,6 +25,7 @@
 from osv import fields, osv
 import netsvc
 from tools.translate import _
+import time
 import logging
 
 class stock_journal(osv.osv):
@@ -70,11 +71,33 @@ class stock_picking(osv.osv):
         @return: True
         """
         move_line_obj = self.pool.get('stock.move')
+        account_move_line_obj = self.pool.get('account.move.line')
+        account_move_obj = self.pool.get('account.move')
+        now = ' ' + _('Invalid') + time.strftime(' [%Y%m%d %H%M%S]')
         for pick in self.browse(cr, uid, ids):
             ml_ids = []
             for ml in pick.move_lines:
                 ml_ids.append(ml.id)
             move_line_obj.write(cr, uid, ml_ids, {'state':'confirmed'})
+            # we have to handle real time accounting stock moves
+            #FIXME - performance, should be an id - link to picking 
+            #aml_ids = account_move_line_obj.search(cr, uid, [('picking_id','=',pick.id)])
+            aml_ids = account_move_line_obj.search(cr, uid, [('ref','=',pick.name)])
+            move_ids = []
+            for aml in account_move_line_obj.browse(cr, uid, aml_ids):
+                if aml.move_id.id not in move_ids:
+                    move_ids.append(aml.move_id.id)
+                account_move_line_obj.write(cr, uid, [aml.id], {'ref': aml.ref + now})
+            for move in account_move_obj.browse(cr, uid, move_ids):
+                account_move_obj.write(cr, uid, [move.id], {'name': move.name + now})
+                move_copy_id = account_move_obj.copy(cr, uid, move.id,)
+                account_move_obj.write(cr, uid, [move_copy_id], {'name': move.name + now + '*' })
+                cr.execute("""update account_move_line
+                                 set debit=credit, credit=debit
+                               where move_id = %s;""" % (move_copy_id)) 
+            
+             
+            
         self.log_picking(cr, uid, ids, context=context)
             
         return True
