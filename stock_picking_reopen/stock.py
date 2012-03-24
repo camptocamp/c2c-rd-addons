@@ -46,7 +46,7 @@ class stock_picking(osv.osv):
             if not pick.stock_journal_id.reopen_posted:
                 raise osv.except_osv(_('Error'), _('You cannot reset to draft pickings of this journal ! Please check "Allow Update of Posted Pickings" in Warehous Configuration / Stock Journals'))
             if pick.invoice_state == 'invoiced':
-                raise osv.except_osv(_('Error'), _('You cannot reset to draft invoiced picking !'))
+                raise osv.except_osv(_('Error'), _('You cannot reset an invoiced picking to draft !'))
             if pick.move_lines:
                 for move in pick.move_lines:
                     # FIXME - not sure if date or id has to be checked or both ? especially if average price is used
@@ -57,12 +57,16 @@ class stock_picking(osv.osv):
     
 
     def action_reopen(self, cr, uid, ids, context=None):
+        """ Changes picking and move state from done to confirmed.
+        @return: True
+        """
         move_line_obj = self.pool.get('stock.move')
         for pick in self.browse(cr, uid, ids):
             ml_ids = []
             for ml in pick.move_lines:
                 ml_ids.append(ml.id)
             move_line_obj.write(cr, uid, ml_ids, {'state':'confirmed'})
+        self.log_picking(cr, uid, ids, context=context)
             
         return True
 
