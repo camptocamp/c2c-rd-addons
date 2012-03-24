@@ -26,12 +26,13 @@
     "category": 'Warehouse Management',
     'complexity': "normal",
     "description": """
-Allows reopening of uninvoiced pickings.
-=====================================
+Allows reopening of uninvoiced and canceled pickings.
+=====================================================
 
 This module allows to reopen (set to Ready to Process) uninvoiced pickings
-as long as no other stock_moves of products of this picking are confirmed.
-
+as long as no other stock moves for products of this picking are confirmed.
+The intention is to allow to correct errors or add missing info which becomes 
+usually only visible after printing the picking.
 
     """,
     'website': 'http://www.camptocamp.com',

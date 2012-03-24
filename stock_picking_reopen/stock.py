@@ -43,7 +43,7 @@ class stock_picking(osv.osv):
     def allow_reopen(self, cr, uid, ids, context=None):
         move_line_obj = self.pool.get('stock.move')
         for pick in self.browse(cr, uid, ids, context):
-            if not pick.stock_journal_id.reopen_posted:
+            if pick.stock_journal_id and not pick.stock_journal_id.reopen_posted:
                 raise osv.except_osv(_('Error'), _('You cannot reset to draft pickings of this journal ! Please check "Allow Update of Posted Pickings" in Warehous Configuration / Stock Journals'))
             if pick.invoice_state == 'invoiced':
                 raise osv.except_osv(_('Error'), _('You cannot reset an invoiced picking to draft !'))

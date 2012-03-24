@@ -7,8 +7,17 @@
             <field name="name">done</field>
             <field name="kind">function</field>
             <field name="action">action_done()</field>
-            <field name="flow_stop"></field>
+            <field name="flow_stop" eval="False"/>
         </record>
+
+        <record id="stock.act_cancel" model="workflow.activity">
+            <field name="wkf_id" ref="stock.wkf_picking"/>
+            <field name="name">cancel</field>
+            <field name="kind">function</field>
+            <field name="flow_stop" eval="False"/>
+            <field name="action">action_cancel()</field>
+        </record>
+
 
 
         <record id="act_reopen" model="workflow.activity">
@@ -21,6 +30,13 @@ write({'state':'confirmed'})</field>
         
         <record id="trans_confirmed_reopen" model="workflow.transition">
             <field name="act_from" ref="stock.act_done"/>
+            <field name="act_to" ref="act_reopen"/>
+            <field name="condition">allow_reopen()</field>
+            <field name="signal">button_reopen</field>
+        </record>
+
+        <record id="trans_cancel_reopen" model="workflow.transition">
+            <field name="act_from" ref="stock.act_cancel"/>
             <field name="act_to" ref="act_reopen"/>
             <field name="condition">allow_reopen()</field>
             <field name="signal">button_reopen</field>
