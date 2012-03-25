@@ -52,6 +52,8 @@ class stock_picking(osv.osv):
                 for inv in pick.invoice_ids:
                     if inv.state in ['draft','cancel']:
                        ids2.append(inv.id) 
+                    else:
+                       raise osv.except_osv(_('Error'), _('You cannot reset a picking with an open invoice [%s] to draft ! You must reopen the invoice first (install modul account_invoice_reopen' % inv.number))
                 account_invoice_obj.unlink(cr, uid, ids2) 
                 if ids2:
                     self.write(cr, uid, [pick.id], {'invoice_state':'2binvoiced'})
