@@ -73,6 +73,9 @@ class stock_picking(osv.osv):
         move_line_obj = self.pool.get('stock.move')
         account_move_line_obj = self.pool.get('account.move.line')
         account_move_obj = self.pool.get('account.move')
+        report_xml_obj = self.pool.get('ir.actions.report.xml')
+        attachment_obj = self.pool.get('ir.attachment')
+
         now = ' ' + _('Invalid') + time.strftime(' [%Y%m%d %H%M%S]')
         for pick in self.browse(cr, uid, ids):
             ml_ids = []
@@ -95,9 +98,24 @@ class stock_picking(osv.osv):
                 cr.execute("""update account_move_line
                                  set debit=credit, credit=debit
                                where move_id = %s;""" % (move_copy_id)) 
-            
+                # rename attachments (reports)
+            # for some reason datas_fname has .pdf.pdf extension
+            report_ids = report_xml_obj.search(cr, uid, [('model','=', 'stock.picking'), ('attachment','!=', False)])
+            for report in report_xml_obj.browse(cr, uid, report_ids):
+                aname = report.attachment.replace('object','pick')
+                aname = eval(aname)+'.pdf'
+                attachment_ids = attachment_obj.search(cr, uid, [('res_model','=','stock.picking'),('datas_fname', '=', aname),('res_id','=',pick.id)])
+                for a in attachment_obj.browse(cr, uid, attachment_ids):
+                    vals = {
+                        'name': a.name.replace('.pdf', now+'.pdf'),
+                        'datas_fname': a.datas_fname.replace('.pdf.pdf', now+'.pdf.pdf')
+                           }
+                    attachment_obj.write(cr, uid, a.id, vals)
+
+
+    
              
-            
+        #self._log_event(cr, uid, ids, -1.0, 'Reopened Picking')    
         self.log_picking(cr, uid, ids, context=context)
             
         return True
