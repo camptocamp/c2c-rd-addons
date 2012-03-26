@@ -119,11 +119,7 @@ class stock_picking(osv.osv):
                            }
                     attachment_obj.write(cr, uid, a.id, vals)
 
-
-    
-             
-        #self._log_event(cr, uid, ids, -1.0, 'Reopened Picking')    
-        self.log_picking(cr, uid, ids, context=context)
+            self.log_picking(cr, uid, ids, context=context)  
             
         return True
 
