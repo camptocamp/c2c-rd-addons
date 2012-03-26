@@ -28,19 +28,22 @@ class stock_production_lot(osv.osv):
     def name_get(self, cr, uid, ids, context=None):
         _logger = logging.getLogger(__name__)
         res= super(stock_production_lot, self).name_get(cr, uid, ids, context)
-        _logger.info('FGF lot %s ' % (res))
+        _logger.info('FGF lot res %s' % (res))
+        _logger.info('FGF lot context %s ' % (context))
         resd = dict(res)
         _logger.info('FGF lot d %s ' % (resd))
-        res1 =[] 
-        for lot in self.browse(cr, uid, ids, context):
+        res1 =[]
+        if context.get('location_id'):
+          for lot in self.browse(cr, uid, ids, context):
             qty = lot.stock_available
             _logger.info('FGF lot res %s %s' % (lot.id, qty))
-            name_new = resd[lot.id] + ' ' + str(qty) +' '+ lot.product_id.uom_id.name
+            name_new = resd[lot.id] + '  [' + str(qty) +' '+ lot.product_id.uom_id.name+']'
             _logger.info('FGF lot name %s' % (name_new))
             l = (lot.id,name_new)
             res1.append(l)
-   
             _logger.info('FGF lot res1 %s' % (res1))
+        else:
+           res1 = res
         return res1
         
 stock_production_lot()
