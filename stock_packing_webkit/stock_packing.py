@@ -77,11 +77,24 @@ class stock_picking(osv.osv):
           res[picking.id] =  print_ean
         return res
 
+    def _print_lot(self, cr, uid, ids, name, args, context=None):
+        res = {}
+        for picking in self.browse(cr, uid, ids, context=context):
+          print_lot = False
+          if picking.move_lines:
+            for line in picking.move_lines:
+                if line.prodlot_id: 
+                   print_lot = True
+          res[picking.id] =  print_lot
+        return res
+
+
         
     _columns = {
               'print_uom': fields.function(_print_uom, method=True, type='boolean', string='Print UoM if different from UoS',),
               'print_uos': fields.function(_print_uos, method=True, type='boolean', string='Print UoS if exists',),
               'print_packing': fields.function(_print_packing, method=True, type='boolean', string='Print Packing Info if available',),
               'print_ean': fields.function(_print_ean, method=True, type='boolean', string='Print EAN if available',),
+              'print_lot': fields.function(_print_lot, method=True, type='boolean', string='Print lot if available',),
     }
 stock_picking()
