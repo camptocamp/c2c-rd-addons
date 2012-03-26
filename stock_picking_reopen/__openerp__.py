@@ -30,7 +30,8 @@ Allows reopening of uninvoiced and canceled pickings.
 =====================================================
 
 This module allows to reopen (set to Ready to Process) uninvoiced pickings
-as long as no other stock moves for products of this picking are confirmed.
+as long as no other stock moves for products with cost method "average price" 
+of this picking are confirmed.
 The intention is to allow to correct errors or add missing info which becomes 
 usually only visible after printing the picking.
 

@@ -61,10 +61,14 @@ class stock_picking(osv.osv):
                 raise osv.except_osv(_('Error'), _('You cannot reset an invoiced picking to draft !'))
             if pick.move_lines:
                 for move in pick.move_lines:
-                    # FIXME - not sure if date or id has to be checked or both ? especially if average price is used
-                    later_ids = move_line_obj.search(cr, uid, [('product_id','=',move.product_id.id),('state','=','done'),('date','>',move.date)])
-                    if later_ids:
-                        raise osv.except_osv(_('Error'), _('You cannot reopen picking, because product "%s" of this picking has already later posted moves !') % move.product_id.name)
+                    # FIXME - not sure if date or id has to be checked or both if average price is used
+                    if move.product_id.cost_method == 'average':
+                      later_ids = move_line_obj.search(cr, uid, [('product_id','=',move.product_id.id),('state','=','done'),('date','>',move.date),('price_unit','!=',move.price_unit)])
+                      if later_ids:
+                        later_prices = []
+                        for later_move in move_line_obj.browse(cr, uid, later_ids):
+                            later_prices.append(later_move.price_unit)
+                            raise osv.except_osv(_('Error'), _('You cannot reopen this picking, because product "%s" of this picking has already later posted moves with different cost price(s) %s  then the current [%s] to be reopened! Recalculation of avarage price is not supported') % (move.product_id.name, later_prices, move.price_unit))
         return True
     
 
@@ -98,7 +102,8 @@ class stock_picking(osv.osv):
                 move_copy_id = account_move_obj.copy(cr, uid, move.id,)
                 account_move_obj.write(cr, uid, [move_copy_id], {'name': move.name + now + '*' })
                 cr.execute("""update account_move_line
-                                 set debit=credit, credit=debit
+                                 set debit=credit, credit=debit,
+                                 ref = ref||'*'
                                where move_id = %s;""" % (move_copy_id)) 
                 # rename attachments (reports)
             # for some reason datas_fname has .pdf.pdf extension
