@@ -40,10 +40,7 @@ class stock_production_lot(osv.osv):
             name_new = resd[lot.id] + '  [' + str(qty) +' '+ lot.product_id.uom_id.name+']'
             _logger.info('FGF lot name %s' % (name_new))
             l = (lot.id,name_new)
-            if not(lot.product_id._columns.get('allow_negative_stock')):
-                res1.append(l)
-            elif lot.product_id.allow_negative_stock and qty == 0:
-                res1.append(l)
+            res1.append(l)
                   
             _logger.info('FGF lot res1 %s' % (res1))
         else:

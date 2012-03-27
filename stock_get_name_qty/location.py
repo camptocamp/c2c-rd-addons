@@ -38,22 +38,16 @@ class stock_location(osv.osv):
         if context.get('product_id'):
           for product in product_obj.browse(cr, uid, [context.get('product_id')]):
               uom_name = ' '+product.uom_id.name
-              hide_null_location = False
-              if product._columns.get('allow_negative_stock') and not product.allow_negative_stock:
-                  hide_null_location = True
           for loc in self.browse(cr, uid, ids, context):
             qty = loc.stock_real
             qty_v = loc.stock_virtual
-            _logger.info('FGF loc res %s %s %s' % (loc.id, qty, qty_v))
-            #name_new = resd[loc.id] + '  [' + str(qty) +' '+ loc.product_id.uom_id.name+']'
             qty_str = str(qty)
             if qty_v != qty:
                 qty_str += ' / ' + str(qty_v)
             name_new = resd[loc.id] + ' [ ' + qty_str + uom_name + ' ]'
             _logger.info('FGF loc name %s' % (name_new))
             l = (loc.id,name_new)
-            if not(hide_null_location and qty == 0 and qty_v == 0): 
-                 res1.append(l)
+            res1.append(l)
             _logger.info('FGF loc res1 %s' % (res1))
         else:
            res1 = res
