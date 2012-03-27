@@ -13,6 +13,7 @@
       </field>
     </record>
     <!-- move values Incoming-->
+<!--
     <record model="ir.ui.view" id="picking_in_location_context_view">
       <field name="name">picking.location.in.context.view</field>
       <field name="model">stock.picking</field>
@@ -23,6 +24,7 @@
         </xpath>
       </field>
     </record>
+-->
     <!-- move values Outgoing-->
     <record model="ir.ui.view" id="picking_out_location_context_view">
       <field name="name">picking.location.out.context.view</field>
