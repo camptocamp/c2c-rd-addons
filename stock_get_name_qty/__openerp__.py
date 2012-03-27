@@ -26,10 +26,12 @@
     'version': '1.0',
     'category': 'Warehouse Management',
     'description': """
-    necessary to select a lot wiht qty
+    usefull to select product, stock location or lot with product qty information
+    if quantity available and virtual quantity are different both values are indicated
+    
 """,
     'author': 'Camptocamp Austria',
-    'depends': [ 'stock'],
+    'depends': [ 'stock','sale'],
     'update_xml': ['stock_view.xml'],
     'demo_xml': [],
     'installable': True,
