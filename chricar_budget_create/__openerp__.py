@@ -6,10 +6,10 @@
      "website"      : "http://www.chricar.at/ChriCar",
      "description"  : """
      Create budget lines derived from account_move_lines of previous periods.
-     this is helpful for planning fixed costs and often a good starting point 
+     This is helpful for planning fixed costs and often a good starting point 
      for variable costs and revenues.
-     the budget items can, but must not be identical to accounts.
-     On demand missing budget items are created with the same structure than accounts
+     The budget items can, but must not be identical to accounts.
+     On demand missing budget items are created with the same structure than accounts.
      Usually the budget must be created before the year ends. Therefore the source 
      periods may overlap (Example use month Oct 2010 to Sept 2011 as basis for 2012)
 

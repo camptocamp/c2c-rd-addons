@@ -9,11 +9,12 @@
         <form string="Budget Create Lines">
           <group colspan="4">
             <field name="budget_version_id"/>
-            <separator string="Periods" colspan="4"/>
+            <separator string="Source Periods" colspan="4"/>
             <field name="period_from"/>
             <field name="period_to"/>
             <separator string="Controls" colspan="4"/>
             <field name="replace_lines"/>
+            <field name="create_items"/>
           </group>
           <separator string="This will create missing budget items and budget lines based on account move lines of selected periods" colspan="4"/>
           <group colspan="4" col="6">

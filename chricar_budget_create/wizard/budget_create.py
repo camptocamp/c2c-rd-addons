@@ -35,9 +35,11 @@ class c2c_budget_create(osv.osv_memory):
         'budget_version_id'  : fields.many2one('c2c_budget.version','Budget Version', required=True),
         'period_from': fields.many2one('account.period', 'Start period', required=True),
         'period_to': fields.many2one('account.period', 'End period', required=True),
-        'replace_lines': fields.boolean('Replace Existing Budget Lines', help="Only Lines created by this wizard will be removed"),
+        'create_items': fields.boolean('Create Missing Budget Items', help="This will create a budget item structure identical to account structure"),
+        'replace_lines': fields.boolean('Replace Existing Budget Lines', help="Only lines created by this wizard will be removed for the selected matching periods"),
     }
     _defaults = {
+        'create_items' : lambda *a: True,
         }
 
     def replace_lines(self, cr, uid, ids, periods, context=None):
@@ -60,7 +62,8 @@ class c2c_budget_create(osv.osv_memory):
             currency_id = self.pool.get('res.users').browse(cr, uid, uid, context).company_id.currency_id.id
         data = self.read(cr, uid, ids, [], context=context)[0]
         # first we create the missing budget_items
-        budget_item_obj.budget_item_create(cr, uid, context)
+        if data['create_items']:
+            budget_item_obj.budget_item_create(cr, uid, context)
         
         # now we create the new budget item lines
         budget_version_id = data['budget_version_id'][0]
