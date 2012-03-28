@@ -39,6 +39,13 @@ import pooler
 import decimal_precision as dp
 import logging
 
+class c2c_budget_line(osv.osv):
+    _inherit = "c2c_budget.line"
+    _columns = {
+        'period_source_id' : fields.many2one('account.period','Source Period', readonly=True ),
+        }
+
+c2c_budget_line()
 
 class c2c_budget_item(osv.osv):
     _inherit = "c2c_budget.item"

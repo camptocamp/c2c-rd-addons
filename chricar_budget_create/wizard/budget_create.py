@@ -35,12 +35,16 @@ class c2c_budget_create(osv.osv_memory):
         'budget_version_id'  : fields.many2one('c2c_budget.version','Budget Version', required=True),
         'period_from': fields.many2one('account.period', 'Start period', required=True),
         'period_to': fields.many2one('account.period', 'End period', required=True),
-        'replace_lines': fields.boolean('Replace Existing Budget Lines'),
+        'replace_lines': fields.boolean('Replace Existing Budget Lines', help="Only Lines created by this wizard will be removed"),
     }
     _defaults = {
         }
 
-
+    def replace_lines(self, cr, uid, ids, periods, context=None):
+        budget_lines_obj = self.pool.get('c2c_budget.line')
+        delete_ids = budget_lines_obj.search(cr, uid, [('period_id','in', periods),('period_source_id','!=', False)], context )
+        budget_lines_obj.unlink(cr, uid, delete_ids);
+        
     def c2c_budget_create(self, cr, uid, ids, context=None):
         _logger = logging.getLogger(__name__)
         
@@ -55,9 +59,15 @@ class c2c_budget_create(osv.osv_memory):
         else:
             currency_id = self.pool.get('res.users').browse(cr, uid, uid, context).company_id.currency_id.id
         data = self.read(cr, uid, ids, [], context=context)[0]
+        # first we create the missing budget_items
         budget_item_obj.budget_item_create(cr, uid, context)
+        
+        # now we create the new budget item lines
         budget_version_id = data['budget_version_id'][0]
         context['version_id'] = budget_version_id
+        context['budget_version_id'] = budget_version_id
+
+        #
         for version in budget_version_obj.browse(cr, uid, [budget_version_id], context):
             start_date = version.budget_id.start_date
             end_date = version.budget_id.end_date
@@ -65,10 +75,16 @@ class c2c_budget_create(osv.osv_memory):
         _logger.info('FGF version date %s %s' % (start_date,end_date))
         _logger.info('FGF version context %s' % (context))
         periods_new = period_obj.search(cr, uid, [('company_id','=',company_id), ('date_start','>=',start_date), ('date_stop','<=',end_date)])
+        if not isinstance(periods_new, list):
+            periods_new = [periods_new]
         _logger.info('FGF periods_new %s' % (periods_new))
         periods = []
         if data['period_from'] and data['period_to']:
             periods = period_obj.build_ctx_periods(cr, uid, data['period_from'][0], data['period_to'][0])
+        if not isinstance(periods, list):
+            periods = [periods]
+
+            
         if periods:
             _logger.info('FGF periods %s' % (periods))
 
@@ -79,8 +95,17 @@ class c2c_budget_create(osv.osv_memory):
                              and pn.id in (%s)
                              and to_char(p.date_start,'MM') = to_char(pn.date_start,'MM')
                            """ % (','.join(map(str,periods)) , ','.join(map(str,periods_new))))
-            period_map = dict(cr.fetchall())
+            period_map_list = cr.fetchall()
+            period_map = dict(period_map_list)
             _logger.info('FGF period_map %s' % (period_map))
+            periods_new2 = []
+            for p in period_map_list:
+                periods_new2.append(p[1])
+            _logger.info('FGF period_new2 %s' % (periods_new2))
+            #
+            if data['replace_lines']:
+                self.replace_lines(self, cr, uid, ids, periods_new2, context=None)
+                
             val = {'budget_version_id': data['budget_version_id'][0],
                    'currency_id' : currency_id,
                    'name' : _('Sum Prev Period'),
@@ -88,7 +113,7 @@ class c2c_budget_create(osv.osv_memory):
             vals =[]
 
             cr.execute("""
-select -sum(l.debit-l.credit) as amount, l.analytic_account_id, budget_item_id, l.period_id
+select -sum(l.debit-l.credit) as amount, l.analytic_account_id, budget_item_id, l.period_id as period_source_id
   from account_move_line l,
        c2c_budget_item_account_rel r
 where l.period_id in (%s)
@@ -98,7 +123,7 @@ group by l.analytic_account_id, budget_item_id, l.period_id""" % (','.join(map(s
             for line in cr.dictfetchall():
                 _logger.info('FGF line %s' % ( line))
                 val.update(line)
-                val['period_id'] =  period_map[line['period_id']]
+                val['period_id'] =  period_map[line['period_source_id']]
                 vals.append(val)
                 _logger.info('FGF budget line %s' % (val))
                 budget_lines_obj.create(cr, uid, val)
