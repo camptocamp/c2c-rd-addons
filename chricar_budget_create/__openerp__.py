@@ -15,10 +15,10 @@
 
      """,
      "category"     : "Accounting & Finance",
-     "depends"      : ["c2c_budget"],
+     "depends"      : ["chricar_budget_lines"],
      "init_xml"     : [],
      "demo_xml"     : [],
-     "update_xml"   : ["budget_view.xml"],
+     "update_xml"   : ["budget_view.xml","wizard/budget_create_view.xml"],
      "active"       : False,
      "installable"  : True,
 }
