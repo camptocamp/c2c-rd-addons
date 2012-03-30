@@ -22,6 +22,7 @@
 
 from osv import fields, osv
 import logging
+from tools.translate import _
 
 class stock_location(osv.osv):
     _inherit = 'stock.location'
@@ -36,16 +37,25 @@ class stock_location(osv.osv):
         _logger.info('FGF loc d %s ' % (resd))
         res1 =[]
         if context.get('product_id'):
+       
           for product in product_obj.browse(cr, uid, [context.get('product_id')]):
               uom_name = ' '+product.uom_id.name
+              packs = ''
+              if product.packaging:
+                 pack_name = []
+                 for pack in product.packaging:
+                     pack_name.append( '['+pack.ul.name + ' ' + _('á') + ' ' + str(pack.qty) +']' )
+                 packs = ','.join(pack_name)
+
           for loc in self.browse(cr, uid, ids, context):
             qty = loc.stock_real
             qty_v = loc.stock_virtual
             qty_str = str(qty)
             if qty_v != qty:
                 qty_str += ' / ' + str(qty_v)
-            name_new = resd[loc.id] + ' [ ' + qty_str + uom_name + ' ]'
+            name_new = resd[loc.id] + ' [ ' + qty_str + uom_name + ' ]' + packs 
             _logger.info('FGF loc name %s' % (name_new))
+      
             l = (loc.id,name_new)
             res1.append(l)
             _logger.info('FGF loc res1 %s' % (res1))

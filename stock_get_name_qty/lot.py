@@ -22,6 +22,7 @@
 
 from osv import fields, osv
 import logging
+from tools.translate import _
 
 class stock_production_lot(osv.osv):
     _inherit = 'stock.production.lot'
@@ -39,6 +40,12 @@ class stock_production_lot(osv.osv):
             _logger.info('FGF lot res %s %s' % (lot.id, qty))
             name_new = resd[lot.id] + '  [' + str(qty) +' '+ lot.product_id.uom_id.name+']'
             _logger.info('FGF lot name %s' % (name_new))
+            if lot.product_id.packaging:
+                 pack_name = []
+                 for pack in lot.product_id.packaging:
+                     pack_name.append( '['+pack.ul.name + ' ' + _('á') + ' ' + str(pack.qty) +']' )
+                 packs = ','.join(pack_name)
+                 name_new += packs
             l = (lot.id,name_new)
             res1.append(l)
                   

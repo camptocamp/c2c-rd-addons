@@ -22,6 +22,7 @@
 
 from osv import fields, osv
 import logging
+from tools.translate import _
 
 class product_product(osv.osv):
     _inherit = 'product.product'
@@ -45,7 +46,12 @@ class product_product(osv.osv):
                   qty_str += ' / ' + str(qty_v)
               name_new = r[1] + ' [ ' + qty_str + uom_name + ' ]'
               _logger.info('FGF prod name %s' % (name_new))
- 
+              if product.packaging:
+                 pack_name = []
+                 for pack in product.packaging:
+                     pack_name.append( '['+pack.ul.name + ' ' + _('á') + ' ' + str(pack.qty) +']' )
+                 packs = ','.join(pack_name)
+                 name_new += packs 
               l = (r[0],name_new)
               res1.append(l)
               _logger.info('FGF prod res1 %s' % (res1))
