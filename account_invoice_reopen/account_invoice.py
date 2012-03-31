@@ -61,6 +61,13 @@ class account_invoice(osv.osv):
 #           \n* The \'Cancelled\' state is used when user cancel invoice.'),
 
 #   }
+    def _auto_init(self, cr, context=None):
+           cr.execute("""update wkf_instance
+                         set state = 'active'
+                       where state = 'complete'
+                         and res_type = 'account.invoice'
+""")
+
 
     def action_reopen(self, cr, uid, ids, *args):
         _logger = logging.getLogger(__name__)

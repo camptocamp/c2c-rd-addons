@@ -41,6 +41,13 @@ stock_journal()
 class stock_picking(osv.osv):
     _inherit = 'stock.picking'
 
+    def _auto_init(self, cr, context=None):
+           cr.execute("""update wkf_instance
+                         set state = 'active'
+                       where state = 'complete'
+                         and res_type = 'stock.picking'
+""")
+
     def allow_reopen(self, cr, uid, ids, context=None):
         move_line_obj = self.pool.get('stock.move')
         account_invoice_obj = self.pool.get('account.invoice')
@@ -96,7 +103,7 @@ class stock_picking(osv.osv):
             for aml in account_move_line_obj.browse(cr, uid, aml_ids):
                 if aml.move_id.id not in move_ids:
                     move_ids.append(aml.move_id.id)
-                account_move_line_obj.write(cr, uid, [aml.id], {'ref': aml.ref + now})
+                account_move_line_obj.write(cr, uid, [aml.id], {'ref': aml.ref or '' + now})
             for move in account_move_obj.browse(cr, uid, move_ids):
                 account_move_obj.write(cr, uid, [move.id], {'name': move.name + now})
                 move_copy_id = account_move_obj.copy(cr, uid, move.id,)
