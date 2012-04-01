@@ -42,7 +42,7 @@ write({'state':'draft'})</field>
         <record id="trans_draft_process" model="workflow.transition">
             <field name="act_from" ref="act_reopen"/>
             <field name="act_to" ref="sale.act_router"/>
-            <field name="signal">button_confirm</field>
+            <field name="signal">order_confirm</field>
         </record>
 
 
