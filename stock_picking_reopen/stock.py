@@ -49,20 +49,24 @@ class stock_picking(osv.osv):
 """)
 
     def allow_reopen(self, cr, uid, ids, context=None):
+        _logger = logging.getLogger(__name__)
         move_line_obj = self.pool.get('stock.move')
         account_invoice_obj = self.pool.get('account.invoice')
+        _logger.info('FGF picking allow open ids %s ' %(ids)   )
         for pick in self.browse(cr, uid, ids, context):
+            _logger.info('FGF picking allow open  %s %s' %(pick.stock_journal_id,pick.stock_journal_id.reopen_posted)   )
             if pick.stock_journal_id and not pick.stock_journal_id.reopen_posted:
-                raise osv.except_osv(_('Error'), _('You cannot reset to draft pickings of this journal ! Please check "Allow Update of Posted Pickings" in Warehous Configuration / Stock Journals'))
+                raise osv.except_osv(_('Error'), _('You cannot reset to draft pickings of this journal ! Please check "Allow Update of Posted Pickings" in Warehous Configuration / Stock Journals %s') % pick.stock_journal_id.name )
             if pick._columns.get('invoice_ids'):
                 ids2 = []
-                for inv in pick.invoice_ids:
+                if pick.invoice_ids:
+                  for inv in pick.invoice_ids:
                     if inv.state in ['draft','cancel']:
                        ids2.append(inv.id) 
                     else:
                        raise osv.except_osv(_('Error'), _('You cannot reset a picking with an open invoice [%s] to draft ! You must reopen the invoice first (install modul account_invoice_reopen' % inv.number))
-                account_invoice_obj.unlink(cr, uid, ids2) 
-                if ids2:
+                  account_invoice_obj.unlink(cr, uid, ids2) 
+                  if ids2:
                     self.write(cr, uid, [pick.id], {'invoice_state':'2binvoiced'})
             elif pick.invoice_state == 'invoiced':
                 raise osv.except_osv(_('Error'), _('You cannot reset an invoiced picking to draft !'))
@@ -116,15 +120,17 @@ class stock_picking(osv.osv):
             # for some reason datas_fname has .pdf.pdf extension
             report_ids = report_xml_obj.search(cr, uid, [('model','=', 'stock.picking'), ('attachment','!=', False)])
             for report in report_xml_obj.browse(cr, uid, report_ids):
-                aname = report.attachment.replace('object','pick')
-                aname = eval(aname)+'.pdf'
-                attachment_ids = attachment_obj.search(cr, uid, [('res_model','=','stock.picking'),('datas_fname', '=', aname),('res_id','=',pick.id)])
-                for a in attachment_obj.browse(cr, uid, attachment_ids):
-                    vals = {
+                if report.attachment: 
+                   aname = report.attachment.replace('object','pick')
+                   if eval(aname):
+                       aname = eval(aname)+'.pdf'
+                       attachment_ids = attachment_obj.search(cr, uid, [('res_model','=','stock.picking'),('datas_fname', '=', aname),('res_id','=',pick.id)])
+                       for a in attachment_obj.browse(cr, uid, attachment_ids):
+                          vals = {
                         'name': a.name.replace('.pdf', now+'.pdf'),
                         'datas_fname': a.datas_fname.replace('.pdf.pdf', now+'.pdf.pdf')
                            }
-                    attachment_obj.write(cr, uid, a.id, vals)
+                          attachment_obj.write(cr, uid, a.id, vals)
 
             self.log_picking(cr, uid, ids, context=context)  
             
