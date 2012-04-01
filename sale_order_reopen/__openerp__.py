@@ -30,7 +30,7 @@ Allows reopening of sale orders.
 ================================
 
 This module allows to reopen (set to Quotation) Sale Orders in state progress and cancel
-as long as associated pickings or invoices are not posted / confirmed
+as associated pickings or invoices are canceled if possible
 
     """,
     'website': 'http://www.camptocamp.com',

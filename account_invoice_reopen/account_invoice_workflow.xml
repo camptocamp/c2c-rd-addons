@@ -23,5 +23,11 @@ write({'state':'draft'})</field>
             <field name="act_to" ref="account.act_open"/>
             <field name="signal">invoice_open</field>
         </record>
+        <record id="t12" model="workflow.transition">
+            <field name="act_from" ref="act_reopen"/>
+            <field name="act_to" ref="account.act_cancel"/>
+            <field name="signal">invoice_cancel</field>
+        </record>
+
     </data>
 </openerp>

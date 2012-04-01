@@ -56,7 +56,7 @@ class sale_order(osv.osv):
 
             if order.invoice_ids:
                 for inv in order.invoice_ids:
-                    account_invoice_obj.allow_reopen(cr, uid, [inv.id])
+                    account_invoice_obj.action_reopen(cr, uid, [inv.id])
                 #for inv in order.picking_ids:
                 #    if inv.state not in ['draft','cancel']: # very restrictive
                 #        raise osv.except_osv(_('Error'), _('You cannot reset this Sale Order to draft, because invoice %s %s is not in state draft or cancel ')% (inv.name, inv.state))
@@ -79,28 +79,32 @@ class sale_order(osv.osv):
 
         now = ' ' + _('Invalid') + time.strftime(' [%Y%m%d %H%M%S]')
         for order in self.browse(cr, uid, ids):
-            # FIXME must not cancel canceld resources
-            if order.picking_ids:
-                for pick in order.picking_ids:
-                #    stock_picking_obj.allow_reopen(cr, uid, pick.id)
-                    stock_picking_obj.action_reopen(cr, uid, [pick.id])
-                    stock_picking_obj.action_cancel(cr, uid, [pick.id])
-                     
-            
-            #account_invoice_obj.action_cancel(cr, uid, order.invoice_ids)
+
             if order.invoice_ids:
                 for inv in order.invoice_ids:
-             #       account_invoice_obj.allow_reopen(cr, uid, inv.id)
                     account_invoice_obj.action_reopen(cr, uid, [inv.id])
-            
+                    if inv.journal_id.update_posted: 
+                        _logger.info('FGF sale_order reopen cancel invoice %s' % (ids))
+                        account_invoice_obj.action_cancel(cr, uid, [inv.id])
+                    else:
+                        _logger.info('FGF sale_order reopen cancel 2 invoice %s' % (ids))
+                        account_invoice_obj.write(cr, uid, [inv.id], {'state':'cancel', 'move_id':False})
 
+            if order.picking_ids:
+                for pick in order.picking_ids:
+                    stock_picking_obj.action_reopen(cr, uid, [pick.id])
+                    stock_picking_obj.write(cr, uid, [pick.id], {'state':'cancel'})
+                    #stock_picking_obj.action_cancel(cr, uid, [pick.id])
+                     
             # for some reason datas_fname has .pdf.pdf extension
             report_ids = report_xml_obj.search(cr, uid, [('model','=', 'sale.order'), ('attachment','!=', False)])
             for report in report_xml_obj.browse(cr, uid, report_ids):
+              if report.attachment:
                 aname = report.attachment.replace('object','pick')
-                aname = eval(aname)+'.pdf'
-                attachment_ids = attachment_obj.search(cr, uid, [('res_model','=','sale.order'),('datas_fname', '=', aname),('res_id','=',order.id)])
-                for a in attachment_obj.browse(cr, uid, attachment_ids):
+                if eval(aname):
+                  aname = eval(aname)+'.pdf'
+                  attachment_ids = attachment_obj.search(cr, uid, [('res_model','=','sale.order'),('datas_fname', '=', aname),('res_id','=',order.id)])
+                  for a in attachment_obj.browse(cr, uid, attachment_ids):
                     vals = {
                         'name': a.name.replace('.pdf', now+'.pdf'),
                         'datas_fname': a.datas_fname.replace('.pdf.pdf', now+'.pdf.pdf')

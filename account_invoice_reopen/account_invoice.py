@@ -86,7 +86,7 @@ class account_invoice(osv.osv):
                 move_ids.append(i['move_id'][0])
                 for move in account_move_obj.browse(cr, uid, move_ids):
                     if not move.journal_id.reopen_posted:
-                        raise osv.except_osv(_('Error !'), _('You can not reopen invoice of this journal! You need to need to set "Allow Update Posted Entries" first'))
+                        raise osv.except_osv(_('Error !'), _('You can not reopen invoice of this journal [%s]! You need to need to set "Allow Update Posted Entries" first')%(move.journal_id.name))
                     
             if i['payment_ids']:
                 account_move_line_obj = self.pool.get('account.move.line')
@@ -100,10 +100,12 @@ class account_invoice(osv.osv):
         for inv in invoice_obj.browse(cr, uid, ids):
             report_ids = report_xml_obj.search(cr, uid, [('model','=', 'account.invoice'), ('attachment','!=', False)])
             for report in report_xml_obj.browse(cr, uid, report_ids):
+              if report.attachment:
                 aname = report.attachment.replace('object','inv')
-                aname = eval(aname)+'.pdf'
-                attachment_ids = attachment_obj.search(cr, uid, [('res_model','=','account.invoice'),('datas_fname', '=', aname),('res_id','=',inv.id)])
-                for a in attachment_obj.browse(cr, uid, attachment_ids):
+                if eval(aname):
+                  aname = eval(aname)+'.pdf'
+                  attachment_ids = attachment_obj.search(cr, uid, [('res_model','=','account.invoice'),('datas_fname', '=', aname),('res_id','=',inv.id)])
+                  for a in attachment_obj.browse(cr, uid, attachment_ids):
                     vals = {
                         'name': a.name.replace('.pdf', now+'.pdf'),
                         'datas_fname': a.datas_fname.replace('.pdf.pdf', now+'.pdf.pdf')
