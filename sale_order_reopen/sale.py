@@ -80,11 +80,12 @@ class sale_order(osv.osv):
         now = ' ' + _('Invalid') + time.strftime(' [%Y%m%d %H%M%S]')
         for order in self.browse(cr, uid, ids):
             # FIXME must not cancel canceld resources
-            #stock_picking_obj.cancel_assign(cr, uid, picking_ids)
             if order.picking_ids:
                 for pick in order.picking_ids:
                 #    stock_picking_obj.allow_reopen(cr, uid, pick.id)
                     stock_picking_obj.action_reopen(cr, uid, [pick.id])
+                    stock_picking_obj.action_cancel(cr, uid, [pick.id])
+                     
             
             #account_invoice_obj.action_cancel(cr, uid, order.invoice_ids)
             if order.invoice_ids:
