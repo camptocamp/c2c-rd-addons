@@ -32,22 +32,36 @@ import logging
 class sale_order(osv.osv):
     _inherit = 'sale.order'
 
+    def _auto_init(self, cr, context=None):
+           cr.execute("""update wkf_instance
+                         set state = 'active'
+                       where state = 'complete'
+                         and res_type = 'sale.order'
+""")
+
+
     def allow_reopen(self, cr, uid, ids, context=None):
         _logger = logging.getLogger(__name__)
 
         _logger.info('FGF sale_order reopen %s' % (ids))
+        stock_picking_obj = self.pool.get('stock.picking')
+        account_invoice_obj = self.pool.get('account.invoice')
         for order in self.browse(cr, uid, ids, context):
             if order.picking_ids:
                 for pick in order.picking_ids:
-                    if pick.state not in ['draft','cancel']: # very restrictive
-                        raise osv.except_osv(_('Error'), _('You cannot reset this Sale Order to draft, because picking %s %s is not in state draft or cancel ')% (pick.name, pick.state))
+                    stock_picking_obj.allow_reopen(cr, uid, [pick.id])
+                    
+                    #if pick.state not in ['draft','cancel','confirmed']: # very restrictive
+                    #    raise osv.except_osv(_('Error'), _('You cannot reset this Sale Order to draft, because picking [ %s %s ] is not in state draft or cancel ')% (pick.name, pick.state))
 
             if order.invoice_ids:
-                for inv in order.picking_ids:
-                    if inv.state not in ['draft','cancel']: # very restrictive
-                        raise osv.except_osv(_('Error'), _('You cannot reset this Sale Order to draft, because invoice %s %s is not in state draft or cancel ')% (inv.name, inv.state))
+                for inv in order.invoice_ids:
+                    account_invoice_obj.allow_reopen(cr, uid, [inv.id])
+                #for inv in order.picking_ids:
+                #    if inv.state not in ['draft','cancel']: # very restrictive
+                #        raise osv.except_osv(_('Error'), _('You cannot reset this Sale Order to draft, because invoice %s %s is not in state draft or cancel ')% (inv.name, inv.state))
 
-        return true
+        return True
 
     
 
@@ -66,10 +80,17 @@ class sale_order(osv.osv):
         now = ' ' + _('Invalid') + time.strftime(' [%Y%m%d %H%M%S]')
         for order in self.browse(cr, uid, ids):
             # FIXME must not cancel canceld resources
-            picking_ids = stock_picking_obj.search(cr, uid, [('state','!=','cancel')])
-            stock_picking_obj.cancel_assign(cr, uid, picking_ids)
-            invoice_ids = account_invoice_obj.search(cr, uid, [('state','!=','cancel')])
-            account_invoice_obj.action_cancel(cr, uid, invoice_ids)
+            #stock_picking_obj.cancel_assign(cr, uid, picking_ids)
+            if order.picking_ids:
+                for pick in order.picking_ids:
+                #    stock_picking_obj.allow_reopen(cr, uid, pick.id)
+                    stock_picking_obj.action_reopen(cr, uid, [pick.id])
+            
+            #account_invoice_obj.action_cancel(cr, uid, order.invoice_ids)
+            if order.invoice_ids:
+                for inv in order.invoice_ids:
+             #       account_invoice_obj.allow_reopen(cr, uid, inv.id)
+                    account_invoice_obj.action_reopen(cr, uid, [inv.id])
             
 
             # for some reason datas_fname has .pdf.pdf extension
@@ -85,7 +106,7 @@ class sale_order(osv.osv):
                            }
                     attachment_obj.write(cr, uid, a.id, vals)
 
-            self.log_picking(cr, uid, ids, context=context)  
+            #self.log_sale(cr, uid, ids, context=context)  
             
         return True
 

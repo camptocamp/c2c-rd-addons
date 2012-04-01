@@ -31,6 +31,12 @@ write({'state':'draft'})</field>
             <field name="condition">allow_reopen()</field>
             <field name="signal">button_reopen</field>
         </record>
+        <record id="trans_ship_reopen" model="workflow.transition">
+            <field name="act_from" ref="sale.act_ship"/>
+            <field name="act_to" ref="act_reopen"/>
+            <field name="condition">allow_reopen()</field>
+            <field name="signal">button_reopen</field>
+        </record>
 
 
         <record id="trans_draft_process" model="workflow.transition">

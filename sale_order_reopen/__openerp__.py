@@ -34,7 +34,7 @@ as long as associated pickings or invoices are not posted / confirmed
 
     """,
     'website': 'http://www.camptocamp.com',
-    "depends" : ["sale"],
+    "depends" : ["sale","stock_picking_reopen","account_invoice_reopen"],
     'init_xml': [],
     'update_xml': ['sale_view.xml','sale_workflow.xml' ],
     'demo_xml': [],
