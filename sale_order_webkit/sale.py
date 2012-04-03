@@ -29,72 +29,92 @@ import pooler
 from osv import fields, osv, orm
 from tools.translate import _
 
-class stock_picking(osv.osv):
-    _inherit = "stock.picking"
+class sale_order(osv.osv):
+    _inherit = "sale.order"
 
     def _print_uom(self, cr, uid, ids, name, args, context=None):
         res = {}
-        for picking in self.browse(cr, uid, ids, context=context):
+        for order in self.browse(cr, uid, ids, context=context):
 	  print_uom = False
-	  if picking.move_lines:
-            for line in picking.move_lines:
+	  if order.order_line:
+            for line in order.order_line:
                 if not line.product_uos or line.product_uos and line.product_uom != line.product_uos:
 		   print_uom = True
-          res[picking.id] =  print_uom
+          res[order.id] =  print_uom
         return res
 
     def _print_uos(self, cr, uid, ids, name, args, context=None):
         res = {}
-        for picking in self.browse(cr, uid, ids, context=context):
+        for order in self.browse(cr, uid, ids, context=context):
           print_uos = False
-          if picking.move_lines:
-            for line in picking.move_lines:
-                if line.product_uos:
+          if order.order_line:
+            for line in order.order_line:
+                if line.product_uos and line.product_uos_qty != line.product_uom_qty :
                    print_uos = True
-          res[picking.id] =  print_uos
+          res[order.id] =  print_uos
         return res
 
 
     def _print_packing(self, cr, uid, ids, name, args, context=None):
         res = {}
-        for picking in self.browse(cr, uid, ids, context=context):
+        for order in self.browse(cr, uid, ids, context=context):
           print_packing = False
-          if picking.move_lines:
-            for line in picking.move_lines:
+          if order.order_line:
+            for line in order.order_line:
                 if line.product_packaging:
                    print_packing = True
-          res[picking.id] =  print_packing
+          res[order.id] =  print_packing
         return res
 
     def _print_ean(self, cr, uid, ids, name, args, context=None):
         res = {}
-        for picking in self.browse(cr, uid, ids, context=context):
+        for order in self.browse(cr, uid, ids, context=context):
           print_ean = False
-          if picking.move_lines:
-            for line in picking.move_lines:
-                if line.product_id.ean13 or line.product_packaging.ean:
+          if order.order_line:
+            for line in order.order_line:
+                if line.product_packaging.ean or line.product_id.ean13 :
                    print_ean = True
-          res[picking.id] =  print_ean
+          res[order.id] =  print_ean
         return res
 
-    def _print_lot(self, cr, uid, ids, name, args, context=None):
+    def _print_discount(self, cr, uid, ids, name, args, context=None):
         res = {}
-        for picking in self.browse(cr, uid, ids, context=context):
-          print_lot = False
-          if picking.move_lines:
-            for line in picking.move_lines:
-                if line.prodlot_id: 
-                   print_lot = True
-          res[picking.id] =  print_lot
+        for order in self.browse(cr, uid, ids, context=context):
+          print_discount = False
+          if order.order_line:
+            for line in order.order_line:
+                if line.discount :
+                   print_discount = True
+          res[order.id] =  print_discount
+        return res
+
+    def _get_cols(self, cr, uid, ids, name, args, context=None):
+        res = {}
+        for order in self.browse(cr, uid, ids, context=context):
+          cols = 2
+          if order.print_uom:
+             cols += 2
+          if order.print_uos:
+             cols += 2
+          if order.print_packing:
+             cols += 2
+          if order.print_ean:
+             cols += 1
+          if order.print_discount:
+             cols += 1
+           
+          res[order.id] = cols
+
         return res
 
 
-        
+
     _columns = {
               'print_uom': fields.function(_print_uom, method=True, type='boolean', string='Print UoM if different from UoS',),
               'print_uos': fields.function(_print_uos, method=True, type='boolean', string='Print UoS if exists',),
               'print_packing': fields.function(_print_packing, method=True, type='boolean', string='Print Packing Info if available',),
               'print_ean': fields.function(_print_ean, method=True, type='boolean', string='Print EAN if available',),
-              'print_lot': fields.function(_print_lot, method=True, type='boolean', string='Print lot if available',),
+              'print_discount': fields.function(_print_discount, method=True, type='boolean', string='Print Discount if available',),
+              'cols': fields.function(_get_cols, method=True, type='integer', string='No of columns before totals',),
     }
-stock_picking()
+sale_order()
