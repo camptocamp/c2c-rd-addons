@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <record id="view_c2c_budget_create_form" model="ir.ui.view">
+      <field name="name">c2c_budget.create.form</field>
+      <field name="model">c2c_budget.create</field>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <form string="Budget Create Lines">
+          <group colspan="4">
+            <field name="budget_version_id"/>
+            <separator string="Source Periods" colspan="4"/>
+            <field name="period_from"/>
+            <field name="period_to"/>
+            <separator string="Controls" colspan="4"/>
+            <field name="replace_lines"/>
+            <field name="create_items"/>
+          </group>
+          <separator string="This will create missing budget items and budget lines based on account move lines of selected periods" colspan="4"/>
+          <group colspan="4" col="6">
+            <button
+              icon="gtk-cancel"
+              special="cancel"
+              string="Cancel"/>
+            <button
+              icon="terp-gtk-go-back-rtl"
+              name="c2c_budget_create"
+              string="Create Lines"
+              type="object"/>
+          </group>
+        </form>
+      </field>
+    </record>
+    <record id="action_c2c_budget_create" model="ir.actions.act_window">
+      <field name="name">Create Budget Lines</field>
+      <field name="res_model">c2c_budget.create</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">form</field>
+      <field name="view_id" ref="view_c2c_budget_create_form"/>
+      <field name="target">new</field>
+      <field name="help">This will create missing budget items and budget lines based on account move lines of selected periods</field>
+    </record>
+    <menuitem
+      action="action_c2c_budget_create"
+      icon="STOCK_INDENT"
+      id="menu_action_c2c_budget_create"
+      parent="c2c_budget.menu_budget_c2c"/>
+  </data>
+</openerp>

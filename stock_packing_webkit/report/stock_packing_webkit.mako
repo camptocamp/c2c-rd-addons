@@ -148,6 +148,9 @@ ${pick.address_id.address_label}
 %if pick.print_ean:
             <th style="text-align:center;">${_("EAN")}</th>
 %endif
+%if pick.print_lot:
+            <th style="text-align:center;">${_("Lot")}</th>
+%endif
 %if pick.print_packing:
             <th style="text-align:center;">${_("Pack")}</th>
             <th style="text-align:center;">${_("Packaging")}</th>
@@ -170,6 +173,9 @@ ${pick.address_id.address_label}
 %endif
 %if pick.print_ean:
            <td style="white-space:nowrap;text-align:left;">${line.product_packaging.ean or line.product_id.ean13 or ''}</td>
+%endif
+%if pick.print_lot:
+           <td style="white-space:normal;text-align:left;">${line.prodlot_id.name or '' }</td>
 %endif
 %if pick.print_packing:
            <td style="white-space:normal;text-align:left;">${line.product_packaging.qty and line.product_qty/line.product_packaging.qty or ''}</td>

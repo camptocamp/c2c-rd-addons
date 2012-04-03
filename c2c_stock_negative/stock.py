@@ -25,7 +25,7 @@ from osv import osv, fields
 
 import re  
 from tools.translate import _
-        
+import logging        
         
 #----------------------------------------------------------
 #  Product Category
@@ -81,3 +81,60 @@ class stock_move(osv.osv):
 
      
 stock_move()
+
+
+class stock_production_lot(osv.osv):
+    _inherit = 'stock.production.lot'
+    def name_get(self, cr, uid, ids, context=None):
+        _logger = logging.getLogger(__name__)
+        res= super(stock_production_lot, self).name_get(cr, uid, ids, context)
+        _logger.info('FGF lot res negative %s' % (res))
+        res1 = []
+        if context.get('location_id'):
+            lots_to_show = []
+            for lot in self.browse(cr, uid, ids, context):
+                if lot.product_id.allow_negative_stock or lot.stock_available != 0:
+                    lots_to_show.append(lot.id)
+            _logger.info('FGF lot res negative to show %s' % (lots_to_show))
+            if lots_to_show:
+                for r in res:
+                    _logger.info('FGF lot res negative r %s,%s' % (r, res))
+                    if r[0] in lots_to_show:
+                       res1.append(r)
+                       #_logger.info('FGF lot res negative res 1%s' % (res1))
+        else:
+            res1 = res
+            
+        return res1
+
+stock_production_lot()
+
+class stock_location(osv.osv):
+    _inherit = 'stock.location'
+
+    def name_get(self, cr, uid, ids, context=None):
+        product_obj = self.pool.get('product.product')
+        _logger = logging.getLogger(__name__)
+        res= super(stock_location, self).name_get(cr, uid, ids, context)
+        res1 = []
+        if context.get('product_id'):
+            loc_to_show = []
+            for product in product_obj.browse(cr, uid, [context.get('product_id')]):
+                if not product.allow_negative_stock:
+                    for loc in self.browse(cr, uid, ids, context):
+                        qty = loc.stock_real
+                        qty_v = loc.stock_virtual
+                        if qty != 0 or qty_v != 0:
+                            loc_to_show.append(loc.id)
+            if loc_to_show:
+                for r in res:
+                    _logger.info('FGF loc res negative r %s,%s' % (r, res))
+                    if r[0] in loc_to_show:
+                       res1.append(r)
+
+                
+        else:
+           res1 = res
+        return res1 
+
+stock_location()

@@ -55,7 +55,7 @@ class sale_order_line(osv.osv):
         _logger.info('FGF sale uos' )
 
         qty_helper =  qty
-        if uos and qty_uos != 0 :
+        if product and uos and qty_uos != 0 :
             _logger.info('FGF sale uom,uos ,qty, qty_uos %s,%s,%s,%s' %( uom,uos, qty, qty_uos ))
             product_obj = self.pool.get('product.product')
             for prod in product_obj.browse(cr, uid, [product], context):

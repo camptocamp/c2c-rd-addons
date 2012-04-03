@@ -3,7 +3,7 @@
 #
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2010 Tiny SPRL (<http://tiny.be>).
-#    Copyright (C) 2010-2010 Camptocamp Austria (<http://www.camptocamp.at>)
+#    Copyright (C) 2012-2012 Camptocamp Austria (<http://www.camptocamp.at>)
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -20,19 +20,18 @@
 #
 ##############################################################################
 
+# FIXME remove logger lines or change to debug
+ 
+from osv import fields, osv
 
-{
-    'name': 'Displays available lot quantity along with name',
-    'version': '1.0',
-    'category': 'Warehouse Management',
-    'description': """
-    necessary to select a lot wiht qty
-""",
-    'author': 'Camptocamp Austria',
-    'depends': [ 'stock'],
-    'update_xml': [],
-    'demo_xml': [],
-    'installable': True,
-    'active': False,
-}
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+
+class account_journal(osv.osv):
+    _inherit = 'account.journal'
+
+    _columns = {
+       'reopen_posted':  fields.boolean('Allow Update of Posted Entries', help="Allows to reopen posted invoices, sets the move state to unposted"),
+        }
+    
+account_journal()
+
+    

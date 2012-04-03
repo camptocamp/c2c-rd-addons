@@ -45,6 +45,14 @@ class sale_order(osv.osv):
                 help="This indicates the status of the internal pull calculation"),
     }
 
+    def copy(self, cr, uid, id, default=None, context=None):
+        if not default:
+            default = {}
+        default.update({
+            'pull_intern_date': False,
+            'state_internal': False,
+        })
+        return super(sale_order, self).copy(cr, uid, id, default, context=context)
 
 
     def order_pull_internal(self, cr, uid, ids, context=None):
