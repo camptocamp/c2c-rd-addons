@@ -31,7 +31,10 @@ ${order.partner_shipping_id.address_label}
            <pre>
          </td>
          <td style="width:50%">
+         %if order.partner_order_id.address_label != order.partner_shipping_id.address_label:
+${_("Ordering Contact")}   
          <pre>${order.partner_order_id.address_label}</pre>
+         %endif
          %if order.partner_order_id.phone :
 ${_("Phone")}: ${order.partner_order_id.phone|entity} <br>
         %endif
@@ -41,8 +44,12 @@ ${_("Fax")}: ${order.partner_order_id.fax|entity} <br>
         %if order.partner_order_id.email :
 ${_("Mail")}: ${order.partner_order_id.email|entity} <br>
         %endif
-        %if order.partner_id.vat :
-${_("VAT")}: ${order.partner_id.vat|entity} <br>
+         %if order.partner_invoice_id.address_label != order.partner_shipping_id.address_label:
+${_("Invoice Addresse")}   
+         <pre>${order.partner_inovice_id.address_label}</pre>
+         %endif
+        %if order.partner_invoice_id.partner_id.vat :
+${_("VAT")}: ${order.partner_invoice_id.partner_id.vat|entity} <br>
         %endif
    
          </td>
@@ -53,7 +60,10 @@ ${_("VAT")}: ${order.partner_id.vat|entity} <br>
         %if order.company_id.address_label_position == 'right' or not order.company_id.address_label_position:
          <tr>
          <td style="width:50%">
+         %if order.partner_order_id.address_label != order.partner_shipping_id.address_label:
+${_("Ordering Contact")}   
          <pre>${order.partner_order_id.address_label}</pre>
+        %endif
          %if order.partner_order_id.phone :
 ${_("Tel")}: ${order.partner_order_id.phone|entity} <br>
         %endif
@@ -63,8 +73,12 @@ ${_("Fax")}: ${order.partner_order_id.fax|entity} <br>
         %if order.partner_order_id.email :
 ${_("E-mail")}: ${order.partner_order_id.email|entity} <br>
         %endif
-        %if order.partner_id.vat :
-${_("VAT")}: ${order.partner_id.vat|entity} <br>
+         %if order.partner_invoice_id.address_label != order.partner_shipping_id.address_label:
+${_("Invoice Addresse")}   
+         <pre>${order.partner_inovice_id.address_label}</pre>
+         %endif
+        %if order.partner_invoice_id.partner_id.vat :
+${_("VAT")}: ${order.partner_invoice_id.partner_id.vat|entity} <br>
         %endif
 
          </td>
