@@ -196,7 +196,7 @@ ${inv.address_invoice_id.address_label}
            %if inv.amount_discount != 0:
              <td style="border-style:none"/>
            %endif
-             <td style="border-style:none"/> <td style="border-style:none"/><td style="border-style:none"/><td style="border-style:none"/><td style="border-top:2px solid;white-space:nowrap"><b>Net Total:</b></td><td style="border-top:2px solid;text-align:right">${formatLang(inv.amount_untaxed)}</td></tr>
+             <td style="border-style:none"/> <td style="border-style:none"/><td style="border-style:none"/><td style="border-style:none"/><td style="border-top:2px solid;white-space:nowrap"><b>_('Net Total'):</b></td><td style="border-top:2px solid;text-align:right">${formatLang(inv.amount_untaxed)}</td></tr>
         <tr>
            %if inv.print_price_unit_id == True:
              <td style="border-style:none"/>
@@ -204,7 +204,7 @@ ${inv.address_invoice_id.address_label}
            %if inv.amount_discount != 0:
               <td style="border-style:none"/>
            %endif
-              <td style="border-style:none"/><td style="border-style:none"/><td style="border-style:none"/><td style="border-style:none"/><td style="border-style:none"><b>Taxes:</b></td><td style="text-align:right">${formatLang(inv.amount_tax)}</td></tr>
+              <td style="border-style:none"/><td style="border-style:none"/><td style="border-style:none"/><td style="border-style:none"/><td style="border-style:none"><b>_('Taxes'):</b></td><td style="text-align:right">${formatLang(inv.amount_tax)}</td></tr>
         <tr> 
            %if inv.print_price_unit_id == True:
              <td style="border-style:none"/>
@@ -212,7 +212,7 @@ ${inv.address_invoice_id.address_label}
           %if inv.amount_discount != 0:
              <td style="border-style:none"/>
           %endif
-             <td style="border-style:none"/><td style="border-style:none"/><td style="border-style:none"/><td style="border-style:none"/><td style="border:2px solid;font-weight:bold;white-space:nowrap">Total ${inv.currency_id.name}:</td><td style="border:2px solid;text-align:right;font-weight:bold">${formatLang(inv.amount_total)}</td></tr>
+             <td style="border-style:none"/><td style="border-style:none"/><td style="border-style:none"/><td style="border-style:none"/><td style="border:2px solid;font-weight:bold;white-space:nowrap">_('Total') ${inv.currency_id.name}:</td><td style="border:2px solid;text-align:right;font-weight:bold">${formatLang(inv.amount_total)}</td></tr>
         </tbody>
     </table>
 <br>
