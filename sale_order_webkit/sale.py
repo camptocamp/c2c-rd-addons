@@ -49,7 +49,7 @@ class sale_order(osv.osv):
           print_uos = False
           if order.order_line:
             for line in order.order_line:
-                if line.product_uos:
+                if line.product_uos and line.product_uos_qty != line.product_uom_qty :
                    print_uos = True
           res[order.id] =  print_uos
         return res
@@ -72,7 +72,7 @@ class sale_order(osv.osv):
           print_ean = False
           if order.order_line:
             for line in order.order_line:
-                if line.product_id.ean13 or line.product_packaging.ean:
+                if line.product_packaging.ean or line.product_id.ean13 :
                    print_ean = True
           res[order.id] =  print_ean
         return res

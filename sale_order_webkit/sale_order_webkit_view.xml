@@ -3,7 +3,7 @@
   <data>
     <report
       auto="False"
-      file="sale_order_webkit/report/sale_order_webkit.mako"
+      file="sale_order_webkit/report/sale_order.mako"
       id="saler_order_webkit"
       model="sale.order"
       name="sale.order.webkit"

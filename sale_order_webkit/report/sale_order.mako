@@ -15,7 +15,7 @@
        font-size:10px;
            }
      td { margin: 0px; padding: 3px; border: 1px solid lightgrey;  vertical-align: top; }
-     pre {font-family:helvetica; font-size:13;}
+     pre {font-family:helvetica; font-size:12;}
     </style>
     %for order in objects :
 <br>
@@ -45,8 +45,9 @@ ${_("Fax")}: ${order.partner_order_id.fax|entity} <br>
 ${_("Mail")}: ${order.partner_order_id.email|entity} <br>
         %endif
          %if order.partner_invoice_id.address_label != order.partner_shipping_id.address_label:
-${_("Invoice Addresse")}   
-         <pre>${order.partner_inovice_id.address_label}</pre>
+<br>
+${_("Invoice Address")}
+<pre>${order.partner_invoice_id.address_label}</pre>
          %endif
         %if order.partner_invoice_id.partner_id.vat :
 ${_("VAT")}: ${order.partner_invoice_id.partner_id.vat|entity} <br>
@@ -74,8 +75,9 @@ ${_("Fax")}: ${order.partner_order_id.fax|entity} <br>
 ${_("E-mail")}: ${order.partner_order_id.email|entity} <br>
         %endif
          %if order.partner_invoice_id.address_label != order.partner_shipping_id.address_label:
-${_("Invoice Addresse")}   
-         <pre>${order.partner_inovice_id.address_label}</pre>
+<br>
+${_("Invoice Address")}   
+<pre>${order.partner_invoice_id.address_label}</pre>
          %endif
         %if order.partner_invoice_id.partner_id.vat :
 ${_("VAT")}: ${order.partner_invoice_id.partner_id.vat|entity} <br>
