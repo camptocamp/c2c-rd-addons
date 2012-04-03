@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: OpenERP Server 6.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-04-03 20:40+0000\n"
-"PO-Revision-Date: 2012-04-03 22:43+0200\n"
+"PO-Revision-Date: 2012-04-03 23:26+0200\n"
 "Last-Translator: Ferdinand Gassauer <f.gassauer@chricar.at>\n"
 "Language-Team: German <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -31,7 +31,7 @@ msgstr "Kundengutschrift"
 #. module: account_invoice_webkit
 #: report:addons/account_invoice_webkit/report/account_invoice_webkit.mako:109
 msgid "Customer Invoice"
-msgstr "Kundenrechnung"
+msgstr "Ausgangsrechnung"
 
 #. module: account_invoice_webkit
 #: report:addons/account_invoice_webkit/report/account_invoice_webkit.mako:31
@@ -42,7 +42,7 @@ msgstr "Lieferantenanschrift"
 #. module: account_invoice_webkit
 #: report:addons/account_invoice_webkit/report/account_invoice_webkit.mako:111
 msgid "Supplier Invoice"
-msgstr "Lieferantenrechnungen"
+msgstr "Eingangsrechnungen"
 
 #. module: account_invoice_webkit
 #: report:addons/account_invoice_webkit/report/account_invoice_webkit.mako:161
@@ -142,7 +142,7 @@ msgstr "Betrag"
 #: report:addons/account_invoice_webkit/report/account_invoice_webkit.mako:57
 #: report:addons/account_invoice_webkit/report/account_invoice_webkit.mako:88
 msgid "VAT"
-msgstr "USt."
+msgstr "UID"
 
 #. module: account_invoice_webkit
 #: report:addons/account_invoice_webkit/report/account_invoice_webkit.mako:128
