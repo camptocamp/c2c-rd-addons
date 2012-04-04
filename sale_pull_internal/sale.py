@@ -45,6 +45,14 @@ class sale_order(osv.osv):
                 help="This indicates the status of the internal pull calculation"),
     }
 
+    def copy(self, cr, uid, id, default=None, context=None):
+        if not default:
+            default = {}
+        default.update({
+            'pull_intern_date': False,
+            'state_internal': False,
+        })
+        return super(sale_order, self).copy(cr, uid, id, default, context=context)
 
 
     def order_pull_internal(self, cr, uid, ids, context=None):
@@ -78,6 +86,8 @@ class sale_order(osv.osv):
             if order.state == 'progress' and not order.state_internal and not order.pull_intern_date:
                 order_ids.append(order.id)
         #order.write(cr, uid, order_ids,{'state_internal':'calculation'}, context)
+        if not order_ids:
+            return
 
         order_ids2 = (', '.join(map(str,order_ids)))
         cr.execute("""select shop_id, product_id, l.name, product_packaging, sum(product_uom_qty) as qty_requested

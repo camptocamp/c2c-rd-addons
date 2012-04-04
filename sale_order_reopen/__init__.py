@@ -3,7 +3,6 @@
 #
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2010 Tiny SPRL (<http://tiny.be>).
-#    Copyright (C) 2010-2010 Camptocamp Austria (<http://www.camptocamp.at>)
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -20,27 +19,6 @@
 #
 ##############################################################################
 
-from osv import fields, osv
-import logging
+# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
 
-class stock_production_lot(osv.osv):
-    _inherit = 'stock.production.lot'
-    def name_get(self, cr, uid, ids, context=None):
-        _logger = logging.getLogger(__name__)
-        res= super(stock_production_lot, self).name_get(cr, uid, ids, context)
-        _logger.info('FGF lot %s ' % (res))
-        resd = dict(res)
-        _logger.info('FGF lot d %s ' % (resd))
-        res1 =[] 
-        for lot in self.browse(cr, uid, ids, context):
-            qty = lot.stock_available
-            _logger.info('FGF lot res %s %s' % (lot.id, qty))
-            name_new = resd[lot.id] + ' ' + str(qty) +' '+ lot.product_id.uom_id.name
-            _logger.info('FGF lot name %s' % (name_new))
-            l = (lot.id,name_new)
-            res1.append(l)
-   
-            _logger.info('FGF lot res1 %s' % (res1))
-        return res1
-        
-stock_production_lot()
+import sale

@@ -106,16 +106,17 @@ ${inv.address_invoice_id.address_label}
     <br>
     <br>
     %if inv.type == 'out_invoice' :
-    <span class="title">${_("Customer Invoice")} ${inv.number or ''|entity}</span>
+    <h1 style="clear:both;">${_("Customer Invoice")} ${inv.number or ''|entity}</h1>
     %elif inv.type == 'in_invoice' :
-    <span class="title">${_("Supplier Invoice")} ${inv.number or ''|entity}</span>   
+    <h1 style="clear:both;">${_("Supplier Invoice")} ${inv.number or ''|entity}</h1>
     %elif inv.type == 'out_refund' :
-    <span class="title">${_("Customer Refund")} ${inv.number or ''|entity} </span> 
+    <h1 style="clear:both;">${_("Customer Refund")} ${inv.number or ''|entity}</h1>
     %elif inv.type == 'in_refund' :
+    <h1 style="clear:both;">${_("Supplier Refund")} ${inv.number or ''|entity}</h1>
     <span class="title">${_("Supplier Refund")} ${inv.number or ''|entity}</span> 
     %endif
     %if inv.state == 'cancel' :
-    <span class="title">${inv.state}</span> 
+    <h1 style="clear:both;>${inv.state}</h1> 
     %endif
     <br/>
     <br/>
@@ -132,6 +133,7 @@ ${inv.address_invoice_id.address_label}
           %endif
             <td style="white-space:nowrap">${_("Invoice Date")}</td>
             <td style="white-space:nowrap">${_("Payment Term")}</td>
+            <td style="white-space:nowrap">${_("Due Date")}</td>
             <td>${_("Curr")}</td>
         </tr>
         <tr>
@@ -146,6 +148,7 @@ ${inv.address_invoice_id.address_label}
           %endif
           <td>${formatLang(inv.date_invoice, date=True)|entity}</td>
           <td>${inv.payment_term.name or ''}</td>
+          <td>${inv.date_due or ''}</td>
          <td>${inv.currency_id.name}</td></tr>
     </table>
     <h1><br /></h1>
@@ -196,7 +199,7 @@ ${inv.address_invoice_id.address_label}
            %if inv.amount_discount != 0:
              <td style="border-style:none"/>
            %endif
-             <td style="border-style:none"/> <td style="border-style:none"/><td style="border-style:none"/><td style="border-style:none"/><td style="border-top:2px solid;white-space:nowrap"><b>Net Total:</b></td><td style="border-top:2px solid;text-align:right">${formatLang(inv.amount_untaxed)}</td></tr>
+             <td style="border-style:none"/> <td style="border-style:none"/><td style="border-style:none"/><td style="border-style:none"/><td style="border-top:2px solid;white-space:nowrap"><b>${_("Net Total")}:</b></td><td style="border-top:2px solid;text-align:right">${formatLang(inv.amount_untaxed)}</td></tr>
         <tr>
            %if inv.print_price_unit_id == True:
              <td style="border-style:none"/>
@@ -204,7 +207,7 @@ ${inv.address_invoice_id.address_label}
            %if inv.amount_discount != 0:
               <td style="border-style:none"/>
            %endif
-              <td style="border-style:none"/><td style="border-style:none"/><td style="border-style:none"/><td style="border-style:none"/><td style="border-style:none"><b>Taxes:</b></td><td style="text-align:right">${formatLang(inv.amount_tax)}</td></tr>
+              <td style="border-style:none"/><td style="border-style:none"/><td style="border-style:none"/><td style="border-style:none"/><td style="border-style:none"><b>${_("Taxes")}:</b></td><td style="text-align:right">${formatLang(inv.amount_tax)}</td></tr>
         <tr> 
            %if inv.print_price_unit_id == True:
              <td style="border-style:none"/>
@@ -212,7 +215,7 @@ ${inv.address_invoice_id.address_label}
           %if inv.amount_discount != 0:
              <td style="border-style:none"/>
           %endif
-             <td style="border-style:none"/><td style="border-style:none"/><td style="border-style:none"/><td style="border-style:none"/><td style="border:2px solid;font-weight:bold;white-space:nowrap">Total ${inv.currency_id.name}:</td><td style="border:2px solid;text-align:right;font-weight:bold">${formatLang(inv.amount_total)}</td></tr>
+             <td style="border-style:none"/><td style="border-style:none"/><td style="border-style:none"/><td style="border-style:none"/><td style="border:2px solid;font-weight:bold;white-space:nowrap">${_("Total")} ${inv.currency_id.name}:</td><td style="border:2px solid;text-align:right;font-weight:bold">${formatLang(inv.amount_total)}</td></tr>
         </tbody>
     </table>
 <br>

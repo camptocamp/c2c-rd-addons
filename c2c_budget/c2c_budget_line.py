@@ -33,6 +33,7 @@ from c2c_reporting_tools.c2c_helper import *
 from datetime import datetime
 from time import mktime
 import time
+import logging
 
 
 class c2c_budget_line(osv.osv):
@@ -284,6 +285,7 @@ class c2c_budget_line(osv.osv):
     
     
     def _check_item_in_budget_tree (self, cr, uid, ids):
+        _logger = logging.getLogger(__name__)
         """ check if the line's budget item is in the budget's structure """
         
         lines = self.browse(cr, uid, ids)
@@ -297,6 +299,7 @@ class c2c_budget_line(osv.osv):
                 )
             
             if l.budget_item_id.id not in flat_items_ids:
+                _logger.info('FGF budget_item not in structure %s' % ( l.budget_item_id.id))
                 return False
         return True
         

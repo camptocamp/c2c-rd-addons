@@ -91,6 +91,61 @@ class wizard_generate_xml(osv.osv_memory):
 #            }
 #        }
 
+    _filters = []
+
+    def _table_obj(self, cr, uid, context) :
+        model_obj = self.pool.get('ir.model')
+        ids = context['active_ids']
+        if len(ids) > 1 :
+            raise osv.except_osv \
+                ( _('Data Error !')
+                , _('You can only select a single table for generation')
+                )
+        model = model_obj.browse(cr, uid, ids[0])
+        return model, self.pool.get(model.model)
+    # end def _table_obj
+
+    def add_filter(self, cr, uid, ids, context) :
+        data_obj = self.pool.get('ir.model.data')
+        data_ids = data_obj.search \
+            ( cr, uid
+            , [('model', '=', 'ir.ui.view'), ('name', '=', 'generate_xml_init_filter_view')]
+            , context=context
+            )
+        res_id = data_obj.read(cr, uid, data_ids, fields=['res_id'], context=context)[0]['res_id']
+        return \
+            { 'name'      : 'my test'
+            , 'view_type' : 'form'
+            , 'view_mode' : 'tree,form'
+            , 'res_model' : 'ir.model.generate.xml.filter'
+            , 'views'     : [(res_id, 'tree')]
+            , 'target'    : 'new'
+            , 'context'   : context
+            , 'type'      : 'ir.actions.act_window'
+            }
+    # end def add_filter
+
+    def generate(self, cr, uid, ids, context) :
+        model_obj = self.pool.get('ir.model')
+        model, table_obj = self._table_obj(cr, uid, context)
+        if table_obj is not None and not isinstance(table_obj, osv.osv_memory) :
+            xml = model_obj.generate_tree(cr, uid, table_obj, search=self._filters)
+            model_obj.manage_attachments \
+                ( cr, uid
+                , model
+                , base64.encodestring(etree.tostring(xml, pretty_print=True))
+                , table_obj._name
+                , " and ".join('"%s" %s %s' % (s[0], s[1], s[2]) for s in self._filters)
+                )
+        return {'type' : 'ir.actions.act_window_close'}
+    # end def generate
+# end class wizard_generate_xml
+wizard_generate_xml ()
+
+class wizard_generate_xml_filter(osv.osv_memory):
+    _name = "ir.model.generate.xml.filter"
+    _description = "Filter XML Generation"
+
     _selection = \
         [ ('=',  _('Equal'))
         , ('!=', _('Not Equal'))
@@ -108,25 +163,8 @@ class wizard_generate_xml(osv.osv_memory):
     _defaults = \
         { 'attribute' : lambda *a: 'id'
         , 'compare'   : lambda *a: '='
-        , 'value'     : lambda *a: ''
+        , 'value'     : lambda *a: '1'
         }
-    
-    _filters = []
-
-    def _manage_attachments(self, cr, uid, model, text, name, description, context=None):
-        pool = pooler.get_pool(cr.dbname)
-        attachment_obj = pool.get('ir.attachment')
-        title = name.lower().replace(" ", "_")
-        vals  = \
-            { 'name'         : title
-            , 'datas'        : text
-            , 'datas_fname'  : "%s.xml" % name
-            , 'res_model'    : model._table_name
-            , 'res_id'       : model.id
-            , 'description'  : "%s" % (description, )
-            }
-        attachment_obj.create(cr, uid, vals, context=context)
-    # end def _manage_attachments
 
     def _table_obj(self, cr, uid, context) :
         model_obj = self.pool.get('ir.model')
@@ -141,23 +179,26 @@ class wizard_generate_xml(osv.osv_memory):
     # end def _table_obj
 
     def add_filter(self, cr, uid, ids, context) :
-        print "add_filter", context, self._filters ######################
+        raise Exception, str(("add_filter", context, self._filters)) ######################
         model, table_obj = self._table_obj(cr, uid, context)
-        if context and context['attribute'] and context['compare'] :
-            if table_obj._columns[context['attribute']]._type in ("int", "float", "boolean") :
-                value = context['value'].upper()
-            else :
-                value = "'%s'" % context['value']
-            self._filters.append((context['attribute'], context['compare'], value))
+        return {'type' : 'ir.actions.act_window_close'}
+    # end def add_filter
+
+#        if context and context['attribute'] and context['compare'] :
+#            if table_obj._columns[context['attribute']]._type in ("int", "float", "boolean") :
+#                value = context['value'].upper()
+#            else :
+#                value = "'%s'" % context['value']
+#            self._filters.append((context['attribute'], context['compare'], value))
     # end def add_filter
         
     def generate(self, cr, uid, ids, context) :
-        print "generate", context, self._filters ######################
+        raise Exception, str(("generate", context, self._filters)) ######################
         model_obj = self.pool.get('ir.model')
         model, table_obj = self._table_obj(cr, uid, context)
         if table_obj is not None and not isinstance(table_obj, osv.osv_memory) :
             xml = model_obj.generate_tree(cr, uid, table_obj, search=self._filters)
-            self._manage_attachments \
+            model_obj.manage_attachments \
                 ( cr, uid
                 , model
                 , base64.encodestring(etree.tostring(xml, pretty_print=True))
@@ -168,9 +209,9 @@ class wizard_generate_xml(osv.osv_memory):
     # end def generate
 
     def filter(self, cr, uid, data, res_get=False) :
-        print "filter" ######################
-        pool      = pooler.get_pool(cr.dbname)
-        model_obj = pool.get('ir.model')
+        import sys ######
+        print >>sys.stderr, "filter" ######################
+        model_obj = self.pool.get('ir.model')
         if data['model'] == 'ir.model':
             model_id = data['ids'][0]
         else :
@@ -186,22 +227,6 @@ class wizard_generate_xml(osv.osv_memory):
                 self._filter_fields['attribute']['selection'].append((k,k))
         return {}
     # end def filter
+# end class wizard_generate_xml_filter
+wizard_generate_xml_filter()
 
-    def decide(self, cr, uid, ids, context) :
-        print "decide", context ######################
-        self._filters = []
-        if context['model'] == 'ir.model':
-            return 'filter'
-        else :
-            return 'form'
-    # end def decide
-
-    def decide2(self, cr, uid, data, res_get=False) :
-        print "decide2" ######################
-        form = data['form']
-        self.add_filter(form)
-        return 'filter'
-    # end def decide2
-
-# end class wizard_generate_xml
-wizard_generate_xml ()
