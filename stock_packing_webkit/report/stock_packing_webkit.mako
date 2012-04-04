@@ -17,6 +17,11 @@
      td { margin: 0px; padding: 3px; border: 1px solid lightgrey;  vertical-align: top; }
      pre {font-family:helvetica; font-size:13;}
     </style>
+    <%
+    def carriage_returns(text):
+        return text.replace('\n', '<br />')
+    %>
+
     %for pick in objects :
 <br>
     <% setLang(pick.partner_id.lang) %>
@@ -26,9 +31,7 @@
          <td style="width:50%">
 ${_("Shipping Address")}   
 <hr>
-           <pre>
-${pick.address_id.address_label}
-           <pre>
+${pick.address_id.address_label|carriage_returns}
          </td>
          <td style="width:50%">
          %if pick.address_id.phone :
@@ -69,9 +72,7 @@ ${_("VAT")}: ${pick.partner_id.vat|entity} <br>
          <td style="width:50%">
 ${_("Shipping Address")}
 <hr>
-           <pre>
-${pick.address_id.address_label}
-           <pre>
+${pick.address_id.address_label|carriage_returns}
          </td>
         </tr>
         %endif
@@ -185,7 +186,7 @@ ${pick.address_id.address_label}
            <td style="white-space:nowrap;text-align:left;">${line.location_dest_id.name or ''}</td>
         </tr>
         %if line.note :
-        <tr><td colspan="6" style="border-style:none"><style="font-family:Helvetica;padding-left:20px;font-size:10;"white-space:normal;">${line.note |entity}</pre></td></tr>
+        <tr><td colspan="6" style="border-style:none"><style="font-family:Helvetica;padding-left:20px;font-size:10;"white-space:normal;">${line.note |carriage_returns}</td></tr>
         %endif
         %endfor
         </tbody>
@@ -193,11 +194,11 @@ ${pick.address_id.address_label}
 
 %if pick.note and 'note_print' not in pick._columns:
 <br>
-    <pre>${pick.note}</pre>
+    ${pick.note|carraige_returns}
 %endif:
 %if 'note_print' in pick._columns and pick.note_print:
 <br>
-    <pre>${pick.note_print}</pre>
+    ${pick.note_print|carriage_returns}
 %endif:
 
 %if 'tractor_gross' in pick._columns and pick.tractor_gross:

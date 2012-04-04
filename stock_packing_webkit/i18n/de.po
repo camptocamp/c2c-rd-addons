@@ -129,7 +129,7 @@ msgstr "Kunde"
 #: report:addons/stock_picking_webkit/report/stock_picking_webkit.mako:44
 #: report:addons/stock_picking_webkit/report/stock_picking_webkit.mako:68
 msgid "VAT"
-msgstr "USt"
+msgstr "UID"
 
 #. module: stock_picking_webkit
 #: report:addons/stock_picking_webkit/report/stock_picking_webkit.mako:112
