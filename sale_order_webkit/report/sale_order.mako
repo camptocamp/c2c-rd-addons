@@ -17,6 +17,12 @@
      td { margin: 0px; padding: 3px; border: 1px solid lightgrey;  vertical-align: top; }
      pre {font-family:helvetica; font-size:12;}
     </style>
+
+    <%
+    def carriage_returns(text):
+        return text.replace('\n', '<br />')
+    %>
+
     %for order in objects :
 <br>
     <% setLang(order.partner_id.lang) %>
@@ -32,8 +38,8 @@ ${order.partner_shipping_id.address_label}
          </td>
          <td style="width:50%">
          %if order.partner_order_id.address_label != order.partner_shipping_id.address_label:
-${_("Ordering Contact")}   
-         <pre>${order.partner_order_id.address_label}</pre>
+<b>${_("Ordering Contact")}</b><br>
+${order.partner_order_id.address_label|carriage_returns}
          %endif
          %if order.partner_order_id.phone :
 ${_("Phone")}: ${order.partner_order_id.phone|entity} <br>
@@ -46,8 +52,8 @@ ${_("Mail")}: ${order.partner_order_id.email|entity} <br>
         %endif
          %if order.partner_invoice_id.address_label != order.partner_shipping_id.address_label:
 <br>
-${_("Invoice Address")}
-<pre>${order.partner_invoice_id.address_label}</pre>
+<b>${_("Invoice Address")}</b><br>
+${order.partner_invoice_id.address_label|carriage_returns}
          %endif
         %if order.partner_invoice_id.partner_id.vat :
 ${_("VAT")}: ${order.partner_invoice_id.partner_id.vat|entity} <br>
@@ -62,8 +68,8 @@ ${_("VAT")}: ${order.partner_invoice_id.partner_id.vat|entity} <br>
          <tr>
          <td style="width:50%">
          %if order.partner_order_id.address_label != order.partner_shipping_id.address_label:
-${_("Ordering Contact")}   
-         <pre>${order.partner_order_id.address_label}</pre>
+<b>${_("Ordering Contact")}</b><br>
+${order.partner_order_id.address_label|carriage_returns}
         %endif
          %if order.partner_order_id.phone :
 ${_("Tel")}: ${order.partner_order_id.phone|entity} <br>
@@ -76,8 +82,8 @@ ${_("E-mail")}: ${order.partner_order_id.email|entity} <br>
         %endif
          %if order.partner_invoice_id.address_label != order.partner_shipping_id.address_label:
 <br>
-${_("Invoice Address")}   
-<pre>${order.partner_invoice_id.address_label}</pre>
+<b>${_("Invoice Address")}</b><br>
+${order.partner_invoice_id.address_label|carriage_returns}
          %endif
         %if order.partner_invoice_id.partner_id.vat :
 ${_("VAT")}: ${order.partner_invoice_id.partner_id.vat|entity} <br>
