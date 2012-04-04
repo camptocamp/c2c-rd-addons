@@ -46,6 +46,7 @@ class stock_move_by_location(osv.osv):
 
      _columns = {
        'id'                 : fields.char    ('id',size=16, readonly=True),
+       'description'        : fields.char    ('Description', size=16, readonly=True),
        'location_id'        : fields.many2one('stock.location','Location', select=True, readonly=True),
        'product_id'         : fields.many2one('product.product','Product', select=True, readonly=True),
        'categ_id'           : fields.related ('product_id','categ_id',type="many2one", relation="product.category", string='Category',readonly=True),
@@ -55,9 +56,6 @@ class stock_move_by_location(osv.osv):
        'date'               : fields.datetime('Date Planned', select=True, readonly=True),
        'prodlot_id'         : fields.many2one('stock.production.lot', 'Production lot', select=True, readonly=True),
        'picking_id'         : fields.many2one('stock.picking', 'Packing', select=True, readonly=True),
-       'production_id'      : fields.many2one('mrp.production', 'Production', select=True, readonly=True),
-       'order_line_id'      : fields.many2one('sale.order.line','Sale Order Line', select=True, readonly=True),
-       'order_id'           : fields.related ('order_line_id', 'order_id', type="many2one", relation="sale.order", string="Sale Order", readonly = True ),
        'company_id': fields.many2one('res.company', 'Company', readonly=True),
 }
      #select get_id('stock_product_by_location',l.id,product_id,0),
@@ -70,10 +68,11 @@ class stock_move_by_location(osv.osv):
 as
 select i.id ,
  l.id as location_id,product_id,
+ i.name as description,
  case when state ='done' then product_qty else 0 end as name,
  case when state !='done' then product_qty else 0 end as product_qty_pending,
  date, prodlot_id,
- picking_id,production_id,order_line_id,l.company_id
+ picking_id,l.company_id
 from stock_location l,
      stock_move i
 where l.usage='internal'
@@ -83,10 +82,11 @@ where l.usage='internal'
 union all
 select -o.id ,
 l.id as location_id ,product_id,
+ o.name as description,
  case when state ='done' then -product_qty else 0 end as name,
  case when state !='done' then -product_qty else 0 end as product_qty_pending,
  date, prodlot_id,
- picking_id,production_id,order_line_id,l.company_id
+ picking_id,l.company_id
 from stock_location l,
      stock_move o
 where l.usage='internal'
@@ -112,7 +112,6 @@ class stock_product_by_location(osv.osv):
        'cost_method'        : fields.related ('product_id', 'cost_method', type="char", relation="product.product", string="Cost Method", readonly = True ),
        'name'               : fields.float   ('Quantity', digits=(16,2), readonly=True),
        'product_qty_pending': fields.float   ('Quantity Pending', digits=(16,2), readonly=True),
-       'amount'             : fields.float   ('Amount', digits=(16,2), readonly=True),
        'company_id': fields.many2one('res.company', 'Company', readonly=True),
 }
      _defaults = {
@@ -125,7 +124,7 @@ class stock_product_by_location(osv.osv):
           cr.execute("""create or replace view stock_product_by_location
 as
 select min(id) as id ,location_id,product_id,
-       sum(name) as name, sum(product_qty_pending) as product_qty_pending, sum(move_value_cost) as amount,
+       sum(name) as name, sum(product_qty_pending) as product_qty_pending, 
        company_id
  from stock_move_by_location
 group by location_id,product_id,company_id
@@ -149,7 +148,6 @@ class stock_product_by_location_prodlot(osv.osv):
        'cost_method'        : fields.related ('product_id', 'cost_method', type="char", relation="product.product", string="Cost Method", readonly = True ),
        'name'               : fields.float   ('Quantity', digits=(16,2), readonly=True),
        'product_qty_pending': fields.float   ('Quantity Pending', digits=(16,2), readonly=True),
-       'amount'             : fields.float   ('Amount', digits=(16,2), readonly=True),
        'company_id': fields.many2one('res.company', 'Company', readonly=True),
 }
      _defaults = {
@@ -162,7 +160,7 @@ class stock_product_by_location_prodlot(osv.osv):
           cr.execute("""create or replace view stock_product_by_location_prodlot
 as
 select min(id) as id ,location_id,product_id,prodlot_id,
-       sum(name) as name, sum(product_qty_pending) as product_qty_pending, sum(move_value_cost) as amount,
+       sum(name) as name, sum(product_qty_pending) as product_qty_pending, 
        company_id
  from stock_move_by_location
 group by location_id,prodlot_id,product_id,company_id
