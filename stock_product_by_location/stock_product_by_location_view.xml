@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <!--
+==============================================
+Product by Stock  (stock_product_by_location > stock_product_by_location)
+generated 2009-09-19 23:51:03+02
+==============================================
+-->
+    <record model="ir.ui.view" id="chricar_stock_move_by_location_form">
+      <field name="name">chricar.stock_move_by_location.form</field>
+      <field name="model">chricar.stock_move_by_location</field>
+      <field name="priority">1</field>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <form string="Product Moves by Location">
+          <field name="categ_id" select="1"/>
+          <field name="date" select="1"/>
+          <field name="picking_id" select="1"/>
+          <field name="production_id" select="1"/>
+          <field name="order_id" select="1"/>
+          <field name="order_line_id" select="1"/>
+          <field name="prodlot_id" select="1"/>
+          <field name="product_id" select="1"/>
+          <field name="uom_id" select="1"/>
+          <field name="location_id" select="1"/>
+          <field name="name" select="1"/>
+          <field name="product_qty_pending" select="1"/>
+          <field name="move_value_cost" groups="base.group_extended" select="1"/>
+          <field name="average_price" groups="base.group_extended"/>
+          <notebook colspan="4">
+            <page string="invisible" invisible="1"/>
+          </notebook>
+        </form>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="chricar_stock_move_by_location_list">
+      <field name="name">chricar.stock_move_by_location.list</field>
+      <field name="model">chricar.stock_move_by_location</field>
+      <field name="priority">1</field>
+      <field name="type">tree</field>
+      <field name="arch" type="xml">
+        <tree string="Product Moves by Location" editable="bottom">
+          <field name="categ_id" select="1"/>
+          <field name="date" select="1"/>
+          <field name="product_id" select="1"/>
+          <field name="uom_id" select="1"/>
+          <field name="name" select="1"/>
+          <field name="product_qty_pending" select="1"/>
+          <field name="picking_id" select="1"/>
+          <field name="production_id" select="1"/>
+          <field name="order_id" select="1"/>
+          <field name="prodlot_id" select="1"/>
+          <field name="location_id" select="1"/>
+          <field name="move_value_cost" select="1" sum="Sum Amount" groups="base.group_extended"/>
+          <field name="average_price" groups="base.group_extended"/>
+        </tree>
+      </field>
+    </record>
+    <record model="ir.actions.act_window" id="chricar_stock_move_by_location_act1">
+      <field name="name">Product Moves by Location</field>
+      <field name="res_model">chricar.stock_move_by_location</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="view_id" ref="chricar_stock_move_by_location_list"/>
+    </record>
+    <record model="ir.actions.act_window.view" id="chricar_stock_move_by_location_act1_view2">
+      <field name="sequence" eval="1"/>
+      <field name="view_mode">tree</field>
+      <field name="view_id" ref="chricar_stock_move_by_location_list"/>
+      <field name="act_window_id" ref="chricar_stock_move_by_location_act1"/>
+    </record>
+    <record model="ir.actions.act_window.view" id="chricar_stock_move_by_location_act1_view1">
+      <field name="sequence" eval="2"/>
+      <field name="view_mode">form</field>
+      <field name="view_id" ref="chricar_stock_move_by_location_form"/>
+      <field name="act_window_id" ref="chricar_stock_move_by_location_act1"/>
+    </record>
+    <menuitem
+      action="chricar_stock_move_by_location_act1"
+      id="menu_chricar_stock_move_by_location_list"
+      parent="stock.next_id_61"
+      sequence="150"/>
+    <!--
+==============================================
+Product by Stock  (stock_product_by_location > stock_product_by_location)
+generated 2009-09-19 23:51:03+02
+==============================================
+-->
+    <record model="ir.ui.view" id="chricar_stock_product_by_location_form">
+      <field name="name">chricar.stock_product_by_location.form</field>
+      <field name="model">chricar.stock_product_by_location</field>
+      <field name="priority">1</field>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <form string="Product by Stock ">
+          <field name="categ_id" select="1"/>
+          <field name="product_id" select="1"/>
+          <field name="location_id" select="1"/>
+          <field name="name" select="1"/>
+          <field name="product_qty_pending" select="1"/>
+          <field name="amount" groups="base.group_extended" select="1"/>
+          <field name="average_price" groups="base.group_extended"/>
+          <notebook colspan="4">
+            <page string="invisible" invisible="1"/>
+          </notebook>
+        </form>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="chricar_stock_product_by_location_list">
+      <field name="name">chricar.stock_product_by_location.list</field>
+      <field name="model">chricar.stock_product_by_location</field>
+      <field name="priority">1</field>
+      <field name="type">tree</field>
+      <field name="arch" type="xml">
+        <tree string="Product by Stock " editable="bottom">
+          <field name="categ_id" select="1"/>
+          <field name="product_id" select="1"/>
+          <field name="uom_id" select="1"/>
+          <field name="location_id" select="1"/>
+          <field name="name" select="1"/>
+          <field name="product_qty_pending" select="1"/>
+          <field name="amount" select="1" sum="Sum Amount" groups="base.group_extended"/>
+          <field name="average_price" groups="base.group_extended"/>
+          <field name="cost_method" groups="base.group_extended"/>
+        </tree>
+      </field>
+    </record>
+    <record model="ir.actions.act_window" id="chricar_stock_product_by_location_act1">
+      <field name="name">Product by Stock </field>
+      <field name="res_model">chricar.stock_product_by_location</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="view_id" ref="chricar_stock_product_by_location_list"/>
+    </record>
+    <record model="ir.actions.act_window.view" id="chricar_stock_product_by_location_act1_view2">
+      <field name="sequence" eval="1"/>
+      <field name="view_mode">tree</field>
+      <field name="view_id" ref="chricar_stock_product_by_location_list"/>
+      <field name="act_window_id" ref="chricar_stock_product_by_location_act1"/>
+    </record>
+    <record model="ir.actions.act_window.view" id="chricar_stock_product_by_location_act1_view1">
+      <field name="sequence" eval="2"/>
+      <field name="view_mode">form</field>
+      <field name="view_id" ref="chricar_stock_product_by_location_form"/>
+      <field name="act_window_id" ref="chricar_stock_product_by_location_act1"/>
+    </record>
+    <menuitem
+      action="chricar_stock_product_by_location_act1"
+      id="menu_chricar_stock_product_by_location_list"
+      parent="stock.next_id_61"
+      sequence="150"/>
+    <act_window
+      domain="[('product_id','=',active_id)]"
+      id="act_product_stock"
+      name="Product by Stock"
+      res_model="chricar.stock_product_by_location"
+      src_model="product.product"/>
+    <!--
+==============================================
+Product by Stock  (stock_product_by_location_prodlot
+generated 2009-09-19 23:51:03+02
+==============================================
+-->
+    <record model="ir.ui.view" id="chricar_stock_product_by_location_prodlot_form">
+      <field name="name">chricar.stock_product_by_location_prodlot.form</field>
+      <field name="model">chricar.stock_product_by_location_prodlot</field>
+      <field name="priority">1</field>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <form string="Product by Stock ">
+          <field name="categ_id" select="1"/>
+          <field name="product_id" select="1"/>
+          <field name="location_id" select="1"/>
+          <field name="prodlot_id" select="1"/>
+          <field name="name" select="1"/>
+          <field name="product_qty_pending" select="1"/>
+          <field name="amount" select="1" groups="base.group_extended"/>
+          <field name="average_price" groups="base.group_extended"/>
+          <notebook colspan="4">
+            <page string="invisible" invisible="1"/>
+          </notebook>
+        </form>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="chricar_stock_product_by_location_prodlot_list">
+      <field name="name">chricar.stock_product_by_location_prodlot.list</field>
+      <field name="model">chricar.stock_product_by_location_prodlot</field>
+      <field name="priority">1</field>
+      <field name="type">tree</field>
+      <field name="arch" type="xml">
+        <tree string="Product by Stock " editable="bottom">
+          <field name="categ_id" select="1"/>
+          <field name="product_id" select="1"/>
+          <field name="uom_id" select="1"/>
+          <field name="location_id" select="1"/>
+          <field name="prodlot_id" select="1"/>
+          <field name="name" select="1"/>
+          <field name="product_qty_pending" select="1"/>
+          <field name="amount" select="1" sum="Sum Amount" groups="base.group_extended"/>
+          <field name="average_price" groups="base.group_extended"/>
+          <field name="cost_method" groups="base.group_extended"/>
+        </tree>
+      </field>
+    </record>
+    <record model="ir.actions.act_window" id="chricar_stock_product_by_location_prodlot_act1">
+      <field name="name">Product by Stock and Production Lot</field>
+      <field name="res_model">chricar.stock_product_by_location_prodlot</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="view_id" ref="chricar_stock_product_by_location_prodlot_list"/>
+    </record>
+    <record model="ir.actions.act_window.view" id="chricar_stock_product_by_location_prodlot_act1_view2">
+      <field name="sequence" eval="1"/>
+      <field name="view_mode">tree</field>
+      <field name="view_id" ref="chricar_stock_product_by_location_prodlot_list"/>
+      <field name="act_window_id" ref="chricar_stock_product_by_location_prodlot_act1"/>
+    </record>
+    <record model="ir.actions.act_window.view" id="chricar_stock_product_by_location_prodlot_act1_view1">
+      <field name="sequence" eval="2"/>
+      <field name="view_mode">form</field>
+      <field name="view_id" ref="chricar_stock_product_by_location_prodlot_form"/>
+      <field name="act_window_id" ref="chricar_stock_product_by_location_prodlot_act1"/>
+    </record>
+    <menuitem
+      action="chricar_stock_product_by_location_prodlot_act1"
+      id="menu_chricar_stock_product_by_location_prodlot_list"
+      parent="stock.next_id_61"
+      sequence="150"/>
+    <!-- DBA -->
+    <record model="ir.ui.view" id="chricar_stock_move_dba_form">
+      <field name="name">chricar.stock.move.dba.form</field>
+      <field name="model">stock.move</field>
+      <field name="priority">1</field>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <form string="Stock Moves DBA">
+          <field name="picking_id" select="1"/>
+          <field name="date" select="1"/>
+          <field name="product_id" select="1"/>
+          <field name="location_id" select="1"/>
+          <field name="location_dest_id" select="1"/>
+          <field name="prodlot_id" select="1"/>
+          <field name="product_qty" select="1"/>
+          <field name="move_value_cost" select="1"/>
+          <field name="move_value_sale" select="1"/>
+          <field name="price_unit_id" select="1"/>
+          <field name="price_unit_sale_id" select="1"/>
+          <field name="name" select="1"/>
+        </form>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="chricar_stock_move_dba_tree">
+      <field name="name">chricar.stock.move.dba.tree</field>
+      <field name="model">stock.move</field>
+      <field name="priority">1</field>
+      <field name="type">tree</field>
+      <field name="arch" type="xml">
+        <tree string="Stock Moves DBA" editable="bottom" colors="grey:state=='cancel';blue:state=='draft'">
+          <field name="picking_id" select="1"/>
+          <field name="date" select="1"/>
+          <field name="product_id" select="1"/>
+          <field name="location_id" select="1"/>
+          <field name="location_dest_id" select="1"/>
+          <field name="prodlot_id" select="1"/>
+          <field name="product_qty" select="1"/>
+          <field name="move_value_cost" select="1"/>
+          <field name="avg_price_calc" select="1"/>
+          <field name="move_value_sale" select="1"/>
+          <field name="price_unit_id" select="1"/>
+          <field name="price_unit_sale_id" select="1"/>
+          <field name="name" select="1"/>
+          <field name="state" select="1"/>
+        </tree>
+      </field>
+    </record>
+    <record model="ir.actions.act_window" id="chricar_stock_move_act1">
+      <field name="name">Stock Moves DBA</field>
+      <field name="res_model">stock.move</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="view_id" ref="chricar_stock_move_dba_tree"/>
+    </record>
+    <record model="ir.actions.act_window.view" id="chricar_stock_move_act1_view2">
+      <field name="sequence" eval="1"/>
+      <field name="view_mode">tree</field>
+      <field name="view_id" ref="chricar_stock_move_dba_tree"/>
+      <field name="act_window_id" ref="chricar_stock_move_act1"/>
+    </record>
+    <record model="ir.actions.act_window.view" id="chricar_stock_product_by_location_prodlot_act1_view1">
+      <field name="sequence" eval="2"/>
+      <field name="view_mode">form</field>
+      <field name="view_id" ref="chricar_stock_move_dba_form"/>
+      <field name="act_window_id" ref="chricar_stock_move_act1"/>
+    </record>
+    <menuitem
+      action="chricar_stock_move_act1"
+      id="menu_chricar_stock_move_dba_list"
+      parent="stock.next_id_61"
+      sequence="150"/>
+    <act_window
+      domain="[('product_id','=',active_id)]"
+      id="act_product_stock_prodlot"
+      name="Product by Stock and ProdLot"
+      res_model="chricar.stock_product_by_location_prodlot"
+      src_model="product.product"/>
+    <act_window
+      domain="[('product_id','=',product_id),('location_id','=',location_id)]"
+      id="act_product_location_2_stock_move"
+      name="Product Moves by Stock Location"
+      res_model="chricar.stock_move_by_location"
+      src_model="chricar.stock_product_by_location"/>
+    <act_window
+      domain="[('product_id','=',product_id),('location_id','=',location_id),('prodlot_id','=',prodlot_id)]"
+      id="act_product_location_prodlot_2_stock_move"
+      name="Product Moves by Stock Location and ProdLot"
+      res_model="chricar.stock_move_by_location"
+      src_model="chricar.stock_product_by_location_prodlot"/>
+    <!--
+==============================================
+Modification of Parents (only for matching table prefixes)
+==============================================
+-->
+  </data>
+</openerp>
