@@ -1,6 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
   <data>
+    <!-- Company -->
+    <record model="ir.ui.view" id="res_company_print_ean_form">
+      <field name="name">res.company.print_ean.form</field>
+      <field name="model">res.company</field>
+      <field name="inherit_id" ref="base.view_company_form"/>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <page string="Configuration" position="inside">
+          <group colspan="4" col="4">
+            <separator string="Stock Configuration" colspan="4"/>
+            <field name="print_ean"/>
+          </group>
+        </page>
+      </field>
+    </record>
+       
     <report
       auto="False"
       file="stock_packing_webkit/report/stock_packing_webkit.mako"
