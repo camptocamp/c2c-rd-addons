@@ -74,6 +74,13 @@ generated 2009-09-19 23:51:03+02
       id="menu_stock_move_by_location_list"
       parent="stock.next_id_61"
       sequence="150"/>
+    <act_window
+      domain="[('product_id','=',active_id)]"
+      id="act_product_moves"
+      name="Product Moves"
+      res_model="stock_move_by_location"
+      src_model="product.product"/>
+
     <!--
 ==============================================
 Product by Stock  (stock_product_by_location > stock_product_by_location)
