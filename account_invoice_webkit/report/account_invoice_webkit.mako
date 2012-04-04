@@ -17,6 +17,11 @@
      td { margin: 0px; padding: 3px; border: 1px solid lightgrey;  vertical-align: top; }
      pre {font-family:helvetica; font-size:15;}
     </style>
+    <%
+    def carriage_returns(text):
+        return text.replace('\n', '<br />')
+    %>
+
     %for inv in objects :
     <% setLang(inv.partner_id.lang) %>
 <br>
@@ -31,9 +36,7 @@ left Address
 ${_("Supplier Address")}
 <hr>
 %endif
-           <pre>
-${inv.address_invoice_id.address_label}
-           <pre>
+${inv.address_invoice_id.address_label|carriage_returns}
          </td>
          <td style="width:50%">
 <table {border:none} >
@@ -95,9 +98,7 @@ right Address
 ${_("Supplier Address")}
 <hr>
 %endif
-           <pre>
-${inv.address_invoice_id.address_label}
-           <pre>
+${inv.address_invoice_id.address_label|carriage_returns}
          </td>
         </tr>
         %endif
@@ -125,7 +126,7 @@ ${inv.address_invoice_id.address_label}
           %if inv.name :
             <td>${_("Customer Ref")}</td>
           %endif
-          %if inv.name :
+          %if inv.origin:
             <td>${_("Origin")}</td>
           %endif
           %if inv.reference:
@@ -237,7 +238,7 @@ ${inv.address_invoice_id.address_label}
         %endif
     </table>        
     %if inv.comment:
-    <pre>${inv.comment}</pre>
+     <br>  ${inv.comment|carriage_returns}
     %endif:
     <p style="page-break-after:always"></p>
     %endfor
