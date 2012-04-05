@@ -124,6 +124,9 @@ ${pick.address_id.address_label|carriage_returns}
           %if pick.weight:
              <td style="white-space:nowrap">${_("Weight")}</td>
           %endif
+          %if pick.backorder_id:
+             <td style="white-space:nowrap">${_("Back Order")}</td>
+          %endif
 
         </tr>
         <tr>
@@ -160,6 +163,9 @@ ${pick.address_id.address_label|carriage_returns}
           %endif
           %if pick.weight:
              <td style="white-space:nowrap;text-align:right;">${pick.weight}</td>
+          %endif
+          %if pick.backorder_id:
+             <td style="white-space:nowrap">${pick.backorder_id}</td>
           %endif
     </table>
     <h1><br /></h1>
