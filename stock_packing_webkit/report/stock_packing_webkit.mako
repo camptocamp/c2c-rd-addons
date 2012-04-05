@@ -127,6 +127,9 @@ ${pick.address_id.address_label|carriage_returns}
           %if pick.backorder_id:
              <td style="white-space:nowrap">${_("Back Order")}</td>
           %endif
+          %if pick.sale_id and pick.sale_id.incoterm:
+             <td style="white-space:nowrap">${_("Incoterm")}</td>
+          %endif
 
         </tr>
         <tr>
@@ -166,6 +169,9 @@ ${pick.address_id.address_label|carriage_returns}
           %endif
           %if pick.backorder_id:
              <td style="white-space:nowrap">${pick.backorder_id}</td>
+          %endif
+          %if pick.sale_id and pick.sale_id.incoterm:
+             <td style="white-space:nowrap">${pick.sale_id.incoterm.name}</td>
           %endif
     </table>
     <h1><br /></h1>
