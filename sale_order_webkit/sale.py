@@ -88,6 +88,17 @@ class sale_order(osv.osv):
           res[order.id] =  print_discount
         return res
 
+    def _print_code(self, cr, uid, ids, name, args, context=None):
+        res = {}
+        for order in self.browse(cr, uid, ids, context=context):
+            print_code = False
+            if order.order_line:
+                for line in order.order_line:
+                    if line.product_id.default_code:
+                        print_code = True
+                        res[order.id] =  print_code
+        return res
+                            
     def _get_cols(self, cr, uid, ids, name, args, context=None):
         res = {}
         for order in self.browse(cr, uid, ids, context=context):
@@ -101,6 +112,8 @@ class sale_order(osv.osv):
           if order.print_ean:
              cols += 1
           if order.print_discount:
+             cols += 1
+	  if order.print_code:
              cols += 1
            
           res[order.id] = cols
@@ -116,5 +129,7 @@ class sale_order(osv.osv):
               'print_ean': fields.function(_print_ean, method=True, type='boolean', string='Print EAN if available',),
               'print_discount': fields.function(_print_discount, method=True, type='boolean', string='Print Discount if available',),
               'cols': fields.function(_get_cols, method=True, type='integer', string='No of columns before totals',),
+              'print_code': fields.function(_print_code, method=True, type='boolean', string='Print code if available',),
+              
     }
 sale_order()

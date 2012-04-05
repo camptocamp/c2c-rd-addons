@@ -170,7 +170,12 @@ ${order.partner_shipping_id.address_label}
     <table style="width:100%">
         <thead>
           <tr>
+%if order.print_code:
+            <th>${_("Code")}</th>
             <th>${_("Description")}</th>
+%else:
+            <th>${_("Description")}</th>
+%endif
             <th>${_("Tax")}</th>
 %if order.print_uom:
             <th style="text-align:center;">${_("Quantity")}</th><th class style="text-align:left;">${_("UoM")}</th>
@@ -195,7 +200,12 @@ ${order.partner_shipping_id.address_label}
         %for line in order.order_line :
         <tbody>
         <tr>
-           <td>${line.name|entity}</td>
+%if order.print_code:
+            <td>${line.product_id.default_code or ''|entity}</td>
+            <td>${line.product_id.name|entity}</td>
+%else:
+            <td>${line.name|entity}</td>
+%endif
            <td>${ ', '.join([tax.name or '' for tax in line.tax_id]) }</td>
 %if order.print_uom:
            <td style="white-space:nowrap;text-align:right;">${str(line.product_uom_qty).replace(',000','') or '0'}</td>
@@ -219,7 +229,7 @@ ${order.partner_shipping_id.address_label}
            <td style="white-space:nowrap;text-align:right;">${line.price_subtotal or ''}</td>
         </tr>
         %if line.notes :
-        <tr><td colspan="6" style="border-style:none"><style="font-family:Helvetica;padding-left:20px;font-size:10;"white-space:normal;">${line.notes |entity}</pre></td></tr>
+        <tr><td colspan="6" style="border-style:none"><style="font-family:Helvetica;padding-left:20px;font-size:10;"white-space:normal;">${line.notes |carriage_returns}</pre></td></tr>
         %endif
         %endfor
         </tbody>
