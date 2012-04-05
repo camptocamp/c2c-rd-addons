@@ -45,6 +45,8 @@ class res_company(osv.osv):
 
 res_company()
 
+
+
 class stock_picking(osv.osv):
     _inherit = "stock.picking"
 
@@ -137,6 +139,17 @@ class stock_picking(osv.osv):
           res[order.id] = cols
 
         return res
+
+    def _get_packs(self, cr, uid, ids, name, args, context=None):
+        res = {}
+        for picking in self.browse(cr, uid, ids, context=context):
+          packs = 0
+          if picking.move_lines:
+            for line in picking.move_lines:
+		if line.product_packaging and line.product_packaging.qty:
+                    packs += line.product_qty/line.product_packaging.qty 
+          res[picking.id] = packs  
+        return res
         
     _columns = {
               'print_uom': fields.function(_print_uom, method=True, type='boolean', string='Print UoM if different from UoS',),
@@ -146,5 +159,6 @@ class stock_picking(osv.osv):
               'print_lot': fields.function(_print_lot, method=True, type='boolean', string='Print lot if available',),
               'print_code': fields.function(_print_code, method=True, type='boolean', string='Print code if available',),
               'cols': fields.function(_get_cols, method=True, type='integer', string='No of columns before totals',),
+	      'number_of_packages': fields.function(_get_packs, method=True, type='float', string='Number of Packages'),
     }
 stock_picking()

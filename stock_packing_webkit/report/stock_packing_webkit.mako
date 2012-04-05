@@ -118,7 +118,7 @@ ${pick.address_id.address_label|carriage_returns}
           %if pick.volume:
             <td style="white-space:nowrap">${_("Volume")}</td>
           %endif
-          %if pick.number_of_packages:
+          %if pick.number_of_packages and pick.number_of_packages != 0:
              <td style="white-space:nowrap">${_("N° Packages")}</td>
           %endif
           %if pick.weight:
@@ -161,7 +161,7 @@ ${pick.address_id.address_label|carriage_returns}
           %if pick.volume:
             <td style="white-space:nowrap;text-align:right;">${pick.volume}</td>
           %endif
-          %if pick.number_of_packages:
+          %if pick.number_of_packages and pick.number_of_packages != 0:
              <td style="white-space:nowrap;text-align:right;">${pick.number_of_packages}</td>
           %endif
           %if pick.weight:
