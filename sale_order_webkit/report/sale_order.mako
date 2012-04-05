@@ -117,6 +117,9 @@ ${order.partner_shipping_id.address_label}
           %if order.client_order_ref:
             <td>${_("Reference")}</td>
           %endif
+          %if order.project_id:
+            <td>${_("Projekt")}</td>
+          %endif
             <td style="white-space:nowrap">${_("Order Date")}</td>
           %if order.carrier_id:
             <td style="white-space:nowrap">${_("Carrier")}</td>
@@ -127,6 +130,10 @@ ${order.partner_shipping_id.address_label}
           %if order.payment_term :
             <td style="white-space:nowrap">${_("Payment Term")}</td>
           %endif
+          %if order.incoterm:
+             <td style="white-space:nowrap">${_("Incoterm")}</td>
+          %endif
+
             <td style="white-space:nowrap">${_("Curr")}</td>
         </tr>
         <tr>
@@ -135,6 +142,9 @@ ${order.partner_shipping_id.address_label}
                ${order.client_order_ref}
             </td>
             %endif
+          %if order.project_id:
+            <td>${order.project_id.name}</td>
+          %endif
              <td>
             %if order.date_order:
                ${order.date_order or ''}</td>
@@ -148,8 +158,12 @@ ${order.partner_shipping_id.address_label}
              <td>${order.user_id.name or ''}</td>
            %endif
           %if order.payment_term :
-            <td style="white-space:nowrap">${order.payment_term.name}</td>
+            <td>${order.payment_term.name}</td>
           %endif
+          %if order.incoterm:
+             <td>${order.incoterm.name}</td>
+          %endif
+
             <td style="white-space:nowrap">${order.pricelist_id.currency_id.name} </td>
     </table>
     <h1><br /></h1>
