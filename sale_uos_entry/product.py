@@ -55,7 +55,32 @@ class product_product(osv.osv):
               res['value']['uos_coeff'] = 1.0/uos_coeff_inv
         _logger.info('FGF sale uos res %s' % (res) )
         return res    
+    
+    def _product_pack_available(self, cr, uid, ids, name, args, context=None):
+	res = {}
+	for prod in self.browse(cr, uid, ids, context=context):
+		pack_qty = ''
+		if prod.packaging and prod.packaging[0].qty and prod.packaging[0].qty != 0:
+		    pack_qty = prod.qty_available / prod.packaging[0].qty
+                res[prod.id] = pack_qty
+        return res
+
+    def _product_pack_name(self, cr, uid, ids, name, args, context=None):
+	res = {}
+        for prod in self.browse(cr, uid, ids, context=context):
+		pack_name = ''
+		if prod.packaging and prod.packaging[0].ul :
+		    pack_name = prod.packaging[0].ul.name + ' '+_('á')+' '+ str(prod.packaging[0].qty)
+                res[prod.id] = pack_name
+        return res
 
 
+    _columns = {
+        'pack_name' : fields.function(_product_pack_name, type='char', string='Pack Name'),
+        'pack_qty_available': fields.function(_product_pack_available, 
+			                type='float',  digits_compute=dp.get_precision('Product UoM'),
+					            string='Pack Quantity On Hand',)
+        }
+		    
 product_product()
 

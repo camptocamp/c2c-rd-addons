@@ -47,3 +47,33 @@ class stock_move(osv.osv):
 
 stock_move()
 
+class stock_inventory_line(osv.osv):
+    _inherit = "stock.inventory.line"
+
+    def _product_pack_available(self, cr, uid, ids, name, args, context=None):
+        res = {}
+        for line in self.browse(cr, uid, ids, context=context):
+            pack_qty = ''
+            if line.product_id.packaging and line.product_id.packaging[0].qty and line.product_id.packaging[0].qty != 0:
+                pack_qty = line.product_qty / line.product_id.packaging[0].qty
+            res[line.id] = pack_qty
+        return res
+                    
+    def _product_pack_name(self, cr, uid, ids, name, args, context=None):
+        res = {}
+        for line in self.browse(cr, uid, ids, context=context):
+            pack_name = ''
+            if line.product_id.packaging and line.product_id.packaging[0].ul :
+                pack_name = line.product_id.packaging[0].ul.name + ' '+_('á')+' '+ str(line.product_id.packaging[0].qty)
+            res[line.id] = pack_name
+        return res
+                                
+                                
+    _columns = {
+       'pack_name' : fields.function(_product_pack_name, type='char', string='Pack Name'),
+       'pack_qty_available': fields.function(_product_pack_available,
+                type='float',  digits_compute=dp.get_precision('Product UoM'),
+                string='Packs On Hand',)
+                }
+                                 
+stock_inventory_line()
