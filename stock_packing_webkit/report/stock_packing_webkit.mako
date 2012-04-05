@@ -139,7 +139,12 @@ ${pick.address_id.address_label|carriage_returns}
     <table style="width:100%">
         <thead>
           <tr>
+%if pick.print_code:
+            <th>${_("Code")}</th>
             <th>${_("Description")}</th>
+%else:
+            <th>${_("Description")}</th>
+%endif
 %if pick.print_uom:
             <th style="text-align:center;">${_("Quantity")}</th><th class style="text-align:left;">${_("UoM")}</th>
 %endif
@@ -163,7 +168,12 @@ ${pick.address_id.address_label|carriage_returns}
         %for line in pick.move_lines :
         <tbody>
         <tr>
+%if pick.print_code:
+           <td>${line.product_id.default_code or ''|entity}</td>
+           <td>${line.product_id.name|entity}</td>
+%else:
            <td>${line.name|entity}</td>
+%endif
 %if pick.print_uom:
            <td style="white-space:nowrap;text-align:right;">${str(line.product_qty).replace(',000','') or '0'}</td>
            <td style="white-space:nowrap;text-align:left;">${line.product_uom.name or ''}</td>
