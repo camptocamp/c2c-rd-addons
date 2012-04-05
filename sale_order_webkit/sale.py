@@ -70,7 +70,7 @@ class sale_order(osv.osv):
         res = {}
         for order in self.browse(cr, uid, ids, context=context):
           print_ean = False
-          if order.order_line:
+          if order.order_line and order.company_id.print_ean:
             for line in order.order_line:
                 if line.product_packaging.ean or line.product_id.ean13 :
                    print_ean = True
