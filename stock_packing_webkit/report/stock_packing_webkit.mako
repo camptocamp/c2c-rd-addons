@@ -115,6 +115,16 @@ ${pick.address_id.address_label|carriage_returns}
           %if pick.sale_id and pick.sale_id.client_order_ref :
             <td style="white-space:nowrap">${_("Client Ref")}</td>
           %endif
+          %if pick.volume:
+            <td style="white-space:nowrap">${_("Volume")}</td>
+          %endif
+          %if pick.number_of_packages:
+             <td style="white-space:nowrap">${_("N° Packages")}</td>
+          %endif
+          %if pick.weight:
+             <td style="white-space:nowrap">${_("Weight")}</td>
+          %endif
+
         </tr>
         <tr>
             %if pick.origin and pick.origin not in [ pick.sale_id.name,pick.purchase_id.name]  :
@@ -141,6 +151,15 @@ ${pick.address_id.address_label|carriage_returns}
            %endif
           %if pick.sale_id and pick.sale_id.client_order_ref :
             <td style="white-space:nowrap">${pick.sale_id.client_order_ref}</td>
+          %endif
+          %if pick.volume:
+            <td style="white-space:nowrap;text-align:right;">${pick.volume}</td>
+          %endif
+          %if pick.number_of_packages:
+             <td style="white-space:nowrap;text-align:right;">${pick.number_of_packages}</td>
+          %endif
+          %if pick.weight:
+             <td style="white-space:nowrap;text-align:right;">${pick.weight}</td>
           %endif
     </table>
     <h1><br /></h1>
