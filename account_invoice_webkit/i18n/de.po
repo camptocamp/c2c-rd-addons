@@ -14,8 +14,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2012-04-04 05:07+0000\n"
-"X-Generator: Launchpad (build 15055)\n"
+"X-Launchpad-Export-Date: 2012-04-05 05:17+0000\n"
+"X-Generator: Launchpad (build 15060)\n"
 
 #. module: account_invoice_webkit
 #: report:addons/account_invoice_webkit/report/account_invoice_webkit.mako:237
@@ -51,7 +51,7 @@ msgstr "Eingangsrechnungen"
 #. module: account_invoice_webkit
 #: report:addons/account_invoice_webkit/report/account_invoice_webkit.mako:165
 msgid "Unit Price"
-msgstr "Preis/ME"
+msgstr "Preis"
 
 #. module: account_invoice_webkit
 #: report:addons/account_invoice_webkit/report/account_invoice_webkit.mako:52
@@ -62,7 +62,7 @@ msgstr "E-Mail"
 #. module: account_invoice_webkit
 #: report:addons/account_invoice_webkit/report/account_invoice_webkit.mako:167
 msgid "Price/Unit"
-msgstr "PreisEinheit"
+msgstr "Preis/Einheit"
 
 #. module: account_invoice_webkit
 #: report:addons/account_invoice_webkit/report/account_invoice_webkit.mako:125
