@@ -51,7 +51,7 @@ msgstr "Eingangsrechnungen"
 #. module: account_invoice_webkit
 #: report:addons/account_invoice_webkit/report/account_invoice_webkit.mako:165
 msgid "Unit Price"
-msgstr "Preis"
+msgstr "Preis/ME"
 
 #. module: account_invoice_webkit
 #: report:addons/account_invoice_webkit/report/account_invoice_webkit.mako:52
@@ -62,7 +62,7 @@ msgstr "E-Mail"
 #. module: account_invoice_webkit
 #: report:addons/account_invoice_webkit/report/account_invoice_webkit.mako:167
 msgid "Price/Unit"
-msgstr "Preis/Einheit"
+msgstr "PreisEinheit"
 
 #. module: account_invoice_webkit
 #: report:addons/account_invoice_webkit/report/account_invoice_webkit.mako:125
