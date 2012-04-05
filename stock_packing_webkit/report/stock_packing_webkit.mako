@@ -106,6 +106,9 @@ ${pick.address_id.address_label|carriage_returns}
           %if pick.carrier_id:
             <td style="white-space:nowrap">${_("Carrier")}</td>
           %endif
+          %if pick.carrier_tracking_ref:
+            <td style="white-space:nowrap">${_("Carrier Ref")}</td>
+          %endif
           %if pick.sale_id or pick_purchase_id:
             <td style="white-space:nowrap">${_("Reference")}</td>
           %endif
@@ -126,6 +129,11 @@ ${pick.address_id.address_label|carriage_returns}
             %if pick.carrier_id:
              <td>
                ${pick.carrier_id.name }
+             </td>
+           %endif
+            %if pick.carrier_tracking_ref:
+             <td>
+               ${pick.carrier_tracking_ref}
              </td>
            %endif
            %if pick.sale_id or pick_purchase_id:
