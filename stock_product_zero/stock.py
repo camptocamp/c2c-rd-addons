@@ -104,6 +104,8 @@ class product_product(osv.osv):
         
     def search(self, cr, uid, args, offset=0, limit=None,
                 order=None, context=None, count=False):
+	if not context:
+            context = {}
         res_all = super(product_product, self).search(cr, uid, args, offset, limit,
                 order, context=context, count=count)
         _logger = logging.getLogger(__name__)
