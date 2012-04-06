@@ -81,6 +81,7 @@ class sale_order(osv.osv):
 
         move_lines = []
         back_log_lines = []
+        main_location_id = False
         loc_ids = []
         for order in self.browse(cr, uid, ids, context):
             if order.state == 'progress' and not order.state_internal and not order.pull_intern_date:
@@ -95,6 +96,7 @@ class sale_order(osv.osv):
                         sale_order o
                   where l.order_id in (%s)
                     and l.order_id = o.id
+		    and product_id is not null
                   group by o.shop_id, product_id, l.name, product_packaging""" % order_ids2)
         for product_qty in cr.dictfetchall():
             #_logger.info('FGF sale pull internal %s' % (product_qty))
@@ -107,6 +109,7 @@ class sale_order(osv.osv):
                 if not location_dest_id:
                     location_dest_id = shop.warehouse_id.lot_output_id.id
                 address_id = shop.warehouse_id.partner_address_id and shop.warehouse_id.partner_address_id.id 
+		loc_fallback_id = shop.warehouse_id.lot_stock_id.id
             # select source location
             cr.execute("""select id
                    from stock_location
@@ -212,11 +215,16 @@ class sale_order(osv.osv):
             #_logger.info('FGF back_log lines %s ' % (back_log_lines))
             pick = pick_vals
             # create residual picking - must be processed manually
-            loc = main_location_id
+            if main_location_id:
+                loc = main_location_id
+            else:
+		loc = loc_fallback_id
             pick['location_id'] = loc
-            for add in location_obj.browse(cr, uid, [loc], context):
+	    if loc:
+              for add in location_obj.browse(cr, uid, [loc], context):
                 pick['address_id'] = add.address_id.id
-            pick['name'] = ''
+	    if pick.get('name'):
+	        del pick['name']
             pick['origin'] = _('back log')
             picking_id = picking_obj.create(cr, uid, pick, context=context)
             for l in back_log_lines:
@@ -237,6 +245,8 @@ class sale_order(osv.osv):
                 ml.update(move_vals)
                 #_logger.info('FGF sale move line %s ' % (ml))
                 move_obj.create(cr, uid, ml,  context=context)
+	    #picking_obj.action_cancel(cr, uid, [picking_id], context=None)
+
             
         self.write(cr, uid, order_ids, {'state_internal':'calculated','pull_intern_date':now}, context=None )
 
