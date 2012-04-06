@@ -127,8 +127,8 @@ class sale_order(osv.osv):
               'print_packing': fields.function(_print_packing, method=True, type='boolean', string='Print Packing Info if available',),
               'print_ean': fields.function(_print_ean, method=True, type='boolean', string='Print EAN if available',),
               'print_discount': fields.function(_print_discount, method=True, type='boolean', string='Print Discount if available',),
-              'cols': fields.function(_get_cols, method=True, type='integer', string='No of columns before totals',),
               'print_code': fields.function(_print_code, method=True, type='boolean', string='Print code if available',),
+              'cols': fields.function(_get_cols, method=True, type='integer', string='No of columns before totals',),
               
     }
 sale_order()
