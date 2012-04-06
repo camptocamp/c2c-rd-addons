@@ -70,7 +70,7 @@ class product_product(osv.osv):
         for prod in self.browse(cr, uid, ids, context=context):
 		pack_name = ''
 		if prod.packaging and prod.packaging[0].ul :
-		    pack_name = prod.packaging[0].ul.name + ' '+_('á')+' '+ str(prod.packaging[0].qty)
+		    pack_name = prod.packaging[0].ul.name + ' '+_(u'á')+' '+ str(prod.packaging[0].qty)
                 res[prod.id] = pack_name
         return res
 
