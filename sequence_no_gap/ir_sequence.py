@@ -45,13 +45,14 @@ class ir_sequence(openerp.osv.osv.osv):
             seq_id = self.search(cr, uid, s)
         
 	for seq in self.browse(cr, uid, seq_id):
-            prefix = seq.prefix or ''
-            suffix = seq.suffix or ''
-            padding = seq.padding or 0
             if seq.implementation == 'standard':
 	        return super(ir_sequence, self).get( cr, uid, code, context=None)
 	    else:
+                prefix = seq.prefix or ''
+                suffix = seq.suffix or ''
+                padding = seq.padding or 0
 	        number_next = seq.number_next
+	        number_increment = seq.number_increment 
 
          
 	_logger.info('FGF seq comp:%s nxt:%s %s' % (company_id,number_next, prefix)) 
@@ -82,6 +83,8 @@ class ir_sequence(openerp.osv.osv.osv):
 	           s.append(c)
                last_id = obj.search(cr, uid, s)
 	       if last_id:
-		   return prefix + str(number_next - inc + 1).rjust(padding,'0') + suffix
+		   return prefix + str(number_next - inc + number_increment).rjust(padding,'0') + suffix
+	# we should return a code in any case, if example the preifx is changed
+        return super(ir_sequence, self).get( cr, uid, code, context=None)
     
 ir_sequence()
