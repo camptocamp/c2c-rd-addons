@@ -131,8 +131,6 @@ class stock_picking(osv.osv):
              cols += 1
           if order.print_lot:
              cols += 1
-          if order.print_discount:
-             cols += 1
           if order.print_code:
              cols += 1
 
