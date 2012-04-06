@@ -202,7 +202,7 @@ ${order.partner_shipping_id.address_label}
         <tr>
 %if order.print_code:
             <td>${line.product_id.default_code or ''|entity}</td>
-            <td>${line.product_id.name|entity}</td>
+            <td>${line.product_id.name or line.name|entity}</td>
 %else:
             <td>${line.name|entity}</td>
 %endif

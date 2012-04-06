@@ -121,7 +121,6 @@ class sale_order(osv.osv):
         return res
 
 
-
     _columns = {
               'print_uom': fields.function(_print_uom, method=True, type='boolean', string='Print UoM if different from UoS',),
               'print_uos': fields.function(_print_uos, method=True, type='boolean', string='Print UoS if exists',),
