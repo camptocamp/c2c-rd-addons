@@ -24,7 +24,7 @@
     "version" : "1.1",
     "author" : "Camptocamp Austria",
     "category": 'Sale Management',
-    'complexity': "normal",
+    'complexity': "easy",
     "description": """
 Sale orders no gap
 =====================================
