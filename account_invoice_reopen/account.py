@@ -3,7 +3,7 @@
 #
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2010 Tiny SPRL (<http://tiny.be>).
-#    Copyright (C) 2010-2010 Camptocamp Austria (<http://www.camptocamp.at>)
+#    Copyright (C) 2012-2012 Camptocamp Austria (<http://www.camptocamp.at>)
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -20,27 +20,18 @@
 #
 ##############################################################################
 
+# FIXME remove logger lines or change to debug
+ 
+from osv import fields, osv
 
-{
-    'name': 'Totally gapless numbering for sale/purchase order, picking',
-    'version': '0.7',
-    'category': 'Accounting & Finance',
-    'description': """
-Standard OpenERP allows deletion of sale / purchase order and pickings
-this module forbid's deletion by users and managers, unused documents must be canceled manually
-only users belonging to the group 'Allow SO PO PICK Gap' may delete these resources
-ToDo:
-* workflow - create number leaving draft
-* do not create number on "new" 
-""",
-    'author': 'Camptocamp Austria',
-    'depends': [ 'stock','sale','purchase' ],
-    'update_xml': ['sequence_no_gap.xml',
-                   'security/group.xml', 
-                   'security/ir.model.access.csv',
-       ],
-    'demo_xml': [],
-    'installable': True,
-    'active': False,
-}
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+
+class account_journal(osv.osv):
+    _inherit = 'account.journal'
+
+    _columns = {
+       'reopen_posted':  fields.boolean('Allow Update of Posted Entries', help="Allows to reopen posted invoices, sets the move state to unposted"),
+        }
+    
+account_journal()
+
+    

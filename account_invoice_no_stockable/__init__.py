@@ -3,7 +3,6 @@
 #
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2010 Tiny SPRL (<http://tiny.be>).
-#    Copyright (C) 2010-2010 Camptocamp Austria (<http://www.camptocamp.at>)
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -20,19 +19,7 @@
 #
 ##############################################################################
 
-
-{
-    'name': 'Displays available lot quantity along with name',
-    'version': '1.0',
-    'category': 'Warehouse Management',
-    'description': """
-    necessary to select a lot wiht qty
-""",
-    'author': 'Camptocamp Austria',
-    'depends': [ 'stock'],
-    'update_xml': [],
-    'demo_xml': [],
-    'installable': True,
-    'active': False,
-}
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+
+import account
+import account_invoice

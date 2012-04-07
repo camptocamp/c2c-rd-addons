@@ -29,6 +29,24 @@ import pooler
 from osv import fields, osv, orm
 from tools.translate import _
 
+#----------------------------------------------------------
+#  Company
+#----------------------------------------------------------
+
+class res_company(osv.osv):
+    _inherit = 'res.company'
+    _columns = {
+        
+        'print_ean' : fields.boolean( string="Print EAN on documents"),
+    }
+    _defaults = {
+        'print_ean': lambda *a: True,
+    }
+
+res_company()
+
+
+
 class stock_picking(osv.osv):
     _inherit = "stock.picking"
 
@@ -70,18 +88,75 @@ class stock_picking(osv.osv):
         res = {}
         for picking in self.browse(cr, uid, ids, context=context):
           print_ean = False
-          if picking.move_lines:
+          if picking.company_id.print_ean and picking.move_lines:
             for line in picking.move_lines:
                 if line.product_id.ean13 or line.product_packaging.ean:
                    print_ean = True
           res[picking.id] =  print_ean
         return res
 
+    def _print_lot(self, cr, uid, ids, name, args, context=None):
+        res = {}
+        for picking in self.browse(cr, uid, ids, context=context):
+          print_lot = False
+          if picking.move_lines:
+            for line in picking.move_lines:
+                if line.prodlot_id: 
+                   print_lot = True
+          res[picking.id] =  print_lot
+        return res
+        
+    def _print_code(self, cr, uid, ids, name, args, context=None):
+        res = {}
+        for picking in self.browse(cr, uid, ids, context=context):
+          print_code = False
+          if picking.move_lines:
+            for line in picking.move_lines:
+                if line.product_id.default_code:
+                   print_code = True
+          res[picking.id] =  print_code
+        return res
+
+    def _get_cols(self, cr, uid, ids, name, args, context=None):
+        res = {}
+        for order in self.browse(cr, uid, ids, context=context):
+          cols = 2
+          if order.print_uom:
+             cols += 2
+          if order.print_uos:
+             cols += 2
+          if order.print_packing:
+             cols += 2
+          if order.print_ean:
+             cols += 1
+          if order.print_lot:
+             cols += 1
+          if order.print_code:
+             cols += 1
+
+          res[order.id] = cols
+
+        return res
+
+    def _get_packs(self, cr, uid, ids, name, args, context=None):
+        res = {}
+        for picking in self.browse(cr, uid, ids, context=context):
+          packs = 0
+          if picking.move_lines:
+            for line in picking.move_lines:
+		if line.product_packaging and line.product_packaging.qty:
+                    packs += line.product_qty/line.product_packaging.qty 
+          res[picking.id] = packs  
+        return res
         
     _columns = {
               'print_uom': fields.function(_print_uom, method=True, type='boolean', string='Print UoM if different from UoS',),
               'print_uos': fields.function(_print_uos, method=True, type='boolean', string='Print UoS if exists',),
               'print_packing': fields.function(_print_packing, method=True, type='boolean', string='Print Packing Info if available',),
               'print_ean': fields.function(_print_ean, method=True, type='boolean', string='Print EAN if available',),
+              'print_lot': fields.function(_print_lot, method=True, type='boolean', string='Print lot if available',),
+              'print_code': fields.function(_print_code, method=True, type='boolean', string='Print code if available',),
+              'cols': fields.function(_get_cols, method=True, type='integer', string='No of columns before totals',),
+	      'number_of_packages': fields.function(_get_packs, method=True, type='float', string='Number of Packages'),
     }
 stock_picking()

@@ -76,7 +76,7 @@ res_company()
 #----------------------------------------------------------
 class res_partner_address(osv.osv):
     _inherit = 'res.partner.address'
- 
+
     def _address_label(self, cr, uid, ids, name, arg, context=None):
         _logger = logging.getLogger(__name__)
         res = {}
@@ -98,9 +98,14 @@ class res_partner_address(osv.osv):
                     t = t + a.name
                 if t:
                     l = l + lf + t
+
             
             address = self._display_address(cr,uid,a)
-            res[a.id] = l + lf + address
+            address_compact =''
+            for line in address.split('\n'):
+                if line.strip():
+                    address_compact += line + '\n'
+            res[a.id] = l + lf + address_compact
             _logger.info('FGF address_label %s' % (res[a.id]))
         return res
 

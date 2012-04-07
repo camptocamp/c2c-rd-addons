@@ -26,7 +26,7 @@
     "author" : "Zikzakmedia SL",
     "website" : "www.zikzakmedia.com",
     "license" : "GPL-3",
-    "depends" : ["account"],
+    "depends" : ["account","stock_packing_webkit"],
     "category" : "Localisation/Accounting",
     "description": """
 Add some common financial/accounting reports and some wizards to quickly compute them:

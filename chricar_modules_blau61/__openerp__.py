@@ -118,7 +118,7 @@ This module installs everything for Blaustauden
 #,"chricar_tenant"
 ,"chricar_tools_migrate"
 #,"chricar_top"
-,"chricar_view_id"
+#,"chricar_view_id"
 ,"constraint"
 ,"crm"
 ,"crm_caldav"

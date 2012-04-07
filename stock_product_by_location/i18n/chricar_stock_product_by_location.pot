@@ -1,0 +1,236 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* chricar_stock_product_by_location
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 6.1rc1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-01-23 22:07+0000\n"
+"PO-Revision-Date: 2012-01-23 22:07+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: chricar_stock_product_by_location
+#: field:chricar.stock_move_by_location,categ_id:0
+#: field:chricar.stock_product_by_location,categ_id:0
+#: field:chricar.stock_product_by_location_prodlot,categ_id:0
+msgid "Category"
+msgstr ""
+
+#. module: chricar_stock_product_by_location
+#: field:chricar.stock_move_by_location,prodlot_id:0
+#: field:chricar.stock_product_by_location_prodlot,prodlot_id:0
+msgid "Production lot"
+msgstr ""
+
+#. module: chricar_stock_product_by_location
+#: field:chricar.stock_move_by_location,average_price:0
+#: field:chricar.stock_product_by_location,average_price:0
+#: field:chricar.stock_product_by_location_prodlot,average_price:0
+msgid "Average Price"
+msgstr ""
+
+#. module: chricar_stock_product_by_location
+#: model:ir.model,name:chricar_stock_product_by_location.model_chricar_stock_move_by_location
+msgid "Location Moves"
+msgstr ""
+
+#. module: chricar_stock_product_by_location
+#: view:chricar.stock_product_by_location:0
+#: view:chricar.stock_product_by_location_prodlot:0
+#: model:ir.actions.act_window,name:chricar_stock_product_by_location.chricar_stock_product_by_location_act1
+#: model:ir.ui.menu,name:chricar_stock_product_by_location.menu_chricar_stock_product_by_location_list
+#: field:product.product,stock_product_by_location_ids:0
+#: field:stock.location,stock_product_by_location_ids:0
+msgid "Product by Stock "
+msgstr ""
+
+#. module: chricar_stock_product_by_location
+#: model:ir.actions.act_window,name:chricar_stock_product_by_location.act_product_stock_prodlot
+msgid "Product by Stock and ProdLot"
+msgstr ""
+
+#. module: chricar_stock_product_by_location
+#: model:ir.actions.act_window,name:chricar_stock_product_by_location.act_product_location_2_stock_move
+msgid "Product Moves by Stock Location"
+msgstr ""
+
+#. module: chricar_stock_product_by_location
+#: field:chricar.stock_move_by_location,production_id:0
+msgid "Production"
+msgstr ""
+
+#. module: chricar_stock_product_by_location
+#: field:chricar.stock_move_by_location,location_id:0
+#: field:chricar.stock_product_by_location,location_id:0
+#: field:chricar.stock_product_by_location_prodlot,location_id:0
+#: model:ir.model,name:chricar_stock_product_by_location.model_stock_location
+msgid "Location"
+msgstr ""
+
+#. module: chricar_stock_product_by_location
+#: field:chricar.stock_product_by_location,cost_method:0
+#: field:chricar.stock_product_by_location_prodlot,cost_method:0
+msgid "Cost Method"
+msgstr ""
+
+#. module: chricar_stock_product_by_location
+#: field:chricar.stock_move_by_location,date:0
+msgid "Date Planned"
+msgstr ""
+
+#. module: chricar_stock_product_by_location
+#: field:chricar.stock_move_by_location,id:0
+#: field:chricar.stock_product_by_location,id:0
+#: field:chricar.stock_product_by_location_prodlot,id:0
+msgid "id"
+msgstr ""
+
+#. module: chricar_stock_product_by_location
+#: field:chricar.stock_move_by_location,order_line_id:0
+msgid "Sale Order Line"
+msgstr ""
+
+#. module: chricar_stock_product_by_location
+#: field:chricar.stock_move_by_location,product_id:0
+#: field:chricar.stock_product_by_location,product_id:0
+#: field:chricar.stock_product_by_location_prodlot,product_id:0
+#: model:ir.model,name:chricar_stock_product_by_location.model_product_product
+msgid "Product"
+msgstr ""
+
+#. module: chricar_stock_product_by_location
+#: view:chricar.stock_move_by_location:0
+#: model:ir.actions.act_window,name:chricar_stock_product_by_location.chricar_stock_move_by_location_act1
+#: model:ir.ui.menu,name:chricar_stock_product_by_location.menu_chricar_stock_move_by_location_list
+msgid "Product Moves by Location"
+msgstr ""
+
+#. module: chricar_stock_product_by_location
+#: constraint:stock.move:0
+msgid "You try to assign a lot which is not from the same product"
+msgstr ""
+
+#. module: chricar_stock_product_by_location
+#: constraint:stock.move:0
+msgid "You can not move products from or to a location of the type view."
+msgstr ""
+
+#. module: chricar_stock_product_by_location
+#: field:chricar.stock_move_by_location,company_id:0
+#: field:chricar.stock_product_by_location,company_id:0
+#: field:chricar.stock_product_by_location_prodlot,company_id:0
+msgid "Company"
+msgstr ""
+
+#. module: chricar_stock_product_by_location
+#: model:ir.actions.act_window,name:chricar_stock_product_by_location.act_product_stock
+msgid "Product by Stock"
+msgstr ""
+
+#. module: chricar_stock_product_by_location
+#: field:chricar.stock_move_by_location,picking_id:0
+msgid "Packing"
+msgstr ""
+
+#. module: chricar_stock_product_by_location
+#: model:ir.actions.act_window,name:chricar_stock_product_by_location.act_product_location_prodlot_2_stock_move
+msgid "Product Moves by Stock Location and ProdLot"
+msgstr ""
+
+#. module: chricar_stock_product_by_location
+#: model:ir.actions.act_window,name:chricar_stock_product_by_location.chricar_stock_move_act1
+#: model:ir.ui.menu,name:chricar_stock_product_by_location.menu_chricar_stock_move_dba_list
+#: view:stock.move:0
+msgid "Stock Moves DBA"
+msgstr ""
+
+#. module: chricar_stock_product_by_location
+#: field:chricar.stock_move_by_location,product_qty_pending:0
+#: field:chricar.stock_product_by_location,product_qty_pending:0
+#: field:chricar.stock_product_by_location_prodlot,product_qty_pending:0
+msgid "Quantity Pending"
+msgstr ""
+
+#. module: chricar_stock_product_by_location
+#: field:chricar.stock_move_by_location,name:0
+#: field:chricar.stock_product_by_location,name:0
+#: field:chricar.stock_product_by_location_prodlot,name:0
+msgid "Quantity"
+msgstr ""
+
+#. module: chricar_stock_product_by_location
+#: field:chricar.stock_move_by_location,uom_id:0
+#: field:chricar.stock_product_by_location,uom_id:0
+#: field:chricar.stock_product_by_location_prodlot,uom_id:0
+msgid "UoM"
+msgstr ""
+
+#. module: chricar_stock_product_by_location
+#: constraint:stock.move:0
+msgid "Error: Negative quantities for location and/or lots are not allowed for this product or product category"
+msgstr ""
+
+#. module: chricar_stock_product_by_location
+#: field:chricar.stock_move_by_location,order_id:0
+msgid "Sale Order"
+msgstr ""
+
+#. module: chricar_stock_product_by_location
+#: constraint:stock.move:0
+msgid "You must assign a production lot for this product"
+msgstr ""
+
+#. module: chricar_stock_product_by_location
+#: field:chricar.stock_move_by_location,move_value_cost:0
+#: field:chricar.stock_product_by_location,amount:0
+#: field:chricar.stock_product_by_location_prodlot,amount:0
+msgid "Amount"
+msgstr ""
+
+#. module: chricar_stock_product_by_location
+#: view:chricar.stock_move_by_location:0
+#: view:chricar.stock_product_by_location:0
+#: view:chricar.stock_product_by_location_prodlot:0
+msgid "invisible"
+msgstr ""
+
+#. module: chricar_stock_product_by_location
+#: model:ir.actions.act_window,name:chricar_stock_product_by_location.chricar_stock_product_by_location_prodlot_act1
+#: model:ir.ui.menu,name:chricar_stock_product_by_location.menu_chricar_stock_product_by_location_prodlot_list
+msgid "Product by Stock and Production Lot"
+msgstr ""
+
+#. module: chricar_stock_product_by_location
+#: field:stock.move,avg_price_calc:0
+msgid "Avg Calc"
+msgstr ""
+
+#. module: chricar_stock_product_by_location
+#: model:ir.model,name:chricar_stock_product_by_location.model_chricar_stock_product_by_location
+#: model:ir.model,name:chricar_stock_product_by_location.model_chricar_stock_product_by_location_prodlot
+msgid "Product Stock Sum"
+msgstr ""
+
+#. module: chricar_stock_product_by_location
+#: model:ir.model,name:chricar_stock_product_by_location.model_stock_move
+msgid "Stock Move"
+msgstr ""
+
+#. module: chricar_stock_product_by_location
+#: constraint:product.product:0
+msgid "Error: Invalid EAN code"
+msgstr ""
+
+#. module: chricar_stock_product_by_location
+#: view:chricar.stock_move_by_location:0
+#: view:chricar.stock_product_by_location:0
+#: view:chricar.stock_product_by_location_prodlot:0
+msgid "Sum Amount"
+msgstr ""
+
