@@ -3,6 +3,7 @@
 #
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2010 Tiny SPRL (<http://tiny.be>).
+#    Copyright (C) 2010-2010 Camptocamp Austria (<http://www.camptocamp.at>)
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -19,29 +20,28 @@
 #
 ##############################################################################
 
-{
-    "name" : "Sequence No Gap",
-    "version" : "1.1",
-    "author" : "Camptocamp Austria",
-    "category": 'Accounting & Finance',
-    'complexity': "normal",
-    "description": """
-Issues sequence numbers without gap
-=====================================
 
-it is a workaround and may not work well in multi user envirenment
-if a lot of users work on same objects concurrently
-the sequence implementation must be set to "No Gap"
-currently implemented for SO,PO, Pickings
+from osv import fields, osv
 
-    """,
-    'website': 'http://www.camptocamp.com',
-    "depends" : ["base"],
-    'init_xml': [],
-    'update_xml': [],
-    'demo_xml': [],
-    'installable': True,
-    'auto_install': False,
-}
+class sale_order(osv.osv):
+    _inherit = "sale.order"
 
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+    def _uninvoiced_lines(self, cr, uid, ids, name, arg, context=None):
+        if not ids:
+            return {}
+        res = {}
+        for order in self.browse(cr,uid,ids):
+	    to_invoice = False
+	    if order.order_line:
+                for line in order.order_line:
+		    if line.invoiced != True:
+                        to_invoice = True
+            res[order.id] = to_invoice
+	    	
+        return res
+
+    _columns = {
+        'uninvoiced_lines': fields.function(_uninvoiced_lines, method=True, string='Uninvoiced Lines', type='boolean'),
+    }
+
+sale_order()

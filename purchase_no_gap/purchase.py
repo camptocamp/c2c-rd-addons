@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
-#    
+#
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2010 Tiny SPRL (<http://tiny.be>).
-#    Copyright (C) 2010-2010 Camptocamp Austria (<http://www.camptocamp.at>)
+#    Copyright (C) 2012-2012 Camptocamp Austria (<http://www.camptocamp.at>)
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -16,11 +16,25 @@
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
 
 
-import sale
+from osv import fields, osv
 
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+class purchase_order(osv.osv):
+    _inherit = "purchase.order"
+
+    _defaults = {
+          'name' : '/',
+        }
+
+    def create(self, cr, uid, vals, context=None):
+        if vals.get('name', '/'):
+            vals.update({'name':  self.pool.get('ir.sequence').get(cr, uid, 'purchase.order')})
+        return super(purchase_order, self).create(cr, uid, vals, context=context)
+
+purchase_order()
+
+    

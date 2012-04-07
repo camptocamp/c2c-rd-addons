@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
-#    
+#
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2010 Tiny SPRL (<http://tiny.be>).
-#    Copyright (C) 2010-2010 Camptocamp Austria (<http://www.camptocamp.at>)
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -16,11 +15,28 @@
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
 
+{
+    "name" : "Sale No Gap",
+    "version" : "1.1",
+    "author" : "Camptocamp Austria",
+    "category": 'Sale Management',
+    'complexity': "easy",
+    "description": """
+Sale orders no gap
+=====================================
 
-import sale
+    """,
+    'website': 'http://www.camptocamp.com',
+    "depends" : ["sale"],
+    'init_xml': [],
+    'update_xml': [],
+    'demo_xml': [],
+    'installable': True,
+    'auto_install': False,
+}
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
