@@ -7,9 +7,8 @@
 # created 2008-07-05
 #
 ###############################################
-import time
 from osv import fields,osv
-import pooler
+from tools.translate import _
 
 class res_partner_parent_company(osv.osv):
      _name  = "res.partner.parent_company"
@@ -113,7 +112,7 @@ class res_partner(osv.osv) :
                     o = r
                     for m in key[0].split('.'):
                         o = getattr(o, m)
-                    d[key[0]] = o
+                    d[key[0]] = o if not isinstance(o, str) else _(o)
                 undecorated.append(d)
             for key in self._order :
                 decorated = [(d[key[0]], d) for d in undecorated]
