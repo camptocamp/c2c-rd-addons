@@ -9,6 +9,7 @@
 ###############################################
 from osv import fields,osv
 from tools.translate import _
+import one2many_sorted
 
 class res_partner_parent_company(osv.osv):
      _name  = "res.partner.parent_company"
@@ -70,73 +71,11 @@ res_partner_parent_company()
 
 class res_partner(osv.osv) :
 
-    class one2many_current(fields.one2many):
-        def __init__(self, obj, fields_id, string='unknown', limit=None, **args) :
-            order = []
-            if 'order' in args :
-                for col in args['order'].split(',') :
-                    c = col.strip()
-                    if ' ASC' in c.upper() :
-                        order.append((c[0:c.index(' ')], False))
-                    elif ' DESC' in c.upper() :
-                        order.append((c[0:c.index(' ')], True))
-                    else :
-                        order.append((c, False))
-                self._order = list(reversed(order))
-            else :
-                self._order = []
-            if 'search' in args :
-                self._search = args['search']
-            else :
-                self._search = []
-            if 'set' in args :
-                self._set = args['set']
-            else :
-                self._set = {}
-            (fields.one2many).__init__(self, obj, fields_id, string=string, limit=limit, **args)
-        # end def __init__
-
-        def get (self, cr, obj, ids, name, user=None, offset=0, context=None, values={}) :
-            res = {}
-            _obj = obj.pool.get(self._obj)
-            for id in ids : res[id] = []
-            ids2 = _obj.search \
-                ( cr, user
-                , [(self._fields_id, 'in', ids)] + self._search
-                , limit = self._limit
-                )
-            undecorated = []
-            for r in _obj.browse(cr, user, ids2, context=context) :
-                d = {}
-                for key in ([('id', False)] + self._order) :
-                    o = r
-                    for m in key[0].split('.'):
-                        o = getattr(o, m)
-                    d[key[0]] = o if not isinstance(o, str) else _(o)
-                undecorated.append(d)
-            for key in self._order :
-                decorated = [(d[key[0]], d) for d in undecorated]
-                decorated.sort(reverse=key[1])
-                undecorated = [d for (k, d) in decorated]
-            for r in _obj.browse(cr, user, [d['id'] for d in undecorated], context=context) :
-                res [getattr(r, self._fields_id).id].append(r.id)
-            return res
-        # end def get
-
-        def set(self, cr, obj, id, field, values, user=None, context=None):
-            for act in values :
-                if act[0] == 0 : # "create"
-                    for k, v in self._set.iteritems() :
-                        act[2][k] = v
-            return super(self.__class__,self).set(cr, obj, id, field, values, user, context)
-        # end def set
-   # end class one2many_current
-
     _inherit = "res.partner"
     _columns = \
         { 'partner_ids'               : fields.one2many
             ('res.partner.parent_company','partner_id','Parent Companies')
-        , 'partner_current_ids'       : one2many_current
+        , 'partner_current_ids'       : one2many_sorted.one2many_sorted
             ( 'res.partner.parent_company'
             , 'partner_id'
             , 'Parent Companies Current'
@@ -145,7 +84,7 @@ class res_partner(osv.osv) :
             )
         , 'participation_ids'         : fields.one2many
             ('res.partner.parent_company','partner_parent_id','Participations')
-        , 'participation_current_ids' : one2many_current
+        , 'participation_current_ids' : one2many_sorted.one2many_sorted
             ( 'res.partner.parent_company'
             , 'partner_parent_id'
             , 'Participations Current'
