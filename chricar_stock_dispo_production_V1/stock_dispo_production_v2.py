@@ -1,7 +1,4 @@
 # -*- coding: utf-8 -*-
-
-#!/usr/bin/python
-# -*- coding: utf-8 -*-
 ##############################################
 #
 # ChriCar Beteiligungs- und Beratungs- GmbH
@@ -34,8 +31,8 @@
 ###############################################
 import time
 from osv import fields,osv
-import pooler
 import sys
+import one2many_sorted
 
 #class chricar_stock_dispo_production(osv.osv):
 #     _name = "stock.move"
@@ -152,169 +149,131 @@ sale_order()
 
 class sale_order_line(osv.osv):
     _inherit = "sale.order.line"
-
-
-    class one2many_sale (fields.one2many):
-        def get (self, cr, obj, ids, name, user = None, offset = 0, context = {}, values = {}):
-            res = {}
-            for id in ids : res[id] = []
-            ids2 = obj.pool.get (self._obj).search \
-                ( cr
-                , user
-                , [(self._fields_id, 'in', ids)
-                , ('category_prod', '=', 'sell')]
-                , limit = self._limit
-                )
-            for r in obj.pool.get (self._obj)._read_flat \
-                (cr
-                , user
-                , ids2
-                , [self._fields_id]
-                , context = context
-                , load = '_classic_write'
-                ):
-                res [r[self._fields_id]].append( r['id'] )
-            return res
-        # end def get
-    # end class one2many_sale
-
-    class one2many_small (fields.one2many):
-        def get (self, cr, obj, ids, name, user = None, offset = 0, context = {}, values = {}):
-            res = {}
-            for id in ids : res[id] = []
-            ids2 = obj.pool.get (self._obj).search \
-                ( cr
-                , user
-                , [(self._fields_id, 'in', ids)
-                , ('category_prod', '=', 'small')]
-                , limit = self._limit
-                )
-            for r in obj.pool.get (self._obj)._read_flat \
-                (cr
-                , user
-                , ids2
-                , [self._fields_id]
-                , context = context
-                , load = '_classic_write'
-                ):
-                res [r[self._fields_id]].append( r['id'] )
-            return res
-        # end def get
-    # end class one2many_small
-
-    class one2many_big (fields.one2many):
-        def get (self, cr, obj, ids, name, user = None, offset = 0, context = {}, values = {}):
-            res = {}
-            for id in ids : res[id] = []
-            ids2 = obj.pool.get (self._obj).search \
-                ( cr
-                , user
-                , [(self._fields_id, 'in', ids)
-                , ('category_prod', '=', 'big')]
-                , limit = self._limit
-                )
-            for r in obj.pool.get (self._obj)._read_flat \
-                (cr
-                , user
-                , ids2
-                , [self._fields_id]
-                , context = context
-                , load = '_classic_write'
-                ):
-                res [r[self._fields_id]].append( r['id'] )
-            return res
-        # end def get
-    # end class one2many_big
-
-    class one2many_faulty (fields.one2many):
-        def get (self, cr, obj, ids, name, user = None, offset = 0, context = {}, values = {}):
-            res = {}
-            for id in ids : res[id] = []
-            ids2 = obj.pool.get (self._obj).search \
-                ( cr
-                , user
-                , [(self._fields_id, 'in', ids)
-                , ('category_prod', '=', 'faulty')]
-                , limit = self._limit
-                )
-            for r in obj.pool.get (self._obj)._read_flat \
-                (cr
-                , user
-                , ids2
-                , [self._fields_id]
-                , context = context
-                , load = '_classic_write'
-                ):
-                res [r[self._fields_id]].append( r['id'] )
-            return res
-        # end def get
-    # end class one2many_faulty
-
-    class one2many_waste (fields.one2many):
-        def get (self, cr, obj, ids, name, user = None, offset = 0, context = {}, values = {}):
-            res = {}
-            for id in ids : res[id] = []
-            ids2 = obj.pool.get (self._obj).search \
-                ( cr
-                , user
-                , [(self._fields_id, 'in', ids)
-                , ('category_prod', '=', 'waste')]
-                , limit = self._limit
-                )
-            for r in obj.pool.get (self._obj)._read_flat \
-                (cr
-                , user
-                , ids2
-                , [self._fields_id]
-                , context = context
-                , load = '_classic_write'
-                ):
-                res [r[self._fields_id]].append( r['id'] )
-            return res
-        # end def get
-    # end class one2many_waste
-
-
-
-    _columns = {
-       'quality'           : fields.char    ('Ordered Quality', size=16,help="This will be copied to Quality for each sale line", \
-                       readonly=True, states={'draft': [('readonly', False)],'confirmed': [('readonly', False)] }), 
-       'location_product_id' : fields.many2one('stock.location', 'Production Location', help="Field where products were grown (AMA)", \
-                       readonly=True, states={'draft': [('readonly', False)],'confirmed': [('readonly', False)] }),
-       'location_id'       : fields.many2one('stock.location', 'Source Location', help="Products will be taken from this location", \
-                       readonly=True, states={'draft': [('readonly', False)],'confirmed': [('readonly', False)] }),
-       'location_dest_id'  : fields.many2one('stock.location', 'Dest. Location', help="Products will be shipped to this location", \
-                       readonly=True, states={'draft': [('readonly', False)],'confirmed': [('readonly', False)] }),
-       'location_big_id'   : fields.many2one('stock.location', 'Dest. Location Big', help="To big products will be moved to this location, defaults to source", \
-                       readonly=True, states={'draft': [('readonly', False)],'confirmed': [('readonly', False)] }),
-       'location_small_id' : fields.many2one('stock.location', 'Dest. Location Small', help="To small products will be moved to this location, defaults to source", \
-                       readonly=True, states={'draft': [('readonly', False)],'confirmed': [('readonly', False)] }),
-       'location_faulty_id': fields.many2one('stock.location', 'Dest. Location Faulty', help="Faulty products will be moved to this location, set default manually", \
-                       readonly=True, states={'draft': [('readonly', False)],'confirmed': [('readonly', False)] }),
-       'location_waste_id' : fields.many2one('stock.location', 'Dest. Location Waste', help="Waste will be moved to this location, set default manually", \
-                       readonly=True, states={'draft': [('readonly', False)],'confirmed': [('readonly', False)] }),
-       'trading_unit_owner_id': fields.many2one('res.partner','Owner of Trading Unit', help="This will create appropriate text on picking, packing and labels", \
-                       readonly=True, states={'draft': [('readonly', False)],'confirmed': [('readonly', False)] }),
-       'prodlot_id': fields.many2one('stock.production.lot', 'Production Lot', \
-                       readonly=True, states={'draft': [('readonly', False)],'confirmed': [('readonly', False)] }, \
-                       help="Production lot is used to track the production"),  
-       'stock_dispo_production_sale_ids'  : one2many_sale('stock.move','order_line_id','To Sell', \
-                       readonly=True, states={'draft': [('readonly', False)],'confirmed': [('readonly', False)] }),
-       'stock_dispo_production_small_ids' : one2many_small('stock.move','order_line_id','To Small', \
-                       readonly=True, states={'draft': [('readonly', False)],'confirmed': [('readonly', False)] }),
-       'stock_dispo_production_big_ids'   : one2many_big('stock.move','order_line_id','To Big', \
-                       readonly=True, states={'draft': [('readonly', False)],'confirmed': [('readonly', False)] }),
-       'stock_dispo_production_faulty_ids': one2many_faulty('stock.move','order_line_id','Faulty', \
-                       readonly=True, states={'draft': [('readonly', False)],'confirmed': [('readonly', False)] }),
-       'stock_dispo_production_waste_ids' : one2many_waste('stock.move','order_line_id','Waste', \
-                       readonly=True, states={'draft': [('readonly', False)],'confirmed': [('readonly', False)] }),
-       'stock_dispo_production_ids': fields.one2many('stock.move','order_line_id','Dispo Production', \
-                       readonly=True, states={'draft': [('readonly', False)],'confirmed': [('readonly', False)] }),
-       'product_packaging_id' : fields.many2one('product.product', 'Packaging', help='Product wich is used to store the main product') ,
-       
-    }
+    _states_mask = {'draft': [('readonly', False)],'confirmed': [('readonly', False)]}
+    _columns = \
+        { 'quality'             : fields.char    
+            ( 'Ordered Quality'
+            , size=16
+            , help="This will be copied to Quality for each sale line"
+            , readonly=True
+            , states=_states_mask
+            )
+        , 'location_product_id' : fields.many2one
+            ( 'stock.location'
+            , 'Production Location'
+            , help="Field where products were grown (AMA)"
+            , readonly=True
+            , states=_states_mask
+            )
+        , 'location_id'         : fields.many2one
+            ( 'stock.location'
+            , 'Source Location'
+            , help="Products will be taken from this location"
+            , readonly=True
+            , states=_states_mask
+            )
+        , 'location_dest_id'    : fields.many2one
+            ( 'stock.location'
+            , 'Dest. Location'
+            , help="Products will be shipped to this location"
+            , readonly=True
+            , states=_states_mask
+            )
+        , 'location_big_id'     : fields.many2one
+            ( 'stock.location'
+            , 'Dest. Location Big'
+            , help="Too big products will be moved to this location, defaults to source"
+            , readonly=True
+            , states=_states_mask
+            )
+        , 'location_small_id'   : fields.many2one
+            ( 'stock.location'
+            , 'Dest. Location Small'
+            , help="Too small products will be moved to this location, defaults to source"
+            , readonly=True
+            , states=_states_mask
+            )
+        , 'location_faulty_id'  : fields.many2one
+            ( 'stock.location'
+            , 'Dest. Location Faulty'
+            , help="Faulty products will be moved to this location, set default manually"
+            , readonly=True
+            , states=_states_mask
+            )
+        , 'location_waste_id'   : fields.many2one
+            ( 'stock.location'
+            , 'Dest. Location Waste'
+            , help="Waste will be moved to this location, set default manually"
+            , readonly=True
+            , states=_states_mask
+            )
+        , 'trading_unit_owner_id': fields.many2one
+            ( 'res.partner'
+            , 'Owner of Trading Unit'
+            , help="This will create appropriate text on picking, packing and labels"
+            , readonly=True
+            , states=_states_mask
+            )
+        , 'prodlot_id'          : fields.many2one
+            ( 'stock.production.lot'
+            , 'Production Lot'
+            , readonly=True
+            , states=_states_mask
+            , help="Production lot is used to track the production"
+            )
+        , 'stock_dispo_production_sale_ids'  : one2many_sorted.one2many_sorted
+            ( 'stock.move'
+            , 'order_line_id'
+            , 'To Sell'
+            , readonly=True
+            , states=_states_mask
+            , search=[('category_prod', '=', 'sell')]
+            )
+        , 'stock_dispo_production_small_ids': one2many_sorted.one2many_sorted
+            ( 'stock.move'
+            , 'order_line_id'
+            , 'To Small'
+            , readonly=True
+            , states=_states_mask
+            , search=[('category_prod', '=', 'small')]
+            )
+        , 'stock_dispo_production_big_ids' : one2many_sorted.one2many_sorted
+            ( 'stock.move'
+            , 'order_line_id'
+            ,'To Big'
+            , readonly=True
+            , states=_states_mask
+            , search=[('category_prod', '=', 'big')]
+            )
+        , 'stock_dispo_production_faulty_ids' : one2many_sorted.one2many_sorted
+            ( 'stock.move'
+            , 'order_line_id'
+            , 'Faulty'
+            , states=_states_mask
+            , search=[('category_prod', '=', 'faulty')]
+            )
+        , 'stock_dispo_production_waste_ids' : one2many_sorted.one2many_sorted
+            ( 'stock.move'
+            , 'order_line_id'
+            , 'Waste'
+            , readonly=True
+            , states=_states_mask
+            , search=[('category_prod', '=', 'waste')]
+            )
+        , 'stock_dispo_production_ids': fields.one2many
+            ( 'stock.move'
+            , 'order_line_id'
+            , 'Dispo Production'
+            , readonly=True
+            , states=_states_mask
+            )
+        , 'product_packaging_id' : fields.many2one
+            ( 'product.product'
+            , 'Packaging'
+            , help='Product wich is used to store the main product'
+            )       
+        }
 sale_order_line()
-
 
 
 #class stock_move(osv.osv):
@@ -326,5 +285,3 @@ sale_order_line()
 #
 #      }
 #stock_move()
-
-

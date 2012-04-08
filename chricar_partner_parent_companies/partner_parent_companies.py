@@ -7,9 +7,9 @@
 # created 2008-07-05
 #
 ###############################################
-import time
 from osv import fields,osv
-import pooler
+from tools.translate import _
+import one2many_sorted
 
 class res_partner_parent_company(osv.osv):
      _name  = "res.partner.parent_company"
@@ -71,85 +71,25 @@ res_partner_parent_company()
 
 class res_partner(osv.osv) :
 
-    class one2many_parent_current(fields.one2many):
-        def __init__(self, obj, fields_id, string='unknown', limit=None, **args) :
-            if 'order' in args :
-                self._order = list(reversed([col.replace(' ', '') for col in args['order'].split(',')]))
-            else :
-                self._order = []
-            if 'search' in args :
-                self._search = args['search']
-            else :
-                self._search = []
-            (fields.one2many).__init__(self, obj, fields_id, string=string, limit=limit, **args)
-        # end def __init__
-
-        def get (self, cr, obj, ids, name, user=None, offset=0, context=None, values={}) :
-            res = {}
-            _obj = obj.pool.get(self._obj)
-            for id in ids : res[id] = []
-            ids2 = _obj.search \
-                ( cr, user
-                , [(self._fields_id, 'in', ids)] + self._search
-                , limit = self._limit
-                )
-            undecorated = _obj.read(cr, user, ids2, ['id'] + self._order, context)
-            for key in self._order:
-                decorated = [(d[key], d) for d in undecorated]
-                decorated.sort()
-                undecorated = [d for (k, d) in decorated]
-            for r in _obj.browse(cr, user, [d['id'] for d in undecorated], context=context) :
-                res [getattr(r, self._fields_id).id].append(r.id)
-            return res
-        # end def get
-
-#        def get (self, cr, obj, ids, name, user=None, offset=0, context=None, values={}):
-#            res = {}
-#            _obj = obj.pool.get (self._obj)
-#            for id in ids : res[id] = []
-#            ids2 = _obj.search \
-#                ( cr
-#                , user
-#                , [(self._fields_id, 'in', ids), ('valid_until', '=', False)]
-#                , limit=self._limit
-#                )
-#            for r in sorted(_obj.browse(cr, user, ids2, context=context), cmp=_obj.cmp_func()) :
-#                res[r.partner_id.id].append(r.id)
-#            return res
-#        # end def get
-   # end class one2many_parent_current
-
-    class one2many_participation_current(fields.one2many):
-        def get (self, cr, obj, ids, name, user=None, offset=0, context=None, values={}):
-            res = {}
-            _obj = obj.pool.get (self._obj)
-            for id in ids : res[id] = []
-            ids2 = _obj.search \
-                ( cr
-                , user
-                , [(self._fields_id, 'in', ids), ('valid_until', '=', False)]
-                , limit=self._limit
-                )
-            for r in sorted(_obj.browse(cr, user, ids2, context=context), cmp=_obj.cmp_func()) :
-                res[r.partner_parent_id.id].append(r.id)
-            return res
-        # end def get
-   # end class one2many_parent_current
-
     _inherit = "res.partner"
     _columns = \
         { 'partner_ids'               : fields.one2many
             ('res.partner.parent_company','partner_id','Parent Companies')
-        , 'partner_current_ids'       : one2many_parent_current
+        , 'partner_current_ids'       : one2many_sorted.one2many_sorted
             ( 'res.partner.parent_company'
             , 'partner_id'
             , 'Parent Companies Current'
             , search = [('valid_until', '=', False)]
-            , order  = 'partner_id,valid_from'
+            , order  = 'partner_id.name,valid_from'
             )
         , 'participation_ids'         : fields.one2many
             ('res.partner.parent_company','partner_parent_id','Participations')
-        , 'participation_current_ids' : one2many_participation_current
-            ('res.partner.parent_company','partner_parent_id','Participations Current')
+        , 'participation_current_ids' : one2many_sorted.one2many_sorted
+            ( 'res.partner.parent_company'
+            , 'partner_parent_id'
+            , 'Participations Current'
+            , search = [('valid_until', '=', False)]
+            , order  = 'partner_id.name,valid_from'
+            )
         }
 res_partner()
