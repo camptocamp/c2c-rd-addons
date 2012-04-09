@@ -1,95 +1,94 @@
-# Translation of OpenERP Server.
-# This file contains the translation of the following modules:
-#	* account_invoice_webkit
+# German translation for c2c-rd-addons
+# Copyright (c) 2012 Rosetta Contributors and Canonical Ltd 2012
+# This file is distributed under the same license as the c2c-rd-addons package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2012.
 #
-# Ferdinand Gassauer, 2012.
 msgid ""
 msgstr ""
-"Project-Id-Version: OpenERP Server 6.1\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-04-08 18:22+0000\n"
-"PO-Revision-Date: 2012-04-08 20:30+0200\n"
-"Last-Translator: Ferdinand Gassauer\n"
-"Language-Team: American English <kde-i18n-doc@kde.org>\n"
+"Project-Id-Version: c2c-rd-addons\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2012-01-23 22:02+0000\n"
+"PO-Revision-Date: 2012-01-24 07:36+0000\n"
+"Last-Translator: Ferdinand @ Camptocamp <Unknown>\n"
+"Language-Team: German <de@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: \n"
-"X-Launchpad-Export-Date: 2012-04-08 05:12+0000\n"
-"Language: en_US\n"
-"X-Generator: Lokalize 1.4\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2012-04-09 05:10+0000\n"
+"X-Generator: Launchpad (build 15060)\n"
 
 #. module: account_invoice_webkit
-#: report:addons/account_invoice_webkit/report/account_invoice_webkit.mako:241
+#: report:addons/account_invoice_webkit/report/account_invoice_webkit.mako:237
 msgid "Total Tax:"
 msgstr "Gesamt Steuer"
 
 #. module: account_invoice_webkit
-#: report:addons/account_invoice_webkit/report/account_invoice_webkit.mako:114
+#: report:addons/account_invoice_webkit/report/account_invoice_webkit.mako:113
 msgid "Customer Refund"
 msgstr "Kundengutschrift"
 
 #. module: account_invoice_webkit
-#: field:account.invoice,cols:0
-msgid "No of columns before totals"
-msgstr "Anzahl Spalten vor Spalte Total"
+#: field:account.invoice,client_order_ref:0
+msgid "Customer Reference of Sale Orders"
+msgstr "Kunden Auftrag Referenz"
 
 #. module: account_invoice_webkit
-#: report:addons/account_invoice_webkit/report/account_invoice_webkit.mako:110
+#: report:addons/account_invoice_webkit/report/account_invoice_webkit.mako:109
 msgid "Customer Invoice"
 msgstr "Ausgangsrechnung"
 
 #. module: account_invoice_webkit
-#: report:addons/account_invoice_webkit/report/account_invoice_webkit.mako:36
-#: report:addons/account_invoice_webkit/report/account_invoice_webkit.mako:98
+#: report:addons/account_invoice_webkit/report/account_invoice_webkit.mako:31
+#: report:addons/account_invoice_webkit/report/account_invoice_webkit.mako:95
 msgid "Supplier Address"
 msgstr "Lieferantenanschrift"
 
 #. module: account_invoice_webkit
-#: report:addons/account_invoice_webkit/report/account_invoice_webkit.mako:112
+#: report:addons/account_invoice_webkit/report/account_invoice_webkit.mako:111
 msgid "Supplier Invoice"
 msgstr "Eingangsrechnungen"
 
 #. module: account_invoice_webkit
-#: report:addons/account_invoice_webkit/report/account_invoice_webkit.mako:171
+#: report:addons/account_invoice_webkit/report/account_invoice_webkit.mako:165
 msgid "Unit Price"
 msgstr "Preis"
 
 #. module: account_invoice_webkit
-#: report:addons/account_invoice_webkit/report/account_invoice_webkit.mako:55
-#: report:addons/account_invoice_webkit/report/account_invoice_webkit.mako:86
+#: report:addons/account_invoice_webkit/report/account_invoice_webkit.mako:52
+#: report:addons/account_invoice_webkit/report/account_invoice_webkit.mako:83
 msgid "Mail"
 msgstr "E-Mail"
 
 #. module: account_invoice_webkit
-#: report:addons/account_invoice_webkit/report/account_invoice_webkit.mako:173
+#: report:addons/account_invoice_webkit/report/account_invoice_webkit.mako:167
 msgid "Price/Unit"
 msgstr "Preis/Einheit"
 
 #. module: account_invoice_webkit
-#: report:addons/account_invoice_webkit/report/account_invoice_webkit.mako:176
+#: report:addons/account_invoice_webkit/report/account_invoice_webkit.mako:125
+msgid "Document"
+msgstr "Dokument"
+
+#. module: account_invoice_webkit
+#: constraint:account.invoice:0
+msgid "You must not alter a fixed analytic account."
+msgstr "You must not alter a fixed analytic account."
+
+#. module: account_invoice_webkit
+#: report:addons/account_invoice_webkit/report/account_invoice_webkit.mako:47
+#: report:addons/account_invoice_webkit/report/account_invoice_webkit.mako:78
+msgid "Fax"
+msgstr "Fax"
+
+#. module: account_invoice_webkit
+#: report:addons/account_invoice_webkit/report/account_invoice_webkit.mako:170
 msgid "Disc.(%)"
 msgstr "Rabatt (%)"
 
 #. module: account_invoice_webkit
-#: field:account.invoice,print_ean:0
-msgid "Print EAN if available"
-msgstr "Druck EAN wenn vorhanden"
-
-#. module: account_invoice_webkit
-#: report:addons/account_invoice_webkit/report/account_invoice_webkit.mako:215
-msgid "Net Total"
-msgstr "Netto"
-
-#. module: account_invoice_webkit
-#: report:addons/account_invoice_webkit/report/account_invoice_webkit.mako:161
-#: report:addons/account_invoice_webkit/report/account_invoice_webkit.mako:163
+#: report:addons/account_invoice_webkit/report/account_invoice_webkit.mako:165
 msgid "Description"
 msgstr "Beschreibung"
-
-#. module: account_invoice_webkit
-#: report:addons/account_invoice_webkit/report/account_invoice_webkit.mako:166
-msgid "EAN"
-msgstr "EAN"
 
 #. module: account_invoice_webkit
 #: model:ir.actions.report.xml,name:account_invoice_webkit.account_invoice_webkit
@@ -97,35 +96,30 @@ msgid "WebKit Invoice"
 msgstr "WebKit Rechnung"
 
 #. module: account_invoice_webkit
-#: report:addons/account_invoice_webkit/report/account_invoice_webkit.mako:178
+#: report:addons/account_invoice_webkit/report/account_invoice_webkit.mako:172
 msgid "Price"
 msgstr "Preis"
 
 #. module: account_invoice_webkit
-#: report:addons/account_invoice_webkit/report/account_invoice_webkit.mako:135
+#: report:addons/account_invoice_webkit/report/account_invoice_webkit.mako:130
 msgid "Invoice Date"
 msgstr "Datum Rechnung"
 
 #. module: account_invoice_webkit
-#: report:addons/account_invoice_webkit/report/account_invoice_webkit.mako:169
+#: report:addons/account_invoice_webkit/report/account_invoice_webkit.mako:165
 msgid "QTY"
 msgstr "Menge"
 
 #. module: account_invoice_webkit
-#: report:addons/account_invoice_webkit/report/account_invoice_webkit.mako:45
-#: report:addons/account_invoice_webkit/report/account_invoice_webkit.mako:76
+#: report:addons/account_invoice_webkit/report/account_invoice_webkit.mako:42
+#: report:addons/account_invoice_webkit/report/account_invoice_webkit.mako:73
 msgid "Phone"
 msgstr "Telefon"
 
 #. module: account_invoice_webkit
-#: report:addons/account_invoice_webkit/report/account_invoice_webkit.mako:231
+#: report:addons/account_invoice_webkit/report/account_invoice_webkit.mako:227
 msgid "Base"
 msgstr "Basis"
-
-#. module: account_invoice_webkit
-#: report:addons/account_invoice_webkit/report/account_invoice_webkit.mako:231
-msgid "Tax"
-msgstr "Steuern"
 
 #. module: account_invoice_webkit
 #: field:account.invoice,print_price_unit_id:0
@@ -133,75 +127,48 @@ msgid "Print column price unit id if not 1"
 msgstr "Ausdruck der Preiseinheit wenn ungleich 1"
 
 #. module: account_invoice_webkit
+#: report:addons/account_invoice_webkit/report/account_invoice_webkit.mako:133
+msgid "Partner Reference"
+msgstr "Partner Referenz"
+
+#. module: account_invoice_webkit
 #: constraint:account.invoice:0
 msgid "You must not define an analytic account."
-msgstr "EIn Analysekonto ist zwingend."
+msgstr "You must not define an analytic account."
 
 #. module: account_invoice_webkit
-#: report:addons/account_invoice_webkit/report/account_invoice_webkit.mako:137
-msgid "Due Date"
-msgstr "Fällig"
-
-#. module: account_invoice_webkit
-#: constraint:account.invoice:0
-msgid "You must not alter a fixed analytic account."
-msgstr "Fixe Analyse Konten dürfen nicht geändert werden."
-
-#. module: account_invoice_webkit
-#: report:addons/account_invoice_webkit/report/account_invoice_webkit.mako:127
-msgid "Customer Ref"
-msgstr "Kunden Ref"
-
-#. module: account_invoice_webkit
-#: report:addons/account_invoice_webkit/report/account_invoice_webkit.mako:50
-#: report:addons/account_invoice_webkit/report/account_invoice_webkit.mako:81
-msgid "Fax"
-msgstr "Fax"
-
-#. module: account_invoice_webkit
-#: report:addons/account_invoice_webkit/report/account_invoice_webkit.mako:168
-#: report:addons/account_invoice_webkit/report/account_invoice_webkit.mako:220
+#: report:addons/account_invoice_webkit/report/account_invoice_webkit.mako:165
 msgid "Taxes"
 msgstr "Steuern"
 
 #. module: account_invoice_webkit
-#: report:addons/account_invoice_webkit/report/account_invoice_webkit.mako:231
+#: report:addons/account_invoice_webkit/report/account_invoice_webkit.mako:227
 msgid "Amount"
 msgstr "Betrag"
 
 #. module: account_invoice_webkit
-#: report:addons/account_invoice_webkit/report/account_invoice_webkit.mako:60
-#: report:addons/account_invoice_webkit/report/account_invoice_webkit.mako:91
+#: report:addons/account_invoice_webkit/report/account_invoice_webkit.mako:57
+#: report:addons/account_invoice_webkit/report/account_invoice_webkit.mako:88
 msgid "VAT"
-msgstr "UID"
+msgstr "USt."
 
 #. module: account_invoice_webkit
-#: report:addons/account_invoice_webkit/report/account_invoice_webkit.mako:130
-msgid "Origin"
-msgstr "Ursprung"
+#: sql_constraint:account.invoice:0
+msgid "Invoice Number must be unique per Company!"
+msgstr "Die Rechnungsnummer muss je Unternehmen eindeutig sein!"
 
 #. module: account_invoice_webkit
-#: constraint:account.invoice:0
-msgid "Error: \"Reference\" is missing"
-msgstr "Fehler: \"Referenz\" fehlt"
-
-#. module: account_invoice_webkit
-#: report:addons/account_invoice_webkit/report/account_invoice_webkit.mako:160
-msgid "Code"
-msgstr "Code"
-
-#. module: account_invoice_webkit
-#: report:addons/account_invoice_webkit/report/account_invoice_webkit.mako:138
+#: report:addons/account_invoice_webkit/report/account_invoice_webkit.mako:135
 msgid "Curr"
 msgstr "Währg."
 
 #. module: account_invoice_webkit
-#: report:addons/account_invoice_webkit/report/account_invoice_webkit.mako:133
+#: report:addons/account_invoice_webkit/report/account_invoice_webkit.mako:128
 msgid "Reference"
 msgstr "Referenz"
 
 #. module: account_invoice_webkit
-#: report:addons/account_invoice_webkit/report/account_invoice_webkit.mako:136
+#: report:addons/account_invoice_webkit/report/account_invoice_webkit.mako:131
 msgid "Payment Term"
 msgstr "Zahlungsbedingungen"
 
@@ -211,19 +178,9 @@ msgid "Total Discount"
 msgstr "Rabattsumme"
 
 #. module: account_invoice_webkit
-#: constraint:account.invoice:0
-msgid "You must assign an analytic account.(invoice)"
-msgstr "SIe müssen ein Analyse Konto definieren.(invoice)"
-
-#. module: account_invoice_webkit
-#: constraint:account.invoice:0
-msgid "Error: Invalid \"Customer Data\" [numeric12]"
-msgstr "Fehler: ungültige \"Kundendaten\" [numerisch 12]"
-
-#. module: account_invoice_webkit
-#: field:account.invoice,print_code:0
-msgid "Print code if available"
-msgstr "Drucke Code wenn vorhanden"
+#: report:addons/account_invoice_webkit/report/account_invoice_webkit.mako:227
+msgid "Tax"
+msgstr "Steuern"
 
 #. module: account_invoice_webkit
 #: model:ir.model,name:account_invoice_webkit.model_account_invoice
@@ -231,25 +188,17 @@ msgid "Invoice"
 msgstr "Rechnung"
 
 #. module: account_invoice_webkit
-#: report:addons/account_invoice_webkit/report/account_invoice_webkit.mako:116
-#: report:addons/account_invoice_webkit/report/account_invoice_webkit.mako:117
+#: report:addons/account_invoice_webkit/report/account_invoice_webkit.mako:115
 msgid "Supplier Refund"
 msgstr "Lieferanten Gutschrift"
 
 #. module: account_invoice_webkit
-#: report:addons/account_invoice_webkit/report/account_invoice_webkit.mako:224
-msgid "Total"
-msgstr "Summe"
+#: constraint:account.invoice:0
+msgid "You must assign an analytic account.(invoice)"
+msgstr "Sie müssen ein Analysekonto definieren.(Rechnung)"
 
 #. module: account_invoice_webkit
-#: sql_constraint:account.invoice:0
-msgid "Invoice Number must be unique per Company!"
-msgstr "Die Rechnungsnummer muss je Firma eindeutig sein"
-
-#. module: account_invoice_webkit
-#: report:addons/account_invoice_webkit/report/account_invoice_webkit.mako:170
-#: report:addons/account_invoice_webkit/report/account_invoice_webkit.mako:195
+#: report:addons/account_invoice_webkit/report/account_invoice_webkit.mako:165
+#: report:addons/account_invoice_webkit/report/account_invoice_webkit.mako:180
 msgid "Unit"
 msgstr "ME"
-
-
