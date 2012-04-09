@@ -2,22 +2,25 @@
 # This file contains the translation of the following modules:
 #	* report_production_order_badges
 #
+# Ferdinand Gassauer, 2012.
 msgid ""
 msgstr ""
-"Project-Id-Version: OpenERP Server 6.1rc1\n"
+"Project-Id-Version: OpenERP Server 6.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-01-23 22:09+0000\n"
-"PO-Revision-Date: 2012-01-24 02:14+0000\n"
-"Last-Translator: Joël Grand-Guillaume @ CampToCamp "
-"<joel.grandguillaume@camptocamp.com>\n"
-"Language-Team: \n"
+"POT-Creation-Date: 2012-04-09 07:37+0000\n"
+"PO-Revision-Date: 2012-04-09 09:43+0200\n"
+"Last-Translator: Ferdinand Gassauer\n"
+"Language-Team: American English <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2012-04-09 05:10+0000\n"
-"X-Generator: Launchpad (build 15060)\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+"Language: en_US\n"
+"X-Generator: Lokalize 1.4\n"
 
 #. module: report_production_order_badges
 #: model:ir.actions.report.xml,name:report_production_order_badges.report_production_order_badges
 msgid "Badges"
-msgstr "Badges"
+msgstr "Etiketten"
+
+
