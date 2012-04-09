@@ -178,7 +178,7 @@ ${inv.address_invoice_id.address_label|carriage_returns}
             <th style="text-align:left;">${_("Price")}</th>
          </tr>
         </thead>
-        %for line in inv.invoice_line :
+        %for line in inv.invoice_line_sorted :
         <tbody>
         <tr>
 %if inv.print_code:

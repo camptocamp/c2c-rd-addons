@@ -28,6 +28,7 @@ import netsvc
 import pooler
 from osv import fields, osv, orm
 from tools.translate import _
+import one2many_sorted
 
 class account_invoice(osv.osv):
     _inherit = "account.invoice"
@@ -101,6 +102,14 @@ class account_invoice(osv.osv):
         'print_price_unit_id': fields.function(_print_price_unit_id, method=True, type='boolean', string='Print column price unit id if not 1',),
         'print_ean': fields.function(_print_ean, method=True, type='boolean', string='Print EAN if available',),
         'print_code': fields.function(_print_code, method=True, type='boolean', string='Print code if available',),
-        'cols': fields.function(_get_cols, method=True, type='integer', string='No of columns before totals',)
+        'cols': fields.function(_get_cols, method=True, type='integer', string='No of columns before totals',),
+        'invoice_line_sorted' : one2many_sorted.one2many_sorted
+        ( 'account.invoice.line'
+        , 'invoice_id'
+        , 'Invoice Lines Sorted'
+        , states={'draft': [('readonly', False)]}
+        , order  = 'product_id.name'
+        )
+        
     }
 account_invoice()
