@@ -204,7 +204,7 @@ ${pick.address_id.address_label|carriage_returns}
             <th style="text-align:center;">${_("Destination Location")}</th>
          </tr>
         </thead>
-        %for line in pick.move_lines :
+        %for line in pick.move_lines_sorted :
         <tbody>
         <tr>
 %if pick.print_code:
