@@ -135,7 +135,7 @@ class sale_order(osv.osv):
               , 'order_id'
               , 'Order Lines Sorted'
               , states={'draft': [('readonly', False)]}
-              , order  = 'product_id.name'
+              , order  = 'product_id.name,name'
               )
               
     }
