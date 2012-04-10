@@ -39,7 +39,7 @@ class account_bank_statement(osv.osv):
         , 'statement_id'
         , 'Lines Sorted'
         , states={'draft': [('readonly', False)]}
-        , order  = 'name, id'
+        , order  = 'id, name'
         )
         
     }
