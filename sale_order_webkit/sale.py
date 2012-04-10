@@ -135,8 +135,15 @@ class sale_order(osv.osv):
               , 'order_id'
               , 'Order Lines Sorted'
               , states={'draft': [('readonly', False)]}
+              , order  = 'product_id.name(),name'
+              ),
+              'order_line' : one2many_sorted.one2many_sorted
+              ( 'sale.order.line'
+              , 'order_id'
+              , 'Order Lines Sorted'
+              , states={'draft': [('readonly', False)]}
               , order  = 'product_id.name,name'
-              )
+              ),
               
     }
 sale_order()

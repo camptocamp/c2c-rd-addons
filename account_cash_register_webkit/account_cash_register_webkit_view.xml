@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <report
+      auto="False"
+      file="account_cash_register_webkit/report/account_cash_register_webkit.mako"
+      id="account_cash_register_webkit"
+      model="account.bank.statement"
+      name="account.bank.statement.webkit"
+      report_type="webkit"
+      string="WebKit Cash Register"/>
+  </data>
+</openerp>
