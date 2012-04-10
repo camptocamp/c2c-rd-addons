@@ -24,7 +24,7 @@
 
     %for pick in objects :
 <br>
-    <%setLang(pick.address_id.partner_id.lang) or setLang(pick.partner_id.lang) or setLang(pick.company_id.partner_id.lang)%>
+    <%setLang(pick.address_id and pick.address_id.partner_id.lang) or pick.partner_id and setLang(pick.partner_id.lang) or setLang(pick.company_id.partner_id.lang)%>
     <table >
         %if pick.company_id.address_label_position == 'left':
          <tr>
