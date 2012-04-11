@@ -61,8 +61,8 @@
                 <form string="Create Pull Pickings">
                     <separator colspan="4" string="Do you really want to create pull pickings ?" />
                     <label colspan="4" nolabel="1" string='This programm will processs ALL Sale Orders with state "in progress" '/>
-                    <field name="location_dest_id" colspan="4"/>
 <!--
+                    <field name="location_dest_id" colspan="4"/>
                     <field name="grouped"/>
                     <newline/>
                     <field name="invoice_date"/>
