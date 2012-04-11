@@ -41,11 +41,12 @@ class sale_order(osv.osv):
 
     _columns = {
         'pull_intern_date' : fields.datetime('Creation of internal Pull'),
-        'state_internal': fields.selection([('', 'Unused'),('auto', 'Automatic'), ('manual', 'Manual'), ('calculation', 'Calculation'), ('calculated', 'Calculated')], 'Internal Pull Calcualtion', \
+        'pull_intern' : fields.boolean( 'Include in Pull Pick', help="Automatic will be included in Pull Picking evaluation"),
+        'state_internal': fields.selection([('', 'Unused'), ('calculation', 'Calculation'), ('calculated', 'Calculated')], 'Internal Pull Calcualtion', \
                 help="This indicates the status of the internal pull calculation"),
     }
     _defaults = {
-        'state_internal' : 'auto',		    
+        'pull_intern' : True,		    
 		    }
 
     def copy(self, cr, uid, id, default=None, context=None):
@@ -87,7 +88,7 @@ class sale_order(osv.osv):
         main_location_id = False
         loc_ids = []
         for order in self.browse(cr, uid, ids, context):
-            if order.state_internal == 'auto' and order.state == 'progress' :
+            if order.pull_intern and order.state == 'progress' :
                 order_ids.append(order.id)
         #order.write(cr, uid, order_ids,{'state_internal':'calculation'}, context)
         if not order_ids:
@@ -270,7 +271,7 @@ class sale_order_pull_internal(osv.osv_memory):
     _name = "sale.order.pull.internal"
     _description = "Create Pull Pickings"
     _columns = {
-        'location_dest_id': fields.many2one('stock.location', 'Destination for internal Moves', required=True, domain="[('usage', '=', 'internal')]"),
+        'location_dest_id': fields.many2one('stock.location', 'Destination for internal Moves',  domain="[('usage', '=', 'internal')]"),
     }
     _defaults = {
     }
