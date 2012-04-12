@@ -54,7 +54,8 @@ class sale_order(osv.osv):
             default = {}
         default.update({
             'pull_intern_date': False,
-            'state_internal': 'auto',
+            'pull_intern': True,
+            'state_internal': False,
         })
         return super(sale_order, self).copy(cr, uid, id, default, context=context)
 
