@@ -104,24 +104,30 @@ class product_product(osv.osv):
         
     def search(self, cr, uid, args, offset=0, limit=None,
                 order=None, context=None, count=False):
+        _logger = logging.getLogger(__name__)
 	if not context:
             context = {}
-        res_all = super(product_product, self).search(cr, uid, args, offset, limit,
-                order, context=context, count=count)
-        _logger = logging.getLogger(__name__)
-        _logger.info('FGF stock_location_product  ids %s', res_all)
-        _logger.info('FGF stock_location_product context %s', context)
-        _logger.info('FGF stock_location_product context print %s', context.get('display_with_zero_qty'))
+        #_logger.info('FGF stock_location_product context %s', context)
+        #_logger.info('FGF stock_location_product args %s', args)
+        #_logger.info('FGF stock_location_product limit%s', limit)
+        #_logger.info('FGF stock_location_product context print %s', context.get('display_with_zero_qty'))
         res = []
         if not context.get('location') or  context.get('display_with_zero_qty',True) :
-            _logger.info('FGF stock_location_product all')
-            res = res_all
+            res = super(product_product, self).search(cr, uid, args, offset, limit, order, context, count)
+            _logger.info('FGF stock_location_product all %s' % res)
         else:
             digits = self.pool.get('decimal.precision').precision_get(cr, uid, 'Product UoM')
-            _logger.info('FGF stock_location_product only not 0 , digits %s ', digits)
+        #    _logger.info('FGF stock_location_product args new %s', args)
+	# FIXME offset / limit 
+	# FIXME - can not search function field qty_available
+            res_all = super(product_product, self).search(cr, uid, args, None, None, order, context, count)
+        #    _logger.info('FGF stock_location_product only not 0 , digits %s ', digits)
+        #    _logger.info('FGF stock_location_product  ids %s', res)
+	    res = []
             for prod in self.browse(cr,uid,res_all,context):
                 if round(prod.qty_available,digits) <> 0.0 or round(prod.virtual_available,digits) <> 0.0:
                     res.append(prod.id)
+        #    _logger.info('FGF stock_location_product not sero %s' % res)
  
         return res
       

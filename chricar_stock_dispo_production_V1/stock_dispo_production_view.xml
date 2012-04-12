@@ -353,7 +353,7 @@ Modification of Parents (only for matching table prefixes)
                     colspan="4"
                     name="location_small_id"/>
                   <field
-                    domain="[('usage', '=', 'inventory')]"
+                    domain="[('usage', 'in', ['internal','inventory'])]"
                     colspan="4"
                     name="location_waste_id"/>
                   <separator colspan="4" string="Product Properties"/>

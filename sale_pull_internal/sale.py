@@ -41,15 +41,20 @@ class sale_order(osv.osv):
 
     _columns = {
         'pull_intern_date' : fields.datetime('Creation of internal Pull'),
+        'pull_intern' : fields.boolean( 'Include in Pull Pick', help="Automatic will be included in Pull Picking evaluation"),
         'state_internal': fields.selection([('', 'Unused'), ('calculation', 'Calculation'), ('calculated', 'Calculated')], 'Internal Pull Calcualtion', \
                 help="This indicates the status of the internal pull calculation"),
     }
+    _defaults = {
+        'pull_intern' : True,		    
+		    }
 
     def copy(self, cr, uid, id, default=None, context=None):
         if not default:
             default = {}
         default.update({
             'pull_intern_date': False,
+            'pull_intern': True,
             'state_internal': False,
         })
         return super(sale_order, self).copy(cr, uid, id, default, context=context)
@@ -84,7 +89,7 @@ class sale_order(osv.osv):
         main_location_id = False
         loc_ids = []
         for order in self.browse(cr, uid, ids, context):
-            if order.state == 'progress' and not order.state_internal and not order.pull_intern_date:
+            if order.pull_intern and order.state == 'progress' :
                 order_ids.append(order.id)
         #order.write(cr, uid, order_ids,{'state_internal':'calculation'}, context)
         if not order_ids:
@@ -110,6 +115,7 @@ class sale_order(osv.osv):
                     location_dest_id = shop.warehouse_id.lot_output_id.id
                 address_id = shop.warehouse_id.partner_address_id and shop.warehouse_id.partner_address_id.id 
 		loc_fallback_id = shop.warehouse_id.lot_stock_id.id
+	    # update source location of auto SO
             # select source location
             cr.execute("""select id
                    from stock_location
@@ -153,6 +159,13 @@ class sale_order(osv.osv):
                 back_log_lines.append({'product_id': product_id, 'product_qty':qty_requested, 'name':name, 'product_packaging': product_packaging})
 
             
+	# update SO , source location to location_dest_id
+	cr.execute("""update stock_move
+	                 set location_id = %s
+		       where picking_id in (select id 
+		                from stock_picking 
+		               where sale_id in (%s)
+		                 and state != 'done')""" % (location_dest_id, order_ids2))
         # now we create a stock_picking for each location
         pick_vals = {
                 'type' : 'internal',
@@ -259,7 +272,7 @@ class sale_order_pull_internal(osv.osv_memory):
     _name = "sale.order.pull.internal"
     _description = "Create Pull Pickings"
     _columns = {
-        'location_dest_id': fields.many2one('stock.location', 'Destination for internal Moves', required=True, domain="[('usage', '=', 'internal')]"),
+        'location_dest_id': fields.many2one('stock.location', 'Destination for internal Moves',  domain="[('usage', '=', 'internal')]"),
     }
     _defaults = {
     }
