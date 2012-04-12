@@ -17,6 +17,12 @@
      td { margin: 0px; padding: 3px; border: 1px solid lightgrey;  vertical-align: top; }
      pre {font-family:helvetica; font-size:12;}
     </style>
+
+    <%
+    def carriage_returns(text):
+        return text.replace('\n', '<br />')
+    %>
+
     %for order in objects :
 <br>
     <% setLang(order.partner_id.lang) %>
@@ -32,8 +38,8 @@ ${order.partner_shipping_id.address_label}
          </td>
          <td style="width:50%">
          %if order.partner_order_id.address_label != order.partner_shipping_id.address_label:
-${_("Ordering Contact")}   
-         <pre>${order.partner_order_id.address_label}</pre>
+<b>${_("Ordering Contact")}</b><br>
+${order.partner_order_id.address_label|carriage_returns}
          %endif
          %if order.partner_order_id.phone :
 ${_("Phone")}: ${order.partner_order_id.phone|entity} <br>
@@ -46,8 +52,8 @@ ${_("Mail")}: ${order.partner_order_id.email|entity} <br>
         %endif
          %if order.partner_invoice_id.address_label != order.partner_shipping_id.address_label:
 <br>
-${_("Invoice Address")}
-<pre>${order.partner_invoice_id.address_label}</pre>
+<b>${_("Invoice Address")}</b><br>
+${order.partner_invoice_id.address_label|carriage_returns}
          %endif
         %if order.partner_invoice_id.partner_id.vat :
 ${_("VAT")}: ${order.partner_invoice_id.partner_id.vat|entity} <br>
@@ -62,8 +68,8 @@ ${_("VAT")}: ${order.partner_invoice_id.partner_id.vat|entity} <br>
          <tr>
          <td style="width:50%">
          %if order.partner_order_id.address_label != order.partner_shipping_id.address_label:
-${_("Ordering Contact")}   
-         <pre>${order.partner_order_id.address_label}</pre>
+<b>${_("Ordering Contact")}</b><br>
+${order.partner_order_id.address_label|carriage_returns}
         %endif
          %if order.partner_order_id.phone :
 ${_("Tel")}: ${order.partner_order_id.phone|entity} <br>
@@ -76,8 +82,8 @@ ${_("E-mail")}: ${order.partner_order_id.email|entity} <br>
         %endif
          %if order.partner_invoice_id.address_label != order.partner_shipping_id.address_label:
 <br>
-${_("Invoice Address")}   
-<pre>${order.partner_invoice_id.address_label}</pre>
+<b>${_("Invoice Address")}</b><br>
+${order.partner_invoice_id.address_label|carriage_returns}
          %endif
         %if order.partner_invoice_id.partner_id.vat :
 ${_("VAT")}: ${order.partner_invoice_id.partner_id.vat|entity} <br>
@@ -111,6 +117,9 @@ ${order.partner_shipping_id.address_label}
           %if order.client_order_ref:
             <td>${_("Reference")}</td>
           %endif
+          %if order.project_id:
+            <td>${_("Projekt")}</td>
+          %endif
             <td style="white-space:nowrap">${_("Order Date")}</td>
           %if order.carrier_id:
             <td style="white-space:nowrap">${_("Carrier")}</td>
@@ -121,6 +130,10 @@ ${order.partner_shipping_id.address_label}
           %if order.payment_term :
             <td style="white-space:nowrap">${_("Payment Term")}</td>
           %endif
+          %if order.incoterm:
+             <td style="white-space:nowrap">${_("Incoterm")}</td>
+          %endif
+
             <td style="white-space:nowrap">${_("Curr")}</td>
         </tr>
         <tr>
@@ -129,6 +142,9 @@ ${order.partner_shipping_id.address_label}
                ${order.client_order_ref}
             </td>
             %endif
+          %if order.project_id:
+            <td>${order.project_id.name}</td>
+          %endif
              <td>
             %if order.date_order:
                ${order.date_order or ''}</td>
@@ -142,15 +158,24 @@ ${order.partner_shipping_id.address_label}
              <td>${order.user_id.name or ''}</td>
            %endif
           %if order.payment_term :
-            <td style="white-space:nowrap">${order.payment_term.name}</td>
+            <td>${order.payment_term.name}</td>
           %endif
+          %if order.incoterm:
+             <td>${order.incoterm.name}</td>
+          %endif
+
             <td style="white-space:nowrap">${order.pricelist_id.currency_id.name} </td>
     </table>
     <h1><br /></h1>
     <table style="width:100%">
         <thead>
           <tr>
+%if order.print_code:
+            <th>${_("Code")}</th>
             <th>${_("Description")}</th>
+%else:
+            <th>${_("Description")}</th>
+%endif
             <th>${_("Tax")}</th>
 %if order.print_uom:
             <th style="text-align:center;">${_("Quantity")}</th><th class style="text-align:left;">${_("UoM")}</th>
@@ -172,10 +197,15 @@ ${order.partner_shipping_id.address_label}
             <th style="text-align:center;">${_("Sub Total")}</th>
          </tr>
         </thead>
-        %for line in order.order_line :
+        %for line in order.order_line_sorted :
         <tbody>
         <tr>
-           <td>${line.name|entity}</td>
+%if order.print_code:
+            <td>${line.product_id.default_code or ''|entity}</td>
+            <td>${line.product_id.name or line.name|entity}</td>
+%else:
+            <td>${line.name|entity}</td>
+%endif
            <td>${ ', '.join([tax.name or '' for tax in line.tax_id]) }</td>
 %if order.print_uom:
            <td style="white-space:nowrap;text-align:right;">${str(line.product_uom_qty).replace(',000','') or '0'}</td>
@@ -199,7 +229,7 @@ ${order.partner_shipping_id.address_label}
            <td style="white-space:nowrap;text-align:right;">${line.price_subtotal or ''}</td>
         </tr>
         %if line.notes :
-        <tr><td colspan="6" style="border-style:none"><style="font-family:Helvetica;padding-left:20px;font-size:10;"white-space:normal;">${line.notes |entity}</pre></td></tr>
+        <tr><td colspan="6" style="border-style:none"><style="font-family:Helvetica;padding-left:20px;font-size:10;"white-space:normal;">${line.notes |carriage_returns}</pre></td></tr>
         %endif
         %endfor
         </tbody>

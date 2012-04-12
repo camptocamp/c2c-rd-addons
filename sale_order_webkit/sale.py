@@ -28,6 +28,7 @@ import netsvc
 import pooler
 from osv import fields, osv, orm
 from tools.translate import _
+import one2many_sorted
 
 class sale_order(osv.osv):
     _inherit = "sale.order"
@@ -70,7 +71,7 @@ class sale_order(osv.osv):
         res = {}
         for order in self.browse(cr, uid, ids, context=context):
           print_ean = False
-          if order.order_line:
+          if order.order_line and order.company_id.print_ean:
             for line in order.order_line:
                 if line.product_packaging.ean or line.product_id.ean13 :
                    print_ean = True
@@ -88,6 +89,17 @@ class sale_order(osv.osv):
           res[order.id] =  print_discount
         return res
 
+    def _print_code(self, cr, uid, ids, name, args, context=None):
+        res = {}
+        for order in self.browse(cr, uid, ids, context=context):
+            print_code = False
+            if order.order_line:
+                for line in order.order_line:
+                    if line.product_id.default_code:
+                        print_code = True
+                        res[order.id] =  print_code
+        return res
+                            
     def _get_cols(self, cr, uid, ids, name, args, context=None):
         res = {}
         for order in self.browse(cr, uid, ids, context=context):
@@ -102,11 +114,12 @@ class sale_order(osv.osv):
              cols += 1
           if order.print_discount:
              cols += 1
+	  if order.print_code:
+             cols += 1
            
           res[order.id] = cols
 
         return res
-
 
 
     _columns = {
@@ -115,6 +128,15 @@ class sale_order(osv.osv):
               'print_packing': fields.function(_print_packing, method=True, type='boolean', string='Print Packing Info if available',),
               'print_ean': fields.function(_print_ean, method=True, type='boolean', string='Print EAN if available',),
               'print_discount': fields.function(_print_discount, method=True, type='boolean', string='Print Discount if available',),
+              'print_code': fields.function(_print_code, method=True, type='boolean', string='Print code if available',),
               'cols': fields.function(_get_cols, method=True, type='integer', string='No of columns before totals',),
+              'order_line_sorted' : one2many_sorted.one2many_sorted
+              ( 'sale.order.line'
+              , 'order_id'
+              , 'Order Lines Sorted'
+              , states={'draft': [('readonly', False)]}
+              , order  = 'product_id.name,name'
+              )
+              
     }
 sale_order()

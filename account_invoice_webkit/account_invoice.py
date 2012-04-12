@@ -28,6 +28,7 @@ import netsvc
 import pooler
 from osv import fields, osv, orm
 from tools.translate import _
+import one2many_sorted
 
 class account_invoice(osv.osv):
     _inherit = "account.invoice"
@@ -56,8 +57,59 @@ class account_invoice(osv.osv):
           res[invoice.id] =  print_price_unit_id
         return res
 
+    def _print_ean(self, cr, uid, ids, name, args, context=None):
+        res = {}
+        for inv in self.browse(cr, uid, ids, context=context):
+          print_ean = False
+          if inv.company_id.print_ean and inv.invoice_line:
+            for line in inv.invoice_line:
+                if line.product_id.ean13 :
+                   print_ean = True
+          res[inv.id] =  print_ean
+        return res
+
+    def _print_code(self, cr, uid, ids, name, args, context=None):
+        res = {}
+        for inv in self.browse(cr, uid, ids, context=context):
+          print_code = False
+          if inv.invoice_line:
+            for line in inv.invoice_line:
+                if line.product_id.default_code:
+                   print_code = True
+          res[inv.id] =  print_code
+        return res
+
+    def _get_cols(self, cr, uid, ids, name, args, context=None):
+        res = {}
+        for inv in self.browse(cr, uid, ids, context=context):
+          cols = 4
+          if inv.print_ean:
+             cols += 1
+          if inv.print_code:
+             cols += 1
+          if inv.print_price_unit_id:
+             cols += 1
+          if inv.amount_discount != 0:
+             cols += 1
+
+          res[inv.id] = cols
+
+        return res
+
+
     _columns = {
         'amount_discount': fields.function(_amount_discount, method=True, digits_compute=dp.get_precision('Account'), string='Total Discount',),
-        'print_price_unit_id': fields.function(_print_price_unit_id, method=True, type='boolean', string='Print column price unit id if not 1',),        
+        'print_price_unit_id': fields.function(_print_price_unit_id, method=True, type='boolean', string='Print column price unit id if not 1',),
+        'print_ean': fields.function(_print_ean, method=True, type='boolean', string='Print EAN if available',),
+        'print_code': fields.function(_print_code, method=True, type='boolean', string='Print code if available',),
+        'cols': fields.function(_get_cols, method=True, type='integer', string='No of columns before totals',),
+        'invoice_line_sorted' : one2many_sorted.one2many_sorted
+        ( 'account.invoice.line'
+        , 'invoice_id'
+        , 'Invoice Lines Sorted'
+        , states={'draft': [('readonly', False)]}
+        , order  = 'product_id.name,name'
+        )
+        
     }
 account_invoice()

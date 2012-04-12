@@ -117,7 +117,7 @@ ${inv.address_invoice_id.address_label|carriage_returns}
     <span class="title">${_("Supplier Refund")} ${inv.number or ''|entity}</span> 
     %endif
     %if inv.state == 'cancel' :
-    <h1 style="clear:both;>${inv.state}</h1> 
+    <h1 style="clear:both;">${inv.state}</h1> 
     %endif
     <br/>
     <br/>
@@ -156,7 +156,15 @@ ${inv.address_invoice_id.address_label|carriage_returns}
     <table >
         <thead>
           <tr>
+%if inv.print_code:
+            <th>${_("Code")}</th>
             <th>${_("Description")}</th>
+%else:
+            <th>${_("Description")}</th>
+%endif
+%if inv.print_ean:
+            <th>${_("EAN")}</th>
+%endif
             <th class>${_("Taxes")}</th>
             <th class style="text-align:left;">${_("QTY")}</th>
             <th class>${_("Unit")}</th>
@@ -170,10 +178,19 @@ ${inv.address_invoice_id.address_label|carriage_returns}
             <th style="text-align:left;">${_("Price")}</th>
          </tr>
         </thead>
-        %for line in inv.invoice_line :
+        %for line in inv.invoice_line_sorted :
         <tbody>
         <tr>
-           <td>${line.name|entity}</td><td>${ ', '.join([ tax.name or '' for tax in line.invoice_line_tax_id ])|entity}</td>
+%if inv.print_code:
+           <td>${line.product_id.default_code or ''|entity}</td>
+           <td>${line.product_id.name or line.name|entity}</td>
+%else:
+           <td>${line.name|entity}</td>
+%endif
+%if inv.print_ean:
+            <td>${line.product_id.ean13 or ''}</td>
+%endif
+           <td>${ ', '.join([ tax.name or '' for tax in line.invoice_line_tax_id ])|entity}</td>
            <td style="white-space:nowrap;text-align:right;">${line.quantity}</td>
            <td style="white-space:nowrap;text-align:left;">${line.uos_id.name or _("Unit")}</td>
            <td style="white-space:nowrap;text-align:right;">${formatLang('price_unit_pu' in line._columns and line.price_unit_pu or line.price_unit,digits=2)}</td>
@@ -187,36 +204,25 @@ ${inv.address_invoice_id.address_label|carriage_returns}
          </td></tr>
         %if line.note and len(line.note.replace('\n','')) > 0 :
            %if inv.amount_discount != 0:
-        <tr><td colspan="6" style="border-style:none"><pre style="font-family:Helvetica;padding-left:20px;font-size:10">${line.note |entity}</pre></td></tr>
+        <tr><td colspan="6" style="border-style:none"><style="font-family:Helvetica;padding-left:20px;font-size:9">${line.note |carriage_returns}</td></tr>
            %else:
-        <tr><td colspan="5" style="border-style:none"><pre style="font-family:Helvetica;padding-left:20px;font-size:10">${line.note |entity}</pre></td></tr>
+        <tr><td colspan="5" style="border-style:none"><style="font-family:Helvetica;padding-left:20px;font-size:9">${line.note |carriage_returns}</td></tr>
            %endif
         %endif
         %endfor
         <tr>
-           %if inv.print_price_unit_id == True:
-             <td style="border-style:none"/>
-           %endif
-           %if inv.amount_discount != 0:
-             <td style="border-style:none"/>
-           %endif
-             <td style="border-style:none"/> <td style="border-style:none"/><td style="border-style:none"/><td style="border-style:none"/><td style="border-top:2px solid;white-space:nowrap"><b>${_("Net Total")}:</b></td><td style="border-top:2px solid;text-align:right">${formatLang(inv.amount_untaxed)}</td></tr>
+           <td colspan="${inv.cols}" style="border-style:none"/>
+           <td style="border-top:2px solid;white-space:nowrap"><b>${_("Net Total")}:</b></td>
+           <td style="border-top:2px solid;text-align:right">${formatLang(inv.amount_untaxed)}</td>
+        </tr>
         <tr>
-           %if inv.print_price_unit_id == True:
-             <td style="border-style:none"/>
-           %endif 
-           %if inv.amount_discount != 0:
-              <td style="border-style:none"/>
-           %endif
-              <td style="border-style:none"/><td style="border-style:none"/><td style="border-style:none"/><td style="border-style:none"/><td style="border-style:none"><b>${_("Taxes")}:</b></td><td style="text-align:right">${formatLang(inv.amount_tax)}</td></tr>
+           <td colspan="${inv.cols}" style="border-style:none"/>
+           <td style="border-style:none"><b>${_("Taxes")}:</b></td>
+           <td style="text-align:right">${formatLang(inv.amount_tax)}</td></tr>
         <tr> 
-           %if inv.print_price_unit_id == True:
-             <td style="border-style:none"/>
-           %endif
-          %if inv.amount_discount != 0:
-             <td style="border-style:none"/>
-          %endif
-             <td style="border-style:none"/><td style="border-style:none"/><td style="border-style:none"/><td style="border-style:none"/><td style="border:2px solid;font-weight:bold;white-space:nowrap">${_("Total")} ${inv.currency_id.name}:</td><td style="border:2px solid;text-align:right;font-weight:bold">${formatLang(inv.amount_total)}</td></tr>
+           <td colspan="${inv.cols}" style="border-style:none"/>
+           <td style="border:2px solid;font-weight:bold;white-space:nowrap">${_("Total")} ${inv.currency_id.name}:</td>
+           <td style="border:2px solid;text-align:right;font-weight:bold">${formatLang(inv.amount_total)}</td></tr>
         </tbody>
     </table>
 <br>

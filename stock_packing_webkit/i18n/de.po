@@ -1,21 +1,22 @@
 # Translation of OpenERP Server.
 # This file contains the translation of the following modules:
-#	* stock_picking_webkit
+#	* stock_packing_webkit
 #
+# Ferdinand Gassauer, 2012.
 msgid ""
 msgstr ""
-"Project-Id-Version: OpenERP Server 6.1rc1\n"
+"Project-Id-Version: OpenERP Server 6.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-01-23 22:09+0000\n"
-"PO-Revision-Date: 2012-03-05 17:27+0000\n"
-"Last-Translator: Joël Grand-Guillaume @ CampToCamp "
-"<joel.grandguillaume@camptocamp.com>\n"
-"Language-Team: \n"
+"PO-Revision-Date: 2012-04-09 07:32+0000\n"
+"Last-Translator: Ferdinand @ Camptocamp <Unknown>\n"
+"Language-Team: American English <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2012-04-04 05:08+0000\n"
-"X-Generator: Launchpad (build 15055)\n"
+"X-Launchpad-Export-Date: 2012-04-10 05:38+0000\n"
+"X-Generator: Launchpad (build 15070)\n"
+"Language: en_US\n"
 
 #. module: stock_picking_webkit
 #: report:addons/stock_picking_webkit/report/stock_picking_webkit.mako:190
@@ -35,7 +36,7 @@ msgstr "Tara"
 #. module: stock_picking_webkit
 #: report:addons/stock_picking_webkit/report/stock_picking_webkit.mako:65
 msgid "E-mail"
-msgstr "EMail"
+msgstr "E-mail"
 
 #. module: stock_picking_webkit
 #: report:addons/stock_picking_webkit/report/stock_picking_webkit.mako:94
@@ -55,7 +56,7 @@ msgstr "Mail"
 #. module: stock_picking_webkit
 #: report:addons/stock_picking_webkit/report/stock_picking_webkit.mako:180
 msgid "Net"
-msgstr "Net"
+msgstr "Netto"
 
 #. module: stock_picking_webkit
 #: report:addons/stock_picking_webkit/report/stock_picking_webkit.mako:108
@@ -65,7 +66,7 @@ msgstr "Dokument"
 #. module: stock_picking_webkit
 #: model:ir.actions.report.xml,name:stock_picking_webkit.stock_picking_webkit
 msgid "WebKit Packing"
-msgstr "WebKit Packing"
+msgstr "WebKit Lieferschein"
 
 #. module: stock_picking_webkit
 #: field:stock.picking,print_uom:0
@@ -92,32 +93,32 @@ msgstr "Beschreibung"
 #: report:addons/stock_picking_webkit/report/stock_picking_webkit.mako:27
 #: report:addons/stock_picking_webkit/report/stock_picking_webkit.mako:76
 msgid "Shipping Address"
-msgstr "Lieferadresse"
+msgstr "Lieferantenanschrift"
 
 #. module: stock_picking_webkit
 #: report:addons/stock_picking_webkit/report/stock_picking_webkit.mako:96
 msgid "Delivery"
-msgstr "Lieferung"
+msgstr "Lieferschein"
 
 #. module: stock_picking_webkit
 #: report:addons/stock_picking_webkit/report/stock_picking_webkit.mako:35
 msgid "Phone"
-msgstr "Telephon"
+msgstr "Tel"
 
 #. module: stock_picking_webkit
 #: report:addons/stock_picking_webkit/report/stock_picking_webkit.mako:178
 msgid "Trailer"
-msgstr "Hänger"
+msgstr "Anhänger"
 
 #. module: stock_picking_webkit
 #: report:addons/stock_picking_webkit/report/stock_picking_webkit.mako:110
 msgid "Packing Date"
-msgstr "Lieferschein Datum"
+msgstr "Datum Lieferung"
 
 #. module: stock_picking_webkit
 #: report:addons/stock_picking_webkit/report/stock_picking_webkit.mako:98
 msgid "Internal Packing"
-msgstr "Interne Lieferung"
+msgstr "Interner LS"
 
 #. module: stock_picking_webkit
 #: report:addons/stock_picking_webkit/report/stock_picking_webkit.mako:47
@@ -129,7 +130,7 @@ msgstr "Kunde"
 #: report:addons/stock_picking_webkit/report/stock_picking_webkit.mako:44
 #: report:addons/stock_picking_webkit/report/stock_picking_webkit.mako:68
 msgid "VAT"
-msgstr "USt"
+msgstr "UID"
 
 #. module: stock_picking_webkit
 #: report:addons/stock_picking_webkit/report/stock_picking_webkit.mako:112
@@ -139,7 +140,7 @@ msgstr "Frächter"
 #. module: stock_picking_webkit
 #: sql_constraint:stock.picking:0
 msgid "Reference must be unique per Company!"
-msgstr "Referenz muss je Unternehmen eindeutig sein"
+msgstr "Die Referenz muss je Firma eindeutig sein"
 
 #. module: stock_picking_webkit
 #: report:addons/stock_picking_webkit/report/stock_picking_webkit.mako:178
@@ -170,7 +171,7 @@ msgstr "Referenz"
 #. module: stock_picking_webkit
 #: report:addons/stock_picking_webkit/report/stock_picking_webkit.mako:152
 msgid "Source Location"
-msgstr "Lager Herkunft"
+msgstr "Herkunft"
 
 #. module: stock_picking_webkit
 #: report:addons/stock_picking_webkit/report/stock_picking_webkit.mako:90
@@ -180,12 +181,12 @@ msgstr "Warenausgang"
 #. module: stock_picking_webkit
 #: report:addons/stock_picking_webkit/report/stock_picking_webkit.mako:153
 msgid "Destination Location"
-msgstr "Ziel Lager"
+msgstr "Ziel"
 
 #. module: stock_picking_webkit
 #: report:addons/stock_picking_webkit/report/stock_picking_webkit.mako:151
 msgid "UoS Qty"
-msgstr "VE Menge"
+msgstr "VE MEnge"
 
 #. module: stock_picking_webkit
 #: report:addons/stock_picking_webkit/report/stock_picking_webkit.mako:149

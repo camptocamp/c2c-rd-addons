@@ -17,18 +17,21 @@
      td { margin: 0px; padding: 3px; border: 1px solid lightgrey;  vertical-align: top; }
      pre {font-family:helvetica; font-size:13;}
     </style>
+    <%
+    def carriage_returns(text):
+        return text.replace('\n', '<br />')
+    %>
+
     %for pick in objects :
 <br>
-    <% setLang(pick.partner_id.lang) %>
+    <%setLang(pick.address_id.partner_id.lang) or setLang(pick.partner_id.lang) or setLang(pick.company_id.partner_id.lang)%>
     <table >
         %if pick.company_id.address_label_position == 'left':
          <tr>
          <td style="width:50%">
 ${_("Shipping Address")}   
 <hr>
-           <pre>
-${pick.address_id.address_label}
-           <pre>
+${pick.address_id.address_label|carriage_returns}
          </td>
          <td style="width:50%">
          %if pick.address_id.phone :
@@ -69,9 +72,7 @@ ${_("VAT")}: ${pick.partner_id.vat|entity} <br>
          <td style="width:50%">
 ${_("Shipping Address")}
 <hr>
-           <pre>
-${pick.address_id.address_label}
-           <pre>
+${pick.address_id.address_label|carriage_returns}
          </td>
         </tr>
         %endif
@@ -105,12 +106,31 @@ ${pick.address_id.address_label}
           %if pick.carrier_id:
             <td style="white-space:nowrap">${_("Carrier")}</td>
           %endif
+          %if pick.carrier_tracking_ref:
+            <td style="white-space:nowrap">${_("Carrier Ref")}</td>
+          %endif
           %if pick.sale_id or pick_purchase_id:
             <td style="white-space:nowrap">${_("Reference")}</td>
           %endif
           %if pick.sale_id and pick.sale_id.client_order_ref :
             <td style="white-space:nowrap">${_("Client Ref")}</td>
           %endif
+          %if pick.volume:
+            <td style="white-space:nowrap">${_("Volume")}</td>
+          %endif
+          %if pick.number_of_packages and pick.number_of_packages != 0:
+             <td style="white-space:nowrap">${_("N° Packages")}</td>
+          %endif
+          %if pick.weight:
+             <td style="white-space:nowrap">${_("Weight")}</td>
+          %endif
+          %if pick.backorder_id:
+             <td style="white-space:nowrap">${_("Back Order")}</td>
+          %endif
+          %if pick.sale_id and pick.sale_id.incoterm:
+             <td style="white-space:nowrap">${_("Incoterm")}</td>
+          %endif
+
         </tr>
         <tr>
             %if pick.origin and pick.origin not in [ pick.sale_id.name,pick.purchase_id.name]  :
@@ -127,18 +147,43 @@ ${pick.address_id.address_label}
                ${pick.carrier_id.name }
              </td>
            %endif
+            %if pick.carrier_tracking_ref:
+             <td>
+               ${pick.carrier_tracking_ref}
+             </td>
+           %endif
            %if pick.sale_id or pick_purchase_id:
              <td>${pick.sale_id.name or pick.purchase_id.name or ''}</td>
            %endif
           %if pick.sale_id and pick.sale_id.client_order_ref :
             <td style="white-space:nowrap">${pick.sale_id.client_order_ref}</td>
           %endif
+          %if pick.volume:
+            <td style="white-space:nowrap;text-align:right;">${pick.volume}</td>
+          %endif
+          %if pick.number_of_packages and pick.number_of_packages != 0:
+             <td style="white-space:nowrap;text-align:right;">${pick.number_of_packages}</td>
+          %endif
+          %if pick.weight:
+             <td style="white-space:nowrap;text-align:right;">${pick.weight}</td>
+          %endif
+          %if pick.backorder_id:
+             <td style="white-space:nowrap">${pick.backorder_id}</td>
+          %endif
+          %if pick.sale_id and pick.sale_id.incoterm:
+             <td style="white-space:nowrap">${pick.sale_id.incoterm.name}</td>
+          %endif
     </table>
     <h1><br /></h1>
     <table style="width:100%">
         <thead>
           <tr>
+%if pick.print_code:
+            <th>${_("Code")}</th>
             <th>${_("Description")}</th>
+%else:
+            <th>${_("Description")}</th>
+%endif
 %if pick.print_uom:
             <th style="text-align:center;">${_("Quantity")}</th><th class style="text-align:left;">${_("UoM")}</th>
 %endif
@@ -159,10 +204,15 @@ ${pick.address_id.address_label}
             <th style="text-align:center;">${_("Destination Location")}</th>
          </tr>
         </thead>
-        %for line in pick.move_lines :
+        %for line in pick.move_lines_sorted :
         <tbody>
         <tr>
+%if pick.print_code:
+           <td>${line.product_id.default_code or ''|entity}</td>
+           <td>${line.product_id.name|entity}</td>
+%else:
            <td>${line.name|entity}</td>
+%endif
 %if pick.print_uom:
            <td style="white-space:nowrap;text-align:right;">${str(line.product_qty).replace(',000','') or '0'}</td>
            <td style="white-space:nowrap;text-align:left;">${line.product_uom.name or ''}</td>
@@ -185,7 +235,7 @@ ${pick.address_id.address_label}
            <td style="white-space:nowrap;text-align:left;">${line.location_dest_id.name or ''}</td>
         </tr>
         %if line.note :
-        <tr><td colspan="6" style="border-style:none"><style="font-family:Helvetica;padding-left:20px;font-size:10;"white-space:normal;">${line.note |entity}</pre></td></tr>
+        <tr><td colspan="6" style="border-style:none"><style="font-family:Helvetica;padding-left:20px;font-size:10;"white-space:normal;">${line.note |carriage_returns}</td></tr>
         %endif
         %endfor
         </tbody>
@@ -193,11 +243,11 @@ ${pick.address_id.address_label}
 
 %if pick.note and 'note_print' not in pick._columns:
 <br>
-    <pre>${pick.note}</pre>
+    ${pick.note|carraige_returns}
 %endif:
 %if 'note_print' in pick._columns and pick.note_print:
 <br>
-    <pre>${pick.note_print}</pre>
+    ${pick.note_print|carriage_returns}
 %endif:
 
 %if 'tractor_gross' in pick._columns and pick.tractor_gross:
