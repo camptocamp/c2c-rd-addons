@@ -46,7 +46,7 @@ ${_("Mail")}: ${pick.address_id.email|entity} <br>
         %if pick.partner_id.vat :
 ${_("VAT")}: ${pick.partner_id.vat|entity} <br>
         %endif
-%if pick.address_id.address_label != pick.sale_id.partner_order_id.address_label:
+%if pick.address_id and pick.sale_id and pick.sale_id.partner_order_id and pick.address_id.address_label != pick.sale_id.partner_order_id.address_label:
         <b>${_("Ordering Contact")}</b><br>
         ${pick.sale_id.partner_order_id.address_label|carriage_returns}
 %endif
@@ -71,6 +71,10 @@ ${_("E-mail")}: ${pick.address_id.email|entity} <br>
         %if pick.partner_id.vat :
 ${_("VAT")}: ${pick.partner_id.vat|entity} <br>
         %endif
+%if pick.address_id and pick.sale_id and pick.sale_id.partner_order_id and pick.address_id.address_label != pick.sale_id.partner_order_id.address_label:
+        <b>${_("Ordering Contact")}</b><br>
+        ${pick.sale_id.partner_order_id.address_label|carriage_returns}
+%endif
 
          </td>
          <td style="width:50%">
@@ -247,7 +251,7 @@ ${pick.address_id.address_label|carriage_returns}
 
 %if pick.note and 'note_print' not in pick._columns:
 <br>
-    ${pick.note|carraige_returns}
+    ${pick.note|carriage_returns}
 %endif:
 %if 'note_print' in pick._columns and pick.note_print:
 <br>
