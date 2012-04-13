@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+        <record id="vpicktree_address" model="ir.ui.view">
+            <field name="name">stock.picking.address.tree</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.vpicktree"/>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                    <field name="address_id"  groups="base.group_extended" />
+                </field>
+            </field>
+        </record>
+        <record id="vpicktree_order" model="ir.ui.view">
+            <field name="name">stock.picking.order.tree</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.vpicktree"/>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <field name="origin" position="before">
+                    <field name="sale_id"  groups="base.group_extended" />
+                </field>
+            </field>
+        </record>
+        
+  </data>
+</openerp>
