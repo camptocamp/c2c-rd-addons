@@ -158,9 +158,8 @@ ${inv.address_invoice_id.address_label|carriage_returns}
           <tr>
 %if inv.print_code:
             <th>${_("Code")}</th>
-%else:
-            <th>${_("Description")}</th>
 %endif
+            <th>${_("Description")}</th>
 %if inv.print_ean:
             <th>${_("EAN")}</th>
 %endif
@@ -182,9 +181,8 @@ ${inv.address_invoice_id.address_label|carriage_returns}
         <tr>
 %if inv.print_code:
            <td>${line.product_id.default_code or ''|entity}</td>
-%else:
-           <td>${line.product_id.name or line.name|entity}</td>
 %endif
+           <td>${line.product_id.name or line.name|entity}</td>
 %if inv.print_ean:
             <td>${line.product_id.ean13 or ''}</td>
 %endif
