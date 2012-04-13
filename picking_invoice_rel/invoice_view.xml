@@ -43,7 +43,7 @@
         </page>
       </field>
     </record>
-
+    <!--
     <record id="invoice_tree_ref" model="ir.ui.view">
       <field name="name">invoice.tree.ref</field>
       <field name="model">account.invoice</field>
@@ -55,7 +55,7 @@
           </field>
       </field>
     </record>
-
+-->
 
   </data>
 </openerp>
