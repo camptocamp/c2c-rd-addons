@@ -33,6 +33,7 @@ import time
 from osv import fields,osv
 import sys
 import one2many_sorted
+import logging
 
 #class chricar_stock_dispo_production(osv.osv):
 #     _name = "stock.move"
@@ -177,13 +178,15 @@ class sale_order_line(osv.osv):
     _inherit = "sale.order.line"
     
     def _move_state(self, cr, uid, ids, names=None, arg=False, context=None):
+	_logger = logging.getLogger(__name__)
         res = {}
         for line in self.browse(cr, uid, ids, context):
+            _logger.info('FGF move_state line %s' % (line))
             res[line.id] = False
             for move in line.stock_dispo_production_ids:
+                _logger.info('FGF move_state state %s' % (move.state))
                 if move.state == 'draft':            
                     res[line.id]  = True
-                    break
         return res             
 
     _states_mask = {'draft': [('readonly', False)], 'confirmed': [('readonly', False)]}
@@ -339,7 +342,7 @@ class sale_order_line(osv.osv):
             , type='boolean'
             , string='Move State'
             , help="Returns true if some moves are not done"
-            , store=True
+            , 
             )
         }
     
