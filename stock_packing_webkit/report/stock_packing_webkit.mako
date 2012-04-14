@@ -264,7 +264,7 @@ ${pick.address_id.address_label|carriage_returns}
     ${pick.note_print|carriage_returns}
 %endif:
 
-%if 'tractor_gross' in pick._columns and (pick.tractor_gross or pick.tractor_number or date_weighing or total_net:
+%if 'tractor_gross' in pick._columns and (pick.tractor_gross or pick.tractor_number or date_weighing or total_net):
 <br>
     <table style="text-align:right;border:1px solid grey;width:40%">
         <tr style="text-align:right;border:1px solid grey;">
