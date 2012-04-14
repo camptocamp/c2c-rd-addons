@@ -93,7 +93,7 @@ msgstr "Beschreibung"
 #: report:addons/stock_picking_webkit/report/stock_picking_webkit.mako:27
 #: report:addons/stock_picking_webkit/report/stock_picking_webkit.mako:76
 msgid "Shipping Address"
-msgstr "Lieferantenanschrift"
+msgstr "Lieferanschrift"
 
 #. module: stock_picking_webkit
 #: report:addons/stock_picking_webkit/report/stock_picking_webkit.mako:96

@@ -138,6 +138,9 @@ ${pick.address_id.address_label|carriage_returns}
           %if pick.sale_id and pick.sale_id.incoterm:
              <td style="white-space:nowrap">${_("Incoterm")}</td>
           %endif
+          %if 'consignment_note' in pick._columns and pick.consignment_note:
+             <td style="white-space:nowrap">${_("CRM")}</td>
+          %endif
 
         </tr>
         <tr>
@@ -176,10 +179,13 @@ ${pick.address_id.address_label|carriage_returns}
              <td style="white-space:nowrap;text-align:right;">${pick.weight}</td>
           %endif
           %if pick.backorder_id:
-             <td style="white-space:nowrap">${pick.backorder_id}</td>
+             <td style="white-space:nowrap">${pick.backorder_id.name}</td>
           %endif
           %if pick.sale_id and pick.sale_id.incoterm:
              <td style="white-space:nowrap">${pick.sale_id.incoterm.name}</td>
+          %endif
+          %if 'consignment_note' in pick._columns and pick.consignment_note:
+             <td style="white-space:nowrap">${pick.consignment_note}</td>
           %endif
     </table>
     <h1><br /></h1>
