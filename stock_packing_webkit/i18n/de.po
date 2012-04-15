@@ -118,7 +118,7 @@ msgstr "Datum Lieferung"
 #. module: stock_picking_webkit
 #: report:addons/stock_picking_webkit/report/stock_picking_webkit.mako:98
 msgid "Internal Packing"
-msgstr "Interner LS"
+msgstr "Interne Lieferung"
 
 #. module: stock_picking_webkit
 #: report:addons/stock_picking_webkit/report/stock_picking_webkit.mako:47
