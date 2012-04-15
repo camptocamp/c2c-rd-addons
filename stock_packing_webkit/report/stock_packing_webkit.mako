@@ -15,6 +15,7 @@
        font-size:10px;
            }
      td { margin: 0px; padding: 3px; border: 1px solid lightgrey;  vertical-align: top; }
+     th { margin: 0px; padding: 3px; border: 1px solid lightgrey;  vertical-align: top; }
      pre {font-family:helvetica; font-size:13;}
     </style>
     <%
@@ -104,45 +105,47 @@ ${pick.address_id.address_label|carriage_returns}
    <span class="title"> ${pick.state} </span>
 %endif 
     <br/>
-    <br/>
+
     <table  style="width:100%">
+      <thead style="border:1px solid lightgrey">
         <tr>
           %if pick.origin and pick.origin not in [ pick.sale_id.name,pick.purchase_id.name]  :
-            <td>${_("Document")}</td>
+            <th>${_("Document")}</th>
           %endif
-            <td style="white-space:nowrap">${_("Packing Date")}</td>
+            <th style="white-space:nowrap">${_("Packing Date")}</th>
           %if pick.carrier_id:
-            <td style="white-space:nowrap">${_("Carrier")}</td>
+            <th style="white-space:nowrap">${_("Carrier")}</th>
           %endif
           %if pick.carrier_tracking_ref:
-            <td style="white-space:nowrap">${_("Carrier Ref")}</td>
+            <th style="white-space:nowrap">${_("Carrier Ref")}</th>
           %endif
           %if pick.sale_id or pick_purchase_id:
-            <td style="white-space:nowrap">${_("Reference")}</td>
+            <th style="white-space:nowrap">${_("Reference")}</th>
           %endif
           %if pick.sale_id and pick.sale_id.client_order_ref :
-            <td style="white-space:nowrap">${_("Client Ref")}</td>
+            <th style="white-space:nowrap">${_("Client Ref")}</th>
           %endif
           %if pick.volume:
-            <td style="white-space:nowrap">${_("Volume")}</td>
+            <th style="white-space:nowrap">${_("Volume")}</th>
           %endif
           %if pick.number_of_packages and pick.number_of_packages != 0:
-             <td style="white-space:nowrap">${_("N° Packages")}</td>
+             <th style="white-space:nowrap">${_("N° Packages")}</th>
           %endif
           %if pick.weight:
-             <td style="white-space:nowrap">${_("Weight")}</td>
+             <th style="white-space:nowrap">${_("Weight")}</th>
           %endif
           %if pick.backorder_id:
-             <td style="white-space:nowrap">${_("Back Order")}</td>
+             <th style="white-space:nowrap">${_("Back Order")}</th>
           %endif
           %if pick.sale_id and pick.sale_id.incoterm:
-             <td style="white-space:nowrap">${_("Incoterm")}</td>
+             <th style="white-space:nowrap">${_("Incoterm")}</th>
           %endif
           %if 'consignment_note' in pick._columns and pick.consignment_note:
-             <td style="white-space:nowrap">${_("CRM")}</td>
+             <th style="white-space:nowrap">${_("CRM")}</th>
           %endif
 
         </tr>
+        </thead>
         <tr>
             %if pick.origin and pick.origin not in [ pick.sale_id.name,pick.purchase_id.name]  :
             <td>
@@ -188,9 +191,9 @@ ${pick.address_id.address_label|carriage_returns}
              <td style="white-space:nowrap">${pick.consignment_note}</td>
           %endif
     </table>
-    <h1><br /></h1>
+    <h1> </h1>
     <table style="width:100%">
-        <thead>
+    <thead style="border:1px solid lightgrey">
           <tr>
 %if pick.print_code:
             <th>${_("Code")}</th>
@@ -249,25 +252,35 @@ ${pick.address_id.address_label|carriage_returns}
            <td style="white-space:nowrap;text-align:left;">${line.location_dest_id.name or ''}</td>
         </tr>
         %if line.note :
-        <tr><td colspan="6" style="border-style:none"><style="font-family:Helvetica;padding-left:20px;font-size:10;"white-space:normal;">${line.note |carriage_returns}</td></tr>
+        <tr><td colspan="6" style="border-style:none;font-family:Helvetica;padding-left:20px;font-size:10;"white-space:normal;">${line.note |carriage_returns}</td></tr>
         %endif
         %endfor
         </tbody>
     </table>
-
-%if pick.note and 'note_print' not in pick._columns:
-<br>
-    ${pick.note|carriage_returns}
-%endif:
-%if 'note_print' in pick._columns and pick.note_print:
-<br>
-    ${pick.note_print|carriage_returns}
-%endif:
+<br/>
+<table style="text-align:left; border-style:hidden; width:100%">
+<tr style="border-style:hidden;">
+<td style="border-style:hidden;;width:40%">
+    <table style="text-align:right;border:1px solid lightgrey">
+%if 'sample' in pick._columns and pick.sample:
+<tr><td style="text-align:left;"> ${_("Sample")}</td><td>  ${pick.sample}</td></tr>
+%endif
+%if 'seal' in pick._columns and pick.seal:
+<tr><td style="text-align:left;"> ${_("Seal")}</td><td>  ${pick.seal}</td></tr>
+%endif
+%if 'number_weighing' in pick._columns and pick.number_weighing:
+<tr><td style="text-align:left;"> ${_("Number Weighing")}</td><td>  ${pick.number_weiging}</td></tr>
+%endif
+<!-- empty char string is 5 char long-->
+%if 'date_weighing' in pick._columns and len(pick.date_weighing)>5  :  
+    <tr><td style="text-align:left;">${_("Date Weighing")}</td><td>  ${pick.date_weighing} </td></tr>
+%endif
+    </table>
 
 %if 'tractor_gross' in pick._columns and (pick.tractor_gross or pick.tractor_number or date_weighing or total_net):
 <br>
-    <table style="text-align:right;border:1px solid grey;width:40%">
-        <tr style="text-align:right;border:1px solid grey;">
+    <table style="text-align:right;border:1px solid lightgrey">
+        <tr style="text-align:right;border:1px solid lightgrey;">
             <th/> 
             <th>${_("Tractor")}</th>  
             <th>${_("Trailer")}</th> 
@@ -299,6 +312,23 @@ ${pick.address_id.address_label|carriage_returns}
         </tr>
     </table>
 %endif       
+</td>
+<td stype="border-style:hidden;">
+%if pick.note and 'note_print' not in pick._columns:
+    <br>
+    ${pick.note|carriage_returns}
+    <br>
+    %endif
+    %if 'note_print' in pick._columns and pick.note_print:
+        <br>
+        ${pick.note_print|carriage_returns}
+        <br>
+        %endif
+        <br>
+        </td>
+        
+</tr>
+</table>
 
     <p style="page-break-after:always"></p>
     %endfor 
