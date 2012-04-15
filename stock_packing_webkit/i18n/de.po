@@ -31,7 +31,7 @@ msgstr "Datum Wiegung"
 #. module: stock_packing_webkit
 #: report:addons/stock_packing_webkit/report/stock_packing_webkit.mako:102
 msgid "Internal Packing"
-msgstr "Interner LS"
+msgstr "Interner Lieferung"
 
 #. module: stock_packing_webkit
 #: report:addons/stock_packing_webkit/report/stock_packing_webkit.mako:120
@@ -312,7 +312,7 @@ msgstr "Herkunft"
 #. module: stock_packing_webkit
 #: report:addons/stock_packing_webkit/report/stock_packing_webkit.mako:94
 msgid "Delivery Out"
-msgstr "Warenausgang"
+msgstr "Lieferschein"
 
 #. module: stock_packing_webkit
 #: report:addons/stock_packing_webkit/report/stock_packing_webkit.mako:221
