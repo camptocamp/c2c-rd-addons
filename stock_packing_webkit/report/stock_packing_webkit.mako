@@ -44,7 +44,7 @@ ${_("Fax")}: ${pick.address_id.fax|entity} <br>
         %if pick.address_id.email :
 ${_("Mail")}: ${pick.address_id.email|entity} <br>
         %endif
-        %if pick.partner_id.vat :
+        %if pick.partner_id.vat:
 ${_("VAT")}: ${pick.partner_id.vat|entity} <br>
         %endif
 %if pick.address_id and pick.sale_id and pick.sale_id.partner_order_id and pick.address_id.address_label != pick.sale_id.partner_order_id.address_label:
