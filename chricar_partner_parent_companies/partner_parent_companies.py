@@ -80,7 +80,7 @@ class res_partner(osv.osv) :
             , 'partner_id'
             , 'Parent Companies Current'
             , search = [('valid_until', '=', False)]
-            , order  = 'partner_id.name,valid_from'
+            , order  = 'partner_parent_id.name,valid_from'
             )
         , 'participation_ids'         : fields.one2many
             ('res.partner.parent_company','partner_parent_id','Participations')

@@ -32,12 +32,12 @@ import logging
 class sale_order(osv.osv):
     _inherit = 'sale.order'
 
-    def _auto_init(self, cr, context=None):
-           cr.execute("""update wkf_instance
-                         set state = 'active'
-                       where state = 'complete'
-                         and res_type = 'sale.order'
-""")
+#    def _auto_init(self, cr, context=None):
+#           cr.execute("""update wkf_instance
+#                         set state = 'active'
+#                       where state = 'complete'
+#                         and res_type = 'sale.order'
+#""")
 
 
     def allow_reopen(self, cr, uid, ids, context=None):
@@ -72,6 +72,7 @@ class sale_order(osv.osv):
         _logger = logging.getLogger(__name__)
 
         _logger.info('FGF sale_order action reopen %s' % (ids))
+	self.allow_reopen(cr, uid, ids, context=None)
         account_invoice_obj = self.pool.get('account.invoice')
         stock_picking_obj = self.pool.get('stock.picking')
         report_xml_obj = self.pool.get('ir.actions.report.xml')
@@ -110,6 +111,12 @@ class sale_order(osv.osv):
                         'datas_fname': a.datas_fname.replace('.pdf.pdf', now+'.pdf.pdf')
                            }
                     attachment_obj.write(cr, uid, a.id, vals)
+
+            self.write(cr, uid, order.id, {'state':'draft'})
+	    wf_service = netsvc.LocalService("workflow")
+
+            wf_service.trg_delete(uid, 'sale.order', order.id, cr)
+            wf_service.trg_create(uid, 'sale.order', order.id, cr)
 
             #self.log_sale(cr, uid, ids, context=context)  
             

@@ -33,6 +33,7 @@ import time
 from osv import fields,osv
 import sys
 import one2many_sorted
+import logging
 
 #class chricar_stock_dispo_production(osv.osv):
 #     _name = "stock.move"
@@ -47,14 +48,14 @@ class stock_move(osv.osv):
                                   ('small','Small'),
                                   ('faulty','Faulty'),
                                   ('waste','Waste'),
-                                  ],'Category', size=16, required=True,readonly=True, states={'draft': [('readonly', False)]}),
-       'category_prod'      : fields.char('Category', size=16, required=True,readonly=True, states={'draft': [('readonly', False)]}),
+                                  ],'Category', size=16, readonly=True, states={'draft': [('readonly', False)]}),
+       'category_prod'      : fields.char('Category', size=16, readonly=True, states={'draft': [('readonly', False)]}),
        #'date_production'    : fields.datetime('Production Date', required=True,readonly=True, states={'draft': [('readonly', False)]}),
        #'location_id'        : fields.many2one('stock.location', 'Location',readonly=True, states={'draft': [('readonly', False)]}),
        #'location_dest_id'   : fields.many2one('stock.location', 'Dest. Location',readonly=True, states={'draft': [('readonly', False)]}),
        #'move_id'            : fields.many2one('stock.move','Picking Line', select=True,readonly=True,),
        #'name'               : fields.char    ('Quality', size=16 ,readonly=True, states={'draft': [('readonly', False)]}),
-       'order_line_id'      : fields.many2one('sale.order.line','Sale Order Line', select=True, required=True,readonly=True, ondelete='restrict',),
+       'order_line_id'      : fields.many2one('sale.order.line','Sale Order Line', select=True, readonly=True, ondelete='restrict',),
        #'quantity'           : fields.float   ('Quantity', required=True,readonly=True, states={'draft': [('readonly', False)]}),
        'sequence'           : fields.integer ('Sequence', size=16, ),
        #'state'              : fields.char    ('State', size=16, readonly=True),
@@ -177,13 +178,15 @@ class sale_order_line(osv.osv):
     _inherit = "sale.order.line"
     
     def _move_state(self, cr, uid, ids, names=None, arg=False, context=None):
+	_logger = logging.getLogger(__name__)
         res = {}
         for line in self.browse(cr, uid, ids, context):
+            _logger.info('FGF move_state line %s' % (line))
             res[line.id] = False
             for move in line.stock_dispo_production_ids:
+                _logger.info('FGF move_state state %s' % (move.state))
                 if move.state == 'draft':            
                     res[line.id]  = True
-                    break
         return res             
 
     _states_mask = {'draft': [('readonly', False)], 'confirmed': [('readonly', False)]}
@@ -274,7 +277,7 @@ class sale_order_line(osv.osv):
             , readonly=True
             , states=_states_mask
             , search=[('category', '=', 'sell')]
-            , set={'category' : 'sell'}
+        #    , set={'category' : 'sell'}
             )
         , 'stock_dispo_production_small_ids' : one2many_sorted.one2many_sorted
             ( 'stock.move'
@@ -283,7 +286,7 @@ class sale_order_line(osv.osv):
             , readonly=True
             , states=_states_mask
             , search=[('category', '=', 'small')]
-            , set={'category' : 'small'}
+        #    , set={'category' : 'small'}
             )
         , 'stock_dispo_production_big_ids'   : one2many_sorted.one2many_sorted
             ( 'stock.move'
@@ -292,7 +295,7 @@ class sale_order_line(osv.osv):
             , readonly=True
             , states=_states_mask
             , search=[('category', '=', 'big')]
-            , set={'category' : 'big'}
+        #    , set={'category' : 'big'}
             )
         , 'stock_dispo_production_faulty_ids': one2many_sorted.one2many_sorted
             ( 'stock.move'
@@ -301,7 +304,7 @@ class sale_order_line(osv.osv):
             , readonly=True
             , states=_states_mask
             , search=[('category', '=', 'faulty')]
-            , set={'category' : 'faulty'}
+        #    , set={'category' : 'faulty'}
             )
         , 'stock_dispo_production_waste_ids' : one2many_sorted.one2many_sorted
             ( 'stock.move'
@@ -318,7 +321,7 @@ class sale_order_line(osv.osv):
             , readonly=True
             , states=_states_mask
             , search=[('state', '=', 'draft')]
-            , set={'category' : 'waste'}
+        #.    , set={'category' : 'waste'}
             )
         , 'stock_dispo_production_ids'       : fields.one2many
             ( 'stock.move'
@@ -339,7 +342,7 @@ class sale_order_line(osv.osv):
             , type='boolean'
             , string='Move State'
             , help="Returns true if some moves are not done"
-            , store=True
+            , 
             )
         }
     

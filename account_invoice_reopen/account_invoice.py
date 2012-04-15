@@ -26,6 +26,7 @@ from osv import fields, osv
 from tools.translate import _
 import logging
 import time
+import netsvc
 
 
 
@@ -61,12 +62,13 @@ class account_invoice(osv.osv):
 #           \n* The \'Cancelled\' state is used when user cancel invoice.'),
 
 #   }
-    def _auto_init(self, cr, context=None):
-           cr.execute("""update wkf_instance
-                         set state = 'active'
-                       where state = 'complete'
-                         and res_type = 'account.invoice'
-""")
+
+#    def _auto_init(self, cr, context=None):
+#           cr.execute("""update wkf_instance
+#                         set state = 'active'
+#                       where state = 'complete'
+#                         and res_type = 'account.invoice'
+#""")
 
 
     def action_reopen(self, cr, uid, ids, *args):
@@ -78,6 +80,7 @@ class account_invoice(osv.osv):
         account_move_line_obj = self.pool.get('account.move.line')
         report_xml_obj = self.pool.get('ir.actions.report.xml')
         invoices = self.read(cr, uid, ids, ['move_id', 'payment_ids'])
+        wf_service = netsvc.LocalService("workflow")
         
         move_ids = [] # ones that we will need to update
         now = ' ' + _('Invalid') + time.strftime(' [%Y%m%d %H%M%S]')
@@ -94,6 +97,10 @@ class account_invoice(osv.osv):
                 for move_line in pay_ids:
                     if move_line.reconcile_id or (move_line.reconcile_partial_id and move_line.reconcile_partial_id.line_partial_ids):
                         raise osv.except_osv(_('Error !'), _('You can not reopen an invoice which is partially paid! You need to unreconcile related payment entries first!'))
+	    self.write(cr, uid, i.id, {'state':'draft'})
+            wf_service.trg_delete(uid, 'account.invoice', i.id, cr)
+            wf_service.trg_create(uid, 'account.invoice', i.id, cr)
+
 
         # rename attachments (reports)
         # for some reason datas_fname has .pdf.pdf extension
@@ -138,6 +145,7 @@ class account_invoice(osv.osv):
                 account_move_line_obj.write(cr, uid, lines_to_reconile, {'reconcile_id':r_id})
               
         self._log_event(cr, uid, ids, -1.0, 'Reopened Invoice')
+
         return True
 
     #def action_move_create(self, cr, uid, ids, context=None):

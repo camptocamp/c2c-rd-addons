@@ -35,6 +35,7 @@
            Stock picking using Webkit,
            Address label with option to position address left, right
            using address lebel field with addressee's country specific zip position
+	   showss address in internal tree view
                     """,
     "version" : "0.9",
     "depends" : ["stock", "report_webkit","c2c_partner_address_label","delivery"],
@@ -42,6 +43,7 @@
     "author" : "Camptocamp SA - Ferdinand Gassauer",
     "url": "http://www.camptocamp.com/",
     "data": ["stock_packing_webkit_view.xml",
+             "stock_packing_view.xml",
                    ],
     "installable" : True,
     "active" : False,

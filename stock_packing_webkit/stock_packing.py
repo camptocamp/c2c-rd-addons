@@ -28,6 +28,7 @@ import netsvc
 import pooler
 from osv import fields, osv, orm
 from tools.translate import _
+import one2many_sorted
 
 #----------------------------------------------------------
 #  Company
@@ -158,5 +159,13 @@ class stock_picking(osv.osv):
               'print_code': fields.function(_print_code, method=True, type='boolean', string='Print code if available',),
               'cols': fields.function(_get_cols, method=True, type='integer', string='No of columns before totals',),
 	      'number_of_packages': fields.function(_get_packs, method=True, type='float', string='Number of Packages'),
+	      'move_lines_sorted' : one2many_sorted.one2many_sorted
+	      ( 'stock.move'
+	      , 'picking_id'
+	      , 'Internal Moves Sorted'
+	      , states={'draft': [('readonly', False)]}
+	      , order  = 'product_id.name'
+	      )
+	      
     }
 stock_picking()

@@ -30,7 +30,7 @@ This modul generates internal pickings from different stock locations to the ram
 to be able to deliver the ordered quantities
 """,
     'author': 'Camptocamp Austria',
-    'depends': [ 'sale' ],
+    'depends': [ 'sale','stock' ],
     'update_xml': ['sale_view.xml',
        ],
     #'update_xml': ['product_view.xml'],

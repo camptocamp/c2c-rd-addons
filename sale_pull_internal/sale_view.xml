@@ -22,6 +22,7 @@
       <field name="type">tree</field>
       <field name="arch" type="xml">
         <field name="state" position="after">
+          <field name="pull_intern" />
           <field name="state_internal" />
         </field>
       </field>
@@ -31,7 +32,7 @@
       <field name="name">view.order.form.pull</field>
       <field name="model">sale.order</field>
       <field name="inherit_id" ref="sale.view_order_form"/>
-      <field name="type">tree</field>
+      <field name="type">form</field>
       <field name="arch" type="xml">
         <field name="date_confirm" position="after">
           <field name="pull_intern_date" />
@@ -39,6 +40,19 @@
       </field>
     </record>
 
+   <record id="view_order_form" model="ir.ui.view">
+       <field name="name">sale.order.form</field>
+       <field name="model">sale.order</field>
+       <field name="inherit_id" ref="sale.view_order_form"/>
+       <field name="type">form</field>
+       <field name="arch" type="xml">
+           <field name="shipped" position="after">
+               <field name="pull_intern" />
+           </field>
+       </field>
+   </record>
+   
+    
     <record id="view_sale_order_make_pull_internal" model="ir.ui.view">
             <field name="name">Create Pull Pickings</field>
             <field name="model">sale.order.pull.internal</field>
@@ -47,8 +61,8 @@
                 <form string="Create Pull Pickings">
                     <separator colspan="4" string="Do you really want to create pull pickings ?" />
                     <label colspan="4" nolabel="1" string='This programm will processs ALL Sale Orders with state "in progress" '/>
-                    <field name="location_dest_id" colspan="4"/>
 <!--
+                    <field name="location_dest_id" colspan="4"/>
                     <field name="grouped"/>
                     <newline/>
                     <field name="invoice_date"/>

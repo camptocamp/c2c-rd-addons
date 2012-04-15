@@ -26,6 +26,14 @@ import decimal_precision as dp
 import logging
 _logger = logging.getLogger(__name__)
 
+class stock_inventory_line(osv.osv):
+    _inherit = "stock.inventory.line"
+    _columns = {
+        'product_qty_calc': fields.float('Quantity Calculated', digits_compute=dp.get_precision('Product UoM'),readonly=True ),
+}
+
+stock_inventory_line()
+
 class stock_fill_inventory(osv.osv_memory):
     _inherit = "stock.fill.inventory"
     _columns = {
@@ -49,11 +57,15 @@ class stock_fill_inventory(osv.osv_memory):
         
         res_all = super(stock_fill_inventory, self).fill_inventory(cr, uid, ids, context)
         
+        inventory_line_obj = self.pool.get('stock.inventory.line')
         if not display_with_zero_qty:
-                inventory_line_obj = self.pool.get('stock.inventory.line')
                 ids_zero = inventory_line_obj.search(cr, uid, [('inventory_id','=', inventory_id), ('product_qty','=', '0')])
                 inventory_line_obj.unlink(cr, uid, ids_zero)
-
+        ids_update = inventory_line_obj.search(cr, uid, [('inventory_id','=', inventory_id)])
+        ids2 = ','.join([str(id) for id in ids_update])
+        cr.execute("""update stock_inventory_line
+                         set product_qty_calc = product_qty
+                       where id in (%s)""" % ids2)
         return res_all
 
 

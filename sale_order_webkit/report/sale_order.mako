@@ -197,7 +197,7 @@ ${order.partner_shipping_id.address_label}
             <th style="text-align:center;">${_("Sub Total")}</th>
          </tr>
         </thead>
-        %for line in order.order_line :
+        %for line in order.order_line_sorted :
         <tbody>
         <tr>
 %if order.print_code:

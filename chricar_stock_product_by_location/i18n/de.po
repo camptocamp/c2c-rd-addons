@@ -7,15 +7,14 @@ msgstr ""
 "Project-Id-Version: OpenERP Server 6.1rc1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-01-23 22:07+0000\n"
-"PO-Revision-Date: 2012-01-24 01:37+0000\n"
-"Last-Translator: Joël Grand-Guillaume @ CampToCamp "
-"<joel.grandguillaume@camptocamp.com>\n"
+"PO-Revision-Date: 2012-04-12 14:57+0000\n"
+"Last-Translator: Ferdinand @ Camptocamp <Unknown>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2012-04-08 05:12+0000\n"
-"X-Generator: Launchpad (build 15060)\n"
+"X-Launchpad-Export-Date: 2012-04-15 04:59+0000\n"
+"X-Generator: Launchpad (build 15070)\n"
 
 #. module: chricar_stock_product_by_location
 #: field:chricar.stock_move_by_location,categ_id:0
@@ -55,7 +54,7 @@ msgstr "Produkt je Lager "
 #. module: chricar_stock_product_by_location
 #: model:ir.actions.act_window,name:chricar_stock_product_by_location.act_product_stock_prodlot
 msgid "Product by Stock and ProdLot"
-msgstr "Produkt je Lager un ProdLos"
+msgstr "Produkt je Lager un Prod.Los"
 
 #. module: chricar_stock_product_by_location
 #: model:ir.actions.act_window,name:chricar_stock_product_by_location.act_product_location_2_stock_move
