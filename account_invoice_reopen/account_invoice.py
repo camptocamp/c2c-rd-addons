@@ -79,7 +79,7 @@ class account_invoice(osv.osv):
         account_move_obj = self.pool.get('account.move')
         account_move_line_obj = self.pool.get('account.move.line')
         report_xml_obj = self.pool.get('ir.actions.report.xml')
-        invoices = self.read(cr, uid, ids, ['move_id', 'payment_ids'])
+        invoices = self.read(cr, uid, ids, ['move_id', 'payment_ids', 'id'])
         wf_service = netsvc.LocalService("workflow")
         
         move_ids = [] # ones that we will need to update
@@ -97,9 +97,9 @@ class account_invoice(osv.osv):
                 for move_line in pay_ids:
                     if move_line.reconcile_id or (move_line.reconcile_partial_id and move_line.reconcile_partial_id.line_partial_ids):
                         raise osv.except_osv(_('Error !'), _('You can not reopen an invoice which is partially paid! You need to unreconcile related payment entries first!'))
-	    self.write(cr, uid, i.id, {'state':'draft'})
-            wf_service.trg_delete(uid, 'account.invoice', i.id, cr)
-            wf_service.trg_create(uid, 'account.invoice', i.id, cr)
+	    self.write(cr, uid, i['id'], {'state':'draft'})
+            wf_service.trg_delete(uid, 'account.invoice', i['id'], cr)
+            wf_service.trg_create(uid, 'account.invoice', i['id'], cr)
 
 
         # rename attachments (reports)
