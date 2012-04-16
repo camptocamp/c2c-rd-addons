@@ -141,7 +141,7 @@ ${pick.address_id.address_label|carriage_returns}
              <th style="white-space:nowrap">${_("Incoterm")}</th>
           %endif
           %if 'consignment_note' in pick._columns and pick.consignment_note:
-             <th style="white-space:nowrap">${_("CRM")}</th>
+             <th style="white-space:nowrap">${_("CMR")}</th>
           %endif
 
         </tr>
