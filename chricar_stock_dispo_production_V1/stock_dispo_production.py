@@ -29,9 +29,7 @@
 # 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 ###############################################
-import time
 from osv import fields,osv
-import sys
 import one2many_sorted
 import logging
 
@@ -39,45 +37,28 @@ import logging
 #     _name = "stock.move"
 class stock_move(osv.osv):     
      _inherit = "stock.move"
+     _selection_type = \
+         [ ('sell','OK')
+         , ('big','Big')
+         , ('small','Small')
+         , ('faulty','Faulty')
+         , ('waste','Waste')
+         ]
+     _columns = \
+         { 'category'             : fields.selection(_selection_type,'Category', size=16, readonly=True, states={'draft': [('readonly', False)]})
+         , 'category_prod'        : fields.char('Category', size=16, readonly=True, states={'draft': [('readonly', False)]})
+         , 'order_line_id'        : fields.many2one('sale.order.line','Sale Order Line', select=True, readonly=True, ondelete='restrict',)
+         , 'sequence'             : fields.integer ('Sequence', size=16, )
+         , 'product_packaging_id' : fields.many2one('product.product', 'Packaging', help='Product wich is used to store the main product', ondelete='restrict') 
+         , 'packaging_qty'        : fields.integer ('Packaging Qty')
+         }
+     _defaults = {'sequence' : lambda *a: 0}
 
-     _columns = {
-#       'active'             : fields.boolean ('Active', readonly=True),
-       'category'           : fields.selection([
-                                  ('sell','OK'),
-                                  ('big','Big'),
-                                  ('small','Small'),
-                                  ('faulty','Faulty'),
-                                  ('waste','Waste'),
-                                  ],'Category', size=16, readonly=True, states={'draft': [('readonly', False)]}),
-       'category_prod'      : fields.char('Category', size=16, readonly=True, states={'draft': [('readonly', False)]}),
-       #'date_production'    : fields.datetime('Production Date', required=True,readonly=True, states={'draft': [('readonly', False)]}),
-       #'location_id'        : fields.many2one('stock.location', 'Location',readonly=True, states={'draft': [('readonly', False)]}),
-       #'location_dest_id'   : fields.many2one('stock.location', 'Dest. Location',readonly=True, states={'draft': [('readonly', False)]}),
-       #'move_id'            : fields.many2one('stock.move','Picking Line', select=True,readonly=True,),
-       #'name'               : fields.char    ('Quality', size=16 ,readonly=True, states={'draft': [('readonly', False)]}),
-       'order_line_id'      : fields.many2one('sale.order.line','Sale Order Line', select=True, readonly=True, ondelete='restrict',),
-       #'quantity'           : fields.float   ('Quantity', required=True,readonly=True, states={'draft': [('readonly', False)]}),
-       'sequence'           : fields.integer ('Sequence', size=16, ),
-       #'state'              : fields.char    ('State', size=16, readonly=True),
-       #'prodlot_id'         : fields.many2one('stock.production.lot', 'Production Lot', help="Production lot is used to track production"),
-       'product_packaging_id' : fields.many2one('product.product', 'Packaging', help='Product wich is used to store the main product', ondelete='restrict') ,
-       'packaging_qty'      : fields.integer ('Packaging Qty'),
-
-
-}
-     _defaults = {
-
-#       'active'            : lambda *a: True,
-       #'state'             : lambda *a: 'draft',
-       'sequence'          : lambda *a: 0.0,
-       #'date'   : lambda *a: time.strftime('%Y-%m-%d %H:%M:%S'),
-
-}
-     _order = 'date'
-
-     def on_change_dispo_product_qty(self, cr, uid, ids,category,name,quality,location_id=False,location_dest_id=False, location_big_id=False, \
-                 location_small_id=False, location_faulty_id=False, location_waste_id=False, prodlot_id=False,  product_packaging_id=False, \
-                 product_id=False, product_uom=False, price_unit_id=False,product_qty=False):
+     def on_change_dispo_product_qty \
+         ( self, cr, uid, ids
+         , category, name, quality, location_id=False, location_dest_id=False, location_big_id=False
+         , location_small_id=False, location_faulty_id=False, location_waste_id=False, prodlot_id=False
+         , product_packaging_id=False, product_id=False, product_uom=False, price_unit_id=False,product_qty=False):
 
         result ={}
         
@@ -124,7 +105,6 @@ class stock_move(osv.osv):
             if product:
                 move_value_cost = round(product.standard_price * product_qty,2)
   
-        #category = 'small'
         result['name'] = name
         result['category'] = category
         result['category_prod'] = category
@@ -134,10 +114,8 @@ class stock_move(osv.osv):
         result['product_packaging_id'] = product_packaging_id
         result['product_id'] = product_id
         result['product_uom'] = product_uom
-        result['price_unit_id'] = price_unit_id
-        result['move_value_cost'] = move_value_cost
-        #result['date'] = time.strftime('%Y-%m-%d %H:%M:%S')
-        result['date'] = time.strftime('%Y-%m-%d %H:%M:%S')
+#        result['price_unit_id'] = price_unit_id
+#        result['move_value_cost'] = move_value_cost
         return {'value':result}
 stock_move()
 
@@ -162,11 +140,24 @@ class sale_order(osv.osv):
             res[line.id] = products
         return res
         
-    _columns = {
-        'order_line'    : fields.one2many('sale.order.line', 'order_id', 'Order Lines', \
-              readonly=True, states={'draft': [('readonly', False)],'progress': [('readonly', False)] } ),
-        'product_names' : fields.function(_product_names, method=True, type='char', size=256, string='Products' ,help="Shows ordered products", readonly=True),
-    }
+    _columns = \
+        { 'order_line'    : fields.one2many
+            ( 'sale.order.line'
+            , 'order_id'
+            , 'Order Lines'
+            , readonly=True
+            , states={'draft': [('readonly', False)], 'progress': [('readonly', False)]} 
+            )
+        , 'product_names' : fields.function
+            ( _product_names
+            , method=True
+            , type='char'
+            , size=256
+            , string='Products'
+            , help="Shows ordered products"
+            , readonly=True
+            )
+        }
 
 sale_order()
 
@@ -251,7 +242,7 @@ class sale_order_line(osv.osv):
             , 'Dest. Location Waste'
             , help="Waste will be moved to this location, set default manually"
             , readonly=True
-            , states={'draft': [('readonly', False)],'confirmed': [('readonly', False)] }
+            , states=_states_mask
             , ondelete='restrict'
             )
         , 'trading_unit_owner_id'            : fields.many2one
@@ -351,17 +342,19 @@ class sale_order_line(osv.osv):
         for line in self.browse(cr, uid, ids, context):
             for move in line.stock_dispo_production_ids:
                 #FIXME performance !
-                #print >> sys.stderr, 'moves production' ,move.id
                 if move.state !='done':
-                    print >> sys.stderr, 'moves production to do' ,move.id, move.date
+                    self._logger.debug('moves production to do `%s`', move.id)
                     move_obj.action_done(cr, uid, [move.id], context=context)
     
 sale_order_line()
 
 class stock_production_lot(osv.osv):
     _inherit = 'stock.production.lot'
-    _columns = { 
-       'global_gap_number' : fields.char('Global-Gap-Nr', size=16, help="""GLOBALG.A.P introduced the GLOBALG.A.P number (GGN) to identify each legal entity regis-
+    _columns = \
+        { 'global_gap_number' : fields.char
+            ( 'Global-Gap-Nr'
+            , size=16
+            , help="""GLOBALG.A.P introduced the GLOBALG.A.P number (GGN) to identify each legal entity regis-
 tered (individual producers) in the GLOBALG.A.P database. This 13-digit number (e.g.
 4049929000000) is unique and remains valid and attached to the legal entity as long as it exists.
 It serves as search key on the GLOBALG.A.P website to validate certificates.
@@ -371,9 +364,11 @@ We put it here, because
 * may overlap calendar years and harvests periods and
 * is only necessary/valid for certain products
 to avoid data entry for every Sales Order
- """),
-    }
+ """
+            )
+        }
 stock_production_lot()
+
 #class stock_move(osv.osv):
 #      _inherit = "stock.move"
 #      _columns = {
