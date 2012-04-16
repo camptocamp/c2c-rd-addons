@@ -96,6 +96,26 @@ Modification of picking
         </notebook>
       </field>
     </record>
+
+
+    <record id="view_picking_weighing_carrier_form" model="ir.ui.view">
+      <field name="name">stock.picking.weighing.carrier.form</field>
+      <field name="model">stock.picking</field>
+      <field name="type">form</field>
+      <field name="inherit_id" ref="stock.view_picking_form"/>
+      <field name="priority" eval="10"/>
+      <field name="arch" type="xml">
+          <field name="address_id" position="after">
+              <field name="carrier_id"/>
+              <field name="carrier_tracking_ref" groups="base.group_extended"/>
+              <field name="number_of_packages" groups="base.group_extended"/>
+              <field name="weight"/>
+              <field name="weight_net"/>
+          </field>
+      </field>
+  </record>
+  
+
     <!-- FIXME form does not exist>
     <record id="view_picking_delivery_weighing_form" model="ir.ui.view">
       <field name="name">stock.picking.delivery_weighing.form</field>
