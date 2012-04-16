@@ -106,6 +106,9 @@ ${inv.address_invoice_id.address_label|carriage_returns}
     </table>
     <br>
     <br>
+    %if inv.state in ['proforma','proforma2']:
+    <h1 style="clear:both;">${_("ProForma")}</h1> 
+    %endif
     %if inv.type == 'out_invoice' :
     <h1 style="clear:both;">${_("Customer Invoice")} ${inv.number or ''|entity}</h1>
     %elif inv.type == 'in_invoice' :
