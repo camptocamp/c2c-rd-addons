@@ -30,6 +30,7 @@ class stock_location(osv.osv):
     def name_get(self, cr, uid, ids, context=None):
         product_obj = self.pool.get('product.product')
         _logger = logging.getLogger(__name__)
+        _logger.info('FGF loc ids %s' % (ids))
         res= super(stock_location, self).name_get(cr, uid, ids, context)
         _logger.info('FGF loc res %s' % (res))
         _logger.info('FGF loc context %s ' % (context))
