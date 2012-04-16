@@ -216,6 +216,7 @@ class chricar_budget(osv.osv):
        'harvest_net'        : fields.function(_harvest_net, method=True, string='Net/ha' ,digits=(16,0), help="Harvested qty net - without soil this year", readonly=True),
        'harvest_yield'      : fields.function(_harvest_yield, method=True, string='Yield/ha' ,digits=(16,0), help="Harvested yield qty this year", readonly=True),
        'harvest_yield_diff' : fields.function(_harvest_yield_diff, method=True, string='Yield Net Diff' ,digits=(16,2), help="Harvested yield Diff", readonly=True),
+       'prod_lot_id'        : fields.many2one('stock.production.lot', 'Production Lot', domain="[('product_id','=',product_id)]"),
 }
      _defaults = {
        'budget_version_id' : lambda *a: 1,
