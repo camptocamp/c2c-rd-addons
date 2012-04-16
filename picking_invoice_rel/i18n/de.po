@@ -1,0 +1,135 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* picking_invoice_rel
+#
+# Ferdinand Gassauer, 2012.
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 6.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-04-16 22:23+0000\n"
+"PO-Revision-Date: 2012-04-17 00:31+0200\n"
+"Last-Translator: Ferdinand Gassauer\n"
+"Language-Team: American English <kde-i18n-doc@kde.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+"Language: en_US\n"
+"X-Generator: Lokalize 1.4\n"
+
+#. module: picking_invoice_rel
+#: sql_constraint:purchase.order:0
+#: sql_constraint:sale.order:0
+msgid "Order Reference must be unique per Company!"
+msgstr "Die Bestellreferenz muss je Firma eindeutig sein"
+
+#. module: picking_invoice_rel
+#: view:account.invoice:0
+msgid "Other Info"
+msgstr "Weitere Info"
+
+#. module: picking_invoice_rel
+#: view:account.invoice:0
+#: field:account.invoice,picking_ids:0
+msgid "Pickings"
+msgstr "Lieferscheine"
+
+#. module: picking_invoice_rel
+#: model:ir.model,name:picking_invoice_rel.model_stock_picking
+msgid "Picking List"
+msgstr "Lieferschein"
+
+#. module: picking_invoice_rel
+#: constraint:account.invoice:0
+msgid "You must not alter a fixed analytic account."
+msgstr "Analysekonto darf nicht geändert werden."
+
+#. module: picking_invoice_rel
+#: model:res.groups,name:picking_invoice_rel.group
+msgid "Allowed to see picking invoice relation"
+msgstr "Darf Lieferschein Rechnungs Realtion sehen"
+
+#. module: picking_invoice_rel
+#: field:account.invoice,client_order_refs:0
+msgid "Client Sale Orders Ref"
+msgstr "Kunden Verkaufsauftrag Bezug"
+
+#. module: picking_invoice_rel
+#: field:stock.picking,client_order_ref:0
+msgid "Client Ref"
+msgstr "Kunden Bezug"
+
+#. module: picking_invoice_rel
+#: view:stock.picking:0
+msgid "Notes"
+msgstr "Notizen"
+
+#. module: picking_invoice_rel
+#: constraint:account.invoice:0
+msgid "You must not define an analytic account."
+msgstr "Analysekonto ist nicht erlaubt"
+
+#. module: picking_invoice_rel
+#: sql_constraint:account.invoice:0
+msgid "Invoice Number must be unique per Company!"
+msgstr "Die Rechnungsnummer muss je Firma eindeutig sein"
+
+#. module: picking_invoice_rel
+#: model:ir.model,name:picking_invoice_rel.model_purchase_order
+msgid "Purchase Order"
+msgstr "Beschaffungsauftrag"
+
+#. module: picking_invoice_rel
+#: sql_constraint:stock.picking:0
+msgid "Reference must be unique per Company!"
+msgstr "Die Referenz muss je Firma eindeutig sein"
+
+#. module: picking_invoice_rel
+#: constraint:account.invoice:0
+msgid "Error: \"Reference\" is missing"
+msgstr "Fehler: \"Referenz\" fehlt"
+
+#. module: picking_invoice_rel
+#: view:account.invoice:0
+#: field:account.invoice,sale_order_ids:0
+msgid "Sale Orders"
+msgstr "Verkaufsaufträge"
+
+#. module: picking_invoice_rel
+#: view:stock.picking:0
+#: field:stock.picking,invoice_ids:0
+msgid "Invoices"
+msgstr "Rechnungen"
+
+#. module: picking_invoice_rel
+#: model:ir.actions.act_window,name:picking_invoice_rel.act_sale_order_2_stock_picking
+msgid "Deliveries"
+msgstr "Lieferscheine (Kunden)"
+
+#. module: picking_invoice_rel
+#: constraint:account.invoice:0
+msgid "Error: Invalid \"Customer Data\" [numeric12]"
+msgstr "Fehler: ungültige \"Kundendaten\" [numerisch 12]"
+
+#. module: picking_invoice_rel
+#: model:ir.model,name:picking_invoice_rel.model_account_invoice
+msgid "Invoice"
+msgstr "Rechnung"
+
+#. module: picking_invoice_rel
+#: help:account.invoice,sale_order_ids:0
+msgid "This is the list of sale orders linked to this invoice. "
+msgstr "Verkaufsaufträge zu dieser Rechnung"
+
+#. module: picking_invoice_rel
+#: model:ir.model,name:picking_invoice_rel.model_sale_order
+msgid "Sales Order"
+msgstr "Verkaufsauftrag"
+
+#. module: picking_invoice_rel
+#: constraint:account.invoice:0
+msgid "You must assign an analytic account.(invoice)"
+msgstr "Ein Analysekonto fehlt.(invoice)"
+
+
