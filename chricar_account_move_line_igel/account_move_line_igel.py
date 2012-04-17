@@ -76,7 +76,7 @@ class chricar_account_move_line_igel(osv.osv):
 }
 
      _defaults = {
-        'company_id' : lambda self,cr,uid,c: self.pool.get('res.users').browse(cr, uid, uid, context).company_id.id,
+        'company_id' : lambda self, cr, uid, context: self.pool.get('res.users').browse(cr, uid, uid, context).company_id.id,
         'state' : 'draft',
 }
      _order =   "name"
