@@ -32,9 +32,10 @@
 #
 ###############################################
 from lxml import etree
-import sys
+import logging
 
 class XML_Generator (object) :
+    _logger = logging.getLogger('XML_Generator')
 
     def __init__ (self, template, nsmap=None) :
         self.root  = etree.fromstring (template)
@@ -88,14 +89,14 @@ class XML_Generator (object) :
                     val = eval (elm.attrib ["attr-eval" + nr], scope_dict)
                     out.set (elm.attrib [name], unicode (val))
                 except :
-                    print >>sys.stderr, "ERROR in attr-eval for ", elm.tag, name, elm.attrib ["attr-eval" + nr]
+                    self._logger.debug('ERROR in attr-eval for `%s` `%s` `%s`', elm.tag, name, elm.attrib["attr-eval" + nr])
                     raise 
             elif name [0:9] == "attr-eval" : pass
             elif name == "text-eval":
                 try :
                     out.text = unicode (eval (value, scope_dict))
                 except : 
-                    print >>sys.stderr, "ERROR in text-eval for ", out.tag, name, value
+                    self._logger.debug('ERROR in text-eval for `%s` `%s` `%s`', out.tag, name, value)
                     raise
         for c in elm.getchildren () :
             if "loop-eval" in c.attrib :
@@ -109,7 +110,7 @@ class XML_Generator (object) :
                         , scope_dict 
                         )
                 except :
-                    print >>sys.stderr, "ERROR in loop-eval for ", c.tag, c.attrib["loop-eval"]
+                    self._logger.debug('ERROR in loop-eval for `%s` `%s`', c.tag, c.attrib["loop-eval"])
                     raise
                 if not ("omit_on_empty" in c.attrib and c.attrib["omit_on_empty"] == "True" and not objs) :
                     x = etree.SubElement (out, c.tag)
@@ -128,7 +129,7 @@ class XML_Generator (object) :
                         , scope_dict 
                         )
                 except :
-                    print >>sys.stderr, "ERROR in seq-eval for ", c.tag, c.attrib["seq-eval"]
+                    self._logger.debug('ERROR in seq-eval for `%s` `%s`', c.tag, c.attrib["seq-eval"])
                     raise 
                 for o in objs :
                     scope_dict [c.attrib["var"]] = o
@@ -146,7 +147,7 @@ class XML_Generator (object) :
                         try :
                             x.text = unicode (eval (value, scope_dict))
                         except : 
-                            print >>sys.stderr, "ERROR in text-eval for ", c.tag, name, value
+                            self._logger.debug('ERROR in text-eval for `%s` `%s` `%s`', c.tag, name, value)
                             raise
                     elif name [0:9] == "attr-name" :
                         nr = name [9:]
@@ -154,7 +155,7 @@ class XML_Generator (object) :
                             val = eval (c.attrib ["attr-eval" + nr], scope_dict)
                             x.set (c.attrib [name], unicode (val))
                         except :
-                            print >>sys.stderr, "ERROR in attr-eval for ", c.tag, name, c.attrib ["attr-eval" + nr]
+                            self._logger.debug('ERROR in attr-eval for `%s` `%s` `%s`', c.tag, name, c.attrib["attr-eval" + nr])
                             raise
                     else :
                         x.set (name, value)

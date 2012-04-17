@@ -24,18 +24,13 @@
 #
 #
 ###############################################
-import time
-import netsvc
 import pooler
 from osv import fields, osv
-
 from tools.misc import currency
 from tools.sql import drop_view_if_exists
 from tools.translate import _
-
 import decimal_precision as dp
-
-import sys
+import logging
 
 # name should hold the period name + special names
 
@@ -46,14 +41,12 @@ class account_period(osv.osv):
         res = {}
         for p in self.pool.get('account.period').browse(cr, uid, ids, context=context):
             date_start = str(int(p.date_start[0:4]) - 1 ) + p.date_start[4:10]
-            #print >>sys.stderr, 'prev ', date_start, p.date_start,p.company_id.id ,p.special
             cr.execute("""select id from account_period
                        where company_id = %s
                          and date_start = %s
                          and special = %s """, ( p.company_id.id or p.fiscalyear_id.company_id.id, date_start, p.special))
  
             res[p.id] = cr.fetchone() #or False
-            #print >>sys.stderr, 'prev id', res
         return res
 
     _columns = {
@@ -146,10 +139,9 @@ class account_fy_period_sum(osv.osv):
 account_fy_period_sum()
 
 
-
-
 class account_fiscalyear_sum(osv.osv):
     _name = "account.account_fiscalyear_sum"
+    _logger = logging.getLogger(_name)
     _description = "Account Fiscalyear Sum"
     _auto = False
 
@@ -171,10 +163,8 @@ class account_fiscalyear_sum(osv.osv):
                         , limit = self._limit
                         )
                     for r in ids2:
-                        print >> sys.stderr,'r_ids2 ', r
-                        res [fy.id].append( r )
-
-
+                        self._logger.debug('r_ids2 `%s`', r)
+                        res [fy.id].append(r)
                 return res
             #  set missing
     # end class one2many_periods
@@ -201,7 +191,8 @@ class account_fiscalyear_sum(osv.osv):
                 #             order by name""" , (fy.company_id.id,fy.account_id.id,fy.fiscalyear_id.id))
                 #ids3 = cr.fetchall()
 
-                print >> sys.stderr,'ids3 ', ids3
+                self._logger.debug('ids3 `%s`', ids3)
+
                 def _cmp(a, b) :
                    if a.name < b.name : return -1
                    elif a.name > b.name : return 1
@@ -214,7 +205,7 @@ class account_fiscalyear_sum(osv.osv):
                 #for r in ids3:
                 for r in sorted(delta_obj.browse(cr, user, ids3, context), cmp=lambda a, b: _cmp(a, b)):
                 #TypeError: browse_record(account.account.period.sum.delta, 1761010) is not JSON serializable
-                   print >> sys.stderr,'r_ids3 ', r, r.name
+                   self._logger.debug('r_ids3 `%s` `%s`', r, r.name)
                    res [fy.id].append( r.id )
             return res
     
@@ -363,6 +354,7 @@ account_account_period_sum_cur_prev()
 
 class account_account_period_sum_delta(osv.osv):
     _name = "account.account.period.sum.delta"
+    _logger = logging.getLogger(_name)
     _description = "Account Period Sum Delta"
     _auto = False
 
@@ -398,7 +390,7 @@ class account_account_period_sum_delta(osv.osv):
             fiscalyear_id = line1.fiscalyear_id.id 
         period_sum_delta_obj = self.pool.get('account.account.period.sum.delta')
         lines = period_sum_delta_obj.search(cr, uid, [('account_id','=',account_id),('fiscalyear_id','=',fiscalyear_id)], context=context)
-        print >> sys.stderr, 'lines ',line1.id, lines
+        self._logger.debug('lines `%s` `%s`', line1.id, lines)
         filters = " AND l.id in (%s)" %  (','.join(map(str,lines)) )
         request = ("SELECT l.id as id, l.name,  " +\
                        ', '.join(map(mapping.__getitem__, field_names)) +
@@ -411,21 +403,20 @@ class account_account_period_sum_delta(osv.osv):
                             + filters +
                         " GROUP BY l.id,l.name  ORDER by l.name")
         
-        print >>sys.stderr, 'request ', request
+        self._logger.debug('request `%s`', request)
         #params = (tuple(period_ids),) #+ query_params
         #params = (','.join(map(str,period_ids)) )
-        #print >>sys.stderr, 'params', params
         cr.execute(request)
 
         for res in cr.dictfetchall():
-                print >>sys.stderr, 'res ', res
+                self._logger.debug('res `%s`', res)
                 for k, v in res.iteritems(): 
                    if k == 'id':
                       k1 = k
                       v1 = v  
                 del res[k1]
                 periods[v1] = res
-        print >>sys.stderr, 'periods ', periods
+        self._logger.debug('periods `%s`', periods)
         return periods
 
     _columns = {
@@ -462,6 +453,3 @@ having company_id >0
 ;
 """)
 account_account_period_sum_delta()
-
-
-

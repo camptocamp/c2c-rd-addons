@@ -19,25 +19,15 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-
-import time
 from osv import fields,osv
-import pooler
-import sys
-import netsvc
 from tools.translate import _
-
 import logging
-_logger = logging.getLogger('chricar_account_analytic')
-
-
 # ************************************
 # account_account
 # ************************************
 
 class account_account(osv.osv):
     _inherit = "account.account"
-
         
     def get_analytic(self, cr, uid, ids, account_id):
         result = {}
@@ -308,6 +298,7 @@ account_move_line()
 
 class account_bank_statement_line(osv.osv):
     _inherit = "account.bank.statement.line"
+    _logger = logging.getLogger(_name)
 
     def _check_analytic_account_exists(self, cr, uid, ids):
         for move in self.browse(cr, uid, ids):  

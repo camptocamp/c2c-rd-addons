@@ -32,22 +32,16 @@
 # 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 ###############################################
-import time
 from osv import fields,osv
-import tools
-#import ir
-import pooler
-
-import os
-import sys
+import logging
 
 class stock_location(osv.osv):
      _inherit = "stock.location"
 
-     _columns = {
-       'blueprint'          : fields.binary  ('Blueprint'),
-       'image'              : fields.binary  ('Image'),
-}
+     _columns = \
+         { 'blueprint' : fields.binary  ('Blueprint')
+         , 'image'     : fields.binary  ('Image')
+         }
 
 stock_location()
 
@@ -55,6 +49,7 @@ stock_location()
 class chricar_top(osv.osv):
      _name = "chricar.top"
      _table = "chricar_top"
+     _logger = logging.getLogger(_name)
 
      class one2many_analytic(fields.one2many):
         def get (self, cr, obj, ids, name, user=None, offset=0, context=None, values={}):
@@ -242,10 +237,8 @@ class chricar_top(osv.osv):
         comp_obj = self.pool.get('res.company')
         analytic_obj = self.pool.get('account.analytic.account')
         ids = top_obj.search(cr,1,[('account_analytic_id','=',False),('usage','!=','parking')])
-        #print >> sys.stderr, 'top ids', ids
         for top in top_obj.browse(cr,1,ids,context ):
             vals = {}
-            #print >> sys.stderr, 'top ',top.location_id.name, top.name,
             
             top_name = top.location_id.name + ' - '
             if top.staircase != '0':
@@ -267,10 +260,10 @@ class chricar_top(osv.osv):
                 'company_id' : company_id,
                 'state'      : 'open',
                 }
-            print >> sys.stderr, 'top vals', vals
+            self._logger.debug('top vals `%s`', vals)
             
             analytic = analytic_obj.create(cr, 1, vals, context)
-            print >> sys.stderr, 'analytic ', analytic
+            self._logger.debug('analytic `%s`', analytic)
             top_obj.write(cr,1,[top.id], {'account_analytic_id': analytic} )
         return     
             
@@ -281,6 +274,7 @@ chricar_top()
 
 class res_partner(osv.osv):
       _inherit = "res.partner"
+      _logger = logging.getLogger(_name)
 
       def _lease_current_sum(self, cr, uid, ids, field_name, arg, context=None):
          result = {}
@@ -312,10 +306,10 @@ class res_partner(osv.osv):
                   if participation_id.percentage and participation_id.partner_id.lease_current_sum:
                     #lease_current_participation_sum += ( participation_id.partner_id.lease_current_sum + participation_id.partner_id.lease_current_participation_sum) * percentage
                     lease_current_participation_sum += ( participation_id.partner_id.lease_current_sum * participation_id.percentage / 100 )
-                    print >>sys.stderr, "percentage ", participation_id.percentage
-                    print >>sys.stderr, "sum lease ", participation_id.partner_id.lease_current_sum
                     # FIXME participation_id.partner_id.lease_current_sum returns a wrong value if more than one participation
-                    print >>sys.stderr, "partner ", participation_id.partner_id.id
+                    self._logger.debug('percentage `%s`', participation_id.percentage)
+                    self._logger.debug('sum lease `%s`', participation_id.partner_id.lease_current_sum)
+                    self._logger.debug('partner `%s`', participation_id.partner_id.id)
             result[p.id] = lease_current_participation_sum
 
          return result

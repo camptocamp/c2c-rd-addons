@@ -29,8 +29,6 @@
 #
 ##############################################################################
 import wizard
-import netsvc
-import time
 import pooler
 from osv import osv
 

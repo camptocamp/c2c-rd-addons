@@ -34,7 +34,6 @@
 ###############################################
 import time
 from osv import fields,osv
-import pooler
 import netsvc
 from tools.misc import UpdateableStr, UpdateableDict
 

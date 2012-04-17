@@ -21,10 +21,7 @@
 ##############################################################################
 
 # FIXME remove logger lines or change to debug
- 
-import netsvc
 from osv import fields, osv
-import decimal_precision as dp
 from tools.translate import _
 import logging
 from tools import float_round, float_is_zero, float_compare

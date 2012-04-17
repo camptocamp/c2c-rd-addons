@@ -22,15 +22,8 @@
 
 from osv import osv, fields
 import decimal_precision as dp
-
-import math
-#from _common import rounding
-import re  
 from tools.translate import _
-import sys
-import netsvc
-
-
+import logging
 #----------------------------------------------------------
 #  Account Invoice Line INHERIT
 #----------------------------------------------------------
@@ -101,13 +94,12 @@ stock_move()
 #----------------------------------------------------------
 class stock_picking(osv.osv):
     _inherit = "stock.picking"
-
+    _logger = logging.getLogger(_name)
 
     def _invoice_line_hook(self, cr, uid, move_line, invoice_line_id):
         '''Call after the creation of the invoice line'''
         #res = super(stock_picking,self)._invoice_line_hook(cr, uid, move_line, invoice_line_id)
-        logger = netsvc.Logger()
-        logger.notifyChannel('addons.'+self._name, netsvc.LOG_INFO,'price unit stock line hook FGF:  %s '%(invoice_line_id))
+        self._logger.debug('price unit stock line hook FGF: `%s`', invoice_line_id)
         price_unit_id = ''
         price_unit_pu = ''
         if move_line.price_unit_id:
@@ -115,18 +107,18 @@ class stock_picking(osv.osv):
         if move_line.price_unit_pu:
             price_unit_pu =  move_line.price_unit_pu
         if not price_unit_id or not price_unit_pu:
-         if move_line.purchase_line_id:
-          if not move_line.price_unit_id:
-            price_unit_id = self.pool.get('c2c_product.price_unit').get_default_id(cr, uid, None)
-          else:
-            price_unit_id = move_line.price_unit_id.id
-          coeff = self.pool.get('c2c_product.price_unit').get_coeff(cr, uid, price_unit_id)
-          print >> sys.stderr,'price_unit invoice_line-hook coeff:', coeff
-          price_unit_pu = move_line.price_unit_pu or move_line.price_unit * coeff or ''
-         if move_line.sale_line_id:
-          price_unit = move_line.price_unit or ''
-          price_unit_pu = move_line.price_unit or ''
-          price_unit_id = move_line.price_unit_id.id or ''
+            if move_line.purchase_line_id:
+                if not move_line.price_unit_id:
+                    price_unit_id = self.pool.get('c2c_product.price_unit').get_default_id(cr, uid, None)
+                else:
+                    price_unit_id = move_line.price_unit_id.id
+                coeff = self.pool.get('c2c_product.price_unit').get_coeff(cr, uid, price_unit_id)
+                self._logger.debug('price_unit invoice_line-hook coeff: `%s`', coeff)
+                price_unit_pu = move_line.price_unit_pu or move_line.price_unit * coeff or ''
+            if move_line.sale_line_id:
+                price_unit = move_line.price_unit or ''
+                price_unit_pu = move_line.price_unit or ''
+                price_unit_id = move_line.price_unit_id.id or ''
           
         inv_line_obj = self.pool.get('account.invoice.line')
         inv_line_obj.write(cr, uid, invoice_line_id, {'price_unit_id': price_unit_id, 'price_unit_pu': price_unit_pu})
@@ -134,5 +126,3 @@ class stock_picking(osv.osv):
         return  super(stock_picking, self)._invoice_line_hook(cr, uid, move_line, invoice_line_id)
 
 stock_picking()
-
-

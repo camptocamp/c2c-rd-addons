@@ -18,22 +18,17 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-
 import time
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
-from operator import itemgetter
-
-import netsvc
-import pooler
 from osv import fields, osv
 import decimal_precision as dp
 from tools.translate import _
-
-import sys
+import logging
 
 class account_account(osv.osv):
     _inherit = "account.account"
+    _logger = logging.getLogger(_name)
 
     def __compute_sum(self, cr, uid, ids, field_names, arg=None, context=None,
                   query='', query_params=()):
@@ -57,14 +52,12 @@ class account_account(osv.osv):
         }
         #get all the necessary accounts
         children_and_consolidated = self._get_children_and_consol(cr, uid, ids, context=context)
-        #self.logger.notifyChannel('addons.'+self._name, netsvc.LOG_DEBUG,'Children: %s'%children_and_consolidated)
 
         #compute for each account the balance/debit/credit from the move lines
         accounts = {}
         if children_and_consolidated:
             # FIXME allow only fy and period filters
             # remove others filters from context or raise error
-            #self.logger.notifyChannel('addons.'+self._name, netsvc.LOG_DEBUG,'Context: %s'%context)
             #aml_query = self.pool.get('account.move.line')._query_get(cr, uid, context=context)
 
             #wheres = [""]
@@ -73,7 +66,6 @@ class account_account(osv.osv):
             #if aml_query.strip():
             #    wheres.append(aml_query.strip())
             #filters = " AND ".join(wheres)
-            # self.logger.notifyChannel('addons.'+self._name, netsvc.LOG_DEBUG,'Filters: %s'%filters)
             #filters = ' AND period_id in ( select id from account_period where fiscalyear_id in ( %s ) ) ' % context.get('fiscalyear', False) 
             if context.get('periods', False):
                 periods = context.get('periods', False)
@@ -85,12 +77,11 @@ class account_account(osv.osv):
                period_pool = self.pool.get('account.period')
                periods = period_pool.search(cr, uid, [('fiscalyear_id','in',fy_id)])
             
-            self.logger.notifyChannel('addons.'+self._name, netsvc.LOG_DEBUG,'Periods: %s'%periods)
+            self._logger.debug('Periods: `%s`', periods)
             # FIXME - tuple must not return ',' if only one period is available - period_id in ( p,) should be period_id in ( p )
             filters = ''
             if periods: 
                 filters = ' AND period_id in (%s) ' % (','.join(map(str,periods)) )
-            #self.logger.notifyChannel('addons.'+self._name, netsvc.LOG_DEBUG,'Filters: %s'%filters)
             # IN might not work ideally in case there are too many
             # children_and_consolidated, in that case join on a
             # values() e.g.:
@@ -105,20 +96,15 @@ class account_account(osv.osv):
                             + filters +
                        " GROUP BY l.account_id")
             params = (tuple(children_and_consolidated),) + query_params
-            #self.logger.notifyChannel('addons.'+self._name, netsvc.LOG_DEBUG,'Request: %s'%request)
-            #self.logger.notifyChannel('addons.'+self._name, netsvc.LOG_DEBUG,'Params: %s'%params)
             cr.execute(request, params)
-            self.logger.notifyChannel('addons.'+self._name, netsvc.LOG_DEBUG,
-                                      'Status: %s'%cr.statusmessage)
+            self._logger.debug('Status: `%s`', cr.statusmessage)
 
             for res in cr.dictfetchall():
                 accounts[res['id']] = res
-            #self.logger.notifyChannel('addons.'+self._name, netsvc.LOG_DEBUG,'Accounts: %s'%accounts)
 
             # consolidate accounts with direct children
             children_and_consolidated.reverse()
             brs = list(self.browse(cr, uid, children_and_consolidated, context=context))
-            #self.logger.notifyChannel('addons.'+self._name, netsvc.LOG_DEBUG,'brs: %s'%brs)
 
             sums = {}
             currency_obj = self.pool.get('res.currency')
@@ -136,18 +122,15 @@ class account_account(osv.osv):
                 brs.pop(0)
                 for fn in field_names:
                     sums.setdefault(current.id, {})[fn] = accounts.get(current.id, {}).get(fn, 0.0)
-                    #self.logger.notifyChannel('addons.'+self._name, netsvc.LOG_DEBUG,'sums: %s'%sums)
                     for child in current.child_id:
                         if child.company_id.currency_id.id == current.company_id.currency_id.id:
                             sums[current.id][fn] += sums[child.id][fn]
                         else:
                             sums[current.id][fn] += currency_obj.compute(cr, uid, child.company_id.currency_id.id, current.company_id.currency_id.id, sums[child.id][fn], context=context)
-            #self.logger.notifyChannel('addons.'+self._name, netsvc.LOG_DEBUG,'sums: %s'%sums)
             res = {}
             null_result = dict((fn, 0.0) for fn in field_names)
             for id in ids:
                 res[id] = sums.get(id, null_result)
-            #self.logger.notifyChannel('addons.'+self._name, netsvc.LOG_DEBUG,'Accounts res: %s'%res)
             return res
 
     def __compute_prev_sum(self, cr, uid, ids, field_names, arg=None, context=None,
@@ -169,14 +152,13 @@ class account_account(osv.osv):
         }
         #get all the necessary accounts
         children_and_consolidated = self._get_children_and_consol(cr, uid, ids, context=context)
-        self.logger.notifyChannel('addons.'+self._name, netsvc.LOG_DEBUG,'Children: %s'%children_and_consolidated)
+        self._logger.debug('Children: `%s`', children_and_consolidated)
 
         #compute for each account the balance/debit/credit from the move lines
         accounts = {}
         if children_and_consolidated :
             # FIXME allow only fy and period filters
             # remove others filters from context or raise error
-            #self.logger.notifyChannel('addons.'+self._name, netsvc.LOG_DEBUG,'Context: %s'%context)
             #aml_query = self.pool.get('account.move.line')._query_get(cr, uid, context=context)
 
             #wheres = [""]
@@ -185,7 +167,6 @@ class account_account(osv.osv):
             #if aml_query.strip():
             #    wheres.append(aml_query.strip())
             #filters = " AND ".join(wheres)
-            #self.logger.notifyChannel('addons.'+self._name, netsvc.LOG_DEBUG,'Filters: %s'%filters)
             if context.get('periods_prev', False):
                 periods_prev = context.get('periods_prev', False)
             else:
@@ -195,7 +176,6 @@ class account_account(osv.osv):
                fy_id = fiscalyear_pool.search(cr, uid, [('date_start','<=',date), ('date_stop','>=',date)])
                period_pool = self.pool.get('account.period')
                periods_prev = period_pool.search(cr, uid, [('fiscalyear_id','in',fy_id),('date_start','<=',date)])
-            #self.logger.notifyChannel('addons.'+self._name, netsvc.LOG_DEBUG,'Filters: %s'%filters)
             if periods_prev and len(periods_prev) > 0:
                filters = ' AND period_id in (%s) ' % (','.join(map(str,periods_prev)) )
             else:
@@ -219,20 +199,17 @@ class account_account(osv.osv):
             #params = (tuple(children_and_consolidated),) 
             #params = (tuple(children_and_consolidated),) + query_params
             #params = (', '.join(map(str,children_and_consolidated)))
-            self.logger.notifyChannel('addons.'+self._name, netsvc.LOG_DEBUG,'Request: %s'%request)
-            self.logger.notifyChannel('addons.'+self._name, netsvc.LOG_DEBUG,'Params: %s'%params)
+            self._logger.debug('Request: `%s`', request)
+            self._logger.debug('Params: `%s`', params)
             cr.execute(request, params)
-            self.logger.notifyChannel('addons.'+self._name, netsvc.LOG_DEBUG,
-                                      'Status: %s'%cr.statusmessage)
+            self._logger.debug('Status: `%s`', cr.statusmessage)
 
             for res in cr.dictfetchall():
                 accounts[res['id']] = res
-            #self.logger.notifyChannel('addons.'+self._name, netsvc.LOG_DEBUG,'Accounts: %s'%accounts)
 
             # consolidate accounts with direct children
             children_and_consolidated.reverse()
             brs = list(self.browse(cr, uid, children_and_consolidated, context=context))
-            #self.logger.notifyChannel('addons.'+self._name, netsvc.LOG_DEBUG,'brs: %s'%brs)
 
             sums = {}
             currency_obj = self.pool.get('res.currency')
@@ -250,18 +227,15 @@ class account_account(osv.osv):
                 brs.pop(0)
                 for fn in field_names:
                     sums.setdefault(current.id, {})[fn] = accounts.get(current.id, {}).get(fn, 0.0)
-                    #self.logger.notifyChannel('addons.'+self._name, netsvc.LOG_DEBUG,'sums: %s'%sums)
                     for child in current.child_id:
                         if child.company_id.currency_id.id == current.company_id.currency_id.id:
                             sums[current.id][fn] += sums[child.id][fn]
                         else:
                             sums[current.id][fn] += currency_obj.compute(cr, uid, child.company_id.currency_id.id, current.company_id.currency_id.id, sums[child.id][fn], context=context)
-            #self.logger.notifyChannel('addons.'+self._name, netsvc.LOG_DEBUG,'sums: %s'%sums)
             res = {}
             null_result = dict((fn, 0.0) for fn in field_names)
             for id in ids:
                 res[id] = sums.get(id, null_result)
-            #self.logger.notifyChannel('addons.'+self._name, netsvc.LOG_DEBUG,'Accounts res: %s'%res)
             return res
 
 
@@ -274,4 +248,3 @@ class account_account(osv.osv):
         }
 
 account_account()
-

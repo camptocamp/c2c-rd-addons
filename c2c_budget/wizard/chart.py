@@ -23,8 +23,7 @@
 from osv import fields, osv
 import time
 from report import report_sxw
-
-import sys
+import logging
 
 class report_webkit_html(report_sxw.rml_parse):
     def __init__(self, cr, uid, name, context):
@@ -41,6 +40,7 @@ class budget_item_chart(osv.osv_memory):
     """
     _name = "account.analytic.chart.sum"
     _description = "Account Analytic chart"
+    _logger = logging.getLogger(_name)
     _columns = {
         'chart_account_id': fields.many2one('c2c_budget.item', \
                                     'Budget Top Item',  \
@@ -144,7 +144,7 @@ class budget_item_chart(osv.osv_memory):
             context = {}
         data = self.read(cr, uid, ids, [], context=context)[0]
 
-        print >>sys.stderr, 'open', context.get('open'), data['period_from'][0],  data['period_to'][0]
+        self._logger.debug('open `%s` `%s` `%s`', (context.get('open'), data['period_from'][0],  data['period_to'][0]))
         if context.get('open')  == 'view':
             result = mod_obj.get_object_reference(cr, uid, 'c2c_budget', 'open_budget_items_tree')
             id = result and result[1] or False
@@ -155,7 +155,6 @@ class budget_item_chart(osv.osv_memory):
             result = rep_obj.read(cr, uid, [id], context=context)[0]
             #FIXME 
             # does not open report
-        #print >>sys.stderr, 'result ', result
 
         result['periods'] = []
         if data['period_from'] and data['period_to']:
@@ -164,7 +163,6 @@ class budget_item_chart(osv.osv_memory):
         if data['period_prev_from'] and data['period_prev_to']:
             result['periods_prev'] = period_obj.build_ctx_periods(cr, uid, data['period_prev_from'][0], data['period_prev_to'][0])
             if result['periods_prev']:
-                #print >>sys.stderr, 'previous periods', result['periods_prev'], data['period_prev_from'],  data['period_prev_to']
                 result['context'] = str({'fiscalyear': data['fiscalyear'][0], 
                                 'chart_account_id' : data['chart_account_id'][0],
                                 'periods': result['periods'], 'periods_prev' : result['periods_prev'] ,
@@ -186,31 +184,21 @@ class budget_item_chart(osv.osv_memory):
             result['name'] += ' ' + period_obj.read(cr, uid, [data['period_prev_from'][0]], context=context)[0]['code'] 
         if data['period_prev_to']:
             result['name'] += '-' + period_obj.read(cr, uid, [data['period_prev_to'][0]], context=context)[0]['code'] 
-
-        #print >> sys.stderr, 'wiz',result
         return result
 
      
     def budget_item_chart_open_window(self, cr, uid, ids, context=None):
         if context is None:
             context = {}
-        #print >> sys.stderr, 'context before',context
         context.update({'open':'view'})
-        #print >> sys.stderr, 'context after',context
         return self.budget_item_chart_open( cr, uid, ids, context)
 
     def budget_item_chart_open_report(self, cr, uid, ids, context=None):
         if context is None:
             context = {}
         context.update({'open':'report'})
-        print >> sys.stderr, 'context after',context
+        self._logger.debug('context after `%s`', context)
         res= self.budget_item_chart_open( cr, uid, ids, context)
-        #print >> sys.stderr, 'after res', res
-
-        ##print  >> sys.stderr, 'webkit',  report_sxw.report_sxw('report.account_account.tree_sum',
-        ##               'account.account', 
-        ##               'addons/chricar_account_period_sum/report/report_account_account_tree_sum.mako',
-        ##               parser=report_webkit_html)
 
         data = self.read(cr, uid, ids, [], context=context)[0]
         period_obj = self.pool.get('account.period')
@@ -235,7 +223,7 @@ class budget_item_chart(osv.osv_memory):
              'model': 'ir.ui.menu',
              'form': data
         }
-        print >> sys.stderr, 'report datas', datas
+        self._logger.debug('report data `%s`', datas)
        
             #'report_name': 'account_account.tree_sum',
             #'report_name': 'account.account.chart.report',

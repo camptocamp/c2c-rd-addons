@@ -23,15 +23,13 @@
 from osv import osv, fields
 import decimal_precision as dp
 from tools.translate import _
-        
-import sys
-
-
+import logging
 #----------------------------------------------------------
 # Purchase Line INHERIT
 #----------------------------------------------------------
 class purchase_order_line(osv.osv):
     _inherit = "purchase.order.line"
+    _logger = logging.getLogger(_name)
 
     def _get_default_id(self, cr, uid, price_unit_id, context=None):
        pu = self.pool.get('c2c_product.price.unit')
@@ -79,7 +77,7 @@ class purchase_order_line(osv.osv):
             partner_id, date_order=False, fiscal_position=False, date_planned=False,
             name=False, price_unit_pu=False, notes=False, price_unit_id=False ):
        res = {}
-       print >>sys.stderr,'purch ',price_unit_id, price_unit_pu
+       self._logger.debug('purch `%s` `%s`', price_unit_id, price_unit_pu)
 
        if product:
            prod = self.pool.get('product.product').browse(cr, uid, product)
@@ -92,25 +90,25 @@ class purchase_order_line(osv.osv):
            #if not price_unit_pu:
            #     price_unit_pu = prod.price_unit_pu
        
-           print >>sys.stderr,'purch -68a- ',price_unit_id, price_unit_pu  
-           print >>sys.stderr,'purch -68b- ',res['value']
+           self._logger.debug('purch -68a-  `%s` `%s`', price_unit_id, price_unit_pu)
+           self._logger.debug('purch -68b-  `%s`', res['value'])
            
            res['value']['price_unit_id'] = price_unit_id
            res['value']['price_unit_pu'] =  res['value']['price_unit'] * coeff
            #res['value']['price_unit']    = price_unit_pu / float(coeff)
-           print >>sys.stderr,'purch -68c- ',res['value']
+           self._logger.debug('purch -68c-  `%s`', res['value'])
        return res
 
 
     def onchange_price_unit(self, cr, uid, ids, field_name,qty,price_pu, price_unit_id):
-        print >>sys.stderr,'purch -68c-a ',field_name,price_pu,price_unit_id
+        self._logger.debug('purch -68c-a  `%s` `%s` `%s`', field_name, price_pu, price_unit_id)
         res = {}
         if  price_pu and  price_unit_id and qty:
-           print >>sys.stderr,'purch -68c-b ',field_name
+           self._logger.debug('purch -68c-b  `%s`', field_name)
            coeff = self.pool.get('c2c_product.price_unit').get_coeff(cr, uid, price_unit_id)
-           print >>sys.stderr,'purch -68c-c ',field_name,coeff
+           self._logger.debug('purch -68c-c  `%s` `%s`', field_name,coeff)
            price = price_pu / float(coeff) 
-           print >>sys.stderr,'purch -68c-d ',field_name,price, coeff
+           self._logger.debug('purch -68c-d  `%s``%s``%s`', field_name, price, coeff)
            return {'value': {field_name : price}}
         return res
 
@@ -121,7 +119,7 @@ class purchase_order(osv.osv):
 
     def inv_line_create(self, cr, uid, a, ol):
         line = super(purchase_order, self).inv_line_create(cr, uid, a, ol)
-        print >> sys.stderr,'po line',line
+        self._logger.debug('po line `%s`', line)
         #return (0, False, {
         #    'name': ol.name,
         #    'account_id': a,
@@ -136,14 +134,14 @@ class purchase_order(osv.osv):
         #})
 
         price_unit_pu =  ol.price_unit_pu or 0.0
-        print >> sys.stderr,'price_unit_pu' ,price_unit_pu
-        print >> sys.stderr,'price_unit_id' ,ol.price_unit_id.id
+        self._logger.debug('price_unit_pu `%s`', price_unit_pu)
+        self._logger.debug('price_unit_id `%s`', ol.price_unit_id.id)
         #FIXME
         line[2]['price_unit_pu'] = price_unit_pu
         line[2]['price_unit_id'] = ol.price_unit_id.id
         #the 2 values have to be written to the line
         #line['value'].update({'price_unit_pu' : price_unit_pu, 'price_unit_id' : ol.price_unit_id.id })
-        print >> sys.stderr,'po line after',line
+        self._logger.debug('po line after `%s`', line)
         return line
 
 

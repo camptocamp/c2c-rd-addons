@@ -30,11 +30,12 @@
 #
 ###############################################
 from osv import fields,osv
+import logging
 
 class act_window(osv.osv):
     _inherit = "ir.actions.act_window"
-
     _autosearch_check_limit = 80
+    _logger = logging.getLogger(_name)
 
     def run_auto_search_check(self, cr, uid):
         window_obj = self.pool.get('ir.actions.act_window')
@@ -53,8 +54,7 @@ class act_window(osv.osv):
                 try :
                     window_obj.write(cr, uid, [act_window.id], {'auto_search' : False})
                 except :
-                    import sys ###################
-                    print  >>sys.stderr, "!!c2c_autosearch_check!! could not write ir.actions.act_window,", act_window.id
+                    self._logger.debug('!!c2c_autosearch_check!! could not write ir.actions.act_window `%s`', act_window.id)
     # end def run_auto_search_check
 
     _columns = \

@@ -22,12 +22,8 @@
 #
 ##############################################################################
 
-import netsvc
-import pooler
 from osv import fields, osv
-from tools.translate import _
 
-import sys
 class account_move(osv.osv):
     _inherit = "account.move"
 

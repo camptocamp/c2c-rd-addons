@@ -45,18 +45,16 @@ class c2c_budget_line(osv.osv):
         """ return a list of lines amoungs those given in parameter that 
         are linked to one of the given periods """
         result = []
-        import sys
-        print >> sys.stderr, 'periods_ids' ,periods_ids 
-        print >> sys.stderr, 'lines',lines
+        self._logger.debug('periods_ids `%s`', periods_ids)
+        self._logger.debug('lines `%s`', periods_ids)
 	 
         if len(periods_ids) == 0:
-            return []
-        for l in lines:
-	    print >> sys.stderr, 'l= ',l
+            return result
+        for l in lines :
+            self._logger.debug('l= `%s`', l)
             if l.period_id.id in periods_ids: 
                 result.append(l) 
-                   
-	    print >> sys.stderr, 'result ',result
+        self._logger.debug('result `%s`', result)
         return result
 
     
@@ -244,6 +242,7 @@ class c2c_budget_line(osv.osv):
         
     _name = "c2c_budget.line"
     _description = "Budget Lines"
+    _logger = logging.getLogger(_name)
     _columns = {
         'period_id' : fields.many2one('account.period', 'Period', required=True),
         'analytic_account_id' : fields.many2one(
@@ -355,8 +354,7 @@ class c2c_budget_line(osv.osv):
                try:
                   lines_ids = [l.id for l in lines]
                except:
-                  import sys
-                  print >> sys.stderr,' lines',lines
+                  self._logger.debug('lines `%s`', lines)
         return lines_ids
                                                                       
     

@@ -19,11 +19,8 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-import pooler
-import time
 from osv import fields, osv
 from tools.translate import _
-import netsvc
 import logging
 import decimal_precision as dp
 

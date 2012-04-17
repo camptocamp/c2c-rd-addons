@@ -19,16 +19,10 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-
-import time
-
 from osv import fields, osv
 from tools.translate import _
 import decimal_precision as dp
-
-import sys
-
-
+import logging
 
 class account_bank_statement(osv.osv):
     _inherit = "account.bank.statement"
@@ -190,9 +184,7 @@ account_bank_statement()
 
 class account_bank_statement_line(osv.osv):
     _inherit = "account.bank.statement.line"
-
-
-
+    _logger = logging.getLogger(_name)
     _columns = {
         'tax_id': fields.many2one("account.tax","Tax",
             help="VAT for this line, only allowed if no partner specified"),
@@ -263,7 +255,7 @@ class account_bank_statement_line(osv.osv):
         if tax_id:
             result = self.onchange_tax(cr, uid, ids, tax_id, amount, partner_id)
 	    value = result.get('value') 
-            print >> sys.stderr, 'r1',  result, value
+            self._logger.debug('r1 `%s` `%s`', result, value)
         
 	if not date:
 	    # FIXME not nice
@@ -271,7 +263,7 @@ class account_bank_statement_line(osv.osv):
 	    #v2a = v2.get('value')
 	    #v1.update(v2a)
 	    value['date']  =  date_statement
-        print >> sys.stderr, 'r2', value
+        self._logger.debug('r2 `%s`', value)
         return {'value' : value }
         
     def onchange_account(self, cr, uid, ids, account_id,tax_id, amount, partner_id):
@@ -280,7 +272,7 @@ class account_bank_statement_line(osv.osv):
         account_obj = self.pool.get('account.account').browse(cr, uid,account_id)
         tax_id = ''
         if len(account_obj.tax_ids) == 1:
-            print >> sys.stderr, 'tax_ids', account_obj.tax_ids
+            self._logger.debug('tax_ids `%s`', account_obj.tax_ids)
             for tax_rec in account_obj.tax_ids:
                 tax_id = tax_rec.id		
             result = {'value': {
@@ -298,7 +290,7 @@ class account_bank_statement_line(osv.osv):
         amount_net = 0.0
         amount_tax = 0.0
         precision = self.pool.get('decimal.precision').precision_get(cr, uid, 'Account')
-        print >> sys.stderr, 'prec ', precision
+        self._logger.debug('prec `%s`', precision)
         if tax_id:
             if partner_id:
                 #raise osv.except_osv(_('Error!'),

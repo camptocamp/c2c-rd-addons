@@ -18,23 +18,12 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-
-import time
-from datetime import datetime
-from dateutil.relativedelta import relativedelta
-from operator import itemgetter
-
-import netsvc
-import pooler
 from osv import fields, osv
-import decimal_precision as dp
-from tools.translate import _
-
-import sys
+import logging
 
 class account_account(osv.osv):
     _inherit = "account.account"
-
+    _logger = logging.getLogger(_name)
 
     def __compute(self, cr, uid, ids, field_names, arg=None, context=None,
                   query='', query_params=()):
@@ -50,10 +39,7 @@ class account_account(osv.osv):
                         (__compute will handle their escaping) as a
                         tuple
         """
-        print >> sys.stderr, 'my __compute'
-        res = {}
-        return res
-
+        self._logger.debug('my __compute')
+        return {}
 
 account_account()
-

@@ -22,16 +22,16 @@
 from osv import osv
 from tools.translate import _
 import addons
-import sys
+import logging
 
 
 class purchase_line_invoice(osv.osv_memory):
     _inherit = 'purchase.order.line_invoice'
+    _logger = logging.getLogger(_name)
     
     def makeInvoices(self, cr, uid, ids, context=None):
         res = super(purchase.order.line_invoice,self).makeInvoices(cr, uid, ids, context=None)
-        logger = netsvc.Logger()
-        logger.notifyChannel('addons.'+self._name, netsvc.LOG_INFO,'makeInvoices FGF: %s ' % (res))
+        self._logger.debug('makeInvoices FGF: %s  `%s`', res)
 #FIXME 
         return res
 
@@ -43,9 +43,10 @@ class purchase_line_invoic_copy(osv.osv_memory):
     """ inclusive price_unit"""
     _inherit = 'purchase.order.line_invoice'
     _description = 'Purchase Order Line Make Invoice c2c'
+    _logger = logging.getLogger(_name)
     
     def makeInvoices(self, cr, uid, ids, context=None):
-        print >> sys.stderr,'invoice modified'
+        self._logger.debug('invoice modified')
         """
              To get Purchase Order line and create Invoice
              @param self: The object pointer.

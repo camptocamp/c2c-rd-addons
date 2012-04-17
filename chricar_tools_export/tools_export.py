@@ -19,13 +19,9 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-import string
-
 from osv import osv, fields
-from tools.func import partial
 from tools.translate import _
-
-import sys
+import logging
 
 class ir_model(osv.osv):
 
@@ -80,7 +76,7 @@ class ir_model(osv.osv):
         return res
 
     _inherit = 'ir.model'
-
+    _logger = logging.getLogger(_name)
     _columns = {
         #'psql_csv_export': fields.function(_psql_csv_export, method=True,string='PSQL Export SQL',type = 'text',store=True),
         'psql_csv_export': fields.text('PSQL Export SQL'),
@@ -91,8 +87,6 @@ class ir_model(osv.osv):
         context = None
         model_obj = self.pool.get('ir.model')
         model_ids  = model_obj.search(cr,uid,'')        
-        #for model_id in model_ids:
-        #   print >> sys.stderr, 'model_id', model_id
         res = {}
 	ir_exports_obj = self.pool.get('ir.exports')
 	ir_exports_line_obj = self.pool.get('ir.exports.line')
@@ -100,12 +94,12 @@ class ir_model(osv.osv):
         for model in sorted(self.browse(cr, uid, model_ids, context)):
             counter +=1
             export_ids = ir_exports_obj.search(cr, uid, [('resource', '=', model.model),('name','=','default_export')])
-            print >> sys.stderr, 'export_ids',counter,model.id, model.name, export_ids
+            self._logger.debug('export_ids `%s` `%s` `%s` `%s`', counter, model.id, model.name, export_ids)
             if export_ids:
                 export_line_ids = ir_exports_line_obj.search(cr, uid, [('export_id', 'in', export_ids)])
                 if export_line_ids:
                     ir_exports_line_obj.unlink(cr, uid, export_line_ids , context=context)
-                    print >> sys.stderr, 'export_ids', export_ids ,export_line_ids
+                    self._logger.debug('export_ids `%s` `%s`', export_ids ,export_line_ids)
                 ir_exports_obj.unlink(cr, uid, export_ids , context=context)
             ir_export_id = ir_exports_obj.create(cr, uid, {
                         'name': 'default_export',
@@ -121,7 +115,7 @@ class ir_model(osv.osv):
              # FIXME should be sorted by field.name
              for field in sorted(model.field_id):
                 f = field.name
-                print >> sys.stderr, 'field ',f
+                self._logger.debug('field `%s`', f)
                 ir_exports_line_obj.create(cr, uid, {
                         'name' : f,
                         'export_id' : ir_export_id
@@ -150,12 +144,10 @@ class ir_model(osv.osv):
                     psql = psql + '\n  , ' + f
 
             psql = psql + '\n from '+ m + ';'
-            print >> sys.stderr,'model psql ', model.name, psql
+            self._logger.debug('model psql `%s` `%s`', model.name, psql)
             #FIXME write hangs
             model_obj.write(cr,uid,[model.id], {'psql_csv_export': psql})
  
         return True
 
-
 ir_model()
-

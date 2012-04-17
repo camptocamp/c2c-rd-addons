@@ -1,7 +1,4 @@
 # -*- coding: utf-8 -*-
-
-#!/usr/bin/python
-# -*- coding: utf-8 -*-
 ##############################################
 #
 # ChriCar Beteiligungs- und Beratungs- GmbH
@@ -34,12 +31,10 @@
 ###############################################
 import time
 from osv import fields,osv
-import pooler
-import sys
+import logging
 
 class chricar_budget_production(osv.osv):
      _name = "chricar.budget.production"
-
      _columns = {
           'name'         : fields.char    ('Production Budget', size=64, required=True),
           'fiscalyear_id': fields.many2one('account.fiscalyear', 'Fiscal Year',required=True),
@@ -68,6 +63,7 @@ chricar_budget_production()
   
 class chricar_budget(osv.osv):
      _name = "chricar.budget"
+     _logger = logging.getLogger(_name)
 
      def product_id_change(self, cr, uid, ids,  product, price_unit_id, uom_id):
          prod= self.pool.get('product.product').browse(cr, uid,product)
@@ -129,7 +125,6 @@ class chricar_budget(osv.osv):
             product       = line.product_id.id
             fy_date_start = line.budget_version_id.budget_id.start_date
             fy_date_stop  = line.budget_version_id.budget_id.end_date
-            #print >>sys.stderr,'harvest ',product, fy_date_start, fy_date_stop
             cr.execute("""select coalesce(sum(product_qty),0) from stock_move s,
                                                        stock_location l
                                  where state='done'
@@ -138,7 +133,7 @@ class chricar_budget(osv.osv):
                                    and product_id = %d
                                    and to_char(date_expected,'YYYY-MM-DD') between '%s' and '%s'""" % (product,fy_date_start,fy_date_stop))
             harvest = cr.fetchone()
-            print >>sys.stderr,'harvest ',product, fy_date_start, fy_date_stop, harvest[0]
+            self._logger.debug('harvest `%s` `%s` `%s` `%s`', product, fy_date_start, fy_date_stop, harvest[0])
             harvest = harvest[0]
             res[line.id]  = harvest
         return res
@@ -146,16 +141,16 @@ class chricar_budget(osv.osv):
 
      def _harvest_net(self, cr, uid, ids, name, args, context=None):
         res = {}
-        print >>sys.stderr,'harvest yield net'
+        self._logger.debug('harvest yield net')
         for line in self.browse(cr, uid, ids, context=context):
             harvest_yield = 0.0
             harvest = 0.0
             surface_used  = line.surface
             if line.harvest_soil:
-                harvest       = line.harvest * (100 - line.harvest_soil ) /100
+                harvest = line.harvest * (100 - line.harvest_soil ) /100
             else:
-                harvest       = line.harvest
-            print >>sys.stderr,'harvest yield 2',surface_used,harvest
+                harvest = line.harvest
+            self._logger.debug('harvest yield 2 `%s``%s`', surface_used, harvest)
             if surface_used and surface_used <> 0.0  and  harvest and harvest <> 0.0:
                  harvest_yield = harvest / surface_used
             res[line.id]  = harvest_yield
@@ -163,13 +158,13 @@ class chricar_budget(osv.osv):
 
      def _harvest_yield(self, cr, uid, ids, name, args  , context=None):
         res = {}
-        print >>sys.stderr,'harvest yield 1'
+        self._logger.debug('harvest yield 1')
         for line in self.browse(cr, uid, ids, context=context):
 	    harvest_yield = 0.0
 	    harvest = 0.0
             surface_used  = line.surface
             harvest       = line.harvest
-            print >>sys.stderr,'harvest yield 2',surface_used,harvest
+            self._logger.debug('harvest yield 2 `%s` `%s`', surface_used,harvest)
             if surface_used and surface_used <> 0.0  and  harvest and harvest <> 0.0:
                  harvest_yield = harvest / surface_used
             res[line.id]  = harvest_yield
@@ -177,12 +172,12 @@ class chricar_budget(osv.osv):
 
      def _harvest_yield_diff(self, cr, uid, ids, name, args, context=None):
         res = {}
-        print >>sys.stderr,'harvest yield 2'
+        self._logger.debug('harvest yield 2')
         for line in self.browse(cr, uid, ids, context=context):
 	    harvest_yield_diff = 0.0
             yield_qty  = line.yield_qty
             harvest_net = line.harvest_net
-            print >>sys.stderr,'harvest yield 2',yield_qty,harvest_net
+            self._logger.debug('harvest yield 2 `%s` `%s`', yield_qty,harvest_net)
             if yield_qty <> 0.0  and harvest_net <> 0.0:
                  harvest_yield_diff =  ((harvest_net / yield_qty) - 1.0) * 100
             res[line.id]  = harvest_yield_diff
@@ -242,6 +237,7 @@ chricar_budget()
 
 class chricar_budget_surface(osv.osv):
      _name = "chricar.budget.surface"
+     _logger = logging.getLogger(_name)
 
      def _surface_location(self, cr, uid, ids, name, args, context=None):
         res = {}
@@ -258,7 +254,7 @@ class chricar_budget_surface(osv.osv):
             location      = line.location_id.id
             fy_date_start = line.budget_id.budget_version_id.budget_id.start_date
             fy_date_stop  = line.budget_id.budget_version_id.budget_id.end_date
-            print >>sys.stderr,'harvest detail ',product,location, fy_date_start, fy_date_stop
+            self._logger.debug('harvest detail `%s` `%s` `%s` `%s`', product, location, fy_date_start, fy_date_stop)
             cr.execute("""select coalesce(sum(product_qty),0)  from stock_move s,
                                                        stock_location l
                                  where state='done'
@@ -269,7 +265,7 @@ class chricar_budget_surface(osv.osv):
                                    and to_char(date_expected,'YYYY-MM-DD') between '%s' and '%s'""" % (product,location,fy_date_start,fy_date_stop))
             harvest = cr.fetchone()
             harvest = harvest[0]
-            print >>sys.stderr,'harvest detail 2',product,location, fy_date_start, fy_date_stop,harvest
+            self._logger.debug('harvest detail 2 `%s` `%s` `%s` `%s` `%s`', product, location, fy_date_start, fy_date_stop, harvest)
             res[line.id]  = harvest
         return res
 
@@ -280,12 +276,11 @@ class chricar_budget_surface(osv.osv):
 	    harvest_yield_detail = 0.0  
             surface_used_detail  = line.name
             harvest_detail       = line.harvest
-            print >>sys.stderr,'harvest yield detail',name,surface_used_detail,harvest_detail
+            self._logger.debug('harvest yield detail `%s` `%s` `%s`', name, surface_used_detail, harvest_detail)
             if surface_used_detail and surface_used_detail <> 0.0 and harvest_detail and harvest_detail <> 0.0:
                  harvest_yield_detail = harvest_detail / surface_used_detail
             res[line.id]  = harvest_yield_detail
         return res
-
 
      _columns = {
          'budget_id'          : fields.many2one('chricar.budget','Product', required=True),
@@ -341,4 +336,3 @@ class c2c_budget_version(osv.osv):
           'budget_production_id': fields.many2one('chricar.budget.production','Budget Produktion'),
       }
 c2c_budget_version()
-

@@ -32,16 +32,9 @@
 # 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 ###############################################
-import time
 from osv import fields,osv
-import pooler
-
 import decimal_precision as dp
-
 from tools.sql import drop_view_if_exists
-
-
-import sys
 
 class chricar_budget_compare(osv.osv):
      _name = "chricar.budget.compare"
@@ -281,5 +274,4 @@ class chricar_budget_compare_year(osv.osv):
 
 
 chricar_budget_compare_year()
-
-          
+      

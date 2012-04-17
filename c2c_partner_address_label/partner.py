@@ -22,9 +22,7 @@
 
 from osv import fields,osv
 import tools
-import pooler
 from tools.translate import _
-import netsvc
 import logging
 
 
