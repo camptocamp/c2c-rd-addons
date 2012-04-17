@@ -39,6 +39,8 @@ import pooler
 from tools.sql import drop_view_if_exists
 
 from dateutil.relativedelta import *
+import decimal_precision as dp
+
 import sys
 
 # ************************
@@ -154,9 +156,9 @@ class c2c_budget_line(osv.osv):
         return res
         
      _columns = {
-       'amount_cash'        : fields.function (_amount_cash, method=True, string='Cash' ,digits=(16,0)),
-       'amount_cash_cum'    : fields.function (_amount_cash_cum, method=True, string='Cash Cum' ,digits=(16,0)),
-       'amount_p_l'         : fields.function (_amount_p_l, method=True, string='P&L'  ,digits=(16,0)),
+       'amount_cash'        : fields.function (_amount_cash, method=True, string='Cash' , digits_compute=dp.get_precision('Budget')),
+       'amount_cash_cum'    : fields.function (_amount_cash_cum, method=True, string='Cash Cum' , digits_compute=dp.get_precision('Budget')),
+       'amount_p_l'         : fields.function (_amount_p_l, method=True, string='P&L'  , digits_compute=dp.get_precision('Budget')),
        'date_due'           : fields.date     ('Date Due', help="This date will be used for cashflow planning"),
        'date_planning'      : fields.date     ('Date Planning'),
        'is_current'         : fields.function (_is_current, method=True, type="boolean", string="Is Current",
@@ -218,9 +220,9 @@ class chricar_budget_lines_production(osv.osv):
 
      _columns = {
 
-       'amount_bom'         : fields.float   ('Amount BoM', digits=(16,0)),
-       'amount_production'  : fields.function(_amount_production, method=True, string='Costs' ,digits=(16,0)),
-       'amount_cost'        : fields.function(_amount_total, method=True, string='Subtotal' ,digits=(16,0), store=True),
+       'amount_bom'         : fields.float   ('Amount BoM',  digits_compute=dp.get_precision('Budget')),
+       'amount_production'  : fields.function(_amount_production, method=True, string='Costs' , digits_compute=dp.get_precision('Budget')),
+       'amount_cost'        : fields.function(_amount_total, method=True, string='Subtotal' , digits_compute=dp.get_precision('Budget'), store=True),
        'bom_id'             : fields.many2one('mrp.bom','BoM'),
        'budget_id'          : fields.many2one('chricar.budget','Product', required=True),
        #'budget_item_id'     : fields.many2one('c2c_budget.item','Budget Item', required=True),
@@ -347,9 +349,9 @@ class chricar_budget_lines_sales(osv.osv):
         return res
 
      _columns = {
-       'amount_bom'         : fields.float   ('Amount BoM', digits=(16,0)),
-       'amount_sales'             : fields.function(_amount_sales, method=True, string='Sales' ,digits=(16,0)),
-       #'amount'       : fields.function(_amount_total, method=True, string='Subtotal' ,digits=(16,0) , store=True),
+       'amount_bom'         : fields.float   ('Amount BoM',  digits_compute=dp.get_precision('Budget')),
+       'amount_sales'             : fields.function(_amount_sales, method=True, string='Sales' , digits_compute=dp.get_precision('Budget')),
+       #'amount'       : fields.function(_amount_total, method=True, string='Subtotal' , digits_compute=dp.get_precision('Budget') , store=True),
        'bom_id'             : fields.many2one('mrp.bom','BoM'),
        'budget_id'          : fields.many2one('chricar.budget','Budget', required=True),
        #'budget_line_id'     : fields.many2one('c2c_budget.line','Budget Line', required=True),
@@ -529,17 +531,17 @@ class chricar_budget(osv.osv):
 
 
       _columns = {
-          'amount_costs'               : fields.function(_amount_costs, method=True, string='Total Cost' ,digits=(16,0),
+          'amount_costs'               : fields.function(_amount_costs, method=True, string='Total Cost' , digits_compute=dp.get_precision('Budget'),
                                          help="Sum of cost from detail below"),
-          'amount_sales'               : fields.function(_amount_sales, method=True, string='Sales Detail' ,digits=(16,0),
+          'amount_sales'               : fields.function(_amount_sales, method=True, string='Sales Detail' , digits_compute=dp.get_precision('Budget'),
                                          help="Sum of sales form details below"),
-          'amount_sales_open'          : fields.function(_amount_sales_open, method=True, string='Sales to be Planned' ,digits=(16,0),
+          'amount_sales_open'          : fields.function(_amount_sales_open, method=True, string='Sales to be Planned' , digits_compute=dp.get_precision('Budget'),
                                          help="Differnce between Sales Planned and Sales Detail Planned"),
-          'qty_sales_open'             : fields.function(_qty_sales_open, method=True, string='Quantity to be Planned' ,digits=(16,0),
+          'qty_sales_open'             : fields.function(_qty_sales_open, method=True, string='Quantity to be Planned' , digits_compute=dp.get_precision('Budget'),
                                          help="Production quantity not planned for sale"),
-          'amount_contribution'        : fields.function(_amount_contribution, method=True, string='Contribution' ,digits=(16,0),
+          'amount_contribution'        : fields.function(_amount_contribution, method=True, string='Contribution' , digits_compute=dp.get_precision('Budget'),
                                          help="Planned Detail Sales - Total Planned Costs"),
-          'amount_contribution_total'  : fields.function(_amount_contribution_total, method=True, string='Total Contribution Planned' ,digits=(16,0),
+          'amount_contribution_total'  : fields.function(_amount_contribution_total, method=True, string='Total Contribution Planned' , digits_compute=dp.get_precision('Budget'),
                                          help="Total Planned Sales - Total Planned Costs"),
           'budget_lines_production_ids': fields.one2many('chricar.budget_lines_production','budget_id','Budget Products Production'),
           'budget_lines_sales_ids'     : fields.one2many('chricar.budget_lines_sales','budget_id','Budget Products Sales'),
@@ -770,10 +772,10 @@ class chricar_budget_line_share(osv.osv):
       'valid_from'         : fields.date    ('Valid From',readonly=True),
       'valid_until'        : fields.date    ('Valid Until',readonly=True),
       'state'              : fields.char    ('State', size=16       ,readonly=True),
-      'amount_orig'        : fields.float   ('Amount Orig', digits=(16,0) ,readonly=True),
-      'cash_quote'         : fields.float   ('Cash Quote', digits=(16,0) ,readonly=True),
-      'cash_quote_future'  : fields.float   ('Cash Quote Future', digits=(16,0) ,readonly=True),
-      'pl_quote'           : fields.float   ('P&L Quote', digits=(16,0) ,readonly=True),
+      'amount_orig'        : fields.float   ('Amount Orig',  digits_compute=dp.get_precision('Budget') ,readonly=True),
+      'cash_quote'         : fields.float   ('Cash Quote',  digits_compute=dp.get_precision('Budget') ,readonly=True),
+      'cash_quote_future'  : fields.float   ('Cash Quote Future',  digits_compute=dp.get_precision('Budget') ,readonly=True),
+      'pl_quote'           : fields.float   ('P&L Quote',  digits_compute=dp.get_precision('Budget') ,readonly=True),
       'date_planning'      : fields.date    ('Date Planning',readonly=True),
       'date_due'           : fields.date    ('Date Due',readonly=True),
       'name'               : fields.char    ('Text', size=256       ,readonly=True),
