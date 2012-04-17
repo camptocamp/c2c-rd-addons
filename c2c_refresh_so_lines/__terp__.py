@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 #  __terp__.py
-#  Created by Camptocamp
-#  Copyright (c) 2009 CamptoCamp. All rights reserved.
+#  Created by Ferdinand Gassauer
+#  Copyright (c) 2012 CamptoCamp Austria. All rights reserved.
 ####################################################################
 # WARNING: This program as such is intended to be used by professional
 # programmers who take the whole responsability of assessing all potential

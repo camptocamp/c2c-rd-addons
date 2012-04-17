@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 #  __init__.py
-#  Created by Nicolas Bessi
-#  Copyright (c) 2009 CamptoCamp. All rights reserved.
+#  Created by Ferdinand Gassauer
+#  Copyright (c) 2012 CamptoCamp AUstria. All rights reserved.
 ####################################################################
 # WARNING: This program as such is intended to be used by professional
 # programmers who take the whole responsability of assessing all potential

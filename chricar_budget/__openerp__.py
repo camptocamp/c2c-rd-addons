@@ -7,7 +7,7 @@
      "description"  : """Allows to plan production and sales quantities for products sales prices
 generated 2009-08-18 23:44:30+02""",
      "category"     : "Client Modules/ChriCar Addons",
-     "depends"      : ["base","product","c2c_budget","c2c_product_price_unit"],
+     "depends"      : ["base","product","picking_invoice_rel","c2c_budget","c2c_product_price_unit"],
      "init_xml"     : ["mig_budget_init.xml"],
      "demo_xml"     : [],
      "update_xml"   : ["budget_view.xml","security/ir.model.access.csv"],

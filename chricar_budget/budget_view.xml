@@ -101,6 +101,7 @@ generated 2009-08-18 23:44:30+02
                              -->
             <field name="budget_version_id" select="1"/>
             <field name="prod_lot_id" select="1"/>
+            <field name="amount_prod_lot"/>
             <field name="location_ids" widget="one2many_list" nolabel="1" colspan="2">
               <tree string="Fields" editable="bottom">
                 <field
@@ -171,6 +172,7 @@ generated 2009-08-18 23:44:30+02
           <field name="surface" select="1" sum="Sum Surface"/>
           <field name="yield_qty" select="1"/>
           <field name="product_qty" select="1" sum="Sum Quantity"/>
+          <field name="product_qty_stock"  sum="Sum On Stock"/>
           <field name="harvest" sum="Sum Harvest"/>
           <field name="harvest_yield"/>
           <field name="harvest_soil"/>
@@ -178,7 +180,9 @@ generated 2009-08-18 23:44:30+02
           <field name="harvest_yield_diff"/>
           <field name="price" select="1"/>
           <field name="price_unit_id" select="1"/>
-          <field name="amount" select="1" sum="Sum Amount"/>
+          <field name="amount"  sum="Sum Amount"/>
+          <field name="amount_prod_lot"  sum="Sum Prod Lot"/>
+          <field name="amount_qty_stock"  sum="Sum Stock Value"/>
           <field name="yield_sale" select="1"/>
           <!--
                              <field name="partner_id" select="1" />
