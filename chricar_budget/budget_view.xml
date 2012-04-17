@@ -100,6 +100,7 @@ generated 2009-08-18 23:44:30+02
                              <field name="partner_id" select="1" />
                              -->
             <field name="budget_version_id" select="1"/>
+            <field name="prod_lot_id" select="1"/>
             <field name="location_ids" widget="one2many_list" nolabel="1" colspan="2">
               <tree string="Fields" editable="bottom">
                 <field

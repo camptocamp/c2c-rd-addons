@@ -268,6 +268,7 @@ class sale_order_line(osv.osv):
             , readonly=True
             , states=_states_mask
             , search=[('category', '=', 'sell')]
+	    , order  = 'id'
         #    , set={'category' : 'sell'}
             )
         , 'stock_dispo_production_small_ids' : one2many_sorted.one2many_sorted
@@ -277,6 +278,7 @@ class sale_order_line(osv.osv):
             , readonly=True
             , states=_states_mask
             , search=[('category', '=', 'small')]
+	    , order  = 'id'
         #    , set={'category' : 'small'}
             )
         , 'stock_dispo_production_big_ids'   : one2many_sorted.one2many_sorted
@@ -286,6 +288,7 @@ class sale_order_line(osv.osv):
             , readonly=True
             , states=_states_mask
             , search=[('category', '=', 'big')]
+	    , order  = 'id'
         #    , set={'category' : 'big'}
             )
         , 'stock_dispo_production_faulty_ids': one2many_sorted.one2many_sorted
@@ -295,6 +298,7 @@ class sale_order_line(osv.osv):
             , readonly=True
             , states=_states_mask
             , search=[('category', '=', 'faulty')]
+	    , order  = 'id'
         #    , set={'category' : 'faulty'}
             )
         , 'stock_dispo_production_waste_ids' : one2many_sorted.one2many_sorted
@@ -304,6 +308,7 @@ class sale_order_line(osv.osv):
             , readonly=True
             , states=_states_mask
             , search=[('category', '=', 'waste')]
+	    , order  = 'id'
             )
         , 'stock_dispo_production_draft_ids' : one2many_sorted.one2many_sorted
             ( 'stock.move'
@@ -312,6 +317,7 @@ class sale_order_line(osv.osv):
             , readonly=True
             , states=_states_mask
             , search=[('state', '=', 'draft')]
+	    , order  = 'id'
         #.    , set={'category' : 'waste'}
             )
         , 'stock_dispo_production_ids'       : fields.one2many

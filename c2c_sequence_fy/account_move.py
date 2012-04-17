@@ -29,6 +29,8 @@ class account_move(osv.osv):
     def post(self, cr, uid, ids, context=None):
         import sys
         print >> sys.stderr,'post move context',context 
+	if not context:
+            context= {}
         journal_id = context.get('journal_id')
         period_id = []
         if 'period_id' in context:

@@ -3,7 +3,7 @@
    <data>
 
 <act_window
-    domain="[('sale_id', '=', active_id)]"
+    domain="[('sale_id', '=', active_id),('type','=','out')]"
     id="act_sale_order_2_stock_picking"
     name="Deliveries"
     res_model="stock.picking"

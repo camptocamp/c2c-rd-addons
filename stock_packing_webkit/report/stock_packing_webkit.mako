@@ -141,7 +141,7 @@ ${pick.address_id.address_label|carriage_returns}
              <th style="white-space:nowrap">${_("Incoterm")}</th>
           %endif
           %if 'consignment_note' in pick._columns and pick.consignment_note:
-             <th style="white-space:nowrap">${_("CRM")}</th>
+             <th style="white-space:nowrap">${_("CMR")}</th>
           %endif
 
         </tr>
@@ -227,8 +227,14 @@ ${pick.address_id.address_label|carriage_returns}
 %if pick.print_code:
            <td>${line.product_id.default_code or ''|entity}</td>
            <td>${line.product_id.name|entity}</td>
+        %if line.note :
+        ${line.note |carriage_returns}
+        %endif
 %else:
            <td>${line.name|entity}</td>
+        %if line.note :
+        ${line.note |carriage_returns}
+        %endif
 %endif
 %if pick.print_uom:
            <td style="white-space:nowrap;text-align:right;">${str(line.product_qty).replace(',000','') or '0'}</td>
@@ -251,9 +257,6 @@ ${pick.address_id.address_label|carriage_returns}
            <td style="white-space:nowrap;text-align:left;">${line.location_id.name or ''}</td>
            <td style="white-space:nowrap;text-align:left;">${line.location_dest_id.name or ''}</td>
         </tr>
-        %if line.note :
-        <tr><td colspan="6" style="border-style:none;font-family:Helvetica;padding-left:20px;font-size:10;"white-space:normal;">${line.note |carriage_returns}</td></tr>
-        %endif
         %endfor
         </tbody>
     </table>

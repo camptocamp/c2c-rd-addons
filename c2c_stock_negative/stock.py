@@ -131,6 +131,8 @@ class stock_location(osv.osv):
                     _logger.info('FGF loc res negative r %s,%s' % (r, res))
                     if r[0] in loc_to_show:
                        res1.append(r)
+            else: # FIXME workaround 
+	        res1 = res
 
                 
         else:

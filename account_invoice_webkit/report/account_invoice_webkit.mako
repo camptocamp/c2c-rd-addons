@@ -106,6 +106,9 @@ ${inv.address_invoice_id.address_label|carriage_returns}
     </table>
     <br>
     <br>
+    %if inv.state in ['proforma','proforma2']:
+    <h1 style="clear:both;">${_("ProForma")}</h1> 
+    %endif
     %if inv.type == 'out_invoice' :
     <h1 style="clear:both;">${_("Customer Invoice")} ${inv.number or ''|entity}</h1>
     %elif inv.type == 'in_invoice' :
@@ -182,7 +185,13 @@ ${inv.address_invoice_id.address_label|carriage_returns}
 %if inv.print_code:
            <td>${line.product_id.default_code or ''|entity}</td>
 %endif
-           <td>${line.product_id.name or line.name|entity}</td>
+           <td>${line.product_id.name or line.name|entity}
+
+%if line.note and len(line.note.replace('\n','')) > 0 :
+<br>
+            ${line.note |carriage_returns}
+%endif
+</td>
 %if inv.print_ean:
             <td>${line.product_id.ean13 or ''}</td>
 %endif
@@ -198,13 +207,6 @@ ${inv.address_invoice_id.address_label|carriage_returns}
           %endif
            <td style="white-space:nowrap;text-align:right;">${formatLang(line.price_subtotal)}
          </td></tr>
-        %if line.note and len(line.note.replace('\n','')) > 0 :
-           %if inv.amount_discount != 0:
-        <tr><td colspan="6" style="border-style:none"><style="font-family:Helvetica;padding-left:20px;font-size:9">${line.note |carriage_returns}</td></tr>
-           %else:
-        <tr><td colspan="5" style="border-style:none"><style="font-family:Helvetica;padding-left:20px;font-size:9">${line.note |carriage_returns}</td></tr>
-           %endif
-        %endif
         %endfor
         <tr>
            <td colspan="${inv.cols}" style="border-style:none"/>
@@ -228,14 +230,14 @@ ${inv.address_invoice_id.address_label|carriage_returns}
         %for t in inv.tax_line :
         <tr>
             <td style="border:1px solid grey">${ t.name|entity } </td>
-            <td style="text-align:right;border:1px solid grey">${ formatLang(t.base)}</td>
-            <td style="text-align:right;border:1px solid grey">${ formatLang(t.amount) }</td>
+            <td style="text-align:right;border:1px solid grey;white-space:nowrap">${ formatLang(t.base)}</td>
+            <td style="text-align:right;border:1px solid grey;white-space:nowrap">${ formatLang(t.amount) }</td>
         </tr>
         %endfor
         <tr>
             <td style="border-style:none"/>
-            <td style="border-top:0px solid;text-align:right;"><b>${_("Total Tax:")}</b></td>
-            <td style="border-top:0px solid;text-align:right;">${ formatLang(inv.amount_tax) }</td>
+            <td style="border-top:0px solid;text-align:right;white-space:nowrap"><b>${_("Total Tax:")}</b></td>
+            <td style="border-top:0px solid;text-align:right;white-space:nowrap">${ formatLang(inv.amount_tax) }</td>
         </tr>
         %endif
     </table>        
