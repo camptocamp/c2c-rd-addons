@@ -7,16 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 6.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-04-16 21:23+0000\n"
-"PO-Revision-Date: 2012-04-16 23:25+0200\n"
-"Last-Translator: Ferdinand Gassauer\n"
+"POT-Creation-Date: 2012-01-23 22:07+0000\n"
+"PO-Revision-Date: 2012-04-16 23:36+0000\n"
+"Last-Translator: Ferdinand @ Camptocamp <Unknown>\n"
 "Language-Team: American English <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: \n"
-"Plural-Forms: \n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2012-04-17 05:34+0000\n"
+"X-Generator: Launchpad (build 15099)\n"
 "Language: en_US\n"
-"X-Generator: Lokalize 1.4\n"
 
 #. module: chricar_stock_dispo_production_V1
 #: field:sale.order.line,location_big_id:0
@@ -27,6 +27,11 @@ msgstr "zu groß"
 #: field:sale.order.line,location_small_id:0
 msgid "Dest. Location Small"
 msgstr "zu klein"
+
+#. module: chricar_stock_dispo_production_V1
+#: help:sale.order.line,location_waste_id:0
+msgid "Waste will be moved to this location, set default manually"
+msgstr "Abfall wird hierher gebucht, setze Standardwert manuell"
 
 #. module: chricar_stock_dispo_production_V1
 #: view:sale.order:0
@@ -131,9 +136,11 @@ msgid "Confirmed"
 msgstr "Bestätigt"
 
 #. module: chricar_stock_dispo_production_V1
-#: help:sale.order.line,product_packaging_id:0
-msgid "Product wich is used to store the main product"
-msgstr "Produkt das den Hauptnamen speichert"
+#: help:sale.order.line,location_small_id:0
+msgid "To small products will be moved to this location, defaults to source"
+msgstr ""
+"Zu kleine Produkte werden auf dieses Lager gebucht, standard ist das "
+"Herkunftslager"
 
 #. module: chricar_stock_dispo_production_V1
 #: help:sale.order.line,location_dest_id:0
@@ -182,7 +189,8 @@ msgid ""
 "number (e.g.\n"
 "4049929000000) is unique and remains valid and attached to the legal entity "
 "as long as it exists.\n"
-"It serves as search key on the GLOBALG.A.P website to validate certificates.\n"
+"It serves as search key on the GLOBALG.A.P website to validate "
+"certificates.\n"
 "Remark:\n"
 "We put it here, because \n"
 "* it changes with every harvest and \n"
@@ -197,7 +205,8 @@ msgstr ""
 "number (e.g.\n"
 "4049929000000) is unique and remains valid and attached to the legal entity "
 "as long as it exists.\n"
-"It serves as search key on the GLOBALG.A.P website to validate certificates.\n"
+"It serves as search key on the GLOBALG.A.P website to validate "
+"certificates.\n"
 "Remark:\n"
 "We put it here, because \n"
 "* it changes with every harvest and \n"
@@ -245,11 +254,6 @@ msgstr "unsichtbar"
 #: model:ir.ui.menu,name:chricar_stock_dispo_production_V1.menu_chricar_farm_production
 msgid "Assorting"
 msgstr "Sortierung"
-
-#. module: chricar_stock_dispo_production_V1
-#: model:ir.actions.act_window,name:chricar_stock_dispo_production_V1.act_sale_order_2_stock_picking_intern
-msgid "Internal Moves"
-msgstr "Interne Lieferungen"
 
 #. module: chricar_stock_dispo_production_V1
 #: field:sale.order.line,location_dest_id:0
@@ -308,7 +312,8 @@ msgstr "Produkt Eigenschaften"
 #. module: chricar_stock_dispo_production_V1
 #: constraint:stock.move:0
 msgid "You try to assign a lot which is not from the same product"
-msgstr "Sie versuchen eine Losnummer ohne Bezug zu diesem Produkt zuzuweisen."
+msgstr ""
+"Sie versuchen eine Losnummer ohne Bezug zu diesem Produkt zuzuweisen."
 
 #. module: chricar_stock_dispo_production_V1
 #: view:sale.order:0
@@ -319,13 +324,6 @@ msgstr "Bestelldatum"
 #: help:stock.move,product_packaging_id:0
 msgid "Product which is used to store the main product"
 msgstr "Produkt, welches den Hauptnamen speichert"
-
-#. module: chricar_stock_dispo_production_V1
-#: help:sale.order.line,location_small_id:0
-msgid "Too small products will be moved to this location, defaults to source"
-msgstr ""
-"Zu große Produkte werden auf diese Lager gebucht, Standard ist das "
-"Herkunftslager."
 
 #. module: chricar_stock_dispo_production_V1
 #: view:sale.order:0
@@ -348,9 +346,9 @@ msgid "Ordered Quality"
 msgstr "bestellte Qualität"
 
 #. module: chricar_stock_dispo_production_V1
-#: help:sale.order.line,location_waste_id:0
-msgid "Waste will be moved to this location, set default manually"
-msgstr "Abfall wird hierher gebucht, setze Standardwert manuell"
+#: help:sale.order.line,product_packaging_id:0
+msgid "Product wich is used to store the main product"
+msgstr "Produkt das den Hauptnamen speichert"
 
 #. module: chricar_stock_dispo_production_V1
 #: field:stock.move,packaging_qty:0
@@ -444,13 +442,6 @@ msgid "Product"
 msgstr "Produkt"
 
 #. module: chricar_stock_dispo_production_V1
-#: help:sale.order.line,location_big_id:0
-msgid "Too big products will be moved to this location, defaults to source"
-msgstr ""
-"Zu große Produkte werden auf diese Lager gebucht, Standard ist das "
-"Herkunftslager. "
-
-#. module: chricar_stock_dispo_production_V1
 #: view:stock.move:0
 msgid "Assorted"
 msgstr "Sortierung"
@@ -465,6 +456,11 @@ msgstr "Suche Auftrag"
 #: view:sale.order:0
 msgid "Emballagen"
 msgstr "Verpackungen"
+
+#. module: chricar_stock_dispo_production_V1
+#: help:sale.order.line,location_big_id:0
+msgid "To big products will be moved to this location, defaults to source"
+msgstr "Übergrößen werden auf dieses Lager gebucht, standard ist Quelllager"
 
 #. module: chricar_stock_dispo_production_V1
 #: view:sale.order:0
@@ -556,4 +552,15 @@ msgstr "Eingabe"
 msgid "To Sell"
 msgstr "Verkaufsfähig"
 
+#~ msgid "Internal Moves"
+#~ msgstr "Interne Lieferungen"
 
+#~ msgid "Too small products will be moved to this location, defaults to source"
+#~ msgstr ""
+#~ "Zu große Produkte werden auf diese Lager gebucht, Standard ist das "
+#~ "Herkunftslager."
+
+#~ msgid "Too big products will be moved to this location, defaults to source"
+#~ msgstr ""
+#~ "Zu große Produkte werden auf diese Lager gebucht, Standard ist das "
+#~ "Herkunftslager."
