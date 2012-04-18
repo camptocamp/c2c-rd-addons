@@ -108,7 +108,7 @@ class stock_picking(osv.osv):
             for ml in pick.move_lines:
                 ml_ids.append(ml.id)
             _logger.info('FGF picking action reopen pick %s ' %(ml_ids)   )
-            move_line_obj.write(cr, uid, ml_ids, {'state':'confirmed'})
+            move_line_obj.write(cr, uid, ml_ids, {'state':'draft'})
             # we have to handle real time accounting stock moves
             #FIXME - performance, should be an id - link to picking 
             #aml_ids = account_move_line_obj.search(cr, uid, [('picking_id','=',pick.id)])
