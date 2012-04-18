@@ -29,19 +29,16 @@ from tools import float_round, float_is_zero, float_compare
 
 class account_voucher(osv.osv):
     _inherit = 'account.voucher'
+    _logger = logging.getLogger(__name__)
  
 
     def writeoff_move_line_get(self, cr, uid, voucher_id, line_total, move_id, name, company_currency, current_currency, context=None):
         res = super(account_voucher,self).writeoff_move_line_get(cr, uid, voucher_id, line_total, move_id, name, company_currency, current_currency, context=None)
-        _logger = logging.getLogger(__name__)
-        _logger.info('reconcile - voucher writeoff A voucher_id, move_id: %s %s' % (voucher_id, move_id ))
-        _logger.info('reconcile - voucher writeoff B context: %s' % context)
+        self._logger.info('reconcile - voucher writeoff A voucher_id, move_id: %s %s' % (voucher_id, move_id ))
+        self._logger.info('reconcile - voucher writeoff B context: %s' % context)
         res['is_write_off']=True
-        _logger.info('reconcile - voucher writeoff: %s' % res)
-       
+        self._logger.info('reconcile - voucher writeoff: %s' % res)
         return res
-
-
 
     # this handles "pay invoice" (voucher)
     def action_move_line_create(self, cr, uid, ids, context=None):
@@ -57,22 +54,21 @@ account_voucher()
 
 class account_move_line(osv.osv):
     _inherit = "account.move.line"
+    _logger = logging.getLogger(__name__)
 
     _columns = {
          'is_write_off' : fields.boolean('Is Write Off move line'), 
     }
 
     def _update_check(self, cr, uid, ids, context=None):
-        _logger = logging.getLogger(__name__)
-        _logger.info('reconcile - check_update %s,%s' % (ids, context))
+        self._logger.info('reconcile - check_update %s,%s' % (ids, context))
         if context.get('is_discount') and context['is_discount'] :
             return True
         res = super(account_move_line, self)._update_check(cr, uid, ids, context)
         return res
 
     def reconcile_cash_discount(self, cr, uid, ids, move_ids, lines, write_off_ids=None, context=None):
-        _logger = logging.getLogger(__name__)
-        _logger.info('reconcile - action_move_line_create  voucher ids, context %s,%s' % (ids, context))
+        self._logger.info('reconcile - action_move_line_create  voucher ids, context %s,%s' % (ids, context))
         move_obj = self.pool.get('account.move')
         move_line_obj = self.pool.get('account.move.line')
         voucher_obj = self.pool.get('account.voucher')
@@ -89,7 +85,7 @@ class account_move_line(osv.osv):
         partner_id = ''
         # collect necessary data
         for line in move_line_obj.browse(cr, uid, lines):
-            _logger.info('reconcile voucher reconcile_id, acc_id, partner_id %s,%s %s %s' % (line.reconcile_id.id, line.account_id.id, line.partner_id.id, line.name))
+            self._logger.info('reconcile voucher reconcile_id, acc_id, partner_id %s,%s %s %s' % (line.reconcile_id.id, line.account_id.id, line.partner_id.id, line.name))
                 
             # search move_ids which are reconciled
               
@@ -106,21 +102,21 @@ class account_move_line(osv.osv):
                 write_off_id = line.id        
         if not reconcile_ids:
             return True
-        _logger.info('reconcile - partner_id, line_ids, reconcile_ids: %s %s %s' % (partner_id,lines, reconcile_ids))
-        _logger.info('reconcile - writeoff deb/cred: %s/%s ' % (write_off_debit,write_off_credit))
+        self._logger.info('reconcile - partner_id, line_ids, reconcile_ids: %s %s %s' % (partner_id,lines, reconcile_ids))
+        self._logger.info('reconcile - writeoff deb/cred: %s/%s ' % (write_off_debit,write_off_credit))
         if not isinstance(move_ids,list):
             move_ids = [move_ids]
         reconciled_move_line_ids = move_line_obj.search(cr, uid, [('move_id','not in',move_ids),('partner_id','=', partner_id),('reconcile_id','in', reconcile_ids ) ])
         if not isinstance(reconciled_move_line_ids, list):
             reconciled_move_line_ids = [reconciled_move_line_ids]
-        _logger.info('reconcile - reconcile_move_line_ids: %s' % (reconciled_move_line_ids))
+        self._logger.info('reconcile - reconcile_move_line_ids: %s' % (reconciled_move_line_ids))
         reconciled_move_ids = []
         for move in move_line_obj.browse(cr, uid, reconciled_move_line_ids):
             if move.move_id.id not in reconciled_move_ids:
                 reconciled_move_ids.append(move.move_id.id)
         if not isinstance(reconciled_move_ids, list):
             reconciled_move_ids = [reconciled_move_ids]
-        _logger.info('reconcile - reconcile_move_ids: %s' % (reconciled_move_ids))
+        self._logger.info('reconcile - reconcile_move_ids: %s' % (reconciled_move_ids))
 
         # now we find the invoice(s)
         invoice_ids = invoice_obj.search(cr, uid, [('move_id','in', reconciled_move_ids)])
@@ -154,11 +150,11 @@ class account_move_line(osv.osv):
                 factor = write_off_debit / invoice_total
             else:
                 factor = write_off_credit / invoice_total
-            _logger.info('reconcile - compare: %s invoice_discount_net= %s, factor : %s' % (invoice_discount_net, tax_base_total, factor))
+            self._logger.info('reconcile - compare: %s invoice_discount_net= %s, factor : %s' % (invoice_discount_net, tax_base_total, factor))
             #if not float_is_zero(invoice_discount_net - tax_base_total, prec):
             factor = factor * (tax_base_total / invoice_discount_net)
-            _logger.info('reconcile - recalculate factor %s' % factor)
-            _logger.info('reconcile - invoice_discount_ids: %s invoice_discount_total= %s, factor: %s' % (invoice_discount_ids, invoice_discount_total, factor))
+            self._logger.info('reconcile - recalculate factor %s' % factor)
+            self._logger.info('reconcile - invoice_discount_ids: %s invoice_discount_total= %s, factor: %s' % (invoice_discount_ids, invoice_discount_total, factor))
             
             invoice_discount_ids2 = ','.join([str(id) for id in invoice_discount_ids])
             # group 
@@ -187,10 +183,10 @@ class account_move_line(osv.osv):
                      group by 1,2,3,4,5,6,7""" % (factor, factor, invoice_discount_ids2))
             tax_moves = cr.dictfetchall()
             #if not tax_moves:
-            #    _logger.info('reconcile - no tax_lines: %s' % res)
+            #    self._logger.info('reconcile - no tax_lines: %s' % res)
             #    return True
 
-            _logger.info('reconcile - tax_moves: %s' % tax_moves)
+            self._logger.info('reconcile - tax_moves: %s' % tax_moves)
             # get interesting data from write off record, which later will be deleted
             #tax_cum_amount=0.0
             for r_line in move_line_obj.browse(cr, uid, [write_off_id]):
@@ -228,7 +224,7 @@ class account_move_line(osv.osv):
                        'tax_amount' : tax_move['base_discount_amount'],
                     })
                     write_off_credit -= tax_move['base_discount_amount']
-                _logger.info('reconcile - base credit: %s' % mlt)
+                self._logger.info('reconcile - base credit: %s' % mlt)
                 move_line_obj.create(cr, uid, mlt)
                 # tax
                 mlt = dict(ml)
@@ -292,25 +288,24 @@ class account_move_line(osv.osv):
         
     
     def reconcile(self, cr, uid, ids, type='auto', writeoff_acc_id=False, writeoff_period_id=False, writeoff_journal_id=False, context=None):
-        _logger = logging.getLogger(__name__)
         move_line_obj = self.pool.get('account.move.line')
 
         lines_selected = []
         if context.get('active_ids'):
             lines_selected = list(context.get('active_ids'))
-        _logger.info('reconcile move_line lines_selected %s, context %s' % (lines_selected, context))
+        self._logger.info('reconcile move_line lines_selected %s, context %s' % (lines_selected, context))
 
         res = super(account_move_line, self).reconcile(cr, uid, ids, type, writeoff_acc_id, writeoff_period_id, writeoff_journal_id, context)
         if not lines_selected:
             return res 
         lines_ids_returned = list(context.get('active_ids'))
-        _logger.info('FGF reconcile  lines_selected %s, lines_ids_returned %s' % (lines_selected, lines_ids_returned))
+        self._logger.info('FGF reconcile  lines_selected %s, lines_ids_returned %s' % (lines_selected, lines_ids_returned))
 
         write_off_line_ids = []
         for line_id in lines_ids_returned:
             if line_id not in lines_selected:
                 write_off_line_ids.append(line_id)
-        _logger.info('FGF reconcile move_line reconcile_id %s, write_off_line_ids %s, context %s' % (res, write_off_line_ids, context))
+        self._logger.info('FGF reconcile move_line reconcile_id %s, write_off_line_ids %s, context %s' % (res, write_off_line_ids, context))
 
         move_ids =[]
         for move_line in move_line_obj.browse(cr, uid, write_off_line_ids):

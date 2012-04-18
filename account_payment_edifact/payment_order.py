@@ -80,7 +80,7 @@ class Date(object):
 
 class payment_order(osv.osv) :
     _inherit = "payment.order"
-    _logger = logging.getLogger(_name)
+    _logger = logging.getLogger(__name__)
 
     def action_open(self, cr, uid, ids, *args):
         result = super(payment_order, self).action_open(cr, uid, ids, args)

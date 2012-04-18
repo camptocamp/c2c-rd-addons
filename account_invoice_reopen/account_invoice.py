@@ -19,27 +19,18 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-
-# FIXME remove logger lines or change to debug
- 
 from osv import fields, osv
 from tools.translate import _
-import logging
 import time
 import netsvc
-
-
-
 
 class account_invoice(osv.osv):
     _inherit = "account.invoice"
  
 #   def _get_state(self, cr, uid, ids, context=None):
-#       _logger = logging.getLogger(__name__)
 
 #       res = list(super(account_invoice, self)._columns['state'].selection)
 #       res.append(('draft_reset','Reset to draft'))
-#       _logger.info('FGF invoice states  %s' % (res) )
 
 #       return res 
 
@@ -72,7 +63,6 @@ class account_invoice(osv.osv):
 
 
     def action_reopen(self, cr, uid, ids, *args):
-        _logger = logging.getLogger(__name__)
         context = {} # TODO: Use context from arguments
         attachment_obj = self.pool.get('ir.attachment')
         invoice_obj = self.pool.get('account.invoice')
@@ -92,7 +82,6 @@ class account_invoice(osv.osv):
                         raise osv.except_osv(_('Error !'), _('You can not reopen invoice of this journal [%s]! You need to need to set "Allow Update Posted Entries" first')%(move.journal_id.name))
                     
             if i['payment_ids']:
-                account_move_line_obj = self.pool.get('account.move.line')
                 pay_ids = account_move_line_obj.browse(cr, uid, i['payment_ids'])
                 for move_line in pay_ids:
                     if move_line.reconcile_id or (move_line.reconcile_partial_id and move_line.reconcile_partial_id.line_partial_ids):
