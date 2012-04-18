@@ -101,7 +101,7 @@ class sale_order(osv.osv):
             report_ids = report_xml_obj.search(cr, uid, [('model','=', 'sale.order'), ('attachment','!=', False)])
             for report in report_xml_obj.browse(cr, uid, report_ids):
               if report.attachment:
-                aname = report.attachment.replace('object','pick')
+                aname = report.attachment.replace('object','order')
                 if eval(aname):
                   aname = eval(aname)+'.pdf'
                   attachment_ids = attachment_obj.search(cr, uid, [('res_model','=','sale.order'),('datas_fname', '=', aname),('res_id','=',order.id)])
@@ -115,7 +115,9 @@ class sale_order(osv.osv):
             self.write(cr, uid, order.id, {'state':'draft'})
 	    wf_service = netsvc.LocalService("workflow")
 
+            _logger.info('FGF sale_order trg del %s' % (order.id))
             wf_service.trg_delete(uid, 'sale.order', order.id, cr)
+            _logger.info('FGF sale_order trg create %s' % (order.id))
             wf_service.trg_create(uid, 'sale.order', order.id, cr)
 
             #self.log_sale(cr, uid, ids, context=context)  
