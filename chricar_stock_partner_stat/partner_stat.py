@@ -1,7 +1,4 @@
 # -*- coding: utf-8 -*-
-
-#!/usr/bin/python
-# -*- coding: utf-8 -*-
 ##############################################
 #
 # ChriCar Beteiligungs- und Beratungs- GmbH
@@ -37,7 +34,6 @@ from osv import fields,osv
 from tools import config
 from tools.translate import _
 import tools
-from xml.dom import minidom
 from tools.sql import drop_view_if_exists
 from datetime import date
 from datetime import datetime
