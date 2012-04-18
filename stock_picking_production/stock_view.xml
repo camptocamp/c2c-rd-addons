@@ -57,8 +57,8 @@
                                                     <field name="scrapped" invisible="1"/>
                                                     <field name="prodlot_id" groups="base.group_extended"/>
                                                             <field groups="base.group_extended" name="tracking_id"/>
-                                                                        <field name="location_id" domain="[('usage','in',['internal','production','invnetory'])]"/>
-                                                                        <field name="location_dest_id" domain="[('usage','in',['internal','production','invnetory'])]"/>
+                                                                        <field name="location_id" domain="[('usage','in',['internal','production','inventory'])]"/>
+                                                                        <field name="location_dest_id" domain="[('usage','in',['internal','production','inventory'])]"/>
                                                                         <field name="date_expected" string="Date Expected"/>
                                                                         <field name="state"/>
                                                                     </tree>
@@ -76,8 +76,8 @@
                                                                                 
                                                                                 <group colspan="2" col="2">
                                                                                     <separator string="Locations" colspan="2" />
-                                                                                    <field name="location_id" domain="[('usage','in',['internal','production','invnetory'])]" />
-                                                                                    <field name="location_dest_id" domain="[('usage','in',['internal','production','invnetory'])]" />
+                                                                                    <field name="location_id" domain="[('usage','in',['internal','production','inventory'])]" />
+                                                                                    <field name="location_dest_id" domain="[('usage','in',['internal','production','inventory'])]" />
                                                                                 </group>
                                                                                 
                                                                                 <group colspan="2" col="2">
@@ -183,7 +183,20 @@
                                                                     <field name="act_window_id" ref="action_picking_production"/>
                                                                 </record>
                                                                 
-                                                                
+
+   <record id="stock.action_picking_tree6" model="ir.actions.act_window">
+       <field name="name">Internal Moves</field>
+       <field name="res_model">stock.picking</field>
+       <field name="type">ir.actions.act_window</field>
+       <field name="view_type">form</field>
+       <field name="view_mode">tree,form,calendar</field>
+       <field name="domain">[('type','=','internal'),('is_production','!=','1')]</field>
+       <field name="context">{'default_type': 'internal', 'contact_display': 'partner_address', 'search_default_to_do':1}</field>
+       <field name="search_view_id" ref="stock.view_picking_internal_search"/>
+       <field name="help">Internal Moves display all inventory operations you have to perform in your warehouse. All operations can be categorized into stock journals, so that each worker has his own list of operations to perform in his own journal. Most operations are prepared automatically by OpenERP according to your preconfigured logistics rules, but you can also record manual stock operations.</field>
+   </record>
+   
+   
                                                                 
                                                                 <menuitem action="action_picking_production" id="menu_action_picking_production" parent="stock.menu_stock_warehouse_mgmt" sequence="2" groups="base.group_extended"/>
                                                                 
