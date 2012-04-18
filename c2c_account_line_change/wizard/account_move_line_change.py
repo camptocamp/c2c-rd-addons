@@ -33,7 +33,7 @@ class account_move_line_change(osv.osv_memory):
             context = {}
         record_id = context and context.get('active_id', False)
         line = self.pool.get('account.move.line').browse(cr, uid, record_id, context=context)
-        self._logger.debug('get_account  `%s` `%s` `%s` `%s`', (context, record_id, line.account_id.id,line.account_id.type, line.account_id.user_type.id))
+        self._logger.debug('get_account  `%s` `%s` `%s` `%s`', context, record_id, line.account_id.id,line.account_id.type, line.account_id.user_type.id)
         return  {'account_id' : line.account_id.id, 
                  'account_type' : line.account_id.type, 
                  'account_user_type' : line.account_id.user_type.id,
@@ -67,7 +67,7 @@ class account_move_line_change(osv.osv_memory):
             raise osv.except_osv(_('Warning !'),'Currently this wizard is for open periods only.')
         if line.account_id.type != 'other':
             raise osv.except_osv(_('Warning !'),'Currently this wizard is for account type "Other".')
-        self._logger.debug('view_init `%s` `%s` `%s`', (context, record_id, line.account_id.id))
+        self._logger.debug('view_init `%s` `%s` `%s`', context, record_id, line.account_id.id)
         return False
         
 
@@ -93,7 +93,7 @@ class account_move_line_change(osv.osv_memory):
         line = line_obj.browse(cr, uid, record_ids, context=context)
         
         vals['account_id'] =  new_account_id
-        self._logger.debug('new context `%s` `%s` `%s` `%s`', (record_ids, context, vals, update_check))
+        self._logger.debug('new context `%s` `%s` `%s` `%s`', record_ids, context, vals, update_check)
         
         line_obj.write(cr, uid, record_ids, vals, context, check, update_check)
         return {'type': 'ir.actions.act_window_close'}

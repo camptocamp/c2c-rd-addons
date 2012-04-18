@@ -184,7 +184,7 @@ account_bank_statement()
 
 class account_bank_statement_line(osv.osv):
     _inherit = "account.bank.statement.line"
-    _logger = logging.getLogger(_name)
+    _logger = logging.getLogger(__name__)
     _columns = {
         'tax_id': fields.many2one("account.tax","Tax",
             help="VAT for this line, only allowed if no partner specified"),

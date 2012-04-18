@@ -37,7 +37,7 @@ import logging
 
 class project_work(osv.osv):
     _inherit = "project.task.work"
-    _logger = logging.getLogger(_name)
+    _logger = logging.getLogger(__name__)
     
     def _update_project_id(self, cr, uid, ids, context=None):
         task_work_obj = self.pool.get('project.task.work')

@@ -1,7 +1,4 @@
 # -*- coding: utf-8 -*-
-
-#!/usr/bin/python
-# -*- coding: utf-8 -*-
 ##############################################
 #
 # ChriCar Beteiligungs- und Beratungs- GmbH
@@ -33,14 +30,10 @@
 #
 ###############################################
 from mx import DateTime
-import time
-import netsvc
 from osv import fields,osv
-#import ir
 from tools import config
 from tools.translate import _
 import tools
-from xml.dom import minidom
 from tools.sql import drop_view_if_exists
 from datetime import date
 from datetime import datetime
@@ -100,10 +93,10 @@ class stock_move(osv.osv):
     def _period_id(self, cr, uid, ids, field_name, arg, context=None):
          result = {}
          for date_period in self.browse(cr, uid, ids, context):
-             dp = date_period.date
-             dp = datetime.strptime(dp, '%Y-%m-%d  %H:%M:%S').date()
+             d_p = date_period.date
+             d_p = datetime.strptime(d_p, '%Y-%m-%d  %H:%M:%S').date()
              cr.execute("""select id from account_period where to_date('%s','YYYY-MM-DD') between date_start and date_stop;
-             """ % dp)
+             """ % d_p)
              res = cr.fetchone()
              res_id = (res and res[0]) or False
              result[date_period.id] = int(res_id)

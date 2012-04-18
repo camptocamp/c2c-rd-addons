@@ -29,7 +29,7 @@ import logging
 #----------------------------------------------------------
 class account_invoice_line(osv.osv):
     _inherit = "account.invoice.line"
-    _logger = logging.getLogger(_name)
+    _logger = logging.getLogger(__name__)
 
     def _get_default_id(self, cr, uid, price_unit_id, context=None):
        self._logger.debug('invoice pi_id `%s`', price_unit_id)

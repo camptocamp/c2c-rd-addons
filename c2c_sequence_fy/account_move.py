@@ -25,7 +25,7 @@ import logging
 
 class account_move(osv.osv):
     _inherit = "account.move"
-    _logger = logging.getLogger(_name)
+    _logger = logging.getLogger(__name__)
 
     def post(self, cr, uid, ids, context=None):
         self._logger.debug('post move context `%s`', context)

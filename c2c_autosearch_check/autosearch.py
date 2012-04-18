@@ -35,7 +35,7 @@ import logging
 class act_window(osv.osv):
     _inherit = "ir.actions.act_window"
     _autosearch_check_limit = 80
-    _logger = logging.getLogger(_name)
+    _logger = logging.getLogger(__name__)
 
     def run_auto_search_check(self, cr, uid):
         window_obj = self.pool.get('ir.actions.act_window')

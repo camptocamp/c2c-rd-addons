@@ -20,12 +20,8 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-
-import time
-import netsvc
 from osv import fields, osv
 from tools.translate import _
-import decimal_precision as dp
 
 class payment_type(osv.osv):
     _name= 'payment.type'

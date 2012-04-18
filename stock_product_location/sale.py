@@ -24,7 +24,7 @@ import logging
 
 class sale_order(osv.osv):
     _inherit= "sale.order"
-    _logger = logging.getLogger(_name)
+    _logger = logging.getLogger(__name__)
 
     def _prepare_order_line_move(self, cr, uid, order, line, picking_id, date_planned, context=None):
         res = super(sale_order,self)._prepare_order_line_move( cr, uid, order, line, picking_id, date_planned, context)

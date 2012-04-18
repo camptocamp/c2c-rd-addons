@@ -29,7 +29,7 @@ import logging
 #----------------------------------------------------------
 class stock_move(osv.osv):
     _inherit = "stock.move"
-    _logger = logging.getLogger(_name)
+    _logger = logging.getLogger(__name__)
 
     def _compute_move_value_cost(self, cr, uid, ids, name, args, context):
         if not ids : return {}
