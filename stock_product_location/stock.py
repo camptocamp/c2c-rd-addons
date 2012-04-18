@@ -19,11 +19,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-
-import pooler
 from osv import fields, osv
-import netsvc
-import sys
 
 class stock_move(osv.osv):
     _inherit= "stock.move"
@@ -41,9 +37,6 @@ class stock_move(osv.osv):
                    res['value']['location_dest_id'] = product_loc_id
             else:
                    res['value']['location_id'] = product_loc_id
-            #print >> sys.stderr,'on change productid ', res
-            #print >> sys.stderr,'on change productid loc ',loc_id 
-            #print >> sys.stderr,'on change productid ', res
             
         return res
 stock_move()

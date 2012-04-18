@@ -19,11 +19,9 @@
 #
 ##############################################################################
 
-import time
 from osv import fields, osv
 from tools.misc import DEFAULT_SERVER_DATETIME_FORMAT
-import decimal_precision as dp
-
+import logging
 
 class stock_partial_picking_line(osv.TransientModel):
     _inherit = "stock.partial.picking.line"
@@ -47,27 +45,26 @@ class stock_partial_picking_line(osv.TransientModel):
 
 class stock_partial_picking(osv.osv_memory):
     _inherit = "stock.partial.picking"
+    _logger = logging.getLogger(_name)
 
     def _product_cost_for_average_update(self, cr, uid, move):
        res = super(stock_partial_picking,self)._product_cost_for_average_update(cr, uid, move )
-       import sys
-       print >> sys.stderr,'_product_cost_for_average_update',res 
+       self._logger.debug('_product_cost_for_average_update `%s`', res)
        res.update({'cost_pu' : move.price_unit_pu or move.purchase_line_id.price_unit_pu or  move.product_id.standard_price, \
                'cost_unit_pu': move.price_unit_id.id or move.purchase_line_id.price_unit_id.id or move.product_id.price_unit_id.id})
        # FIXME - remove if 
        #res.update({'cost' : move.purchase_line_id.price_unit or  move.product_id.standard_price })
-       print >> sys.stderr,'_product_cost_for_average_update',res 
+       self._logger.debug('_product_cost_for_average_update `%s`', res)
        return res
  
     def _partial_move_for(self, cr, uid, move):
        res = super(stock_partial_picking,self)._partial_move_for(cr, uid, move)
-       import sys
-       print >> sys.stderr,'_partial_move_for (b)',res
-       print >> sys.stderr,'move',move
+       self._logger.debug('_partial_move_for (b) `%s`', res)
+       self._logger.debug('move `%s`', move)
        res.update({'move_type': move.picking_id.type})
        if move.picking_id.type == 'out' : #and move.product_id.cost_method == 'average':
            res.update({'cost_sale_pu' : move.sale_line_id.price_unit_pu or  move.product_id.list_price, \
                'cost_unit_sale_pu': move.sale_line_id.price_unit_id.id or move.product_id.price_unit_id.id,
                'sale' : move.sale_line_id.price_unit or  move.product_id.list_price})
-       print >> sys.stderr,'_partial_move_for (c)',res
+       self._logger.debug('_partial_move_for (c `%s`', res)
        return res 

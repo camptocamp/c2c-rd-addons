@@ -19,13 +19,8 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-
-
 from osv import fields, osv
-import sys
-
 from tools.translate import _
-
 
 class question(osv.osv):
     """ Question """

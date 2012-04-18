@@ -22,15 +22,8 @@
 ##############################################################################
 
 from report import report_sxw
-import xml.dom.minidom
-import os, time
-import osv
+#import xml.dom.minidom
 import re
-import tools
-import pooler
-import re
-import sys
-
 
 class rml_parse(report_sxw.rml_parse):
 

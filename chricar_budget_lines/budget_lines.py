@@ -1,7 +1,4 @@
 # -*- coding: utf-8 -*-
-
-#!/usr/bin/python
-# -*- coding: utf-8 -*-
 ##############################################
 #
 # ChriCar Beteiligungs- und Beratungs- GmbH
@@ -33,15 +30,16 @@
 #
 ###############################################
 from datetime import *
-import time
 from osv import fields,osv
-import pooler
 from tools.sql import drop_view_if_exists
-
 from dateutil.relativedelta import *
+<<<<<<< TREE
+import logging
+=======
 import decimal_precision as dp
 
 import sys
+>>>>>>> MERGE-SOURCE
 
 # ************************
 # c2c_budget-item
@@ -425,6 +423,7 @@ chricar_budget_lines_sales()
 
 class chricar_budget(osv.osv):
       _inherit = "chricar.budget"
+      _logger = logging.getLogger(_name)
 
       def copy(self, cr, uid, id, default=None, context=None):
         if default is None:
@@ -551,7 +550,7 @@ class chricar_budget(osv.osv):
 
       
       def button_delete_auto_generate_sale_lines(self, cr, uid, ids, context=None):
-       print >> sys.stderr,'delete autogenerate ', context
+       self._logger.debug('delete autogenerate `%s`', context)
        for prod_plan in self.browse(cr, uid, ids, context):
         period_obj  = self.pool.get('account.period')
         bls_obj = self.pool.get('chricar.budget_lines_sales')
@@ -560,21 +559,21 @@ class chricar_budget(osv.osv):
         line_ids = bls_obj.search(cr, uid, [('auto_generated','=',1),
                                             ('budget_id','=',prod_plan.id),
                                          ], context=context)
-        print >> sys.stderr,'lines to delete', line_ids
+        self._logger.debug('lines to delete `%s`', line_ids)
         if line_ids:
           toremove = []
           for c2c_lines in bls_obj.browse(cr, uid, line_ids):
               toremove.append(c2c_lines.budget_line_id.id)
           bls_obj.unlink(cr, uid, line_ids )
-          print >> sys.stderr,'lines deleted', line_ids
-          print >> sys.stderr,'lines c2c to deleted', toremove
+          self._logger.debug('lines deleted `%s`', line_ids)
+          self._logger.debug('lines c2c to deleted `%s`', toremove)
           self.pool.get('c2c_budget.line').unlink(cr, uid, toremove )
-          print >> sys.stderr,'lines c2c deleted', toremove
+          self._logger.debug('lines c2c deleted `%s`', toremove)
           
         # create new lines for not individually planned sales
       def button_auto_generate_sale_lines(self, cr, uid, ids, context=None):
-	# Call delete funktion instead of copy
-       print >> sys.stderr,'autogenerate ', context
+	# Call delete function instead of copy
+       self._logger.debug('autogenerate `%s`', context)
        for prod_plan in self.browse(cr, uid, ids, context):
         period_obj  = self.pool.get('account.period')
         bls_obj = self.pool.get('chricar.budget_lines_sales')
@@ -583,16 +582,16 @@ class chricar_budget(osv.osv):
         line_ids = bls_obj.search(cr, uid, [('auto_generated','=',1),
                                             ('budget_id','=',prod_plan.id),
                                          ], context=context)
-        print >> sys.stderr,'lines to delete', line_ids
+        self._logger.debug('lines to delete `%s`', line_ids)
         if line_ids:
           toremove = []
           for c2c_lines in bls_obj.browse(cr, uid, line_ids):
               toremove.append(c2c_lines.budget_line_id.id)
           bls_obj.unlink(cr, uid, line_ids )
-          print >> sys.stderr,'lines deleted', line_ids
-          print >> sys.stderr,'lines c2c to deleted', toremove
+          self._logger.debug('lines deleted `%s`', line_ids)
+          self._logger.debug('lines c2c to deleted `%s`', toremove)
           self.pool.get('c2c_budget.line').unlink(cr, uid, toremove )
-          print >> sys.stderr,'lines c2c deleted', toremove
+          self._logger.debug('lines c2c deleted `%s`', toremove)
 
         amount_sales_open = prod_plan.amount_sales_open
         #if round(amount_sales_open,0) == 0.0:
@@ -606,21 +605,21 @@ class chricar_budget(osv.osv):
             sale_to = fy_date_stop
         
         period_ids = period_obj.search(cr, uid,[('date_start','<=',sale_to),('date_stop','>=',sale_from)])
-        print >> sys.stderr,'periods', period_ids
+        self._logger.debug('periods `%s`', period_ids)
         # find budget item via account
         months = len(period_ids)
         account_sale_id = prod_plan.product_id.property_account_income.id or prod_plan.product_id.categ_id.property_account_income.id
         account_cost_id = prod_plan.product_id.property_stock_account_output and prod_plan.product_id.property_stock_account_output.id \
                           or prod_plan.product_id.categ_id.property_account_expense_categ.id
         
-        print >> sys.stderr,'account', account_sale_id, account_cost_id
+        self._logger.debug('account `%s` `%s`', account_sale_id, account_cost_id)
         
         budget_item_ids = []
         if account_sale_id:
             budget_item_ids = self.pool.get('c2c_budget.item').search(cr, uid,[('account', '=', account_sale_id )])
         budget_item_id = 553 # FIXME if nothing is found later
         if budget_item_ids:
-            print >> sys.stderr,'budget_item_ids', budget_item_ids
+            self._logger.debug('budget_item_ids `%s`', budget_item_ids)
             for bid in self.browse(cr, uid, budget_item_ids, context):
                budget_item_id = bid.id 
                
@@ -629,7 +628,7 @@ class chricar_budget(osv.osv):
             budget_item_cost_ids = self.pool.get('c2c_budget.item').search(cr, uid,[('account', '=', account_cost_id )])
         budget_item_cost_id = 553 # FIXME if nothing is found later
         if budget_item_cost_ids:
-            print >> sys.stderr,'budget_item_cost_ids', budget_item_cost_ids
+            self._logger.debug('budget_item_cost_ids `%s`', budget_item_cost_ids)
             for bid in self.browse(cr, uid, budget_item_cost_ids, context):
                budget_item_cost_id = bid.id
                
@@ -648,17 +647,17 @@ class chricar_budget(osv.osv):
                  budget_version_id = prod_plan.budget_version_id.id
                  if period.date_stop > fy_date_stop:
                       budget_version_id = prod_plan.budget_version_id.budget_version_next_id.id
-                 print >> sys.stderr,'create ', period.id, amount_monthly
+                 self._logger.debug('create `%s` `%s`', period.id, amount_monthly)
                  #d = period.date_stop.date("%Y %m %d") + timedelta(45)
-                 print >> sys.stderr,'date 1 ',period.date_stop
+                 self._logger.debug('date 1  `%s`', period.date_stop)
                  dd = period.date_stop
                  ya = int(dd[0:4])
                  mo = int(dd[5:7])
                  da = int(dd[8:10])
-                 print >> sys.stderr, ya,mo,da
+                 self._logger.debug(' `%s` `%s` `%s`', ya,mo,da)
                  d = date(ya,mo,da)  +  timedelta(45)
                  date_due = d.strftime('%Y-%m-%d')
-                 print >> sys.stderr,'date 2 ',d
+                 self._logger.debug('date 2  `%s`', d)
                  # Sales Line
                  vals = {
                   'budget_id' : prod_plan.id,
@@ -676,7 +675,7 @@ class chricar_budget(osv.osv):
                   'name' : 'generated '+ prod_plan.product_id.name + ' - ' + (prod_plan.product_id.variants or '') ,
                   'quantity' : qty_monthly
                         }
-                 print >> sys.stderr,'vals     ', vals
+                 self._logger.debug('vals    `%s`', vals)
                  bls_obj.create(cr, uid, vals )
                  
                  amount_sales_open -= amount_monthly
@@ -685,7 +684,7 @@ class chricar_budget(osv.osv):
         #line_cost_ids = bls_obj.search(cr, uid, [('auto_type','not in',['cost']),
         line_cost_ids = bls_obj.search(cr, uid, [('budget_id','=',prod_plan.id),
                                          ], context=context)
-        print >> sys.stderr,'vals cost lines ', line_cost_ids
+        self._logger.debug('vals cost lines `%s`', line_cost_ids)
         total_qty = prod_plan.product_qty
         if line_cost_ids:
           # value = cost of good sold
@@ -694,7 +693,7 @@ class chricar_budget(osv.osv):
             
           for sale_lines in bls_obj.browse(cr, uid, line_cost_ids):
               
-              print >> sys.stderr,'sales cost lines ', line_ids
+              self._logger.debug('sales cost lines `%s`', line_ids)
               amount_cost = -round(total_value_cost * sale_lines.quantity / total_qty,0)
               vals_cost = {
                   'budget_id' : sale_lines.budget_id.id,
@@ -711,7 +710,7 @@ class chricar_budget(osv.osv):
                   'auto_type' : 'cost',
                   'name' : 'generated cost '+ prod_plan.product_id.name + ' - ' + (prod_plan.product_id.variants or '') ,
                   }
-              print >> sys.stderr,'vals cost', vals_cost
+              self._logger.debug('vals cost `vals_costs`', yy)
               bls_obj.create(cr, uid, vals_cost )
 
         # Production cost inventory
@@ -733,10 +732,8 @@ class chricar_budget(osv.osv):
                   'auto_type' : 'cost',
                   'name' : 'generated production value '+ prod_plan.product_id.name + ' - ' + (prod_plan.product_id.variants or '') ,
                   }
-          print >> sys.stderr,'vals cost', vals_cost
+          self._logger.debug('vals cost `%s`', vals_cost)
           bls_obj.create(cr, uid, vals_cost )
-
-
         return True
 
 chricar_budget()

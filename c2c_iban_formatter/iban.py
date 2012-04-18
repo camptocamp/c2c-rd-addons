@@ -28,8 +28,6 @@
 #
 ###############################################
 import string
-
-import netsvc
 from osv import fields, osv
 from tools.translate import _
 

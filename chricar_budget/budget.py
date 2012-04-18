@@ -1,7 +1,4 @@
 # -*- coding: utf-8 -*-
-
-#!/usr/bin/python
-# -*- coding: utf-8 -*-
 ##############################################
 #
 # ChriCar Beteiligungs- und Beratungs- GmbH
@@ -34,14 +31,10 @@
 ###############################################
 import time
 from osv import fields,osv
-import pooler
-import decimal_precision as dp
 import logging
-import sys
 
 class chricar_budget_production(osv.osv):
      _name = "chricar.budget.production"
-
      _columns = {
           'name'         : fields.char    ('Production Budget', size=64, required=True),
           'fiscalyear_id': fields.many2one('account.fiscalyear', 'Fiscal Year',required=True),
@@ -70,6 +63,7 @@ chricar_budget_production()
   
 class chricar_budget(osv.osv):
      _name = "chricar.budget"
+     _logger = logging.getLogger(_name)
 
      def product_id_change(self, cr, uid, ids,  product, price_unit_id, uom_id):
          prod= self.pool.get('product.product').browse(cr, uid,product)
@@ -94,55 +88,11 @@ class chricar_budget(osv.osv):
             res[line.id] = line.surface * line.yield_qty
         return res
 
-     def _product_qty_stock(self, cr, uid, ids, name, args, context=None):
-        res = {}
-        for line in self.browse(cr, uid, ids, context=context):
-            res[line.id] = line.product_id.qty_available
-        return res
-
      def _amount_line(self, cr, uid, ids, name, args, context=None):
         res = {}
         for line in self.browse(cr, uid, ids, context=context):
             res[line.id] = (line.surface * line.yield_qty) * line.price  / line.price_unit_id.coefficient
         return res
-
-        
-     def _amount_qty_stock(self, cr, uid, ids, name, args, context=None):
-        res = {}
-        for line in self.browse(cr, uid, ids, context=context):
-            res[line.id] = (line.product_qty_stock * line.price / line.price_unit_id.coefficient)
-        return res
-
-     def _amount_prod_lot(self, cr, uid, ids, name, args, context=None):
-         aml = self.pool.get('account.invoice')
-         move_obj = self.pool.get('stock.move')
-         pick_obj = self.pool.get('stock.picking')
-         res = {}
-         _logger = logging.getLogger(__name__) 
-         for line in self.browse(cr, uid, ids, context=context):
-           amount = 0
-	   if line.prod_lot_id:
-             #move_ids = move_obj.search(cr, uid, [('prodlot_id','=',line.prod_lot_id.id),('picking_id','>','0')])
-             move_ids = move_obj.search(cr, uid, [('prodlot_id','=',line.prod_lot_id.id)])
-	     _logger.info('FGF move_ids %s' % (move_ids))
-             for move in move_obj.browse(cr, uid, move_ids):
-	       if  move.picking_id:
-		_logger.info('FGF move pick id %s' % (move.picking_id))
-		if move.picking_id and move.picking_id.invoice_ids :
-                    for inv in move.picking_id.invoice_ids:
-		      _logger.info('FGF move pick inv %s' % (inv))
-                      if inv.invoice_line:
-			for inv_line in inv.invoice_line:
-		          _logger.info('FGF move pick inv line %s' % (inv_line))
-                          if inv_line.product_id == line.product_id: # FIXME problematic if 2 lots are in one invoice 
-			    if inv.type == 'out_invoice' and inv.state in ['done','paid']:
-                               amount += inv_line.price_subtotal
-			    else:
-                               amount -= inv_line.price_subtotal
-
-	                    _logger.info('FGF move pick inv line amount %s' % (amount))
-           res[line.id] = amount
-         return res
 
      def _yield_line(self, cr, uid, ids, name, args, context=None):
         res = {}
@@ -175,7 +125,6 @@ class chricar_budget(osv.osv):
             product       = line.product_id.id
             fy_date_start = line.budget_version_id.budget_id.start_date
             fy_date_stop  = line.budget_version_id.budget_id.end_date
-            #print >>sys.stderr,'harvest ',product, fy_date_start, fy_date_stop
             cr.execute("""select coalesce(sum(product_qty),0) from stock_move s,
                                                        stock_location l
                                  where state='done'
@@ -184,7 +133,7 @@ class chricar_budget(osv.osv):
                                    and product_id = %d
                                    and to_char(date_expected,'YYYY-MM-DD') between '%s' and '%s'""" % (product,fy_date_start,fy_date_stop))
             harvest = cr.fetchone()
-            print >>sys.stderr,'harvest ',product, fy_date_start, fy_date_stop, harvest[0]
+            self._logger.debug('harvest `%s` `%s` `%s` `%s`', product, fy_date_start, fy_date_stop, harvest[0])
             harvest = harvest[0]
             res[line.id]  = harvest
         return res
@@ -192,16 +141,16 @@ class chricar_budget(osv.osv):
 
      def _harvest_net(self, cr, uid, ids, name, args, context=None):
         res = {}
-        print >>sys.stderr,'harvest yield net'
+        self._logger.debug('harvest yield net')
         for line in self.browse(cr, uid, ids, context=context):
             harvest_yield = 0.0
             harvest = 0.0
             surface_used  = line.surface
             if line.harvest_soil:
-                harvest       = line.harvest * (100 - line.harvest_soil ) /100
+                harvest = line.harvest * (100 - line.harvest_soil ) /100
             else:
-                harvest       = line.harvest
-            print >>sys.stderr,'harvest yield 2',surface_used,harvest
+                harvest = line.harvest
+            self._logger.debug('harvest yield 2 `%s``%s`', surface_used, harvest)
             if surface_used and surface_used <> 0.0  and  harvest and harvest <> 0.0:
                  harvest_yield = harvest / surface_used
             res[line.id]  = harvest_yield
@@ -209,13 +158,13 @@ class chricar_budget(osv.osv):
 
      def _harvest_yield(self, cr, uid, ids, name, args  , context=None):
         res = {}
-        print >>sys.stderr,'harvest yield 1'
+        self._logger.debug('harvest yield 1')
         for line in self.browse(cr, uid, ids, context=context):
 	    harvest_yield = 0.0
 	    harvest = 0.0
             surface_used  = line.surface
             harvest       = line.harvest
-            print >>sys.stderr,'harvest yield 2',surface_used,harvest
+            self._logger.debug('harvest yield 2 `%s` `%s`', surface_used,harvest)
             if surface_used and surface_used <> 0.0  and  harvest and harvest <> 0.0:
                  harvest_yield = harvest / surface_used
             res[line.id]  = harvest_yield
@@ -223,12 +172,12 @@ class chricar_budget(osv.osv):
 
      def _harvest_yield_diff(self, cr, uid, ids, name, args, context=None):
         res = {}
-        print >>sys.stderr,'harvest yield 2'
+        self._logger.debug('harvest yield 2')
         for line in self.browse(cr, uid, ids, context=context):
 	    harvest_yield_diff = 0.0
             yield_qty  = line.yield_qty
             harvest_net = line.harvest_net
-            print >>sys.stderr,'harvest yield 2',yield_qty,harvest_net
+            self._logger.debug('harvest yield 2 `%s` `%s`', yield_qty,harvest_net)
             if yield_qty <> 0.0  and harvest_net <> 0.0:
                  harvest_yield_diff =  ((harvest_net / yield_qty) - 1.0) * 100
             res[line.id]  = harvest_yield_diff
@@ -236,7 +185,7 @@ class chricar_budget(osv.osv):
 
 
      _columns = {
-       'amount'             : fields.function(_amount_line, method=True, string='Total Sales Planned' ,digits_compute=dp.get_precision('Budget'),
+       'amount'             : fields.function(_amount_line, method=True, string='Total Sales Planned' ,digits=(16,0),
                                     help="Planned Production Quantity * Price"),
        #'budget_version_id'  : fields.integer ('Budget version', required=True),
        'budget_version_id'  : fields.many2one('c2c_budget.version','Budget Version', required=True),
@@ -251,7 +200,7 @@ class chricar_budget(osv.osv):
                              help="Surface * Yield"),
        'surface'            : fields.float   ('Surface (ha)', digits=(16,2)),
        'yield_qty'          : fields.float   ('Yield qty/ha', digits=(16,0)),
-       'yield_sale'         : fields.function(_yield_line, method=True, string='Sales/ha' ,digits_compute=dp.get_precision('Budget'),
+       'yield_sale'         : fields.function(_yield_line, method=True, string='Sales/ha' ,digits=(16,0),
                               help="Planned Sales / Surface"),
        'date_cultivation'   : fields.date    ('Date Cultivation'),
        'sale_from'          : fields.date    ('Sale start', help="""Sale lines will be created aliquot for not individually planned sales""", required=True),
@@ -263,9 +212,6 @@ class chricar_budget(osv.osv):
        'harvest_yield'      : fields.function(_harvest_yield, method=True, string='Yield/ha' ,digits=(16,0), help="Harvested yield qty this year", readonly=True),
        'harvest_yield_diff' : fields.function(_harvest_yield_diff, method=True, string='Yield Net Diff' ,digits=(16,2), help="Harvested yield Diff", readonly=True),
        'prod_lot_id'        : fields.many2one('stock.production.lot', 'Production Lot', domain="[('product_id','=',product_id)]"),
-       'amount_prod_lot'    : fields.function(_amount_prod_lot, method=True, string='Sales Prod Lot' ,digits_compute=dp.get_precision('Budget'),help="Invoiced production lots"),
-       'product_qty_stock'  : fields.related ('product_id', 'qty_available', type="float",  string="On Stock", readonly = True ,help="Uninvoiced Stock"),
-       'amount_qty_stock'   : fields.function(_amount_qty_stock, method=True, string='Stock Sale Value' ,digits_compute=dp.get_precision('Budget'),help="Stock Qty * Planned Sale Price"),
 }
      _defaults = {
        'budget_version_id' : lambda *a: 1,
@@ -291,6 +237,7 @@ chricar_budget()
 
 class chricar_budget_surface(osv.osv):
      _name = "chricar.budget.surface"
+     _logger = logging.getLogger(_name)
 
      def _surface_location(self, cr, uid, ids, name, args, context=None):
         res = {}
@@ -307,7 +254,7 @@ class chricar_budget_surface(osv.osv):
             location      = line.location_id.id
             fy_date_start = line.budget_id.budget_version_id.budget_id.start_date
             fy_date_stop  = line.budget_id.budget_version_id.budget_id.end_date
-            print >>sys.stderr,'harvest detail ',product,location, fy_date_start, fy_date_stop
+            self._logger.debug('harvest detail `%s` `%s` `%s` `%s`', product, location, fy_date_start, fy_date_stop)
             cr.execute("""select coalesce(sum(product_qty),0)  from stock_move s,
                                                        stock_location l
                                  where state='done'
@@ -318,7 +265,7 @@ class chricar_budget_surface(osv.osv):
                                    and to_char(date_expected,'YYYY-MM-DD') between '%s' and '%s'""" % (product,location,fy_date_start,fy_date_stop))
             harvest = cr.fetchone()
             harvest = harvest[0]
-            print >>sys.stderr,'harvest detail 2',product,location, fy_date_start, fy_date_stop,harvest
+            self._logger.debug('harvest detail 2 `%s` `%s` `%s` `%s` `%s`', product, location, fy_date_start, fy_date_stop, harvest)
             res[line.id]  = harvest
         return res
 
@@ -329,12 +276,11 @@ class chricar_budget_surface(osv.osv):
 	    harvest_yield_detail = 0.0  
             surface_used_detail  = line.name
             harvest_detail       = line.harvest
-            print >>sys.stderr,'harvest yield detail',name,surface_used_detail,harvest_detail
+            self._logger.debug('harvest yield detail `%s` `%s` `%s`', name, surface_used_detail, harvest_detail)
             if surface_used_detail and surface_used_detail <> 0.0 and harvest_detail and harvest_detail <> 0.0:
                  harvest_yield_detail = harvest_detail / surface_used_detail
             res[line.id]  = harvest_yield_detail
         return res
-
 
      _columns = {
          'budget_id'          : fields.many2one('chricar.budget','Product', required=True),
@@ -390,4 +336,3 @@ class c2c_budget_version(osv.osv):
           'budget_production_id': fields.many2one('chricar.budget.production','Budget Produktion'),
       }
 c2c_budget_version()
-

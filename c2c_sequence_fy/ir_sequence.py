@@ -22,25 +22,26 @@
 import time
 from osv import fields, osv
 from tools.translate import _
-import sys
+import logging
 
 class ir_sequence(osv.osv):
     _inherit = 'ir.sequence'
+    _logger = logging.getLogger(_name)
 
     def next_by_id(self, cr, uid, sequence_id, context=None):
         """ Draw an interpolated string using the specified sequence."""
-        print >> sys.stderr,'next_by_id ',sequence_id,context
+        self._logger.debug('next_by_id `%s` `%s`', sequence_id, context)
         self.check_read(cr, uid)
         company_ids = self.pool.get('res.company').search(cr, uid, [], order='company_id', context=context) + [False]
         fy_seq_id = sequence_id
         if context and context['fiscalyear_id'] :
-          fy = context['fiscalyear_id'] 
-          print >> sys.stderr,'fy', fy
-          if fy:
-            fy_seq = self.pool.get('account.sequence.fiscalyear').search(cr, uid,  [('sequence_main_id','=', sequence_id),('fiscalyear_id','=',fy)])
-            for fy_s in  self.pool.get('account.sequence.fiscalyear').browse(cr, uid, fy_seq):
-               fy_seq_id = fy_s.sequence_id.id
-        print >> sys.stderr,'next_by_id seq_id',  fy_seq_id
+            fy = context['fiscalyear_id'] 
+            self._logger.debug('fy `%s`', fy)
+            if fy:
+                fy_seq = self.pool.get('account.sequence.fiscalyear').search(cr, uid,  [('sequence_main_id','=', sequence_id),('fiscalyear_id','=',fy)])
+                for fy_s in  self.pool.get('account.sequence.fiscalyear').browse(cr, uid, fy_seq):
+                    fy_seq_id = fy_s.sequence_id.id
+        self._logger.debug('next_by_id seq_id `%s`', fy_seq_id)
              
         #ids = self.search(cr, uid, ['&',('id','=', sequence_id),('company_id','in',company_ids)])
         return self._next(cr, uid, fy_seq_id , context)
@@ -118,7 +119,7 @@ class ir_sequence(osv.osv):
         if isinstance(seq,list): 
            seq = self.browse(cr, uid, id)[0]
         
-        print >> sys.stderr,'_next_seq', seq
+        self._logger.debug('_next_seq `%s`', seq)
         if seq.implementation == 'standard' :
             cr.execute("SELECT nextval('%s_%03d')" % (self._table, seq.id))
             seq.number_next = cr.fetchone()
@@ -159,9 +160,9 @@ class ir_sequence(osv.osv):
     # end def _next
 
     def next_by_code(self, cr, uid, sequence_code, context=None) :
-        print >> sys.stderr,'next_by_code', sequence_code, context
+        self._logger.debug('next_by_code `%s` `%s`', sequence_code, context)
         for user in  self.pool.get('res.users').browse(cr, uid, [uid],  context):
-            print >> sys.stderr,'next_by_code comp', user 
+            self._logger.debug('next_by_code comp `%s`', user)
             company_id = user.company_id.id
         seq_ids = self.search(cr, uid, ['&', ('code','=', sequence_code), ('company_id', '=', company_id)])
         if not seq_ids :

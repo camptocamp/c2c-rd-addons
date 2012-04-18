@@ -35,6 +35,7 @@ from tools.translate import _
 import time
 import unicode2ascii
 import base64
+import logging
 
 class P_Bank(object):
     def __init__(self, p_bank, line):
@@ -79,6 +80,7 @@ class Date(object):
 
 class payment_order(osv.osv) :
     _inherit = "payment.order"
+    _logger = logging.getLogger(_name)
 
     def action_open(self, cr, uid, ids, *args):
         result = super(payment_order, self).action_open(cr, uid, ids, args)
@@ -411,7 +413,7 @@ class payment_order(osv.osv) :
                 , 'description' : description
                 }
             attachment_obj.create(cr, uid, vals, context=context)
-            print "EDIFACT ", t ####################
+            self._logger.debug('EDIFACT `%s`', t)
     # end def _generate_order
 
     def generate_edifact(self, cr , uid, ids, context=None):

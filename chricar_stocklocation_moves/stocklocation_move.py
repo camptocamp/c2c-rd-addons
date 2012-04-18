@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-
 ##############################################################################
 #
 # Copyright (c) 2007 TINY SPRL. (http://tiny.be) All Rights Reserved.
@@ -28,13 +27,7 @@
 ##############################################################################
 from mx import DateTime
 from mx.DateTime import now
-import time
-
-import netsvc
 from osv import fields, osv
-
-import wizard
-import pooler
 from tools import config
 from tools.sql import drop_view_if_exists
 
@@ -131,4 +124,3 @@ class chricar_report_location_moves_sum(osv.osv):
                    )
                 """)
 chricar_report_location_moves_sum()
-

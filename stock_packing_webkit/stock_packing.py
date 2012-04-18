@@ -19,14 +19,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-
-import time
-from lxml import etree
-import decimal_precision as dp
-
-import netsvc
-import pooler
-from osv import fields, osv, orm
+from osv import fields, osv
 from tools.translate import _
 import one2many_sorted
 

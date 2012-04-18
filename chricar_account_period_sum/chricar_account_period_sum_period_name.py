@@ -7,12 +7,7 @@
 # created 2008-08-13
 #
 ###############################################
-import time
-import netsvc
 from osv import fields, osv
-
-from tools.misc import currency
-
 import mx.DateTime
 from mx.DateTime import RelativeDateTime, now, DateTime, localtime
 
@@ -49,4 +44,3 @@ class account_fiscalyear(osv.osv):
 
 
 account_fiscalyear()
-

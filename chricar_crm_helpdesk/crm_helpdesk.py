@@ -31,13 +31,7 @@
 # write to the Free Software Foundation, Inc.,
 # 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
-import time
-import netsvc
-
 from osv import fields, osv
-
-import pooler
-
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
 

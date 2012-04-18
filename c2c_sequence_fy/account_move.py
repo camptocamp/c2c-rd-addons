@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-# -*- coding: utf-8 -*-
 ##############################################################################
 #
 #    OpenERP, Open Source Management Solution
@@ -22,29 +21,30 @@
 ##############################################################################
 from osv import fields, osv
 from tools.translate import _
+import logging
 
 class account_move(osv.osv):
     _inherit = "account.move"
+    _logger = logging.getLogger(_name)
 
     def post(self, cr, uid, ids, context=None):
-        import sys
-        print >> sys.stderr,'post move context',context 
+        self._logger.debug('post move context `%s`', context)
 	if not context:
             context= {}
         journal_id = context.get('journal_id')
         period_id = []
         if 'period_id' in context:
            period_id = [context.get('period_id')]
-        print >> sys.stderr,'post move period_id', period_id
+        self._logger.debug('post move period_id `%s`', period_id)
         invoice_obj = context.get('invoice')
         if invoice_obj and not journal_id:
            journal_id = invoice_obj.journal_id.id
-        print >> sys.stderr,'post move journal', journal_id
+        self._logger.debug('post move journal `%s`', journal_id)
         jour_obj = self.pool.get('account.journal')
         seq_obj  = self.pool.get('ir.sequence')
         if journal_id:
           for jour in jour_obj.browse(cr, uid, [journal_id] , context=context):
-            print >> sys.stderr,'post jour', jour, jour.sequence_id
+            self._logger.debug('post jour `%s` `%s`', jour, jour.sequence_id)
             if jour.sequence_id: 
                 main_seq_id = jour.sequence_id.id
             elif jour.create_sequence in ['create','create_fy']:
@@ -62,23 +62,23 @@ class account_move(osv.osv):
                 fy_seq_obj = self.pool.get('account.sequence.fiscalyear')
                 period_obj = self.pool.get('account.period')
                 if not period_id:
-                   print >> sys.stderr,'per_id A'
+                   self._logger.debug('per_id A')
                    period_id = invoice_obj.period_id.id 
-                   print >> sys.stderr,'per_id B', period_id
+                   self._logger.debug('per_id B `%s`', period_id)
                    if not period_id:
-                       print >> sys.stderr,'per_id C', period_id
+                       self._logger.debug('per_id C `%s`', period_id)
                        period_id = period_obj.find(cr, uid, invoice_obj.date_invoice, context)
-                   print >> sys.stderr,'per_id D', period_id
+                   self._logger.debug('per_id D `%s`', period_id)
                 
                 if not isinstance(period_id, list) :
                     period_id = [period_id] 
                 for period in period_obj.browse(cr, uid, period_id):
-                    print >> sys.stderr,'fy_id', period
+                    self._logger.debug('fy_id `%s`', period)
                     fy_id = period.fiscalyear_id.id
                     fy_code =  period.fiscalyear_id.code
-                    print >> sys.stderr,'fy_id a', fy_id
+                    self._logger.debug('fy_id a `%s`', fy_id)
                 fy_seq = fy_seq_obj.search(cr, uid, [('fiscalyear_id','=', fy_id),('sequence_main_id','=',main_seq_id)])
-                print >> sys.stderr,'fy_seq_id', fy_seq
+                self._logger.debug('fy_seq_id `%s`', fy_seq)
                 if not fy_seq:
                    prefix = jour.prefix_pattern or "".join(w[0] for w in _(jour.name).split(' ')) + '-%(fy)s-'
                     
@@ -94,10 +94,9 @@ class account_move(osv.osv):
                           , 'sequence_main_id' : main_seq_id
                           , 'fiscalyear_id'    : fy_id
                           }   
-                   print >> sys.stderr,'fy_rel',fy_rel, prefix
+                   self._logger.debug('fy_rel `%s``%s`', fy_rel, prefix)
                    fy_seq_obj.create(cr, uid, fy_rel)
           #return True
-        
         return super(account_move, self).post(cr, uid, ids, context)
 
 account_move()

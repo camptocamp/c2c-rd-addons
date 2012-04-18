@@ -49,7 +49,12 @@ write({'state':'draft'})</field>
             <field name="act_to" ref="sale.act_cancel"/>
             <field name="signal">cancel</field>
         </record>
-
-
+        <!-- new-->
+   <record id="trans_rotuer_draft" model="workflow.transition">
+       <field name="act_from" ref="sale.act_router"/>
+       <field name="act_to" ref="sale.act_draft"/>
+       <field name="signal">order_confirm</field>
+   </record>
+   
     </data>
 </openerp>

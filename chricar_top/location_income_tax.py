@@ -1,7 +1,4 @@
 # -*- coding: utf-8 -*-
-
-#!/usr/bin/python
-
 ##############################################
 #
 # ChriCar Beteiligungs- und Beratungs- GmbH
@@ -32,14 +29,8 @@
 # 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 ###############################################
-import time
 from osv import fields,osv
-import tools
-#import ir
-import pooler
 import decimal_precision as dp
-import os
-import sys
 
 class location_income_tax(osv.osv):
      _name = "location.income.tax"
@@ -60,4 +51,3 @@ class stock_location(osv.osv):
        'income_tax_move_ids'  : fields.one2many('location.income.tax','location_id','Income Tax Statement'),
 }
 stock_location()
-

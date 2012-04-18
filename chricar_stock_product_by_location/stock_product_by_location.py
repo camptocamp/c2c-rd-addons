@@ -32,12 +32,8 @@
 # 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 ###############################################
-import time
 from osv import fields,osv
-import pooler
-
 from tools.sql import drop_view_if_exists
-import sys
 
 class chricar_stock_move_by_location(osv.osv):
      _name = "chricar.stock_move_by_location"
@@ -189,7 +185,6 @@ class stock_move(osv.osv):
             if move.product_qty and move.move_value_cost and move.product_qty != 0.0 and move.move_value_cost != 0.0:
                 avg_price = move.move_value_cost / move.product_qty
             res[move.id] = avg_price
-        #print >> sys.stderr, 'avgPrice ', res
         return res
 
       _columns = {
@@ -226,4 +221,3 @@ class stock_location(osv.osv):
 #FIXME
 #copy must not copy stock_product_by_location_ids
 stock_location()
-

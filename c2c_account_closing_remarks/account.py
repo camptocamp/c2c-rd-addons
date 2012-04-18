@@ -19,13 +19,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-
 from osv import osv, fields
-import decimal_precision as dp
-
-import math
-#from _common import rounding
-import re  
 from tools.translate import _
         
 
