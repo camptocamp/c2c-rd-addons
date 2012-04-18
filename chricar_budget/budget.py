@@ -123,19 +123,19 @@ class chricar_budget(osv.osv):
 	     _logger.info('FGF move_ids %s' % (move_ids))
              for move in move_obj.browse(cr, uid, move_ids):
 	       if  move.picking_id:
-		_logger.info('FGF move pick id %s' % (move.picking_id))
+		_logger.info('FGF move pick id %s %s %s' % (move.picking_id.name , move.picking_id.type, move.picking_id.state))
 		if move.picking_id and move.picking_id.invoice_ids :
                     for inv in move.picking_id.invoice_ids:
-		      _logger.info('FGF move pick inv %s' % (inv))
-                      if inv.invoice_line:
+		      _logger.info('FGF move pick inv %s %s %s' % (inv.number, inv.type, inv.state))
+                      if inv.state in ['open','paid'] and inv.invoice_line:
 			for inv_line in inv.invoice_line:
-		          _logger.info('FGF move pick inv line %s' % (inv_line))
                           if inv_line.product_id == line.product_id: # FIXME problematic if 2 lots are in one invoice 
-			    if inv.type == 'out_invoice' and inv.state in ['done','paid']:
+			    if inv.type == 'out_invoice':
                                amount += inv_line.price_subtotal
 			    else:
                                amount -= inv_line.price_subtotal
-
+		            _logger.info('FGF move pick inv line %s' % (inv_line.name))
+	                    _logger.info('FGF move pick inv line amount %s' % (inv_line.price_subtotal))
 	                    _logger.info('FGF move pick inv line amount %s' % (amount))
            res[line.id] = amount
          return res
