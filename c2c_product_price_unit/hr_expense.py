@@ -36,7 +36,7 @@ def init(self, cr):
 #----------------------------------------------------------
 class hr_expense_line(osv.osv):
     _inherit = "hr.expense.line"
-    _logger = logging.getLogger(_name)
+    _logger = logging.getLogger(__name__)
 
     def _get_price_unit_id(self, cr, uid, context):
         self._logger.debug('%s', context)

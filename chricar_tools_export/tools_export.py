@@ -76,7 +76,7 @@ class ir_model(osv.osv):
         return res
 
     _inherit = 'ir.model'
-    _logger = logging.getLogger(_name)
+    _logger = logging.getLogger(__name__)
     _columns = {
         #'psql_csv_export': fields.function(_psql_csv_export, method=True,string='PSQL Export SQL',type = 'text',store=True),
         'psql_csv_export': fields.text('PSQL Export SQL'),

@@ -298,7 +298,7 @@ account_move_line()
 
 class account_bank_statement_line(osv.osv):
     _inherit = "account.bank.statement.line"
-    _logger = logging.getLogger(_name)
+    _logger = logging.getLogger(__name__)
 
     def _check_analytic_account_exists(self, cr, uid, ids):
         for move in self.browse(cr, uid, ids):  

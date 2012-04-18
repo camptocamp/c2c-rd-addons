@@ -23,7 +23,7 @@ import logging
 
 class sale_advance_payment_inv(osv.osv_memory):
     _inherit = "sale.advance.payment.inv"
-    _logger = logging.getLogger(_name)
+    _logger = logging.getLogger(__name__)
 
     def create_invoices(self, cr, uid, ids, context=None):
         """

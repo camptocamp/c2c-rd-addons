@@ -55,9 +55,7 @@ from c2c_reporting_tools.translation import _
 
 
 import pooler
-import netsvc
-import time
-
+import logging
 import tools
 import inspect
 
@@ -66,7 +64,7 @@ class PythonReport(report_int):
     """ report made in python """
 
     logger = None
-
+    _logger = logging.getLogger("PythonReport")
     cr = None
     uid = None
     ids = None
@@ -80,7 +78,7 @@ class PythonReport(report_int):
     
     def __init__(self, openerp_name, objects_name=None):
         """ constructor """
-        self.logger = netsvc.Logger()
+        self.logger = self._logger
         self.objects_name = objects_name
         super(PythonReport, self).__init__(openerp_name)
         

@@ -423,7 +423,7 @@ chricar_budget_lines_sales()
 
 class chricar_budget(osv.osv):
       _inherit = "chricar.budget"
-      _logger = logging.getLogger(_name)
+      _logger = logging.getLogger(__name__)
 
       def copy(self, cr, uid, id, default=None, context=None):
         if default is None:

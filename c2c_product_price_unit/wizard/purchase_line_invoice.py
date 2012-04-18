@@ -27,7 +27,7 @@ import logging
 
 class purchase_line_invoice(osv.osv_memory):
     _inherit = 'purchase.order.line_invoice'
-    _logger = logging.getLogger(_name)
+    _logger = logging.getLogger(__name__)
     
     def makeInvoices(self, cr, uid, ids, context=None):
         res = super(purchase.order.line_invoice,self).makeInvoices(cr, uid, ids, context=None)
@@ -43,7 +43,7 @@ class purchase_line_invoic_copy(osv.osv_memory):
     """ inclusive price_unit"""
     _inherit = 'purchase.order.line_invoice'
     _description = 'Purchase Order Line Make Invoice c2c'
-    _logger = logging.getLogger(_name)
+    _logger = logging.getLogger(__name__)
     
     def makeInvoices(self, cr, uid, ids, context=None):
         self._logger.debug('invoice modified')

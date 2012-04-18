@@ -23,7 +23,7 @@ import logging
 
 class account_account(osv.osv):
     _inherit = "account.account"
-    _logger = logging.getLogger(_name)
+    _logger = logging.getLogger(__name__)
 
     def __compute(self, cr, uid, ids, field_names, arg=None, context=None,
                   query='', query_params=()):

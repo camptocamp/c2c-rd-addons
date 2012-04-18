@@ -23,12 +23,9 @@
 #
 #
 ##############################################################################
-
 from osv import fields
 from osv import osv
-#import ir
 import decimal_precision as dp
-
 import netsvc
 from tools import config
 

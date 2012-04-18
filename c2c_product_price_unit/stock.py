@@ -94,7 +94,7 @@ stock_move()
 #----------------------------------------------------------
 class stock_picking(osv.osv):
     _inherit = "stock.picking"
-    _logger = logging.getLogger(_name)
+    _logger = logging.getLogger(__name__)
 
     def _invoice_line_hook(self, cr, uid, move_line, invoice_line_id):
         '''Call after the creation of the invoice line'''

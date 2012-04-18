@@ -26,7 +26,7 @@ import logging
 
 class ir_sequence(osv.osv):
     _inherit = 'ir.sequence'
-    _logger = logging.getLogger(_name)
+    _logger = logging.getLogger(__name__)
 
     def next_by_id(self, cr, uid, sequence_id, context=None):
         """ Draw an interpolated string using the specified sequence."""

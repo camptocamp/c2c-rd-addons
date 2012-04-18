@@ -29,7 +29,7 @@ import logging
 #----------------------------------------------------------
 class sale_order_line(osv.osv):
     _inherit = "sale.order.line"
-    _logger = logging.getLogger(_name)
+    _logger = logging.getLogger(__name__)
 
     def _get_default_id(self, cr, uid, price_unit_id, context=None):
        pu = self.pool.get('c2c_product.price.unit')
@@ -102,7 +102,7 @@ sale_order_line()
 
 class sale_order(osv.osv):
     _inherit = "sale.order"
-    _logger = logging.getLogger(_name)
+    _logger = logging.getLogger(__name__)
 
     # FIXME define ship line fields like in purchase order
     # should store price_unit_id for sales

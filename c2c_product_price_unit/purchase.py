@@ -29,7 +29,7 @@ import logging
 #----------------------------------------------------------
 class purchase_order_line(osv.osv):
     _inherit = "purchase.order.line"
-    _logger = logging.getLogger(_name)
+    _logger = logging.getLogger(__name__)
 
     def _get_default_id(self, cr, uid, price_unit_id, context=None):
        pu = self.pool.get('c2c_product.price.unit')
