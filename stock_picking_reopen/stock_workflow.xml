@@ -65,5 +65,13 @@ write({'state':'confirmed'})</field>
         </record>
 
 
+   <record id="trans_confirmed_draft" model="workflow.transition">
+       <field name="act_from" ref="stock.act_confirmed"/>
+       <field name="act_to" ref="stock.act_draft"/>
+       <!--
+       <field name="signal">button_confirm</field>
+-->
+   </record>
+   
     </data>
 </openerp>
