@@ -36,16 +36,19 @@ class stock_picking(osv.osv):
         """
         res = {}
         for pick in self.browse(cr, uid, ids, context=context):
-            res[pick.id] = False
+            res[pick.id] = 0
             for line in pick.move_lines:
-                if line.location_id.usage == 'production' or line.location_dest_id.usage == 'production':
-                    res[pick.id] = True
+         	if line.location_id.usage in ['inventory', 'production'] or line.location_dest_id.usage in ['inventory', 'production'] :
+                    res[pick.id] = 1
                     break
+	        else:
+                    res[pick.id] = -1
+
         return res
                 
     
     _columns = {
-          'is_production'    : fields.function(_is_production, type='boolean', string='Is Production',store=True),
+          'is_production'    : fields.function(_is_production, method=True,  type='integer', string='Is Production',store=True),
     }
 
 
