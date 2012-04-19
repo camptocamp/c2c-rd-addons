@@ -34,7 +34,7 @@ Add packing to purichase order line
 
     """,
     'website': 'http://www.camptocamp.com',
-    "depends" : ["purchase","stock_picking_reopen","account_invoice_reopen"],
+    "depends" : ["purchase"],
     'init_xml': [],
     'update_xml': ['purchase_view.xml' ],
     'demo_xml': [],
