@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
-
+	    <!--
         <record id="sale.act_done" model="workflow.activity">
             <field name="wkf_id" ref="sale.wkf_sale"/>
             <field name="name">done</field>
@@ -49,11 +49,10 @@ write({'state':'draft'})</field>
             <field name="act_to" ref="sale.act_cancel"/>
             <field name="signal">cancel</field>
         </record>
-        <!-- new-->
    <record id="trans_rotuer_draft" model="workflow.transition">
        <field name="act_from" ref="sale.act_router"/>
        <field name="act_to" ref="sale.act_draft"/>
    </record>
-   
+  --> 
     </data>
 </openerp>

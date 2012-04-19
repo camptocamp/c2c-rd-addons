@@ -77,6 +77,7 @@ class sale_order(osv.osv):
         stock_picking_obj = self.pool.get('stock.picking')
         report_xml_obj = self.pool.get('ir.actions.report.xml')
         attachment_obj = self.pool.get('ir.attachment')
+        order_line_obj = self.pool.get('sale.order.line')
 
         now = ' ' + _('Invalid') + time.strftime(' [%Y%m%d %H%M%S]')
         for order in self.browse(cr, uid, ids):
@@ -113,6 +114,11 @@ class sale_order(osv.osv):
                     attachment_obj.write(cr, uid, a.id, vals)
 
             self.write(cr, uid, order.id, {'state':'draft'})
+            line_ids = []
+	    for line in order.order_line:
+		line_ids.append(line.id)
+	    order_line_obj.write(cr, uid, line_ids, {'state':'draft'})
+
 	    wf_service = netsvc.LocalService("workflow")
 
             _logger.info('FGF sale_order trg del %s' % (order.id))
