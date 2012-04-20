@@ -192,6 +192,7 @@ class chricar_account_move_line_deloitte(osv.osv):
          journal_obj = self.pool.get('account.journal')
          top_obj = self.pool.get('chricar.top')
          location_obj = self.pool.get('stock.location')
+         now =  time.strftime("%Y%m%d%H%M%S")
 
          if context.get('company_id'):
               company_id = context.get('company_id')
@@ -204,23 +205,26 @@ class chricar_account_move_line_deloitte(osv.osv):
              return
          self.write(cr, uid, acc_deloitte_ids, {'state': 'progress'} )
          acc_ids = account_obj.search(cr, uid, [('company_id','=',company_id)])
-         #_logger.info('FGF account ids %s' % (acc_ids))
+         _logger.info('FGF account ids %s' % (acc_ids))
          acc_codes = []
          for acc in  account_obj.browse(cr, uid, acc_ids, context=None):
-             acc_codes.append(acc.code)
-         #_logger.info('FGF account names %s' % (acc_names))
+             if acc.code not in acc_codes:
+                 acc_codes.append(acc.code)
+         #_logger.info('FGF account names %s' % (acc_codes))
 
-         #_logger.info('FGF account deloitte ids %s' % (acc_deloitte_ids))
+         _logger.info('FGF account deloitte ids %s' % (acc_deloitte_ids))
          acc_deloitte_codes = []
          for deloitte_acc in  self.browse(cr, uid, acc_deloitte_ids, context=None):
-             acc_deloitte_codes.append(deloitte_acc.account)
+	     if deloitte_acc.account[:2] not in ['23','33'] \
+			     and deloitte_acc.account not in acc_codes \
+			     and deloitte_acc.account not in acc_deloitte_codes:
+                 acc_deloitte_codes.append(deloitte_acc.account)
+         _logger.info('FGF missing acc_deloitte_codes %s' % (acc_deloitte_codes))
          
-         now =  time.strftime("%Y%m%d%H%M%S")
          counter= 0
          user_type = self.pool.get('account.account.type').search(cr, uid, [('code','=','view')])[0]
          parent_id = account_obj.search(cr, uid, [('parent_id','=',False)])[0]
          for acc_deloitte_code in acc_deloitte_codes:
-             if acc_deloitte_code not in acc_codes:
                  counter += 1
                  vals = {
                    'name' : acc_deloitte_code,
@@ -234,36 +238,42 @@ class chricar_account_move_line_deloitte(osv.osv):
                  account_obj.create(cr, uid, vals, context)
 
          # create missing analytic accounts
-         aacc_ids = account_obj.search(cr, uid, [('company_id','=',company_id)])
+         aacc_ids = analytic_obj.search(cr, uid, [('company_id','=',company_id)])
          aacc_codes = []
-         for aacc in  account_obj.browse(cr, uid, aacc_ids, context=None):
-             aacc_codes.append(aacc.code)
+         for aacc in  analytic_obj.browse(cr, uid, aacc_ids, context=None):
+             if aacc.code:
+                  aacc_codes.append(aacc.code)
 
          aacc_deloitte_ids = self.search(cr, uid, [('company_id','=',company_id)])
          aacc_deloitte_codes = []
          for deloitte_aacc in  self.browse(cr, uid, aacc_deloitte_ids, context=None):
-             if deloitte_aacc.analytic_account:
+             if deloitte_aacc.analytic_account \
+			     and deloitte_aacc.analytic_account not in aacc_deloitte_codes \
+			     and deloitte_aacc.analytic_account not in aacc_codes:
                   aacc_deloitte_codes.append(deloitte_aacc.analytic_account)
 
          counter= 0
 
+         _logger.info('FGF aacc_codes %s' % (aacc_codes))
+         _logger.info('FGF missing aacc_deloitte_codes %s' % (aacc_deloitte_codes))
          for aacc_deloitte_code in aacc_deloitte_codes:
-             if aacc_deloitte_code and aacc_deloitte_code not in aacc_codes:
                  counter += 1
                  val = {
                    'code' : aacc_deloitte_code,
                    'name' : 'i-'+now+'-'+str(counter),
                  }
                  analytic_obj.create(cr, uid, val)
+                 _logger.info('FGF create aacc_deloitte_codes %s' % (val))
 
          # update deloitte moves
          for deloitte_move in self.browse(cr, uid, acc_deloitte_ids, context=context):
               vals = {}
-              if not deloitte_move.account_id:
-                   vals['account_id'] =  account_obj.search(cr, uid, [('code','=', deloitte_move.account)])[0]
-              if not deloitte_move.analytic_account_id:
-                   vals['analytic_account_id'] =  analytic_obj.search(cr, uid, [('code','=', deloitte_move.analytic_account)])[0]
+	      if not deloitte_move.account_id and deloitte_move.account[:2] not in ['23','33']:
+                   vals['account_id'] =  account_obj.search(cr, uid, [('code','=', deloitte_move.account)])
+              if deloitte_move.analytic_account and not deloitte_move.analytic_account_id:
+                   vals['analytic_account_id'] =  analytic_obj.search(cr, uid, [('code','=', deloitte_move.analytic_account)])
               if vals:
+                  _logger.info('FGF create aacc_deloitte_codes %s' % (vals))
                   self.write(cr, uid, deloitte_move.id, vals ,context)
 
      def create_move(self, cr, uid, line, vals, context ):
