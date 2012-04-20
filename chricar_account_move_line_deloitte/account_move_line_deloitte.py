@@ -278,11 +278,12 @@ class chricar_account_move_line_deloitte(osv.osv):
          return True
 
      def create_move(self, cr, uid, line, vals, context ):
+     #def create_move(self, cr, uid, v ):
          _logger = logging.getLogger(__name__)
          account_obj = self.pool.get('account.account')
          move_line_obj = self.pool.get('account.move.line')
          analytic_line_obj = self.pool.get('account.analytic.line')
-         l = line
+         l = dict(line)
          l['journal_id'] = vals['journal_id']
          l['state'] = 'draft'
          l['date'] = vals['date']
@@ -295,12 +296,12 @@ class chricar_account_move_line_deloitte(osv.osv):
                  if analytic_usage == 'none':
                      l['analytic_account_id'] = ''
                  #_logger.info('FGF move_line = %s' % (l))
-                 move_line_id = move_line_obj.create(cr, uid, l)
+                 move_line_id = move_line_obj.create(cr, uid, l, context)
 
                  if l['analytic_account_id']:
                     l['general_account_id'] = line['account_id']
                     l['account_id'] = line['analytic_account_id']
-                    l['journal_id'] = context['journal_analyitc_id']
+                    l['journal_id'] = context['journal_analytic_id']
                     l['ref'] = line['name']
                     l['move_id'] = move_line_id
                     if l['debit'] > 0.0 :
@@ -308,7 +309,12 @@ class chricar_account_move_line_deloitte(osv.osv):
                     else:
                        l['amount'] = l['credit']
                     #_logger.info('FGF move_analyitc line = %s' % (l))
-                    analytic_line_obj.create(cr, uid, l)
+	            del l['analytic_account_id']
+	            del l['analytic_lines']
+	            del l['state']
+	            del l['credit']
+	            del l['debit']
+                    analytic_line_obj.create(cr, uid, l, context)
 
 
 
@@ -339,25 +345,40 @@ class chricar_account_move_line_deloitte(osv.osv):
          if not acc_deloitte_ids:
              return True
 
-         journal_id = journal_obj.search(cr, uid, [('code','=','DE')], context=context)[0]
-         journal_analyitc_id = analytic_jour_obj.search(cr, uid, [('code','=','Deloitte')], context=context)[0]
-         context['journal_analyitc_id'] = journal_analyitc_id
+         journal_id = journal_obj.search(cr, uid, [('code','=','DE')], context=context)
+         if journal_id: 
+		 journal_id = journal_id[0] 
+         _logger.info('FGF journal_id  %s' % (journal_id))
+	 #if not journal_id:
+	 #    journal_id = journal_obj.create(cr, uid, {'company_id':company_id, 'code':'DE', 'name':'Deloitte', 'type','general'})
+         journal_analytic_id = analytic_jour_obj.search(cr, uid, [('name','=','Deloitte')], context=context)
+         if journal_analytic_id: 
+		 journal_analytic_id = journal_analytic_id[0] 
+         context['journal_analytic_id'] = journal_analytic_id
  
          cr.execute("""select distinct company_id, period_id, symbol||'-'||name||'-D' as name, date
                   from chricar_account_move_line_deloitte
                  where id in (%s)""" % (','.join(map(str,acc_deloitte_ids)) ))
          for move in cr.dictfetchall():
-             vals = move
-             d =  datetime.strptime(move['date'],"%d.%m.%y")
+             vals = dict(move)
+	     try:
+                d =  datetime.strptime(move['date'],"%d.%m.%y")
+	     except:
+		try:
+                   d =  datetime.strptime(move['date'],"%d/%m/%y")
+		except:
+		   pass
              date = d.strftime('%Y-%m-%d') 
              vals.update({
                 'journal_id' : journal_id,
                 'state'      : 'draft',
-                'date'       : date
+                'date'       : date,
+		#'journal_analytic_id': journal_analytic_id,
              })
              #_logger.info('FGF move vals %s' % (vals))
              move_id = move_obj.create(cr, uid, vals, {} )
              context['move_id'] = move_id 
+             vals['move_id'] = move_id 
              #_logger.info('FGF move_id = %s' % (move_id))
              # FGF 20120304 - this code is copied from a 2 years old working sql procedure !
              # writing in python from scratch would look much different
@@ -476,12 +497,27 @@ vals['company_id'], vals['period_id'], vals['name'], \
 vals['company_id'], vals['period_id'], vals['name'], \
 vals['company_id'], vals['period_id'], vals['name'], )
 )
+             moves= []
              for line in cr.dictfetchall():
+                 # FIXME - performance 
+		 v = dict(line)
+		 v.update(vals)
+		 v.update(context)
+                 #_logger.info('FGF create_move line %s' % (line))
+                 #_logger.info('FGF create_move vals %s' % (vals))
+                 #_logger.info('FGF create_move v %s' % (v))
+                 #_logger.info('FGF create_move context %s' % (context))
+		 #moves.append( (v))
                  self.create_move(cr, uid, line, vals, context )
+             #_logger.info('FGF create_move moves %s' % (moves))
+             #self.create_move(cr, uid, moves)
         
-         journal_id = journal_obj.search(cr, uid, [('code','=','DEN')], context=context)[0]
-         journal_analyitc_id = analytic_jour_obj.search(cr, uid, [('code','=','Deloitte')], context=context)[0]
-         context['journal_analyitc_id'] = journal_analyitc_id
+         _logger.info('FGF create_move neutral' )
+         journal_id = journal_obj.search(cr, uid, [('code','=','DEN')], context=context)
+	 if journal_id:
+             journal_id = journal_id[0]
+         #journal_analytic_id = analytic_jour_obj.search(cr, uid, [('code','=','Deloitte')], context=context)[0]
+         #context['journal_analytic_id'] = journal_analytic_id
          period_ids = self.search(cr, uid, [('state', '=', 'progress')])
          ##########################
          #create a move to neutralize the OpenERP move_lines
@@ -498,7 +534,7 @@ vals['company_id'], vals['period_id'], vals['name'], )
                 'state'      : 'draft',
                 'name'       : 'neutral',
              })
-             #_logger.info('FGF move vals %s' % (vals))
+             _logger.info('FGF move vals %s' % (vals))
              move_id = move_obj.create(cr, uid, vals,{} )
              context['move_id'] = move_id
              cr.execute("""
