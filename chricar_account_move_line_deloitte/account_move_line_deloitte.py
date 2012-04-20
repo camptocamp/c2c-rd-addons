@@ -202,7 +202,7 @@ class chricar_account_move_line_deloitte(osv.osv):
 
          acc_deloitte_ids = self.search(cr, uid, [('company_id','=',company_id),('state','not in',('progress','done'))])
          if not acc_deloitte_ids:
-             return
+             return True
          self.write(cr, uid, acc_deloitte_ids, {'state': 'progress'} )
          acc_ids = account_obj.search(cr, uid, [('company_id','=',company_id)])
          _logger.info('FGF account ids %s' % (acc_ids))
@@ -227,8 +227,8 @@ class chricar_account_move_line_deloitte(osv.osv):
          for acc_deloitte_code in acc_deloitte_codes:
                  counter += 1
                  vals = {
-                   'name' : acc_deloitte_code,
-                   'code' : 'i-'+now+'-'+str(counter),
+                   'code' : acc_deloitte_code,
+                   'name' : 'i-'+now+'-'+str(counter),
                    'type' : 'other',
                    'user_type' : user_type,
                    'currency_mode' : 'current',
@@ -275,6 +275,7 @@ class chricar_account_move_line_deloitte(osv.osv):
               if vals:
                   _logger.info('FGF create aacc_deloitte_codes %s' % (vals))
                   self.write(cr, uid, deloitte_move.id, vals ,context)
+         return True
 
      def create_move(self, cr, uid, line, vals, context ):
          _logger = logging.getLogger(__name__)
@@ -336,7 +337,7 @@ class chricar_account_move_line_deloitte(osv.osv):
 
          acc_deloitte_ids = self.search(cr, uid, [('company_id','=',company_id),('state','=','progress')])
          if not acc_deloitte_ids:
-             return
+             return True
 
          journal_id = journal_obj.search(cr, uid, [('code','=','DE')], context=context)[0]
          journal_analyitc_id = analytic_jour_obj.search(cr, uid, [('code','=','Deloitte')], context=context)[0]
@@ -545,7 +546,7 @@ having sum(case when credit is null then 0 else credit end) != 0
          
          self.write(cr, uid, acc_deloitte_ids, {'state': 'done'} )
 
-         return 
+         return True
 
 chricar_account_move_line_deloitte()
 
