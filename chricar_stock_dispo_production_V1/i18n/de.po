@@ -14,8 +14,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2012-04-18 05:11+0000\n"
-"X-Generator: Launchpad (build 15108)\n"
+"X-Launchpad-Export-Date: 2012-04-21 05:27+0000\n"
+"X-Generator: Launchpad (build 15120)\n"
 "Language: en_US\n"
 
 #. module: chricar_stock_dispo_production_V1
@@ -551,16 +551,3 @@ msgstr "Eingabe"
 #: field:sale.order.line,stock_dispo_production_sale_ids:0
 msgid "To Sell"
 msgstr "Verkaufsfähig"
-
-#~ msgid "Internal Moves"
-#~ msgstr "Interne Lieferungen"
-
-#~ msgid "Too small products will be moved to this location, defaults to source"
-#~ msgstr ""
-#~ "Zu große Produkte werden auf diese Lager gebucht, Standard ist das "
-#~ "Herkunftslager."
-
-#~ msgid "Too big products will be moved to this location, defaults to source"
-#~ msgstr ""
-#~ "Zu große Produkte werden auf diese Lager gebucht, Standard ist das "
-#~ "Herkunftslager."

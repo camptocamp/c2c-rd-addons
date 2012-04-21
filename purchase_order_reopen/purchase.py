@@ -77,6 +77,7 @@ class purchase_order(osv.osv):
         stock_picking_obj = self.pool.get('stock.picking')
         report_xml_obj = self.pool.get('ir.actions.report.xml')
         attachment_obj = self.pool.get('ir.attachment')
+        order_line_obj = self.pool.get('purchase.order.line')
 
         now = ' ' + _('Invalid') + time.strftime(' [%Y%m%d %H%M%S]')
         for order in self.browse(cr, uid, ids):
@@ -114,8 +115,12 @@ class purchase_order(osv.osv):
                     attachment_obj.write(cr, uid, a.id, vals)
 
             self.write(cr, uid, order.id, {'state':'draft'})
-	    wf_service = netsvc.LocalService("workflow")
+	    line_ids = []
+	    for line in order.order_line:
+	        line_ids.append(line.id)
+	    order_line_obj.write(cr, uid, line_ids, {'state':'draft'})
 
+	    wf_service = netsvc.LocalService("workflow")
             wf_service.trg_delete(uid, 'purchase.order', order.id, cr)
 	    wf_service.trg_create(uid, 'purchase.order', order.id, cr)
 #self.log_purchase(cr, uid, ids, context=context)  

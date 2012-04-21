@@ -14,8 +14,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2012-04-18 05:10+0000\n"
-"X-Generator: Launchpad (build 15108)\n"
+"X-Launchpad-Export-Date: 2012-04-21 05:27+0000\n"
+"X-Generator: Launchpad (build 15120)\n"
 "Language: en_US\n"
 
 #. module: chricar_budget
@@ -361,30 +361,3 @@ msgid "Sale lines will be created aliquot for not individually planned sales"
 msgstr ""
 "Verkaufsbudgetzeilen werden aliquote für nicht manuell geplante Mengen "
 "gebildet"
-
-#~ msgid "Uninvoiced Stock"
-#~ msgstr "Uninvoiced Stock"
-
-#~ msgid "Invoiced production lots"
-#~ msgstr "Fakturierte Lose"
-
-#~ msgid "Sales Prod Lot"
-#~ msgstr "Umsatz Prod Los"
-
-#~ msgid "Stock Sale Value"
-#~ msgstr "Lager Verkaufswert"
-
-#~ msgid "Sum On Stock"
-#~ msgstr "Sum  Auf LAger"
-
-#~ msgid "Sum Prod Lot"
-#~ msgstr "Sum Prod Los"
-
-#~ msgid "On Stock"
-#~ msgstr "Auf LAger"
-
-#~ msgid "Stock Qty * Planned Sale Price"
-#~ msgstr "Lager Menge * Planpreis"
-
-#~ msgid "Sum Stock Value"
-#~ msgstr "Sum Lagerwert"

@@ -1,0 +1,205 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <record id="vpicktree_production" model="ir.ui.view">
+            <field name="name">stock.picking.production.tree</field>
+            <field name="model">stock.picking</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree colors="blue:state == 'draft';grey:state == 'cancel';red:state not in ('cancel', 'done') and date &lt; current_date" string="Picking list">
+                    <field name="name"/>
+                    <field name="partner_id" invisible="True"/>
+                    <field name="backorder_id" groups="base.group_extended"/>
+                    <field name="origin"/>
+                    <field name="date"/>
+                    <field name="min_date"/>
+                    <field name="stock_journal_id" groups="base.group_extended" widget="selection"/>
+                    <field name="state"/>
+                    <!--
+                    <button name="action_process" states="assigned" groups="stock.group_stock_user" string="Process" type="object" icon="gtk-go-forward"/>
+                    -->
+                </tree>
+            </field>
+        </record>
+        <record id="view_picking_production_form" model="ir.ui.view">
+            <field name="name">stock.picking.production.form</field>
+            <field name="model">stock.picking</field>
+            <field name="type">form</field>
+            <field eval="12" name="priority"/>
+            <field name="arch" type="xml">
+                <form string="Picking Production">
+                    <group colspan="4" col="6">
+                        <group colspan="4" col="4">
+                            <field name="name" readonly="1"/>
+                            <field name="origin"/>
+                            <!--
+                                <field name="address_id" on_change="onchange_partner_in(address_id)" context="{'contact_display':'partner'}" colspan="4"/>
+                                -->
+                                    <field name="address_id" on_change="onchange_partner_in(address_id)" colspan="4"/>
+                                    <field name="invoice_state" string="Invoice Control" groups="base.group_extended"/>
+                                    <field name="backorder_id" readonly="1" groups="base.group_extended"/>
+                                </group>
+                                <group colspan="2" col="2">
+                                    <field name="date"/>
+                                    <field name="min_date" readonly="1"/>
+                                    <field name="stock_journal_id" groups="base.group_extended" widget="selection"/>
+                                    <field name="type" readonly="1"/>
+                                </group>
+                            </group>
+                            <notebook colspan="4">
+                                <page string="Products">
+                                    <field colspan="4" name="move_lines" nolabel="1" widget="one2many_list" context="{'address_in_id': address_id}">
+                                        <tree colors="grey:scrapped == True" string="Stock Moves">
+                                            <field name="product_id"/>
+                                            <field name="product_qty" on_change="onchange_quantity(product_id, product_qty, product_uom, product_uos)"/>
+                                            <field name="product_uom" string="UoM"/>
+                                            <field name="product_uos" groups="product.group_uos"/>
+                                                    <field name="scrapped" invisible="1"/>
+                                                    <field name="prodlot_id" groups="base.group_extended"/>
+                                                            <field groups="base.group_extended" name="tracking_id"/>
+                                                                        <field name="location_id" domain="[('usage','in',['internal','production','inventory'])]"/>
+                                                                        <field name="location_dest_id" domain="[('usage','in',['internal','production','inventory'])]"/>
+                                                                        <field name="date_expected" string="Date Expected"/>
+                                                                        <field name="state"/>
+                                                                    </tree>
+                                                                    <form string="Stock Moves">
+                                                                        <group colspan="2" col="4">
+                                                                            <separator colspan="4" string="Move Information"/>
+                                                                            <field name="name" invisible="1" colspan="4"/>
+                                                                            <field name="product_id" on_change="onchange_product_id(product_id,location_id,location_dest_id, parent.address_id)" colspan="4"/>
+                                                                            <field name="product_qty" on_change="onchange_quantity(product_id, product_qty, product_uom, product_uos)" colspan="3"/>
+                                                                                    <field name="product_uom" string="Unit Of Measure" colspan="4"/>
+                                                                                    <field name="product_uos_qty" groups="product.group_uos" on_change="onchange_uos_quantity(product_id, product_uos_qty, product_uos, product_uom)" colspan="4"/>
+                                                                                    <field groups="product.group_uos" name="product_uos" on_change="onchange_quantity(product_id, product_qty, product_uom, product_uos)" colspan="4"/>
+                                                                                    <field groups="base.group_extended" name="product_packaging"  domain="[('product_id','=',product_id)]" colspan="4"/>
+                                                                                </group>
+                                                                                
+                                                                                <group colspan="2" col="2">
+                                                                                    <separator string="Locations" colspan="2" />
+                                                                                    <field name="location_id" domain="[('usage','in',['internal','production','inventory'])]" />
+                                                                                    <field name="location_dest_id" domain="[('usage','in',['internal','production','inventory'])]" />
+                                                                                </group>
+                                                                                
+                                                                                <group colspan="2" col="2">
+                                                                                    <separator string="Dates" colspan="2" />
+                                                                                    <field name="create_date" invisible="1"/>
+                                                                                    <field name="date"/>
+                                                                                    <field name="date_expected" on_change="onchange_date(date,date_expected)"/>
+                                                                                </group>
+                                                                                
+                                                                                <group colspan="2" col="4" groups="base.group_extended">
+                                                                                    <separator string="Traceability" colspan="4" groups="base.group_extended"/>
+                                                                                    <field name="tracking_id" groups="base.group_extended"  colspan="3"/>
+                                                                                        <field name="prodlot_id" groups="base.group_extended"
+                                                                                        context="{'location_id':location_id, 'product_id':product_id}"
+                                                                                        domain="[('product_id','=?',product_id)]"
+                                                                                            on_change="onchange_lot_id(prodlot_id,product_qty, location_id, product_id, product_uom)"  colspan="3"/>
+                                                                                            </group>
+                                                                                            <label string="" colspan="4"/>
+                                                                                            <field name="state"/>
+                                                                                            <group col="4" colspan="2">
+                                                                                            </group>
+                                                                                        </form>
+                                                                                    </field>
+                                                                                    <group col="10" colspan="4">
+                                                                                        <field name="state" readonly="1" widget="statusbar" statusbar_visible="draft,confirmed,assigned,done" statusbar_colors='{"auto":"blue", "confirmed":"blue"}'/>
+                                                                                        <button name="button_cancel" states="assigned,confirmed,draft" string="_Cancel" icon="gtk-cancel"/>
+                                                                                        <button name="draft_force_assign" states="draft" string="Process Later" type="object" icon="gtk-apply"/>
+                                                                                        <button name="draft_validate" states="draft" string="Process Now" type="object" icon="gtk-media-play"/>
+                                                                                        <button name="action_assign" states="confirmed" string="Check Availability" type="object" icon="gtk-find"/>
+                                                                                        <button name="force_assign" states="confirmed" string="Force Availability" type="object" icon="gtk-jump-to"/>
+                                                                                        <button name="action_process" states="assigned" string="Process"  groups="stock.group_stock_user" type="object" icon="gtk-go-forward"/>
+                                                                                        <button name="action_reopen" type="object" states="done,cancel" string="Reset To Draft" icon="gtk-convert" groups="base.group_extended" />
+                                                                                    </group>
+                                                                                </page>
+                                                                                <page string="Additional info" groups="base.group_extended,base.group_multi_company">
+                                                                                    <field name="auto_picking" groups="base.group_extended"/>
+                                                                                    <field name="date_done" groups="base.group_extended"/>
+                                                                                    <field name="move_type" groups="base.group_extended"/>
+                                                                                    <field name="type" groups="base.group_extended"/>
+                                                                                    <field name="company_id" groups="base.group_multi_company" widget="selection"/>
+                                                                                </page>
+                                                                                <page string="Notes">
+                                                                                    <field colspan="4" name="note" nolabel="1"/>
+                                                                                </page>
+                                                                            </notebook>
+                                                                        </form>
+                                                                    </field>
+                                                                </record>
+                                                                
+                                                                <record id="view_picking_production_search" model="ir.ui.view">
+                                                                    <field name="name">stock.picking.internal.search</field>
+                                                                    <field name="model">stock.picking</field>
+                                                                    <field name="type">search</field>
+                                                                    <field name="arch" type="xml">
+                                                                        <search string="Production Moves">
+                                                                            <group>
+                                                                                <filter icon="terp-gtk-jump-to-ltr" name="to_do" string="To Do" domain="[('state','not in',['done','cancel'])]" help="All what needs your attention."/>
+                                                                                <separator orientation="vertical"/>
+                                                                                <filter icon="terp-check" name="ready" string="Ready" domain="[('state','=','assigned')]" help="Assigned Internal Moves"/>
+                                                                                <filter icon="terp-camera_test" name="confirmed" string="Waiting" domain="[('state','=','confirmed')]" help="Confirmed Internal Moves" />
+                                                                                <separator orientation="vertical"/>
+                                                                                <field name="name"/>
+                                                                                <field name="origin"/>
+                                                                                <field name="stock_journal_id" groups="base.group_extended" widget="selection"/>
+                                                                                <field name="company_id" widget="selection"/>
+                                                                            </group>
+                                                                            <newline/>
+                                                                            <group expand="0" string="Group By...">
+                                                                                <filter string="State" icon="terp-stock_effects-object-colorize" domain="[]" context="{'group_by':'state'}"/>
+                                                                                <separator orientation="vertical"/>
+                                                                                <filter string="Order Date" icon="terp-go-month" domain="[]"  context="{'group_by':'date'}"/>
+                                                                                <filter string="Expected Date" icon="terp-go-month" domain="[]"  context="{'group_by':'min_date'}"/>
+                                                                                <separator orientation="vertical"/>
+                                                                                <filter string="Origin" icon="terp-gtk-jump-to-rtl" domain="[]" context="{'group_by':'origin'}"/>
+                                                                                <separator orientation="vertical" />
+                                                                                <filter string="Journal" icon="terp-folder-orange" domain="[]" context="{'group_by':'stock_journal_id'}" groups="base.group_extended"/>
+                                                                            </group>
+                                                                        </search>
+                                                                    </field>
+                                                                </record>
+                                                                
+                                                                <record id="action_picking_production" model="ir.actions.act_window">
+                                                                    <field name="name">Production Moves</field>
+                                                                    <field name="res_model">stock.picking</field>
+                                                                    <field name="type">ir.actions.act_window</field>
+                                                                    <field name="view_type">form</field>
+                                                                    <field name="view_mode">tree,form</field>
+                                                                    <field name="domain">[('is_production','!=','-1')]</field>
+                                                                    <field name="context">{'search_default_to_do':1, 'default_type': 'internal', 'contact_display': 'partner_address', 'search_default_available': 1}</field>
+                                                                    <field name="search_view_id" ref="view_picking_production_search"/>
+                                                                    <field name="help">Production Moves display all production related operations (production/consumption of goods) you have to perform in your warehouse (if you do not use OpenERP mrp modules). </field>
+                                                                </record>
+                                                                <record model="ir.actions.act_window.view" id="action_picking_production_tree_view">
+                                                                    <field name="sequence" eval="1"/>
+                                                                    <field name="view_mode">tree</field>
+                                                                    <field name="view_id" ref="vpicktree_production"/>
+                                                                    <field name="act_window_id" ref="action_picking_production"/>
+                                                                </record>
+                                                                <record model="ir.actions.act_window.view" id="action_picking_production_form_view">
+                                                                    <field name="sequence" eval="2"/>
+                                                                    <field name="view_mode">form</field>
+                                                                    <field name="view_id" ref="view_picking_production_form"/>
+                                                                    <field name="act_window_id" ref="action_picking_production"/>
+                                                                </record>
+                                                                
+
+   <record id="stock.action_picking_tree6" model="ir.actions.act_window">
+       <field name="name">Internal Moves</field>
+       <field name="res_model">stock.picking</field>
+       <field name="type">ir.actions.act_window</field>
+       <field name="view_type">form</field>
+       <field name="view_mode">tree,form,calendar</field>
+       <field name="domain">[('type','=','internal'),('is_production','!=','1')]</field>
+       <field name="context">{'default_type': 'internal', 'contact_display': 'partner_address', 'search_default_to_do':1}</field>
+       <field name="search_view_id" ref="stock.view_picking_internal_search"/>
+       <field name="help">Internal Moves display all inventory operations you have to perform in your warehouse. All operations can be categorized into stock journals, so that each worker has his own list of operations to perform in his own journal. Most operations are prepared automatically by OpenERP according to your preconfigured logistics rules, but you can also record manual stock operations.</field>
+   </record>
+   
+   
+                                                                
+                                                                <menuitem action="action_picking_production" id="menu_action_picking_production" parent="stock.menu_stock_warehouse_mgmt" sequence="2" groups="base.group_extended"/>
+                                                                
+                                                                
+    </data>
+</openerp>

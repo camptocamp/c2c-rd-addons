@@ -20,23 +20,20 @@
 ##############################################################################
 
 {
-    "name" : "Purchase Order Packing",
+    "name" : "Stock Production Moves",
     "version" : "1.1",
     "author" : "Camptocamp Austria",
-    "category": 'Purchase Management',
+    "category": 'Warehouse Management',
     'complexity': "normal",
     "description": """
-automatically adds packing of the product to stock moves.
-================================
-
-ToDo:
-Add packing to purichase order line
+Records moves from/to production locations.
+===========================================
 
     """,
     'website': 'http://www.camptocamp.com',
-    "depends" : ["purchase"],
+    "depends" : ["stock_picking_reopen"],
     'init_xml': [],
-    'update_xml': ['purchase_view.xml' ],
+    'update_xml': ['stock_view.xml' ],
     'demo_xml': [],
     'installable': True,
     'auto_install': False,

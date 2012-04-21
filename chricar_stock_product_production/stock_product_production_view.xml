@@ -49,6 +49,7 @@ Product by Production Location
         </tree>
       </field>
     </record>
+    <!--
     <record model="ir.actions.act_window" id="chricar_product_by_production_location_act1">
       <field name="name">Product by Production Location</field>
       <field name="res_model">chricar.product_by_production_location</field>
@@ -73,6 +74,7 @@ Product by Production Location
       id="menu_chricar_product_by_production_location_list"
       parent="stock.next_id_61"
       sequence="150"/>
+-->
     <!--
 ==============================================
 Modification of Parents (only for matching table prefixes)

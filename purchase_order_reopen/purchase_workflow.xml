@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
-    <data>
-
+	<data>
+		<!--
         <record id="purchase.act_done" model="workflow.activity">
             <field name="wkf_id" ref="purchase.purchase_order"/>
             <field name="name">done</field>
@@ -25,7 +25,6 @@
             <field name="condition">allow_reopen()</field>
             <field name="signal">button_reopen</field>
     </record>
-    <!--
         <record id="trans_waitship_reopen" model="workflow.transition">
             <field name="act_from" ref="purchase.act_wait_ship"/>
             <field name="act_to" ref="act_reopen"/>
@@ -38,7 +37,6 @@
             <field name="condition">allow_reopen()</field>
             <field name="signal">button_reopen</field>
         </record>
--->
 
         <record id="trans_draft_process" model="workflow.transition">
             <field name="act_from" ref="act_reopen"/>
@@ -50,7 +48,7 @@
             <field name="act_to" ref="purchase.act_cancel"/>
             <field name="signal">cancel</field>
         </record>
-
+-->
 
     </data>
 </openerp>

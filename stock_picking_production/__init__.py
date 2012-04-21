@@ -19,27 +19,6 @@
 #
 ##############################################################################
 
-{
-    "name" : "Purchase Order Packing",
-    "version" : "1.1",
-    "author" : "Camptocamp Austria",
-    "category": 'Purchase Management',
-    'complexity': "normal",
-    "description": """
-automatically adds packing of the product to stock moves.
-================================
-
-ToDo:
-Add packing to purichase order line
-
-    """,
-    'website': 'http://www.camptocamp.com',
-    "depends" : ["purchase"],
-    'init_xml': [],
-    'update_xml': ['purchase_view.xml' ],
-    'demo_xml': [],
-    'installable': True,
-    'auto_install': False,
-}
-
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+
+import stock

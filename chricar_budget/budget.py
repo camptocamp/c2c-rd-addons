@@ -31,6 +31,8 @@
 ###############################################
 import time
 from osv import fields,osv
+import decimal_precision as dp
+
 import logging
 
 class chricar_budget_production(osv.osv):
@@ -88,11 +90,62 @@ class chricar_budget(osv.osv):
             res[line.id] = line.surface * line.yield_qty
         return res
 
+     def _product_qty_stock(self, cr, uid, ids, name, args, context=None):
+        res = {}
+        for line in self.browse(cr, uid, ids, context=context):
+            #res[line.id] = line.product_id.qty_available
+            res[line.id] = line.prod_lot_id.qty_available
+        return res
+
      def _amount_line(self, cr, uid, ids, name, args, context=None):
         res = {}
         for line in self.browse(cr, uid, ids, context=context):
             res[line.id] = (line.surface * line.yield_qty) * line.price  / line.price_unit_id.coefficient
         return res
+
+        
+     def _amount_qty_stock(self, cr, uid, ids, name, args, context=None):
+        res = {}
+        for line in self.browse(cr, uid, ids, context=context):
+            res[line.id] = (line.product_qty_stock * line.price / line.price_unit_id.coefficient)
+        return res
+     def _amount_qty_lot(self, cr, uid, ids, name, args, context=None):
+        res = {}
+        for line in self.browse(cr, uid, ids, context=context):
+            res[line.id] = (line.product_qty_lot * line.price / line.price_unit_id.coefficient)
+        return res
+
+
+     def _amount_prod_lot(self, cr, uid, ids, name, args, context=None):
+         aml = self.pool.get('account.invoice')
+         move_obj = self.pool.get('stock.move')
+         pick_obj = self.pool.get('stock.picking')
+         res = {}
+         _logger = logging.getLogger(__name__) 
+         for line in self.browse(cr, uid, ids, context=context):
+           amount = 0
+	   if line.prod_lot_id:
+             #move_ids = move_obj.search(cr, uid, [('prodlot_id','=',line.prod_lot_id.id),('picking_id','>','0')])
+             move_ids = move_obj.search(cr, uid, [('prodlot_id','=',line.prod_lot_id.id)])
+	     _logger.info('FGF move_ids %s' % (move_ids))
+             for move in move_obj.browse(cr, uid, move_ids):
+	       if  move.picking_id:
+		_logger.info('FGF move pick id %s %s %s' % (move.picking_id.name , move.picking_id.type, move.picking_id.state))
+		if move.picking_id and move.picking_id.invoice_ids :
+                    for inv in move.picking_id.invoice_ids:
+		      _logger.info('FGF move pick inv %s %s %s' % (inv.number, inv.type, inv.state))
+                      if inv.state in ['open','paid'] and inv.invoice_line:
+			for inv_line in inv.invoice_line:
+                          if inv_line.product_id == line.product_id: # FIXME problematic if 2 lots are in one invoice 
+			    if inv.type == 'out_invoice':
+                               amount += inv_line.price_subtotal
+			    else:
+                               amount -= inv_line.price_subtotal
+		            _logger.info('FGF move pick inv line %s' % (inv_line.name))
+	                    _logger.info('FGF move pick inv line amount %s' % (inv_line.price_subtotal))
+	                    _logger.info('FGF move pick inv line amount %s' % (amount))
+           res[line.id] = amount
+         return res
 
      def _yield_line(self, cr, uid, ids, name, args, context=None):
         res = {}
@@ -131,7 +184,7 @@ class chricar_budget(osv.osv):
                                    and l.usage = 'production'
                                    and l.id = s.location_id
                                    and product_id = %d
-                                   and to_char(date_expected,'YYYY-MM-DD') between '%s' and '%s'""" % (product,fy_date_start,fy_date_stop))
+                                   and to_char(date,'YYYY-MM-DD') between '%s' and '%s'""" % (product,fy_date_start,fy_date_stop))
             harvest = cr.fetchone()
             self._logger.debug('harvest `%s` `%s` `%s` `%s`', product, fy_date_start, fy_date_stop, harvest[0])
             harvest = harvest[0]
@@ -185,7 +238,7 @@ class chricar_budget(osv.osv):
 
 
      _columns = {
-       'amount'             : fields.function(_amount_line, method=True, string='Total Sales Planned' ,digits=(16,0),
+       'amount'             : fields.function(_amount_line, method=True, string='Total Sales Planned' ,digits_compute=dp.get_precision('Budget'),
                                     help="Planned Production Quantity * Price"),
        #'budget_version_id'  : fields.integer ('Budget version', required=True),
        'budget_version_id'  : fields.many2one('c2c_budget.version','Budget Version', required=True),
@@ -200,7 +253,7 @@ class chricar_budget(osv.osv):
                              help="Surface * Yield"),
        'surface'            : fields.float   ('Surface (ha)', digits=(16,2)),
        'yield_qty'          : fields.float   ('Yield qty/ha', digits=(16,0)),
-       'yield_sale'         : fields.function(_yield_line, method=True, string='Sales/ha' ,digits=(16,0),
+       'yield_sale'         : fields.function(_yield_line, method=True, string='Sales/ha' ,digits_compute=dp.get_precision('Budget'),
                               help="Planned Sales / Surface"),
        'date_cultivation'   : fields.date    ('Date Cultivation'),
        'sale_from'          : fields.date    ('Sale start', help="""Sale lines will be created aliquot for not individually planned sales""", required=True),
@@ -212,6 +265,12 @@ class chricar_budget(osv.osv):
        'harvest_yield'      : fields.function(_harvest_yield, method=True, string='Yield/ha' ,digits=(16,0), help="Harvested yield qty this year", readonly=True),
        'harvest_yield_diff' : fields.function(_harvest_yield_diff, method=True, string='Yield Net Diff' ,digits=(16,2), help="Harvested yield Diff", readonly=True),
        'prod_lot_id'        : fields.many2one('stock.production.lot', 'Production Lot', domain="[('product_id','=',product_id)]"),
+       'amount_prod_lot'    : fields.function(_amount_prod_lot, method=True, string='Sales Prod Lot' ,digits_compute=dp.get_precision('Budget'),help="Invoiced production lots"),
+       'product_qty_stock'  : fields.related ('product_id', 'qty_available', type="float",  string="Unsold Stock", readonly = True ,help="Uninvoiced quantitiy of this product"),
+       'product_qty_lot'    : fields.related ('prod_lot_id','stock_available', type="float",  string="Uninvoiced Lot", readonly = True ,help="Uninvoiced quantitiy of this production lot"),
+       'amount_qty_stock'   : fields.function(_amount_qty_stock, method=True, string='Unsold Stock Value' ,digits_compute=dp.get_precision('Budget'),help="Stock Qty * Planned Sale Price"),
+       'amount_qty_lot'     : fields.function(_amount_qty_lot, method=True, string='Uninvoiced Lot Value' ,digits_compute=dp.get_precision('Budget'),help="Uninvoiced Lot Qty * Planned Sale Price"),
+
 }
      _defaults = {
        'budget_version_id' : lambda *a: 1,
