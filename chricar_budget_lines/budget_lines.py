@@ -33,13 +33,9 @@ from datetime import *
 from osv import fields,osv
 from tools.sql import drop_view_if_exists
 from dateutil.relativedelta import *
-<<<<<<< TREE
-import logging
-=======
 import decimal_precision as dp
+import logging
 
-import sys
->>>>>>> MERGE-SOURCE
 
 # ************************
 # c2c_budget-item
