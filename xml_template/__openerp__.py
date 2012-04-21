@@ -30,47 +30,47 @@
 # 59 Temple Place - Suite 330, Boston, MA  02111-1.17, USA.
 #
 ###############################################
-{ "name"        : "Tool for generating XML-files from a template"
-, "version"     : "1.1"
-, "author"      : "Swing Entwicklung betrieblicher Informationssysteme GmbH"
-, "website"     : "http://www.swing-system.com"
-, "description" : 
-"""Generates XML-Files from a Template
+{ "name"         : "Tool for generating XML-files from a template"
+, "version"      : "1.1"
+, "author"       : "Swing Entwicklung betrieblicher Informationssysteme GmbH"
+, "website"      : "http://www.swing-system.com"
+, "description"  : """
+Generates XML-Files from a Template
 
 The structure and features of the XML-Template:
 
 The XML-template ist copied "as-is" to the output XML-file:
 
-  <MyTag1>
-    <MyTag2 my-attribute="foo">
-      My Body
-    </MyTag2>
-  </MyTag1>
+|  <MyTag1>
+|    <MyTag2 my-attribute="foo">
+|      My Body
+|    </MyTag2>
+|  </MyTag1>
 
 yields:
 
-  <MyTag1>
-    <MyTag2 my-attribute="foo">
-      My Body
-    </MyTag2>
-  </MyTag1>
+|  <MyTag1>
+|    <MyTag2 my-attribute="foo">
+|      My Body
+|    </MyTag2>
+|  </MyTag1>
 
 
 Additional control-attributes allow to fill the output XML with data from the data-model:
 
-  <MyTag1>
-    <MyTag2 attr-name1="foo" attr-eval="root.foo">
-      <MyTag3 text-eval="root.bar"/>
-    </MyTag2>
-  </MyTag1>
+|  <MyTag1>
+|    <MyTag2 attr-name1="foo" attr-eval="root.foo">
+|      <MyTag3 text-eval="root.bar"/>
+|    </MyTag2>
+|  </MyTag1>
 
 will produce:
 
-  <MyTag1>
-    <MyTag2 foo="FOO">
-      <MyTag3>BAR</MyTag3>
-    </MyTag2>
-  </MyTag1>
+|  <MyTag1>
+|    <MyTag2 foo="FOO">
+|      <MyTag3>BAR</MyTag3>
+|    </MyTag2>
+|  </MyTag1>
 
 provided that the Python expression "root.foo" will return "FOO" and "root.bar" will return "BAR"
 I.e., "attr-name[0-9]" provides an attribute-name and "attr-eval[0-9]" provides a Python-expression.
@@ -78,71 +78,71 @@ The "[0-9]" can be any integer as long as "name" and "eval" matches.
 
 List-iterations can be provided with the attributes "loop-eval" and "var":
 
-  <MyTag1>
-    <MyTag2 loop-eval="[1,2,4]" var="number">
-      <MyTag3 text-eval="number"/>
-    </MyTag2>
-  </MyTag1>
+|  <MyTag1>
+|    <MyTag2 loop-eval="[1,2,4]" var="number">
+|      <MyTag3 text-eval="number"/>
+|    </MyTag2>
+|  </MyTag1>
 
 will produce
 
-  <MyTag1>
-    <MyTag2>
-      <MyTag3>1</MyTag3>
-      <MyTag3>2</MyTag3>
-      <MyTag3>4</MyTag3>
-    </MyTag2>
-  </MyTag1>
+|  <MyTag1>
+|    <MyTag2>
+|      <MyTag3>1</MyTag3>
+|      <MyTag3>2</MyTag3>
+|      <MyTag3>4</MyTag3>
+|    </MyTag2>
+|  </MyTag1>
 
 A variant of this, "seq-eval" is necessary, if there is no surrounding tag for the list
 (which is a weak XML-design - but cannot be excluded):
 
-  <MyTag1>
-    <MyTag2 seq-eval="[1,2,4]" var="number">
-      <MyTag3 text-eval="number"/>
-    </MyTag2>
-  </MyTag1>
+|  <MyTag1>
+|    <MyTag2 seq-eval="[1,2,4]" var="number">
+|      <MyTag3 text-eval="number"/>
+|    </MyTag2>
+|  </MyTag1>
 
 will produce
 
-  <MyTag1>
-    <MyTag3>1</MyTag3>
-    <MyTag3>2</MyTag3>
-    <MyTag3>4</MyTag3>
-  </MyTag1>
+|  <MyTag1>
+|    <MyTag3>1</MyTag3>
+|    <MyTag3>2</MyTag3>
+|    <MyTag3>4</MyTag3>
+|  </MyTag1>
 
 The option "omit_on_empty" is used, if the surrounding tag shall be omitted with empty lists:
 
-  <MyTag1>
-    <MyTag2 loop-eval="[]" var="number" omit_on_empty="True">
-      <MyTag3 text-eval="number"/>
-    </MyTag2>
-  </MyTag1>
+|  <MyTag1>
+|    <MyTag2 loop-eval="[]" var="number" omit_on_empty="True">
+|      <MyTag3 text-eval="number"/>
+|    </MyTag2>
+|  </MyTag1>
 
 will produce
 
-  <MyTag1>
-  </MyTag1>
+|  <MyTag1>
+|  </MyTag1>
 
 On the other hand: 
 
-  <MyTag1>
-    <MyTag2 loop-eval="[]" var="number" omit_on_empty="False">
-      <MyTag3 text-eval="number"/>
-    </MyTag2>
-  </MyTag1>
+|  <MyTag1>
+|    <MyTag2 loop-eval="[]" var="number" omit_on_empty="False">
+|      <MyTag3 text-eval="number"/>
+|    </MyTag2>
+|  </MyTag1>
 
 will produce
 
-  <MyTag1>
-    <MyTag2>
-    </MyTag2>
-  </MyTag1>
+|  <MyTag1>
+|    <MyTag2>
+|    </MyTag2>
+|  </MyTag1>
 
 
 The programmatic interface (API) of the XML-Template:
 
- def generate_xml(self, cr, uid, id, nsmap=None, **scope_dict)
+ def generate_xml(self, cr, uid, id, nsmap=None, \*\*scope_dict)
 
 returns the output XMl. If a schema is provided, the validity is checked.
 
@@ -158,63 +158,44 @@ writes the output XML to a (server-side) provided file.
 Example-Code (generate a XML for an invoice and attach it to that invoice):
 
 
-
-
-        template_obj = self.pool.get("xml.template")
-
-        template_ref_obj = self.pool.get("xml.template.ref")
-
-        template_refs = template_ref_obj.browse \
-
-            ( cr, uid
-
-            , template_ref_obj.search
-
-                (cr, uid, [("name", "=", "%s,%s" % (invoice._name, invoice.id))])
-
-            )
-
-        if not template_refs :
-
-            raise osv.except_osv \
-
-                ( _('Data Error !')
-
-                , _('No Template defined for Invoice ') + invoice.name
-
-                )
-
-        template_ref = template_refs[0]
-
-        xml = template_obj.generate_xml \
-
-            (cr, uid
-
-            , template_ref.xml_template_id.id
-
-            , invoice     = invoice
-
-            , partner     = partner
-            , time        = time.strftime("%Y-%m-%d %H:%M:%S")
-
-            )
-
-        template_obj.attach_xml \
-            ( cr, uid
-            , template_ref.xml_template_id.id
-            , attach_to   = invoice
-            , xml         = xml
-            , name        = invoice.name
-            , fname       = invoice.name + ".xml"
-            , description = "XML file representing this invoice"
-            )
+|        template_obj = self.pool.get("xml.template")
+|        template_ref_obj = self.pool.get("xml.template.ref")
+|        template_refs = template_ref_obj.browse \
+|            ( cr, uid
+|            , template_ref_obj.search
+|                (cr, uid, [("name", "=", "%s,%s" % (invoice._name, invoice.id))])
+|            )
+|        if not template_refs :
+|            raise osv.except_osv \
+|                ( _('Data Error !')
+|                , _('No Template defined for Invoice ') + invoice.name
+|                )
+|
+|        template_ref = template_refs[0]
+|        xml = template_obj.generate_xml \
+|            (cr, uid
+|            , template_ref.xml_template_id.id
+|            , invoice     = invoice
+|            , partner     = partner
+|            , time        = time.strftime("%Y-%m-%d %H:%M:%S")
+|            )
+|
+|        template_obj.attach_xml \
+|            ( cr, uid
+|            , template_ref.xml_template_id.id
+|            , attach_to   = invoice
+|            , xml         = xml
+|            , name        = invoice.name
+|            , fname       = invoice.name + ".xml"
+|            , description = "XML file representing this invoice"
+|            )
 """
-, "category"    : "Tool"
-, "depends"     : ["base"]
-, "init_xml"    : []
-, "demo_xml"    : []
-, "update_xml"  : ["xml_template_view.xml", "ir_attachment_view.xml"]
-, "test"        : []
-, "active"      : False
-, "installable" : True
+, "category"     : "Tool"
+, "depends"      : ["base"]
+, "init_xml"     : []
+, "demo_xml"     : []
+, "update_xml"   : ["xml_template_view.xml", "ir_attachment_view.xml"]
+, "test"         : []
+, "auto_install" : False
+, "installable"  : True
 }

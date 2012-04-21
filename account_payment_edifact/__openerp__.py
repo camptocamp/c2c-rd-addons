@@ -79,6 +79,6 @@ A conversion to ASCII for all texts within the EDIFACT-file is attempted.
     , 'wizard/generate_edifact_view.xml'
     ]
 , "test"        : []
-, "active"      : False
+, "auto_install": False
 , "installable" : True
 }

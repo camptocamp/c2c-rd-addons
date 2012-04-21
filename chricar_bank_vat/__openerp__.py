@@ -19,23 +19,22 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-
-{
-     "name"         : "ChriCar Bank Account VAT + Analytic",
-     "version"      : "1.0",
-     "author"       : "ChriCar Beteiligungs- und Beratungs GmbH",
-     "website"      : "http://www.chricar.at/ChriCar",
-     "description"  : """
+{ "name"         : "ChriCar Bank Account VAT + Analytic"
+, "version"      : "1.0"
+, "author"       : "ChriCar Beteiligungs- und Beratungs GmbH"
+, "website"      : "http://www.chricar.at/ChriCar"
+, "description"  : """
 Adds VAT to bank statement lines
-does not support
-* mulitple VAT per line
-       """,
-     "category"     : "Accounting & Finance",
-     "depends"      : ["account",],
-     "init_xml"     : [],
-     "demo_xml"     : [],
-     "update_xml"   : ["bank_account_vat_view.xml"],
-     "active"       : False,
-     "installable"  : True
-}
 
+Does not support:
+
+ * multiple VAT per line
+"""
+, "category"     : "Accounting & Finance"
+, "depends"      : ["account"]
+, "init_xml"     : []
+, "demo_xml"     : []
+, "update_xml"   : ["bank_account_vat_view.xml"]
+, "auto_install" : False
+, "installable"  : True
+}

@@ -21,19 +21,16 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
-{
-    "name" : "Account Test __compute",
-    "version" : "0.9.5",
-    "author"  : "ChriCar Beteiligungs- und Beratungs GmbH" ,
-    "website" : "http://www.chricar.at/ChriCar",
-    "description"  : """
-        test to overwrite def __compute
-    """,
-    "category" : "Generic Modules/Others",
-    "depends" : ["base","account","chricar_view_id"],
-    "init_xml" : [],
-    "demo_xml" : [],
-    "update_xml" : [],
-    "active": False,
-    "installable": True
+{ "name"         : "Account Test __compute"
+, "version"      : "0.9.5"
+, "author"       : "ChriCar Beteiligungs- und Beratungs GmbH" 
+, "website"      : "http://www.chricar.at/ChriCar"
+, "description"  : """test to overwrite def __compute"""
+, "category"     : "Generic Modules/Others"
+, "depends"      : ["account","chricar_view_id"]
+, "init_xml"     : []
+, "demo_xml"     : []
+, "update_xml"   : []
+, "auto_install" : False
+, "installable"  : True
 }

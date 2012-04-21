@@ -19,47 +19,51 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-{
-     "name"         : "ChriCar Account Analytic",
-     "version"      : "1.0",
-     "author"       : "ChriCar Beteiligungs- und Beratungs GmbH",
-     "website"      : "http://www.chricar.at/ChriCar",
-     "description"  : """
-Allows to define analytic accounts and their usage for accounts
-It is especially IMPORTANT to assign default analytic accounts to all P&L accounts
-which are created automatically
+{ "name"         : "ChriCar Account Analytic"
+, "version"      : "1.0"
+, "author"       : "ChriCar Beteiligungs- und Beratungs GmbH"
+, "website"      : "http://www.chricar.at/ChriCar"
+, "description"  : """
+Allows to define analytic accounts and their usage for accounts.
+It is especially IMPORTANT to assign default analytic accounts to all P&L accounts which are created automatically.
 
-init will set all P&L accounts to have mandatory analytic accounts and all other accounts to not allowed
+*init* will set all P&L accounts to have mandatory analytic accounts and all other accounts to not allowed.
 
-checks implemented
-main - will check/prohibit everything what comes in wrong from other modules
-./account/account_move_line.py
+checks implemented:
 
-other checks implemented
-./account/account_bank_statement.py
-./account/invoice.py
+ * main - will check/prohibit everything what comes in wrong from other modules
 
-potentialy important
-./purchase/purchase.py
-./sale/sale.py
+   * ./account/account_move_line.py
 
-other  - naming !!!
-* analytic_account_id
-./account_analytic_plans/account_analytic_plans.py
-./account_budget/crossovered_budget.py
-./c2c_budget/c2c_budget_line.py
-./report_timesheet/report_timesheet.py
-* account_analytic_id
-./account_asset/account_asset.py
-./account_voucher/voucher.py
-./auction/auction.py
-       """,
-     "category"     : "Accounting & Finance",
-     "depends"      : ["base","account","chricar_bank_vat","sale","stock",],
-     "init_xml"     : [],
-     "demo_xml"     : [],
-     "update_xml"   : ["account_analytic_view.xml"],
-     "active"       : False,
-     "installable"  : True
+ * other checks implemented
+
+   * ./account/account_bank_statement.py
+   * ./account/invoice.py
+
+potentially important
+
+ * ./purchase/purchase.py
+ * ./sale/sale.py
+
+other - naming !!!
+
+ * analytic_account_id
+
+   * ./account_analytic_plans/account_analytic_plans.py
+   * ./account_budget/crossovered_budget.py
+   * ./c2c_budget/c2c_budget_line.py
+   * ./report_timesheet/report_timesheet.py
+ * account_analytic_id
+
+   * ./account_asset/account_asset.py
+   * ./account_voucher/voucher.py
+   * ./auction/auction.py
+"""
+, "category"     : "Accounting & Finance"
+, "depends"      : ["account", "chricar_bank_vat", "sale", "stock"]
+, "init_xml"     : []
+, "demo_xml"     : []
+, "update_xml"   : ["account_analytic_view.xml"]
+, "auto_install" : False
+, "installable"  : True
 }
-

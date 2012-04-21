@@ -28,21 +28,20 @@
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 ##############################################################################
+{ "name" : "Webkit Report Sale Order"
+, "description" : """
+Sale Order using Webkit,
 
-{
-    "name" : "Webkit Report Sale Order",
-    "description" : """
-           Sale Order using Webkit,
-           Address label with option to position address left, right
-           using address lebel field with addressee's country specific zip position
-           suppress unused columns in sale order lines
-                    """,
-    "version" : "0.9",
-    "depends" : ["sale", "report_webkit","c2c_partner_address_label"],
-    "category": "Sales Management",
-    "author" : "Camptocamp SA - Ferdinand Gassauer",
-    "url": "http://www.camptocamp.com/",
-    "data": ["sale_order_webkit_view.xml"],
-    "installable" : True,
-    "active" : False,
+Address label with option to position address left, right
+using address label field with addressee's country specific zip position
+
+suppress unused columns in sale order lines."""
+, "version"      : "0.9"
+, "depends"      : ["sale", "report_webkit","c2c_partner_address_label"]
+, "category"     : "Sales Management"
+, "author"       : "Camptocamp SA - Ferdinand Gassauer"
+, "website"      : "http://www.camptocamp.com/"
+, "data"         : ["sale_order_webkit_view.xml"]
+, "installable"  : True
+, "auto_install" : False
 }
