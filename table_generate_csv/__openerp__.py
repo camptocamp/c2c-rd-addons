@@ -30,20 +30,22 @@
 # 59 Temple Place - Suite 330, Boston, MA  02111-1.17, USA.
 #
 ###############################################
-{ "name"        : "Generate CSV-file from a table"
-, "version"     : "1.1"
-, "author"      : "Swing Entwicklung betrieblicher Informationssysteme GmbH"
-, "website"     : "http://www.swing-system.com"
-, "description" : """Generate CSV-file from a table.
+{ "name"         : "Generate CSV-file from a table"
+, "version"      : "1.1"
+, "author"       : "Swing Entwicklung betrieblicher Informationssysteme GmbH"
+, "website"      : "http://www.swing-system.com"
+, "description"  : """Generate CSV-file from a table.
+
 See http://tools.ietf.org/html/rfc4180
+
 Furthermore, a header line may be generated, quotes, field delimiters, decimalpoint are selectable.
 """
-, "category"    : "General Purpose"
-, "depends"     : ["base"]
-, "init_xml"    : []
-, "demo_xml"    : []
-, "update_xml"  : ['table_generate_csv_wizard.xml']
-, "test"        : []
-, "active"      : False
-, "installable" : True
+, "category"     : "General Purpose"
+, "depends"      : ["base"]
+, "init_xml"     : []
+, "demo_xml"     : []
+, "update_xml"   : ['table_generate_csv_wizard.xml']
+, "test"         : []
+, "auto_install" : False
+, "installable"  : True
 }

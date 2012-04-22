@@ -28,19 +28,14 @@
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 ##############################################################################
-
-{
-    "name" : "Webkit Report Cash Register",
-    "description" : """
-           Cash Register using Webkit ans one2many_sorted,
-                    """,
-    "version" : "1.0",
-    "depends" : ["account", "report_webkit"],
-    "category": "Accounting & Finance",
-    "author" : "Camptocamp SA, Ferdinand Gassauer",
-    "url": "http://www.camptocamp.com/",
-    "data": ["account_cash_register_webkit_view.xml",
-                   ],
-    "installable" : True,
-    "active" : False,
+{ "name"         : "Webkit Report Cash Register"
+, "description"  : """Cash Register using Webkit and one2many_sorted"""
+, "version"      : "1.0"
+, "depends"      : ["account", "report_webkit"]
+, "category"     : "Accounting & Finance"
+, "author"       : "Camptocamp SA, Ferdinand Gassauer"
+, "website"      : "http://www.camptocamp.com/"
+, "data"         : ["account_cash_register_webkit_view.xml"]
+, "installable"  : True
+, "auto_install" : False
 }

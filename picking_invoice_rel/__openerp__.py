@@ -28,24 +28,21 @@
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 ##############################################################################
-
-{
-    "name" : "Invoice to Picking Relation",
-    "description" : """
-        Adds reference between Invoce and Picking
-                    """,
-    "version" : "0.9",
-    "depends" : ["base", "stock", "account","purchase","sale"],
-    "category": "Accounting",
-    "author" : "Camptocamp SA - Ferdinand Gassauer",
-    "url": "http://www.camptocamp.com/",
-    "data": ["invoice_view.xml",
-             "picking_view.xml",
-             "stock_view.xml",
-             "sale_view.xml",
-             "security/group.xml",
-             "security/ir.model.access.csv",
-                   ],
-    "installable" : True,
-    "active" : False,
+{ "name"         : "Invoice to Picking Relation"
+, "description"  : """Adds reference between Invoice and Picking"""
+, "version"      : "0.9"
+, "depends"      : ["stock", "account", "purchase", "sale"]
+, "category"     : "Accounting"
+, "author"       : "Camptocamp SA - Ferdinand Gassauer"
+, "website"      : "http://www.camptocamp.com/"
+, "data"         : 
+    [ "invoice_view.xml"
+    , "picking_view.xml"
+    , "stock_view.xml"
+    , "sale_view.xml"
+    , "security/group.xml"
+    , "security/ir.model.access.csv"
+    ]
+, "installable"  : True
+, "auto_install" : False
 }

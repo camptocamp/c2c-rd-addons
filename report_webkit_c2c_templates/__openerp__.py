@@ -28,19 +28,14 @@
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 ##############################################################################
-
-{
-    "name" : "Webkit Report c2c Austria Templates",
-    "description" : """
-    Provides Templates
-                    """,
-    "version" : "0.9",
-    "depends" : ["base", "report_webkit"],
-    "category": "Reports/Webkit",
-    "author" : "Camptocamp Ferdinand Gassauer",
-    "url": "http://www.camptocamp.com/",
-    "data": ["bank_account_view.xml","data.xml",
-                   ],
-    "installable" : True,
-    "active" : False,
+{ "name"         : "Webkit Report c2c Austria Templates"
+, "description"  : """Provides Templates"""
+, "version"      : "0.9"
+, "depends"      : ["report_webkit"]
+, "category"     : "Reports/Webkit"
+, "author"       : "Camptocamp Ferdinand Gassauer"
+, "website"      : "http://www.camptocamp.com/"
+, "data"         : ["bank_account_view.xml", "data.xml"]
+, "installable"  : True
+, "auto_install" : False
 }

@@ -37,12 +37,15 @@
 , "author"      : "Camptocamp Austria"
 , "website"     : "http://www.camptocamp.at"
 , "description" : """Defines basic information for Camptocamp
-* process to access os with proper error handling"""
+
+* process to access os with proper error handling
+
+"""
 , "category"    : "Client Modules/Camptocamp"
 , "depends"     : ["base"]
 , "init_xml"    : []
 , "demo_xml"    : []
 , "update_xml"  : ["base_view.xml"]
-, "active"      : False
+, "auto_install": False
 , "installable" : True
 }

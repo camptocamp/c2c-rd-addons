@@ -30,17 +30,17 @@
 # 59 Temple Place - Suite 330, Boston, MA  02111-1.17, USA.
 #
 ###############################################
-{ "name"        : "Generate XML-file from a table"
-, "version"     : "1.1"
-, "author"      : "Swing Entwicklung betrieblicher Informationssysteme GmbH"
-, "website"     : "http://www.swing-system.com"
-, "description" : """Generate XML-file from a table that can be imported to OpenERP."""
-, "category"    : "General Purpose"
-, "depends"     : ["base"]
-, "init_xml"    : []
-, "demo_xml"    : []
-, "update_xml"  : ['wizard/generate_xml_view.xml']
-, "test"        : []
-, "active"      : False
-, "installable" : True
+{ "name"         : "Generate XML-file from a table"
+, "version"      : "1.1"
+, "author"       : "Swing Entwicklung betrieblicher Informationssysteme GmbH"
+, "website"      : "http://www.swing-system.com"
+, "description"  : """Generate XML-file from a table that can be imported to OpenERP."""
+, "category"     : "General Purpose"
+, "depends"      : ["base"]
+, "init_xml"     : []
+, "demo_xml"     : []
+, "update_xml"   : ['wizard/generate_xml_view.xml']
+, "test"         : []
+, "auto_install" : False
+, "installable"  : True
 }

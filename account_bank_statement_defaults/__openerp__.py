@@ -28,19 +28,14 @@
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 ##############################################################################
-
-{
-    "name" : "Bank Statment Line Defaults",
-    "description" : """
-        Sets more ussable defauls for bank statement lines
-                    """,
-    "version" : "0.9",
-    "depends" : ["base", "account"],
-    "category": "Accounting & Finance",
-    "author" : "Camptocamp SA - Ferdinand Gassauer",
-    "url": "http://www.camptocamp.com/",
-    "data": ["bank_statement_line_view.xml",
-                   ],
-    "installable" : True,
-    "active" : False,
+{ "name"         : "Bank Statment Line Defaults"
+, "description"  : """Sets more usable defaults for bank statement lines"""
+, "version"      : "0.9"
+, "depends"      : ["account"]
+, "category"     : "Accounting & Finance"
+, "author"       : "Camptocamp SA - Ferdinand Gassauer"
+, "website"      : "http://www.camptocamp.com/"
+, "data"         : ["bank_statement_line_view.xml"]
+, "installable"  : True
+, "auto_install" : False
 }
