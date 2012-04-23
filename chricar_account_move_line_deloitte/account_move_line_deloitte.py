@@ -36,6 +36,7 @@ from datetime import datetime
 import time
 from osv import fields,osv
 import pooler
+from tools.translate import _
 import logging
 
 class chricar_account_move_import_deny(osv.osv):
@@ -99,13 +100,18 @@ class chricar_account_move_line_deloitte(osv.osv):
          for move in self.browse(cr, uid, ids):
              result[move.id] = False
              if move.account and move.company_id:
-                 if len(move.account) == 4:
-                     acc = move.account
-                 else:
-                     acc = move.account[:2]+'00'
-                 account_ids= self.pool.get('account.account').search(cr,uid,[('company_id','=',move.company_id.id),('code','=',acc)])
-                 if len(account_ids):
-                     result[move.id] = account_ids[0]
+                 #if len(move.account) in [3, 4]:
+                 #    acc = move.account
+                 #else:
+                 #    acc = move.account[:2]+'00'
+		 if move.account[:2] in ['23','33']:
+                      acc = move.account[:2]+'00'
+		 else:
+	              acc =  move.account
+
+             account_ids= self.pool.get('account.account').search(cr,uid,[('company_id','=',move.company_id.id),('code','=',acc)])
+             if len(account_ids):
+                 result[move.id] = account_ids[0]
          return result
 
      def _counter_account_id(self, cr, uid, ids, name, arg, context):
@@ -223,7 +229,7 @@ class chricar_account_move_line_deloitte(osv.osv):
          
          counter= 0
          user_type = self.pool.get('account.account.type').search(cr, uid, [('code','=','view')])[0]
-         parent_id = account_obj.search(cr, uid, [('parent_id','=',False)])[0]
+         parent_id = account_obj.search(cr, uid, [('company_id','=',company_id),('parent_id','=',False)])[0]
          for acc_deloitte_code in acc_deloitte_codes:
                  counter += 1
                  vals = {
@@ -238,13 +244,13 @@ class chricar_account_move_line_deloitte(osv.osv):
                  account_obj.create(cr, uid, vals, context)
 
          # create missing analytic accounts
-         aacc_ids = analytic_obj.search(cr, uid, [('company_id','=',company_id)])
+         aacc_ids = analytic_obj.search(cr, uid, [('company_id','=',company_id),('company_id','=',company_id)])
          aacc_codes = []
          for aacc in  analytic_obj.browse(cr, uid, aacc_ids, context=None):
              if aacc.code:
                   aacc_codes.append(aacc.code)
 
-         aacc_deloitte_ids = self.search(cr, uid, [('company_id','=',company_id)])
+         aacc_deloitte_ids = self.search(cr, uid, [('company_id','=',company_id),('company_id','=',company_id)])
          aacc_deloitte_codes = []
          for deloitte_aacc in  self.browse(cr, uid, aacc_deloitte_ids, context=None):
              if deloitte_aacc.analytic_account \
@@ -269,9 +275,9 @@ class chricar_account_move_line_deloitte(osv.osv):
          for deloitte_move in self.browse(cr, uid, acc_deloitte_ids, context=context):
               vals = {}
 	      if not deloitte_move.account_id and deloitte_move.account[:2] not in ['23','33']:
-                   vals['account_id'] =  account_obj.search(cr, uid, [('code','=', deloitte_move.account)])
+                   vals['account_id'] =  account_obj.search(cr, uid, [('company_id','=',company_id),('code','=', deloitte_move.account)])
               if deloitte_move.analytic_account and not deloitte_move.analytic_account_id:
-                   vals['analytic_account_id'] =  analytic_obj.search(cr, uid, [('code','=', deloitte_move.analytic_account)])
+                   vals['analytic_account_id'] =  analytic_obj.search(cr, uid, [('company_id','=',company_id),('code','=', deloitte_move.analytic_account)])
               if vals:
                   _logger.info('FGF create aacc_deloitte_codes %s' % (vals))
                   self.write(cr, uid, deloitte_move.id, vals ,context)
@@ -345,13 +351,13 @@ class chricar_account_move_line_deloitte(osv.osv):
          if not acc_deloitte_ids:
              return True
 
-         journal_id = journal_obj.search(cr, uid, [('code','=','DE')], context=context)
+         journal_id = journal_obj.search(cr, uid, [('company_id','=',company_id),('code','=','DE')], context=context)
          if journal_id: 
 		 journal_id = journal_id[0] 
          _logger.info('FGF journal_id  %s' % (journal_id))
 	 #if not journal_id:
 	 #    journal_id = journal_obj.create(cr, uid, {'company_id':company_id, 'code':'DE', 'name':'Deloitte', 'type','general'})
-         journal_analytic_id = analytic_jour_obj.search(cr, uid, [('name','=','Deloitte')], context=context)
+         journal_analytic_id = analytic_jour_obj.search(cr, uid, [('company_id','=',company_id),('name','=','Deloitte')], context=context)
          if journal_analytic_id: 
 		 journal_analytic_id = journal_analytic_id[0] 
          context['journal_analytic_id'] = journal_analytic_id
@@ -410,6 +416,7 @@ select d.account_id,date, d.description as name, d.analytic_account_id,
  where 
    ac.id = d.account_id
    and tc.code = d.tax_code
+   and tc.company_id = d.company_id
    and at.id = ac.user_type
    and at.close_method = 'none'
    and d.company_id = %s
@@ -428,6 +435,7 @@ select tc.account_id,date, d.description as name, d.analytic_account_id,
  where 
    ac.id = d.account_id
    and tc.code = d.tax_code
+   and tc.company_id = d.company_id
    and at.id = ac.user_type
    and at.close_method = 'none'
    and percent > 0
@@ -465,6 +473,7 @@ select d.counter_account_id,date, d.description as name, d.analytic_account_id,
  where 
    ac.id = d.counter_account_id
    and tc.code = d.tax_code
+   and tc.company_id = d.company_id
    and at.id = ac.user_type
    and at.close_method = 'none'
    and d.company_id = %s
@@ -483,6 +492,7 @@ select tc.account_id,date, d.description as name, d.analytic_account_id,
  where 
    ac.id = d.counter_account_id
    and tc.code = d.tax_code
+   and tc.company_id = d.company_id
    and at.id = ac.user_type
    and at.close_method = 'none'
    and percent > 0
@@ -490,12 +500,12 @@ select tc.account_id,date, d.description as name, d.analytic_account_id,
    and d.period_id = %s
    and symbol||'-'||d.name||'-D' = '%s' 
             """ % ( 
-vals['company_id'], vals['period_id'], vals['name'], \
-vals['company_id'], vals['period_id'], vals['name'], \
-vals['company_id'], vals['period_id'], vals['name'], \
-vals['company_id'], vals['period_id'], vals['name'], \
-vals['company_id'], vals['period_id'], vals['name'], \
-vals['company_id'], vals['period_id'], vals['name'], )
+company_id, vals['period_id'], vals['name'], \
+company_id, vals['period_id'], vals['name'], \
+company_id, vals['period_id'], vals['name'], \
+company_id, vals['period_id'], vals['name'], \
+company_id, vals['period_id'], vals['name'], \
+company_id, vals['period_id'], vals['name'], )
 )
              moves= []
              for line in cr.dictfetchall():
@@ -508,17 +518,21 @@ vals['company_id'], vals['period_id'], vals['name'], )
                  #_logger.info('FGF create_move v %s' % (v))
                  #_logger.info('FGF create_move context %s' % (context))
 		 #moves.append( (v))
-                 self.create_move(cr, uid, line, vals, context )
+                 try:
+                     self.create_move(cr, uid, line, vals, context )
+                 except:
+                     raise osv.except_osv(_('Error :'), _('FGF insert deloitte move %s %s') % (line, vals))
+
              #_logger.info('FGF create_move moves %s' % (moves))
              #self.create_move(cr, uid, moves)
         
          _logger.info('FGF create_move neutral' )
-         journal_id = journal_obj.search(cr, uid, [('code','=','DEN')], context=context)
+         journal_id = journal_obj.search(cr, uid, [('company_id','=',company_id),('code','=','DEN')], context=context)
 	 if journal_id:
              journal_id = journal_id[0]
          #journal_analytic_id = analytic_jour_obj.search(cr, uid, [('code','=','Deloitte')], context=context)[0]
          #context['journal_analytic_id'] = journal_analytic_id
-         period_ids = self.search(cr, uid, [('state', '=', 'progress')])
+         period_ids = self.search(cr, uid, [('company_id','=',company_id),('state', '=', 'progress')])
          ##########################
          #create a move to neutralize the OpenERP move_lines
          ##########################
@@ -555,6 +569,7 @@ select account_id,amn.date,amn.journal_id,amn.id,amn.period_id, analytic_account
    and ajn.name = 'Deloitte neutral'
    and ajn.id = amn.journal_id
    and aml.state='valid'
+   and am.company_id = %s
    and am.period_id = %s
    --and am.state='posted'
  group by account_id,amn.date,amn.journal_id,amn.id,amn.period_id,analytic_account_id
@@ -571,14 +586,20 @@ select aml.account_id, analytic_account_id,
    and aj.is_opening_balance = False
    and aml.move_id = am.id
    and aml.state='valid'
+   and am.company_id = %s
    and am.period_id = %s
    --and am.state='posted'
  group by account_id,amn.date,amn.journal_id,amn.id,amn.period_id,analytic_account_id
 having sum(case when credit is null then 0 else credit end) != 0
-""" % (move['period_id'],move['period_id']))
+""" % company_id,(move['period_id'],
+      company_id,move['period_id']))
         
              for line in cr.dictfetchall():
-                 self.create_move(cr, uid, line, vals, context )
+                 try:
+                    self.create_move(cr, uid, line, vals, context )
+                 except:
+                    raise osv.except_osv(_('Error :'), _('FGF Error neutralize %s %s') % (line, vals ))
+
          
          self.write(cr, uid, acc_deloitte_ids, {'state': 'done'} )
 
