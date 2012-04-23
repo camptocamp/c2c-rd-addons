@@ -304,7 +304,7 @@ class chricar_account_move_line_deloitte(osv.osv):
                  #_logger.info('FGF move_line = %s' % (l))
                  move_line_id = move_line_obj.create(cr, uid, l, context)
 
-                 if l['analytic_account_id']:
+		 if l.get('analytic_account_id',False):
                     l['general_account_id'] = line['account_id']
                     l['account_id'] = line['analytic_account_id']
                     l['journal_id'] = context['journal_analytic_id']
