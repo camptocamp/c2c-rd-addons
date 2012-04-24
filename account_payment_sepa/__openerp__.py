@@ -56,6 +56,6 @@ The "payment day" is, if unspecified or in the past, the file-creation-date.
 , "demo_xml"    : []
 , "update_xml"  : ["wizard/generate_sepa_view.xml"]
 , "test"        : []
-, "active"      : False
+, "auto_install": False
 , "installable" : True
 }

@@ -3,7 +3,7 @@
 #
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2010 Tiny SPRL (<http://tiny.be>).
-#    Copyright (C) 2010-2010 Camptocamp Austria (<http://www.camptocamp.at>)
+#    Copyright (C) 2010-2012 Camptocamp Austria (<http://www.camptocamp.at>)
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -22,14 +22,10 @@
 
 from osv import osv, fields
 import decimal_precision as dp
-
-import math
-#from _common import rounding
-import re  
 from tools.translate import _
 from tools.sql import drop_view_if_exists
-        
-import sys
+import logging
+
 
 def init(self, cr):
     drop_view_if_exists(cr, 'hr_expense_report')
@@ -40,9 +36,10 @@ def init(self, cr):
 #----------------------------------------------------------
 class hr_expense_line(osv.osv):
     _inherit = "hr.expense.line"
+    _logger = logging.getLogger(__name__)
 
     def _get_price_unit_id(self, cr, uid, context):
-        print >> sys.stderr, context
+        self._logger.debug('%s', context)
         return 
 
     _columns = { 
@@ -55,8 +52,6 @@ class hr_expense_line(osv.osv):
 
     _defaults = {
         'price_unit_id'   : _get_price_unit_id,
-#        'price_unit_pu'   : _get_price_unit_pu,
-#        'price_unit'      : _get_price_unit,
     }
 
     def init(self, cr):
@@ -73,9 +68,5 @@ class hr_expense_line(osv.osv):
            price = price_pu / pu.coefficient
            return {'value': {field_name : price}}
         return {}
-        
 
 hr_expense_line()
-
-
-

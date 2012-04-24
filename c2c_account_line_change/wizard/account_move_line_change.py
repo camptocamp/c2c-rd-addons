@@ -21,21 +21,19 @@
 
 from osv import fields, osv
 from tools.translate import _
-import netsvc
-
-import sys
-
+import logging
 
 class account_move_line_change(osv.osv_memory):
     _name = "account.move.line.change"
     _description = "Changes accounts in posted moves lines"
-    
+    _logger = logging.getLogger(_name)
+
     def _get_account(self, cr, uid, context=None):
         if context is None:
             context = {}
         record_id = context and context.get('active_id', False)
         line = self.pool.get('account.move.line').browse(cr, uid, record_id, context=context)
-        print >>sys.stderr, 'get_account ', context, record_id, line.account_id.id,line.account_id.type,line.account_id.user_type.id
+        self._logger.debug('get_account  `%s` `%s` `%s` `%s`', context, record_id, line.account_id.id,line.account_id.type, line.account_id.user_type.id)
         return  {'account_id' : line.account_id.id, 
                  'account_type' : line.account_id.type, 
                  'account_user_type' : line.account_id.user_type.id,
@@ -69,7 +67,7 @@ class account_move_line_change(osv.osv_memory):
             raise osv.except_osv(_('Warning !'),'Currently this wizard is for open periods only.')
         if line.account_id.type != 'other':
             raise osv.except_osv(_('Warning !'),'Currently this wizard is for account type "Other".')
-        print >>sys.stderr, 'view_init ', context, record_id, line.account_id.id
+        self._logger.debug('view_init `%s` `%s` `%s`', context, record_id, line.account_id.id)
         return False
         
 
@@ -78,8 +76,8 @@ class account_move_line_change(osv.osv_memory):
         if context is None:
             context = {}
         data = self.read(cr, uid, ids, context=context)[0]
-        print >>sys.stderr , 'context ', context 
-        print >>sys.stderr , 'data ', data
+        self._logger.debug('context `%s`', context)
+        self._logger.debug('data `%s`', data)
         new_account_id = data['account_new_id']
         if not new_account_id or new_account_id == data['account_id']:
             raise osv.except_osv(_('Error'),'You must define an account different from the original')
@@ -91,11 +89,11 @@ class account_move_line_change(osv.osv_memory):
         vals = {}
         line_obj = self.pool.get('account.move.line')
         record_ids = context and context.get('active_ids', False)
-        print >> sys.stderr, 'new context ', record_ids
+        self._logger.debug('new context `%s`', record_ids)
         line = line_obj.browse(cr, uid, record_ids, context=context)
         
         vals['account_id'] =  new_account_id
-        print >> sys.stderr, 'new context ', record_ids, context, vals, update_check
+        self._logger.debug('new context `%s` `%s` `%s` `%s`', record_ids, context, vals, update_check)
         
         line_obj.write(cr, uid, record_ids, vals, context, check, update_check)
         return {'type': 'ir.actions.act_window_close'}

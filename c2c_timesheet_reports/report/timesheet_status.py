@@ -34,14 +34,10 @@ import time
 from report import report_sxw
 import pooler
 from mx import DateTime
-import netsvc
-
-
 
 class timesheet_status(report_sxw.rml_parse):
     
     _name = 'c2c_timesheet_reports.timesheet_status'
-    
     
     cr = None
     pool = None
@@ -54,7 +50,6 @@ class timesheet_status(report_sxw.rml_parse):
         """ init """
         
         super(timesheet_status, self).__init__(cr, uid, name, context)
-        self.logger = netsvc.Logger()
 
         self.data = {}
         self.time = time.time()        

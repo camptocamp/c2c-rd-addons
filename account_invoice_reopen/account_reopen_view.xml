@@ -20,12 +20,12 @@
             <field name="inherit_id" ref="account.invoice_form"/>
             <field name="arch" type="xml">
                 <xpath expr="/form/notebook/page/group/group/button[@name='invoice_cancel']" position="after">
-                    <button name="invoice_reopen" states="open" string="Reset to Draft" icon="gtk-convert" groups="account.group_account_invoice"/>
+                    <button name="action_reopen" type="object" states="open" string="Reset to Draft" icon="gtk-convert" groups="account.group_account_invoice"/>
                 </xpath>
             </field>
         </record>
 <!--
-        <record id="invoice_reopen_form_inherit2" model="ir.ui.view">
+        <record id="action_reopen_form_inherit2" model="ir.ui.view">
             <field name="name">invoice.reopen.form.inherit2</field>
             <field name="model">account.invoice</field>
             <field name="type">form</field>
@@ -37,7 +37,7 @@
             </field>
         </record>
 
-        <record id="invoice_reopen_form_inherit3" model="ir.ui.view">
+        <record id="action_reopen_form_inherit3" model="ir.ui.view">
             <field name="name">invoice.reopen.form.inherit3</field>
             <field name="model">account.invoice</field>
             <field name="type">form</field>
@@ -56,7 +56,7 @@
             <field name="inherit_id" ref="account.invoice_supplier_form"/>
             <field name="arch" type="xml">
                 <xpath expr="/form/notebook/page/group/group/button[@name='invoice_cancel']" position="after">
-                    <button name="invoice_reopen" states="open" string="Reset To Draft" icon="gtk-convert" groups="account.group_account_invoice"/>
+                    <button name="action_reopen" type="object" states="open" string="Reset To Draft" icon="gtk-convert" groups="account.group_account_invoice"/>
                 </xpath>
             </field>
         </record>

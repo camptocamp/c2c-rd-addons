@@ -3,7 +3,7 @@
 #
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2010 Tiny SPRL (<http://tiny.be>).
-#    Copyright (C) 2010-2010 Camptocamp Austria (<http://www.camptocamp.at>)
+#    Copyright (C) 2010-2012 Camptocamp Austria (<http://www.camptocamp.at>)
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -22,20 +22,14 @@
 
 from osv import osv, fields
 import decimal_precision as dp
-
-import math
-#from _common import rounding
-import re  
 from tools.translate import _
-        
-import sys
-
-
+import logging
 #----------------------------------------------------------
 # Sale Line INHERIT
 #----------------------------------------------------------
 class sale_order_line(osv.osv):
     _inherit = "sale.order.line"
+    _logger = logging.getLogger(__name__)
 
     def _get_default_id(self, cr, uid, price_unit_id, context=None):
        pu = self.pool.get('c2c_product.price.unit')
@@ -78,23 +72,23 @@ class sale_order_line(osv.osv):
             uom=False, qty_uos=0, uos=False, name='', partner_id=False,
             lang=False, update_tax=True, date_order=False, packaging=False, fiscal_position=False, flag=False,context={}):
        res = {}
-       print >>sys.stderr,'sale a0',   qty,qty_uos,uos,uom
+       self._logger.debug('sale a0 `%s` `%s` `%s` `%s`', qty, qty_uos, uos, uom)
        res = super(sale_order_line, self).product_id_change( cr, uid, ids, pricelist, product, qty=qty, 
                 uom=uom, qty_uos=qty_uos, uos=uos, name=name,
                 partner_id=partner_id, lang=lang, update_tax=update_tax,
                 date_order=date_order)
-       print >>sys.stderr,'sale a1',   res['value']  
+       self._logger.debug('sale a1 `%s`', res['value'] )
        if product:
            prod = self.pool.get('product.product').browse(cr, uid, product)
            price_unit_id = prod.list_price_unit_id.id
-           print >>sys.stderr,'sale pu',   price_unit_id, product, u'prod.name'
+           self._logger.debug('sale pu `%s` `%s` `%s`', price_unit_id, product, 'prod.name')
            res['value']['price_unit_id'] = price_unit_id
-           print >>sys.stderr,'sale pu2',  res['value']
+           self._logger.debug('sale pu2 `%s`', res['value'])
      
            if res['value']['price_unit'] and qty:
                coeff = self.pool.get('c2c_product.price_unit').get_coeff(cr, uid, price_unit_id)
                res['value']['price_unit_pu'] = res['value']['price_unit'] * coeff 
-               print >>sys.stderr,'sale 2',coeff, res['value']['price_unit'],   res['value']  
+               self._logger.debug('sale 2 `%s` `%s` `%s`', coeff, res['value']['price_unit'], res['value'])
        return res
 
     def onchange_price_unit(self, cr, uid, ids, field_name,qty, price_pu, price_unit_id):
@@ -108,6 +102,7 @@ sale_order_line()
 
 class sale_order(osv.osv):
     _inherit = "sale.order"
+    _logger = logging.getLogger(__name__)
 
     # FIXME define ship line fields like in purchase order
     # should store price_unit_id for sales
@@ -116,17 +111,17 @@ class sale_order(osv.osv):
 
     def inv_line_create(self, cr, uid, a, ol):
         line = super(purchase_order, self).inv_line_create(cr, uid, a, ol)
-        print >> sys.stderr,'po line',line
+        self._logger.debug('po line `%s`', line)
 
         price_unit_pu =  ol.price_unit_pu or 0.0
-        print >> sys.stderr,'price_unit_pu' ,price_unit_pu
-        print >> sys.stderr,'price_unit_id' ,ol.price_unit_id.id
+        self._logger.debug('price_unit_pu `%s`', price_unit_pu)
+        self._logger.debug('price_unit_id `%s`', ol.price_unit_id.id)
         #FIXME
         line[2]['price_unit_pu'] = price_unit_pu
         line[2]['price_unit_id'] = ol.price_unit_id.id
         #the 2 values have to be written to the line
         #line['value'].update({'price_unit_pu' : price_unit_pu, 'price_unit_id' : ol.price_unit_id.id })
-        print >> sys.stderr,'po line after',line
+        self._logger.debug('po line after `%s`', line)
         return line
 
 

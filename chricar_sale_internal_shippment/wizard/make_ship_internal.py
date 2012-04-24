@@ -19,21 +19,13 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-
 from osv import fields, osv
 from tools.translate import _
-import decimal_precision as dp
-import netsvc
-
 import pooler
-
 from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta
-import time
-
-
-
-import sys
+import netsvc
+import logging
 
 class sale_order(osv.osv):
     _inherit = "sale.order"
@@ -122,7 +114,7 @@ sale_order()
 
 class sale_make_internal_ship_wizard(osv.osv_memory):
     _name = "sale.make.internal.ship.wizard"
-    
+    _logger = logging.getLogger(_name)
     _columns = {
         'location_id': fields.many2one('stock.location', 'Location', required=True, domain="[('usage', '=', 'internal')]"),
         'location_dest_id': fields.many2one('stock.location', 'Destination Location', required=True, domain="[('usage', '=', 'internal')]"),
@@ -143,7 +135,7 @@ class sale_make_internal_ship_wizard(osv.osv_memory):
 
     def make_internal_shippment(self, cr, uid, ids, context=None):
         data = self.read(cr, uid, ids)[0]
-        print >> sys.stderr, 'data',data
+        self._logger.debug('data `%s`', data)
         record_id = context and context.get('active_id', False)
         order_obj = self.pool.get('sale.order')
         order = order_obj.browse(cr, uid, record_id, context=context)
@@ -159,19 +151,17 @@ class sale_make_internal_ship_wizard(osv.osv_memory):
             
             #reloacte the source of out picking
         for i in order.picking_ids:
-                if i.type== 'out' and i.state not in ['done', 'cancel']:
-                    #stock_pick_obj = self.pool.get('stock.picking')
-                    stock_move_obj = self.pool.get('stock.move')
-                    loc_id = data['location_dest_id'][0]
-                    for move in i.move_lines:
-                        print >> sys.stderr, 'stock_pick write', loc_id, move.id
-                        stock_move_obj.write(cr, uid, [move.id], {'location_id' :  loc_id } )
-                        
+            if i.type== 'out' and i.state not in ['done', 'cancel']:
+                #stock_pick_obj = self.pool.get('stock.picking')
+                stock_move_obj = self.pool.get('stock.move')
+                loc_id = data['location_dest_id'][0]
+                for move in i.move_lines:
+                    self._logger.debug('stock_pick write `%s` `%s`', loc_id, move.id)
+                    stock_move_obj.write(cr, uid, [move.id], {'location_id' :  loc_id } )
         order_obj.action_ship_internal_create(cr, uid, [record_id], data['location_id'][0], data['location_dest_id'][0])
                         
                         
-        #print >>sys.stderr, 'make_internal_shipment ',internal, data, context
-        # opene correct shipping window
+        # open correct shipping window
         pool = pooler.get_pool(cr.dbname)
         mod_obj = pool.get('ir.model.data')
         act_obj = pool.get('ir.actions.act_window')
@@ -186,4 +176,3 @@ class sale_make_internal_ship_wizard(osv.osv_memory):
 sale_make_internal_ship_wizard()
                             
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
-

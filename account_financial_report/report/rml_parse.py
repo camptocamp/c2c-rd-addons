@@ -20,17 +20,8 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-
 from report import report_sxw
-import xml.dom.minidom
-import os, time
-import osv
 import re
-import tools
-import pooler
-import re
-import sys
-
 
 class rml_parse(report_sxw.rml_parse):
 

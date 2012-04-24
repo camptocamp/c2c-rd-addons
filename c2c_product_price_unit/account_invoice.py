@@ -3,7 +3,7 @@
 #
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2010 Tiny SPRL (<http://tiny.be>).
-#    Copyright (C) 2010-2010 Camptocamp Austria (<http://www.camptocamp.at>)
+#    Copyright (C) 2010-2012 Camptocamp Austria (<http://www.camptocamp.at>)
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -22,23 +22,17 @@
 
 from osv import osv, fields
 import decimal_precision as dp
-
-import math
-#from _common import rounding
-import re  
 from tools.translate import _
-        
-import sys
-
-
+import logging
 #----------------------------------------------------------
 #  Account Invoice Line INHERIT
 #----------------------------------------------------------
 class account_invoice_line(osv.osv):
     _inherit = "account.invoice.line"
-     
+    _logger = logging.getLogger(__name__)
+
     def _get_default_id(self, cr, uid, price_unit_id, context=None):
-       print >>sys.stderr,'invoice pi_id ',price_unit_id
+       self._logger.debug('invoice pi_id `%s`', price_unit_id)
        pu = self.pool.get('c2c_product.price.unit')
        if not pu: return
        return pu.get_default_id(cr, uid, price_unit_id, context) 
@@ -66,7 +60,7 @@ class account_invoice_line(osv.osv):
            type=False, partner_id=False, fposition_id=False, price_unit_pu=False, 
            address_invoice_id=False, currency_id=False, company_id=None,price_unit_id=None):
        res = {}
-       print >>sys.stderr,'invocie ',price_unit_id, price_unit_pu
+       self._logger.debug('invoice `%s` `%s`', price_unit_id, price_unit_pu)
 
        if product :
            context ={}
@@ -80,7 +74,7 @@ class account_invoice_line(osv.osv):
         
            coeff = self.pool.get('c2c_product.price_unit').get_coeff(cr, uid, price_unit_id)
            price_unit_pu = res['value']['price_unit'] *coeff
-           print  >>sys.stderr, 'invoice res ', res['value']
+           self._logger.debug('invoice res `%s`', res['value'])
 
            res['value']['price_unit_id'] = price_unit_id
            res['value']['price_unit_pu'] = price_unit_pu
@@ -92,11 +86,8 @@ class account_invoice_line(osv.osv):
         if  price_pu and  price_unit_id and qty:
            coeff = self.pool.get('c2c_product.price_unit').get_coeff(cr, uid, price_unit_id)
            price = price_pu / float(coeff) 
-           print  >>sys.stderr, 'invoice res q', field_name,qty,price_pu,price_unit_id,price
+           self._logger.debug('invoice res q `%s` `%s` `%s` `%s` `%s`', field_name,qty,price_pu,price_unit_id,price)
            return {'value': {field_name : price}}
         return res
 
 account_invoice_line()
-
-
-

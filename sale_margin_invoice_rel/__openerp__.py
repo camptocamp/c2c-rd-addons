@@ -28,19 +28,14 @@
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 ##############################################################################
-
-{
-    "name" : "Customer Invoice to Picking Relation",
-    "description" : """
-        Adds backwards reference from Customer Invoce to Picking
-                    """,
-    "version" : "0.9",
-    "depends" : ["base", "sale_margin"],
-    "category": "Sale",
-    "author" : "Camptocamp SA - Ferdinand Gassauer",
-    "url": "http://www.camptocamp.com/",
-    "data": ["invoice_view.xml",
-                   ],
-    "installable" : True,
-    "active" : False,
+{ "name"         : "Customer Invoice to Picking Relation"
+, "description"  : """Adds backwards reference from Customer Invoice to Picking"""
+, "version"      : "0.9"
+, "depends"      : ["sale_margin"]
+, "category"     : "Sale"
+, "author"       : "Camptocamp SA - Ferdinand Gassauer"
+, "website"      : "http://www.camptocamp.com/"
+, "data"         : ["invoice_view.xml"]
+, "installable"  : True
+, "auto_install" : False
 }

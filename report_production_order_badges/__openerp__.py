@@ -28,22 +28,17 @@
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 ##############################################################################
-
-{
-    "name" : "production order badges",
-    "description" : """
-    This module provides a report to print sale order badges for every 
-    Production Order Line
-    """,
-    "version" : "0.9",
-    "depends" : ["sale","chricar_stock_dispo_production_V1", "report_webkit"],
-    "category": 'Warehouse Management',
-    "author" : "Camptocamp Austria",
-    "url": "http://www.camptocamp.at/",
-    "data": ["report_production_order_badges_view.xml",
-             
-                   ],
-    "installable" : True,
-    "active" : False,
-
+{ "name"         : "production order badges"
+, "description"  : """
+This module provides a report to print sale order badges for every 
+Production Order Line
+"""
+, "version"      : "0.9"
+, "depends"      : ["sale", "chricar_stock_dispo_production_V1", "report_webkit"]
+, "category"     : 'Warehouse Management'
+, "author"       : "Camptocamp Austria"
+, "website"      : "http://www.camptocamp.at/"
+, "data"         : ["report_production_order_badges_view.xml"]
+, "installable"  : True
+, "auto_install" : False
 }

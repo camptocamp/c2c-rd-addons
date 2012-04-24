@@ -209,8 +209,6 @@ class wizard_generate_xml_filter(osv.osv_memory):
     # end def generate
 
     def filter(self, cr, uid, data, res_get=False) :
-        import sys ######
-        print >>sys.stderr, "filter" ######################
         model_obj = self.pool.get('ir.model')
         if data['model'] == 'ir.model':
             model_id = data['ids'][0]

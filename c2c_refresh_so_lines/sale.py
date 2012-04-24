@@ -4,8 +4,8 @@
 #  sale.py
 #  solstiswrk
 #
-#  Created by Nicolas Bessi on 04.05.09.
-#  Copyright (c) 2009 CamptoCamp. All rights reserved.
+#  Created by Ferdinand Gassauer
+#  Copyright (c) 2012 CamptoCamp Austria. All rights reserved.
 #
 ##############################################################################
 from osv import osv, fields

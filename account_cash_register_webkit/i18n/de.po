@@ -1,0 +1,72 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* account_cash_register_webkit
+#
+# Ferdinand Gassauer, 2012.
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 6.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-04-10 20:54+0000\n"
+"PO-Revision-Date: 2012-04-10 23:00+0200\n"
+"Last-Translator: Ferdinand Gassauer\n"
+"Language-Team: American English <kde-i18n-doc@kde.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+"Language: en_US\n"
+"X-Generator: Lokalize 1.4\n"
+
+#. module: account_cash_register_webkit
+#: report:addons/account_cash_register_webkit/report/account_cash_register_webkit.mako:57
+msgid "Ending Balance"
+msgstr "Endsaldo"
+
+#. module: account_cash_register_webkit
+#: report:addons/account_cash_register_webkit/report/account_cash_register_webkit.mako:38
+msgid "Partner Account"
+msgstr "Partner Konto"
+
+#. module: account_cash_register_webkit
+#: model:ir.actions.report.xml,name:account_cash_register_webkit.account_cash_register_webkit
+msgid "WebKit Cash Register"
+msgstr "WebKit Kassa Buch"
+
+#. module: account_cash_register_webkit
+#: report:addons/account_cash_register_webkit/report/account_cash_register_webkit.mako:35
+msgid "Text"
+msgstr "Text"
+
+#. module: account_cash_register_webkit
+#: report:addons/account_cash_register_webkit/report/account_cash_register_webkit.mako:39
+msgid "Tax"
+msgstr "Steuer"
+
+#. module: account_cash_register_webkit
+#: constraint:account.bank.statement:0
+msgid "The journal and period chosen have to belong to the same company."
+msgstr ""
+"Die gewählten Journal und Perioden müssen zum selben Unternehmen gehören"
+
+#. module: account_cash_register_webkit
+#: model:ir.model,name:account_cash_register_webkit.model_account_bank_statement
+msgid "Bank Statement"
+msgstr "Bankauszug"
+
+#. module: account_cash_register_webkit
+#: field:account.bank.statement,line_ids_sorted:0
+msgid "Lines Sorted"
+msgstr "Zeilen sortiert"
+
+#. module: account_cash_register_webkit
+#: report:addons/account_cash_register_webkit/report/account_cash_register_webkit.mako:32
+msgid "Starting Balance"
+msgstr "Vortrag"
+
+#. module: account_cash_register_webkit
+#: report:addons/account_cash_register_webkit/report/account_cash_register_webkit.mako:36
+msgid "Date"
+msgstr "Datum"
+
+

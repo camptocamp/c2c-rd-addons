@@ -1,7 +1,4 @@
 # -*- coding: utf-8 -*-
-
-#!/usr/bin/python
-# -*- coding: utf-8 -*-
 ##############################################
 #
 # ChriCar Beteiligungs- und Beratungs- GmbH
@@ -33,13 +30,12 @@
 #
 ###############################################
 from datetime import *
-import time
 from osv import fields,osv
-import pooler
 from tools.sql import drop_view_if_exists
-
 from dateutil.relativedelta import *
-import sys
+import decimal_precision as dp
+import logging
+
 
 # ************************
 # c2c_budget-item
@@ -154,9 +150,9 @@ class c2c_budget_line(osv.osv):
         return res
         
      _columns = {
-       'amount_cash'        : fields.function (_amount_cash, method=True, string='Cash' ,digits=(16,0)),
-       'amount_cash_cum'    : fields.function (_amount_cash_cum, method=True, string='Cash Cum' ,digits=(16,0)),
-       'amount_p_l'         : fields.function (_amount_p_l, method=True, string='P&L'  ,digits=(16,0)),
+       'amount_cash'        : fields.function (_amount_cash, method=True, string='Cash' , digits_compute=dp.get_precision('Budget')),
+       'amount_cash_cum'    : fields.function (_amount_cash_cum, method=True, string='Cash Cum' , digits_compute=dp.get_precision('Budget')),
+       'amount_p_l'         : fields.function (_amount_p_l, method=True, string='P&L'  , digits_compute=dp.get_precision('Budget')),
        'date_due'           : fields.date     ('Date Due', help="This date will be used for cashflow planning"),
        'date_planning'      : fields.date     ('Date Planning'),
        'is_current'         : fields.function (_is_current, method=True, type="boolean", string="Is Current",
@@ -218,9 +214,9 @@ class chricar_budget_lines_production(osv.osv):
 
      _columns = {
 
-       'amount_bom'         : fields.float   ('Amount BoM', digits=(16,0)),
-       'amount_production'  : fields.function(_amount_production, method=True, string='Costs' ,digits=(16,0)),
-       'amount_cost'        : fields.function(_amount_total, method=True, string='Subtotal' ,digits=(16,0), store=True),
+       'amount_bom'         : fields.float   ('Amount BoM',  digits_compute=dp.get_precision('Budget')),
+       'amount_production'  : fields.function(_amount_production, method=True, string='Costs' , digits_compute=dp.get_precision('Budget')),
+       'amount_cost'        : fields.function(_amount_total, method=True, string='Subtotal' , digits_compute=dp.get_precision('Budget'), store=True),
        'bom_id'             : fields.many2one('mrp.bom','BoM'),
        'budget_id'          : fields.many2one('chricar.budget','Product', required=True),
        #'budget_item_id'     : fields.many2one('c2c_budget.item','Budget Item', required=True),
@@ -347,9 +343,9 @@ class chricar_budget_lines_sales(osv.osv):
         return res
 
      _columns = {
-       'amount_bom'         : fields.float   ('Amount BoM', digits=(16,0)),
-       'amount_sales'             : fields.function(_amount_sales, method=True, string='Sales' ,digits=(16,0)),
-       #'amount'       : fields.function(_amount_total, method=True, string='Subtotal' ,digits=(16,0) , store=True),
+       'amount_bom'         : fields.float   ('Amount BoM',  digits_compute=dp.get_precision('Budget')),
+       'amount_sales'             : fields.function(_amount_sales, method=True, string='Sales' , digits_compute=dp.get_precision('Budget')),
+       #'amount'       : fields.function(_amount_total, method=True, string='Subtotal' , digits_compute=dp.get_precision('Budget') , store=True),
        'bom_id'             : fields.many2one('mrp.bom','BoM'),
        'budget_id'          : fields.many2one('chricar.budget','Budget', required=True),
        #'budget_line_id'     : fields.many2one('c2c_budget.line','Budget Line', required=True),
@@ -423,6 +419,7 @@ chricar_budget_lines_sales()
 
 class chricar_budget(osv.osv):
       _inherit = "chricar.budget"
+      _logger = logging.getLogger(__name__)
 
       def copy(self, cr, uid, id, default=None, context=None):
         if default is None:
@@ -529,17 +526,17 @@ class chricar_budget(osv.osv):
 
 
       _columns = {
-          'amount_costs'               : fields.function(_amount_costs, method=True, string='Total Cost' ,digits=(16,0),
+          'amount_costs'               : fields.function(_amount_costs, method=True, string='Total Cost' , digits_compute=dp.get_precision('Budget'),
                                          help="Sum of cost from detail below"),
-          'amount_sales'               : fields.function(_amount_sales, method=True, string='Sales Detail' ,digits=(16,0),
+          'amount_sales'               : fields.function(_amount_sales, method=True, string='Sales Detail' , digits_compute=dp.get_precision('Budget'),
                                          help="Sum of sales form details below"),
-          'amount_sales_open'          : fields.function(_amount_sales_open, method=True, string='Sales to be Planned' ,digits=(16,0),
+          'amount_sales_open'          : fields.function(_amount_sales_open, method=True, string='Sales to be Planned' , digits_compute=dp.get_precision('Budget'),
                                          help="Differnce between Sales Planned and Sales Detail Planned"),
-          'qty_sales_open'             : fields.function(_qty_sales_open, method=True, string='Quantity to be Planned' ,digits=(16,0),
+          'qty_sales_open'             : fields.function(_qty_sales_open, method=True, string='Quantity to be Planned' , digits_compute=dp.get_precision('Budget'),
                                          help="Production quantity not planned for sale"),
-          'amount_contribution'        : fields.function(_amount_contribution, method=True, string='Contribution' ,digits=(16,0),
+          'amount_contribution'        : fields.function(_amount_contribution, method=True, string='Contribution' , digits_compute=dp.get_precision('Budget'),
                                          help="Planned Detail Sales - Total Planned Costs"),
-          'amount_contribution_total'  : fields.function(_amount_contribution_total, method=True, string='Total Contribution Planned' ,digits=(16,0),
+          'amount_contribution_total'  : fields.function(_amount_contribution_total, method=True, string='Total Contribution Planned' , digits_compute=dp.get_precision('Budget'),
                                          help="Total Planned Sales - Total Planned Costs"),
           'budget_lines_production_ids': fields.one2many('chricar.budget_lines_production','budget_id','Budget Products Production'),
           'budget_lines_sales_ids'     : fields.one2many('chricar.budget_lines_sales','budget_id','Budget Products Sales'),
@@ -549,7 +546,7 @@ class chricar_budget(osv.osv):
 
       
       def button_delete_auto_generate_sale_lines(self, cr, uid, ids, context=None):
-       print >> sys.stderr,'delete autogenerate ', context
+       self._logger.debug('delete autogenerate `%s`', context)
        for prod_plan in self.browse(cr, uid, ids, context):
         period_obj  = self.pool.get('account.period')
         bls_obj = self.pool.get('chricar.budget_lines_sales')
@@ -558,21 +555,21 @@ class chricar_budget(osv.osv):
         line_ids = bls_obj.search(cr, uid, [('auto_generated','=',1),
                                             ('budget_id','=',prod_plan.id),
                                          ], context=context)
-        print >> sys.stderr,'lines to delete', line_ids
+        self._logger.debug('lines to delete `%s`', line_ids)
         if line_ids:
           toremove = []
           for c2c_lines in bls_obj.browse(cr, uid, line_ids):
               toremove.append(c2c_lines.budget_line_id.id)
           bls_obj.unlink(cr, uid, line_ids )
-          print >> sys.stderr,'lines deleted', line_ids
-          print >> sys.stderr,'lines c2c to deleted', toremove
+          self._logger.debug('lines deleted `%s`', line_ids)
+          self._logger.debug('lines c2c to deleted `%s`', toremove)
           self.pool.get('c2c_budget.line').unlink(cr, uid, toremove )
-          print >> sys.stderr,'lines c2c deleted', toremove
+          self._logger.debug('lines c2c deleted `%s`', toremove)
           
         # create new lines for not individually planned sales
       def button_auto_generate_sale_lines(self, cr, uid, ids, context=None):
-	# Call delete funktion instead of copy
-       print >> sys.stderr,'autogenerate ', context
+	# Call delete function instead of copy
+       self._logger.debug('autogenerate `%s`', context)
        for prod_plan in self.browse(cr, uid, ids, context):
         period_obj  = self.pool.get('account.period')
         bls_obj = self.pool.get('chricar.budget_lines_sales')
@@ -581,16 +578,16 @@ class chricar_budget(osv.osv):
         line_ids = bls_obj.search(cr, uid, [('auto_generated','=',1),
                                             ('budget_id','=',prod_plan.id),
                                          ], context=context)
-        print >> sys.stderr,'lines to delete', line_ids
+        self._logger.debug('lines to delete `%s`', line_ids)
         if line_ids:
           toremove = []
           for c2c_lines in bls_obj.browse(cr, uid, line_ids):
               toremove.append(c2c_lines.budget_line_id.id)
           bls_obj.unlink(cr, uid, line_ids )
-          print >> sys.stderr,'lines deleted', line_ids
-          print >> sys.stderr,'lines c2c to deleted', toremove
+          self._logger.debug('lines deleted `%s`', line_ids)
+          self._logger.debug('lines c2c to deleted `%s`', toremove)
           self.pool.get('c2c_budget.line').unlink(cr, uid, toremove )
-          print >> sys.stderr,'lines c2c deleted', toremove
+          self._logger.debug('lines c2c deleted `%s`', toremove)
 
         amount_sales_open = prod_plan.amount_sales_open
         #if round(amount_sales_open,0) == 0.0:
@@ -604,21 +601,21 @@ class chricar_budget(osv.osv):
             sale_to = fy_date_stop
         
         period_ids = period_obj.search(cr, uid,[('date_start','<=',sale_to),('date_stop','>=',sale_from)])
-        print >> sys.stderr,'periods', period_ids
+        self._logger.debug('periods `%s`', period_ids)
         # find budget item via account
         months = len(period_ids)
         account_sale_id = prod_plan.product_id.property_account_income.id or prod_plan.product_id.categ_id.property_account_income.id
         account_cost_id = prod_plan.product_id.property_stock_account_output and prod_plan.product_id.property_stock_account_output.id \
                           or prod_plan.product_id.categ_id.property_account_expense_categ.id
         
-        print >> sys.stderr,'account', account_sale_id, account_cost_id
+        self._logger.debug('account `%s` `%s`', account_sale_id, account_cost_id)
         
         budget_item_ids = []
         if account_sale_id:
             budget_item_ids = self.pool.get('c2c_budget.item').search(cr, uid,[('account', '=', account_sale_id )])
         budget_item_id = 553 # FIXME if nothing is found later
         if budget_item_ids:
-            print >> sys.stderr,'budget_item_ids', budget_item_ids
+            self._logger.debug('budget_item_ids `%s`', budget_item_ids)
             for bid in self.browse(cr, uid, budget_item_ids, context):
                budget_item_id = bid.id 
                
@@ -627,7 +624,7 @@ class chricar_budget(osv.osv):
             budget_item_cost_ids = self.pool.get('c2c_budget.item').search(cr, uid,[('account', '=', account_cost_id )])
         budget_item_cost_id = 553 # FIXME if nothing is found later
         if budget_item_cost_ids:
-            print >> sys.stderr,'budget_item_cost_ids', budget_item_cost_ids
+            self._logger.debug('budget_item_cost_ids `%s`', budget_item_cost_ids)
             for bid in self.browse(cr, uid, budget_item_cost_ids, context):
                budget_item_cost_id = bid.id
                
@@ -646,17 +643,17 @@ class chricar_budget(osv.osv):
                  budget_version_id = prod_plan.budget_version_id.id
                  if period.date_stop > fy_date_stop:
                       budget_version_id = prod_plan.budget_version_id.budget_version_next_id.id
-                 print >> sys.stderr,'create ', period.id, amount_monthly
+                 self._logger.debug('create `%s` `%s`', period.id, amount_monthly)
                  #d = period.date_stop.date("%Y %m %d") + timedelta(45)
-                 print >> sys.stderr,'date 1 ',period.date_stop
+                 self._logger.debug('date 1  `%s`', period.date_stop)
                  dd = period.date_stop
                  ya = int(dd[0:4])
                  mo = int(dd[5:7])
                  da = int(dd[8:10])
-                 print >> sys.stderr, ya,mo,da
+                 self._logger.debug(' `%s` `%s` `%s`', ya,mo,da)
                  d = date(ya,mo,da)  +  timedelta(45)
                  date_due = d.strftime('%Y-%m-%d')
-                 print >> sys.stderr,'date 2 ',d
+                 self._logger.debug('date 2  `%s`', d)
                  # Sales Line
                  vals = {
                   'budget_id' : prod_plan.id,
@@ -672,9 +669,10 @@ class chricar_budget(osv.osv):
                   'auto_generated' : 1,
                   'auto_type' : 'sale',
                   'name' : 'generated '+ prod_plan.product_id.name + ' - ' + (prod_plan.product_id.variants or '') ,
-                  'quantity' : qty_monthly
+                  'quantity' : qty_monthly,
+		  'currency_id' : prod_plan.budget_version_id.currency_id,
                         }
-                 print >> sys.stderr,'vals     ', vals
+                 self._logger.debug('vals    `%s`', vals)
                  bls_obj.create(cr, uid, vals )
                  
                  amount_sales_open -= amount_monthly
@@ -683,7 +681,7 @@ class chricar_budget(osv.osv):
         #line_cost_ids = bls_obj.search(cr, uid, [('auto_type','not in',['cost']),
         line_cost_ids = bls_obj.search(cr, uid, [('budget_id','=',prod_plan.id),
                                          ], context=context)
-        print >> sys.stderr,'vals cost lines ', line_cost_ids
+        self._logger.debug('vals cost lines `%s`', line_cost_ids)
         total_qty = prod_plan.product_qty
         if line_cost_ids:
           # value = cost of good sold
@@ -692,7 +690,7 @@ class chricar_budget(osv.osv):
             
           for sale_lines in bls_obj.browse(cr, uid, line_cost_ids):
               
-              print >> sys.stderr,'sales cost lines ', line_ids
+              self._logger.debug('sales cost lines `%s`', line_ids)
               amount_cost = -round(total_value_cost * sale_lines.quantity / total_qty,0)
               vals_cost = {
                   'budget_id' : sale_lines.budget_id.id,
@@ -708,8 +706,9 @@ class chricar_budget(osv.osv):
                   'auto_generated' : 1,
                   'auto_type' : 'cost',
                   'name' : 'generated cost '+ prod_plan.product_id.name + ' - ' + (prod_plan.product_id.variants or '') ,
+		  'currency_id' : prod_plan.budget_version_id.currency_id,
                   }
-              print >> sys.stderr,'vals cost', vals_cost
+              self._logger.debug('vals cost `vals_costs`', yy)
               bls_obj.create(cr, uid, vals_cost )
 
         # Production cost inventory
@@ -730,11 +729,10 @@ class chricar_budget(osv.osv):
                   'auto_generated' : 1,
                   'auto_type' : 'cost',
                   'name' : 'generated production value '+ prod_plan.product_id.name + ' - ' + (prod_plan.product_id.variants or '') ,
+		  'currency_id' : prod_plan.budget_version_id.currency_id,
                   }
-          print >> sys.stderr,'vals cost', vals_cost
+          self._logger.debug('vals cost `%s`', vals_cost)
           bls_obj.create(cr, uid, vals_cost )
-
-
         return True
 
 chricar_budget()
@@ -770,10 +768,10 @@ class chricar_budget_line_share(osv.osv):
       'valid_from'         : fields.date    ('Valid From',readonly=True),
       'valid_until'        : fields.date    ('Valid Until',readonly=True),
       'state'              : fields.char    ('State', size=16       ,readonly=True),
-      'amount_orig'        : fields.float   ('Amount Orig', digits=(16,0) ,readonly=True),
-      'cash_quote'         : fields.float   ('Cash Quote', digits=(16,0) ,readonly=True),
-      'cash_quote_future'  : fields.float   ('Cash Quote Future', digits=(16,0) ,readonly=True),
-      'pl_quote'           : fields.float   ('P&L Quote', digits=(16,0) ,readonly=True),
+      'amount_orig'        : fields.float   ('Amount Orig',  digits_compute=dp.get_precision('Budget') ,readonly=True),
+      'cash_quote'         : fields.float   ('Cash Quote',  digits_compute=dp.get_precision('Budget') ,readonly=True),
+      'cash_quote_future'  : fields.float   ('Cash Quote Future',  digits_compute=dp.get_precision('Budget') ,readonly=True),
+      'pl_quote'           : fields.float   ('P&L Quote',  digits_compute=dp.get_precision('Budget') ,readonly=True),
       'date_planning'      : fields.date    ('Date Planning',readonly=True),
       'date_due'           : fields.date    ('Date Due',readonly=True),
       'name'               : fields.char    ('Text', size=256       ,readonly=True),

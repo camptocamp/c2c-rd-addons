@@ -1,7 +1,4 @@
 # -*- coding: utf-8 -*-
-
-#!/usr/bin/python
-# -*- coding: utf-8 -*-
 ##############################################
 #
 # ChriCar Beteiligungs- und Beratungs- GmbH
@@ -34,7 +31,6 @@
 ###############################################
 import time
 from osv import fields,osv
-import pooler
 import netsvc
 from tools.misc import UpdateableStr, UpdateableDict
 

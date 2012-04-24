@@ -46,6 +46,6 @@ This reference is used by EDIFACT or SEPA.
 , "init_xml"    : []
 , "demo_xml"    : []
 , "update_xml"  : ["payment_customer_data_view.xml"]
-, "active"      : False
+, "auto_install": False
 , "installable" : True
 }

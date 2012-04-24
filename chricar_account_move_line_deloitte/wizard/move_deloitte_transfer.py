@@ -61,7 +61,7 @@ class chricar_account_move_line_deloitte_transfer(osv.osv_memory):
             context = {}
         data = self.read(cr, uid, ids)[0]
         deloitte_obj.autodetect(cr, uid, context.get(('active_ids'), []), )
-        return
+        return True
 
     def but_transfer_deloitte_moves(self, cr, uid, ids, context=None):
         deloitte_obj = self.pool.get('chricar.account_move_line_deloitte')
@@ -72,6 +72,6 @@ class chricar_account_move_line_deloitte_transfer(osv.osv_memory):
             context = {}
         data = self.read(cr, uid, ids)[0]
         deloitte_obj.transfer_deloitte_moves(cr, uid, context.get(('active_ids'), []), )
-        return
+        return True
 
 chricar_account_move_line_deloitte_transfer()

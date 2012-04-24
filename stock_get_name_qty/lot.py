@@ -3,7 +3,7 @@
 #
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2010 Tiny SPRL (<http://tiny.be>).
-#    Copyright (C) 2010-2010 Camptocamp Austria (<http://www.camptocamp.at>)
+#    Copyright (C) 2010-2012 Camptocamp Austria (<http://www.camptocamp.at>)
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -29,17 +29,17 @@ class stock_production_lot(osv.osv):
     def name_get(self, cr, uid, ids, context=None):
         _logger = logging.getLogger(__name__)
         res= super(stock_production_lot, self).name_get(cr, uid, ids, context)
-        _logger.info('FGF lot res %s' % (res))
-        _logger.info('FGF lot context %s ' % (context))
+        #_logger.info('FGF lot res %s' % (res))
+        #_logger.info('FGF lot context %s ' % (context))
         resd = dict(res)
-        _logger.info('FGF lot d %s ' % (resd))
+        #_logger.info('FGF lot d %s ' % (resd))
         res1 =[]
         if context.get('location_id'):
           for lot in self.browse(cr, uid, ids, context):
             qty = lot.stock_available
-            _logger.info('FGF lot res %s %s' % (lot.id, qty))
+            #_logger.info('FGF lot res %s %s' % (lot.id, qty))
             name_new = resd[lot.id] + '  [' + str(qty) +' '+ lot.product_id.uom_id.name+']'
-            _logger.info('FGF lot name %s' % (name_new))
+            #_logger.info('FGF lot name %s' % (name_new))
             if lot.product_id.packaging:
                  pack_name = []
                  for pack in lot.product_id.packaging:

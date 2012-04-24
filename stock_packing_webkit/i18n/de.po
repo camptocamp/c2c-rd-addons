@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: OpenERP Server 6.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-01-23 22:09+0000\n"
-"PO-Revision-Date: 2012-04-09 07:32+0000\n"
+"PO-Revision-Date: 2012-04-15 12:43+0000\n"
 "Last-Translator: Ferdinand @ Camptocamp <Unknown>\n"
 "Language-Team: American English <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2012-04-13 06:14+0000\n"
-"X-Generator: Launchpad (build 15070)\n"
+"X-Launchpad-Export-Date: 2012-04-24 05:23+0000\n"
+"X-Generator: Launchpad (build 15135)\n"
 "Language: en_US\n"
 
 #. module: stock_picking_webkit
@@ -36,7 +36,7 @@ msgstr "Tara"
 #. module: stock_picking_webkit
 #: report:addons/stock_picking_webkit/report/stock_picking_webkit.mako:65
 msgid "E-mail"
-msgstr "E-mail"
+msgstr "E-Mail"
 
 #. module: stock_picking_webkit
 #: report:addons/stock_picking_webkit/report/stock_picking_webkit.mako:94
@@ -93,7 +93,7 @@ msgstr "Beschreibung"
 #: report:addons/stock_picking_webkit/report/stock_picking_webkit.mako:27
 #: report:addons/stock_picking_webkit/report/stock_picking_webkit.mako:76
 msgid "Shipping Address"
-msgstr "Lieferantenanschrift"
+msgstr "Lieferanschrift"
 
 #. module: stock_picking_webkit
 #: report:addons/stock_picking_webkit/report/stock_picking_webkit.mako:96
@@ -118,7 +118,7 @@ msgstr "Datum Lieferung"
 #. module: stock_picking_webkit
 #: report:addons/stock_picking_webkit/report/stock_picking_webkit.mako:98
 msgid "Internal Packing"
-msgstr "Interner LS"
+msgstr "Interner Lieferung"
 
 #. module: stock_picking_webkit
 #: report:addons/stock_picking_webkit/report/stock_picking_webkit.mako:47
@@ -145,7 +145,7 @@ msgstr "Die Referenz muss je Firma eindeutig sein"
 #. module: stock_picking_webkit
 #: report:addons/stock_picking_webkit/report/stock_picking_webkit.mako:178
 msgid "Tractor"
-msgstr "Zugmaschiene"
+msgstr "Zugmschine"
 
 #. module: stock_picking_webkit
 #: report:addons/stock_picking_webkit/report/stock_picking_webkit.mako:149
@@ -176,7 +176,7 @@ msgstr "Herkunft"
 #. module: stock_picking_webkit
 #: report:addons/stock_picking_webkit/report/stock_picking_webkit.mako:90
 msgid "Delivery Out"
-msgstr "Warenausgang"
+msgstr "Lieferschein"
 
 #. module: stock_picking_webkit
 #: report:addons/stock_picking_webkit/report/stock_picking_webkit.mako:153

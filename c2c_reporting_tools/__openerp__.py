@@ -30,33 +30,25 @@
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 ##############################################################################
-{
-    "name" : "c2c Reporting Tools. A library that provide a new way to create clean reports efficiently",
-    "version" : "5.0",
-    "author" : "Camptocamp",
-    "category" : "Generic Modules/Reporting",
-    
-    
-    "description": """  This module offer a growing collection of objects to create simple and advanced reports in a new way of doing.
-                   You can create powerful reports with a few lines of python code and nothing else. (no sxw, rml or xml)
-                   This module follow multiple goals: 
-                     - To accelerate report creation by creating reusable pieces of code (one line of code to create standard header and footer)
-                     - To accelerate report generation (processing) by getting ride of uncecessary parsing and transformations (direct python to pdf generation) 
-                     - To improve reporting capabilities by getting ride of uncomplete parsers and limited middle technologies 
-                     - To make reports designs more uniform 
-                   
-                   For exemples of use, have a look at c2c_planning_management. Our first module based on this tool.
-                   
-              """,
-    
-    "website": "http://www.camptocamp.com",
-    "depends" : [],
-    "init_xml" : [
-        ],
-    "update_xml" : [
-    ],
-    "active": False,
-    "installable": True
+{ "name" : "c2c Reporting Tools. A library that provide a new way to create clean reports efficiently"
+, "version" : "5.0"
+, "author" : "Camptocamp"
+, "category" : "Generic Modules/Reporting"
+, "description": """This module offer a growing collection of objects to create simple and advanced reports in a new way of doing.
+You can create powerful reports with a few lines of python code and nothing else. (no sxw, rml or xml)
+This module follows multiple goals:
+
+ * To accelerate report creation by creating reusable pieces of code (one line of code to create standard header and footer)
+ * To accelerate report generation (processing) by getting rid of unnecessary parsing and transformations (direct python to pdf generation) 
+ * To improve reporting capabilities by getting rid of uncomplete parsers and limited middleware technologies 
+ * To make reports designs more uniform 
+   
+   For examples of use, have a look at *c2c_planning_management*. Our first module based on this tool.
+"""
+, "website": "http://www.camptocamp.com"
+, "depends" : ["base"]
+, "init_xml" : []
+, "update_xml" : []
+, "auto_install": False
+, "installable": True
 }
-
-

@@ -37,7 +37,8 @@
 , "author"      : "Camptocamp Austria"
 , "website"     : "http://www.camptocamp.at"
 , "description" : """
-formats IBAN in group by 4 characters
+Formats IBAN in group by 4 characters
+
 CAUTION - please make sure that the payment module removes the spaces again
 """
 , "category"    : "Client Modules/Camptocamp"
@@ -45,6 +46,6 @@ CAUTION - please make sure that the payment module removes the spaces again
 , "init_xml"    : []
 , "demo_xml"    : []
 , "update_xml"  : ["iban_view.xml"]
-, "active"      : False
+, "auto_install": False
 , "installable" : True
 }

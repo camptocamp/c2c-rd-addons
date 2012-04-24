@@ -23,14 +23,10 @@
 #
 #
 ##############################################################################
-
 from osv import fields
 from osv import osv
-#import ir
 import decimal_precision as dp
-
 import netsvc
-import time
 from tools import config
 
 class mrp_bom(osv.osv):

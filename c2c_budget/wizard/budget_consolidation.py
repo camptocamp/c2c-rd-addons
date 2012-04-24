@@ -29,7 +29,6 @@
 #
 ##############################################################################
 import wizard
-import netsvc
 import pooler
 
 class wiz_budget_consolidation(wizard.interface):

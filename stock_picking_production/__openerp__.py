@@ -3,7 +3,6 @@
 #
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2010 Tiny SPRL (<http://tiny.be>).
-#    Copyright (C) 2010-2010 Camptocamp Austria (<http://www.camptocamp.at>)
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -20,20 +19,24 @@
 #
 ##############################################################################
 
-import time
-from report import report_sxw
-from osv import osv
+{
+    "name" : "Stock Production Moves",
+    "version" : "1.1",
+    "author" : "Camptocamp Austria",
+    "category": 'Warehouse Management',
+    'complexity': "normal",
+    "description": """
+Records moves from/to production locations.
+===========================================
 
-class report_webkit_html(report_sxw.rml_parse):
-    def __init__(self, cr, uid, name, context):
-        super(report_webkit_html, self).__init__(cr, uid, name, context=context)
-        self.localcontext.update({
-            'time': time,
-            'cr':cr,
-            'uid': uid,
-        })
-        
-report_sxw.report_sxw('report.stock.picking.webkit',
-                       'stock.picking', 
-                       'addons/stock_picking_webkit/report/stock_picking_webkit.mako',
-                       parser=report_webkit_html)
+    """,
+    'website': 'http://www.camptocamp.com',
+    "depends" : ["stock_picking_reopen"],
+    'init_xml': [],
+    'update_xml': ['stock_view.xml' ],
+    'demo_xml': [],
+    'installable': True,
+    'auto_install': False,
+}
+
+# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

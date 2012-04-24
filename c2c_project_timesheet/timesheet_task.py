@@ -32,22 +32,17 @@
 # 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 ###############################################
-import time
 from osv import fields,osv
-import pooler
-
-from datetime import datetime
-from math import ceil 
-import sys
-
+import logging
 
 class project_work(osv.osv):
     _inherit = "project.task.work"
+    _logger = logging.getLogger(__name__)
     
     def _update_project_id(self, cr, uid, ids, context=None):
         task_work_obj = self.pool.get('project.task.work')
         task_work_ids = task_work_obj.search(cr, uid, [('task_id','in',ids)])
-        print >> sys.stderr, 'update project', ids, task_work_ids
+        self._logger.debug('update project `%s` `%s`', ids, task_work_ids)
         return task_work_ids
 
     _columns = {

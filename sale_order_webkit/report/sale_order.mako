@@ -202,9 +202,20 @@ ${order.partner_shipping_id.address_label}
         <tr>
 %if order.print_code:
             <td>${line.product_id.default_code or ''|entity}</td>
-            <td>${line.product_id.name or line.name|entity}</td>
+            <td>
+${line.product_id.name or line.name|entity}
+        %if line.notes :
+<br>
+        ${line.notes |carriage_returns}
+        %endif
+</td>
 %else:
-            <td>${line.name|entity}</td>
+  <td>${line.name|entity}
+        %if line.notes :
+<br>
+        ${line.notes |carriage_returns}
+        %endif
+ </td
 %endif
            <td>${ ', '.join([tax.name or '' for tax in line.tax_id]) }</td>
 %if order.print_uom:
@@ -228,9 +239,6 @@ ${order.partner_shipping_id.address_label}
 %endif
            <td style="white-space:nowrap;text-align:right;">${line.price_subtotal or ''}</td>
         </tr>
-        %if line.notes :
-        <tr><td colspan="6" style="border-style:none"><style="font-family:Helvetica;padding-left:20px;font-size:10;"white-space:normal;">${line.notes |carriage_returns}</pre></td></tr>
-        %endif
         %endfor
         </tbody>
         <tfoot>

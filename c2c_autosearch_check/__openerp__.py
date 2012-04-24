@@ -45,7 +45,7 @@ This check will run periodically and turn off autosearch for ir_act_window where
 , "init_xml"     : ["autosearch_data.xml"]
 , "demo_xml"     : []
 , "update_xml"   : ["autosearch_view.xml"]
-, "active"       : False
+, "auto_install" : False
 , "installable"  : True
 }
 

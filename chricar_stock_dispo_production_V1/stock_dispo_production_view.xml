@@ -1388,5 +1388,15 @@ Modification of Parents (only for matching table prefixes)
       <field name="act_window_id" ref="sale.action_order_form"/>
     </record>
 -->
+    <act_window
+                domain="[('sale_id', '=', active_id),('type','=','internal')]"
+                id="act_sale_order_2_stock_picking_intern"
+                name="Internal Moves"
+                res_model="stock.picking"
+                groups="base.group_extended"
+                src_model="sale.order"
+                view_id="stock.vpicktree"
+                    context="{'default_sale_id': active_id, 'contact_display': 'partner'}" />
+            
   </data>
 </openerp>

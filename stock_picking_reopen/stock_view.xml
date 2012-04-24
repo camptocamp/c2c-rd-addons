@@ -20,7 +20,7 @@
             <field name="inherit_id" ref="stock.view_picking_out_form"/>
             <field name="arch" type="xml">
                 <button name="action_process" position="after">
-                    <button name="button_reopen" states="done,cancel" string="Reset To Draft" icon="gtk-convert" groups="base.group_extended" />
+                    <button name="action_reopen" type="object" states="done,cancel,assigned,confirmed" string="Reset To Draft" icon="gtk-convert" groups="base.group_extended" />
                 </button>
             </field>
         </record>
@@ -32,7 +32,7 @@
             <field name="inherit_id" ref="stock.view_picking_in_form"/>
             <field name="arch" type="xml">
                 <button name="action_process" position="after">
-                    <button name="button_reopen" states="done,cancel" string="Reset To Draft" icon="gtk-convert" groups="base.group_extended" />
+                    <button name="action_reopen" type="object" states="done,cancel,assigned,confirmed" string="Reset To Draft" icon="gtk-convert" groups="base.group_extended" />
                 </button>
             </field>
         </record>
@@ -45,7 +45,7 @@
             <field name="inherit_id" ref="stock.view_picking_form"/>
             <field name="arch" type="xml">
                 <button name="action_process" position="after">
-                    <button name="button_reopen" states="done,cancel" string="Reset To Draft" icon="gtk-convert" groups="base.group_extended" />
+                    <button name="action_reopen" type="object" states="done,cancel,assigned,confirmed" string="Reset To Draft" icon="gtk-convert" groups="base.group_extended" />
                 </button>
             </field>
         </record>

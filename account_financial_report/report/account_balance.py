@@ -31,8 +31,6 @@ from report import report_sxw
 from tools import config
 #import decimal_precision as dp
 
-#import sys
-
 class account_balance(report_sxw.rml_parse):
     _name = 'report.account.balance.full'
     
@@ -207,7 +205,6 @@ class account_balance(report_sxw.rml_parse):
         decimal_precision_obj = self.pool.get('decimal.precision')
         ids = decimal_precision_obj.search(self.cr, self.uid, [('name', '=', 'Account')])
         digits = decimal_precision_obj.browse(self.cr, self.uid, ids)[0].digits
-        #print >>sys.stderr, 'digits',digits
 
         for account in accounts:
             account_id = account['id']

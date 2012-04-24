@@ -28,21 +28,14 @@
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 ##############################################################################
-
-{
-    "name" : "CRM Helpdesk Report",
-    "description" : """
-    This module provides a report displaying history of crm_helpdesk
-    """,
-    "version" : "0.9",
-    "depends" : ["crm_helpdesk", "report_webkit"],
-    "category": 'CRM & SRM',
-    "author" : "Camptocamp Austria",
-    "url": "http://www.camptocamp.at/",
-    "data": ["report_crm_helpdesk_view.xml",
-             
-                   ],
-    "installable" : True,
-    "active" : False,
-
+{ "name"         : "CRM Helpdesk Report"
+, "description"  : """This module provides a report displaying history of crm_helpdesk"""
+, "version"      : "0.9"
+, "depends"      : ["crm_helpdesk", "report_webkit"]
+, "category"     : 'CRM & SRM'
+, "author"       : "Camptocamp Austria"
+, "website"      : "http://www.camptocamp.at/"
+, "data"         : ["report_crm_helpdesk_view.xml"]
+, "installable"  : True
+, "auto_install" : False
 }

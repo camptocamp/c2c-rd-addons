@@ -30,30 +30,34 @@
 # 59 Temple Place - Suite 330, Boston, MA  02111-1.17, USA.
 #
 ###############################################
-{ "name"        : "Constraints definitions"
-, "version"     : "1.1"
-, "author"      : "Swing Entwicklung betrieblicher Informationssysteme GmbH"
-, "website"     : "http://www.swing-system.com"
-, "description" : """Defines data-model constraints.
+{ "name"         : "Constraints definitions"
+, "version"      : "1.1"
+, "author"       : "Swing Entwicklung betrieblicher Informationssysteme GmbH"
+, "website"      : "http://www.swing-system.com"
+, "description"  : """
+Defines data-model constraints.
 
 During each "create" and "write" operation a constraint checking can be defined for this object.
 Two rule-checking predicates are provided:
+
  - Exists
  - For All
+
  A rule is a python-expression that evaluates to True, if the condition is met.
  
  Two menu-entries are provided:
-  - Customization/Constraints/Exists
-  - Customization/Constraints/For All
+
+ - Customization/Constraints/Exists
+ - Customization/Constraints/For All
   
- Requires "Constraint Manager" privilege-group.  
+Requires "Constraint Manager" privilege-group.  
 """
-, "category"    : "Client Modules"
-, "depends"     : ["base"]
-, "init_xml"    : ["constraint_data.xml"]
-, "demo_xml"    : []
-, "update_xml"  : ["security/constraint_security.xml", "security/ir.model.access.csv", "constraint_view.xml"]
-, "test"        : []
-, "active"      : False
-, "installable" : True
+, "category"     : "Client Modules"
+, "depends"      : ["base"]
+, "init_xml"     : ["constraint_data.xml"]
+, "demo_xml"     : []
+, "update_xml"   : ["security/constraint_security.xml", "security/ir.model.access.csv", "constraint_view.xml"]
+, "test"         : []
+, "auto_install" : False
+, "installable"  : True
 }

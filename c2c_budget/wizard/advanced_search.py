@@ -29,7 +29,6 @@
 #
 ##############################################################################
 import wizard
-import netsvc
 import pooler
 from tools.misc import UpdateableStr
 

@@ -32,12 +32,8 @@
 # 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 ###############################################
-import time
 from osv import fields,osv
-import pooler
-
 from tools.sql import drop_view_if_exists
-import sys
 
 class stock_move_by_location(osv.osv):
      _name = "stock_move_by_location"
@@ -203,4 +199,3 @@ class stock_location(osv.osv):
 
 #copy must not copy stock_product_by_location_ids
 stock_location()
-

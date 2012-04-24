@@ -17,13 +17,13 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-
 from osv import fields, osv
 from tools.translate import _
-
+import logging
 
 class sale_advance_payment_inv(osv.osv_memory):
     _inherit = "sale.advance.payment.inv"
+    _logger = logging.getLogger(__name__)
 
     def create_invoices(self, cr, uid, ids, context=None):
         """
@@ -57,8 +57,7 @@ class sale_advance_payment_inv(osv.osv_memory):
                              that is defined as 'Automatic Invoice after delivery'."))
                 val = obj_lines.product_id_change(cr, uid, [], sale_adv_obj.product_id.id,
                         uom = False, partner_id = sale.partner_id.id, fposition_id = sale.fiscal_position.id)
-                import sys
-                print >> sys.stderr, 'advance val', val
+                self._logger.debug('advance val `%s`', val)
                 product = self.pool.get('product.product').browse(cr, uid, sale_adv_obj.product_id.id, context)
                 
                 line_id = obj_lines.create(cr, uid, {

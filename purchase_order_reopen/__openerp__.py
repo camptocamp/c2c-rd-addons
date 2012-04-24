@@ -2,8 +2,7 @@
 ##############################################################################
 #
 #    OpenERP, Open Source Management Solution
-#    Copyright (C) 2004-2011 Tiny SPRL (<http://tiny.be>).
-#    Copyright (C) 2011 Camptocamp Austria (<http://www.camptocamp.com>).
+#    Copyright (C) 2004-2010 Tiny SPRL (<http://tiny.be>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -20,30 +19,27 @@
 #
 ##############################################################################
 
-import time
-from lxml import etree
-import decimal_precision as dp
+{
+    "name" : "Purchase Order Reopen",
+    "version" : "1.1",
+    "author" : "Camptocamp Austria",
+    "category": 'Purchase Management',
+    'complexity': "normal",
+    "description": """
+Allows reopening of purchase orders.
+================================
 
-import netsvc
-import pooler
-from osv import fields, osv, orm
-from tools.translate import _
+This module allows to reopen (set to Quotation) Purchase Orders in state progress and cancel
+as associated pickings or invoices are canceled if possible
 
-class stock_picking(osv.osv):
-    _inherit = "stock.picking"
+    """,
+    'website': 'http://www.camptocamp.com',
+    "depends" : ["purchase","stock_picking_reopen","account_invoice_reopen"],
+    'init_xml': [],
+    'update_xml': ['purchase_view.xml','purchase_workflow.xml' ],
+    'demo_xml': [],
+    'installable': True,
+    'auto_install': False,
+}
 
-    def _print_uom(self, cr, uid, ids, name, args, context=None):
-        res = {}
-        for picking in self.browse(cr, uid, ids, context=context):
-	  print_uom = False
-	  if picking.move_lines:
-            for line in picking.move_lines:
-                if line.product_uom != line.product_uos :
-		   print_uom = True
-          res[picking.id] =  print_uom
-        return res
-        
-    _columns = {
-              'print_uom': fields.function(_print_uom, method=True, type='boolean', string='Print UoM if different from UoS',),
-    }
-stock_picking()
+# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

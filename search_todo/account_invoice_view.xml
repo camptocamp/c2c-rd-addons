@@ -1,6 +1,6 @@
 
 <openerp>
- <data>
+	<data>
          <record id="view_account_invoice_todo_filter" model="ir.ui.view">
             <field name="name">account.invoice.todo.select</field>
             <field name="model">account.invoice</field>
@@ -12,7 +12,22 @@
                 <separator orientation="vertical"/>
               </xpath>
            </field>
-         </record>
+   </record>
+
+         <record id="view_account_invoice_number_filter" model="ir.ui.view">
+            <field name="name">account.invoice.number.select</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.view_account_invoice_filter"/>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+              <xpath expr="/search/group/field[@name='number']" position="replace">
+		      <field name="number" string="Number"/>
+		      <field name="name" />
+		      <field name="origin" />
+              </xpath>
+           </field>
+   </record>
+
 
         <record id="account.action_invoice_tree1" model="ir.actions.act_window">
             <field name="name">Customer Invoices</field>

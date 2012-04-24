@@ -1,4 +1,3 @@
- 
 # -*- coding: utf-8 -*-
 ##############################################################################
 #
@@ -19,12 +18,10 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-
 from osv import fields, osv
 import time
 from report import report_sxw
-
-import sys
+import logging
 
 class report_webkit_html(report_sxw.rml_parse):
     def __init__(self, cr, uid, name, context):
@@ -40,6 +37,7 @@ class account_chart_sum(osv.osv_memory):
     For Chart of Accounts
     """
     _name = "account.chart.sum"
+    _logger = logging.getLogger(_name)
     _description = "Account chart (sum)"
     _columns = {
         'chart_account_id': fields.many2one('account.account', \
@@ -144,7 +142,7 @@ class account_chart_sum(osv.osv_memory):
             context = {}
         data = self.read(cr, uid, ids, [], context=context)[0]
 
-        print >>sys.stderr, 'open', context.get('open'), data['period_from'][0],  data['period_to'][0]
+        self._logger.debug('open `%s` `%s` `%s`', context.get('open'), data['period_from'][0],  data['period_to'][0])
         if context.get('open')  == 'view':
             result = mod_obj.get_object_reference(cr, uid, 'chricar_account_period_sum', 'action_account_chart_sum')
             id = result and result[1] or False
@@ -156,7 +154,6 @@ class account_chart_sum(osv.osv_memory):
             result = rep_obj.read(cr, uid, [id], context=context)[0]
             #FIXME 
             # does not open report
-        #print >>sys.stderr, 'result ', result
 
         result['periods'] = []
         if data['period_from'] and data['period_to']:
@@ -165,7 +162,6 @@ class account_chart_sum(osv.osv_memory):
         if data['period_prev_from'] and data['period_prev_to']:
             result['periods_prev'] = period_obj.build_ctx_periods(cr, uid, data['period_prev_from'][0], data['period_prev_to'][0])
             if result['periods_prev']:
-                #print >>sys.stderr, 'previous periods', result['periods_prev'], data['period_prev_from'],  data['period_prev_to']
                 result['context'] = str({'fiscalyear': data['fiscalyear'][0], 
                                 'chart_account_id' : data['chart_account_id'][0],
                                 'periods': result['periods'], 'periods_prev' : result['periods_prev'] ,
@@ -189,30 +185,21 @@ class account_chart_sum(osv.osv_memory):
         if data['period_prev_to']:
             result['name'] += '-' + period_obj.read(cr, uid, [data['period_prev_to'][0]], context=context)[0]['code'] 
 
-        #print >> sys.stderr, 'wiz',result
         return result
 
      
     def account_chart_sum_open_window(self, cr, uid, ids, context=None):
         if context is None:
             context = {}
-        #print >> sys.stderr, 'context before',context
         context.update({'open':'view'})
-        #print >> sys.stderr, 'context after',context
         return self.account_chart_sum_open( cr, uid, ids, context)
 
     def account_chart_sum_open_report(self, cr, uid, ids, context=None):
         if context is None:
             context = {}
         context.update({'open':'report'})
-        print >> sys.stderr, 'context after',context
+        self._logger.debug('context after `%s`', context)
         res= self.account_chart_sum_open( cr, uid, ids, context)
-        #print >> sys.stderr, 'after res', res
-
-        ##print  >> sys.stderr, 'webkit',  report_sxw.report_sxw('report.account_account.tree_sum',
-        ##               'account.account', 
-        ##               'addons/chricar_account_period_sum/report/report_account_account_tree_sum.mako',
-        ##               parser=report_webkit_html)
 
         data = self.read(cr, uid, ids, [], context=context)[0]
         period_obj = self.pool.get('account.period')
@@ -237,7 +224,7 @@ class account_chart_sum(osv.osv_memory):
              'model': 'ir.ui.menu',
              'form': data
         }
-        print >> sys.stderr, 'report datas', datas
+        self._logger.debug('report data `%s`', datas)
        
             #'report_name': 'account_account.tree_sum',
             #'report_name': 'account.account.chart.report',
@@ -248,9 +235,7 @@ class account_chart_sum(osv.osv_memory):
             'context' : context
         }
 
-           
-
 account_chart_sum()
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
-                                   
+    

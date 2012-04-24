@@ -3,7 +3,7 @@
 #
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2010 Tiny SPRL (<http://tiny.be>).
-#    Copyright (C) 2010-2010 Camptocamp Austria (<http://www.camptocamp.at>)
+#    Copyright (C) 2010-2012 Camptocamp Austria (<http://www.camptocamp.at>)
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -19,27 +19,14 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-
 from osv import osv, fields
-import decimal_precision as dp
-
-import math
-#from _common import rounding
-import re  
-from tools.translate import _
-        
-import sys
-
 #----------------------------------------------------------
 #  Stock Move INHERIT
 #----------------------------------------------------------
 class stock_location(osv.osv):
     _inherit = "stock.location"
-    _columns = {
-
-        'capacity' : fields.float('Capacity',type='float', help="Defines the capcity of the loction"),
-        'uom_id': fields.many2one('product.uom', 'Storage Unit'),
-     }
-
-
+    _columns = \
+        { 'capacity' : fields.float('Capacity',type='float', help="Defines the capacity of the location")
+        , 'uom_id'   : fields.many2one('product.uom', 'Storage Unit')
+        }
 stock_location()

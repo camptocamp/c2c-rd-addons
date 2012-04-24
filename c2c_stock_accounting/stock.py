@@ -3,7 +3,7 @@
 #
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2010 Tiny SPRL (<http://tiny.be>).
-#    Copyright (C) 2010-2010 Camptocamp Austria (<http://www.camptocamp.at>)
+#    Copyright (C) 2010-2012 Camptocamp Austria (<http://www.camptocamp.at>)
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -22,31 +22,26 @@
 
 from osv import osv, fields
 import decimal_precision as dp
-
-import math
-#from _common import rounding
-import re  
 from tools.translate import _
-        
-import sys
-
+import logging
 #----------------------------------------------------------
 #  Stock Move INHERIT
 #----------------------------------------------------------
 class stock_move(osv.osv):
     _inherit = "stock.move"
+    _logger = logging.getLogger(__name__)
 
     def _compute_move_value_cost(self, cr, uid, ids, name, args, context):
         if not ids : return {}
         result = {}
         for move in self.browse(cr, uid, ids):
-            print >> sys.stderr,'type cost', move.picking_id.type
+            self._logger.debug('type cost `%s`', move.picking_id.type)
             if move.state in ['done','cancel']: return {}
             if not move.sale_line_id:
                 result[move.id] = move.product_qty * move.price_unit
             else:
                 loc_id = str(move.location_id.id)
-                print >> sys.stderr, 'loc_id ',loc_id
+                self._logger.debug('loc_id `%s`', loc_id)
                 # compute avg price per stock location
                 sql = 'select \
                  sum( case when location_id = '+loc_id+' then -move_value_cost else 0 end + case when location_dest_id = '+loc_id+' then move_value_cost else 0 end) as sum_amount, \
@@ -57,12 +52,12 @@ class stock_move(osv.osv):
                   and (location_id = '+loc_id+' or location_dest_id = '+loc_id+')' 
                 if move.prodlot_id:
                    sql = sql + ' and prodlot_id = ' + str(move.prodlot_id.id )
-                print >> sys.stderr, 'sql ',sql
+                self._logger.debug('sql `%s`', sql)
                 cr.execute(sql)
                 for r in cr.dictfetchall():
                    sum_amount = r['sum_amount']
                    sum_qty    = r['sum_qty']
-                   print >> sys.stderr, 'sum ', sum_amount,sum_qty
+                   self._logger.debug('sum `%s` `%s`', sum_amount, sum_qty)
                    if sum_qty and sum_qty > 0.0 and sum_amount > 0.0:
                        avg_price = sum_amount / sum_qty 
                        result[move.id] = move.product_qty * avg_price
@@ -72,28 +67,28 @@ class stock_move(osv.osv):
         return result
 
     def _compute_move_value_sale(self, cr, uid, ids, name, args, context):
-        print >> sys.stderr, 'value_sale'
+        self._logger.debug('value_sale')
         if not ids: return {}
         result = {}
         for move in self.browse(cr, uid, ids):
             if move.state in ['done','cancel']: return {}
-            print >> sys.stderr,'type sale', move.picking_id.type
+            self._logger.debug('type sale `%s`', move.picking_id.type)
             if move.sale_line_id:
                 result[move.id] = move.product_qty * move.sale_line_id.price_unit
-                print >> sys.stderr, 'value_sale', result[move.id]
+                self._logger.debug('value_sale `%s`', result[move.id])
         return result
 
     def _compute_price_unit_sale(self, cr, uid, ids, name, args, context):
-        print >> sys.stderr, 'value_price'
+        self._logger.debug('value_price')
         if not ids: return {}
         result = {}
         for move in self.browse(cr, uid, ids):
             avg_price = 0.0
             if move.picking_id.type == 'out' and move.state != 'cancel' and move.product_qty and move.product_qty != 0:
-                print >> sys.stderr,'type sale', move.picking_id.type
+                self._logger.debug('type sale `%s`', move.picking_id.type)
                 avg_price = move.move_value_sale / move.product_qty 
             result[move.id] = avg_price
-            print >> sys.stderr, 'value_sale', result[move.id]
+            self._logger.debug('value_sale `%s`', result[move.id])
         return result
 
 
@@ -137,9 +132,7 @@ class stock_move(osv.osv):
                                    where p.id = m.product_id and t.id = p.product_tmpl_id) where move_value_cost is null;
       """)
 
-
 stock_move()
-
 
 
 #----------------------------------------------------------

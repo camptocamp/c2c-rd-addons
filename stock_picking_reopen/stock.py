@@ -41,12 +41,12 @@ stock_journal()
 class stock_picking(osv.osv):
     _inherit = 'stock.picking'
 
-    def _auto_init(self, cr, context=None):
-           cr.execute("""update wkf_instance
-                         set state = 'active'
-                       where state = 'complete'
-                         and res_type = 'stock.picking'
-""")
+#    def _auto_init(self, cr, context=None):
+#           cr.execute("""update wkf_instance
+#                         set state = 'active'
+#                       where state = 'complete'
+#                         and res_type = 'stock.picking'
+#""")
 
     def allow_reopen(self, cr, uid, ids, context=None):
         _logger = logging.getLogger(__name__)
@@ -94,6 +94,7 @@ class stock_picking(osv.osv):
         @return: True
         """
         _logger = logging.getLogger(__name__)
+	self.allow_reopen(cr, uid, ids, context=None)
         move_line_obj = self.pool.get('stock.move')
         account_move_line_obj = self.pool.get('account.move.line')
         account_move_obj = self.pool.get('account.move')
@@ -107,7 +108,7 @@ class stock_picking(osv.osv):
             for ml in pick.move_lines:
                 ml_ids.append(ml.id)
             _logger.info('FGF picking action reopen pick %s ' %(ml_ids)   )
-            move_line_obj.write(cr, uid, ml_ids, {'state':'confirmed'})
+            move_line_obj.write(cr, uid, ml_ids, {'state':'draft'})
             # we have to handle real time accounting stock moves
             #FIXME - performance, should be an id - link to picking 
             #aml_ids = account_move_line_obj.search(cr, uid, [('picking_id','=',pick.id)])
@@ -142,6 +143,12 @@ class stock_picking(osv.osv):
                         'datas_fname': a.datas_fname.replace('.pdf.pdf', now+'.pdf.pdf')
                            }
                           attachment_obj.write(cr, uid, a.id, vals)
+
+            self.write(cr, uid, pick.id, {'state':'draft'})
+            wf_service = netsvc.LocalService("workflow")
+
+            wf_service.trg_delete(uid, 'stock.picking', pick.id, cr)
+            wf_service.trg_create(uid, 'stock.picking', pick.id, cr)
 
             self.log_picking(cr, uid, ids, context=context)  
             

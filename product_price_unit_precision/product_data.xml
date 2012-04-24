@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+        
+<record forcecreate="True" id="decimal_sale_price_unit" model="decimal.precision">
+    <field name="name">Sale Price Unit</field>
+    <field name="digits">2</field>
+</record>
+<record forcecreate="True" id="decimal_purchase_price_unit" model="decimal.precision">
+    <field name="name">Purchase Price Unit</field>
+    <field name="digits">2</field>
+</record>
+<record forcecreate="True" id="decimal_invoice_price_unit" model="decimal.precision">
+    <field name="name">Invoice Price Unit</field>
+    <field name="digits">2</field>
+</record>
+
+    </data>
+</openerp>

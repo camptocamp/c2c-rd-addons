@@ -2,20 +2,21 @@
 # This file contains the translation of the following modules:
 #	* chricar_budget
 #
+# Ferdinand Gassauer, 2012.
 msgid ""
 msgstr ""
-"Project-Id-Version: OpenERP Server 6.1rc1\n"
+"Project-Id-Version: OpenERP Server 6.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-01-23 22:05+0000\n"
-"PO-Revision-Date: 2012-01-24 01:03+0000\n"
-"Last-Translator: Joël Grand-Guillaume @ CampToCamp "
-"<joel.grandguillaume@camptocamp.com>\n"
-"Language-Team: \n"
+"PO-Revision-Date: 2012-04-17 13:31+0000\n"
+"Last-Translator: Ferdinand @ Camptocamp <Unknown>\n"
+"Language-Team: American English <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2012-04-13 06:14+0000\n"
-"X-Generator: Launchpad (build 15070)\n"
+"X-Launchpad-Export-Date: 2012-04-24 05:23+0000\n"
+"X-Generator: Launchpad (build 15135)\n"
+"Language: en_US\n"
 
 #. module: chricar_budget
 #: view:chricar.budget:0
@@ -236,7 +237,7 @@ msgstr "Ertrag"
 #. module: chricar_budget
 #: field:chricar.budget,harvest_yield_diff:0
 msgid "Yield Net Diff"
-msgstr "Nette Diff Ertrag"
+msgstr "Netto Diff Ertrag"
 
 #. module: chricar_budget
 #: field:chricar.budget,yield_sale:0
@@ -316,7 +317,7 @@ msgstr "erwarteter Durchschnittspreis"
 #. module: chricar_budget
 #: view:chricar.budget:0
 msgid "Sum ha used"
-msgstr "SUm ha verwendet"
+msgstr "Sum ha verwendet"
 
 #. module: chricar_budget
 #: help:chricar.budget,yield_sale:0

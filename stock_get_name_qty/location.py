@@ -3,7 +3,7 @@
 #
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2010 Tiny SPRL (<http://tiny.be>).
-#    Copyright (C) 2010-2010 Camptocamp Austria (<http://www.camptocamp.at>)
+#    Copyright (C) 2010-2012 Camptocamp Austria (<http://www.camptocamp.at>)
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -30,11 +30,12 @@ class stock_location(osv.osv):
     def name_get(self, cr, uid, ids, context=None):
         product_obj = self.pool.get('product.product')
         _logger = logging.getLogger(__name__)
+        #_logger.info('FGF loc ids %s' % (ids))
         res= super(stock_location, self).name_get(cr, uid, ids, context)
-        _logger.info('FGF loc res %s' % (res))
-        _logger.info('FGF loc context %s ' % (context))
+        #_logger.info('FGF loc res %s' % (res))
+        #_logger.info('FGF loc context %s ' % (context))
         resd = dict(res)
-        _logger.info('FGF loc d %s ' % (resd))
+        #_logger.info('FGF loc d %s ' % (resd))
         res1 =[]
         if context.get('product_id'):
        
@@ -54,11 +55,11 @@ class stock_location(osv.osv):
             if qty_v != qty:
                 qty_str += ' / ' + str(qty_v)
             name_new = resd[loc.id] + ' [ ' + qty_str + uom_name + ' ]' + packs 
-            _logger.info('FGF loc name %s' % (name_new))
+            #_logger.info('FGF loc name %s' % (name_new))
       
             l = (loc.id,name_new)
             res1.append(l)
-            _logger.info('FGF loc res1 %s' % (res1))
+            #_logger.info('FGF loc res1 %s' % (res1))
         else:
            res1 = res
         return res1

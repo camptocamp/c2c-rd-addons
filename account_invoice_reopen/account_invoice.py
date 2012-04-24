@@ -19,26 +19,18 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-
-# FIXME remove logger lines or change to debug
- 
 from osv import fields, osv
 from tools.translate import _
-import logging
 import time
-
-
-
+import netsvc
 
 class account_invoice(osv.osv):
     _inherit = "account.invoice"
  
 #   def _get_state(self, cr, uid, ids, context=None):
-#       _logger = logging.getLogger(__name__)
 
 #       res = list(super(account_invoice, self)._columns['state'].selection)
 #       res.append(('draft_reset','Reset to draft'))
-#       _logger.info('FGF invoice states  %s' % (res) )
 
 #       return res 
 
@@ -61,23 +53,24 @@ class account_invoice(osv.osv):
 #           \n* The \'Cancelled\' state is used when user cancel invoice.'),
 
 #   }
-    def _auto_init(self, cr, context=None):
-           cr.execute("""update wkf_instance
-                         set state = 'active'
-                       where state = 'complete'
-                         and res_type = 'account.invoice'
-""")
+
+#    def _auto_init(self, cr, context=None):
+#           cr.execute("""update wkf_instance
+#                         set state = 'active'
+#                       where state = 'complete'
+#                         and res_type = 'account.invoice'
+#""")
 
 
     def action_reopen(self, cr, uid, ids, *args):
-        _logger = logging.getLogger(__name__)
         context = {} # TODO: Use context from arguments
         attachment_obj = self.pool.get('ir.attachment')
         invoice_obj = self.pool.get('account.invoice')
         account_move_obj = self.pool.get('account.move')
         account_move_line_obj = self.pool.get('account.move.line')
         report_xml_obj = self.pool.get('ir.actions.report.xml')
-        invoices = self.read(cr, uid, ids, ['move_id', 'payment_ids'])
+        invoices = self.read(cr, uid, ids, ['move_id', 'payment_ids', 'id'])
+        wf_service = netsvc.LocalService("workflow")
         
         move_ids = [] # ones that we will need to update
         now = ' ' + _('Invalid') + time.strftime(' [%Y%m%d %H%M%S]')
@@ -89,11 +82,14 @@ class account_invoice(osv.osv):
                         raise osv.except_osv(_('Error !'), _('You can not reopen invoice of this journal [%s]! You need to need to set "Allow Update Posted Entries" first')%(move.journal_id.name))
                     
             if i['payment_ids']:
-                account_move_line_obj = self.pool.get('account.move.line')
                 pay_ids = account_move_line_obj.browse(cr, uid, i['payment_ids'])
                 for move_line in pay_ids:
                     if move_line.reconcile_id or (move_line.reconcile_partial_id and move_line.reconcile_partial_id.line_partial_ids):
                         raise osv.except_osv(_('Error !'), _('You can not reopen an invoice which is partially paid! You need to unreconcile related payment entries first!'))
+	    self.write(cr, uid, i['id'], {'state':'draft'})
+            wf_service.trg_delete(uid, 'account.invoice', i['id'], cr)
+            wf_service.trg_create(uid, 'account.invoice', i['id'], cr)
+
 
         # rename attachments (reports)
         # for some reason datas_fname has .pdf.pdf extension
@@ -138,6 +134,7 @@ class account_invoice(osv.osv):
                 account_move_line_obj.write(cr, uid, lines_to_reconile, {'reconcile_id':r_id})
               
         self._log_event(cr, uid, ids, -1.0, 'Reopened Invoice')
+
         return True
 
     #def action_move_create(self, cr, uid, ids, context=None):
