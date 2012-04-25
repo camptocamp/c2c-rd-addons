@@ -103,6 +103,7 @@ class chricar_top(osv.osv):
          return result
 
      _columns = {
+       'active'             : fields.boolean ('Active', help="If the active field is set to False, it will allow you to hide the top without removing it."),
        'account_analytic_id': fields.many2one('account.analytic.account', 'Analytic Account', required=True),  
        'analytic_line_ids'  : one2many_analytic('account.analytic.line', 'account_id', 'Analytic Lines'),  
        'alarm'              : fields.boolean ('Alarm', required=True),
@@ -172,6 +173,7 @@ class chricar_top(osv.osv):
                                                 ], 'Air Condition' ),
 }
      _defaults = {
+       'active'            : lambda *a: 1,
        'alarm'             : lambda *a: False,
        'old_building'      : lambda *a: False,
        'floor'             : lambda *a: '0',
