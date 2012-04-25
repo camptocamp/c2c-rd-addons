@@ -491,7 +491,7 @@ Modification of chricar_budget
             <button
               colspan="1"
               name="button_auto_generate_sale_lines"
-              string="Generate Sale Lines"
+              tring="Generate Sale Lines"
               type="object"/>
           </group>
         </field>

@@ -562,10 +562,12 @@ class chricar_budget(osv.osv):
               toremove.append(c2c_lines.budget_line_id.id)
           bls_obj.unlink(cr, uid, line_ids )
           self._logger.debug('lines deleted `%s`', line_ids)
-          self._logger.debug('lines c2c to deleted `%s`', toremove)
-          self.pool.get('c2c_budget.line').unlink(cr, uid, toremove )
-          self._logger.debug('lines c2c deleted `%s`', toremove)
-          
+          if toremove:
+             self._logger.debug('lines c2c to deleted `%s`', toremove)
+             self.pool.get('c2c_budget.line').unlink(cr, uid, toremove )
+             self._logger.debug('lines c2c deleted `%s`', toremove)
+       return True  
+
         # create new lines for not individually planned sales
       def button_auto_generate_sale_lines(self, cr, uid, ids, context=None):
 	# Call delete function instead of copy
@@ -669,7 +671,8 @@ class chricar_budget(osv.osv):
                   'auto_generated' : 1,
                   'auto_type' : 'sale',
                   'name' : 'generated '+ prod_plan.product_id.name + ' - ' + (prod_plan.product_id.variants or '') ,
-                  'quantity' : qty_monthly
+                  'quantity' : qty_monthly,
+		  'currency_id' : prod_plan.budget_version_id.currency_id.id,
                         }
                  self._logger.debug('vals    `%s`', vals)
                  bls_obj.create(cr, uid, vals )
@@ -685,7 +688,7 @@ class chricar_budget(osv.osv):
         if line_cost_ids:
           # value = cost of good sold
           
-          total_value_cost = total_qty * prod_plan.product_id.standard_price_coeff
+          total_value_cost = total_qty * prod_plan.product_id.standard_price
             
           for sale_lines in bls_obj.browse(cr, uid, line_cost_ids):
               
@@ -705,14 +708,15 @@ class chricar_budget(osv.osv):
                   'auto_generated' : 1,
                   'auto_type' : 'cost',
                   'name' : 'generated cost '+ prod_plan.product_id.name + ' - ' + (prod_plan.product_id.variants or '') ,
+		  'currency_id' : prod_plan.budget_version_id.currency_id.id,
                   }
-              self._logger.debug('vals cost `vals_costs`', yy)
+              self._logger.debug('vals cost `vals_costs`', vals_cost)
               bls_obj.create(cr, uid, vals_cost )
 
         # Production cost inventory
-        if prod_plan.product_qty and prod_plan.product_id.standard_price_coeff:
+        if prod_plan.product_qty and prod_plan.product_id.standard_price:
           # value = cost of production 
-          total_value_cost = total_qty * prod_plan.product_id.standard_price_coeff
+          total_value_cost = total_qty * prod_plan.product_id.standard_price
           vals_cost = {
                   'budget_id' : prod_plan.id,
                   'budget_version_id': prod_plan.budget_version_id.id,
@@ -727,6 +731,7 @@ class chricar_budget(osv.osv):
                   'auto_generated' : 1,
                   'auto_type' : 'cost',
                   'name' : 'generated production value '+ prod_plan.product_id.name + ' - ' + (prod_plan.product_id.variants or '') ,
+		  'currency_id' : prod_plan.budget_version_id.currency_id.id,
                   }
           self._logger.debug('vals cost `%s`', vals_cost)
           bls_obj.create(cr, uid, vals_cost )

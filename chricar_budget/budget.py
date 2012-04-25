@@ -291,6 +291,16 @@ class chricar_budget(osv.osv):
         default['name'] = (budget['name'] or '') + '(copy)'
         return super(chricar_budget, self).copy(cr, uid, id, default, context)
 
+     def product_id_change(self, cr, uid, ids, product_id):
+         res = {}
+         for product in self.pool.get('product.product').browse(cr, uid, [product_id]):
+	    res = {'product_uom' : product.uom_id.id,
+	           'price_unit_id' : product.price_unit_id.id,
+		   }
+
+         return {'value': res}
+
+
 
 chricar_budget()
 
