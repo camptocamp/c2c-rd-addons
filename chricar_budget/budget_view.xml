@@ -74,7 +74,8 @@ generated 2009-08-18 23:44:30+02
             <field
               colspan="4"
               domain="[('supply_method' ,'=', 'produce')]"
-              name="product_id"
+	      name="product_id"
+	      on_change="product_id_change(product_id)"
               select="1"/>
           </group>
           <group string="Accounting" colspan="2" col="4">
@@ -167,6 +168,7 @@ generated 2009-08-18 23:44:30+02
           <field
             domain="[('supply_method' ,'=', 'produce')]"
             name="product_id"
+	    on_change="product_id_change(product_id)"
             select="1"/>
           <field name="product_uom"/>
           <field name="surface" select="1" sum="Sum Surface"/>

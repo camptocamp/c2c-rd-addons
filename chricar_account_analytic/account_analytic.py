@@ -325,6 +325,7 @@ class account_bank_statement_line(osv.osv):
         ]
 
     def onchange_account(self, cr, uid, ids, account_id,tax_id, amount, partner_id):
+        _logger = logging.getLogger(__name__)
 
         result = super(account_bank_statement_line,self).onchange_account( cr, uid, ids, account_id,tax_id, amount, partner_id)
         if not account_id: 
