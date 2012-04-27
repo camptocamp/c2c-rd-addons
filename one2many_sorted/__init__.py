@@ -60,7 +60,7 @@ class one2many_sorted(fields.one2many):
         (fields.one2many).__init__(self, obj, fields_id, string=string, limit=limit, **args)
     # end def __init__
 
-    def select (self, cr, user, obj, ids, context=None, ) :
+    def select (self, cr, user, obj, ids, context=None) :
         _obj = obj.pool.get(self._obj)
         return _obj.search \
             ( cr, user
