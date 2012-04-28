@@ -31,7 +31,6 @@
 ###############################################
 from datetime import *
 from osv import fields,osv
-from tools.sql import drop_view_if_exists
 from dateutil.relativedelta import *
 import decimal_precision as dp
 import logging
@@ -787,11 +786,10 @@ class chricar_budget_line_share(osv.osv):
     _order = 'date_due asc'
 
     def init(self, cr):
-      drop_view_if_exists(cr, 'chricar_budget_line_share')
       cr.execute("""
 DROP SEQUENCE IF EXISTS chricar_budget_line_share_id_seq CASCADE;
 CREATE SEQUENCE chricar_budget_line_share_id_seq;
-create view chricar_budget_line_share as
+create or replace view chricar_budget_line_share as
   select 
       nextval('chricar_budget_line_share_id_seq'::regclass)::int as id,
       l.period_id,

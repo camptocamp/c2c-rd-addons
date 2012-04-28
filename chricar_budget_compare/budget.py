@@ -31,7 +31,6 @@
 ###############################################
 from osv import fields,osv
 import decimal_precision as dp
-from tools.sql import drop_view_if_exists
 
 class chricar_budget_compare(osv.osv):
      _name = "chricar.budget.compare"
@@ -61,9 +60,6 @@ class chricar_budget_compare(osv.osv):
          } 
 
      def init(self, cr):
-          drop_view_if_exists(cr, 'chricar_budget_compare_year')
-          drop_view_if_exists(cr, 'chricar_budget_compare_period')
-          drop_view_if_exists(cr, 'chricar_budget_compare')
           cr.execute("""
 create or replace view chricar_budget_compare
 as
@@ -210,7 +206,6 @@ class chricar_budget_compare_period(osv.osv):
          }
 
      def init(self, cr):
-          drop_view_if_exists(cr, 'chricar_budget_compare_period')
           cr.execute("""
 DROP SEQUENCE IF EXISTS chricar_budget_compare_period_id_seq CASCADE;
 CREATE SEQUENCE chricar_budget_compare_period_id_seq;
@@ -253,7 +248,6 @@ class chricar_budget_compare_year(osv.osv):
          }
 
      def init(self, cr):
-          drop_view_if_exists(cr, 'chricar_budget_compare_year')
           cr.execute("""
 DROP SEQUENCE IF EXISTS chricar_budget_compare_year_id_seq CASCADE;
 CREATE SEQUENCE chricar_budget_compare_year_id_seq;
