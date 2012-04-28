@@ -74,7 +74,7 @@ class one2many_sorted(fields.one2many):
         _obj = obj.pool.get(self._obj)
         ids2 = self.select(cr, user, obj, ids, context=context)
         res = {}
-        for id in ids2 : res[id] = []
+        for id in ids : res[id] = []
         undecorated = []
         for r in _obj.browse(cr, user, ids2, context=context) :
             d = {}
