@@ -37,7 +37,12 @@ using address label field with addressee's country specific zip position
 
 suppress unused columns in sale order lines."""
 , "version"      : "0.9"
-, "depends"      : ["sale", "report_webkit","c2c_partner_address_label"]
+, "depends"      : 
+    [ "sale"
+    , "report_webkit"
+    , "c2c_partner_address_label"
+    , "one2many_sorted"
+    ]
 , "category"     : "Sales Management"
 , "author"       : "Camptocamp SA - Ferdinand Gassauer"
 , "website"      : "http://www.camptocamp.com/"
