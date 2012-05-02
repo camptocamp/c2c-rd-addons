@@ -60,7 +60,7 @@ class one2many_sorted(fields.one2many):
         (fields.one2many).__init__(self, obj, fields_id, string=string, limit=limit, **args)
     # end def __init__
 
-    def select (self, cr, user, obj, ids, context=None) :
+    def selected (self, cr, user, obj, ids, context=None) :
         _obj = obj.pool.get(self._obj)
         return _obj.search \
             ( cr, user
@@ -68,11 +68,11 @@ class one2many_sorted(fields.one2many):
             , limit = self._limit
             , context=context
             )
-    # end def select
+    # end def selected
 
     def get (self, cr, obj, ids, name, user=None, offset=0, context=None, values={}) :
         _obj = obj.pool.get(self._obj)
-        ids2 = self.select(cr, user, obj, ids, context=context)
+        ids2 = self.selected(cr, user, obj, ids, context=context)
         res = {}
         for id in ids : res[id] = []
         undecorated = []
