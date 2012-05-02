@@ -23,8 +23,24 @@
 
 from osv import fields, osv
 import decimal_precision as dp
+import one2many_sorted
 import logging
-_logger = logging.getLogger(__name__)
+
+class stock_inventory(osv.osv):
+    _inherit= "stock.inventory"
+    _columns = {
+	#'inventory_line_id': fields.one2many('stock.inventory.line', 'inventory_id', 'Inventories', states={'done': [('readonly', True)]}),
+	'inventory_line_id_sorted': one2many_sorted.one2many_sorted 
+	        ( 'stock.inventory.line'
+		, 'inventory_id'
+	        , 'Inventories'
+		, states={'done': [('readonly', True)]}
+		, order = 'location_id.name, product_id.name'	),
+    }
+    _order = 'date desc'
+   
+stock_inventory()
+
 
 class stock_inventory_line(osv.osv):
     _inherit = "stock.inventory.line"

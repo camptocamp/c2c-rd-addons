@@ -12,7 +12,7 @@ legal and fiscal relevant periods
 
 Added Participation tab to partners to show Parent and Participations"""
 , "category"     : "Generic Modules/Others"
-, "depends"      : ["base"]
+, "depends"      : ["one2many_sorted"]
 , "init_xml"     : []
 , "demo_xml"     : ["partner_parent_companies_demo.xml"]
 , "update_xml"   : 

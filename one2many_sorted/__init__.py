@@ -5,7 +5,7 @@
 # (<http://www.swing-system.com>)
 # Copyright (C) ChriCar Beteiligungs- und Beratungs- GmbH
 # all rights reserved
-#    06-APR-2012 (GK) created
+#    26-APR-2012 (GK) created
 #
 # WARNING: This program as such is intended to be used by professional
 # programmers who take the whole responsability of assessing all potential
@@ -27,13 +27,13 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, see <http://www.gnu.org/licenses/> or
 # write to the Free Software Foundation, Inc.,
-# 59 Temple Place - Suite 330, Boston, MA  02111-1.17, USA.
+# 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 ###############################################
 from osv import fields,osv
 from tools.translate import _
 
-class one2many_sorted (fields.one2many):
+class one2many_sorted(fields.one2many):
     
     def __init__(self, obj, fields_id, string='unknown', limit=None, **args) :
         if 'order' in args :
@@ -60,15 +60,21 @@ class one2many_sorted (fields.one2many):
         (fields.one2many).__init__(self, obj, fields_id, string=string, limit=limit, **args)
     # end def __init__
 
-    def get (self, cr, obj, ids, name, user=None, offset=0, context=None, values={}) :
-        res = {}
+    def select (self, cr, user, obj, ids, context=None) :
         _obj = obj.pool.get(self._obj)
-        for id in ids : res[id] = []
-        ids2 = _obj.search \
+        return _obj.search \
             ( cr, user
             , [(self._fields_id, 'in', ids)] + self._search
             , limit = self._limit
+            , context=context
             )
+    # end def select
+
+    def get (self, cr, obj, ids, name, user=None, offset=0, context=None, values={}) :
+        _obj = obj.pool.get(self._obj)
+        ids2 = self.select(cr, user, obj, ids, context=context)
+        res = {}
+        for id in ids : res[id] = []
         undecorated = []
         for r in _obj.browse(cr, user, ids2, context=context) :
             d = {}

@@ -119,61 +119,61 @@ class chricar_stock_product_partner(osv.osv):
     _name = "chricar.stock.product.partner"
     _description = "Product Partner Moves"
     _auto = False
-    _columns = {
-       'id'                 : fields.integer ('ID'),
-       'type'               : fields.selection([('out','Sending Goods'),
-                                                ('in' ,'Getting Goods') ],'Type'),
-       'partner_id'         : fields.many2one('res.partner','Partner'),
-       'period_id'          : fields.many2one('account.period','Period'),
-       'product_id'         : fields.many2one('product.product','Product'),
-       'product_qty'        : fields.float('Product Qty', digits_compute=dp.get_precision('Account')),
-       'move_value_cost'         : fields.float('Move Value', digits_compute=dp.get_precision('Account')),
-       'move_value_sale'    : fields.float('Move Value Sale', digits_compute=dp.get_precision('Account')),
-       'avg_price'          : fields.float('Avg Price', digits=(16, 6)),
-       'avg_sale_price'     : fields.float('Avg Sale Price', digits=(16, 6 )),
-
+    _columns = \
+        { 'id'                 : fields.integer ('ID')
+        , 'type'               : fields.selection
+            ([('out','Sending Goods')
+             ,('in' ,'Getting Goods') ]
+            , 'Type'
+            )
+        , 'partner_id'         : fields.many2one('res.partner','Partner')
+        , 'period_id'          : fields.many2one('account.period','Period')
+        , 'product_id'         : fields.many2one('product.product','Product')
+        , 'product_qty'        : fields.float('Product Qty', digits_compute=dp.get_precision('Account'))
+        , 'move_value_cost'         : fields.float('Move Value', digits_compute=dp.get_precision('Account'))
+        , 'move_value_sale'    : fields.float('Move Value Sale', digits_compute=dp.get_precision('Account'))
+        , 'avg_price'          : fields.float('Avg Price', digits=(16, 6))
+        , 'avg_sale_price'     : fields.float('Avg Sale Price', digits=(16, 6 ))
         }
+
     def init(self, cr):
         drop_view_if_exists(cr,'chricar_stock_product_partner')
         cr.execute("""
 create view chricar_stock_product_partner as
-select get_id('chricar_stock_product_partner',
-  (case when s.type = 'in' then 1
-       when s.type = 'out' then 2
-   end)::int , a.partner_id, p.id ,product_id) as id,
-   s.type as type,
-   a.partner_id, p.id as period_id ,product_id,
-   sum(product_qty) as product_qty,
-   sum(move_value_cost) as move_value_cost,
-   sum(move_value_sale) as move_value_sale,
-   case when sum(product_qty) > 0
-      then sum(move_value_cost) / sum(product_qty)
-      else 0
-   end as avg_price,
-   case when sum(product_qty) > 0
-      then sum(move_value_sale) / sum(product_qty)
-      else 0
-   end as avg_sale_price
-  from stock_move,
-       account_period p,
-       res_partner_address a,
-       stock_picking s
- where a.id= s.address_id
-   and s.id=picking_id
-   and stock_move.date between date_start and date_stop
-   and s.type in ('in','out')
-   and stock_move.state != 'cancel'
-   and s.state != 'cancel'
- group by
-   get_id('chricar_stock_product_partner',
-  (case when s.type = 'in' then 1
-       when s.type = 'out' then 2
-   end)::int , a.partner_id, p.id ,product_id),
-   s.type,a.partner_id, p.id ,product_id;
+select
+    get_id('chricar_stock_product_partner',
+      (case when s.type = 'in' then 1
+           when s.type = 'out' then 2
+       end)::int , a.partner_id, p.id ,product_id) as id,
+    s.type as type,
+    a.partner_id, p.id as period_id ,product_id,
+    sum(product_qty) as product_qty,
+    sum(move_value_cost) as move_value_cost,
+    sum(move_value_sale) as move_value_sale,
+    case when sum(product_qty) > 0
+       then sum(move_value_cost) / sum(product_qty)
+       else 0
+    end as avg_price,
+    case when sum(product_qty) > 0
+       then sum(move_value_sale) / sum(product_qty)
+       else 0
+    end as avg_sale_price
+  from 
+    stock_move,
+    account_period p,
+    res_partner_address a,
+    stock_picking s
+  where a.id= s.address_id
+    and s.id=picking_id
+    and stock_move.date between date_start and date_stop
+    and s.type in ('in','out')
+    and stock_move.state != 'cancel'
+    and s.state != 'cancel'
+  group by
+    get_id('chricar_stock_product_partner',
+      (case when s.type = 'in' then 1
+            when s.type = 'out' then 2
+      end)::int , a.partner_id, p.id ,product_id),
+    s.type,a.partner_id, p.id ,product_id;
 """)
-
-
 chricar_stock_product_partner()
-
-
-

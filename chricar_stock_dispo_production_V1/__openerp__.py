@@ -5,7 +5,7 @@
 , "description"  : """Dispo Production
 generated 2010-04-02 15:01:02+02"""
 , "category"     : "Client Modules/Farm"
-, "depends"      : ["sale","stock"]
+, "depends"      : ["sale","stock", "one2many_sorted"]
 , "init_xml"     : ["mig_stock_dispo_production_init.xml"]
 , "demo_xml"     : []
 , "update_xml"   : 

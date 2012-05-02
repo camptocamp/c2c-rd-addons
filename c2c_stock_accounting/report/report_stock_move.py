@@ -18,16 +18,11 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-
 import tools
 from osv import fields,osv
-from decimal_precision import decimal_precision as dp
-
-
 
 class report_stock_move(osv.osv):
     _inherit = "report.stock.move"
-
 
     def init(self, cr):
         tools.drop_view_if_exists(cr, 'report_stock_move')
@@ -124,7 +119,7 @@ report_stock_move()
 class report_stock_inventory(osv.osv):
     _inherit = "report.stock.inventory"
 
-        def init(self, cr):
+    def init(self, cr):
         tools.drop_view_if_exists(cr, 'report_stock_inventory')
         cr.execute("""
 CREATE OR REPLACE view report_stock_inventory AS (
@@ -166,5 +161,5 @@ CREATE OR REPLACE view report_stock_inventory AS (
         m.id, m.product_id, m.product_uom, pt.categ_id, m.address_id, m.location_id, m.location_dest_id,
         m.prodlot_id, m.date, m.state, l.usage, m.company_id
     )
-);
-        """)
+);""")
+report_stock_inventory()
