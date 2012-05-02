@@ -64,13 +64,13 @@ class one2many_sorted(fields.one2many):
         (fields.one2many).__init__(self, obj, fields_id, string=string, limit=limit, **args)
     # end def __init__
     
-    def property_value(self, cr, user, name):
-        property_obj = self.pool.get('ir.property')
+    def property_value(self, cr, user, obj, name):
+        property_obj = obj.pool.get('ir.property')
         prop_id = property_obj.search \
             ( cr, user
             , [ ('name', '=', name)
               , ('type', '=', 'text')
-              , ('company_id','=', self.pool.get('res.company')._company_default_get(cr, user))
+              , ('company_id','=', obj.pool.get('res.company')._company_default_get(cr, user))
               ]
             )
         if prop_id :
@@ -94,11 +94,11 @@ class one2many_sorted(fields.one2many):
         res = {}
         for id in ids : res[id] = []
         if context and 'one2many_sorted_order' in context :
-            prop = self.property_value(cr, user, context['one2many_sorted_order'])
+            prop = self.property_value(cr, user, obj, context['one2many_sorted_order'])
             if prop :
                 order = self.parse_oder(prop)
         else:
-            prop = self.property_value(cr, user, "%s.%s.order" % (self._obj,self, _fields_id))
+            prop = self.property_value(cr, user, obj, "%s.%s.order" % (self._obj,self, self._fields_id))
             if prop :
                 order = self.parse_oder(prop)
             else :
