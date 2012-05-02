@@ -32,7 +32,7 @@ like consignations locations at supplieres or customers
 
 """,
     'author': 'Camptocamp Austria',
-    'depends': [ 'stock' ],
+    'depends': [ 'stock','one2many_sorted' ],
     'update_xml': ['stock_view.xml','inventory_view.xml',
        ],
     #'update_xml': ['product_view.xml'],
