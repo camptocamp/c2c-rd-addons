@@ -32,33 +32,51 @@
 ###############################################
 from osv import fields,osv
 from tools.translate import _
+import logging
 
 class one2many_sorted(fields.one2many):
     
+    _logger = logging.getLogger(__name__)
+    
+    def parse_order(self, order):
+        result = []
+        for col in order.split(',') :
+            c = col.strip()
+            if ' ASC' in c.upper() :
+                result.append((c[0:c.index(' ')], False))
+            elif ' DESC' in c.upper() :
+                result.append((c[0:c.index(' ')], True))
+            else :
+                result.append((c, False))
+        return list(reversed(result))
+    # end def parse_order
+    
     def __init__(self, obj, fields_id, string='unknown', limit=None, **args) :
+        self._order  = []
+        self._search = []
+        self._set    = {}
         if 'order' in args :
-            order = []
-            for col in args['order'].split(',') :
-                c = col.strip()
-                if ' ASC' in c.upper() :
-                    order.append((c[0:c.index(' ')], False))
-                elif ' DESC' in c.upper() :
-                    order.append((c[0:c.index(' ')], True))
-                else :
-                    order.append((c, False))
-            self._order = list(reversed(order))
-        else :
-            self._order = []
+            self._order = self.parse_order(args['order'])
         if 'search' in args :
             self._search = args['search']
-        else :
-            self._search = []
         if 'set' in args :
             self._set = args['set']
-        else :
-            self._set = {}
         (fields.one2many).__init__(self, obj, fields_id, string=string, limit=limit, **args)
     # end def __init__
+    
+    def property_value(self, cr, user, name):
+        property_obj = self.pool.get('ir.property')
+        prop_id = property_obj.search \
+            ( cr, user
+            , [ ('name', '=', name)
+              , ('type', '=', 'text')
+              , ('company_id','=', self.pool.get('res.company')._company_default_get(cr, user))
+              ]
+            )
+        if prop_id :
+            return property_obj.browse(cr, user, prop_id[0]).value_text
+        return False 
+    # end def property_value
 
     def selected (self, cr, user, obj, ids, context=None) :
         _obj = obj.pool.get(self._obj)
@@ -75,10 +93,20 @@ class one2many_sorted(fields.one2many):
         ids2 = self.selected(cr, user, obj, ids, context=context)
         res = {}
         for id in ids : res[id] = []
+        if context and 'one2many_sorted_order' in context :
+            prop = self.property_value(cr, user, context['one2many_sorted_order'])
+            if prop :
+                order = self.parse_oder(prop)
+        else:
+            prop = self.property_value(cr, user, "%s.%s.order" % (self._obj,self, _fields_id))
+            if prop :
+                order = self.parse_oder(prop)
+            else :
+                order = self._order
         undecorated = []
         for r in _obj.browse(cr, user, ids2, context=context) :
             d = {}
-            for key in ([('id', False)] + self._order) :
+            for key in ([('id', False)] + order) :
                 o = r
                 for m in key[0].split('.'):
                     if "()" in m :
@@ -87,10 +115,12 @@ class one2many_sorted(fields.one2many):
                         o = getattr(o, m)
                 d[key[0]] = o if not isinstance(o, str) else _(o)
             undecorated.append(d)
-        for key in self._order :
+        for key in order :
             decorated = [(d[key[0]], d) for d in undecorated]
             decorated.sort(reverse=key[1])
             undecorated = [d for (k, d) in decorated]
+        for d in undecorated :
+            self._logger.debug("sorted %s", d) ############################
         for r in _obj.browse(cr, user, [d['id'] for d in undecorated], context=context) :
             res [getattr(r, self._fields_id).id].append(r.id)
         return res
