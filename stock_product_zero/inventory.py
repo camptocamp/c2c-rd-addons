@@ -28,12 +28,14 @@ class stock_inventory(osv.osv):
     _inherit= "stock.inventory"
     _columns = {
 	#'inventory_line_id': fields.one2many('stock.inventory.line', 'inventory_id', 'Inventories', states={'done': [('readonly', True)]}),
-	'inventory_line_id_sorted': one2many_sorted.one2many_sorted 
+	'inventory_line_id': one2many_sorted.one2many_sorted 
 	        ( 'stock.inventory.line'
 		, 'inventory_id'
 	        , 'Inventories'
 		, states={'done': [('readonly', True)]}
 		, order = 'location_id.name, product_id.name'	),
+        #'move_ids': fields.many2many('stock.move', 'stock_inventory_move_rel', 'inventory_id', 'move_id', 'Created Moves'),
+        #'move_ids': one2many_sorted.one2many_sorted('stock.move', 'stock_inventory_move_rel', 'inventory_id', 'move_id', 'Created Moves' , order = 'product_id.name',)
     }
     _order = 'date desc'
    
