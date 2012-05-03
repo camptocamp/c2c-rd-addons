@@ -72,12 +72,12 @@
             <field name="inherit_id" ref="stock.view_picking_internal_search"/>
             <field name="type">search</field>
             <field name="arch" type="xml">
-              <xpath expr="/search/group/filter[@string='Ready']" position="before">
-               <filter icon="terp-gtk-jump-to-ltr" name="to_do" string="To Do" domain="['|',('invoice_state','=','2binvoiced'),('state','!=','done'),('state','!=','cancel')]" help="All what needs your attention."/>
-                <separator orientation="vertical"/>
-              </xpath>
-           </field>
-         </record>
+                <xpath expr="/search/group/filter[@string='Ready']" position="before">
+                    <filter icon="terp-gtk-jump-to-ltr" name="to_do" string="To Do" domain="['|',('invoice_state','=','2binvoiced'),('state','!=','done'),('state','!=','cancel')]" help="All what needs your attention."/>
+                    <separator orientation="vertical"/>
+                </xpath>
+            </field>
+        </record>
 
         <record id="stock.action_picking_tree6" model="ir.actions.act_window">
             <field name="name">Internal Moves</field>
@@ -91,7 +91,29 @@
             <field name="help">Internal Moves display all inventory operations you have to perform in your warehouse. All operations can be categorized into stock journals, so that each worker has his own list of operations to perform in his own journal. Most operations are prepared automatically by OpenERP according to your preconfigured logistics rules, but you can also record manual stock operations.</field>
         </record>
 
+   <record id="view_inventory_todo_filter" model="ir.ui.view">
+       <field name="name">stock.inventory.todo.filter</field>
+       <field name="model">stock.inventory</field>
+       <field name="inherit_id" ref="stock.view_inventory_filter"/>
+       <field name="type">search</field>
+       <field name="arch" type="xml">
+           <xpath expr="/search/group/field[@name='name']" position="before">
+               <filter icon="terp-gtk-jump-to-ltr" name="to_do" string="To Do" domain="[('state','!=','done'),('state','!=','cancel')]" help="All what needs your attention."/>
+               <separator orientation="vertical"/>
+           </xpath>
+       </field>
+   </record>
 
-
+   <record id="stock.action_inventory_form" model="ir.actions.act_window">
+       <field name="name">Physical Inventories</field>
+       <field name="type">ir.actions.act_window</field>
+       <field name="res_model">stock.inventory</field>
+       <field name="view_type">form</field>
+       <field name="view_id" ref="stock.view_inventory_tree"/>
+       <field name="context">{'search_default_to_do':1 }</field>
+       <field name="search_view_id" ref="view_inventory_todo_filter" />
+       <field name="help">Periodical Inventories are used to count the number of products available per location. You can use it once a year when you do the general inventory or whenever you need it, to correct the current stock level of a product.</field>
+   </record>
+   
  </data>
 </openerp>
