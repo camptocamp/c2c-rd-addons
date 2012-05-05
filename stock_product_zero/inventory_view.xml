@@ -27,6 +27,7 @@
                 <field domain="[('usage','=','internal')]" name="location_id"/>
                 <field context="{'location':location_id, 'uom':product_uom, 'to_date':parent.date}" name="product_id" on_change="on_change_product_id(location_id,product_id,product_uom,parent.date)"  domain="[('type','&lt;&gt;','service')]"/>
                 <field name="product_qty"/>
+                <field name="product_qty_calc"/>
                 <field name="product_uom"/>
                 <field name="prod_lot_id" groups="base.group_extended"/>
                 <button name="%(stock.action_view_stock_inventory_line_split)d"
