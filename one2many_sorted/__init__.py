@@ -32,6 +32,7 @@
 ###############################################
 from osv import fields,osv
 from tools.translate import _
+from operator import itemgetter
 import logging
 
 class one2many_sorted(fields.one2many):
@@ -103,9 +104,9 @@ class one2many_sorted(fields.one2many):
                 order = self.parse_order(prop)
             else :
                 order = self._order
-        undecorated = []
+	tuples = []
         for r in _obj.browse(cr, user, ids2, context=context) :
-            d = {}
+	    my_list = []
             for key in ([('id', False)] + order) :
                 o = r
                 for m in key[0].split('.'):
@@ -113,16 +114,20 @@ class one2many_sorted(fields.one2many):
                         o = getattr(o, m.strip("()"))()
                     else :
                         o = getattr(o, m)
-                d[key[0]] = o if not isinstance(o, str) else _(o)
-            undecorated.append(d)
+		my_list.append( o if not isinstance(o, str) else _(o))
+	    tuples.append(tuple(my_list))
+
+	i = 1
         for key in order :
-            decorated = [(d[key[0]], d) for d in undecorated]
-            decorated.sort(reverse=key[1])
-            undecorated = [d for (k, d) in decorated]
-        for d in undecorated :
-            self._logger.debug("sorted %s", d) ############################
-        for r in _obj.browse(cr, user, [d['id'] for d in undecorated], context=context) :
-            res [getattr(r, self._fields_id).id].append(r.id)
+	    tuples = sorted(tuples, key=itemgetter(i) , reverse = key[1])
+	    i += 1
+
+	result = []
+        for r in tuples:
+	    result.append(r[0])
+	# FIXME - 
+	for ids3 in ids:
+	    res = { ids3 : result }
         return res
     # end def get
 
