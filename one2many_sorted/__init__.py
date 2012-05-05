@@ -32,6 +32,7 @@
 ###############################################
 from osv import fields,osv
 from tools.translate import _
+from operator import itemgetter
 import logging
 
 class one2many_sorted(fields.one2many):
@@ -104,8 +105,10 @@ class one2many_sorted(fields.one2many):
             else :
                 order = self._order
         undecorated = []
+	tuples = []
         for r in _obj.browse(cr, user, ids2, context=context) :
             d = {}
+	    my_list = []
             for key in ([('id', False)] + order) :
                 o = r
                 for m in key[0].split('.'):
@@ -114,15 +117,44 @@ class one2many_sorted(fields.one2many):
                     else :
                         o = getattr(o, m)
                 d[key[0]] = o if not isinstance(o, str) else _(o)
+		my_list.append( o if not isinstance(o, str) else _(o))
+                #self._logger.debug("my_list %s", my_list) ############################
+            my_tuple = tuple(my_list)
             undecorated.append(d)
+	    tuples.append(my_tuple)
+        for t in tuples:
+            self._logger.debug("tuples %s", t) ############################
+
+	k = int(len(order)) 
+	i = 1
+	while i <= k:
+	    tuples = sorted(tuples, key=itemgetter(i))
+	    i += 1
+
         for key in order :
+
             decorated = [(d[key[0]], d) for d in undecorated]
+            #for di in decorated :
+            #   self._logger.debug("decorated %s", di) ############################
             decorated.sort(reverse=key[1])
+            #for di in decorated :
+            #   self._logger.debug("decorated sorted%s", di) ############################
+
             undecorated = [d for (k, d) in decorated]
-        for d in undecorated :
-            self._logger.debug("sorted %s", d) ############################
-        for r in _obj.browse(cr, user, [d['id'] for d in undecorated], context=context) :
-            res [getattr(r, self._fields_id).id].append(r.id)
+        #for d in undecorated :
+        #    self._logger.debug("sorted %s", d) ############################
+	result = []
+        for r in tuples:
+            self._logger.debug("sorted tuples %s %s" %(r[0], r)) ############################
+	    result.append(r[0])
+        self._logger.debug("result %s" %(result)) ############################
+	for ids3 in ids:
+	    res = { ids3 : result }
+        self._logger.debug("res neu %s" %(res)) ############################
+	
+        #for r in _obj.browse(cr, user, [d['id'] for d in undecorated], context=context) :
+        #    res [getattr(r, self._fields_id).id].append(r.id)
+        #self._logger.debug("res %s" %(res)) ############################
         return res
     # end def get
 
