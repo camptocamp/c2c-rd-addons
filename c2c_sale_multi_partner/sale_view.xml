@@ -19,7 +19,7 @@
       <field name="type">form</field>
       <field name="arch" type="xml">
         <field name="pricelist_id" position="after">
-          <field name="partner_shipping_id"/>
+		<field name="partner_shipping_id" options='{"quick_create": false}' context="{'contact_display':'partner_address'}"/>
         </field>
       </field>
     </record>

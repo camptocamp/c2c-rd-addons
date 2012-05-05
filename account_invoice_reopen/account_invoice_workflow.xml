@@ -29,11 +29,12 @@ write({'state':'draft'})</field>
             <field name="signal">invoice_cancel</field>
         </record>
 	<!-- new -->
-
+	<!-- 20120502
    <record id="trans_open_draft" model="workflow.transition">
        <field name="act_from" ref="account.act_open"/>
        <field name="act_to" ref="account.act_draft"/>
    </record>
+-->
    
 
     </data>

@@ -96,11 +96,11 @@ class one2many_sorted(fields.one2many):
         if context and 'one2many_sorted_order' in context :
             prop = self.property_value(cr, user, obj, context['one2many_sorted_order'])
             if prop :
-                order = self.parse_oder(prop)
+                order = self.parse_order(prop)
         else:
-            prop = self.property_value(cr, user, obj, "%s.%s.order" % (self._obj,self, self._fields_id))
+            prop = self.property_value(cr, user, obj, "%s.%s.order" % (self._obj, self._fields_id))
             if prop :
-                order = self.parse_oder(prop)
+                order = self.parse_order(prop)
             else :
                 order = self._order
         undecorated = []

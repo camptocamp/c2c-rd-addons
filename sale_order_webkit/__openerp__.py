@@ -46,7 +46,7 @@ suppress unused columns in sale order lines."""
 , "category"     : "Sales Management"
 , "author"       : "Camptocamp SA - Ferdinand Gassauer"
 , "website"      : "http://www.camptocamp.com/"
-, "data"         : ["sale_order_webkit_view.xml"]
+, "data"         : ["sale_view.xml","sale_order_webkit_view.xml"]
 , "installable"  : True
 , "auto_install" : False
 }
