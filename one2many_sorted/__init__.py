@@ -104,10 +104,10 @@ class one2many_sorted(fields.one2many):
                 order = self.parse_order(prop)
             else :
                 order = self._order
-        undecorated = []
+        #undecorated = []
 	tuples = []
         for r in _obj.browse(cr, user, ids2, context=context) :
-            d = {}
+        #    d = {}
 	    my_list = []
             for key in ([('id', False)] + order) :
                 o = r
@@ -116,41 +116,44 @@ class one2many_sorted(fields.one2many):
                         o = getattr(o, m.strip("()"))()
                     else :
                         o = getattr(o, m)
-                d[key[0]] = o if not isinstance(o, str) else _(o)
+        #        d[key[0]] = o if not isinstance(o, str) else _(o)
 		my_list.append( o if not isinstance(o, str) else _(o))
                 #self._logger.debug("my_list %s", my_list) ############################
-            my_tuple = tuple(my_list)
-            undecorated.append(d)
-	    tuples.append(my_tuple)
-        for t in tuples:
-            self._logger.debug("tuples %s", t) ############################
+        #    undecorated.append(d)
+	    tuples.append(tuple(my_list))
+        #for t in tuples:
+        #    self._logger.debug("tuples %s", t) ############################
 
+        #self._logger.debug("order %s", order) ############################
 	k = int(len(order)) 
 	i = 1
 	while i <= k:
-	    tuples = sorted(tuples, key=itemgetter(i))
+            # FIXME this must come from the definition
+	    asc_desc = False
+	    tuples = sorted(tuples, key=itemgetter(i) , reverse = asc_desc)
 	    i += 1
 
-        for key in order :
+        #for key in order :
 
-            decorated = [(d[key[0]], d) for d in undecorated]
+        #    decorated = [(d[key[0]], d) for d in undecorated]
             #for di in decorated :
             #   self._logger.debug("decorated %s", di) ############################
-            decorated.sort(reverse=key[1])
+        #    decorated.sort(reverse=key[1])
             #for di in decorated :
             #   self._logger.debug("decorated sorted%s", di) ############################
 
-            undecorated = [d for (k, d) in decorated]
+        #    undecorated = [d for (k, d) in decorated]
         #for d in undecorated :
         #    self._logger.debug("sorted %s", d) ############################
 	result = []
         for r in tuples:
-            self._logger.debug("sorted tuples %s %s" %(r[0], r)) ############################
+        #    self._logger.debug("sorted tuples %s %s" %(r[0], r)) ############################
 	    result.append(r[0])
-        self._logger.debug("result %s" %(result)) ############################
+        #self._logger.debug("result %s" %(result)) ############################
+	# FIXME - 
 	for ids3 in ids:
 	    res = { ids3 : result }
-        self._logger.debug("res neu %s" %(res)) ############################
+        #self._logger.debug("res neu %s" %(res)) ############################
 	
         #for r in _obj.browse(cr, user, [d['id'] for d in undecorated], context=context) :
         #    res [getattr(r, self._fields_id).id].append(r.id)
