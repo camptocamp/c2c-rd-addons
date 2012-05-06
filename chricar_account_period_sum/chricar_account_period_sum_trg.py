@@ -126,7 +126,7 @@ BEGIN
           debit_p, 
           credit_p,
           to_char(date_start,'YYYYMM'),
-          nextval('account_account_period_sum_id_seq'::regclass)::int as id
+          nextval('account_account_period_sum_id_seq'::regclass)
         from account_period
         where id = move_rec.period_id and company_id = move_rec.company_id;
     END IF;
@@ -184,7 +184,7 @@ BEGIN
               period_00_rec.period_id, 
               debit_p, 
               credit_p,period_00_rec.code,
-              nextval('account_account_period_sum_id_seq'::regclass)::int as id
+              nextval('account_account_period_sum_id_seq'::regclass)
               );
         END IF;
       END LOOP;
@@ -291,7 +291,7 @@ BEGIN
             case when sum(debit - credit) > 0 then   sum(debit - credit) else 0 end,
             case when sum(debit - credit) < 0 then  -sum(debit - credit) else 0 end,
             to_char(y.date_start,'YYYY')||'00',
-            nextval('account_account_period_sum_id_seq'::regclass)::int as id
+            nextval('account_account_period_sum_id_seq'::regclass)
           from 
             account_account a,
             account_account_period_sum s,
@@ -360,7 +360,7 @@ BEGIN
         sum(debit), 
         sum(credit), 
         y.code||'00',
-        nextval('account_account_period_sum_id_seq'::regclass)::int as id
+        nextval('account_account_period_sum_id_seq'::regclass)
       from 
         account_account a,
         account_account_fy_period_sum s,
@@ -433,7 +433,7 @@ INSERT
   into account_account_period_sum(name,sum_fy_period_id,period_id,company_id,account_id,credit,debit)
   SELECT
       p.name,
-      nextval('account_account_period_sum_id_seq'::regclass)::int as id,
+      nextval('account_account_period_sum_id_seq'::regclass),
       l.period_id,
       l.company_id,
       account_id,
