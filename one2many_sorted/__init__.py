@@ -32,7 +32,6 @@
 ###############################################
 from osv import fields,osv
 from tools.translate import _
-from operator import itemgetter
 import logging
 
 class one2many_sorted(fields.one2many):
@@ -92,8 +91,6 @@ class one2many_sorted(fields.one2many):
     def get (self, cr, obj, ids, name, user=None, offset=0, context=None, values={}) :
         _obj = obj.pool.get(self._obj)
         ids2 = self.selected(cr, user, obj, ids, context=context)
-        res = {}
-        for id in ids : res[id] = []
         if context and 'one2many_sorted_order' in context :
             prop = self.property_value(cr, user, obj, context['one2many_sorted_order'])
             if prop :
@@ -104,9 +101,9 @@ class one2many_sorted(fields.one2many):
                 order = self.parse_order(prop)
             else :
                 order = self._order
-	tuples = []
+	sortable = []
         for r in _obj.browse(cr, user, ids2, context=context) :
-	    my_list = []
+	    d = {}
             for key in ([('id', False)] + order) :
                 o = r
                 for m in key[0].split('.'):
@@ -114,20 +111,16 @@ class one2many_sorted(fields.one2many):
                         o = getattr(o, m.strip("()"))()
                     else :
                         o = getattr(o, m)
-		my_list.append( o if not isinstance(o, str) else _(o))
-	    tuples.append(tuple(my_list))
-
-	i = 1
+		d[key[0]] = o if not isinstance(o, str) else _(o)
+	    sortable.append(d)
         for key in order :
-	    tuples = sorted(tuples, key=itemgetter(i) , reverse = key[1])
-	    i += 1
-
-	result = []
-        for r in tuples:
-	    result.append(r[0])
-	# FIXME - 
-	for ids3 in ids:
-	    res = { ids3 : result }
+            sortable.sort(key=lambda d: d[key[0]], reverse=key[1])
+#        self._logger.debug("order criteria: %s", order) ######
+#        for d in sortable : self._logger.debug("sorted %s", d) #############
+        res = {}
+        for id in ids : res[id] = []
+        for r in _obj.browse(cr, user, [d['id'] for d in sortable], context=context) :
+            res[getattr(r, self._fields_id).id].append(r.id)
         return res
     # end def get
 
@@ -139,3 +132,4 @@ class one2many_sorted(fields.one2many):
         return super(self.__class__,self).set(cr, obj, id, field, values, user, context)
     # end def set
 # end class one2many_sorted
+
