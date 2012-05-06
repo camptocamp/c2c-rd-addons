@@ -31,11 +31,13 @@
       <field name="type">form</field>
       <field name="arch" type="xml">
         <form>
+            <!-- FIXME - invalid syntax in 6.1
           <tree string="Filters" editable="top">
             <field name="attribute" colspan="1" nolabel="1"/>
             <field name="compare" colspan="1" nolabel="1"/>
             <field name="value" colspan="2" nolabel="1"/>
           </tree>
+          -->
           <group col="6" colspan="4">
             <button 
               icon="gtk-cancel"
