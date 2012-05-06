@@ -115,8 +115,8 @@ class one2many_sorted(fields.one2many):
 	    sortable.append(d)
         for key in order :
             sortable.sort(key=lambda d: d[key[0]], reverse=key[1])
-#        self._logger.debug("order criteria: %s", order) ######
-#        for d in sortable : self._logger.debug("sorted %s", d) #############
+        self._logger.debug("order criteria: %s", order) ######
+        for d in sortable : self._logger.debug("sorted %s", d) #############
         res = {}
         for id in ids : res[id] = []
         for r in _obj.browse(cr, user, [d['id'] for d in sortable], context=context) :
