@@ -240,7 +240,7 @@ DROP SEQUENCE IF EXISTS account_account_fiscalyear_sum_id_seq CASCADE;
 CREATE SEQUENCE account_account_fiscalyear_sum_id_seq;
 create or replace view account_account_fiscalyear_sum as 
   select
-      nextval('account_account_fiscalyear_sum_id_seq'::regclass)::int as id,
+      nextval('account_account_fiscalyear_sum_id_seq'::regclass) as id,
       s.company_id,
       account_id,
       to_char(y.date_stop,'YYYY') || case when to_char(y.date_stop,'MM')  != '12'
