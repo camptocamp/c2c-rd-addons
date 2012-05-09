@@ -64,7 +64,7 @@ class stock_partial_picking(osv.osv_memory):
        res.update({'move_type': move.picking_id.type})
        if move.picking_id.type == 'out' : #and move.product_id.cost_method == 'average':
            res.update({'cost_sale_pu' : move.sale_line_id.price_unit_pu or  move.product_id.list_price, \
-               'cost_unit_sale_pu': move.sale_line_id.price_unit_id.id or move.product_id.price_unit_id.id,
+               'cost_unit_sale_pu': move.sale_line_id and move.sale_line_id.price_unit_id.id or move.product_id.price_unit_id.id,
                'sale' : move.sale_line_id.price_unit or  move.product_id.list_price})
        self._logger.debug('_partial_move_for (c `%s`', res)
        return res 
