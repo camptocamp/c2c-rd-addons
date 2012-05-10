@@ -65,7 +65,6 @@ class one2many_sorted(fields.one2many):
     # end def __init__
     
     def property_value(self, cr, user, obj, name):
-        self._logger.info("property name %s", name) ######
         property_obj = obj.pool.get('ir.property')
         prop_id = property_obj.search \
             ( cr, user
@@ -74,9 +73,7 @@ class one2many_sorted(fields.one2many):
               , ('company_id','=', obj.pool.get('res.company')._company_default_get(cr, user))
               ]
             )
-        self._logger.info("property company: %s", obj.pool.get('res.company')._company_default_get(cr, user)) ######
         if prop_id :
-            self._logger.info("property found: %s", property_obj.browse(cr, user, prop_id[0]).value_text) ######
             return property_obj.browse(cr, user, prop_id[0]).value_text
         return False 
     # end def property_value
@@ -92,7 +89,6 @@ class one2many_sorted(fields.one2many):
     # end def selected
 
     def get (self, cr, obj, ids, name, user=None, offset=0, context=None, values={}) :
-        self._logger.info("one2many context: %s", context) ######
         _obj = obj.pool.get(self._obj)
         if context and 'one2many_sorted_order' in context :
             prop = self.property_value(cr, user, obj, context['one2many_sorted_order'])
@@ -119,8 +115,6 @@ class one2many_sorted(fields.one2many):
 	    sortable.append(d)
         for key in order :
             sortable.sort(key=lambda d: d[key[0]], reverse=key[1])
-        self._logger.info("one2many order criteria: %s", order) ######
-        for d in sortable : self._logger.info("sorted %s", d) #############
         res = {}
         for id in ids : res[id] = []
         for r in _obj.browse(cr, user, [d['id'] for d in sortable], context=context) :
