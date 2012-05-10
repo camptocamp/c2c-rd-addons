@@ -179,14 +179,14 @@ class many2many_sorted(fields.many2many):
             if prop :
                 order = self.parse_order(prop)
         else:
-            prop = self.property_value(cr, user, obj, "%s.%s.order" % (self._obj, self._fields_id))
+            prop = self.property_value(cr, user, obj, "%s.%s.%s.%s.order" % (self._obj, self._rel, self._id1, self._id2))
             if prop :
                 order = self.parse_order(prop)
             else :
                 order = self._order
         res = {}
         for id in ids : res[id] = []
-        got = (fields.many2many).get(cr, obj, ids, name, user=user, offset=offset, context=context, values=values)
+        got = (fields.many2many).get(self, cr, obj, ids, name, user=user, offset=offset, context=context, values=values)
         for k, ids2 in got.iteritems() :
             sortable = []
             for r in _obj.browse(cr, user, ids2, context=context) :
@@ -205,7 +205,7 @@ class many2many_sorted(fields.many2many):
             self._logger.info("many2many order criteria: %s", order) ######
             for d in sortable : self._logger.info("sorted %s", d) #############
             for r in _obj.browse(cr, user, [d['id'] for d in sortable], context=context) :
-                res[getattr(r, self._fields_id).id].append(r.id)
+                res[k].append(r.id)
         return res
     # end def get
 

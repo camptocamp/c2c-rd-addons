@@ -41,8 +41,8 @@ class stock_inventory(osv.osv):
 		, states={'done': [('readonly', True)]}
 		, order = 'location_id.name, product_id.name'	),
 
-        #'move_ids': fields.many2many('stock.move', 'stock_inventory_move_rel', 'inventory_id', 'move_id', 'Created Moves'),
-        #'move_ids': one2many_sorted.one2many_sorted('stock.move', 'stock_inventory_move_rel', 'inventory_id', 'move_id', 'Created Moves' , order = 'product_id.name',)
+	#'move_ids': fields.many2many              ('stock.move', 'stock_inventory_move_rel', 'inventory_id', 'move_id', 'Created Moves')
+        'move_ids': one2many_sorted.many2many_sorted('stock.move', 'stock_inventory_move_rel', 'inventory_id', 'move_id', 'Created Moves' , order = 'product_id.name',)
     }
     _order = 'date desc'
    
