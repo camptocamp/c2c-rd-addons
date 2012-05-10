@@ -92,6 +92,7 @@ class one2many_sorted(fields.one2many):
     # end def selected
 
     def get (self, cr, obj, ids, name, user=None, offset=0, context=None, values={}) :
+        self._logger.info("one2many context: %s", context) ######
         _obj = obj.pool.get(self._obj)
         if context and 'one2many_sorted_order' in context :
             prop = self.property_value(cr, user, obj, context['one2many_sorted_order'])
