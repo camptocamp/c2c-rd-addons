@@ -65,6 +65,7 @@ class one2many_sorted(fields.one2many):
     # end def __init__
     
     def property_value(self, cr, user, obj, name):
+        self._logger.info("property name %s", name) ######
         property_obj = obj.pool.get('ir.property')
         prop_id = property_obj.search \
             ( cr, user
@@ -74,6 +75,7 @@ class one2many_sorted(fields.one2many):
               ]
             )
         if prop_id :
+            self._logger.info("property found: %s", property_obj.browse(cr, user, prop_id[0]).value_text) ######
             return property_obj.browse(cr, user, prop_id[0]).value_text
         return False 
     # end def property_value
