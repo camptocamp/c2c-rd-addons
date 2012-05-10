@@ -74,7 +74,7 @@ class one2many_sorted(fields.one2many):
               , ('company_id','=', obj.pool.get('res.company')._company_default_get(cr, user))
               ]
             )
-        self._logger.info("property company: %s", obj.pool.get('res.company')._company_default_get(cr, user))) ######
+        self._logger.info("property company: %s", obj.pool.get('res.company')._company_default_get(cr, user)) ######
         if prop_id :
             self._logger.info("property found: %s", property_obj.browse(cr, user, prop_id[0]).value_text) ######
             return property_obj.browse(cr, user, prop_id[0]).value_text
