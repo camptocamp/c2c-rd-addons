@@ -75,7 +75,7 @@ class wizard_merge_duplicates_old(osv.osv_memory):
     _logger = logging.getLogger(_name)
     _description = "Merge Duplicates (old)"
     _columns = \
-        { 'old_ids' : fields.one2many('ir.model', 'Model')
+        { 'old_ids' : fields.many2one('ir.model', 'Model')
         }
     # end def select_table
 # end class wizard_merge_duplicates_old
@@ -86,7 +86,7 @@ class wizard_merge_duplicates_new(osv.osv_memory):
     _logger = logging.getLogger(_name)
     _description = "Merge Duplicates (new)"
     _columns = \
-        { 'new_id' : fields.one2many('ir.model', 'Model')
+        { 'new_id' : fields.many2one('ir.model', 'Model')
         }
     # end def select_table
 # end class wizard_merge_duplicates_new

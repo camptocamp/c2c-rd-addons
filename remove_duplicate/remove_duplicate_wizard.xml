@@ -30,6 +30,7 @@
       target="new"
       key2="client_action_multi"
       id="merge_duplicates_act_window"/>
+<!--
     <record model="ir.ui.view" id="merge_duplicates_old_form_view">
       <field name="name">merge.duplicates.old.form</field>
       <field name="model">ir.model.merge.duplicates.old</field>
@@ -72,6 +73,7 @@
         </form>
       </field>
     </record>
+-->
 <!--
     <wizard
       id="wizard_remove_duplicate"
