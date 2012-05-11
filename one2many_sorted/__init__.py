@@ -186,7 +186,7 @@ class many2many_sorted(fields.many2many):
                 order = self._order
         res = {}
         for id in ids : res[id] = []
-        got = (fields.many2many).get(cr, obj, ids, name, user=user, offset=offset, context=context, values=values)
+        got = (fields.many2many).get(self, cr, obj, ids, name, user=user, offset=offset, context=context, values=values)
         for k, ids2 in got.iteritems() :
             sortable = []
             for r in _obj.browse(cr, user, ids2, context=context) :
