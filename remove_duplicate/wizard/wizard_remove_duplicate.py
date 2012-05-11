@@ -38,34 +38,36 @@ class wizard_merge_duplicates(osv.osv_memory):
     _name = "ir.model.merge.duplicates"
     _logger = logging.getLogger(_name)
     _description = "Merge Duplicates (select table)"
-    _columns = \
-        { 'model_id' : fields.many2one('ir.model', 'Model')
-        }
+    _columns = { 'model_id' : fields.many2one('ir.model', 'Model', required=True)}
 
     def select_table(self, cr, uid, ids, context) :
         self._logger.info("select_table ids: %s context: %s", ids, context) ###########
-#        if context['model'] == 'ir.model' :
+#        if context['active_model'] == 'ir.model' :
 #            return 'old_form'
 #        else :
 #            return 'model_form'
+        model_obj = self.pool.get('ir.model')
+        model = model_obj.browse(cr, uid, context['active_id'])
         data_obj = self.pool.get('ir.model.data')
-        data_ids = data_obj.search \
-            ( cr, uid
-            , [('model', '=', 'ir.ui.view'), ('name', '=', 'generate_xml_init_filter_view')]
-            , context=context
-            )
-        res_id = data_obj.read \
-            (cr, uid, data_ids, fields=['res_id'], context=context)[0]['res_id']
-        return \
+#        data_ids = data_obj.search \
+#            ( cr, uid
+#            , [('model', '=', 'ir.ui.view'), ('name', '=', 'generate_xml_init_filter_view')]
+#            , context=context
+#            )
+#        res_id = data_obj.read \
+#            (cr, uid, data_ids, fields=['res_id'], context=context)[0]['res_id']
+        result = \
             { 'name'      : 'my test'
             , 'view_type' : 'form'
             , 'view_mode' : 'tree,form'
-            , 'res_model' : 'ir.model.generate.xml.filter'
-            , 'views'     : [(res_id, 'tree')]
+            , 'res_model' : model.model
+#            , 'views'     : [(res_id, 'tree')]
             , 'target'    : 'new'
             , 'context'   : context
             , 'type'      : 'ir.actions.act_window'
             }
+        self._logger.info("result: %s", result)
+        return result
     # end def select_table
 # end class wizard_merge_duplicates
 wizard_merge_duplicates()

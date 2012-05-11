@@ -6,7 +6,7 @@
       <field name="model">ir.model.merge.duplicates</field>
       <field name="type">form</field>
       <field name="arch" type="xml">
-        <form string="Merge Duplicates Form">
+        <form string="Merge Duplicates: select model">
           <field name="model_id" colspan="1" nolabel="1"/>
           <group col="6" colspan="4">
             <button 
