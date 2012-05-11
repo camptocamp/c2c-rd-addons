@@ -30,7 +30,7 @@
 # 59 Temple Place - Suite 330, Boston, MA  02111-1.17, USA.
 #
 ###############################################
-{ "name"         : "Variant of field type one2many for sorted associations"
+{ "name"         : "Variant of field type one2many and many2many for sorted associations"
 , "version"      : "1.0"
 , "author"       : "Swing Entwicklung betrieblicher Informationssysteme GmbH"
 , "website"      : "http://www.swing-system.com"
@@ -67,6 +67,10 @@ A third possibility is to hand over a "context" key named "one2many_sorted_order
 If no "context" key is found, then the property with the naming convention is taken.
 If no property is defined, the programmed sort order is taken.
 Otherwise no sorting takes place.
+
+many2many_sorted has a similar syntax but without search feature.
+
+
 """
 , "category"     : "Tools"
 , "depends"      : ["base"]
