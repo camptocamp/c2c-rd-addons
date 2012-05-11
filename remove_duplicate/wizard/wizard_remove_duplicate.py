@@ -30,16 +30,47 @@
 # 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 ###############################################
+from osv import fields, osv
 import wizard
-import osv
-import pooler
-import tools
 from tools.translate import _
 import logging
 
+class wizard_merge_duplicates(osv.osv_memory):
+    _name = "ir.model.merge.duplicates"
+    _logger = logging.getLogger(_name)
+    _description = "Merge Duplicates"
+    _columns = \
+        { 'old_ids' : fields.many2one
+            ('ir.model', 'Model', required=True, help='Select table where you want to merge entries')
+        }
+
+    def select_remaining(self, cr, uid, ids, context) :
+        self._logger("select_remaining ids: %s context: %s", ids, context) ###########
+        data_obj = self.pool.get('ir.model.data')
+        data_ids = data_obj.search \
+            ( cr, uid
+            , [('model', '=', 'ir.ui.view'), ('name', '=', 'generate_xml_init_filter_view')]
+            , context=context
+            )
+        res_id = data_obj.read(cr, uid, data_ids, fields=['res_id'], context=context)[0]['res_id']
+        return \
+            { 'name'      : 'my test'
+            , 'view_type' : 'form'
+            , 'view_mode' : 'tree,form'
+            , 'res_model' : 'ir.model.generate.xml.filter'
+            , 'views'     : [(res_id, 'tree')]
+            , 'target'    : 'new'
+            , 'context'   : context
+            , 'type'      : 'ir.actions.act_window'
+            }
+    # end def select_remaining
+# end class wizard_merge_duplicates
+wizard_merge_duplicates()
+
+import pooler
+
 class wizard_remove_duplicate(wizard.interface):
     _logger = logging.getLogger(__name__)
-
     
     _init_model_form = \
 '''<?xml version="1.0"?>
@@ -96,7 +127,7 @@ class wizard_remove_duplicate(wizard.interface):
             id = data['form']['model']
         new_id  = data['form']['new_id']
         self.old_ids.remove(new_id)
-        self._remove_from_table(cr, uid, id, new_id, self.old_ids)
+        self.merge(cr, uid, id, new_id, self.old_ids)
         return {}
     # end def _remove
 
@@ -130,7 +161,7 @@ class wizard_remove_duplicate(wizard.interface):
         
     # end def _remove_from_attachment
 
-    def _remove_from_table(self, cr, uid, id, new_id, old_ids) :
+    def merge(self, cr, uid, id, new_id, old_ids) :
         pool      = pooler.get_pool(cr.dbname)
         model_obj = pool.get('ir.model')
         model     = model_obj.browse(cr, uid, id)
@@ -161,7 +192,7 @@ class wizard_remove_duplicate(wizard.interface):
                         t_obj.write(cr, uid, ids, {name : '%s,%s' % (model.model, new_id)})
         self._remove_from_attachment(cr, uid, model.model, new_id, old_ids)
         t_obj.unlink(cr, uid, old_ids)
-    # end def _remove_from_table
+    # end def merge
 
     states = \
         { 'init' : 
