@@ -31,28 +31,32 @@
 #
 ###############################################
 from osv import fields, osv
-import wizard
 from tools.translate import _
 import logging
 
 class wizard_merge_duplicates(osv.osv_memory):
     _name = "ir.model.merge.duplicates"
     _logger = logging.getLogger(_name)
-    _description = "Merge Duplicates"
+    _description = "Merge Duplicates (select table)"
     _columns = \
-        { 'old_ids' : fields.many2one
+        { 'model_id' : fields.many2one
             ('ir.model', 'Model', required=True, help='Select table where you want to merge entries')
         }
 
-    def select_remaining(self, cr, uid, ids, context) :
-        self._logger("select_remaining ids: %s context: %s", ids, context) ###########
+    def select_table(self, cr, uid, ids, context) :
+        self._logger.info("select_table ids: %s context: %s", ids, context) ###########
+#        if context['model'] == 'ir.model' :
+#            return 'old_form'
+#        else :
+#            return 'model_form'
         data_obj = self.pool.get('ir.model.data')
         data_ids = data_obj.search \
             ( cr, uid
             , [('model', '=', 'ir.ui.view'), ('name', '=', 'generate_xml_init_filter_view')]
             , context=context
             )
-        res_id = data_obj.read(cr, uid, data_ids, fields=['res_id'], context=context)[0]['res_id']
+        res_id = data_obj.read \
+            (cr, uid, data_ids, fields=['res_id'], context=context)[0]['res_id']
         return \
             { 'name'      : 'my test'
             , 'view_type' : 'form'
@@ -63,10 +67,34 @@ class wizard_merge_duplicates(osv.osv_memory):
             , 'context'   : context
             , 'type'      : 'ir.actions.act_window'
             }
-    # end def select_remaining
+    # end def select_table
 # end class wizard_merge_duplicates
 wizard_merge_duplicates()
 
+class wizard_merge_duplicates_old(osv.osv_memory):
+    _name = "ir.model.merge.duplicates.old"
+    _logger = logging.getLogger(_name)
+    _description = "Merge Duplicates (old)"
+    _columns = \
+        { 'old_ids' : fields.many2many(required=True)
+        }
+    # end def select_table
+# end class wizard_merge_duplicates_old
+wizard_merge_duplicates_old()
+
+class wizard_merge_duplicates_new(osv.osv_memory):
+    _name = "ir.model.merge.duplicates.new"
+    _logger = logging.getLogger(_name)
+    _description = "Merge Duplicates (new)"
+    _columns = \
+        { 'new_id' : fields.many2many(required=True)
+        }
+    # end def select_table
+# end class wizard_merge_duplicates_new
+wizard_merge_duplicates_new()
+
+
+import wizard
 import pooler
 
 class wizard_remove_duplicate(wizard.interface):
