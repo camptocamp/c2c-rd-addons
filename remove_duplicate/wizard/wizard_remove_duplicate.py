@@ -58,7 +58,7 @@ class wizard_merge_duplicates(osv.osv_memory):
 #            (cr, uid, data_ids, fields=['res_id'], context=context)[0]['res_id']
         result = \
             { 'name'      : 'my test'
-            , 'view_type' : 'form'
+            , 'view_type' : 'tree'
             , 'view_mode' : 'tree,form'
             , 'res_model' : model.model
 #            , 'views'     : [(res_id, 'tree')]
