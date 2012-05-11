@@ -23,7 +23,7 @@
       </field>
     </record>
     <act_window
-      name="Merge Duplicates(new)"
+      name="Merge Duplicates (new)"
       src_model="ir.model"
       res_model="ir.model.merge.duplicates"
       view_mode="form"
@@ -74,12 +74,12 @@
       </field>
     </record>
 -->
-<!--
     <wizard
       id="wizard_remove_duplicate"
       model="ir.model"
       name="ir.wizard_remove_duplicate"
-      string="Merge Duplicates"/>
+      string="Merge Duplicates (old)"/>
+<!--
     <menuitem
       action="wizard_remove_duplicate"
       id="menu_db_structure_remove_duplicate"
