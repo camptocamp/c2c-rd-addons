@@ -35,8 +35,11 @@ import osv
 import pooler
 import tools
 from tools.translate import _
+import logging
 
 class wizard_remove_duplicate(wizard.interface):
+    _logger = logging.getLogger(__name__)
+
     
     _init_model_form = \
 '''<?xml version="1.0"?>
@@ -118,6 +121,15 @@ class wizard_remove_duplicate(wizard.interface):
         return {}
     # end def _set_relation
 
+    def _remove_from_attachment(self, cr, uid, model_name, new_id, old_ids) :
+        pool    = pooler.get_pool(cr.dbname)
+        att_obj = pool.get('ir.attachment')
+        for old_id in old_ids :
+            ids = att_obj(cr, uid, [('res_model', '=', model_name),('res_id', '=', old_id)])
+            att_obj.write(cr, uid, ids, {'res_id' : new_id})
+        
+    # end def _remove_from_attachment
+
     def _remove_from_table(self, cr, uid, id, new_id, old_ids) :
         pool      = pooler.get_pool(cr.dbname)
         model_obj = pool.get('ir.model')
@@ -131,8 +143,8 @@ class wizard_remove_duplicate(wizard.interface):
                 , _('New ID %s is not contained in model %s.') % (new_id, model.model)
                 )
         
-        test_id = table_obj.browse(cr, uid, old_ids)
-        if not (test_id and set(x.id for x in test_id) == set(old_ids)) :
+        test_ids = table_obj.browse(cr, uid, old_ids)
+        if not (test_ids and set(x.id for x in test_ids) == set(old_ids)) :
             raise wizard.except_wizard \
                 ( _('Input Error !')
                 , _('Old IDs %s are not contained in model %s.') % (old_ids, model.model)
@@ -143,6 +155,11 @@ class wizard_remove_duplicate(wizard.interface):
             for name, spec in t_obj._columns.items() :
                 if "2one" in spec._type and spec._obj == model.model :
                     t_obj.write(cr, uid, old_ids, {name : new_id})
+                if "reference" == spec._type :
+                    for old_id in old_ids :
+                        ids = t_obj.search(cr, uid, [(name, '=', '%s,%s' % (model.model, old_id))])
+                        t_obj.write(cr, uid, ids, {name : '%s,%s' % (model.model, new_id)})
+        self._remove_from_attachment(cr, uid, model.model, new_id, old_ids)
         t_obj.unlink(cr, uid, old_ids)
     # end def _remove_from_table
 
