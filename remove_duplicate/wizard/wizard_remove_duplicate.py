@@ -185,7 +185,7 @@ class wizard_remove_duplicate(wizard.interface):
         pool    = pooler.get_pool(cr.dbname)
         att_obj = pool.get('ir.attachment')
         for old_id in old_ids :
-            ids = att_obj(cr, uid, [('res_model', '=', model_name),('res_id', '=', old_id)])
+            ids = att_obj.search(cr, uid, [('res_model', '=', model_name),('res_id', '=', old_id)])
 #            att_obj.write(cr, uid, ids, {'res_id' : new_id})
         
     # end def _remove_from_attachment
