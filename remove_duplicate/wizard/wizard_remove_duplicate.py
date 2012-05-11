@@ -186,7 +186,7 @@ class wizard_remove_duplicate(wizard.interface):
         att_obj = pool.get('ir.attachment')
         for old_id in old_ids :
             ids = att_obj.search(cr, uid, [('res_model', '=', model_name),('res_id', '=', old_id)])
-#            att_obj.write(cr, uid, ids, {'res_id' : new_id})
+            att_obj.write(cr, uid, ids, {'res_id' : new_id})
         
     # end def _remove_from_attachment
 
@@ -213,12 +213,12 @@ class wizard_remove_duplicate(wizard.interface):
             t_obj = pool.get(m.model)
             if not t_obj : continue
             for name, spec in t_obj._columns.items() :
-#                if "2one" in spec._type and spec._obj == model.model :
-#                    t_obj.write(cr, uid, old_ids, {name : new_id})
+                if "2one" in spec._type and spec._obj == model.model :
+                    t_obj.write(cr, uid, old_ids, {name : new_id})
                 if "reference" == spec._type :
                     for old_id in old_ids :
                         ids = t_obj.search(cr, uid, [(name, '=', '%s,%s' % (model.model, old_id))])
-#                        t_obj.write(cr, uid, ids, {name : '%s,%s' % (model.model, new_id)})
+                        t_obj.write(cr, uid, ids, {name : '%s,%s' % (model.model, new_id)})
         self._remove_from_attachment(cr, uid, model.model, new_id, old_ids)
         t_obj.unlink(cr, uid, old_ids)
     # end def merge
