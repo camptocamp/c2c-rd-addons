@@ -30,7 +30,7 @@
       target="new"
       key2="client_action_multi"
       id="merge_duplicates_act_window"/>
-
+<!--
     <wizard
       id="wizard_remove_duplicate"
       model="ir.model"
@@ -41,5 +41,6 @@
       id="menu_db_structure_remove_duplicate"
       parent="base.next_id_9"
       type="wizard"/>
+-->
   </data>
 </openerp>
