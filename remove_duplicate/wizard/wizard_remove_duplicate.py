@@ -59,7 +59,7 @@ class wizard_merge_duplicates(osv.osv_memory):
         result = \
             { 'name'      : 'my test'
             , 'view_type' : 'tree'
-            , 'view_mode' : 'tree,form'
+            , 'view_mode' : 'tree'
             , 'res_model' : model.model
 #            , 'views'     : [(res_id, 'tree')]
             , 'target'    : 'new'
