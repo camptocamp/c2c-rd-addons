@@ -32,7 +32,7 @@
       id="merge_duplicates_act_window"/>
     <record model="ir.ui.view" id="merge_duplicates_old_form_view">
       <field name="name">merge.duplicates.old.form</field>
-      <field name="old_ids">ir.model.merge.duplicates.old</field>
+      <field name="model">ir.model.merge.duplicates.old</field>
       <field name="type">form</field>
       <field name="arch" type="xml">
         <form string="Merge Duplicates Form">
