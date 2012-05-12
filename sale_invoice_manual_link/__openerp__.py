@@ -31,9 +31,9 @@ Allow to add (and remove) invoices to (from) Sale Order manually
 
     """,
     'website': 'http://www.camptocamp.com',
-    "depends" : ["sale"],
+    "depends" : ["c2c_sale_multi_partner"],
     'init_xml': [],
-    'update_xml': [],
+    'update_xml': ['sale_view.xml'],
     'demo_xml': [],
     'installable': True,
     'auto_install': False,
