@@ -106,5 +106,25 @@
         </xpath>
       </field>
     </record>
+
+    <!-- move  form-->
+    <record model="ir.ui.view" id="product_tree_value_cost_view">
+      <field name="name">product.tree.value.cost.view</field>
+      <field name="model">product.product</field>
+      <field name="inherit_id" ref="product.product_product_tree_view"/>
+      <field name="arch" type="xml">
+	      <field name="standard_price" position="after">
+		 <field name="valuation"/>
+         </field>
+      </field>
+    </record>
+
+
+
+
+
+
+
+
   </data>
 </openerp>

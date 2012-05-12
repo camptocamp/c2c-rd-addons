@@ -153,19 +153,134 @@ stock_move()
 #res_company()
 
 ## no connection from product to company !!!!
-#class product_product(osv.osv):
-#    _inherit = "product.product"
-#
-#    def _get_valuation(self, cr, uid, ids, field_name, arg, context=None):
-#         result = {}
-#         for res in self.browse(cr, uid, ids, context):
-#             result[res.id] = 
-#         return result
-#
-#
-#    _columns = {
-#        'valuation':  fields.function(_get_valuation, method=True, string="Valuation",type='char',size=128),
-#
-#    }
-#
-#product_product()
+class product_product(osv.osv):
+    _inherit = "product.product"
+
+    # FIXME this should go into stock/product, but SQL is not accessible
+    def _get_product_valuation(self, cr, uid, ids, field_name, arg, context=None):
+        _logger = logging.getLogger(__name__)
+
+        """ Finds whether product is available or not in particular warehouse.
+        @return: Dictionary of values (Valuation)
+        """
+        if context is None:
+            context = {}
+        
+        location_obj = self.pool.get('stock.location')
+        warehouse_obj = self.pool.get('stock.warehouse')
+        shop_obj = self.pool.get('sale.shop')
+        
+        states = context.get('states',[])
+	if not states:
+		states = ['done']
+        what = context.get('what',())
+	if what == ():
+	   what = ('in','out')
+        if not ids:
+            ids = self.search(cr, uid, [])
+        res = {}.fromkeys(ids, 0.0)
+        if not ids:
+            return res
+
+        if context.get('shop', False):
+            warehouse_id = shop_obj.read(cr, uid, int(context['shop']), ['warehouse_id'])['warehouse_id'][0]
+            if warehouse_id:
+                context['warehouse'] = warehouse_id
+
+        if context.get('warehouse', False):
+            lot_id = warehouse_obj.read(cr, uid, int(context['warehouse']), ['lot_stock_id'])['lot_stock_id'][0]
+            if lot_id:
+                context['location'] = lot_id
+
+        if context.get('location', False):
+            if type(context['location']) == type(1):
+                location_ids = [context['location']]
+            elif type(context['location']) in (type(''), type(u'')):
+                location_ids = location_obj.search(cr, uid, [('name','ilike',context['location'])], context=context)
+            else:
+                location_ids = context['location']
+        else:
+            location_ids = []
+            wids = warehouse_obj.search(cr, uid, [], context=context)
+            for w in warehouse_obj.browse(cr, uid, wids, context=context):
+                location_ids.append(w.lot_stock_id.id)
+
+        # build the list of ids of children of the location given by id
+        if context.get('compute_child',True):
+            child_location_ids = location_obj.search(cr, uid, [('location_id', 'child_of', location_ids)])
+            location_ids = child_location_ids or location_ids
+        
+        # this will be a dictionary of the UoM resources we need for conversion purposes, by UoM id
+        uoms_o = {}
+        # this will be a dictionary of the product UoM by product id
+        product2uom = {}
+        for product in self.browse(cr, uid, ids, context=context):
+            product2uom[product.id] = product.uom_id.id
+            uoms_o[product.uom_id.id] = product.uom_id
+
+        results = []
+        results2 = []
+
+        from_date = context.get('from_date',False)
+        to_date = context.get('to_date',False)
+        date_str = False
+        date_values = False
+        where = [tuple(location_ids),tuple(location_ids),tuple(ids),tuple(states)]
+        if from_date and to_date:
+            date_str = "date>=%s and date<=%s"
+            where.append(tuple([from_date]))
+            where.append(tuple([to_date]))
+        elif from_date:
+            date_str = "date>=%s"
+            date_values = [from_date]
+        elif to_date:
+            date_str = "date<=%s"
+            date_values = [to_date]
+
+        prodlot_id = context.get('prodlot_id', False)
+
+    # TODO: perhaps merge in one query.
+        if date_values:
+            where.append(tuple(date_values))
+	_logger.info('FGF stock_location_product what %s',what)
+        if 'in' in what:
+            # all moves from a location out of the set to a location in the set
+            cr.execute(
+                'select sum(move_value_cost), sum(move_value_sale), product_id '\
+                'from stock_move '\
+                'where location_id NOT IN %s '\
+                'and location_dest_id IN %s '\
+                'and product_id IN %s '\
+                '' + (prodlot_id and ('and prodlot_id = ' + str(prodlot_id)) or '') + ' '\
+                'and state IN %s ' + (date_str and 'and '+date_str+' ' or '') +' '\
+                'group by product_id',tuple(where))
+            results = cr.fetchall()
+        if 'out' in what:
+            # all moves from a location in the set to a location out of the set
+            cr.execute(
+                'select sum(move_value_cost), sum(move_value_sale), product_id '\
+                'from stock_move '\
+                'where location_id IN %s '\
+                'and location_dest_id NOT IN %s '\
+                'and product_id  IN %s '\
+                '' + (prodlot_id and ('and prodlot_id = ' + str(prodlot_id)) or '') + ' '\
+                'and state in %s ' + (date_str and 'and '+date_str+' ' or '') + ' '\
+                'group by product_id',tuple(where))
+            results2 = cr.fetchall()
+	    _logger.info('FGF stock_location_product valuation %s', results2)
+            
+        #TOCHECK: before change uom of product, stock move line are in old uom.
+        context.update({'raise-exception': False})
+        # Compute the incoming vlaues
+        for value_cost, value_sale, prod_id in results:
+            res[prod_id] += value_cost
+        # Compute the outgoing values
+        for value_cost, value_sale, prod_id in results2:
+            res[prod_id] -= value_cost
+        return res
+
+    _columns = {
+        'valuation':  fields.function(_get_product_valuation, method=True, string="Valuation",type='float',digits_compute=dp.get_precision('Account')),
+    }
+
+product_product()
