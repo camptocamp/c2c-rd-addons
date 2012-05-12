@@ -36,10 +36,12 @@ class stock_move(osv.osv):
         result = {}
         for move in self.browse(cr, uid, ids):
             self._logger.debug('type cost `%s`', move.picking_id.type)
-            if move.state in ['done','cancel']: return {}
-            if not move.sale_line_id:
-                result[move.id] = move.product_qty * move.price_unit
-            else:
+            if move.state in ['done','cancel']: 
+                result[move.id] = 0
+
+            if move.purchase_line_id:
+		result[move.id] = move.purchase_line_id.price_subtotal
+            elif move.location_id.usage == 'internal': 
                 loc_id = str(move.location_id.id)
                 self._logger.debug('loc_id `%s`', loc_id)
                 # compute avg price per stock location
@@ -49,10 +51,10 @@ class stock_move(osv.osv):
                  from stock_move \
                 where product_id = '+ str(move.product_id.id) +' \
                   and state = \'done\' \
-                  and (location_id = '+loc_id+' or location_dest_id = '+loc_id+')' 
+                  and (location_id = '+loc_id+' or location_dest_id = '+loc_id+')'
                 if move.prodlot_id:
                    sql = sql + ' and prodlot_id = ' + str(move.prodlot_id.id )
-                self._logger.debug('sql `%s`', sql)
+                self._logger.info('sql `%s`', sql)
                 cr.execute(sql)
                 for r in cr.dictfetchall():
                    sum_amount = r['sum_amount']
@@ -63,6 +65,11 @@ class stock_move(osv.osv):
                        result[move.id] = move.product_qty * avg_price
                    else :
                        result[move.id] = move.product_qty * move.product_id.standard_price
+	    else:
+	        if move.price_unit and move.price_unit != 0:
+                    result[move.id] = move.product_qty * move.price_unit
+	        else:
+                    result[move.id] = move.product_qty * move.product_id.standard_price
                 
         return result
 
@@ -226,6 +233,7 @@ class product_product(osv.osv):
         date_str = False
         date_values = False
         where = [tuple(location_ids),tuple(location_ids),tuple(ids),tuple(states)]
+        where = [tuple(location_ids),tuple(ids),tuple(states)]
         if from_date and to_date:
             date_str = "date>=%s and date<=%s"
             where.append(tuple([from_date]))
@@ -243,31 +251,45 @@ class product_product(osv.osv):
         if date_values:
             where.append(tuple(date_values))
 	_logger.info('FGF stock_location_product what %s',what)
+	_logger.info('FGF stock_location_product where %s',where)
         if 'in' in what:
             # all moves from a location out of the set to a location in the set
             cr.execute(
                 'select sum(move_value_cost), sum(move_value_sale), product_id '\
                 'from stock_move '\
-                'where location_id NOT IN %s '\
-                'and location_dest_id IN %s '\
+                'where '\
+                'location_dest_id IN %s '\
                 'and product_id IN %s '\
                 '' + (prodlot_id and ('and prodlot_id = ' + str(prodlot_id)) or '') + ' '\
                 'and state IN %s ' + (date_str and 'and '+date_str+' ' or '') +' '\
                 'group by product_id',tuple(where))
             results = cr.fetchall()
+#	    sql = \
+#                ('select sum(move_value_cost), sum(move_value_sale), product_id '\
+#                'from stock_move '\
+#                'where '\
+#                'location_dest_id IN %s '\
+#                'and product_id IN %s '\
+#                '' + (prodlot_id and ('and prodlot_id = ' + str(prodlot_id)) or '') + ' '\
+#                'and state IN %s ' + (date_str and 'and '+date_str+' ' or '') +' '\
+#                'group by product_id',tuple(where) )
+#
+#	    _logger.info('FGF sql %s', sql)
+	    for i in results:
+	       _logger.info('FGF stock_location_product in  %s',i)
         if 'out' in what:
             # all moves from a location in the set to a location out of the set
             cr.execute(
                 'select sum(move_value_cost), sum(move_value_sale), product_id '\
                 'from stock_move '\
                 'where location_id IN %s '\
-                'and location_dest_id NOT IN %s '\
                 'and product_id  IN %s '\
                 '' + (prodlot_id and ('and prodlot_id = ' + str(prodlot_id)) or '') + ' '\
                 'and state in %s ' + (date_str and 'and '+date_str+' ' or '') + ' '\
                 'group by product_id',tuple(where))
             results2 = cr.fetchall()
-	    _logger.info('FGF stock_location_product valuation %s', results2)
+	    for i in results2:
+	       _logger.info('FGF stock_location_product out  %s',i)
             
         #TOCHECK: before change uom of product, stock move line are in old uom.
         context.update({'raise-exception': False})
@@ -279,8 +301,20 @@ class product_product(osv.osv):
             res[prod_id] -= value_cost
         return res
 
+    def _get_avg_price(self, cr, uid, ids, field_name, arg, context=None):
+	 res = {}
+         for product in self.browse(cr, uid, ids, context=context):
+             if product.qty_available >0 and product.valuation >0 :
+		 res[product.id] = product.valuation / product.qty_available
+             else:
+		 res[product.id] = 0
+         return res
+
+	    
+
     _columns = {
         'valuation':  fields.function(_get_product_valuation, method=True, string="Valuation",type='float',digits_compute=dp.get_precision('Account')),
+        'avg_price':  fields.function(_get_avg_price, method=True, string="Avg Price",type='float',digits_compute=dp.get_precision('Account')),
     }
 
 product_product()
