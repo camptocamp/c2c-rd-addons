@@ -235,7 +235,7 @@ generated 2009-09-19 23:51:03+02
     <record model="ir.ui.view" id="stock_move_dba_form">
       <field name="name">stock.move.dba.form</field>
       <field name="model">stock.move</field>
-      <field name="priority">1</field>
+      <field name="priority">99</field>
       <field name="type">form</field>
       <field name="arch" type="xml">
         <form string="Stock Moves DBA">
@@ -246,8 +246,10 @@ generated 2009-09-19 23:51:03+02
           <field name="location_dest_id" readonly="1"/>
           <field name="prodlot_id" readonly="1"/>
           <field name="product_qty" readonly="1"/>
-          <field name="price_unit_id" readonly="1"/>
-          <field name="price_unit_sale_id" readonly="1"/>
+	  <field name="price_unit_id" readonly="1"/>
+	  <!--
+	  <field name="price_unit_sale_id" readonly="1"/>
+-->
           <field name="name" readonly="1"/>
         </form>
       </field>
