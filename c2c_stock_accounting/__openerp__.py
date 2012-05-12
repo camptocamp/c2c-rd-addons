@@ -37,9 +37,6 @@ This module adds stock accounting features
 * analytic account - to create analytc moves derived from stock_moves
 
 ToDo
-* valuation field - define at company level (product > function field)
-* show value for products
-** reuse stock.product.py get_product_available - impossible to inherit / modify sql statement
 * stock reports
 ** partly DONE report/report_stock_move.py - need in/out values for internal locations too
 * generate analytic lines       
