@@ -34,16 +34,16 @@ class stock_move(osv.osv):
     def _compute_move_value_cost(self, cr, uid, ids, name, args, context):
         if not ids : return {}
 	# ids must be sorted by date
-        #self._logger.info('sql tuple ids `%s`', tuple(ids))
+        #self._logger.debug('sql tuple ids `%s`', tuple(ids))
 	ids2 = []
 	for move in self.browse(cr, uid, ids, context):
 	    if not move.move_value_cost:
-                self._logger.info('sql append r `%s`', move.id)
+                self._logger.debug('sql append r `%s`', move.id)
 	        ids2.append(move.id)
 	return self._compute_move_value_cost2(cr, uid, ids2, context)
 	
     def _compute_move_value_cost2(self, cr, uid, ids2,  context):
-        self._logger.info('sql sorted ids `%s`', ids2)
+        self._logger.debug('sql sorted ids `%s`', ids2)
 	if not context:
 	    context = {}
         result = {}
@@ -68,12 +68,12 @@ class stock_move(osv.osv):
 		  and date <= to_date(\''+ move.date + '\',\'YYYY-MM-DD HH24:MI:SS\') and id != '+ str(move.id) 
                 if move.prodlot_id:
                    sql = sql + ' and prodlot_id = ' + str(move.prodlot_id.id )
-                #self._logger.info('sql move_value_cost`%s`', sql)
+                #self._logger.debug('sql move_value_cost`%s`', sql)
                 cr.execute(sql)
                 for r in cr.dictfetchall():
                    sum_amount = r['sum_amount']
                    sum_qty    = r['sum_qty']
-                   self._logger.info('FGF sum product %s %s %s %s' % (move.product_id.id, move.date,sum_amount, sum_qty))
+                   self._logger.debug('FGF sum product %s %s %s %s' % (move.product_id.id, move.date,sum_amount, sum_qty))
                    if sum_qty and sum_qty > 0.0 and sum_amount > 0.0:
                        avg_price = sum_amount / sum_qty 
                        result[move.id] = move.product_qty * avg_price
@@ -86,7 +86,7 @@ class stock_move(osv.osv):
                     result[move.id] = move.product_qty * move.product_id.standard_price
 	    if context.get('init', False):
 		sql = 'update stock_move set move_value_cost = %s where id = %d' % (result[move.id],move.id)
-		self._logger.info('sql init sql %s' % (sql))
+		self._logger.debug('sql init sql %s' % (sql))
 		cr.execute(sql)
                 
         return result
@@ -121,7 +121,7 @@ class stock_move(osv.osv):
          result = {}
          for move in self.browse(cr, uid, ids):
              #period_ids= self.pool.get('account.period').search(cr,uid,[('date_start','<=',move.date),('date_stop','>=',move.date ), ('special','=',False)])
-             period_ids= self.pool.get('account.period').search(cr,uid,[('date_start','<=',move.date),('date_stop','>=',move.date )])
+             period_ids= self.pool.get('account.period').search(cr,uid,[('date_start','<=',move.date),('date_stop','>=',move.date ),('special','!=', True)])
              
              if len(period_ids):
                  result[move.id] = period_ids[0]
@@ -282,8 +282,8 @@ class product_product(osv.osv):
     # TODO: perhaps merge in one query.
         if date_values:
             where.append(tuple(date_values))
-	_logger.info('FGF stock_location_product what %s',what)
-	_logger.info('FGF stock_location_product where %s',where)
+	_logger.debug('FGF stock_location_product what %s',what)
+	_logger.debug('FGF stock_location_product where %s',where)
         if 'in' in what:
             # all moves from a location out of the set to a location in the set
             cr.execute(
@@ -306,9 +306,9 @@ class product_product(osv.osv):
 #                'and state IN %s ' + (date_str and 'and '+date_str+' ' or '') +' '\
 #                'group by product_id',tuple(where) )
 #
-#	    _logger.info('FGF sql %s', sql)
+#	    _logger.debug('FGF sql %s', sql)
 	    #for i in results:
-	    #   _logger.info('FGF stock_location_product in  %s',i)
+	    #   _logger.debug('FGF stock_location_product in  %s',i)
         if 'out' in what:
             # all moves from a location in the set to a location out of the set
             cr.execute(
@@ -321,7 +321,7 @@ class product_product(osv.osv):
                 'group by product_id',tuple(where))
             results2 = cr.fetchall()
 	    #for i in results2:
-	    #   _logger.info('FGF stock_location_product out  %s',i)
+	    #   _logger.debug('FGF stock_location_product out  %s',i)
             
         #TOCHECK: before change uom of product, stock move line are in old uom.
         context.update({'raise-exception': False})
