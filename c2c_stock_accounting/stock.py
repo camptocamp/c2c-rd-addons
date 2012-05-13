@@ -87,6 +87,7 @@ class stock_move(osv.osv):
 	        else:
                     result[move.id] = move.product_qty * move.product_id.standard_price
 	    if context.get('init', False):
+		#we must use sql, because we do not want to run all checks - especially for not existing lots - for historical data      
 		sql = 'update stock_move set move_value_cost = %s where id = %d' % (result[move.id],move.id)
 		self._logger.debug('sql init sql %s' % (sql))
 		cr.execute(sql)
