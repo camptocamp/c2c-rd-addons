@@ -52,7 +52,9 @@ class stock_move(osv.osv):
             if move.state in ['done','cancel']: 
                 result[move.id] = 0
 
-            if move.purchase_line_id:
+            if move.value_correction:
+		result[move.id] = move.value_correction
+            elif move.purchase_line_id:
 		result[move.id] = move.purchase_line_id.price_subtotal
             elif move.location_id.usage == 'internal': 
                 loc_id = str(move.location_id.id)
@@ -136,6 +138,8 @@ class stock_move(osv.osv):
         'period_id'          : fields.function(_period_id, method=True, string="Period",type='many2one', relation='account.period', store=True, select="1",  ),
         'price_unit_sale'    : fields.function(_compute_price_unit_sale, method=True, string='Sale Price',  digits_compute=dp.get_precision('Account') ),
         'analytic_account_id': fields.many2one('account.analytic.account', 'Analytic Account'),
+	'value_correction'   : fields.float('Value correction', digits_compute=dp.get_precision('Account'),\
+			     help="This field allows to enter value correction of product stock per lot and location. one of the stock_location must be 'inventory'")
 
     }
 

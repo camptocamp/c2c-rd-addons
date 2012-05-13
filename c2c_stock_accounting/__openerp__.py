@@ -35,6 +35,7 @@ This module adds stock accounting features
 * historical evaluation
 * stock evaluation matches financial accounting
 * analytic account - to create analytc moves derived from stock_moves
+* value corrections per stock location and lot
 
 ToDo
 * stock reports
