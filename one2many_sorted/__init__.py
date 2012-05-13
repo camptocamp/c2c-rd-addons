@@ -127,7 +127,7 @@ class one2many_sorted(fields.one2many):
             if act[0] == 0 : # "create"
                 for k, v in self._set.iteritems() :
                     act[2][k] = v
-        return (fields.one2many).set(cr, obj, id, field, values, user, context)
+        return (fields.one2many).set(self, cr, obj, id, field, values, user, context)
     # end def set
 # end class one2many_sorted
 
@@ -214,7 +214,7 @@ class many2many_sorted(fields.many2many):
             if act[0] == 0 : # "create"
                 for k, v in self._set.iteritems() :
                     act[2][k] = v
-        return (fields.many2many).set(cr, model, id, name, values, user, context)
+        return (fields.many2many).set(self, cr, model, id, name, values, user, context)
     # end def set
 # end class many2many_sorted
 
