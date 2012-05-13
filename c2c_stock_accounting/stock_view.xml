@@ -130,6 +130,40 @@
       </field>
     </record>
 
+    <!-- product moves IN/OUT - make refrenece mandatory -->
+    <record model="ir.ui.view" id="view_move_tree_reception_referenc_picking">
+        <field name="name">stock.move.tree.ref.picking</field>
+        <field name="model">stock.move</field>
+        <field name="inherit_id" ref="stock.view_move_tree_reception_picking"/>
+        <field name="arch" type="xml">
+            <field name="picking_id" position="attributes">
+                <attribute name="required">1</attribute>
+            </field>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="view_move_view_move_form_reference_picking">
+        <field name="name">stock.move.form.ref.picking</field>
+        <field name="model">stock.move</field>
+        <field name="inherit_id" ref="stock.view_move_form"/>
+        <field name="arch" type="xml">
+            <field name="picking_id" position="attributes">
+                <attribute name="required">1</attribute>
+            </field>
+        </field>
+    </record>
+    view_move_form_reception_picking
+        <record model="ir.ui.view" id="view_move_form_reception_picking_reference_picking">
+            <field name="name">stock.move.form.in.ref.picking</field>
+            <field name="model">stock.move</field>
+            <field name="inherit_id" ref="stock.view_move_form_reception_picking"/>
+            <field name="arch" type="xml">
+                <field name="picking_id" position="attributes">
+                    <attribute name="required">1</attribute>
+                </field>
+            </field>
+        </record>
+    
+
    <!-- value correction -->
    <record id="view_move_value_correction_search" model="ir.ui.view">
        <field name="name">stock.move.value.correction.search</field>
