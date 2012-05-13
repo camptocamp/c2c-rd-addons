@@ -176,6 +176,7 @@
                    <field name="value_correction"/>
                    <field name="product_qty" />
                    <field name="product_uom" string="Unit Of Measure"/>
+               <field name="prodlot_id" groups="base.group_extended" domain="[('product_id','=',product_id)]"/>
                    <field name="location_id" domain="[('usage','=','internal')]" string="Stock Location"/>
                    <field name="location_dest_id" domain="[('usage','=','inventory')]" string="Diff Location"/>
                </group>
@@ -210,13 +211,14 @@
                <field name="value_correction"/>
                <field name="name" string="Reason"/>
                <field name="location_id" domain="[('usage','=','internal')]" string="Stock Location"/>
-               <field name="prodlot_id" groups="base.group_extended"/>
+               <field name="prodlot_id" groups="base.group_extended" domain="[('product_id','=',product_id)]"/>
                <field name="location_dest_id" domain="[('usage','=','inventory')]" string="Diff Location"/>
                <field name="product_qty" invisible="1"/>
                <field name="date"/>
                <field name="period_id"/>
                <field name="state"/>
-               <button name="action_assign" states="confirmed" string="Set Available" type="object" icon="gtk-yes"/>
+       <button name="action_cancel" states="assigned,confirmed" string="_Cancel" type="object" icon="gtk-cancel"/>
+       <button name="action_confirm" states="draft" string="Process Later" type="object" icon="gtk-apply"/>
                <button name="action_done" string="Process" type="object" states="confirmed,assigned" icon="gtk-go-forward"/>
            </tree>
       </field>
