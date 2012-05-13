@@ -23,7 +23,7 @@
         <xpath expr="/form/notebook/page[@string='General Informations']" position="after">
             <page string="Order by Loction,Product" position="after">
 		    <field colspan="4" name="inventory_line_loc_id" nolabel="1" widget="one2many_list" readonly="1">
-            <tree string="Products" editable="bottom">
+            <tree string="Products" editable="top" colors="red:product_qty_calc&lt;0 ">
                 <field domain="[('usage','=','internal')]" name="location_id"/>
                 <field context="{'location':location_id, 'uom':product_uom, 'to_date':parent.date}" name="product_id" on_change="on_change_product_id(location_id,product_id,product_uom,parent.date)"  domain="[('type','&lt;&gt;','service')]"/>
                 <field name="product_qty"/>
