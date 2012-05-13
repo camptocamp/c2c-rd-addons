@@ -181,6 +181,7 @@
                <group colspan="2" col="2">
                    <separator colspan="2" string="Move Information"/>
                    <field name="name" string="Reason"/>
+                   <field name="picking_id" string="Reference" required="1"/>
                </group>
 
    <separator colspan="4"/>
@@ -200,11 +201,13 @@
        <field name="type">tree</field>
        <field name="priority" eval="6" />
        <field name="arch" type="xml">
-           <tree colors="grey:state == 'cancel'" string="Moves">
+           <tree colors="grey:state == 'cancel'" string="Moves" editable="top">
                <field name="picking_id" string="Reference" required="1"/>
                <field name="origin"/>
-               <field name="product_id"/>
+               <field name="product_id" on_change="onchange_product_id(product_id,location_id,location_dest_id, False)"/>
                <field name="value_correction"/>
+               <field name="location_id" />
+               <field name="location_dest_id" />
                <field name="product_qty" />
                <field name="product_uom" string="UoM"/>
                <field name="prodlot_id" groups="base.group_extended"/>
