@@ -145,6 +145,7 @@
                    <separator orientation="vertical"/>
                    <filter icon="terp-go-today" string="Today" domain="[('date','&lt;=',time.strftime('%%Y-%%m-%%d 23:59:59')),('date','&gt;=',time.strftime('%%Y-%%m-%%d 00:00:00'))]" help="Orders planned for today"/>
                    <separator orientation="vertical"/>
+                   <field name="picking_id"/>
                    <field name="origin"/>
                    <field name="period_id"/>
                    <field name="product_id"/>
@@ -171,12 +172,12 @@
        <field name="arch" type="xml">
            <form string="Value Correction">
                <group colspan="4" col="7">
-                   <field name="product_id" on_change="onchange_product_id(product_id,location_id,location_dest_id, False)"/>
+                   <field name="product_id" on_change="onchange_product_id_value(product_id,location_id,location_dest_id, False)"/>
                    <field name="value_correction"/>
                    <field name="product_qty" />
                    <field name="product_uom" string="Unit Of Measure"/>
-                   <field name="location_id"/>
-                   <field name="location_dest_id"/>
+                   <field name="location_id" domain="[('usage','=','internal')]" string="Stock Location"/>
+                   <field name="location_dest_id" domain="[('usage','=','inventory')]" string="Diff Location"/>
                </group>
                <group colspan="2" col="2">
                    <separator colspan="2" string="Move Information"/>
@@ -204,13 +205,14 @@
            <tree colors="grey:state == 'cancel'" string="Moves" editable="top">
                <field name="picking_id" string="Reference" required="1"/>
                <field name="origin"/>
-               <field name="product_id" on_change="onchange_product_id(product_id,location_id,location_dest_id, False)"/>
-               <field name="value_correction"/>
-               <field name="location_id" />
-               <field name="location_dest_id" />
-               <field name="product_qty" />
+               <field name="product_id" on_change="onchange_product_id_value(product_id,location_id,location_dest_id, False)"/>
                <field name="product_uom" string="UoM"/>
+               <field name="value_correction"/>
+               <field name="name" string="Reason"/>
+               <field name="location_id" domain="[('usage','=','internal')]" string="Stock Location"/>
                <field name="prodlot_id" groups="base.group_extended"/>
+               <field name="location_dest_id" domain="[('usage','=','inventory')]" string="Diff Location"/>
+               <field name="product_qty" invisible="1"/>
                <field name="date"/>
                <field name="period_id"/>
                <field name="state"/>

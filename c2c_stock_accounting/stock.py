@@ -139,7 +139,7 @@ class stock_move(osv.osv):
         'price_unit_sale'    : fields.function(_compute_price_unit_sale, method=True, string='Sale Price',  digits_compute=dp.get_precision('Account') ),
         'analytic_account_id': fields.many2one('account.analytic.account', 'Analytic Account'),
 	'value_correction'   : fields.float('Value correction', digits_compute=dp.get_precision('Account'),\
-			     help="This field allows to enter value correction of product stock per lot and location. one of the stock_location must be 'inventory'")
+			     help="This field allows to enter value correction of product stock per lot and location. one of the stock_location must be 'inventory'. postive to increas, negative to decrease value")
 
     }
 
@@ -157,6 +157,20 @@ class stock_move(osv.osv):
 	context['init'] = True
 	self._compute_move_value_cost2(cr, 1, ids2, context)
 
+    def onchange_product_id_value(self, cr, uid, ids, prod_id=False, loc_id=False,
+		                                loc_dest_id=False, address_id=False):
+	res = super(stock_move, self).onchange_product_id(cr, uid, ids, prod_id, loc_id, loc_dest_id, address_id)
+        self._logger.info('FGF on change produc id %s', res)
+
+	#if res.get('value'):
+        res['value']['product_qty'] = 0.0
+        res['value']['location_id'] = ''
+        res['value']['name'] = _('Value Difference')
+        #else:
+	#    res = {'value' : {'product_qty' : 0.0 }}
+	# find inventory location      
+
+	return res
 	
 #    def init(self, cr):
       # Purchase
