@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: OpenERP Server 6.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-05-13 09:31+0000\n"
-"PO-Revision-Date: 2012-05-13 11:34+0200\n"
-"Last-Translator: Ferdinand Gassauer\n"
+"PO-Revision-Date: 2012-05-13 12:27+0000\n"
+"Last-Translator: Ferdinand @ Camptocamp <Unknown>\n"
 "Language-Team: American English <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: \n"
-"Plural-Forms: \n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2012-05-14 05:21+0000\n"
+"X-Generator: Launchpad (build 15238)\n"
 "Language: en_US\n"
-"X-Generator: Lokalize 1.4\n"
 
 #. module: c2c_stock_accounting
 #: view:stock.move:0
@@ -92,7 +92,8 @@ msgstr "Ändere auf Verfügbar"
 #. module: c2c_stock_accounting
 #: constraint:stock.move:0
 msgid "You try to assign a lot which is not from the same product"
-msgstr "Sie versuchen eine Losnummer ohne Bezug zu diesem Produkt zuzuweisen."
+msgstr ""
+"Sie versuchen eine Losnummer ohne Bezug zu diesem Produkt zuzuweisen."
 
 #. module: c2c_stock_accounting
 #: constraint:stock.move:0
@@ -152,8 +153,7 @@ msgid "Amount"
 msgstr "Betrag"
 
 #. module: c2c_stock_accounting
-#: view:stock.move:0
-#: view:stock.picking:0
+#: view:stock.move:0 view:stock.picking:0
 msgid "Values"
 msgstr "Werte"
 
@@ -179,8 +179,8 @@ msgid ""
 "location. one of the stock_location must be 'inventory'. postive to increas, "
 "negative to decrease value"
 msgstr ""
-"Dieses Feld ermöglicht die Erfassung von wertmäßigen Korrekturen. "
-"Postiv= Werterhöhung, Negative Wertminderung"
+"Dieses Feld ermöglicht die Erfassung von wertmäßigen Korrekturen. Postiv= "
+"Werterhöhung, Negative Wertminderung"
 
 #. module: c2c_stock_accounting
 #: code:addons/c2c_stock_accounting/stock.py:168
@@ -259,5 +259,3 @@ msgstr "Verkaufswert"
 #: help:stock.move,move_value_cost:0
 msgid "Product's cost for accounting valuation."
 msgstr "Produktbewertung für Buchhaltung."
-
-
