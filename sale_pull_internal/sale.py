@@ -117,7 +117,8 @@ class sale_order(osv.osv):
             # select source location
             cr.execute("""select id
                    from stock_location
-                  where sequence is not null
+                  where sequence > 0
+		    and usage='internal'
                   order by sequence""") 
             for loc in cr.fetchall():
                 #_logger.info('FGF sale location %s ' % (loc))
