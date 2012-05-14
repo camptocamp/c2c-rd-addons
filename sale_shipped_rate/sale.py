@@ -33,7 +33,7 @@ class sale_order(osv.osv):
         for id in ids:
             res[id] = [0.0, 0.0]
         cr.execute('''SELECT
-                p.sale_id, sum(m.product_qty), mp.state as mp_state
+                p.sale_id, sum(m.product_qty), m.state as m_state
             FROM
                 stock_move m
             LEFT JOIN
@@ -42,11 +42,11 @@ class sale_order(osv.osv):
                 procurement_order mp on (mp.move_id=m.id)
             WHERE
                 p.type = 'internal' AND
-                p.sale_id IN %s GROUP BY mp.state, p.sale_id''', (tuple(ids),))
-        for oid, nbr, mp_state in cr.fetchall():
-            if mp_state == 'cancel':
+                p.sale_id IN %s GROUP BY m.state, p.sale_id''', (tuple(ids),))
+        for oid, nbr, m_state in cr.fetchall():
+            if m_state == 'cancel':
                 continue
-            if mp_state == 'done':
+            if m_state == 'done':
                 res[oid][0] += nbr or 0.0
                 res[oid][1] += nbr or 0.0
             else:
