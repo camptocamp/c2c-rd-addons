@@ -226,15 +226,19 @@ ${pick.address_id.address_label|carriage_returns}
         <tr>
 %if pick.print_code:
            <td>${line.product_id.default_code or ''|entity}</td>
-           <td>${line.product_id.name|entity}</td>
+           <td>${line.product_id.name|entity}
         %if line.note :
+        <br>
         ${line.note |carriage_returns}
         %endif
+        </td>
 %else:
-           <td>${line.name|entity}</td>
+           <td>${line.name|entity}
         %if line.note :
+        <br>
         ${line.note |carriage_returns}
         %endif
+        </td>
 %endif
 %if pick.print_uom:
            <td style="white-space:nowrap;text-align:right;">${str(line.product_qty).replace(',000','') or '0'}</td>
