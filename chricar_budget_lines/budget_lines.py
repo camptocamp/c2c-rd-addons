@@ -31,7 +31,6 @@
 ###############################################
 from datetime import *
 from osv import fields,osv
-from tools.sql import drop_view_if_exists
 from dateutil.relativedelta import *
 import decimal_precision as dp
 import logging
@@ -752,8 +751,6 @@ chricar_budget()
 #      }
 #stock_location()
 
-
-
 class chricar_budget_line_share(osv.osv):
     _name = "chricar.budget.line.share"
     _description = "Chricar Budget Line Share"
@@ -789,130 +786,139 @@ class chricar_budget_line_share(osv.osv):
     _order = 'date_due asc'
 
     def init(self, cr):
-      drop_view_if_exists(cr, 'chricar_budget_line_share')
       cr.execute("""
+DROP SEQUENCE IF EXISTS chricar_budget_line_share_id_seq CASCADE;
+CREATE SEQUENCE chricar_budget_line_share_id_seq;
 create or replace view chricar_budget_line_share as
-select get_id( 'chricar_budget_line_share', l.id, null, null, null) as id,
-l.period_id,
-to_char(l.date_planning,'YYYY') as cal_year,
-l.budget_item_id,l.budget_version_id,l.analytic_account_id,
-c.partner_id,c.partner_id as partner_parent_id,
-100 as percentage,null::date as valid_from, null::date as valid_until,
-l.state,l.amount as amount_orig,
-case when i.is_cash is true then l.amount else 0 end as cash_quote ,
-case when i.is_cash is true and l.date_planning > now() then l.amount else 0 end as cash_quote_future ,
-case when i.is_p_l is true then l.amount else 0 end as PL_quote,
-l.date_planning,date_due,l.name, 1 as level,
-True as consolidation,
-null::boolean as consolidation2 ,
-null::boolean as consolidation3,
-null::integer as partner_parent2_id, null::integer as partner_parent3_id,
-True as consolidation_only
-  from c2c_budget_line l,
-       c2c_budget_version v,
-       c2c_budget_item i,
-       res_partner p,
-       res_company c
- where l.state != 'canceled'
-   and p.id=c.partner_id
-   and v.company_id = c.id
-   and v.id = l.budget_version_id
-   and i.id = l.budget_item_id
-union all
-select get_id( 'chricar_budget_line_share', l.id, pc.id, null, null) as id,
-l.period_id,
-to_char(l.date_planning,'YYYY') as cal_year,l.budget_item_id,l.budget_version_id,l.analytic_account_id,
-pc.partner_id,pc.partner_parent_id,
-pc.percentage,pc.valid_from,pc.valid_until,
-l.state,l.amount as amount_orig,
-percentage/100 * case when i.is_cash is true then l.amount else 0 end as cash_quote ,
-percentage/100 * case when i.is_cash is true and l.date_planning > now() then l.amount else 0 end as cash_quote_future ,
-percentage/100 * case when i.is_p_l is true then l.amount else 0 end as PL_quote,
-l.date_planning,date_due,l.name, 1 as level,
-pc.consolidation,
-null::boolean as consolidation2 ,
-null::boolean as consolidation3,
-null::integer as partner_parent2_id, null::integer as partner_parent3_id,
-case when pc.consolidation = True then True end as consolidation_only
-  from res_partner_parent_company pc,
-       c2c_budget_line l,
-       c2c_budget_version v,
-       c2c_budget_item i,
-       res_partner p,
-       res_company c
- where l.state != 'canceled'
-   and p.id=pc.partner_id
-   and c.partner_id = pc.partner_id
-   and v.company_id = c.id
-   and v.id = l.budget_version_id
-   and i.id = l.budget_item_id
-   and l.date_planning between coalesce(pc.valid_from,l.date_planning) and coalesce(pc.valid_until,l.date_planning)
-union all
-select get_id( 'chricar_budget_line_share', l.id, pc.id, pc2.id, null) as id,
-l.period_id,
-to_char(l.date_planning,'YYYY') as cal_year,l.budget_item_id,l.budget_version_id,l.analytic_account_id,
-pc.partner_id,pc2.partner_parent_id,
-pc.percentage*pc2.percentage/100,pc2.valid_from,pc2.valid_until,
-l.state,l.amount as amount_orig,
-pc.percentage/100 * pc2.percentage/100 * case when i.is_cash is true then l.amount else 0 end as cash_quote ,
-pc.percentage/100 * pc2.percentage/100 * case when i.is_cash is true and l.date_planning > now() then l.amount else 0 end as cash_quote_future ,
-pc.percentage/100 * pc2.percentage/100 * case when i.is_p_l is true then l.amount else 0 end as PL_quote,
-l.date_planning,date_due,l.name, 2 as level,
-pc.consolidation,pc2.consolidation,null,
-pc.partner_parent_id,null,
-case when pc.consolidation = True and  pc2.consolidation = True then True end as consolidation_only
-  from res_partner_parent_company pc,
-       res_partner_parent_company pc2,
-       c2c_budget_line l,
-       c2c_budget_version v,
-       c2c_budget_item i,
-       res_partner p,
-       res_company c
- where -- (pc2.consolidation=pc.consolidation or ( pc2.consolidation is null and pc.consolidation is null)) and
-   l.state != 'canceled'
-   and p.id=pc.partner_id
-   and c.partner_id = pc.partner_id
-   and pc.partner_parent_id = pc2.partner_id
-   and v.company_id = c.id
-   and v.id = l.budget_version_id
-   and i.id = l.budget_item_id
-   and l.date_planning between coalesce(pc.valid_from,l.date_planning) and coalesce(pc.valid_until,l.date_planning)
-   and l.date_planning between coalesce(pc2.valid_from,l.date_planning) and coalesce(pc2.valid_until,l.date_planning)
-union all
-select get_id( 'chricar_budget_line_share', l.id, pc.id, pc2.id, pc3.id) as id,
-l.period_id,
-to_char(l.date_planning,'YYYY') as cal_year,l.budget_item_id,l.budget_version_id,l.analytic_account_id,
-pc.partner_id,pc3.partner_parent_id,
-pc.percentage*pc2.percentage/100*pc3.percentage/100, pc3.valid_from,pc3.valid_until,
-l.state,l.amount as amount_orig,
-pc.percentage/100 * pc2.percentage/100 * pc3.percentage/100 * case when i.is_cash is true then l.amount else 0 end as cash_quote ,
-pc.percentage/100 * pc2.percentage/100 * pc3.percentage/100 * case when i.is_cash is true and l.date_planning > now() then l.amount else 0 end as cash_quote_future ,
-pc.percentage/100 * pc2.percentage/100 * pc3.percentage/100 * case when i.is_p_l is true then l.amount else 0 end as PL_quote,
-l.date_planning,date_due,l.name, 3 as level,
-pc.consolidation,pc2.consolidation,pc3.consolidation,
-pc.partner_parent_id,pc2.partner_parent_id,
-case when pc.consolidation = True and pc2.consolidation = True and pc3.consolidation = true then True end as consolidation_only
-  from res_partner_parent_company pc,
-       res_partner_parent_company pc2,
-       res_partner_parent_company pc3,
-       c2c_budget_line l,
-       c2c_budget_version v,
-       c2c_budget_item i,
-       res_partner p,
-       res_company c
- where --((pc2.consolidation=pc.consolidation and pc2.consolidation=pc3.consolidation) or (pc3.consolidation is null and pc2.consolidation is null and pc.consolidation is null)) and
-   l.state != 'canceled'
-   and p.id=pc.partner_id
-   and c.partner_id = pc.partner_id
-   and pc.partner_parent_id = pc2.partner_id
-   and pc2.partner_parent_id = pc3.partner_id
-   and v.company_id = c.id
-   and v.id = l.budget_version_id
-   and i.id = l.budget_item_id
-   and l.date_planning between coalesce(pc.valid_from,l.date_planning) and coalesce(pc.valid_until,l.date_planning)
-   and l.date_planning between coalesce(pc2.valid_from,l.date_planning) and coalesce(pc2.valid_until,l.date_planning)
-   and l.date_planning between coalesce(pc3.valid_from,l.date_planning) and coalesce(pc3.valid_until,l.date_planning)
+  select 
+      nextval('chricar_budget_line_share_id_seq'::regclass)::int as id,
+      l.period_id,
+      to_char(l.date_planning,'YYYY') as cal_year,
+      l.budget_item_id,l.budget_version_id,l.analytic_account_id,
+      c.partner_id,c.partner_id as partner_parent_id,
+      100 as percentage,null::date as valid_from, null::date as valid_until,
+      l.state,l.amount as amount_orig,
+      case when i.is_cash is true then l.amount else 0 end as cash_quote ,
+      case when i.is_cash is true and l.date_planning > now() then l.amount else 0 end as cash_quote_future ,
+      case when i.is_p_l is true then l.amount else 0 end as PL_quote,
+      l.date_planning,date_due,l.name, 1 as level,
+      True as consolidation,
+      null::boolean as consolidation2 ,
+      null::boolean as consolidation3,
+      null::integer as partner_parent2_id, null::integer as partner_parent3_id,
+      True as consolidation_only
+    from c2c_budget_line l,
+      c2c_budget_version v,
+      c2c_budget_item i,
+      res_partner p,
+      res_company c
+    where 
+      l.state != 'canceled'
+      and p.id=c.partner_id
+      and v.company_id = c.id
+      and v.id = l.budget_version_id
+      and i.id = l.budget_item_id
+  union all
+  select
+      nextval('chricar_budget_line_share_id_seq'::regclass)::int as id,
+      l.period_id,
+      to_char(l.date_planning,'YYYY') as cal_year,l.budget_item_id,l.budget_version_id,l.analytic_account_id,
+      pc.partner_id,pc.partner_parent_id,
+      pc.percentage,pc.valid_from,pc.valid_until,
+      l.state,l.amount as amount_orig,
+      percentage/100 * case when i.is_cash is true then l.amount else 0 end as cash_quote ,
+      percentage/100 * case when i.is_cash is true and l.date_planning > now() then l.amount else 0 end as cash_quote_future ,
+      percentage/100 * case when i.is_p_l is true then l.amount else 0 end as PL_quote,
+      l.date_planning,date_due,l.name, 1 as level,
+      pc.consolidation,
+      null::boolean as consolidation2 ,
+      null::boolean as consolidation3,
+      null::integer as partner_parent2_id, null::integer as partner_parent3_id,
+      case when pc.consolidation = True then True end as consolidation_only 
+    from 
+      res_partner_parent_company pc,
+      c2c_budget_line l,
+      c2c_budget_version v,
+      c2c_budget_item i,
+      res_partner p,
+      res_company c
+    where 
+      l.state != 'canceled'
+      and p.id=pc.partner_id
+      and c.partner_id = pc.partner_id
+      and v.company_id = c.id
+      and v.id = l.budget_version_id
+      and i.id = l.budget_item_id
+      and l.date_planning between coalesce(pc.valid_from,l.date_planning) and coalesce(pc.valid_until,l.date_planning)
+  union all
+  select
+      nextval('chricar_budget_line_share_id_seq'::regclass)::int as id,
+      l.period_id,
+      to_char(l.date_planning,'YYYY') as cal_year,l.budget_item_id,l.budget_version_id,l.analytic_account_id,
+      pc.partner_id,pc2.partner_parent_id,
+      pc.percentage*pc2.percentage/100,pc2.valid_from,pc2.valid_until,
+      l.state,l.amount as amount_orig,
+      pc.percentage/100 * pc2.percentage/100 * case when i.is_cash is true then l.amount else 0 end as cash_quote ,
+      pc.percentage/100 * pc2.percentage/100 * case when i.is_cash is true and l.date_planning > now() then l.amount else 0 end as cash_quote_future ,
+      pc.percentage/100 * pc2.percentage/100 * case when i.is_p_l is true then l.amount else 0 end as PL_quote,
+      l.date_planning,date_due,l.name, 2 as level,
+      pc.consolidation,pc2.consolidation,null, 
+      pc.partner_parent_id,null,
+      case when pc.consolidation = True and  pc2.consolidation = True then True end as consolidation_only
+    from
+      res_partner_parent_company pc,
+      res_partner_parent_company pc2,
+      c2c_budget_line l,
+      c2c_budget_version v,
+      c2c_budget_item i,
+      res_partner p,
+      res_company c
+    where -- (pc2.consolidation=pc.consolidation or ( pc2.consolidation is null and pc.consolidation is null)) and
+      l.state != 'canceled'
+      and p.id=pc.partner_id
+      and c.partner_id = pc.partner_id
+      and pc.partner_parent_id = pc2.partner_id
+      and v.company_id = c.id
+      and v.id = l.budget_version_id
+      and i.id = l.budget_item_id
+      and l.date_planning between coalesce(pc.valid_from,l.date_planning) and coalesce(pc.valid_until,l.date_planning)
+      and l.date_planning between coalesce(pc2.valid_from,l.date_planning) and coalesce(pc2.valid_until,l.date_planning)
+  union all
+  select
+      nextval('chricar_budget_line_share_id_seq'::regclass)::int as id,
+      l.period_id,
+      to_char(l.date_planning,'YYYY') as cal_year,l.budget_item_id,l.budget_version_id,l.analytic_account_id,
+      pc.partner_id,pc3.partner_parent_id,
+      pc.percentage*pc2.percentage/100*pc3.percentage/100, pc3.valid_from,pc3.valid_until,
+      l.state,l.amount as amount_orig,
+      pc.percentage/100 * pc2.percentage/100 * pc3.percentage/100 * case when i.is_cash is true then l.amount else 0 end as cash_quote ,
+      pc.percentage/100 * pc2.percentage/100 * pc3.percentage/100 * case when i.is_cash is true and l.date_planning > now() then l.amount else 0 end as cash_quote_future ,
+      pc.percentage/100 * pc2.percentage/100 * pc3.percentage/100 * case when i.is_p_l is true then l.amount else 0 end as PL_quote,
+      l.date_planning,date_due,l.name, 3 as level,
+      pc.consolidation,pc2.consolidation,pc3.consolidation,
+      pc.partner_parent_id,pc2.partner_parent_id,
+      case when pc.consolidation = True and pc2.consolidation = True and pc3.consolidation = true then True end as consolidation_only
+    from
+      res_partner_parent_company pc,
+      res_partner_parent_company pc2,
+      res_partner_parent_company pc3,
+      c2c_budget_line l,
+      c2c_budget_version v,
+      c2c_budget_item i,
+      res_partner p,
+      res_company c
+    where --((pc2.consolidation=pc.consolidation and pc2.consolidation=pc3.consolidation) or (pc3.consolidation is null and pc2.consolidation is null and pc.consolidation is null)) and
+      l.state != 'canceled'
+      and p.id=pc.partner_id
+      and c.partner_id = pc.partner_id
+      and pc.partner_parent_id = pc2.partner_id
+      and pc2.partner_parent_id = pc3.partner_id
+      and v.company_id = c.id
+      and v.id = l.budget_version_id
+      and i.id = l.budget_item_id
+      and l.date_planning between coalesce(pc.valid_from,l.date_planning) and coalesce(pc.valid_until,l.date_planning)
+      and l.date_planning between coalesce(pc2.valid_from,l.date_planning) and coalesce(pc2.valid_until,l.date_planning)
+      and l.date_planning between coalesce(pc3.valid_from,l.date_planning) and coalesce(pc3.valid_until,l.date_planning)
 ;
 """)
-
 chricar_budget_line_share()

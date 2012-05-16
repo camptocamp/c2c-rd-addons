@@ -42,6 +42,7 @@ using address label field with addressee's country specific zip position
     , "c2c_partner_address_label"
     , "picking_invoice_rel"
     , "stock_packing_webkit"
+    , "one2many_sorted"
     ]
 , "category"     : "Accounting & Finance"
 , "author"       : "Camptocamp SA - NBessi, Ferdinand Gassauer"

@@ -42,15 +42,17 @@ product_product()
 
 class stock_move(osv.osv):
    _inherit = 'stock.move'
+
    def _check_tracking(self, cr, uid, ids, context=None):
      """ Checks if production lot is assigned to stock move or not.
      @return: True or False
      """
 # WARNING 
 # the check must be state independent - IMHO does not make sense to allow "wrong" data entry and fail only in state done
+# this would prohibit generation of pickings form SO/PO
 # added track_internal - OpenERP must be able to provied a complete tracking
      for move in self.browse(cr, uid, ids, context=context):
-        if not move.prodlot_id and \
+        if move_state == 'done' and not move.prodlot_id and \
         ( \
         (move.product_id.track_production and move.location_id.usage == 'production') or \
         (move.product_id.track_production and move.location_dest_id.usage == 'production') or \
@@ -58,6 +60,7 @@ class stock_move(osv.osv):
         (move.product_id.track_outgoing and move.location_dest_id.usage == 'customer') or \
         (move.product_id.track_internal and ( move.location_id.usage=='internal' or move.location_dest_id.usage=='internal')) \
         ):
+           raise osv.except_osv(_('Error !'), _('Missing lot for product %s') % move.product_id.name)
            return False
      return True
     

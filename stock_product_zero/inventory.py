@@ -19,37 +19,56 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-
-
 from osv import fields, osv
 import decimal_precision as dp
+import one2many_sorted
 import logging
-_logger = logging.getLogger(__name__)
+
+class stock_inventory(osv.osv):
+    _inherit= "stock.inventory"
+    _columns = {
+	#'inventory_line_id': fields.one2many('stock.inventory.line', 'inventory_id', 'Inventories', states={'done': [('readonly', True)]}),
+	'inventory_line_id': one2many_sorted.one2many_sorted 
+	        ( 'stock.inventory.line'
+		, 'inventory_id'
+	        , 'Inventories'
+		, states={'done': [('readonly', True)]}
+		, order = 'product_id.name'	),
+	'inventory_line_loc_id': one2many_sorted.one2many_sorted 
+	        ( 'stock.inventory.line'
+		, 'inventory_id'
+	        , 'Inventories'
+		, states={'done': [('readonly', True)]}
+		, order = 'location_id.name, product_id.name'	),
+
+        'move_ids': one2many_sorted.many2many_sorted('stock.move', 'stock_inventory_move_rel', 'inventory_id', 'move_id', 'Created Moves' , order = 'product_id.name, prodlot_id.prefix, prodlot_id.name')
+    }
+    _order = 'date desc'
+   
+stock_inventory()
+
 
 class stock_inventory_line(osv.osv):
     _inherit = "stock.inventory.line"
-    _columns = {
-        'product_qty_calc': fields.float('Quantity Calculated', digits_compute=dp.get_precision('Product UoM'),readonly=True ),
-}
-
+    _columns = \
+        { 'product_qty_calc': fields.float
+            ('Quantity Calculated', digits_compute=dp.get_precision('Product UoM'),readonly=True )
+        }
 stock_inventory_line()
 
 class stock_fill_inventory(osv.osv_memory):
     _inherit = "stock.fill.inventory"
-    _columns = {
-          'display_with_zero_qty' : fields.boolean('Display lines with zero'),
-    }
+    _logger = logging.getLogger(__name__)
+    _columns = {'display_with_zero_qty' : fields.boolean('Display lines with zero')}
 
     def view_init(self, cr, uid, fields_list, context=None):
         super(stock_fill_inventory, self).view_init(cr, uid, fields_list, context=context)
         return True
 
-
     def fill_inventory(self, cr, uid, ids, context=None):
         #unfortunately not hook
         inventory_id = context['id']
-        _logger = logging.getLogger(__name__)
-        _logger.info('FGF fill inventory ids, context %s, %s' % (ids,context))
+        self._logger.info('FGF fill inventory ids, context %s, %s' % (ids,context))
         display_with_zero_qty = None  
         # FIXME - display_with_zero_qty access not possible
         #fill_inventory = self.browse(cr, uid, ids, context=context)
@@ -59,14 +78,12 @@ class stock_fill_inventory(osv.osv_memory):
         
         inventory_line_obj = self.pool.get('stock.inventory.line')
         if not display_with_zero_qty:
-                ids_zero = inventory_line_obj.search(cr, uid, [('inventory_id','=', inventory_id), ('product_qty','=', '0')])
-                inventory_line_obj.unlink(cr, uid, ids_zero)
+            ids_zero = inventory_line_obj.search(cr, uid, [('inventory_id','=', inventory_id), ('product_qty','=', '0')])
+            inventory_line_obj.unlink(cr, uid, ids_zero)
         ids_update = inventory_line_obj.search(cr, uid, [('inventory_id','=', inventory_id)])
         ids2 = ','.join([str(id) for id in ids_update])
         cr.execute("""update stock_inventory_line
                          set product_qty_calc = product_qty
                        where id in (%s)""" % ids2)
         return res_all
-
-
 stock_fill_inventory()

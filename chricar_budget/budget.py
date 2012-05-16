@@ -32,6 +32,7 @@
 import time
 from osv import fields,osv
 import decimal_precision as dp
+import one2many_sorted
 
 import logging
 
@@ -401,7 +402,7 @@ product_product()
 class c2c_budget_version(osv.osv):
       _inherit = "c2c_budget.version"
       _columns = {
-          'budget_ids': fields.one2many('chricar.budget','budget_version_id','Budget Products'),
+          'budget_ids': one2many_sorted.one2many_sorted('chricar.budget','budget_version_id','Budget Products', order='product_id.name'),
           'budget_production_id': fields.many2one('chricar.budget.production','Budget Produktion'),
       }
 c2c_budget_version()

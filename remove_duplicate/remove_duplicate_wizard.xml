@@ -1,15 +1,90 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
   <data>
+    <record model="ir.ui.view" id="merge_duplicates_init_form_view">
+      <field name="name">merge.duplicates.init.form</field>
+      <field name="model">ir.model.merge.duplicates</field>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <form string="Merge Duplicates: select model">
+          <field name="model_id" colspan="1" nolabel="1"/>
+          <group col="6" colspan="4">
+            <button 
+              icon="gtk-cancel"
+              special="cancel"
+              string="Cancel"/>
+            <button
+              name="select_table"
+              string="Select Set of Duplicates"
+              type="object"
+              default_focus="1"/>
+          </group>
+        </form>
+      </field>
+    </record>
+    <act_window
+      name="Merge Duplicates (new)"
+      src_model="ir.model"
+      res_model="ir.model.merge.duplicates"
+      view_mode="form"
+      target="new"
+      key2="client_action_multi"
+      id="merge_duplicates_act_window"/>
+<!--
+    <record model="ir.ui.view" id="merge_duplicates_old_form_view">
+      <field name="name">merge.duplicates.old.form</field>
+      <field name="model">ir.model.merge.duplicates.old</field>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <form string="Merge Duplicates Form">
+          <field name="old_ids" colspan="1" nolabel="1"/>
+          <group col="6" colspan="4">
+            <button 
+              icon="gtk-cancel"
+              special="cancel"
+              string="Cancel"/>
+            <button
+              name="select_table"
+              string="Select Remaining"
+              type="object"
+              default_focus="1"/>
+          </group>
+        </form>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="merge_duplicates_new_form_view">
+      <field name="name">merge.duplicates.new.form</field>
+      <field name="model">ir.model.merge.duplicates.new</field>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <form string="Merge Duplicates Form">
+          <field name="new_id" colspan="1" nolabel="1"/>
+          <group col="6" colspan="4">
+            <button 
+              icon="gtk-cancel"
+              special="cancel"
+              string="Cancel"/>
+            <button
+              name="merge"
+              string="Remove Duplicates"
+              type="object"
+              default_focus="1"/>
+          </group>
+        </form>
+      </field>
+    </record>
+-->
     <wizard
       id="wizard_remove_duplicate"
       model="ir.model"
       name="ir.wizard_remove_duplicate"
-      string="Merge Duplicates"/>
+      string="Merge Duplicates (old)"/>
+<!--
     <menuitem
       action="wizard_remove_duplicate"
       id="menu_db_structure_remove_duplicate"
       parent="base.next_id_9"
       type="wizard"/>
+-->
   </data>
 </openerp>

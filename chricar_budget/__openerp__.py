@@ -11,6 +11,7 @@ generated 2009-08-18 23:44:30+02"""
     , "picking_invoice_rel"
     , "c2c_budget"
     , "c2c_product_price_unit"
+    , "one2many_sorted"
     ]
 , "init_xml"     : ["mig_budget_init.xml"]
 , "demo_xml"     : []

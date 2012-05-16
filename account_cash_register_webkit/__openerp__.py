@@ -31,7 +31,7 @@
 { "name"         : "Webkit Report Cash Register"
 , "description"  : """Cash Register using Webkit and one2many_sorted"""
 , "version"      : "1.0"
-, "depends"      : ["account", "report_webkit"]
+, "depends"      : ["account", "report_webkit", "one2many_sorted"]
 , "category"     : "Accounting & Finance"
 , "author"       : "Camptocamp SA, Ferdinand Gassauer"
 , "website"      : "http://www.camptocamp.com/"

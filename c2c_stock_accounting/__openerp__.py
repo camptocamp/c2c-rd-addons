@@ -35,14 +35,15 @@ This module adds stock accounting features
 * historical evaluation
 * stock evaluation matches financial accounting
 * analytic account - to create analytc moves derived from stock_moves
+* value corrections per stock location and lot
 
 ToDo
-* valuation field - define at company level (product > function field)
-* show value for products
-** reuse stock.product.py get_product_available - impossible to inherit / modify sql statement
 * stock reports
 ** partly DONE report/report_stock_move.py - need in/out values for internal locations too
 * generate analytic lines       
+* Recalculate move_value_cost of out moves if value correction or in move is prior of out moves
+** correct real time accounting
+* automatic handling of value roundings if qty_available is 0 after posting
 """,
     'author': 'Camptocamp Austria',
     'depends': ['product','purchase','sale', 'stock', ],
