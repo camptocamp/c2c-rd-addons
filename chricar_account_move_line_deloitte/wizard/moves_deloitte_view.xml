@@ -8,7 +8,7 @@
             <field name="type">form</field>
             <field name="arch" type="xml">
                 <form string="Deloitte Transfer">
-                    <separator colspan="4" string="Do you really want to transfer Igel moves to OpenERP ?" />
+                    <separator colspan="4" string="Do you really want to transfer Deloitte moves to OpenERP ?" />
                     <separator colspan="4" string="Attention - this programm is really slow !!!" />
 <!--
                     <field name="grouped"/>
