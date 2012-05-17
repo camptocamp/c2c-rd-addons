@@ -58,8 +58,8 @@
       <field name="type">tree</field>
       <field name="arch" type="xml">
         <field name="product_uom" position="after">
-          <field name="move_value_cost" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant"/>
-          <field name="move_value_sale" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant"/>
+          <field name="move_value_cost" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant" sum="Value Cost"/>
+          <field name="move_value_sale" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant" sum="Value Sale"/>
           <field name="period_id"/>
         </field>
       </field>
@@ -71,8 +71,8 @@
       <field name="type">tree</field>
       <field name="arch" type="xml">
         <field name="product_uom" position="after">
-          <field name="move_value_cost" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant"/>
-          <field name="move_value_sale" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant"/>
+          <field name="move_value_cost" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant" sum="Value Cost"/>
+          <field name="move_value_sale" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant" sum="Value Sale"/>
           <field name="period_id"/>
         </field>
       </field>
@@ -84,8 +84,8 @@
       <field name="type">tree</field>
       <field name="arch" type="xml">
         <field name="product_uom" position="after">
-          <field name="move_value_cost" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant"/>
-          <field name="move_value_sale" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant"/>
+          <field name="move_value_cost" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant" sum="Value Cost"/>
+          <field name="move_value_sale" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant" sum="Value Sale"/>
           <field name="period_id"/>
         </field>
       </field>
@@ -124,7 +124,7 @@
       <field name="inherit_id" ref="product.product_product_tree_view"/>
       <field name="arch" type="xml">
 	      <field name="standard_price" position="after">
-		 <field name="valuation" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant"/>
+		 <field name="valuation" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant" sum="Value"/>
 		 <field name="avg_price" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant"/>
          </field>
       </field>
