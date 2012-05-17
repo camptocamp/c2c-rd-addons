@@ -53,7 +53,7 @@ class stock_move(osv.osv):
                 result[move.id] = 0
 
             if move.value_correction:
-		result[move.id] = move.value_correction
+		result[move.id] = -move.value_correction # to allow "natural" data entry - stock_location (source) + positive to increase
             elif move.purchase_line_id:
 		result[move.id] = move.purchase_line_id.price_subtotal
             elif move.location_id.usage == 'internal': 
@@ -132,7 +132,8 @@ class stock_move(osv.osv):
          return result
 
     _columns = { 
-        'move_value_cost'    : fields.function(_compute_move_value_cost, method=True, string='Amount', digits_compute=dp.get_precision('Account'),type='float' ,  store=True, \
+        'move_value_cost'    : fields.function(_compute_move_value_cost, method=True, string='Amount', digits_compute=dp.get_precision('Account'),type='float' ,  \
+		            store=True, \
                             help="""Product's cost for accounting valuation.""") ,
         'move_value_sale'    : fields.function(_compute_move_value_sale, method=True, string='Amount Sale', digits_compute=dp.get_precision('Account'),type='float' , store=True, \
                              help="""Product's sale value for accounting valuation.""") ,
@@ -140,7 +141,7 @@ class stock_move(osv.osv):
         'price_unit_sale'    : fields.function(_compute_price_unit_sale, method=True, string='Sale Price',  digits_compute=dp.get_precision('Account') ),
         'analytic_account_id': fields.many2one('account.analytic.account', 'Analytic Account'),
 	'value_correction'   : fields.float('Value correction', digits_compute=dp.get_precision('Account'),\
-			     help="This field allows to enter value correction of product stock per lot and location. one of the stock_location must be 'inventory'. postive to increas, negative to decrease value")
+			     help="This field allows to enter value correction of product stock per lot and location. positive to increase, negative to decrease value")
 
     }
 
