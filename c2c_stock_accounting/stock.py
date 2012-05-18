@@ -205,7 +205,7 @@ class stock_move(osv.osv):
 	#if res.get('value'):
         res['value']['product_qty'] = 0.0
         res['value']['location_id'] = ''
-        res['value']['name'] = _('Value Difference')
+	res['value']['name'] = _('Value Difference') +': '+ res['value']['name']
         #else:
 	#    res = {'value' : {'product_qty' : 0.0 }}
 	# find inventory location      
