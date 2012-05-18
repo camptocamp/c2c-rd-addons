@@ -36,11 +36,11 @@ class stock_move(osv.osv):
 	# ids must be sorted by date
         #self._logger.debug('sql tuple ids `%s`', tuple(ids))
 	ids2 = []
-	for move in self.browse(cr, uid, ids, context):
-	    if not move.move_value_cost:
-                self._logger.debug('sql append r `%s`', move.id)
-	        ids2.append(move.id)
-	return self._compute_move_value_cost2(cr, uid, ids2, context)
+	#for move in self.browse(cr, uid, ids, context):
+	#    if not move.move_value_cost:
+        #        self._logger.debug('sql append r `%s`', move.id)
+	#        ids2.append(move.id)
+	return self._compute_move_value_cost2(cr, uid, ids, context)
 	
     def _compute_move_value_cost2(self, cr, uid, ids2,  context):
         self._logger.debug('sql sorted ids `%s`', ids2)
@@ -53,9 +53,10 @@ class stock_move(osv.osv):
                 result[move.id] = 0
 
             if move.value_correction:
-		result[move.id] = -move.value_correction # to allow "natural" data entry - stock_location (source) + positive to increase
+                result[move.id] = -move.value_correction # to allow "natural" data entry : stock_location (source) : positive to increase value
             elif move.purchase_line_id:
-		result[move.id] = move.purchase_line_id.price_subtotal
+                # FIXME shell we use the price_unit from stock_move? in standard module it is not possible to enter price_unit in pickings
+                result[move.id] = move.purchase_line_id.price_subtotal / move.purchase_line_id.product_qty * move.product_qty 
             elif move.location_id.usage == 'internal': 
                 loc_id = str(move.location_id.id)
                 self._logger.debug('loc_id `%s`', loc_id)
@@ -131,16 +132,35 @@ class stock_move(osv.osv):
              
          return result
 
+    def _get_purchase_order_line(self, cr, uid, ids, context=None):
+         result = {}
+         for line in self.pool.get('purchase.order.line').browse(cr, uid, ids, context=context):
+             ids2 = self.search(cr, uid, ['purchase_line_id','=',line.id])
+         return ids2
+
+    def _get_sale_order_line(self, cr, uid, ids, context=None):
+         result = {}
+         for line in self.pool.get('sale.order.line').browse(cr, uid, ids, context=context):
+             ids2 = self.search(cr, uid, ['sale_line_id','=',line.id])
+         return ids2
+
     _columns = { 
-        'move_value_cost'    : fields.function(_compute_move_value_cost, method=True, string='Amount', digits_compute=dp.get_precision('Account'),type='float' ,  \
-		            store=True, \
+        'move_value_cost'    : fields.function(_compute_move_value_cost, method=True, string='Amount', digits_compute=dp.get_precision('Account'),type='float' ,  
+           store={
+               'stock.move': (lambda self, cr, uid, ids, c={}: ids, ['product_qty', 'price_unit', 'value_correction', 'state'], 20),
+               'purchase.order.line': (_get_purchase_order_line, ['product_qty', 'price_subtotal'], 20),
+                 },
                             help="""Product's cost for accounting valuation.""") ,
-        'move_value_sale'    : fields.function(_compute_move_value_sale, method=True, string='Amount Sale', digits_compute=dp.get_precision('Account'),type='float' , store=True, \
+        'move_value_sale'    : fields.function(_compute_move_value_sale, method=True, string='Amount Sale', digits_compute=dp.get_precision('Account'),type='float' , 
+           store={
+               'stock.move': (lambda self, cr, uid, ids, c={}: ids, ['product_qty', 'state'], 20),
+               'sale.order.line': (_get_sale_order_line, ['product_qty', 'price_subtotal'], 20),
+                 },
                              help="""Product's sale value for accounting valuation.""") ,
         'period_id'          : fields.function(_period_id, method=True, string="Period",type='many2one', relation='account.period', store=True, select="1",  ),
         'price_unit_sale'    : fields.function(_compute_price_unit_sale, method=True, string='Sale Price',  digits_compute=dp.get_precision('Account') ),
         'analytic_account_id': fields.many2one('account.analytic.account', 'Analytic Account'),
-	'value_correction'   : fields.float('Value correction', digits_compute=dp.get_precision('Account'),\
+        'value_correction'   : fields.float('Value correction', digits_compute=dp.get_precision('Account'),\
 			     help="This field allows to enter value correction of product stock per lot and location. positive to increase, negative to decrease value")
 
     }
