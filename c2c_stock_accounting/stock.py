@@ -35,12 +35,19 @@ class stock_move(osv.osv):
         if not ids : return {}
 	# ids must be sorted by date
         #self._logger.debug('sql tuple ids `%s`', tuple(ids))
-	ids2 = []
 	#for move in self.browse(cr, uid, ids, context):
 	#    if not move.move_value_cost:
         #        self._logger.debug('sql append r `%s`', move.id)
 	#        ids2.append(move.id)
-	return self._compute_move_value_cost2(cr, uid, ids, context)
+	d = {}
+	for move in self.browse(cr, uid, ids):
+	    d[move.date] = move.id
+        self._logger.debug('FGF d %s', d)
+        ids3 = []
+	for date  in sorted(d):
+            ids3.append(d[date])
+        self._logger.debug('FGF ids3 `%s`', ids3)
+	return self._compute_move_value_cost2(cr, uid, ids3, context)
 	
     def _compute_move_value_cost2(self, cr, uid, ids2,  context):
         self._logger.debug('sql sorted ids `%s`', ids2)
@@ -49,7 +56,8 @@ class stock_move(osv.osv):
         result = {}
         for move in self.browse(cr, uid, ids2):
             self._logger.debug('type cost `%s`', move.picking_id.type)
-            if move.state in ['done','cancel']: 
+            #if move.state in ['done','cancel']: 
+            if move.state in ['cancel']: 
                 result[move.id] = 0
 
             if move.value_correction:
@@ -61,6 +69,7 @@ class stock_move(osv.osv):
                 loc_id = str(move.location_id.id)
                 self._logger.debug('loc_id `%s`', loc_id)
                 # compute avg price per stock location
+		# FIXME this must be replaced by python dictionary computation to allow recomputation of avg price
                 sql = 'select \
                  sum( case when location_id = '+loc_id+' then -move_value_cost else 0 end + case when location_dest_id = '+loc_id+' then move_value_cost else 0 end) as sum_amount, \
                  sum( case when location_id = '+loc_id+' then -product_qty else 0 end + case when location_dest_id     = '+loc_id+' then product_qty else 0 end) as sum_qty \
@@ -87,12 +96,13 @@ class stock_move(osv.osv):
                     result[move.id] = move.product_qty * move.price_unit
 	        else:
                     result[move.id] = move.product_qty * move.product_id.standard_price
-	    if context.get('init', False):
+	    if context.get('init', False) :
 		#we must use sql, because we do not want to run all checks - especially for not existing lots - for historical data      
 		sql = 'update stock_move set move_value_cost = %s where id = %d' % (result[move.id],move.id)
 		self._logger.debug('sql init sql %s' % (sql))
 		cr.execute(sql)
                 
+        self._logger.debug('FGF result `%s`', result)
         return result
 
     def _compute_move_value_sale(self, cr, uid, ids, name, args, context):
@@ -144,10 +154,18 @@ class stock_move(osv.osv):
              ids2 = self.search(cr, uid, ['sale_line_id','=',line.id])
          return ids2
 
+    def _get_stock_move(self, cr, uid, ids, context=None):
+         result = {}
+         for line in self.browse(cr, uid, ids, context=context):
+             ids2 = self.search(cr, uid, [('product_id','=',line.product_id.id),('date','>=', line.date)])
+         return ids2
+  
+
     _columns = { 
         'move_value_cost'    : fields.function(_compute_move_value_cost, method=True, string='Amount', digits_compute=dp.get_precision('Account'),type='float' ,  
            store={
                'stock.move': (lambda self, cr, uid, ids, c={}: ids, ['product_qty', 'price_unit', 'value_correction', 'state'], 20),
+               #'stock.move': (_get_stock_move,  ['product_qty', 'price_unit', 'value_correction', 'state'], 20),
                'purchase.order.line': (_get_purchase_order_line, ['product_qty', 'price_subtotal'], 20),
                  },
                             help="""Product's cost for accounting valuation.""") ,
