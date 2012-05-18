@@ -205,13 +205,13 @@
        <field eval="6" name="priority"/>
        <field name="arch" type="xml">
            <form string="Value Correction">
-               <group colspan="4" col="7">
+               <group colspan="4" >
                    <field name="product_id" on_change="onchange_product_id_value(product_id,location_id,location_dest_id, False)"/>
                    <field name="value_correction"/>
                    <field name="product_qty" />
                    <field name="product_uom" string="Unit Of Measure"/>
-               <field name="prodlot_id" groups="base.group_extended" domain="[('product_id','=',product_id)]"/>
-                   <field name="location_id" domain="[('usage','=','internal')]" string="Stock Location"/>
+		   <field name="location_id" context="{'product_id':product_id}" domain="[('usage','=','internal')]" string="Stock Location"/>
+		   <field name="prodlot_id" context="{'location_id':location_id}" groups="base.group_extended" domain="[('product_id','=',product_id)]"/>
                    <field name="location_dest_id" domain="[('usage','=','inventory')]" string="Diff Location"/>
                </group>
                <group colspan="2" col="2">
@@ -245,8 +245,8 @@
                <field name="product_uom" string="UoM"/>
                <field name="value_correction"/>
                <field name="name" string="Reason"/>
-               <field name="location_id" domain="[('usage','=','internal')]" string="Stock Location"/>
-               <field name="prodlot_id" groups="base.group_extended" domain="[('product_id','=',product_id)]"/>
+	       <field name="location_id" context="{'product_id':product_id}"  domain="[('usage','=','internal')]" string="Stock Location"/>
+	       <field name="prodlot_id" context="{'location_id':location_id}" groups="base.group_extended" domain="[('product_id','=',product_id)]"/>
                <field name="location_dest_id" domain="[('usage','=','inventory')]" string="Diff Location"/>
                <field name="product_qty" invisible="1"/>
                <field name="date"/>
