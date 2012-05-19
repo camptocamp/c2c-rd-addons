@@ -126,9 +126,24 @@
 	      <field name="standard_price" position="after">
 		 <field name="valuation" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant" sum="Value"/>
 		 <field name="avg_price" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant"/>
+		 <field name="stock_account_id" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant"/>
          </field>
       </field>
     </record>
+
+    <!-- product search-->
+    <record id="product_search_form_account_view" model="ir.ui.view">
+        <field name="name">product.search.account.form</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_search_form_view"/>
+        <field name="arch" type="xml">
+	 <field name="categ_id" position="after">
+	   <field name="stock_account_id" widget="selection" />
+         </field>
+      </field>
+    </record>
+
+			
 
     <!-- product moves IN/OUT - make refrenece mandatory -->
     <record model="ir.ui.view" id="view_move_tree_reception_referenc_picking">
@@ -311,5 +326,22 @@
            </field>
        </field>
    </record>
+
+   <!-- Valuation acount -->
+        <record id="view_normal_property_acc_stock_form" model="ir.ui.view">
+            <field name="name">product.normal.stock.acc.stock.property.formt</field>
+            <field name="model">product.product</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="stock.view_normal_property_acc_form"/>
+            <field name="priority">26</field>
+            <field name="arch" type="xml">
+		    <xpath expr="/form/notebook/page[@string='Accounting']/group/group/field[@name='valuation']" position="after">
+			    <field name="stock_account_id" />
+                    </xpath>
+           </field>
+       </record>
+
+
+   
   </data>
 </openerp>

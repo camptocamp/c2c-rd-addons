@@ -400,11 +400,9 @@ class product_product(osv.osv):
 		 res[product.id] = 0
          return res
 
-	    
-
     _columns = {
         'valuation':  fields.function(_get_product_valuation, method=True, string="Valuation",type='float',digits_compute=dp.get_precision('Account')),
         'avg_price':  fields.function(_get_avg_price, method=True, string="Avg Price",type='float',digits_compute=dp.get_precision('Account')),
-    }
-
+	'stock_account_id':  fields.related('categ_id','property_stock_valuation_account_id',type="many2one", relation="account.account", string='Stock Valuation Account',store=True,readonly=True),
+           }
 product_product()
