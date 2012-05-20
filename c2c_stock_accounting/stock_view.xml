@@ -142,8 +142,8 @@
          </field>
       </field>
     </record>
-    <record id="product_search_form_account_view" model="ir.ui.view">
-        <field name="name">product.search.account.form</field>
+    <record id="product_search_form_account2_view" model="ir.ui.view">
+        <field name="name">product.search.account2.form</field>
         <field name="model">product.product</field>
         <field name="inherit_id" ref="product.product_search_form_view"/>
         <field name="arch" type="xml">
