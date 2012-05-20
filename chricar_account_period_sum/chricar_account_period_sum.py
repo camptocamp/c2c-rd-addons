@@ -240,6 +240,7 @@ class account_fiscalyear_sum(osv.osv):
         cr.execute("""
 DROP SEQUENCE IF EXISTS account_account_fiscalyear_sum_id_seq CASCADE;
 CREATE SEQUENCE account_account_fiscalyear_sum_id_seq;
+DROP VIEW IF EXISTS account_account_fiscalyear_sum CASCADE;
 create or replace view account_account_fiscalyear_sum as 
   select
       --nextval('account_account_fiscalyear_sum_id_seq'::regclass) as id,
