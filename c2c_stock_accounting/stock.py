@@ -54,6 +54,8 @@ class stock_move(osv.osv):
 	if not context:
 	    context = {}
         result = {}
+	digits = self.pool.get('decimal.precision').precision_get(cr, uid, 'Account')
+	self._logger.debug('digits `%s`', digits)
         for move in self.browse(cr, uid, ids2):
             self._logger.debug('type cost `%s`', move.picking_id.type)
             #if move.state in ['done','cancel']: 
@@ -64,7 +66,7 @@ class stock_move(osv.osv):
                 result[move.id] = -move.value_correction # to allow "natural" data entry : stock_location (source) : positive to increase value
             elif move.purchase_line_id:
                 # FIXME shell we use the price_unit from stock_move? in standard module it is not possible to enter price_unit in pickings
-                result[move.id] = move.purchase_line_id.price_subtotal / move.purchase_line_id.product_qty * move.product_qty 
+                result[move.id] = round(move.purchase_line_id.price_subtotal / move.purchase_line_id.product_qty * move.product_qty,digits) 
             elif move.location_id.usage == 'internal': 
                 loc_id = str(move.location_id.id)
                 self._logger.debug('loc_id `%s`', loc_id)
@@ -88,17 +90,17 @@ class stock_move(osv.osv):
                    self._logger.debug('FGF sum product %s %s %s %s' % (move.product_id.id, move.date,sum_amount, sum_qty))
                    if sum_qty and sum_qty > 0.0 and sum_amount > 0.0:
                        avg_price = sum_amount / sum_qty 
-                       result[move.id] = move.product_qty * avg_price
+                       result[move.id] = round(move.product_qty * avg_price,digits)
                    else :
-                       result[move.id] = move.product_qty * move.product_id.standard_price
+                       result[move.id] = round(move.product_qty * move.product_id.standard_price,digits)
 	    else:
 	        if move.price_unit and move.price_unit != 0:
-                    result[move.id] = move.product_qty * move.price_unit
+                    result[move.id] = round(move.product_qty * move.price_unit,digits)
 	        else:
-                    result[move.id] = move.product_qty * move.product_id.standard_price
+                    result[move.id] = round(move.product_qty * move.product_id.standard_price,digits)
 	    if context.get('init', False) :
 		#we must use sql, because we do not want to run all checks - especially for not existing lots - for historical data      
-		sql = 'update stock_move set move_value_cost = %s where id = %d' % (result[move.id],move.id)
+		sql = 'update stock_move set move_value_cost = round(%s,%s) where id = %d' % (result[move.id],digits,move.id)
 		self._logger.debug('sql init sql %s' % (sql))
 		cr.execute(sql)
                 
@@ -252,6 +254,7 @@ stock_move()
 ## no connection from product to company !!!!
 class product_product(osv.osv):
     _inherit = "product.product"
+    _logger = logging.getLogger(__name__)
 
     # FIXME this should go into stock/product, but SQL is not accessible
     def _get_product_valuation(self, cr, uid, ids, field_name, arg, context=None):
@@ -263,6 +266,7 @@ class product_product(osv.osv):
         if context is None:
             context = {}
         
+	_logger.debug('FGF stock_location_product context %s',context)
         location_obj = self.pool.get('stock.location')
         warehouse_obj = self.pool.get('stock.warehouse')
         shop_obj = self.pool.get('sale.shop')
@@ -391,6 +395,25 @@ class product_product(osv.osv):
             res[prod_id] -= value_cost
         return res
 
+    def _get_product_valuation1(self, cr, uid, ids, field_name, arg, context=None):
+        context['from_date'] = context.get('from_date1',False)
+        context['to_date'] = context.get('to_date1',False)
+	res=self._get_product_valuation(cr, uid, ids, field_name, arg, context)
+        return res
+
+    def _get_product_valuation2(self, cr, uid, ids, field_name, arg, context=None):
+        context['from_date'] = context.get('from_date2',False)
+        context['to_date'] = context.get('to_date2',False)
+	res=self._get_product_valuation(cr, uid, ids, field_name, arg, context)
+        return res
+
+    def _get_valuation_diff(self, cr, uid, ids, field_name, arg, context=None):
+        res = {}
+        for product in self.browse(cr, uid, ids, context=context):
+		 res[product.id] = product.valuation - product.valuation2
+        return res
+
+
     def _get_avg_price(self, cr, uid, ids, field_name, arg, context=None):
 	 res = {}
          for product in self.browse(cr, uid, ids, context=context):
@@ -401,7 +424,9 @@ class product_product(osv.osv):
          return res
 
     _columns = {
-        'valuation':  fields.function(_get_product_valuation, method=True, string="Valuation",type='float',digits_compute=dp.get_precision('Account')),
+        'valuation':  fields.function(_get_product_valuation1, method=True, string="Valuation",type='float',digits_compute=dp.get_precision('Account')),
+        'valuation2': fields.function(_get_product_valuation2, method=True, string="Valuation Comp",type='float',digits_compute=dp.get_precision('Account')),
+        'valuation_diff': fields.function(_get_valuation_diff, method=True, string="Valuation Diff",type='float',digits_compute=dp.get_precision('Account')),
         'avg_price':  fields.function(_get_avg_price, method=True, string="Avg Price",type='float',digits_compute=dp.get_precision('Account')),
 	'stock_account_id':  fields.related('categ_id','property_stock_valuation_account_id',type="many2one", relation="account.account", string='Stock Valuation Account',store=True,readonly=True),
            }

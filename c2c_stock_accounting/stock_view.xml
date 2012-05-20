@@ -125,6 +125,8 @@
       <field name="arch" type="xml">
 	      <field name="standard_price" position="after">
 		 <field name="valuation" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant" sum="Value"/>
+		 <field name="valuation2" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant" sum="Value 2"/>
+		 <field name="valuation_diff" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant" sum="Diff"/>
 		 <field name="avg_price" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant"/>
 		 <field name="stock_account_id" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant"/>
          </field>

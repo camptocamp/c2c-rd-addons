@@ -49,6 +49,7 @@ ToDo
     'depends': ['product','purchase','sale', 'stock','stock_get_name_qty' ],
     'update_xml': ['security/stock_security.xml',
                    'stock_view.xml',
+		   'wizard/stock_location_product_view.xml',
        ],
     #'update_xml': ['product_view.xml'],
     'demo_xml': [],
