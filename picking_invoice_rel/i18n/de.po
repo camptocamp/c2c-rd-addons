@@ -48,7 +48,7 @@ msgstr "Analysekonto darf nicht geändert werden."
 #. module: picking_invoice_rel
 #: model:res.groups,name:picking_invoice_rel.group
 msgid "Allowed to see picking invoice relation"
-msgstr "Darf Lieferschein Rechnungs Realtion sehen"
+msgstr "Darf Lieferschein Rechnungs Relation sehen"
 
 #. module: picking_invoice_rel
 #: field:account.invoice,client_order_refs:0
