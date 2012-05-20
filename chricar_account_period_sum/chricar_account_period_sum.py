@@ -152,6 +152,7 @@ class account_fiscalyear_sum(osv.osv):
 
     # to avoid view_id
     class one2many_periods (fields.one2many):
+        #_logger      = logging.getLogger(_name)
         def get (self, cr, obj, ids, name, user=None, offset=0, context=None, values={}):
             res = {}
             for id in ids :
@@ -168,13 +169,14 @@ class account_fiscalyear_sum(osv.osv):
                     , limit = self._limit
                     )
                 for r in ids2:
-                    self._logger.debug('r_ids2 `%s`', r)
+                    #self._logger.debug('r_ids2 `%s`', r)
                     res [fy.id].append(r)
             return res
         #  set missing
     # end class one2many_periods
 
     class one2many_per_delta (fields.one2many):
+        #_logger      = logging.getLogger(_name)
         def get (self, cr, obj, ids, name, user=None, offset=0, context=None, values={}):
             res = {}
             for id in ids : 
@@ -197,7 +199,7 @@ class account_fiscalyear_sum(osv.osv):
                 #             order by name""" , (fy.company_id.id,fy.account_id.id,fy.fiscalyear_id.id))
                 #ids3 = cr.fetchall()
 
-                self._logger.debug('ids3 `%s`', ids3)
+                #self._logger.debug('ids3 `%s`', ids3)
 
                 def _cmp(a, b) :
                    if a.name < b.name : return -1
@@ -211,7 +213,7 @@ class account_fiscalyear_sum(osv.osv):
                 #for r in ids3:
                 for r in sorted(delta_obj.browse(cr, user, ids3, context), cmp=lambda a, b: _cmp(a, b)):
                 #TypeError: browse_record(account.account.period.sum.delta, 1761010) is not JSON serializable
-                   self._logger.debug('r_ids3 `%s` `%s`', r, r.name)
+                   #self._logger.debug('r_ids3 `%s` `%s`', r, r.name)
                    res [fy.id].append( r.id )
             return res
     
@@ -240,7 +242,8 @@ DROP SEQUENCE IF EXISTS account_account_fiscalyear_sum_id_seq CASCADE;
 CREATE SEQUENCE account_account_fiscalyear_sum_id_seq;
 create or replace view account_account_fiscalyear_sum as 
   select
-      nextval('account_account_fiscalyear_sum_id_seq'::regclass) as id,
+      --nextval('account_account_fiscalyear_sum_id_seq'::regclass) as id,
+      min(s.id) as id,
       s.company_id,
       account_id,
       to_char(y.date_stop,'YYYY') || case when to_char(y.date_stop,'MM')  != '12'
@@ -262,7 +265,7 @@ create or replace view account_account_fiscalyear_sum as
       and y.id = p.fiscalyear_id
     group by 
       s.company_id, 
-      sum_fy_period_id,  
+      --sum_fy_period_id,  
       s.account_id, 
       y.id,
       to_char(y.date_stop,'YYYY') || case when to_char(y.date_stop,'MM')  != '12'
