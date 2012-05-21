@@ -58,8 +58,8 @@
       <field name="type">tree</field>
       <field name="arch" type="xml">
         <field name="product_uom" position="after">
-          <field name="move_value_cost" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant"/>
-          <field name="move_value_sale" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant"/>
+          <field name="move_value_cost" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant" sum="Value Cost"/>
+          <field name="move_value_sale" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant" sum="Value Sale"/>
           <field name="period_id"/>
         </field>
       </field>
@@ -71,8 +71,8 @@
       <field name="type">tree</field>
       <field name="arch" type="xml">
         <field name="product_uom" position="after">
-          <field name="move_value_cost" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant"/>
-          <field name="move_value_sale" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant"/>
+          <field name="move_value_cost" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant" sum="Value Cost"/>
+          <field name="move_value_sale" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant" sum="Value Sale"/>
           <field name="period_id"/>
         </field>
       </field>
@@ -84,8 +84,8 @@
       <field name="type">tree</field>
       <field name="arch" type="xml">
         <field name="product_uom" position="after">
-          <field name="move_value_cost" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant"/>
-          <field name="move_value_sale" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant"/>
+          <field name="move_value_cost" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant" sum="Value Cost"/>
+          <field name="move_value_sale" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant" sum="Value Sale"/>
           <field name="period_id"/>
         </field>
       </field>
@@ -124,11 +124,44 @@
       <field name="inherit_id" ref="product.product_product_tree_view"/>
       <field name="arch" type="xml">
 	      <field name="standard_price" position="after">
-		 <field name="valuation" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant"/>
+		 <field name="valuation" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant" sum="Value"/>
+		 <field name="valuation2" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant" sum="Value 2"/>
+		 <field name="valuation_diff" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant" sum="Diff"/>
 		 <field name="avg_price" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant"/>
+		 <field name="stock_account_id" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant"/>
          </field>
       </field>
     </record>
+
+    <!-- product search-->
+    <record id="product_search_form_account_view" model="ir.ui.view">
+        <field name="name">product.search.account.form</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_search_form_view"/>
+        <field name="arch" type="xml">
+	 <field name="categ_id" position="after">
+	   <field name="stock_account_id" widget="selection" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant"/>
+         </field>
+      </field>
+    </record>
+    <record id="product_search_form_account2_view" model="ir.ui.view">
+        <field name="name">product.search.account2.form</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_search_form_view"/>
+        <field name="arch" type="xml">
+	 <xpath expr="/search/group/filter[@string='Category']" position="before">
+             <filter string='Account' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'stock_account_id'}" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant"/>
+             <separator orientation="vertical"/>
+
+         </xpath>
+      </field>
+    </record>
+			
+
+    <!-- product moves IN/OUT - make refrenece mandatory -->
+
+
+			
 
     <!-- product moves IN/OUT - make refrenece mandatory -->
     <record model="ir.ui.view" id="view_move_tree_reception_referenc_picking">
@@ -205,19 +238,20 @@
        <field eval="6" name="priority"/>
        <field name="arch" type="xml">
            <form string="Value Correction">
-               <group colspan="4" col="7">
+               <group colspan="4" >
                    <field name="product_id" on_change="onchange_product_id_value(product_id,location_id,location_dest_id, False)"/>
                    <field name="value_correction"/>
                    <field name="product_qty" />
                    <field name="product_uom" string="Unit Of Measure"/>
-               <field name="prodlot_id" groups="base.group_extended" domain="[('product_id','=',product_id)]"/>
-                   <field name="location_id" domain="[('usage','=','internal')]" string="Stock Location"/>
+		   <field name="location_id" context="{'product_id':product_id}" domain="[('usage','=','internal')]" string="Stock Location"/>
+		   <field name="prodlot_id" context="{'location_id':location_id}" groups="base.group_extended" domain="[('product_id','=',product_id)]"/>
                    <field name="location_dest_id" domain="[('usage','=','inventory')]" string="Diff Location"/>
                </group>
                <group colspan="2" col="2">
                    <separator colspan="2" string="Move Information"/>
                    <field name="name" string="Reason"/>
                    <field name="picking_id" string="Reference" required="1"/>
+                   <field name="date"  required="1"/>
                </group>
 
    <separator colspan="4"/>
@@ -244,8 +278,8 @@
                <field name="product_uom" string="UoM"/>
                <field name="value_correction"/>
                <field name="name" string="Reason"/>
-               <field name="location_id" domain="[('usage','=','internal')]" string="Stock Location"/>
-               <field name="prodlot_id" groups="base.group_extended" domain="[('product_id','=',product_id)]"/>
+	       <field name="location_id" context="{'product_id':product_id}"  domain="[('usage','=','internal')]" string="Stock Location"/>
+	       <field name="prodlot_id" context="{'location_id':location_id}" groups="base.group_extended" domain="[('product_id','=',product_id)]"/>
                <field name="location_dest_id" domain="[('usage','=','inventory')]" string="Diff Location"/>
                <field name="product_qty" invisible="1"/>
                <field name="date"/>
@@ -310,5 +344,22 @@
            </field>
        </field>
    </record>
+
+   <!-- Valuation acount -->
+        <record id="view_normal_property_acc_stock_form" model="ir.ui.view">
+            <field name="name">product.normal.stock.acc.stock.property.formt</field>
+            <field name="model">product.product</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="stock.view_normal_property_acc_form"/>
+            <field name="priority">26</field>
+            <field name="arch" type="xml">
+		    <xpath expr="/form/notebook/page[@string='Accounting']/group/group/field[@name='valuation']" position="after">
+			    <field name="stock_account_id" />
+                    </xpath>
+           </field>
+       </record>
+
+
+   
   </data>
 </openerp>
