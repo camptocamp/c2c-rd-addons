@@ -41,6 +41,14 @@ class stock_location_product(osv.osv_memory):
         return res
 
     def action_open_window(self, cr, uid, ids, context=None):
+        if context is None:
+            context = {}
+        res = super(stock_location_product, self).action_open_window(cr, uid, ids, context)
+        location_products = self.read(cr, uid, ids, ['display_with_zero_qty'], context)
+        res['context']['display_with_zero_qty'] = location_products[0]['display_with_zero_qty']
+        return res
+        
+    def action_open_window_nok2(self, cr, uid, ids, context=None):
         """ To open location wise product information specific to given duration
          @param self: The object pointer.
          @param cr: A database cursor
