@@ -231,9 +231,26 @@ class stock_move(osv.osv):
 #                                   where p.id = m.product_id and t.id = p.product_tmpl_id) where move_value_cost is null;
 #      """)
 
+
+
+    def action_done(self, cr, uid, ids, context=None):
+	  """to be able to post moves for past dates (mainly corrections) it is necessary to store the date_expected instead of the current date 
+	  the date field is used to select records in the location structure and others
+	  for accounting purpose it is absolutely necessary to be able to do this.
+	  * correct errors
+	  * do valuation correction
+	  """
+        move_ids = []
+        for move in self.browse(cr, uid, ids, context=context):
+            if move.state in ['done','cancel']:
+                 continue
+            move_ids.append(move.id)
+        res = super(stock_move, self).action_done(cr, uid, ids, context)
+	move = self.read(cr, uid, move_ids, ['date_expected'], context)
+	self.write(cr, uid, move_ids, {'date': move[0]['date_expected']}, context=context)
+        return res
+
 stock_move()
-
-
 #----------------------------------------------------------
 #  Company Config INHERIT
 #----------------------------------------------------------
@@ -395,16 +412,26 @@ class product_product(osv.osv):
             res[prod_id] -= value_cost
         return res
 
+    def _product_available(self, cr, uid, ids, field_names=None, arg=False, context=None):
+	ctx = dict(context)
+        ctx['from_date'] = context.get('from_date1',False)
+        ctx['to_date'] = context.get('to_date1',False)
+	res=super(product_product, self)._product_available(cr, uid, ids, field_name, arg, context=ctx)
+        return res
+	
+
     def _get_product_valuation1(self, cr, uid, ids, field_name, arg, context=None):
-        context['from_date'] = context.get('from_date1',False)
-        context['to_date'] = context.get('to_date1',False)
-	res=self._get_product_valuation(cr, uid, ids, field_name, arg, context)
+	ctx1 = dict(context)
+        ctx1['from_date'] = context.get('from_date1',False)
+        ctx1['to_date'] = context.get('to_date1',False)
+	res=self._get_product_valuation(cr, uid, ids, field_name, arg, context=ctx1)
         return res
 
     def _get_product_valuation2(self, cr, uid, ids, field_name, arg, context=None):
-        context['from_date'] = context.get('from_date2',False)
-        context['to_date'] = context.get('to_date2',False)
-	res=self._get_product_valuation(cr, uid, ids, field_name, arg, context)
+	ctx2 = dict(context)
+        ctx2['from_date'] = context.get('from_date2',False)
+        ctx2['to_date'] = context.get('to_date2',False)
+	res=self._get_product_valuation(cr, uid, ids, field_name, arg, context=ctx2)
         return res
 
     def _get_valuation_diff(self, cr, uid, ids, field_name, arg, context=None):

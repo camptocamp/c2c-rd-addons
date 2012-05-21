@@ -22,9 +22,11 @@
 
 from osv import fields, osv
 from datetime import datetime, date, time
+import logging
 
 class stock_location_product(osv.osv_memory):
      _inherit = "stock.location.product"
+     _logger = logging.getLogger(__name__)
 
      _columns = {
         'from_date2': fields.datetime('From'),
@@ -40,8 +42,10 @@ class stock_location_product(osv.osv_memory):
         if context is None:
             context = {}
 	res = super(stock_location_product, self).action_open_window(cr, uid, ids, context)
+        self._logger.info('FGF stock_location_product res %s' % res)
 
         location_products = self.read(cr, uid, ids, ['from_date','to_date','from_date2', 'to_date2', 'adjust_time'], context)
+        self._logger.info('FGF stock_location_products  %s' % location_products)
 	from_date1 = location_products[0]['from_date']
 	to_date1 = location_products[0]['to_date']
 	from_date2 = location_products[0]['from_date2']
@@ -57,10 +61,13 @@ class stock_location_product(osv.osv_memory):
 		if to_date2:
 			to_date2 = to_date2[0:10]+' 23:59:59'
 
+        res['context']['from_date']= from_date1
+        res['context']['to_date']= to_date1
         res['context']['from_date1']= from_date1
         res['context']['to_date1']= to_date1
         res['context']['from_date2']= from_date2
         res['context']['to_date2']= to_date2
+        self._logger.info('FGF stock_location_product res neu %s' % res)
 	return res
            
 stock_location_product()
