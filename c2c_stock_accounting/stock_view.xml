@@ -251,7 +251,8 @@
                    <separator colspan="2" string="Move Information"/>
                    <field name="name" string="Reason"/>
                    <field name="picking_id" string="Reference" required="1"/>
-                   <field name="date"  required="1"/>
+                   <field name="date"  readonly="1"/>
+                   <field name="date_expected"  required="1"/>
                </group>
 
    <separator colspan="4"/>
