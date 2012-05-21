@@ -46,7 +46,7 @@ ToDo
 * automatic handling of value roundings if qty_available is 0 after posting
 """,
     'author': 'Camptocamp Austria',
-    'depends': ['product','purchase','sale', 'stock','stock_get_name_qty' ],
+    'depends': ['product','purchase','sale', 'stock','stock_get_name_qty','stock_product_zero' ],
     'update_xml': ['security/stock_security.xml',
                    'stock_view.xml',
 		   'wizard/stock_location_product_view.xml',
