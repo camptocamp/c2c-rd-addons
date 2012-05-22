@@ -66,7 +66,11 @@ class stock_move(osv.osv):
                 result[move.id] = -move.value_correction # to allow "natural" data entry : stock_location (source) : positive to increase value
             elif move.purchase_line_id:
                 # FIXME shell we use the price_unit from stock_move? in standard module it is not possible to enter price_unit in pickings
-                result[move.id] = round(move.purchase_line_id.price_subtotal / move.purchase_line_id.product_qty * move.product_qty,digits) 
+		# anser is YES
+		if move.price_unit and move.purchase_line_id.order_id.state != 'draft':
+                    result[move.id] = round(move.product_qty * move.price_unit,digits)
+	        else:
+                    result[move.id] = round(move.purchase_line_id.price_subtotal / move.purchase_line_id.product_qty * move.product_qty,digits) 
             elif move.location_id.usage == 'internal': 
                 loc_id = str(move.location_id.id)
                 self._logger.debug('loc_id `%s`', loc_id)
@@ -147,13 +151,13 @@ class stock_move(osv.osv):
     def _get_purchase_order_line(self, cr, uid, ids, context=None):
          result = {}
          for line in self.pool.get('purchase.order.line').browse(cr, uid, ids, context=context):
-             ids2 = self.search(cr, uid, ['purchase_line_id','=',line.id])
+             ids2 = self.search(cr, uid, [('purchase_line_id','=',int(line.id))])
          return ids2
 
     def _get_sale_order_line(self, cr, uid, ids, context=None):
          result = {}
          for line in self.pool.get('sale.order.line').browse(cr, uid, ids, context=context):
-             ids2 = self.search(cr, uid, ['sale_line_id','=',line.id])
+             ids2 = self.search(cr, uid, [('sale_line_id','=',line.id)])
          return ids2
 
     def _get_stock_move(self, cr, uid, ids, context=None):
@@ -166,15 +170,15 @@ class stock_move(osv.osv):
     _columns = { 
         'move_value_cost'    : fields.function(_compute_move_value_cost, method=True, string='Amount', digits_compute=dp.get_precision('Account'),type='float' ,  
            store={
-               'stock.move': (lambda self, cr, uid, ids, c={}: ids, ['product_qty', 'price_unit', 'value_correction', 'state'], 20),
+               'stock.move': (lambda self, cr, uid, ids, c={}: ids, ['product_qty', 'price_unit','price_unit_pu','value_correction', 'state'], 20),
                #'stock.move': (_get_stock_move,  ['product_qty', 'price_unit', 'value_correction', 'state'], 20),
-               'purchase.order.line': (_get_purchase_order_line, ['product_qty', 'price_subtotal'], 20),
+               #'purchase.order.line': (_get_purchase_order_line, ['product_qty', 'price_subtotal'], 20),
                  },
                             help="""Product's cost for accounting valuation.""") ,
         'move_value_sale'    : fields.function(_compute_move_value_sale, method=True, string='Amount Sale', digits_compute=dp.get_precision('Account'),type='float' , 
            store={
                'stock.move': (lambda self, cr, uid, ids, c={}: ids, ['product_qty', 'state'], 20),
-               'sale.order.line': (_get_sale_order_line, ['product_qty', 'price_subtotal'], 20),
+               #'sale.order.line': (_get_sale_order_line, ['product_qty', 'price_subtotal'], 20),
                  },
                              help="""Product's sale value for accounting valuation.""") ,
         'period_id'          : fields.function(_period_id, method=True, string="Period",type='many2one', relation='account.period', store=True, select="1",  ),
@@ -234,12 +238,12 @@ class stock_move(osv.osv):
 
 
     def action_done(self, cr, uid, ids, context=None):
-	  """to be able to post moves for past dates (mainly corrections) it is necessary to store the date_expected instead of the current date 
+	"""to be able to post moves for past dates (mainly corrections) it is necessary to store the date_expected instead of the current date 
 	  the date field is used to select records in the location structure and others
 	  for accounting purpose it is absolutely necessary to be able to do this.
 	  * correct errors
 	  * do valuation correction
-	  """
+	"""
         move_ids = []
         for move in self.browse(cr, uid, ids, context=context):
             if move.state in ['done','cancel']:
