@@ -110,10 +110,28 @@ class chricar_budget(osv.osv):
         for line in self.browse(cr, uid, ids, context=context):
             res[line.id] = (line.product_qty_stock * line.price / line.price_unit_id.coefficient)
         return res
+
      def _amount_qty_lot(self, cr, uid, ids, name, args, context=None):
+        _logger = logging.getLogger(__name__) 
         res = {}
         for line in self.browse(cr, uid, ids, context=context):
             res[line.id] = (line.product_qty_lot * line.price / line.price_unit_id.coefficient)
+	    # uninvoiced pickings
+        move_obj = self.pool.get('stock.move')
+        for line in self.browse(cr, uid, ids, context=context):
+            amount = 0
+	    if line.prod_lot_id:
+                 #move_ids = move_obj.search(cr, uid, [('prodlot_id','=',line.prod_lot_id.id),('picking_id','>','0')])
+                 move_ids = move_obj.search(cr, uid, [('prodlot_id','=',line.prod_lot_id.id)])
+	         _logger.debug('FGF uninvoiced move_ids %s' % (move_ids))
+                 for move in move_obj.browse(cr, uid, move_ids):
+	           if  move.picking_id and move.picking_id.type == 'out' and move.state == 'done':
+		    _logger.debug('FGF uninvoiced move pick id %s %s %s' % (move.picking_id.name , move.picking_id.type, move.picking_id.state))
+		    if move.picking_id and not move.picking_id.invoice_ids :
+		       _logger.debug('FGF uninvoiced move pick line id  %s %s %s' % (move.product_qty, move.state, move.product_id.name))
+                       amount += move.product_qty *  line.price / line.price_unit_id.coefficient
+            res[line.id] += amount		   
+
         return res
 
 
@@ -128,13 +146,13 @@ class chricar_budget(osv.osv):
 	   if line.prod_lot_id:
              #move_ids = move_obj.search(cr, uid, [('prodlot_id','=',line.prod_lot_id.id),('picking_id','>','0')])
              move_ids = move_obj.search(cr, uid, [('prodlot_id','=',line.prod_lot_id.id)])
-	     _logger.info('FGF move_ids %s' % (move_ids))
+	     _logger.debug('FGF move_ids %s' % (move_ids))
              for move in move_obj.browse(cr, uid, move_ids):
 	       if  move.picking_id:
-		_logger.info('FGF move pick id %s %s %s' % (move.picking_id.name , move.picking_id.type, move.picking_id.state))
+		_logger.debug('FGF move pick id %s %s %s' % (move.picking_id.name , move.picking_id.type, move.picking_id.state))
 		if move.picking_id and move.picking_id.invoice_ids :
                     for inv in move.picking_id.invoice_ids:
-		      _logger.info('FGF move pick inv %s %s %s' % (inv.number, inv.type, inv.state))
+		      _logger.debug('FGF move pick inv %s %s %s' % (inv.number, inv.type, inv.state))
                       if inv.state in ['open','paid'] and inv.invoice_line:
 			for inv_line in inv.invoice_line:
                           if inv_line.product_id == line.product_id: # FIXME problematic if 2 lots are in one invoice 
@@ -142,9 +160,9 @@ class chricar_budget(osv.osv):
                                amount += inv_line.price_subtotal
 			    else:
                                amount -= inv_line.price_subtotal
-		            _logger.info('FGF move pick inv line %s' % (inv_line.name))
-	                    _logger.info('FGF move pick inv line amount %s' % (inv_line.price_subtotal))
-	                    _logger.info('FGF move pick inv line amount %s' % (amount))
+		            _logger.debug('FGF move pick inv line %s' % (inv_line.name))
+	                    _logger.debug('FGF move pick inv line amount %s' % (inv_line.price_subtotal))
+	                    _logger.debug('FGF move pick inv line amount %s' % (amount))
            res[line.id] = amount
          return res
 
