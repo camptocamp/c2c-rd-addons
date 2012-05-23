@@ -138,7 +138,7 @@ class stock_picking(osv.osv):
           packs = 0
           if picking.move_lines:
             for line in picking.move_lines:
-		if line.product_packaging and line.product_packaging.qty:
+		if 'price_unit_id' in self._columns and  line.product_packaging and line.product_packaging.qty:
                     packs += line.product_qty/line.product_packaging.qty 
           res[picking.id] = packs  
         return res
