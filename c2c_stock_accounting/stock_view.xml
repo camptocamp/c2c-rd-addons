@@ -261,6 +261,7 @@
        <button name="action_cancel" states="assigned,confirmed" string="_Cancel" type="object" icon="gtk-cancel"/>
        <button name="action_confirm" states="draft" string="Process Later" type="object" icon="gtk-apply"/>
        <button name="force_assign" states="confirmed" string="Set Available" type="object" icon="gtk-yes"/>
+       <button name="action_done" string="Process" type="object" states="confirmed,assigned" icon="gtk-go-forward"/>
    </group>
    </form>
    </field>
@@ -288,7 +289,8 @@
                <field name="state"/>
        <button name="action_cancel" states="assigned,confirmed" string="_Cancel" type="object" icon="gtk-cancel"/>
        <button name="action_confirm" states="draft" string="Process Later" type="object" icon="gtk-apply"/>
-               <button name="action_done" string="Process" type="object" states="confirmed,assigned" icon="gtk-go-forward"/>
+       <button name="force_assign" states="confirmed" string="Set Available" type="object" icon="gtk-yes"/>
+       <button name="action_done" string="Process" type="object" states="confirmed,assigned" icon="gtk-go-forward"/>
            </tree>
       </field>
    </record>
