@@ -605,8 +605,8 @@ class chricar_budget(osv.osv):
         self._logger.debug('periods `%s`', period_ids)
         # find budget item via account
         months = len(period_ids)
-        account_sale_id = prod_plan.product_id.property_account_income.id or prod_plan.product_id.categ_id.property_account_income.id
-        account_cost_id = prod_plan.product_id.property_stock_account_output and prod_plan.product_id.property_stock_account_output.id \
+        account_sale_id = prod_plan.product_id.property_account_income.id or prod_plan.product_id.categ_id.property_account_income_categ.id
+        account_cost_id = prod_plan.product_id.property_account_expense and prod_plan.product_id.property_account_expense_categ.id \
                           or prod_plan.product_id.categ_id.property_account_expense_categ.id
         
         self._logger.debug('account `%s` `%s`', account_sale_id, account_cost_id)
