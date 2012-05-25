@@ -214,8 +214,11 @@ class product_product(osv.osv):
          return res
 
     def _get_product_expense(self, cr, uid, ids, context=None):
+	 _logger  = logging.getLogger(__name__)
+	 _logger.debug('FGF _get_product_expense ids %s' % ids)
 	 product_ids = []
          product_ids = self.pool.get('product.product').search(cr, uid, [('categ_id','in', ids)])
+	 _logger.debug('FGF _get_product_expense product_ids %s' % product_ids)
          return product_ids
 
 
@@ -224,11 +227,12 @@ class product_product(osv.osv):
         'valuation2': fields.function(_get_product_valuation2, method=True, string="Valuation Comp",type='float',digits_compute=dp.get_precision('Account')),
         'valuation_diff': fields.function(_get_valuation_diff, method=True, string="Valuation Diff",type='float',digits_compute=dp.get_precision('Account')),
         'avg_price':  fields.function(_get_avg_price, method=True, string="Avg Price",type='float',digits_compute=dp.get_precision('Account')),
-        'stock_account_id':  fields.related('categ_id','property_stock_valuation_account_id',type="many2one", relation="account.account", string='Stock Valuation Account',store=True,readonly=True),
+        'stock_account_id':  fields.related('categ_id','property_stock_valuation_account_id',type="many2one", relation="account.account", string='Stock Valuation Account',store=False,readonly=True),
         'expense_account_id':  fields.function(_get_expense_account, method=True, string='Expense Account', type='many2one', relation='account.account',  select="1",
-                   store =  {
-                      'product.category' : ( _get_product_expense, ['property_account_expense_categ'], 10)
-                            }
+		    store = False
+            #       store =  {
+            #          'product.category' : ( _get_product_expense, ['property_account_expense_categ'], 10)
+            #                }
                    ),
            }
            
@@ -247,7 +251,7 @@ class product_product(osv.osv):
             for prod in self.browse(cr,uid,res,context):
                 if round(prod.qty_available,digits) <> 0.0 or round(prod.virtual_available,digits) <> 0.0 or round(prod.valuation,digits) <> 0.0 or round(prod.valuation2,digits) <>0.0:
                     res2.append(prod.id)
-        #    self._logger.info('FGF stock_location_product not sero %s' % res)
+        #    self._logger.debug('FGF stock_location_product not sero %s' % res)
 	    res = res2
 
         return res
@@ -436,7 +440,7 @@ class stock_move(osv.osv):
     def onchange_product_id_value(self, cr, uid, ids, prod_id=False, loc_id=False,
 		                                loc_dest_id=False, address_id=False):
 	res = super(stock_move, self).onchange_product_id(cr, uid, ids, prod_id, loc_id, loc_dest_id, address_id)
-        self._logger.info('FGF on change produc id %s', res)
+        self._logger.debug('FGF on change produc id %s', res)
 
 	#if res.get('value'):
         res['value']['product_qty'] = 0.0
