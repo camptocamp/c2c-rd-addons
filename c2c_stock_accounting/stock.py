@@ -236,25 +236,12 @@ class product_product(osv.osv):
                    ),
            }
            
-    def search(self, cr, uid, args, offset=0, limit=None, order=None, context=None, count=False):
-        if not context: context = {}
-
-        res = []
-        res = super(product_product, self).search(cr, uid, args, offset, limit, order, context, count)
-        if not context.get('location') or  context.get('display_with_zero_qty',True) :
-            self._logger.debug('FGF stock_location_product context %s' % context)
-            self._logger.debug('FGF stock_location_product all %s' % res)
-        else:
-            self._logger.debug('FGF stock_location_product zero %s' % res)
-            digits = self.pool.get('decimal.precision').precision_get(cr, uid, 'Product UoM')
-            res2 = []
-            for prod in self.browse(cr,uid,res,context):
-                if round(prod.qty_available,digits) <> 0.0 or round(prod.virtual_available,digits) <> 0.0 or round(prod.valuation,digits) <> 0.0 or round(prod.valuation2,digits) <>0.0:
-                    res2.append(prod.id)
-        #    self._logger.debug('FGF stock_location_product not sero %s' % res)
-	    res = res2
-
-        return res
+    def fields_to_check(self, cr, uid):
+        fields = super(product_product, self).fields_to_check(cr, uid)
+	if fields:
+            fields.append( 'valuation' )
+            fields.append( 'valuation2' )
+        return fields
 
 product_product()
 
