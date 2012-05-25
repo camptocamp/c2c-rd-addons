@@ -161,4 +161,11 @@ class stock_picking(osv.osv):
 	      )
 	      
     }
+    def copy(self, cr, uid, id, default=None, context=None):
+        if default is None:
+            default = {}
+        default = default.copy()
+        default.update({'move_lines_sorted': []})
+        return super(stock_picking, self).copy(cr, uid, id, default, context=context)
+
 stock_picking()
