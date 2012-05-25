@@ -207,12 +207,19 @@ class product_product(osv.osv):
 		 res[product.id] = 0
          return res
 
+    def _get_expense_account(self, cr, uid, ids, field_name, arg, context=None):
+	 res = {}
+         for product in self.browse(cr, uid, ids, context=context):
+		 res[product.id] =  product.property_account_expense.id  or product.categ_id.property_account_expense_categ.id or None 
+         return res
+
     _columns = {
         'valuation':  fields.function(_get_product_valuation1, method=True, string="Valuation",type='float',digits_compute=dp.get_precision('Account')),
         'valuation2': fields.function(_get_product_valuation2, method=True, string="Valuation Comp",type='float',digits_compute=dp.get_precision('Account')),
         'valuation_diff': fields.function(_get_valuation_diff, method=True, string="Valuation Diff",type='float',digits_compute=dp.get_precision('Account')),
         'avg_price':  fields.function(_get_avg_price, method=True, string="Avg Price",type='float',digits_compute=dp.get_precision('Account')),
 	'stock_account_id':  fields.related('categ_id','property_stock_valuation_account_id',type="many2one", relation="account.account", string='Stock Valuation Account',store=True,readonly=True),
+        'expense_account_id':  fields.function(_get_expense_account, method=True, string='Expense Account', type='many2one', relation='account.account',  select="1", store=True ),
            }
            
     def search(self, cr, uid, args, offset=0, limit=None, order=None, context=None, count=False):

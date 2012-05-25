@@ -129,6 +129,7 @@
 		 <field name="valuation_diff" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant" sum="Diff"/>
 		 <field name="avg_price" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant"/>
 		 <field name="stock_account_id" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant"/>
+		 <field name="expense_account_id" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant"/>
          </field>
       </field>
     </record>
@@ -141,6 +142,7 @@
         <field name="arch" type="xml">
 	 <field name="categ_id" position="after">
 	   <field name="stock_account_id" widget="selection" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant"/>
+	   <field name="expense_account_id" widget="selection" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant"/>
          </field>
       </field>
     </record>
@@ -150,7 +152,8 @@
         <field name="inherit_id" ref="product.product_search_form_view"/>
         <field name="arch" type="xml">
 	 <xpath expr="/search/group/filter[@string='Category']" position="before">
-             <filter string='Account' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'stock_account_id'}" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant"/>
+             <filter string='Stock Account' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'stock_account_id'}" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant"/>
+             <filter string='Expense Account' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'expense_account_id'}" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant"/>
              <separator orientation="vertical"/>
 
          </xpath>
@@ -357,7 +360,8 @@
             <field name="priority">26</field>
             <field name="arch" type="xml">
 		    <xpath expr="/form/notebook/page[@string='Accounting']/group/group/field[@name='valuation']" position="after">
-			    <field name="stock_account_id" />
+			    <field name="stock_account_id" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant"/>
+			    <field name="expense_account_id" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant"/>
                     </xpath>
            </field>
        </record>
