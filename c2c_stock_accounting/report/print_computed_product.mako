@@ -12,6 +12,18 @@
 %endif
 
 
+ <%
+      categ = ''
+      cumul_categ_qty = 0.0
+      cumul_categ_valuation = 0.0
+      cumul_categ_valuation2 = 0.0
+      cumul_categ_valuation_diff = 0.0
+      cumul_qty = 0.0
+      cumul_valuation = 0.0
+      cumul_valuation2 = 0.0
+      cumul_valuation_diff = 0.0
+ %>
+
 
 <head>
     <style type="text/css">
@@ -32,7 +44,7 @@
      td { margin: 0px; padding: 3px; border: 1px solid lightgrey;  vertical-align: top; }
      pre {font-family:helvetica; font-size:15;}
     </style>
-    
+   
 <table>
 
         <thead>
@@ -53,6 +65,28 @@
 %for prod in objects :
         <tbody>
 %if (all_zero or prod.qty_available !=0  or prod.valuation !=0 or prod.valuation2 !=0 ):
+
+%if categ and categ != prod.categ_id.name:
+          <tr>
+            <th style="text-align:left;white-space:nowrap"></th>
+            <th style="text-align:left;white-space:nowrap">${_("CATEGORY TOTAL")}</th>
+            <th style="text-align:right;white-space:nowrap">${cumul_categ_qty}</th>
+            <th style="text-align:left;white-space:nowrap"></th>
+            <th style="text-align:right">${cumul_categ_valuation}</th>
+            <th style="text-align:right">${cumul_categ_valuation2}</th>
+            <th style="text-align:right">${cumul_categ_valuation_diff}</th>
+            <th style="text-align:left;white-space:nowrap"></th>
+            <th style="text-align:left;white-space:nowrap"></th>
+            <th style="text-align:left;white-space:nowrap"></th>
+            <th style="text-align:left;"></th>
+ <%
+      cumul_categ_qty = 0.0
+      cumul_categ_valuation = 0.0
+      cumul_categ_valuation2 = 0.0
+      cumul_categ_valuation_diff = 0.0
+ %>
+         </tr>
+%endif
           <tr>
             <td style="text-align:left;white-space:nowrap">${prod.categ_id.name or ''}</td>
             <td>${prod.name}</td>
@@ -65,10 +99,37 @@
             <td>${prod.stock_account_id.name}</td>
             <td style="text-align:right">${prod.expense_account_id.code}</td>
             <td>${prod.expense_account_id.name}</td>
+
+ <%
+      categ = prod.categ_id.name
+      cumul_categ_qty += prod.qty_available
+      cumul_categ_valuation += prod.valuation
+      cumul_categ_valuation2 += prod.valuation
+      cumul_categ_valuation_diff += prod.valuation_diff
+      cumul_qty += prod.qty_available
+      cumul_valuation += prod.valuation
+      cumul_valuation2 += prod.valuation
+      cumul_valuation_diff += prod.valuation_diff
+ %>
          </tr>
 %endif
         </tbody>
 %endfor
+        <tfoot>
+          <tr>
+            <th style="text-align:left;white-space:nowrap">${_("GRAND TOTAL")}</th>
+            <th style="text-align:left;white-space:nowrap"></th>
+            <th style="text-align:right;white-space:nowrap">${cumul_qty}</th>
+            <th style="text-align:left;white-space:nowrap"></th>
+            <th style="text-align:right">${cumul_valuation}</th>
+            <th style="text-align:right">${cumul_valuation2}</th>
+            <th style="text-align:right">${cumul_valuation_diff}</th>
+            <th style="text-align:left;white-space:nowrap"></th>
+            <th style="text-align:left;white-space:nowrap"></th>
+            <th style="text-align:left;white-space:nowrap"></th>
+            <th style="text-align:left;"></th>
+         </tr>
+        </tfoot>
 </table>
 
 </body>
