@@ -95,8 +95,8 @@ ${_("Selection")}
             <th style="text-align:right;white-space:nowrap">${  formatLang(cumul_categ_qty)}</th>
             <th style="text-align:left;white-space:nowrap"></th>
             <th style="text-align:left;white-space:nowrap"></th>
-            <th style="text-align:right">${  formatLang(cumul_categ_valuation)}</th>
-            <th style="text-align:right">${  formatLang(cumul_categ_valuation2)}</th>
+            <th style="text-align:right;white-space:nowrap;">${  formatLang(cumul_categ_valuation)}</th>
+            <th style="text-align:right;white-space:nowrap;">${  formatLang(cumul_categ_valuation2)}</th>
             <th style="text-align:left;white-space:nowrap"></th>
          </tr>
          <tr>
@@ -111,9 +111,9 @@ ${_("Selection")}
             <th style="text-align:left;white-space:nowrap"></th>
             <th style="text-align:left;white-space:nowrap"></th>
 %if cumul_categ_valuation_diff < 0.0:
-            <th style="text-align:right">${  formatLang( -cumul_categ_valuation_diff)}</th>
+            <th style="text-align:right;white-space:nowrap;">${  formatLang( -cumul_categ_valuation_diff)}</th>
 %else:
-            <th style="text-align:right">${  formatLang(cumul_categ_valuation_diff)}</th>
+            <th style="text-align:right;white-space:nowrap;">${  formatLang(cumul_categ_valuation_diff)}</th>
 %endif
          </tr>
 
@@ -134,9 +134,9 @@ ${_("Selection")}
 %else:
             <td style="text-align:right">${  formatLang(prod.valuation/prod.qty_available)}</td>
 %endif
-            <td style="text-align:right">${prod.valuation}</td>
-            <td style="text-align:right">${prod.valuation2}</td>
-            <td style="text-align:right">${prod.valuation_diff}</td>
+            <td style="text-align:right;white-space:nowrap;">${prod.valuation}</td>
+            <td style="text-align:right;white-space:nowrap;">${prod.valuation2}</td>
+            <td style="text-align:right;white-space:nowrap;">${prod.valuation_diff}</td>
 
  <%
       categ = prod.categ_id.name
@@ -167,8 +167,8 @@ ${_("Selection")}
             <th style="text-align:right;white-space:nowrap">${  formatLang(cumul_categ_qty)}</th>
             <th style="text-align:left;white-space:nowrap"></th>
             <th style="text-align:left;white-space:nowrap"></th>
-            <th style="text-align:right">${  formatLang(cumul_categ_valuation)}</th>
-            <th style="text-align:right">${  formatLang(cumul_categ_valuation2)}</th>
+            <th style="text-align:right;white-space:nowrap;">${  formatLang(cumul_categ_valuation)}</th>
+            <th style="text-align:right;white-space:nowrap;">${  formatLang(cumul_categ_valuation2)}</th>
             <th style="text-align:left;white-space:nowrap"></th>
          </tr>
          <tr>
@@ -183,7 +183,7 @@ ${_("Selection")}
             <th style="text-align:left;white-space:nowrap"></th>
             <th style="text-align:left;white-space:nowrap"></th>
 %if cumul_categ_valuation_diff < 0.0:
-            <th style="text-align:right">${  formatLang( -cumul_categ_valuation_diff)}</th>
+            <th style="text-align:right";white-space:nowrap;>${  formatLang( -cumul_categ_valuation_diff)}</th>
 %else:
             <th style="text-align:right">${  formatLang(cumul_categ_valuation_diff)}</th>
 %endif
@@ -194,9 +194,9 @@ ${_("Selection")}
             <th style="text-align:right;white-space:nowrap">${ formatLang(cumul_qty)}</th>
             <th style="text-align:left;white-space:nowrap"></th>
             <th style="text-align:left;white-space:nowrap"></th>
-            <th style="text-align:right">${ formatLang(cumul_valuation)}</th>
-            <th style="text-align:right">${ formatLang(cumul_valuation2)}</th>
-            <th style="text-align:right">${ formatLang(cumul_valuation_diff)}</th>
+            <th style="text-align:right;white-space:nowrap;">${ formatLang(cumul_valuation)}</th>
+            <th style="text-align:right;white-space:nowrap;">${ formatLang(cumul_valuation2)}</th>
+            <th style="text-align:right;white-space:nowrap;">${ formatLang(cumul_valuation_diff)}</th>
          </tr>
         </tfoot>
 </table>
