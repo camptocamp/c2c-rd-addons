@@ -52,17 +52,12 @@
 
         <thead>
           <tr>
-<!--            <th style="text-align:left;white-space:nowrap">${_("Category")}</th> -->
             <th style="text-align:left;white-space:nowrap">${_("Product")}</th>
             <th style="text-align:right;white-space:nowrap">${_("Qty")}</th>
             <th style="text-align:left;white-space:nowrap">${_("UoM")}</th>
             <th style="text-align:right">${_("Valuation")}</th>
             <th style="text-align:right">${_("Valuation Comp")}</th>
             <th style="text-align:right">${_("Valuation Diff")}</th>
-<!--            <th style="text-align:left;white-space:nowrap">${_("Code")}</th>  -->
-<!--            <th style="text-align:left;white-space:nowrap">${_("Account")}</th>  -->
-<!--            <th style="text-align:left;white-space:nowrap">${_("Code")}</th>  -->
-<!--            <th style="text-align:left;">${_("Account Expense")}</th>  -->
          </tr>
         </thead>
 %for prod in objects :
@@ -71,20 +66,14 @@
 
 %if categ and categ != prod.categ_id.name:
           <tr>
-<!--            <th style="text-align:left;white-space:nowrap"></th> -->
             <th style="text-align:left;white-space:nowrap">${categ} ${_("TOTAL")}</th>
             <th style="text-align:right;white-space:nowrap">${  formatLang(cumul_categ_qty)}</th>
             <th style="text-align:left;white-space:nowrap"></th>
             <th style="text-align:right">${  formatLang(cumul_categ_valuation)}</th>
             <th style="text-align:right">${  formatLang(cumul_categ_valuation2)}</th>
             <th style="text-align:left;white-space:nowrap"></th>
-<!--            <th style="text-align:left;white-space:nowrap"></th>  -->
-<!--            <th style="text-align:left;white-space:nowrap"></th>  -->
-<!--            <th style="text-align:left;white-space:nowrap"></th>  -->
-<!--            <th style="text-align:left;"></th>  -->
          </tr>
          <tr>
-<!--            <th style="text-align:left;white-space:nowrap"></th> -->
 %if cumul_categ_valuation_diff > 0.0:
             <th style="text-align:right;white-space:nowrap">${stock_account} : ${expense_account}</th>
 %else:
@@ -99,10 +88,6 @@
 %else:
             <th style="text-align:right">${  formatLang(cumul_categ_valuation_diff)}</th>
 %endif
-<!--            <th style="text-align:left;white-space:nowrap"></th>  -->
-<!--            <th style="text-align:left;white-space:nowrap"></th>  -->
-<!--            <th style="text-align:left;white-space:nowrap"></th>  -->
-<!--            <th style="text-align:left;"></th>  -->
          </tr>
 
  <%
@@ -114,17 +99,12 @@
 
 %endif
           <tr>
-<!--            <td style="text-align:left;white-space:nowrap">${prod.categ_id.name or ''}</td> -->
             <td>${prod.name}</td>
             <td style="text-align:right">${prod.qty_available}</td>
             <td>${prod.uom_id.name or ''}</td>
             <td style="text-align:right">${prod.valuation}</td>
             <td style="text-align:right">${prod.valuation2}</td>
             <td style="text-align:right">${prod.valuation_diff}</td>
-<!--            <td style="text-align:right">${prod.stock_account_id.code}</td>  -->
-<!--            <td>${prod.stock_account_id.name}</td>  -->
-<!--            <td style="text-align:right">${prod.expense_account_id.code}</td>  -->
-<!--            <td>${prod.expense_account_id.name}</td>  -->
 
  <%
       categ = prod.categ_id.name
@@ -145,20 +125,14 @@
 %endfor
         <tfoot>
                   <tr>
-<!--            <th style="text-align:left;white-space:nowrap"></th> -->
             <th style="text-align:left;white-space:nowrap">${categ} ${_("TOTAL")}</th>
             <th style="text-align:right;white-space:nowrap">${  formatLang(cumul_categ_qty)}</th>
             <th style="text-align:left;white-space:nowrap"></th>
             <th style="text-align:right">${  formatLang(cumul_categ_valuation)}</th>
             <th style="text-align:right">${  formatLang(cumul_categ_valuation2)}</th>
             <th style="text-align:left;white-space:nowrap"></th>
-<!--            <th style="text-align:left;white-space:nowrap"></th>  -->
-<!--            <th style="text-align:left;white-space:nowrap"></th>  -->
-<!--            <th style="text-align:left;white-space:nowrap"></th>  -->
-<!--            <th style="text-align:left;"></th>  -->
          </tr>
          <tr>
-<!--            <th style="text-align:left;white-space:nowrap"></th> -->
 %if cumul_categ_valuation_diff > 0.0:
             <th style="text-align:right;white-space:nowrap">${stock_account} : ${expense_account}</th>
 %else:
@@ -173,24 +147,15 @@
 %else:
             <th style="text-align:right">${  formatLang(cumul_categ_valuation_diff)}</th>
 %endif
-<!--            <th style="text-align:left;white-space:nowrap"></th>  -->
-<!--            <th style="text-align:left;white-space:nowrap"></th>  -->
-<!--            <th style="text-align:left;white-space:nowrap"></th>  -->
-<!--            <th style="text-align:left;"></th>  -->
          </tr>
 
           <tr>
             <th style="text-align:left;white-space:nowrap">${_("GRAND TOTAL")}</th>
-<!--            <th style="text-align:left;white-space:nowrap"></th> -->
             <th style="text-align:right;white-space:nowrap">${ formatLang(cumul_qty)}</th>
             <th style="text-align:left;white-space:nowrap"></th>
             <th style="text-align:right">${ formatLang(cumul_valuation)}</th>
             <th style="text-align:right">${ formatLang(cumul_valuation2)}</th>
             <th style="text-align:right">${ formatLang(cumul_valuation_diff)}</th>
-<!--           <th style="text-align:left;white-space:nowrap"></th>  -->
-<!--           <th style="text-align:left;white-space:nowrap"></th>  -->
-<!--           <th style="text-align:left;white-space:nowrap"></th>  -->
-<!--           <th style="text-align:left;"></th>  -->
          </tr>
         </tfoot>
 </table>
