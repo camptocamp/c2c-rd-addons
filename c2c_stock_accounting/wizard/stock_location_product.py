@@ -39,12 +39,11 @@ class stock_location_product(osv.osv_memory):
 		     }
 
      def action_open(self, cr, uid, ids, context=None):
-        self._logger.info('FGF stock_location_product ids %s' % ids)
+        self._logger.debug('FGF stock_location_product ids %s' % ids)
+        self._logger.debug('FGF stock_location_product context %s' % context)
         if context is None:
             context = {}
    	res = super(stock_location_product, self).action_open_window(cr, uid, ids, context)
-	#if context.get('open')  == 'view':
-   	#     res = super(stock_location_product, self).action_open_window(cr, uid, ids, context)
 	if context.get('open') == 'report':
              mod_obj = self.pool.get('ir.model.data')
              rep_obj = self.pool.get('ir.actions.report.xml')
@@ -52,10 +51,10 @@ class stock_location_product(osv.osv_memory):
              id = res1 and res1[1] or False
              res.update( rep_obj.read(cr, uid, [id], context=context)[0])
 
-        self._logger.info('FGF stock_location_product res %s' % res)
+        self._logger.debug('FGF stock_location_product res %s' % res)
 
         location_products = self.read(cr, uid, ids, ['from_date','to_date','from_date2', 'to_date2', 'adjust_time'], context)
-        self._logger.info('FGF stock_location_products  %s' % location_products)
+        self._logger.debug('FGF stock_location_products  %s' % location_products)
 	from_date1 = location_products[0]['from_date']
 	to_date1 = location_products[0]['to_date']
 	from_date2 = location_products[0]['from_date2']
@@ -70,16 +69,14 @@ class stock_location_product(osv.osv_memory):
 			from_date2 = from_date2[0:10]+' 00:00:00'
 		if to_date2:
 			to_date2 = to_date2[0:10]+' 23:59:59'
-        if not res.get('context'):
-	   res['context'] = {}
         res['context']['from_date']= from_date1
         res['context']['to_date']= to_date1
         res['context']['from_date1']= from_date1
         res['context']['to_date1']= to_date1
         res['context']['from_date2']= from_date2
         res['context']['to_date2']= to_date2
-        res['context']['location']= self.pool.get('stock.location').read(cr, uid, res['context']['location'],['name'])['name']
-        #self._logger.info('FGF stock_location_product res neu %s' % res)
+        res['context']['location_name']= self.pool.get('stock.location').read(cr, uid, res['context']['location'],['name'])['name']
+        self._logger.debug('FGF stock_location_product res neu %s' % res)
 	return res
 
 
@@ -95,8 +92,8 @@ class stock_location_product(osv.osv_memory):
          context.update({'open':'report'})
          res = self.action_open( cr, uid, ids, context)
 	 context = res['context']
-         self._logger.info('FGF report context %s' % context)
-         self._logger.info('FGF report data %s' % data)
+         self._logger.debug('FGF report context %s' % context)
+         self._logger.debug('FGF report data %s' % data)
 	 product_obj = self.pool.get('product.product')
 	 product_ids = product_obj.search(cr, uid, [])
 	 datas = {
@@ -104,7 +101,7 @@ class stock_location_product(osv.osv_memory):
 	    'model': 'ir.ui.menu',
             'form': data
 	    }
-         self._logger.info('FGF context %s' % context)
+         self._logger.debug('FGF context %s' % context)
          return {
 	    'type': 'ir.actions.report.xml',
 	    'report_name': 'report.print.computed.product',

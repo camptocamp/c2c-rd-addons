@@ -58,11 +58,17 @@ ${_("Selection")}
  <td style="width:16%;">${_("To Compare")}</td>
 </tr>
 <tr>
- <td>${context['location'] or ''}</td>
+ <td>${context['location_name'] or ''}</td>
+ <td>${context['from_date'] or ''}</td>
+ <td>${context['to_date'] or ''}</td>
+ <td>${context['from_date2'] or ''}</td>
+ <td>${context['to_date2'] or ''}</td>
+<!--
  <td>${context['data']['form']['from_date'] or ''}</td>
  <td>${context['data']['form']['to_date'] or ''}</td>
  <td>${context['data']['form']['from_date2'] or ''}</td>
  <td>${context['data']['form']['to_date2'] or ''}</td>
+-->
 </tr>
 </table>
 <br>
