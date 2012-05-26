@@ -85,7 +85,7 @@
          </tr>
          <tr>
 <!--            <th style="text-align:left;white-space:nowrap"></th> -->
-%if cumul_categ_valuation_diff < 0.0:
+%if cumul_categ_valuation_diff > 0.0:
             <th style="text-align:right;white-space:nowrap">${stock_account} : ${expense_account}</th>
 %else:
             <th style="text-align:right;white-space:nowrap">${expense_account} : ${stock_account}</th>
@@ -159,7 +159,7 @@
          </tr>
          <tr>
 <!--            <th style="text-align:left;white-space:nowrap"></th> -->
-%if cumul_categ_valuation_diff < 0.0:
+%if cumul_categ_valuation_diff > 0.0:
             <th style="text-align:right;white-space:nowrap">${stock_account} : ${expense_account}</th>
 %else:
             <th style="text-align:right;white-space:nowrap">${expense_account} : ${stock_account}</th>

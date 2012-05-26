@@ -7,7 +7,7 @@
 <field name="arch" type="xml">
     <field name="to_date" position="after">
         <newline/>
-        <label string="Comparison Dates for Valuation"/>
+        <label string="Comparison Dates for Valuation (the earlier dates or keep empty for no comparison)" colspan="4"/>
         <field name="from_date2" colspan="4"/>
         <newline/>
         <field name="to_date2" colspan="4"/>
