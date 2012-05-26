@@ -39,16 +39,18 @@ class stock_location_product(osv.osv_memory):
 		     }
 
      def action_open(self, cr, uid, ids, context=None):
+        self._logger.info('FGF stock_location_product ids %s' % ids)
         if context is None:
             context = {}
-	if context.get('open')  == 'view':
-   	     res = super(stock_location_product, self).action_open_window(cr, uid, ids, context)
-	elif context.get('open') == 'report':
+   	res = super(stock_location_product, self).action_open_window(cr, uid, ids, context)
+	#if context.get('open')  == 'view':
+   	#     res = super(stock_location_product, self).action_open_window(cr, uid, ids, context)
+	if context.get('open') == 'report':
              mod_obj = self.pool.get('ir.model.data')
              rep_obj = self.pool.get('ir.actions.report.xml')
-             res = mod_obj.get_object_reference(cr, uid, 'c2c_stock_accounting', 'report_print_computed_product')
-             id = res and res[1] or False
-             res = rep_obj.read(cr, uid, [id], context=context)[0]
+             res1 = mod_obj.get_object_reference(cr, uid, 'c2c_stock_accounting', 'report_print_computed_product')
+             id = res1 and res1[1] or False
+             res.update( rep_obj.read(cr, uid, [id], context=context)[0])
 
         self._logger.info('FGF stock_location_product res %s' % res)
 
@@ -76,7 +78,8 @@ class stock_location_product(osv.osv_memory):
         res['context']['to_date1']= to_date1
         res['context']['from_date2']= from_date2
         res['context']['to_date2']= to_date2
-        self._logger.info('FGF stock_location_product res neu %s' % res)
+        res['context']['location']= self.pool.get('stock.location').read(cr, uid, res['context']['location'],['name'])['name']
+        #self._logger.info('FGF stock_location_product res neu %s' % res)
 	return res
 
 

@@ -48,6 +48,24 @@
      pre {font-family:helvetica; font-size:15;}
     </style>
    
+${_("Selection")}
+<table>
+<tr>
+ <td>${_("Location")}</td>
+ <td style="width:16%;">${_("From")}</td>
+ <td style="width:16%;">${_("To")}</td>
+ <td style="width:16%;">${_("From Compare")}</td>
+ <td style="width:16%;">${_("To Compare")}</td>
+</tr>
+<tr>
+ <td>${context['location'] or ''}</td>
+ <td>${context['data']['form']['from_date'] or ''}</td>
+ <td>${context['data']['form']['to_date'] or ''}</td>
+ <td>${context['data']['form']['from_date2'] or ''}</td>
+ <td>${context['data']['form']['to_date2'] or ''}</td>
+</tr>
+</table>
+<br>
 <table>
 
         <thead>
