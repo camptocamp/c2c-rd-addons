@@ -38,10 +38,18 @@ class stock_location_product(osv.osv_memory):
         'adjust_time'     : lambda *a: '1'
 		     }
 
-     def action_open_window(self, cr, uid, ids, context=None):
+     def action_open(self, cr, uid, ids, context=None):
         if context is None:
             context = {}
-	res = super(stock_location_product, self).action_open_window(cr, uid, ids, context)
+	if context.get('open')  == 'view':
+   	     res = super(stock_location_product, self).action_open_window(cr, uid, ids, context)
+	elif context.get('open') == 'report':
+             mod_obj = self.pool.get('ir.model.data')
+             rep_obj = self.pool.get('ir.actions.report.xml')
+             res = mod_obj.get_object_reference(cr, uid, 'c2c_stock_accounting', 'report_print_computed_product')
+             id = res and res[1] or False
+             res = rep_obj.read(cr, uid, [id], context=context)[0]
+
         self._logger.info('FGF stock_location_product res %s' % res)
 
         location_products = self.read(cr, uid, ids, ['from_date','to_date','from_date2', 'to_date2', 'adjust_time'], context)
@@ -60,7 +68,8 @@ class stock_location_product(osv.osv_memory):
 			from_date2 = from_date2[0:10]+' 00:00:00'
 		if to_date2:
 			to_date2 = to_date2[0:10]+' 23:59:59'
-
+        if not res.get('context'):
+	   res['context'] = {}
         res['context']['from_date']= from_date1
         res['context']['to_date']= to_date1
         res['context']['from_date1']= from_date1
@@ -69,6 +78,38 @@ class stock_location_product(osv.osv_memory):
         res['context']['to_date2']= to_date2
         self._logger.info('FGF stock_location_product res neu %s' % res)
 	return res
+
+
+     def action_open_window(self, cr, uid, ids, context=None):
+	 if context is None: context = {}
+         context.update({'open':'view'})
+         return self.action_open( cr, uid, ids, context)
+
            
+     def action_open_report(self, cr, uid, ids, context=None):
+	 if not context: context = {}
+	 data = self.read(cr, uid, ids, [], context=context)[0]
+         context.update({'open':'report'})
+         res = self.action_open( cr, uid, ids, context)
+	 context = res['context']
+         self._logger.info('FGF report context %s' % context)
+         self._logger.info('FGF report data %s' % data)
+	 product_obj = self.pool.get('product.product')
+	 product_ids = product_obj.search(cr, uid, [])
+	 datas = {
+	    'ids': product_ids,
+	    'model': 'ir.ui.menu',
+            'form': data
+	    }
+         self._logger.info('FGF context %s' % context)
+         return {
+	    'type': 'ir.actions.report.xml',
+	    'report_name': 'report.print.computed.product',
+            'datas': datas,
+            'context' : context
+	    }
+
+
 stock_location_product()
+
 
