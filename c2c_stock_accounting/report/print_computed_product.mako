@@ -46,6 +46,8 @@
             <th style="text-align:right">${_("Valuation Diff")}</th>
             <th style="text-align:left;white-space:nowrap">${_("Code")}</th>
             <th style="text-align:left;white-space:nowrap">${_("Account")}</th>
+            <th style="text-align:left;white-space:nowrap">${_("Code")}</th>
+            <th style="text-align:left;">${_("Account Expense")}</th>
          </tr>
         </thead>
 %for prod in objects :
@@ -61,6 +63,8 @@
             <td style="text-align:right">${prod.valuation_diff}</td>
             <td style="text-align:right">${prod.stock_account_id.code}</td>
             <td>${prod.stock_account_id.name}</td>
+            <td style="text-align:right">${prod.expense_account_id.code}</td>
+            <td>${prod.expense_account_id.name}</td>
          </tr>
 %endif
         </tbody>
