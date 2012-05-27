@@ -27,11 +27,38 @@ from tools.translate import _
 import logging
 import time
 
+
+
+class account_journal(osv.osv):
+    _inherit = "account.journal"
+
+    _columns = {
+        'product_in_line': fields.selection([('forbidden', 'Forbidden'),('allowed','Allowed'), ('mandatory', 'Mandatory'),],
+		  'Product in Inv. Line', size=16, required=True,
+		  help="Invoices lines coding requirements for stockable products"),
+	}
+    _defaults = {
+        'product_in_line': 'forbidden',
+            }
+
+account_journal()
+
 class account_invoice_line(osv.osv):
     _inherit = "account.invoice.line"
    
-    _columns = {
-            'product_id': fields.many2one('product.product', 'Product', ondelete='set null',  domain=[('type','<>','product')], help="OnlyServices and Concumables may be invoiced directly. To invoice stockable products start at stock management (incoming/outgoing products) or at sales/pruchase order"),
-       }
+    def _check_product_in_line(self,cr,uid,ids,context=None):
+        for line in self.browse(cr, uid, ids, context=context):
+	  if line.product_id.type <> 'service':
+	    if line.product_id and line.invoice_id.journal_id.product_in_line == 'forbidden':
+	        raise osv.except_osv(_('Error !'), _('Stockable products are not allowed for this journal: %s !') % line.invoice_id.journal_id.name) 
+		return False
+	    if not line.product_id and line.invoice_id.journal_id.product_in_line == 'mandatory':
+	        raise osv.except_osv(_('Error !'), _('Stockable product is required for this journal: %s !') % line.invoice_id.journal_id.name) 
+		return False
+        return True
+
+    _constraints = [
+        (_check_product_in_line, 'Error ! Violating product coding guideline ', ['product_id']),
+	]
 
 account_invoice_line()    
