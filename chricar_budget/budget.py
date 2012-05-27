@@ -108,27 +108,26 @@ class chricar_budget(osv.osv):
      def _amount_qty_stock(self, cr, uid, ids, name, args, context=None):
         res = {}
         for line in self.browse(cr, uid, ids, context=context):
-            res[line.id] = (line.product_qty_stock * line.price / line.price_unit_id.coefficient)
+            res[line.id] = max((line.product_qty_stock * line.price / line.price_unit_id.coefficient) - line.amount_qty_lot, 0)
         return res
 
      def _amount_qty_lot(self, cr, uid, ids, name, args, context=None):
         _logger = logging.getLogger(__name__) 
         res = {}
         for line in self.browse(cr, uid, ids, context=context):
+            # unsold prodlot value
             res[line.id] = (line.product_qty_lot * line.price / line.price_unit_id.coefficient)
-	    # uninvoiced pickings
+
         move_obj = self.pool.get('stock.move')
         for line in self.browse(cr, uid, ids, context=context):
+	    # uninvoiced pickings
             amount = 0
 	    if line.prod_lot_id:
-                 #move_ids = move_obj.search(cr, uid, [('prodlot_id','=',line.prod_lot_id.id),('picking_id','>','0')])
                  move_ids = move_obj.search(cr, uid, [('prodlot_id','=',line.prod_lot_id.id)])
 	         _logger.debug('FGF uninvoiced move_ids %s' % (move_ids))
                  for move in move_obj.browse(cr, uid, move_ids):
-	           if  move.picking_id and move.picking_id.type == 'out' and move.state == 'done':
-		    _logger.debug('FGF uninvoiced move pick id %s %s %s' % (move.picking_id.name , move.picking_id.type, move.picking_id.state))
-		    if move.picking_id and not move.picking_id.invoice_ids :
-		       _logger.debug('FGF uninvoiced move pick line id  %s %s %s' % (move.product_qty, move.state, move.product_id.name))
+	           if  move.picking_id and move.picking_id.type == 'out' and move.state == 'done' and not move.picking_id.invoice_ids:
+		       _logger.debug('FGF uninvoiced move pick line id  %s %s' % (move.picking_id.name, move.product_id.name))
                        amount += move.product_qty *  line.price / line.price_unit_id.coefficient
             res[line.id] += amount		   
 
