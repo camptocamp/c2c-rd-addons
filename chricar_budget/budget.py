@@ -108,7 +108,7 @@ class chricar_budget(osv.osv):
      def _amount_qty_stock(self, cr, uid, ids, name, args, context=None):
         res = {}
         for line in self.browse(cr, uid, ids, context=context):
-            res[line.id] = max((line.product_qty_stock * line.price / line.price_unit_id.coefficient) - line.amount_qty_lot, 0)
+            res[line.id] = max( ((line.product_qty_stock * line.price / line.price_unit_id.coefficient) - line.amount_qty_lot), 0)
         return res
 
      def _amount_qty_lot(self, cr, uid, ids, name, args, context=None):
@@ -124,7 +124,7 @@ class chricar_budget(osv.osv):
             amount = 0
 	    if line.prod_lot_id:
                  move_ids = move_obj.search(cr, uid, [('prodlot_id','=',line.prod_lot_id.id)])
-	         _logger.debug('FGF uninvoiced move_ids %s' % (move_ids))
+	         #_logger.debug('FGF uninvoiced move_ids %s' % (move_ids))
                  for move in move_obj.browse(cr, uid, move_ids):
 	           if  move.picking_id and move.picking_id.type == 'out' and move.state == 'done' and not move.picking_id.invoice_ids:
 		       _logger.debug('FGF uninvoiced move pick line id  %s %s' % (move.picking_id.name, move.product_id.name))
@@ -145,11 +145,11 @@ class chricar_budget(osv.osv):
 	   if line.prod_lot_id:
              #move_ids = move_obj.search(cr, uid, [('prodlot_id','=',line.prod_lot_id.id),('picking_id','>','0')])
              move_ids = move_obj.search(cr, uid, [('prodlot_id','=',line.prod_lot_id.id)])
-	     _logger.debug('FGF move_ids %s' % (move_ids))
+	     #_logger.debug('FGF move_ids %s' % (move_ids))
              for move in move_obj.browse(cr, uid, move_ids):
-	       if  move.picking_id:
-		_logger.debug('FGF move pick id %s %s %s' % (move.picking_id.name , move.picking_id.type, move.picking_id.state))
-		if move.picking_id and move.picking_id.invoice_ids :
+		 if  move.picking_id :
+		   _logger.debug('FGF move pick id %s %s %s' % (move.picking_id.name , move.picking_id.type, move.picking_id.state))
+		   if  move.picking_id.invoice_ids :
                     for inv in move.picking_id.invoice_ids:
 		      _logger.debug('FGF move pick inv %s %s %s' % (inv.number, inv.type, inv.state))
                       if inv.state in ['open','paid'] and inv.invoice_line:
@@ -159,9 +159,7 @@ class chricar_budget(osv.osv):
                                amount += inv_line.price_subtotal
 			    else:
                                amount -= inv_line.price_subtotal
-		            _logger.debug('FGF move pick inv line %s' % (inv_line.name))
-	                    _logger.debug('FGF move pick inv line amount %s' % (inv_line.price_subtotal))
-	                    _logger.debug('FGF move pick inv line amount %s' % (amount))
+		            _logger.debug('FGF move pick inv %s line %s  amount %s cum amount %s' % (inv.number, inv_line.name, inv_line.price_subtotal,amount))
            res[line.id] = amount
          return res
 
