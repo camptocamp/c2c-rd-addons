@@ -31,7 +31,7 @@ Forbid, allow or require  stockable product encoding  for journals
 
     """,
     'website': 'http://www.camptocamp.com',
-    "depends" : ["account"],
+    "depends" : ["account","picking_invoice_rel"],
     'init_xml': [],
     'update_xml': ['account_invoice_view.xml'],
     'demo_xml': [],
