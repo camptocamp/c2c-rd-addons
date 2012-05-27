@@ -10,7 +10,7 @@
         <label string="Comparison Dates for Valuation (the earlier dates or keep empty for no comparison)" colspan="4"/>
         <field name="from_date2" colspan="4" on_change="onchange_date('from_date2', adjust_time, '00:00:00', from_date2, context)"/>
         <newline/>
-        <field name="to_date2" colspan="4" on_change="onchange_date('to_date2', adjust_time, '23:39:59', to_date2, context)"/>
+        <field name="to_date2" colspan="4" on_change="onchange_date('to_date2', adjust_time, '23:59:59', to_date2, context)"/>
         <newline/>
         <field name="adjust_time"/>
     </field>
@@ -34,7 +34,7 @@
 <field name="inherit_id" ref="stock.view_stock_location_product"/>
 <field name="arch" type="xml">
     <field name="to_date" position="attributes">
-	     <attribute name="on_change">onchange_date('to_date', adjust_time, '23:39:59', to_date, context)</attribute>
+	     <attribute name="on_change">onchange_date('to_date', adjust_time, '23:59:59', to_date, context)</attribute>
     </field>
     </field>
 </record>
