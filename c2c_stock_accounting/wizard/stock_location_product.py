@@ -62,15 +62,25 @@ class stock_location_product(osv.osv_memory):
 	from_date2 = location_products[0]['from_date2']
 	to_date2 = location_products[0]['to_date2']
 
-	#if location_products[0]['adjust_time']:
-	#	if from_date1:
-	#		from_date1 = from_date1[0:10]+' 00:00:00'
-	#	if to_date1:
-	#		to_date1 = to_date1[0:10]+' 23:59:59'
-	#	if from_date2:
-	#		from_date2 = from_date2[0:10]+' 00:00:00'
-	#	if to_date2:
-	#		to_date2 = to_date2[0:10]+' 23:59:59'
+
+        format = tools.DEFAULT_SERVER_DATETIME_FORMAT
+	tz = context['tz']
+        date_local = tools.server_to_local_timestamp(date, format, format, tz)
+
+        res['context']['local_from_date1'] = ''
+        res['context']['local_to_date1'] = ''
+        res['context']['local_from_date2'] = ''
+        res['context']['local_to_date1'] = ''
+
+	if from_date1:
+             res['context']['local_from_date1'] = tools.server_to_local_timestamp(from_date1, format, format, tz)
+	if to_date1:
+             res['context']['local_to_date1'] =  tools.server_to_local_timestamp(to_date1, format, format, tz)
+	if from_date2:
+             res['context']['local_from_date2'] = tools.server_to_local_timestamp(from_date2, format, format, tz)
+	if to_date2:
+             res['context']['local_to_date2'] =  tools.server_to_local_timestamp(to_date2, format, format, tz)
+
         res['context']['from_date']= from_date1
         res['context']['to_date']= to_date1
         res['context']['from_date1']= from_date1

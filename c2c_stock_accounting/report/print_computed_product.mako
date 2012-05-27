@@ -59,10 +59,10 @@ ${_("Selection")}
 </tr>
 <tr>
  <td>${context['location_name'] or ''}</td>
- <td>${context['from_date'] or ''}</td>
- <td>${context['to_date'] or ''}</td>
- <td>${context['from_date2'] or ''}</td>
- <td>${context['to_date2'] or ''}</td>
+ <td>${context['local_from_date1'] or ''}</td>
+ <td>${context['local_to_date1'] or ''}</td>
+ <td>${context['local_from_date2'] or ''}</td>
+ <td>${context['local_to_date2'] or ''}</td>
 <!--
  <td>${context['data']['form']['from_date'] or ''}</td>
  <td>${context['data']['form']['to_date'] or ''}</td>
