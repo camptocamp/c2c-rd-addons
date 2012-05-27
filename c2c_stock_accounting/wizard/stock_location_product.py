@@ -23,6 +23,8 @@
 from osv import fields, osv
 from datetime import datetime, date, time
 import logging
+import tools
+import pytz
 
 class stock_location_product(osv.osv_memory):
      _inherit = "stock.location.product"
@@ -60,15 +62,15 @@ class stock_location_product(osv.osv_memory):
 	from_date2 = location_products[0]['from_date2']
 	to_date2 = location_products[0]['to_date2']
 
-	if location_products[0]['adjust_time']:
-		if from_date1:
-			from_date1 = from_date1[0:10]+' 00:00:00'
-		if to_date1:
-			to_date1 = to_date1[0:10]+' 23:59:59'
-		if from_date2:
-			from_date2 = from_date2[0:10]+' 00:00:00'
-		if to_date2:
-			to_date2 = to_date2[0:10]+' 23:59:59'
+	#if location_products[0]['adjust_time']:
+	#	if from_date1:
+	#		from_date1 = from_date1[0:10]+' 00:00:00'
+	#	if to_date1:
+	#		to_date1 = to_date1[0:10]+' 23:59:59'
+	#	if from_date2:
+	#		from_date2 = from_date2[0:10]+' 00:00:00'
+	#	if to_date2:
+	#		to_date2 = to_date2[0:10]+' 23:59:59'
         res['context']['from_date']= from_date1
         res['context']['to_date']= to_date1
         res['context']['from_date1']= from_date1
@@ -109,6 +111,30 @@ class stock_location_product(osv.osv_memory):
             'context' : context
 	    }
 
+     def  onchange_date(self, cr, uid, ids, field_name, adjust_time, time, date, context=None):
+	 if adjust_time:
+	     format = tools.DEFAULT_SERVER_DATETIME_FORMAT
+	     tz = context['tz']
+	     date_local = tools.server_to_local_timestamp(date, format, format, tz)
+	     date_local_new = date_local[0:10]+' '+ time
+	     server_tz = tools.get_server_timezone()
+	     if server_tz != 'UTC':
+		 raise osv.except_osv(_('Error'), _('Only UTC server time is currently supported'))
+             # convet to UTC
+	     utc = pytz.utc
+	     local_tz = pytz.timezone(tz)
+             fmt = '%Y-%m-%d %H:%M:%S'
+	     dt = datetime.strptime(date_local_new, fmt)
+	     local_dt = local_tz.localize(dt) 
+	     date_r = utc.normalize(local_dt.astimezone(utc)).strftime(fmt)
+	 else:
+	     date_r = date
+         result = {'value': {
+	           field_name : date_r
+		            }
+	          }
+	 return result
+	 
 
 stock_location_product()
 
