@@ -1,33 +1,65 @@
 # Translation of OpenERP Server.
 # This file contains the translation of the following modules:
-#	* c2c_stock_accounting
+# 	* c2c_stock_accounting
 #
+# Ferdinand Gassauer, 2012.
 msgid ""
 msgstr ""
-"Project-Id-Version: OpenERP Server 6.1rc1\n"
+"Project-Id-Version: OpenERP Server 6.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-01-23 22:04+0000\n"
-"PO-Revision-Date: 2012-01-23 22:04+0000\n"
-"Last-Translator: <>\n"
-"Language-Team: \n"
+"POT-Creation-Date: 2012-05-26 17:51+0000\n"
+"PO-Revision-Date: 2012-05-26 19:57+0200\n"
+"Last-Translator: Ferdinand Gassauer\n"
+"Language-Team: American English <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
+"Language: en_US\n"
+"X-Generator: Lokalize 1.4\n"
 
 #. module: c2c_stock_accounting
-#: constraint:stock.move:0
-msgid "Error: Negative quantities for location and/or lots are not allowed for this product or product category"
+#: report:addons/c2c_stock_accounting/report/print_computed_product.mako:55
+msgid "Category"
 msgstr ""
 
 #. module: c2c_stock_accounting
-#: constraint:stock.move:0
-msgid "You try to assign a lot which is not from the same product"
+#: report:addons/c2c_stock_accounting/report/print_computed_product.mako:75
+#: report:addons/c2c_stock_accounting/report/print_computed_product.mako:149
+msgid "TOTAL"
 msgstr ""
 
 #. module: c2c_stock_accounting
-#: model:ir.model,name:c2c_stock_accounting.model_stock_move
-msgid "Stock Move"
+#: field:stock.location.product,from_date2:0
+msgid "From"
+msgstr ""
+
+#. module: c2c_stock_accounting
+#: view:stock.location.product:0
+msgid ""
+"Comparison Dates for Valuation (the earlier dates or keep empty for no "
+"comparison)"
+msgstr ""
+
+#. module: c2c_stock_accounting
+#: view:stock.move:0
+msgid "Value Correctioni to post"
+msgstr ""
+
+#. module: c2c_stock_accounting
+#: help:stock.move,move_value_cost:0
+msgid "Product's cost for accounting valuation."
+msgstr ""
+
+#. module: c2c_stock_accounting
+#: report:addons/c2c_stock_accounting/report/print_computed_product.mako:61
+#: field:product.product,valuation_diff:0
+msgid "Valuation Diff"
+msgstr ""
+
+#. module: c2c_stock_accounting
+#: view:stock.move:0
+msgid "Value Sale"
 msgstr ""
 
 #. module: c2c_stock_accounting
@@ -36,19 +68,80 @@ msgid "You must assign a production lot for this product"
 msgstr ""
 
 #. module: c2c_stock_accounting
-#: constraint:stock.move:0
-msgid "You can not move products from or to a location of the type view."
+#: view:stock.move:0
+msgid "Stock Location"
 msgstr ""
 
 #. module: c2c_stock_accounting
 #: view:stock.move:0
-#: view:stock.picking:0
-msgid "Values"
+msgid "Group By..."
 msgstr ""
 
 #. module: c2c_stock_accounting
-#: field:stock.move,period_id:0
-msgid "Period"
+#: view:stock.move:0
+msgid "State"
+msgstr ""
+
+#. module: c2c_stock_accounting
+#: constraint:product.product:0
+msgid "Error: Invalid EAN code"
+msgstr ""
+
+#. module: c2c_stock_accounting
+#: view:stock.move:0
+msgid "Process Later"
+msgstr ""
+
+#. module: c2c_stock_accounting
+#: view:stock.location.product:0
+msgid "Print Report"
+msgstr ""
+
+#. module: c2c_stock_accounting
+#: view:stock.move:0
+msgid "Move Information"
+msgstr ""
+
+#. module: c2c_stock_accounting
+#: field:product.product,avg_price:0
+msgid "Avg Price"
+msgstr ""
+
+#. module: c2c_stock_accounting
+#: field:stock.location.product,adjust_time:0
+msgid "Adjust Time"
+msgstr ""
+
+#. module: c2c_stock_accounting
+#: view:stock.move:0
+msgid "Available"
+msgstr ""
+
+#. module: c2c_stock_accounting
+#: report:addons/c2c_stock_accounting/report/print_computed_product.mako:56
+#: model:ir.model,name:c2c_stock_accounting.model_product_product
+#: view:stock.move:0
+msgid "Product"
+msgstr ""
+
+#. module: c2c_stock_accounting
+#: view:stock.move:0
+msgid "Set Available"
+msgstr ""
+
+#. module: c2c_stock_accounting
+#: field:stock.location.product,to_date2:0
+msgid "To"
+msgstr ""
+
+#. module: c2c_stock_accounting
+#: view:stock.move:0
+msgid "Value Cost"
+msgstr ""
+
+#. module: c2c_stock_accounting
+#: constraint:stock.move:0
+msgid "You can not move products from or to a location of the type view."
 msgstr ""
 
 #. module: c2c_stock_accounting
@@ -57,8 +150,92 @@ msgid "Product's sale for accounting stock valuation."
 msgstr ""
 
 #. module: c2c_stock_accounting
-#: field:stock.move,analytic_account_id:0
-msgid "Analytic Account"
+#: view:stock.move:0
+msgid "Reason"
+msgstr ""
+
+#. module: c2c_stock_accounting
+#: help:stock.move,move_value_sale:0
+msgid "Product's sale value for accounting valuation."
+msgstr ""
+
+#. module: c2c_stock_accounting
+#: model:ir.actions.act_window,help:c2c_stock_accounting.action_value_correction_move
+msgid "Change the value of your stock at a specific point in time"
+msgstr ""
+
+#. module: c2c_stock_accounting
+#: field:stock.move,value_correction:0
+msgid "Value correction"
+msgstr ""
+
+#. module: c2c_stock_accounting
+#: view:stock.move:0
+msgid "Date"
+msgstr ""
+
+#. module: c2c_stock_accounting
+#: model:ir.actions.report.xml,name:c2c_stock_accounting.report_print_computed_product
+msgid "Products (effective Date)"
+msgstr ""
+
+#. module: c2c_stock_accounting
+#: report:addons/c2c_stock_accounting/report/print_computed_product.mako:59
+msgid "Valuation"
+msgstr ""
+
+#. module: c2c_stock_accounting
+#: report:addons/c2c_stock_accounting/report/print_computed_product.mako:58
+#: view:stock.move:0
+msgid "UoM"
+msgstr ""
+
+#. module: c2c_stock_accounting
+#: report:addons/c2c_stock_accounting/report/print_computed_product.mako:35
+msgid "Product List"
+msgstr ""
+
+#. module: c2c_stock_accounting
+#: constraint:stock.move:0
+msgid ""
+"Error: Negative quantities for location and/or lots are not allowed for this "
+"product or product category"
+msgstr ""
+
+#. module: c2c_stock_accounting
+#: report:addons/c2c_stock_accounting/report/print_computed_product.mako:63
+msgid "Account"
+msgstr ""
+
+#. module: c2c_stock_accounting
+#: view:stock.move:0
+msgid "_Cancel"
+msgstr ""
+
+#. module: c2c_stock_accounting
+#: report:addons/c2c_stock_accounting/report/print_computed_product.mako:60
+#: field:product.product,valuation2:0
+msgid "Valuation Comp"
+msgstr ""
+
+#. module: c2c_stock_accounting
+#: view:stock.move:0
+msgid "Today"
+msgstr ""
+
+#. module: c2c_stock_accounting
+#: view:product.product:0 field:product.product,expense_account_id:0
+msgid "Expense Account"
+msgstr ""
+
+#. module: c2c_stock_accounting
+#: report:addons/c2c_stock_accounting/report/print_computed_product.mako:183
+msgid "GRAND TOTAL"
+msgstr ""
+
+#. module: c2c_stock_accounting
+#: model:ir.model,name:c2c_stock_accounting.model_stock_location_product
+msgid "Products by Location"
 msgstr ""
 
 #. module: c2c_stock_accounting
@@ -72,8 +249,97 @@ msgid "Amount"
 msgstr ""
 
 #. module: c2c_stock_accounting
-#: help:stock.move,move_value_sale:0
-msgid "Product's sale value for accounting valuation."
+#: view:stock.move:0 view:stock.picking:0
+msgid "Values"
+msgstr ""
+
+#. module: c2c_stock_accounting
+#: view:product.product:0
+msgid "Value"
+msgstr ""
+
+#. module: c2c_stock_accounting
+#: view:stock.move:0
+msgid "Waiting "
+msgstr ""
+
+#. module: c2c_stock_accounting
+#: view:stock.move:0
+msgid "Stock to be receive"
+msgstr ""
+
+#. module: c2c_stock_accounting
+#: view:stock.move:0
+msgid "Order"
+msgstr ""
+
+#. module: c2c_stock_accounting
+#: constraint:stock.move:0
+msgid "You try to assign a lot which is not from the same product"
+msgstr ""
+
+#. module: c2c_stock_accounting
+#: report:addons/c2c_stock_accounting/report/print_computed_product.mako:62
+#: report:addons/c2c_stock_accounting/report/print_computed_product.mako:64
+msgid "Code"
+msgstr ""
+
+#. module: c2c_stock_accounting
+#: code:addons/c2c_stock_accounting/stock.py:435
+#, python-format
+msgid "Value Difference"
+msgstr ""
+
+#. module: c2c_stock_accounting
+#: field:product.product,stock_account_id:0
+msgid "Stock Valuation Account"
+msgstr ""
+
+#. module: c2c_stock_accounting
+#: view:stock.move:0
+msgid "Reference"
+msgstr ""
+
+#. module: c2c_stock_accounting
+#: model:ir.model,name:c2c_stock_accounting.model_stock_move
+msgid "Stock Move"
+msgstr ""
+
+#. module: c2c_stock_accounting
+#: help:stock.location.product,adjust_time:0
+msgid "Adjusts From to '00:00:00' and To to '23:59:59'"
+msgstr ""
+
+#. module: c2c_stock_accounting
+#: model:ir.actions.act_window,name:c2c_stock_accounting.action_value_correction_move
+#: model:ir.ui.menu,name:c2c_stock_accounting.menu_action_value_correction
+#: view:stock.move:0
+msgid "Value Correction"
+msgstr ""
+
+#. module: c2c_stock_accounting
+#: report:addons/c2c_stock_accounting/report/print_computed_product.mako:65
+msgid "Account Expense"
+msgstr ""
+
+#. module: c2c_stock_accounting
+#: field:stock.move,period_id:0
+msgid "Period"
+msgstr ""
+
+#. module: c2c_stock_accounting
+#: report:addons/c2c_stock_accounting/report/print_computed_product.mako:57
+msgid "Qty"
+msgstr ""
+
+#. module: c2c_stock_accounting
+#: field:stock.move,analytic_account_id:0
+msgid "Analytic Account"
+msgstr ""
+
+#. module: c2c_stock_accounting
+#: view:stock.move:0
+msgid "Process"
 msgstr ""
 
 #. module: c2c_stock_accounting
@@ -82,12 +348,53 @@ msgid "Stock Accountant"
 msgstr ""
 
 #. module: c2c_stock_accounting
+#: view:stock.move:0
+msgid "Orders planned for today"
+msgstr ""
+
+#. module: c2c_stock_accounting
+#: view:stock.move:0
+msgid "Done"
+msgstr ""
+
+#. module: c2c_stock_accounting
+#: view:stock.move:0
+msgid "Unit Of Measure"
+msgstr ""
+
+#. module: c2c_stock_accounting
+#: view:product.product:0
+msgid "Value 2"
+msgstr ""
+
+#. module: c2c_stock_accounting
+#: view:product.product:0
+msgid "Diff"
+msgstr ""
+
+#. module: c2c_stock_accounting
+#: help:stock.move,value_correction:0
+msgid ""
+"This field allows to enter value correction of product stock per lot and "
+"location. positive to increase, negative to decrease value"
+msgstr ""
+
+#. module: c2c_stock_accounting
+#: view:stock.move:0
+msgid "Moves"
+msgstr ""
+
+#. module: c2c_stock_accounting
+#: view:product.product:0
+msgid "Stock Account"
+msgstr ""
+
+#. module: c2c_stock_accounting
 #: field:stock.move,move_value_sale:0
 msgid "Amount Sale"
 msgstr ""
 
 #. module: c2c_stock_accounting
-#: help:stock.move,move_value_cost:0
-msgid "Product's cost for accounting valuation."
+#: view:stock.move:0
+msgid "Diff Location"
 msgstr ""
-

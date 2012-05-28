@@ -43,6 +43,13 @@ class account_invoice(osv.osv):
         'sale_order_ids': fields.many2many('sale.order', 'sale_order_invoice_rel', 'invoice_id', 'order_id', 'Sale Orders', readonly=True, help="This is the list of sale orders linked to this invoice. "),
         'client_order_refs' : fields.function(_client_order_refs, method=True, string="Client Sale Orders Ref", type='char'),
     }
-
+    def copy(self, cr, uid, id, default=None, context=None):
+        default = default or {}
+        default.update({
+            'picking_ids':[],
+            'sale_order_ids':[],
+            })
+        return super(account_invoice, self).copy(cr, uid, id, default, context)
+                            
 account_invoice()
 

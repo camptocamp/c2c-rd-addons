@@ -256,7 +256,7 @@ class account_move_line(osv.osv):
                 mlt.update({
                        'debit' : write_off_debit,
                        'credit':0.0,
-                       'account_id' : tax_move['discount_expense_account_id'],
+                       'account_id' : context['writeoff_acc_id']
                        'tax_code_id' : False,
                        'tax_amount' : False,
                     })
@@ -266,7 +266,7 @@ class account_move_line(osv.osv):
                 mlt.update({
                        'credit' : write_off_credit,
                        'debit' : 0.0,
-                       'account_id' : tax_move['discount_income_account_id'],
+                       'account_id' : context['writeoff_acc_id']
                        'tax_code_id' : False,
                        'tax_amount' : False,
                     })
@@ -315,6 +315,7 @@ class account_move_line(osv.osv):
         
         context['is_discount'] = True # to avoid _check_update which prohibits altering reconciled lines - of this transaction
         move_line_obj.write(cr, uid, lines_up, {'is_write_off' : True});
+	context['writeoff_acc_id'] = writeoff_acc_id
         move_line_obj.reconcile_cash_discount(cr, uid, ids, move_ids, lines, write_off_line_ids, context)
         context['is_discount'] = False
 

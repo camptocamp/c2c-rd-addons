@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <report
+      auto="False"
+      file="c2c_stock_accounting/report/print_computed_product.mako"
+      id="report_print_computed_product"
+      model="product.product"
+      name="report.print.computed.product"
+      report_type="webkit"
+      string="Products (effective Date)"/>
+  </data>
+</openerp>

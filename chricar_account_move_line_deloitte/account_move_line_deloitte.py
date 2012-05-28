@@ -211,21 +211,21 @@ class chricar_account_move_line_deloitte(osv.osv):
              return True
          self.write(cr, uid, acc_deloitte_ids, {'state': 'progress'} )
          acc_ids = account_obj.search(cr, uid, [('company_id','=',company_id)])
-         _logger.info('FGF account ids %s' % (acc_ids))
+         _logger.debug('FGF account ids %s' % (acc_ids))
          acc_codes = []
          for acc in  account_obj.browse(cr, uid, acc_ids, context=None):
              if acc.code not in acc_codes:
                  acc_codes.append(acc.code)
          #_logger.info('FGF account names %s' % (acc_codes))
 
-         _logger.info('FGF account deloitte ids %s' % (acc_deloitte_ids))
+         _logger.debug('FGF account deloitte ids %s' % (acc_deloitte_ids))
          acc_deloitte_codes = []
          for deloitte_acc in  self.browse(cr, uid, acc_deloitte_ids, context=None):
 	     if deloitte_acc.account[:2] not in ['23','33'] \
 			     and deloitte_acc.account not in acc_codes \
 			     and deloitte_acc.account not in acc_deloitte_codes:
                  acc_deloitte_codes.append(deloitte_acc.account)
-         _logger.info('FGF missing acc_deloitte_codes %s' % (acc_deloitte_codes))
+         _logger.debug('FGF missing acc_deloitte_codes %s' % (acc_deloitte_codes))
          
          counter= 0
          user_type = self.pool.get('account.account.type').search(cr, uid, [('code','=','view')])[0]
@@ -240,7 +240,7 @@ class chricar_account_move_line_deloitte(osv.osv):
                    'currency_mode' : 'current',
                    'parent_id' : parent_id,
                  }
-                 _logger.info('FGF new account %s' % (vals))
+                 _logger.debug('FGF new account %s' % (vals))
                  account_obj.create(cr, uid, vals, context)
 
          # create missing analytic accounts
@@ -260,8 +260,8 @@ class chricar_account_move_line_deloitte(osv.osv):
 
          counter= 0
 
-         _logger.info('FGF aacc_codes %s' % (aacc_codes))
-         _logger.info('FGF missing aacc_deloitte_codes %s' % (aacc_deloitte_codes))
+         _logger.debug('FGF aacc_codes %s' % (aacc_codes))
+         _logger.debug('FGF missing aacc_deloitte_codes %s' % (aacc_deloitte_codes))
          for aacc_deloitte_code in aacc_deloitte_codes:
                  counter += 1
                  val = {
@@ -269,7 +269,7 @@ class chricar_account_move_line_deloitte(osv.osv):
                    'name' : 'i-'+now+'-'+str(counter),
                  }
                  analytic_obj.create(cr, uid, val)
-                 _logger.info('FGF create aacc_deloitte_codes %s' % (val))
+                 _logger.debug('FGF create aacc_deloitte_codes %s' % (val))
 
          # update deloitte moves
          for deloitte_move in self.browse(cr, uid, acc_deloitte_ids, context=context):
@@ -279,7 +279,7 @@ class chricar_account_move_line_deloitte(osv.osv):
               if deloitte_move.analytic_account and not deloitte_move.analytic_account_id:
                    vals['analytic_account_id'] =  analytic_obj.search(cr, uid, [('company_id','=',company_id),('code','=', deloitte_move.analytic_account)])
               if vals:
-                  _logger.info('FGF create aacc_deloitte_codes %s' % (vals))
+                  _logger.debug('FGF create aacc_deloitte_codes %s' % (vals))
                   self.write(cr, uid, deloitte_move.id, vals ,context)
          return True
 
@@ -354,7 +354,7 @@ class chricar_account_move_line_deloitte(osv.osv):
          journal_id = journal_obj.search(cr, uid, [('company_id','=',company_id),('code','=','DE')], context=context)
          if journal_id: 
 		 journal_id = journal_id[0] 
-         _logger.info('FGF journal_id  %s' % (journal_id))
+         _logger.debug('FGF journal_id  %s' % (journal_id))
 	 #if not journal_id:
 	 #    journal_id = journal_obj.create(cr, uid, {'company_id':company_id, 'code':'DE', 'name':'Deloitte', 'type','general'})
          journal_analytic_id = analytic_jour_obj.search(cr, uid, [('company_id','=',company_id),('name','=','Deloitte')], context=context)
@@ -511,22 +511,26 @@ company_id, vals['period_id'], vals['name'], )
              for line in cr.dictfetchall():
                  # FIXME - performance 
 		 v = dict(line)
+                 _logger.debug('FGF create_move v %s' % (v))
 		 v.update(vals)
+                 _logger.debug('FGF create_move v %s' % (v))
 		 v.update(context)
-                 #_logger.info('FGF create_move line %s' % (line))
-                 #_logger.info('FGF create_move vals %s' % (vals))
-                 #_logger.info('FGF create_move v %s' % (v))
-                 #_logger.info('FGF create_move context %s' % (context))
+                 _logger.debug('FGF create_move v %s' % (v))
+                 _logger.debug('FGF create_move line %s' % (line))
+                 _logger.debug('FGF create_move vals %s' % (vals))
+                 _logger.debug('FGF create_move context %s' % (context))
 		 #moves.append( (v))
-                 try:
-                     self.create_move(cr, uid, line, vals, context )
-                 except:
-                     raise osv.except_osv(_('Error :'), _('FGF insert deloitte move %s %s') % (line, vals))
+                 #try:
+                     #self.create_move(cr, uid, line, vals, context )
+                 self.create_move(cr, uid, line, v, context )
+                 #except:
+                     #raise osv.except_osv(_('Error :'), _('FGF insert deloitte move %s %s') % (line, vals))
+                 #    raise osv.except_osv(_('Error :'), _('FGF insert deloitte move %s ') % ( v))
 
              #_logger.info('FGF create_move moves %s' % (moves))
              #self.create_move(cr, uid, moves)
         
-         _logger.info('FGF create_move neutral' )
+         _logger.debug('FGF create_move neutral' )
          journal_id = journal_obj.search(cr, uid, [('company_id','=',company_id),('code','=','DEN')], context=context)
 	 if journal_id:
              journal_id = journal_id[0]
@@ -548,7 +552,7 @@ company_id, vals['period_id'], vals['name'], )
                 'state'      : 'draft',
                 'name'       : 'neutral',
              })
-             _logger.info('FGF move vals %s' % (vals))
+             _logger.debug('FGF move vals %s' % (vals))
              move_id = move_obj.create(cr, uid, vals,{} )
              context['move_id'] = move_id
              cr.execute("""

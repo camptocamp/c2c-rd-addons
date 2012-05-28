@@ -22,6 +22,7 @@
 
 
 import report_stock_move
+import report_webkit_html
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
 

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+<record id="view_stock_location_data2_product" model="ir.ui.view">
+<field name="model">stock.location.product</field>
+<field name="inherit_id" ref="stock.view_stock_location_product"/>
+<field name="arch" type="xml">
+    <field name="to_date" position="after">
+        <newline/>
+        <label string="Comparison Dates for Valuation (the earlier dates or keep empty for no comparison)" colspan="4"/>
+        <field name="from_date2" colspan="4" on_change="onchange_date('from_date2', adjust_time, '00:00:00', from_date2, context)"/>
+        <newline/>
+        <field name="to_date2" colspan="4" on_change="onchange_date('to_date2', adjust_time, '23:59:59', to_date2, context)"/>
+        <newline/>
+        <field name="adjust_time"/>
+    </field>
+    </field>
+</record>
+
+
+<record id="view_stock_location_adj1_product" model="ir.ui.view">
+<field name="model">stock.location.product</field>
+<field name="inherit_id" ref="stock.view_stock_location_product"/>
+<field name="arch" type="xml">
+    <field name="from_date" position="attributes">
+	     <attribute name="on_change">onchange_date('from_date', adjust_time, '00:00:00', from_date, context)</attribute>
+    </field>
+    </field>
+</record>
+
+
+<record id="view_stock_location_adj2_product" model="ir.ui.view">
+<field name="model">stock.location.product</field>
+<field name="inherit_id" ref="stock.view_stock_location_product"/>
+<field name="arch" type="xml">
+    <field name="to_date" position="attributes">
+	     <attribute name="on_change">onchange_date('to_date', adjust_time, '23:59:59', to_date, context)</attribute>
+    </field>
+    </field>
+</record>
+
+
+
+<record id="view_stock_location_print_product" model="ir.ui.view">
+<field name="model">stock.location.product</field>
+<field name="inherit_id" ref="stock.view_stock_location_product"/>
+<field name="arch" type="xml">
+    <button name="action_open_window" position="before">
+         <button
+             icon="gtk-print"
+             name="action_open_report"
+             string="Print Report"
+             type="object"/>
+    </button>
+    </field>
+</record>
+
+    </data>
+</openerp>

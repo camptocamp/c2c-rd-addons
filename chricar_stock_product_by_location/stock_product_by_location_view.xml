@@ -45,8 +45,8 @@ generated 2009-09-19 23:51:03+02
           <field name="date" select="1"/>
           <field name="product_id" select="1"/>
           <field name="uom_id" select="1"/>
-          <field name="name" select="1"/>
-          <field name="product_qty_pending" select="1"/>
+          <field name="name" select="1" sum="Product Qty"/>
+          <field name="product_qty_pending" select="1" sum="Product Qty Pending"/>
           <field name="picking_id" select="1"/>
           <field name="production_id" select="1"/>
           <field name="order_id" select="1"/>
@@ -118,8 +118,8 @@ generated 2009-09-19 23:51:03+02
           <field name="product_id" select="1"/>
           <field name="uom_id" select="1"/>
           <field name="location_id" select="1"/>
-          <field name="name" select="1"/>
-          <field name="product_qty_pending" select="1"/>
+          <field name="name" select="1" sum="Product Qty"/>
+          <field name="product_qty_pending" select="1" sum="Product Qty Pending"/>
           <field name="amount" select="1" sum="Sum Amount" groups="base.group_extended"/>
           <field name="average_price" groups="base.group_extended"/>
           <field name="cost_method" groups="base.group_extended"/>
@@ -195,8 +195,8 @@ generated 2009-09-19 23:51:03+02
           <field name="uom_id" select="1"/>
           <field name="location_id" select="1"/>
           <field name="prodlot_id" select="1"/>
-          <field name="name" select="1"/>
-          <field name="product_qty_pending" select="1"/>
+          <field name="name" select="1" sum="Product Qty"/>
+          <field name="product_qty_pending" select="1" sum="Product Qty Pending"/>
           <field name="amount" select="1" sum="Sum Amount" groups="base.group_extended"/>
           <field name="average_price" groups="base.group_extended"/>
           <field name="cost_method" groups="base.group_extended"/>
@@ -263,10 +263,10 @@ generated 2009-09-19 23:51:03+02
           <field name="location_id" select="1"/>
           <field name="location_dest_id" select="1"/>
           <field name="prodlot_id" select="1"/>
-          <field name="product_qty" select="1"/>
-          <field name="move_value_cost" select="1"/>
+          <field name="product_qty" select="1" sum="Product Qty"/>
+          <field name="move_value_cost" select="1" sum="Value Cost"/>
           <field name="avg_price_calc" select="1"/>
-          <field name="move_value_sale" select="1"/>
+          <field name="move_value_sale" select="1" sum="Value Sale"/>
           <field name="price_unit_id" select="1"/>
           <field name="price_unit_sale_id" select="1"/>
           <field name="name" select="1"/>
