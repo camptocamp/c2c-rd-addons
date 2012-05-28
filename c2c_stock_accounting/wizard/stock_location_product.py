@@ -70,7 +70,7 @@ class stock_location_product(osv.osv_memory):
         res['context']['local_from_date1'] = ''
         res['context']['local_to_date1'] = ''
         res['context']['local_from_date2'] = ''
-        res['context']['local_to_date1'] = ''
+        res['context']['local_to_date2'] = ''
 
 	if from_date1:
              res['context']['local_from_date1'] = tools.server_to_local_timestamp(from_date1, format, format, tz)
