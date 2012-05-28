@@ -256,7 +256,7 @@ class account_move_line(osv.osv):
                 mlt.update({
                        'debit' : write_off_debit,
                        'credit':0.0,
-                       'account_id' : context['writeoff_acc_id']
+                       'account_id' : context['writeoff_acc_id'],
                        'tax_code_id' : False,
                        'tax_amount' : False,
                     })
@@ -266,7 +266,7 @@ class account_move_line(osv.osv):
                 mlt.update({
                        'credit' : write_off_credit,
                        'debit' : 0.0,
-                       'account_id' : context['writeoff_acc_id']
+                       'account_id' : context['writeoff_acc_id'],
                        'tax_code_id' : False,
                        'tax_amount' : False,
                     })
