@@ -199,7 +199,8 @@ class sale_order(osv.osv):
             pick = pick_vals
             for addr in  location_obj.browse(cr,uid,[loc],context):
                 address_id = addr.id
-                pick['origin'] = _('auto pull picking')+' '+ addr.name
+                pick['origin'] = _('auto pull picking')+' '+ location_obj.read(cr, uid, loc,['name'])['name']
+				
             #if address_id:
             #    pick['address_id'] = address_id
             pick['name'] =  self.pool.get('ir.sequence').get(cr, uid, 'stock.picking.internal') 
