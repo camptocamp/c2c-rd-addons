@@ -75,6 +75,7 @@ class sale_order(osv.osv):
         lot_obj = self.pool.get('stock.production.lot')
         company_obj = self.pool.get('res.company')
         shop_obj = self.pool.get('sale.shop')
+	uom_obj = self.pool.get('product.uom')
 
         if not context.get('company_id'):
             company_id = company_obj._company_default_get(cr, uid, 'stock.company', context=context),
@@ -86,10 +87,9 @@ class sale_order(osv.osv):
         back_log_lines = []
         main_location_id = False
         loc_ids = []
-        for order in self.browse(cr, uid, ids, context):
-            if order.pull_intern and order.state == 'progress' :
-                order_ids.append(order.id)
-        #order.write(cr, uid, order_ids,{'state_internal':'calculation'}, context)
+        order_ids = self.search(cr, uid, [('state','=', 'progress'), ('pull_intern','=',True),( 'state_internal','=', None) ])
+        self.write(cr, uid, order_ids,{'state_internal':'calculation'}, context)
+        _logger.debug('FGF sale pull internal order ids %s' % (order_ids))
         if not order_ids:
             return
 
@@ -102,8 +102,8 @@ class sale_order(osv.osv):
 		    and product_id is not null
                   group by o.shop_id, product_id, l.name, product_packaging""" % order_ids2)
         for product_qty in cr.dictfetchall():
-            #_logger.info('FGF sale pull internal %s' % (product_qty))
             product_id = product_qty['product_id']
+            _logger.debug('FGF sale pull internal lines %s %s' % (product_id, product_qty))
             shop_id = product_qty['shop_id']
             product_packaging = product_qty['product_packaging']
             name = product_qty['name']
@@ -129,8 +129,18 @@ class sale_order(osv.osv):
                 #qty_availiable = product_obj.get_product_available(cr, uid, [product_id] , context)
                 qty_available = 0.0
 		if product_id:
-                  for product in product_obj.browse(cr, uid, [product_id], context):
-                      qty_available = product.qty_available 
+		  # will return all qty including sub locations
+                  #for product in product_obj.browse(cr, uid, [product_id], context):
+                  #    qty_available = product.qty_available 
+		  # have to calculate qty for this location
+		    qty_available = 0.0
+		    move_ids = move_obj.search(cr, uid, ['|',('location_dest_id','=',location_id),('location_id','=',location_id),('product_id','=',product_id),('state','=','done')], context=context)
+		    for move in move_obj.browse(cr, uid, move_ids, context=context):
+                        if move.location_dest_id.id == location_id:
+                            qty_available += uom_obj._compute_qty(cr, uid, move.product_uom.id,move.product_qty, move.product_id.uom_id.id)
+                        else:
+                            qty_available -= uom_obj._compute_qty(cr, uid, move.product_uom.id,move.product_qty, move.product_id.uom_id.id)
+
                 #qty_avail = qty_availiable.get(product_id)
                 #_logger.info('FGF sale location product %s %s %s ' % (product_id, qty_available, qty_requested))
                 ml = {'shop_id':shop_id, 'location_id':location_id,  'location_dest_id':location_dest_id, 'product_id': product_id, 'name': name, 'product_packaging': product_packaging}
