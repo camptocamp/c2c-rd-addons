@@ -1,0 +1,10 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_xml_template_group,xml.template,model_xml_template,base.group_system,1,1,1,1
+access_xml_template_user,xml.template,model_xml_template,base.group_user,1,0,0,0
+access_xml_template_url_group,xml.template.url,model_xml_template_url,base.group_system,1,1,1,1
+access_xml_template_url_user,xml.template.url,model_xml_template_url,base.group_user,1,0,0,0
+access_xml_template_ref_group,xml.template.ref,model_xml_template_ref,base.group_system,1,1,1,1
+access_xml_template_ref_user,xml.template.ref,model_xml_template_ref,base.group_user,1,0,0,0
+access_ir_attachment_ref_group,ir.attachment.ref,model_ir_attachment_ref,base.group_system,1,1,1,1
+access_ir_attachment_ref_user,ir.attachment.ref,model_ir_attachment_ref,base.group_user,1,0,0,0
+
