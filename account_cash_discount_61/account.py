@@ -252,6 +252,8 @@ class account_move_line(osv.osv):
 
             # create move lines for remaining not discountable amount 
             if not float_is_zero(write_off_debit, prec):
+		if not context.get('writeoff_acc_id',False):
+	             raise osv.except_osv (_('Error !'), _('No write off account defined.'))
                 mlt = dict(ml)
                 mlt.update({
                        'debit' : write_off_debit,
@@ -262,6 +264,8 @@ class account_move_line(osv.osv):
                     })
                 move_line_obj.create(cr, uid, mlt)
             if not float_is_zero(write_off_credit, prec): 
+		if not context.get('writeoff_acc_id',False):
+	             raise osv.except_osv (_('Error !'), _('No write off account defined.'))
                 mlt = dict(ml)
                 mlt.update({
                        'credit' : write_off_credit,

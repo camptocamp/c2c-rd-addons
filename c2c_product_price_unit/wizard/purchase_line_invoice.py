@@ -178,8 +178,8 @@ class purchase_line_invoic_copy(osv.osv_memory):
             'context': "{'type':'in_invoice', 'journal_type': 'purchase'}",
             'type': 'ir.actions.act_window'
         }
-purchase_line_invoice()
 
+purchase_line_invoic_copy()
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
 
