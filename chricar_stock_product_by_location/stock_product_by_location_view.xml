@@ -19,7 +19,7 @@ generated 2009-09-19 23:51:03+02
           <field name="picking_id" select="1"/>
           <field name="production_id" select="1"/>
           <field name="order_id" select="1"/>
-          <field name="order_line_id" select="1"/>
+          <field name="sale_line_id" select="1"/>
           <field name="prodlot_id" select="1"/>
           <field name="product_id" select="1"/>
           <field name="uom_id" select="1"/>
@@ -58,7 +58,7 @@ generated 2009-09-19 23:51:03+02
       </field>
     </record>
     <record model="ir.actions.act_window" id="chricar_stock_move_by_location_act1">
-      <field name="name">Product Moves by Location</field>
+      <field name="name">Product Moves by Location (cost)</field>
       <field name="res_model">chricar.stock_move_by_location</field>
       <field name="view_type">form</field>
       <field name="view_mode">tree,form</field>
@@ -113,7 +113,7 @@ generated 2009-09-19 23:51:03+02
       <field name="priority">1</field>
       <field name="type">tree</field>
       <field name="arch" type="xml">
-        <tree string="Product by Stock " editable="bottom">
+        <tree string="Product by Stock (cost)" editable="bottom">
           <field name="categ_id" select="1"/>
           <field name="product_id" select="1"/>
           <field name="uom_id" select="1"/>
@@ -127,7 +127,7 @@ generated 2009-09-19 23:51:03+02
       </field>
     </record>
     <record model="ir.actions.act_window" id="chricar_stock_product_by_location_act1">
-      <field name="name">Product by Stock </field>
+      <field name="name">Product by Stock (cost)</field>
       <field name="res_model">chricar.stock_product_by_location</field>
       <field name="view_type">form</field>
       <field name="view_mode">tree,form</field>
@@ -204,7 +204,7 @@ generated 2009-09-19 23:51:03+02
       </field>
     </record>
     <record model="ir.actions.act_window" id="chricar_stock_product_by_location_prodlot_act1">
-      <field name="name">Product by Stock and Production Lot</field>
+      <field name="name">Product by Stock and Production Lot (cost)</field>
       <field name="res_model">chricar.stock_product_by_location_prodlot</field>
       <field name="view_type">form</field>
       <field name="view_mode">tree,form</field>
@@ -243,10 +243,13 @@ generated 2009-09-19 23:51:03+02
           <field name="prodlot_id" select="1"/>
           <field name="product_qty" select="1"/>
           <field name="move_value_cost" select="1"/>
-          <field name="move_value_sale" select="1"/>
+	  <field name="move_value_sale" select="1"/>
+	  <!--
           <field name="price_unit_id" select="1"/>
-          <field name="price_unit_sale_id" select="1"/>
-          <field name="name" select="1"/>
+	  <field name="price_unit_sale_id" select="1"/>
+	  -->
+	  <field name="name" select="1"/>
+
         </form>
       </field>
     </record>
@@ -266,16 +269,18 @@ generated 2009-09-19 23:51:03+02
           <field name="product_qty" select="1" sum="Product Qty"/>
           <field name="move_value_cost" select="1" sum="Value Cost"/>
           <field name="avg_price_calc" select="1"/>
-          <field name="move_value_sale" select="1" sum="Value Sale"/>
+	  <field name="move_value_sale" select="1" sum="Value Sale"/>
+	  <!--
           <field name="price_unit_id" select="1"/>
-          <field name="price_unit_sale_id" select="1"/>
+	  <field name="price_unit_sale_id" select="1"/>
+-->
           <field name="name" select="1"/>
           <field name="state" select="1"/>
         </tree>
       </field>
     </record>
     <record model="ir.actions.act_window" id="chricar_stock_move_act1">
-      <field name="name">Stock Moves DBA</field>
+      <field name="name">Stock Moves DBA (cost)</field>
       <field name="res_model">stock.move</field>
       <field name="view_type">form</field>
       <field name="view_mode">tree,form</field>

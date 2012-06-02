@@ -54,8 +54,8 @@ class chricar_stock_move_by_location(osv.osv):
        'average_price'      : fields.float   ('Average Price', digits=(16,4), readonly=True),
        'picking_id'         : fields.many2one('stock.picking', 'Packing', select=True, readonly=True),
        'production_id'      : fields.many2one('mrp.production', 'Production', select=True, readonly=True),
-       'order_line_id'      : fields.many2one('sale.order.line','Sale Order Line', select=True, readonly=True),
-       'order_id'           : fields.related ('order_line_id', 'order_id', type="many2one", relation="sale.order", string="Sale Order", readonly = True ),
+       'sale_line_id'      : fields.many2one('sale.order.line','Sale Order Line', select=True, readonly=True),
+       'order_id'           : fields.related ('sale_line_id', 'order_id', type="many2one", relation="sale.order", string="Sale Order", readonly = True ),
        'company_id': fields.many2one('res.company', 'Company', readonly=True),
 }
      #select get_id('stock_product_by_location',l.id,product_id,0),
@@ -72,7 +72,7 @@ select i.id ,
  case when state !='done' then product_qty else 0 end as product_qty_pending,
  i.move_value_cost, date, prodlot_id,
  case when product_qty != 0 then i.move_value_cost/product_qty else 0 end as average_price,
- picking_id,production_id,order_line_id,l.company_id
+ picking_id,production_id,sale_line_id,l.company_id
 from stock_location l,
      stock_move i
 where l.usage='internal'
@@ -86,7 +86,7 @@ l.id as location_id ,product_id,
  case when state !='done' then -product_qty else 0 end as product_qty_pending,
     -o.move_value_cost, date, prodlot_id,
  case when product_qty != 0 then o.move_value_cost/product_qty else 0 end as average_price,
- picking_id,production_id,order_line_id,l.company_id
+ picking_id,production_id,sale_line_id,l.company_id
 from stock_location l,
      stock_move o
 where l.usage='internal'
