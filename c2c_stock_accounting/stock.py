@@ -476,3 +476,11 @@ class stock_move(osv.osv):
         return res
 
 stock_move()
+
+
+class stock_inventory_line(osv.osv):
+    _inherit = "stock.inventory.line"
+    _columns = {
+          'check_lot' : fields.related('product_id','track_internal',type='boolean',string='Lot required',readonly=True,help="posting needs lot"),
+        }
+stock_inventory_line()

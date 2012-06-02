@@ -369,6 +369,30 @@
            </field>
        </record>
 
+   <!-- display indicator for lot reuqirement -->
+        <record id="stock_inventory_line_lot_tree" model="ir.ui.view">
+            <field name="name">stock.inventory.line.lot.tree</field>
+            <field name="model">stock.inventory.line</field>
+            <field name="inherit_id" ref="stock.stock_inventory_line_tree"/>
+            <field name="arch" type="xml">
+                <field name="prod_lot_id" position = "before" >
+                    <field name="check_lot" groups="base.group_extended"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_inventory_lot_form" model="ir.ui.view">
+            <field name="name">stock.inventory.lot.form</field>
+            <field name="model">stock.inventory</field>
+            <field name="inherit_id" ref="stock.view_inventory_form"/>
+            
+            <field name="arch" type="xml">
+                <field name="prod_lot_id" position = "before" >
+                    <field name="check_lot" groups="base.group_extended"/>
+                </field>
+            </field>
+        </record>
+
 
    
   </data>
