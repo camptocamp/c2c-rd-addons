@@ -477,6 +477,75 @@ class stock_move(osv.osv):
 
 stock_move()
 
+class stock_location(osv.osv):
+    _inherit=  "stock.location"
+    _logger = logging.getLogger(__name__)
+
+
+    def _product_get(self, cr, uid, id, product_ids=False, context=None, states=['done']):
+        if not context:
+            context = {}
+	prodlot_null = context.get('prodlot_null', False)
+        if not prodlot_null:
+            self._logger.debug('FGF product_get standard %s', context )
+            return super(stock_location, self)._product_get(cr, uid, id, product_ids, context, states)
+        else:
+          move_obj = self.pool.get('stock.move')
+	  uom_obj = self.pool.get('product.uom')
+	  product_obj = self.pool.get('product.product')
+	  res = {}
+
+	  if not isinstance(product_ids,list):
+	      product_ids = [ product_ids ]
+
+	  for prod in product_obj.browse(cr, uid, product_ids, context):
+            move_obj = self.pool.get('stock.move')
+	    uom_obj = self.pool.get('product.uom')
+            location = context['location']
+	    prodlot_id = context['prodlot_id']
+
+	    if prodlot_id:
+               move_ids = move_obj.search(cr, uid, [('location_dest_id','=',id),('product_id','=',prod.id),('prodlot_id','=',prodlot_id), ('state','=','done')], )
+               move_ids2 = move_obj.search(cr, uid, [('location_id','=',id),('product_id','=',prod.id),('prodlot_id','=',prodlot_id), ('state','=','done')], )
+	    else:
+               move_ids = move_obj.search(cr, uid, [('location_dest_id','=',id),('product_id','=',prod.id),('prodlot_id','=',False), ('state','=','done')], )
+               move_ids2 = move_obj.search(cr, uid, [('location_id','=',id),('product_id','=',prod.id),('prodlot_id','=',False), ('state','=','done')], )
+
+	    qty = 0.0
+            for move in move_obj.browse(cr, uid, move_ids, context=context):
+                qty += uom_obj._compute_qty(cr, uid, move.product_uom.id,move.product_qty, move.product_id.uom_id.id)
+            for move in move_obj.browse(cr, uid, move_ids2, context=context):
+                qty -= uom_obj._compute_qty(cr, uid, move.product_uom.id,move.product_qty, move.product_id.uom_id.id)
+
+
+            res[prod.id] = qty
+            self._logger.debug('FGF product_get inventur %s %s %s' % ( qty, prod.name, context) )
+	  return res
+ 
+       
+
+stock_location()
+
+class stock_inventory(osv.osv):
+    _inherit = "stock.inventory"
+    _logger = logging.getLogger(__name__)
+    _columns = {
+        'recursive': fields.boolean("Include children", readonly=True, help="If checked, products contained in child locations of selected location will be included as well."),
+        'location_id'        : fields.many2one('stock.location','Location', select=True, required=True, readonly=True),
+        }
+
+
+    def action_confirm(self, cr, uid, ids, context=None):
+        if not context:
+            context = {}
+        context['prodlot_null'] = True
+	for inventory in self.browse(cr, uid, ids, context):
+            context['location'] = inventory.location_id.id
+        self._logger.debug('FGF action_confirm inventur %s', context )
+        return super(stock_inventory,self).action_confirm(cr, uid, ids, context)
+
+
+stock_inventory()
 
 class stock_inventory_line(osv.osv):
     _inherit = "stock.inventory.line"
