@@ -194,15 +194,15 @@ class product_product(osv.osv):
     def _get_valuation_diff(self, cr, uid, ids, field_name, arg, context=None):
         res = {}
         for product in self.browse(cr, uid, ids, context=context):
-		 res[product.id] = product.valuation - product.valuation2
+		 res[product.id] = product.valuation1 - product.valuation2
         return res
 
 
     def _get_avg_price(self, cr, uid, ids, field_name, arg, context=None):
 	 res = {}
          for product in self.browse(cr, uid, ids, context=context):
-             if product.qty_available >0 and product.valuation >0 :
-		 res[product.id] = product.valuation / product.qty_available
+             if product.qty_available >0 and product.valuation1 >0 :
+		 res[product.id] = product.valuation1 / product.qty_available
              else:
 		 res[product.id] = 0
          return res
@@ -223,7 +223,7 @@ class product_product(osv.osv):
 
 
     _columns = {
-        'valuation':  fields.function(_get_product_valuation1, method=True, string="Valuation",type='float',digits_compute=dp.get_precision('Account')),
+        'valuation1':  fields.function(_get_product_valuation1, method=True, string="Valuation",type='float',digits_compute=dp.get_precision('Account')),
         'valuation2': fields.function(_get_product_valuation2, method=True, string="Valuation Comp",type='float',digits_compute=dp.get_precision('Account')),
         'valuation_diff': fields.function(_get_valuation_diff, method=True, string="Valuation Diff",type='float',digits_compute=dp.get_precision('Account')),
         'avg_price':  fields.function(_get_avg_price, method=True, string="Avg Price",type='float',digits_compute=dp.get_precision('Account')),
@@ -239,7 +239,7 @@ class product_product(osv.osv):
     def fields_to_check(self, cr, uid):
         fields = super(product_product, self).fields_to_check(cr, uid)
 	if fields:
-            fields.append( 'valuation' )
+            fields.append( 'valuation1' )
             fields.append( 'valuation2' )
         return fields
 
@@ -490,6 +490,10 @@ class stock_location(osv.osv):
             self._logger.debug('FGF product_get standard %s', context )
             return super(stock_location, self)._product_get(cr, uid, id, product_ids, context, states)
         else:
+	  # FIXME 
+	  # we shell use product_qty_calc definend in  /stock_product_zero/inventory.py instead recomputing 
+	  # recomputing always bears the risk that someone posts move in the meantime
+
           move_obj = self.pool.get('stock.move')
 	  uom_obj = self.pool.get('product.uom')
 	  product_obj = self.pool.get('product.product')
