@@ -595,8 +595,8 @@ select aml.account_id, analytic_account_id,
    --and am.state='posted'
  group by account_id,amn.date,amn.journal_id,amn.id,amn.period_id,analytic_account_id
 having sum(case when credit is null then 0 else credit end) != 0
-""" % company_id,(move['period_id'],
-      company_id,move['period_id']))
+""" % company_id,move['period_id'],
+      company_id,move['period_id'])
         
              for line in cr.dictfetchall():
                  try:
