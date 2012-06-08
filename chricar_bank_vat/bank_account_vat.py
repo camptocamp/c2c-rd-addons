@@ -27,7 +27,73 @@ import logging
 class account_bank_statement(osv.osv):
     _inherit = "account.bank.statement"
 
-    def create_move_from_st_line(self, cr, uid, st_line_id, company_currency_id, st_line_number, context=None):
+    def create_move_from_st_line(self, cr, uid, st_line_id, company_currency_id, next_number, context=None):
+	res = super(account_bank_statement, self).create_move_from_st_line( cr, uid, st_line_id, company_currency_id, next_number, context)
+
+        res_currency_obj = self.pool.get('res.currency')
+        account_move_obj = self.pool.get('account.move')
+        account_journal_obj = self.pool.get('account.journal')
+        account_move_line_obj = self.pool.get('account.move.line')
+        account_bank_statement_line_obj = self.pool.get('account.bank.statement.line')
+        st_line = account_bank_statement_line_obj.browse(cr, uid, st_line_id, context=context)
+        st = st_line.statement_id
+
+        amount_move = st_line.amount
+        amount_tax = 0.0
+        if st_line.tax_id:
+            precision = self.pool.get('decimal.precision').precision_get(cr, uid, 'Account')
+            if st_line.amount <> round(st_line.amount_net + st_line.amount_tax, precision):
+                          raise osv.except_osv(_('Error !'),
+                              _('VAT and Amount Net do not match Amount in line "%s"') % st_line.name)
+            if st_line.partner_id:
+                          raise osv.except_osv(_('Error !'),
+                              _('Lines "%s" with VAT must not have partner account ') % st_line.name)
+            amount_net = res_currency_obj.compute(cr, uid, company_currency_id,
+                         st.currency.id, st_line.amount_net, context=context)
+                         
+            amount_tax = amount_move - amount_net
+
+	    # update amount to amount_net
+	    bank_debit_account_id = st_line.statement_id.journal_id.default_debit_account_id.id
+	    bank_credit_account_id = st_line.statement_id.journal_id.default_credit_account_id.id
+	    move_ids = account_move_line_obj.search(cr, uid, [('move_id','=',res),('account_id','not in',[bank_debit_account_id,bank_debit_account_id])])
+	    entry_posted = st_line.statement_id.journal_id.entry_posted
+	    entry_posted_reset = False
+	    if not entry_posted:
+		# to disable the update check
+		account_journal_obj.write(cr, uid, st_line.statement_id.journal_id.id, {'entry_posted':True})
+	        entry_posted_reset = True
+	    if not len(move_ids) == 1 :
+		    raise osv.except_osv(_('Error !'),
+	            _('must only find one move line %s"') % st_line.name)
+            if amount_tax>0:
+                account_move_line_obj.write(cr, uid, move_ids, {'credit':amount_net})
+	    else: 
+                account_move_line_obj.write(cr, uid, move_ids, {'debit':amount_net})
+	    if entry_posted_reset:
+		account_journal_obj.write(cr, uid, st_line.statement_id.journal_id.id, {'entry_posted':False})
+
+            # create tax line
+            account_move_line_obj.create(cr, uid, {
+                    'name': st_line.name,
+                    'date': st_line.date,
+                    'ref': st_line.ref,
+                    'move_id': res,
+                    'partner_id': ((st_line.partner_id) and st_line.partner_id.id) or False,
+                    'account_id':  st_line.tax_id.account_collected_id.id,
+                    'credit': ((amount_tax>0) and  amount_tax) or 0.0,
+                    'debit' : ((amount_tax<0) and -amount_tax) or 0.0,
+                    'statement_id': st.id,
+                    'journal_id': st.journal_id.id,
+                    'period_id': st.period_id.id,
+                    'currency_id': st.currency.id,
+                    'tax_amount': amount_tax,
+                    'tax_code_id': st_line.tax_id.tax_code_id.id,
+                    } , context=context)
+
+	return res
+
+    def create_move_from_st_line_v6(self, cr, uid, st_line_id, company_currency_id, st_line_number, context=None):
         if context is None:
             context = {}
         res_currency_obj = self.pool.get('res.currency')
