@@ -33,7 +33,7 @@
 from osv import osv, fields
 
 class account_invoice(osv.osv):
-    _name    = 'account.invoice'
+    #_name    = 'account.invoice'
     _inherit = 'account.invoice'
     _columns = \
         { 'payment_block': fields.boolean

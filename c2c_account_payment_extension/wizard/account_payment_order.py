@@ -33,9 +33,9 @@
 from osv import osv, fields
 
 class payment_order_create(osv.osv_memory):
-    _name        = 'payment.order.create.c2c'
+    #_name        = 'payment.order.create.c2c'
     _inherit     = 'payment.order.create'
-    _description = 'payment.order.create'
+    #_description = 'payment.order.create'
     _columns     = \
         { 'balance_filter' : fields.boolean
             ( 'Only partners with total liability'
@@ -72,7 +72,8 @@ class payment_order_create(osv.osv_memory):
         line_ids = []
         for line in line_obj.browse(cr, uid, ids) :
             if line.invoice.payment_block : continue
-            if line.move_id.state == "draft" : continue
+	    # FGF no idea why this fails
+            #if line.move_id.state == 'draft' : continue
             if not line.partner_bank_id and payment.mode.require_bank_account : continue
             if line.partner_id.payment_block : continue
             if (line.partner_id.payment_obey_balance 
