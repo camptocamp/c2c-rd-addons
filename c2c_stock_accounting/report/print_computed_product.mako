@@ -87,7 +87,7 @@ ${_("Selection")}
         </thead>
 %for prod in objects :
         <tbody>
-%if (all_zero or prod.qty_available !=0  or prod.valuation !=0 or prod.valuation2 !=0 ):
+%if (all_zero or prod.qty_available !=0  or prod.valuation1 !=0 or prod.valuation2 !=0 ):
 
 %if categ and categ != prod.categ_id.name:
           <tr>
@@ -95,7 +95,7 @@ ${_("Selection")}
             <th style="text-align:right;white-space:nowrap">${  formatLang(cumul_categ_qty)}</th>
             <th style="text-align:left;white-space:nowrap"></th>
             <th style="text-align:left;white-space:nowrap"></th>
-            <th style="text-align:right;white-space:nowrap;">${  formatLang(cumul_categ_valuation)}</th>
+            <th style="text-align:right;white-space:nowrap;">${  formatLang(cumul_categ_valuation1)}</th>
             <th style="text-align:right;white-space:nowrap;">${  formatLang(cumul_categ_valuation2)}</th>
             <th style="text-align:left;white-space:nowrap"></th>
          </tr>
@@ -132,9 +132,9 @@ ${_("Selection")}
 %if prod.qty_available == 0:
             <td style="text-align:left;white-space:nowrap"></td>
 %else:
-            <td style="text-align:right">${  formatLang(prod.valuation/prod.qty_available)}</td>
+            <td style="text-align:right">${  formatLang(prod.valuation1/prod.qty_available)}</td>
 %endif
-            <td style="text-align:right;white-space:nowrap;">${prod.valuation}</td>
+            <td style="text-align:right;white-space:nowrap;">${prod.valuation1}</td>
             <td style="text-align:right;white-space:nowrap;">${prod.valuation2}</td>
             <td style="text-align:right;white-space:nowrap;">${prod.valuation_diff}</td>
 
@@ -149,11 +149,11 @@ ${_("Selection")}
       else:
           expense_account = _('Undefined Expense Account')
       cumul_categ_qty += prod.qty_available
-      cumul_categ_valuation += prod.valuation
+      cumul_categ_valuation += prod.valuation1
       cumul_categ_valuation2 += prod.valuation2
       cumul_categ_valuation_diff += prod.valuation_diff
       cumul_qty += prod.qty_available
-      cumul_valuation += prod.valuation
+      cumul_valuation += prod.valuation1
       cumul_valuation2 += prod.valuation2
       cumul_valuation_diff += prod.valuation_diff
  %>

@@ -82,7 +82,8 @@ class stock_fill_inventory(osv.osv_memory):
             inventory_line_obj.unlink(cr, uid, ids_zero)
         ids_update = inventory_line_obj.search(cr, uid, [('inventory_id','=', inventory_id)])
         ids2 = ','.join([str(id) for id in ids_update])
-        cr.execute("""update stock_inventory_line
+        if ids_update: 
+            cr.execute("""update stock_inventory_line
                          set product_qty_calc = product_qty
                        where id in (%s)""" % ids2)
         return res_all

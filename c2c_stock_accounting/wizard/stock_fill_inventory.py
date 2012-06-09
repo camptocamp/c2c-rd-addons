@@ -2,8 +2,8 @@
 ##############################################################################
 #
 #    OpenERP, Open Source Management Solution
-#    Copyright (C) 2004-2011 Tiny SPRL (<http://tiny.be>).
-#    Copyright (C) 2010-2011 Camptocamp Austria (<http://www.camptocamp.at>)
+#    Copyright (C) 2004-2010 Tiny SPRL (<http://tiny.be>).
+#    Copyright (C) 2012-2012 Camptocamp Austria (<http://www.camptocamp.at>)
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -19,22 +19,29 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-{ "name"         : "ChriCar Bank Account VAT + Analytic"
-, "version"      : "1.0"
-, "author"       : "ChriCar Beteiligungs- und Beratungs GmbH"
-, "website"      : "http://www.chricar.at/ChriCar"
-, "description"  : """
-Adds VAT to bank statement lines
 
-Does not support:
+from osv import fields, osv
+#import logging
 
- * multiple VAT per line
-"""
-, "category"     : "Accounting & Finance"
-, "depends"      : ["account_voucher"]
-, "init_xml"     : []
-, "demo_xml"     : []
-, "update_xml"   : ["bank_account_vat_view.xml"]
-, "auto_install" : False
-, "installable"  : True
-}
+class stock_fill_inventory(osv.osv_memory):
+    _inherit = "stock.fill.inventory"
+
+
+    def fill_inventory(self, cr, uid, ids, context=None):    
+	if not context:
+	    context = {}
+	if ids and len(ids):
+	    ids_1 = ids[0]
+
+	res = super(stock_fill_inventory, self).fill_inventory(cr, uid, ids, context)
+
+
+	fill_inventory = self.browse(cr, uid, ids_1, context=context)
+	inventory_obj = self.pool.get('stock.inventory')
+        inventory_id = context['active_ids'][0]
+        inventory_obj.write(cr, uid, inventory_id , {'recursive' : fill_inventory.recursive, 'location_id': fill_inventory.location_id.id})
+	
+	return res
+
+
+stock_fill_inventory()
