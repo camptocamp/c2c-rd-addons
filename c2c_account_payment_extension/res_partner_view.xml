@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <record id="c2c_view_partner_property_payment_form" model="ir.ui.view">
+      <field name="name">c2c.account.view.partner.property.form</field>
+      <field name="model">res.partner</field>
+      <field name="type">form</field>
+      <field name="inherit_id" ref="account.view_partner_property_form"/>
+      <field name="arch" type="xml">
+        <field name="debit" position="after">
+          <field name="payment_block"/>
+          <field name="payment_obey_balance"/>
+        </field>
+      </field>
+    </record>
+  </data>
+</openerp>

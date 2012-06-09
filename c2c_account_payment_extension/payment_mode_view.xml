@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <record id="c2c_view_payment_mode_form" model="ir.ui.view">
+      <field name="name">c2c.payment.mode.form</field>
+      <field name="model">payment.mode</field>
+      <field name="type">form</field>
+      <field name="inherit_id" ref="account_payment.view_payment_mode_form"/>
+      <field name="arch" type="xml">
+        <field name="partner_id" position="after">
+          <field name="amount_partner_min"/>
+          <field name="require_bank_account"/>
+        </field>
+      </field>
+    </record>
+   </data>
+</openerp>
