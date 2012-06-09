@@ -5,7 +5,7 @@
       <field name="name">c2c.payment.mode.form</field>
       <field name="model">payment.mode</field>
       <field name="type">form</field>
-      <field name="inherit_id" ref="account_payment.view_payment_type_form"/>
+      <field name="inherit_id" ref="account_payment.view_payment_mode_form"/>
       <field name="arch" type="xml">
         <field name="partner_id" position="after">
           <field name="amount_partner_min"/>
