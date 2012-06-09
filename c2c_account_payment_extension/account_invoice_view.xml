@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <record id="c2c_invoice_supplier_form" model="ir.ui.view">
+      <field name="name">c2c.account.payment.invoice.form</field>
+      <field name="model">account.invoice</field>
+      <field name="type">form</field>
+      <field name="inherit_id" ref="account_payment.invoice_supplier_form"/>
+      <field name="arch" type="xml">
+        <field name="amount_to_pay" position="after">
+          <field name="payment_block"/>
+          <newline/>
+        </field>
+      </field>
+    </record>
+  </data>>
+</openerp>
