@@ -34,7 +34,8 @@
 , "version"      : "0.8"
 , "author"       : "Swing Entwicklung betrieblicher Informationssysteme GmbH"
 , "website"      : "http://www.swing-system.com"
-, "description"  : """Allows to exclude Partners and/or invoices from automatic payment"""
+, "description"  : 
+"""Allows to select partners and/or invoices according to their properties and certain strategies from automatic payment"""
 , "category"     : "Accounting & Finance"
 , "depends"      : ["account_payment"]
 , "init_xml"     : []
