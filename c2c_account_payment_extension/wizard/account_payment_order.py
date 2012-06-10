@@ -71,7 +71,7 @@ class payment_order_create(osv.osv_memory):
         for line in line_obj.browse(cr, uid, ids) :
             if line.invoice.payment_block : continue
             if line.move_id.state == 'draft' : continue # FGF no idea why this fails
-            if not line.invoice.partner_bank_id and payment.mode.require_bank_account : continue
+            if (line.invoice and not line.invoice.partner_bank_id) and payment.mode.require_bank_account : continue
             if line.partner_id.payment_block : continue
             if (line.partner_id.payment_obey_balance 
                 and obj.balance_filter 
