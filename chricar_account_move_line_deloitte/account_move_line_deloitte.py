@@ -367,7 +367,7 @@ class chricar_account_move_line_deloitte(osv.osv):
          cr.execute("""select distinct company_id, period_id, symbol||'-'||name||'-D' as name, date
                   from chricar_account_move_line_deloitte
                  where id in (%s)""" % (','.join(map(str,acc_deloitte_ids)) ))
-
+         period_ids = [] 
          for move in cr.dictfetchall():
              vals = dict(move)
 	     try:
@@ -515,7 +515,6 @@ company_id, vals['period_id'], vals['name'], \
 company_id, vals['period_id'], vals['name'], )
 )
              moves= []
-	     period_ids = []
              for line in cr.dictfetchall():
                  # FIXME - performance 
 		 v = dict(line)
