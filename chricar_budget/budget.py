@@ -136,11 +136,13 @@ class chricar_budget(osv.osv):
 
      def _amount_prod_lot(self, cr, uid, ids, name, args, context=None):
          aml = self.pool.get('account.invoice')
+         ail = self.pool.get('account.invoice.line')
          move_obj = self.pool.get('stock.move')
          pick_obj = self.pool.get('stock.picking')
          res = {}
          _logger = logging.getLogger(__name__) 
          for line in self.browse(cr, uid, ids, context=context):
+	   invoice_line_ids = []
            amount = 0
 	   if line.prod_lot_id:
              #move_ids = move_obj.search(cr, uid, [('prodlot_id','=',line.prod_lot_id.id),('picking_id','>','0')])
@@ -155,11 +157,14 @@ class chricar_budget(osv.osv):
                       if inv.state in ['open','paid'] and inv.invoice_line:
 			for inv_line in inv.invoice_line:
                           if inv_line.product_id == line.product_id: # FIXME problematic if 2 lots are in one invoice 
-			    if inv.type == 'out_invoice':
-                               amount += inv_line.price_subtotal
-			    else:
-                               amount -= inv_line.price_subtotal
-		            _logger.debug('FGF move pick inv %s line %s  amount %s cum amount %s' % (inv.number, inv_line.name, inv_line.price_subtotal,amount))
+			    if inv_line.id not in invoice_line_ids:
+                               invoice_line_ids.append(inv_line.id)
+	   for l in ail.browse(cr, uid, invoice_line_ids):    
+	        if l.invoice_id.type == 'out_invoice':
+                     amount += l.price_subtotal
+		else:
+                     amount -= l.price_subtotal
+	   #_logger.debug('FGF move pick inv %s line %s  amount %s cum amount %s' % (inv.number, inv_line.name, inv_line.price_subtotal,amount))
            res[line.id] = amount
          return res
 
