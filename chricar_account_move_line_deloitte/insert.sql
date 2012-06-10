@@ -91,8 +91,8 @@ select counter_account from chricar_account_move_line_deloitte where substr(coun
 
 UPDATE chricar_account_move_line_deloitte set analytic_account = null where analytic_account='';
 
-insert into account_analytic_account(code,name,company_id,state,active,type)
-select distinct analytic_account,analytic_account,c.id,'open',True,'normal'
+insert into account_analytic_account(code,name,company_id,state,type)
+select distinct analytic_account,analytic_account,c.id,'open','normal'
   from chricar_account_move_line_deloitte d,
        res_company c
 where d.analytic_account is not null
@@ -503,6 +503,57 @@ group by to_date(substr(to_char(date_stop,'YYYYMMDD'),1,6)||'01','YYYYMMDD'),aj.
 order by  to_date(substr(to_char(date_stop,'YYYYMMDD'),1,6)||'01','YYYYMMDD')
 ;
 
+
+insert into account_move_line(account_id,date,journal_id,move_id,name,period_id,analytic_account_id, credit,debit,state)
+select account_id,amn.date,amn.journal_id,amn.id,'neutral',amn.period_id, analytic_account_id,
+   case when sum(case when debit is null then 0 else debit end) > 0 then  sum(case when debit is null then 0 else debit end) else 0 end as cred,
+   case when sum(case when debit is null then 0 else debit end) < 0 then -sum(case when debit is null then 0 else debit end) else 0 end as deb,
+  'valid'
+  from account_move_line aml,
+       account_move am,
+       account_journal aj,
+       account_move amn,  -- neutral move
+       account_journal ajn
+ where aj.id = am.journal_id
+   and aj.name not in ( 'Deloitte')
+   and aj.is_opening_balance = False
+   and aml.move_id = am.id
+   and am.period_id = amn.period_id
+   and ajn.name = 'Deloitte neutral'
+   and ajn.id = amn.journal_id
+   and aml.state='valid'
+   --and am.state='posted'
+ group by account_id,amn.date,amn.journal_id,amn.id,amn.period_id,analytic_account_id
+ having sum(case when debit is null then 0 else debit end) != 0
+union all
+select account_id,amn.date,amn.journal_id,amn.id,'neutral',amn.period_id, analytic_account_id,
+   case when sum(case when credit is null then 0 else credit end) < 0 then -sum(case when credit is null then 0 else credit end) else 0 end,
+   case when sum(case when credit is null then 0 else credit end) > 0 then  sum(case when credit is null then 0 else credit end) else 0 end,
+   'valid'
+  from account_move_line aml,
+       account_move am,
+       account_journal aj,
+       account_move amn,  -- neutral move
+       account_journal ajn
+ where aj.id = am.journal_id
+   and aj.name not in ( 'Deloitte')
+   and aj.is_opening_balance = False
+   and aml.move_id = am.id
+   and am.period_id = amn.period_id
+   and ajn.name = 'Deloitte neutral'
+   and ajn.id = amn.journal_id
+   and aml.state='valid'
+   --and am.state='posted'
+ group by account_id,amn.date,amn.journal_id,amn.id,amn.period_id,analytic_account_id
+having sum(case when credit is null then 0 else credit end) != 0
+;
+
+
+update account_move
+   set state = 'posted'
+ where state != 'posted'
+   and journal_id in (select id from account_journal where name = 'Deloitte neutral')
+;
 
 insert into account_move_line(account_id,date,journal_id,move_id,name,period_id,analytic_account_id, credit,debit,state)
 select account_id,amn.date,amn.journal_id,amn.id,'neutral',amn.period_id, analytic_account_id,

@@ -23,7 +23,7 @@
 from osv import fields, osv
 
 class account_move_line(osv.osv):
-    _name = 'account.move.line'
+    #_name = 'account.move.line'
     _inherit = 'account.move.line'
 
     def _invoice(self, cr, uid, ids, name, arg, context=None):

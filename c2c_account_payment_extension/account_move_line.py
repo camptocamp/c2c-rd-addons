@@ -33,7 +33,7 @@
 from osv import fields, osv
 
 class account_move_line(osv.osv):
-    _name    = 'account.move.line'
+    #_name    = 'account.move.line'
     _inherit = 'account.move.line'
 
     def _invoice(self, cr, uid, ids, name, arg, context=None) :
@@ -62,5 +62,7 @@ class account_move_line(osv.osv):
             , relation='account.invoice'
             , fnct_search=_invoice_search
             )
+	 ,'partner_bank_id': fields.many2one('res.partner.bank','Bank Account'),
+
         }
 account_move_line()
