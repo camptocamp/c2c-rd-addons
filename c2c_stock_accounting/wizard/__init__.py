@@ -22,5 +22,6 @@
 
 
 import stock_location_product
+import stock_fill_inventory
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

@@ -31,7 +31,7 @@ Does not support:
  * multiple VAT per line
 """
 , "category"     : "Accounting & Finance"
-, "depends"      : ["account"]
+, "depends"      : ["account_voucher"]
 , "init_xml"     : []
 , "demo_xml"     : []
 , "update_xml"   : ["bank_account_vat_view.xml"]

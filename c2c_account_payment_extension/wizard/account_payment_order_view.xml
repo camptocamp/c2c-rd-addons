@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <record id="c2c_view_create_payment_order_form" model="ir.ui.view">
+      <field name="name">c2c.payment.order.create.form</field>
+      <field name="model">payment.order.create</field>
+      <field name="type">form</field>
+      <field name="inherit_id" ref="account_payment.view_create_payment_order"/>
+      <field name="arch" type="xml">
+        <field name="duedate" position="after">
+          <field name="balance_filter"/>
+          <field name="min_balance"/>
+        </field>
+      </field>
+    </record>
+  </data>
+</openerp>

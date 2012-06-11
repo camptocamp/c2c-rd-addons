@@ -20,20 +20,20 @@
 ##############################################################################
 
 {
-    "name" : "Forbid direct Invoice of Stockable Products",
-    "version" : "1.1",
+    "name" : "Controls product encoding in invoice lines",
+    "version" : "1.2",
     "author" : "Camptocamp SA",
     "category": 'Accounting & Finance',
     'complexity': "normal",
     "description": """
-Disallow to invoice stockable products without pickings.
-========================================================
+Forbid, allow or require  stockable product encoding  for journals
+==================================================================
 
     """,
     'website': 'http://www.camptocamp.com',
-    "depends" : ["account"],
+    "depends" : ["account","picking_invoice_rel"],
     'init_xml': [],
-    'update_xml': [],
+    'update_xml': ['account_invoice_view.xml'],
     'demo_xml': [],
     'installable': True,
     'auto_install': False,

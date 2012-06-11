@@ -49,5 +49,13 @@ where p.name = split_part(i.origin,':',1) and (p.id,i.id) not in (select picking
         self.write(cr, uid, picking_id, {'invoice_ids' : [(6,0, invoice_ids )]}, context=context) 
         return res
 
+    def copy(self, cr, uid, id, default=None, context=None):
+        if default is None:
+            default = {}
+        default = default.copy()
+        default.update({'invoice_ids': [],})
+	return super(stock_picking, self).copy(cr, uid, id, default, context)
+                
+
 stock_picking()
 

@@ -35,7 +35,9 @@ class account_invoice_line(osv.osv):
        self._logger.debug('invoice pi_id `%s`', price_unit_id)
        pu = self.pool.get('c2c_product.price.unit')
        if not pu: return
-       return pu.get_default_id(cr, uid, price_unit_id, context) 
+       res =  pu.get_default_id(cr, uid, price_unit_id, context) 
+       self._logger.debug('invoice default price_unit_id `%s`', res)
+       return res
         
     _columns = {
         'price_unit_id'    : fields.many2one('c2c_product.price_unit','Price Unit' ),
@@ -91,3 +93,21 @@ class account_invoice_line(osv.osv):
         return res
 
 account_invoice_line()
+
+
+class account_invoice(osv.osv):
+    _inherit = "account.invoice"
+
+    def _refund_cleanup_lines(self, cr, uid, lines):
+	for line in lines:
+	  if line.get('price_unit_id'):
+	        line['price_unit_id'] = line['price_unit_id'][0]
+	res = super(account_invoice, self)._refund_cleanup_lines(cr, uid, lines)
+	if res:
+          resd = res[0][2]
+	  resd['price_unit_id'] =  line['price_unit_id']
+	  res = [(res[0][0], res[0][1], resd)]
+        return res
+
+
+account_invoice()
