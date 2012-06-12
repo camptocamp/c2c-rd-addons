@@ -234,7 +234,7 @@ class chricar_account_move_line_deloitte(osv.osv):
          for deloitte_acc in  self.browse(cr, uid, acc_deloitte_ids, context=None):
            das = [deloitte_acc.account, deloitte_acc.counter_account]
            for da in das:
-	     if len(da)<4
+		if len(da)<4:
 	        da = '0'+da
 	     if deloitte_acc.account[:2] not in ['23','33'] \
 			     and da not in acc_codes \
