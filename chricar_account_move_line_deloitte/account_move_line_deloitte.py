@@ -119,10 +119,15 @@ class chricar_account_move_line_deloitte(osv.osv):
          for move in self.browse(cr, uid, ids):
              result[move.id] = False
              if move.counter_account and move.company_id:
-                 if len(move.counter_account) == 4:
-                     acc = move.counter_account
-                 else:
-                     acc = move.counter_account[:2]+'00'
+                 #if len(move.counter_account) == 4:
+                 #    acc = move.counter_account
+                 #else:
+                 #    acc = move.counter_account[:2]+'00'
+		 if move.counter_account[:2] in ['23','33']:
+                      acc = move.counter_account[:2]+'00'
+		 else:
+	              acc =  move.counter_account
+
                  account_ids= self.pool.get('account.account').search(cr,uid,[('company_id','=',move.company_id.id),('code','=',acc)])
                  if len(account_ids):
                      result[move.id] = account_ids[0]
