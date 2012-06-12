@@ -230,11 +230,17 @@ class chricar_account_move_line_deloitte(osv.osv):
 
          _logger.debug('FGF account deloitte ids %s' % (acc_deloitte_ids))
          acc_deloitte_codes = []
+
          for deloitte_acc in  self.browse(cr, uid, acc_deloitte_ids, context=None):
+           das = [deloitte_acc.account, deloitte_acc.counter_account]
+           for da in das:
+	     if len(da)<4
+	        da = '0'+da
 	     if deloitte_acc.account[:2] not in ['23','33'] \
-			     and deloitte_acc.account not in acc_codes \
-			     and deloitte_acc.account not in acc_deloitte_codes:
+			     and da not in acc_codes \
+			     and da not in acc_deloitte_codes:
                  acc_deloitte_codes.append(deloitte_acc.account)
+             
          _logger.debug('FGF missing acc_deloitte_codes %s' % (acc_deloitte_codes))
          
          counter= 0
@@ -286,6 +292,13 @@ class chricar_account_move_line_deloitte(osv.osv):
               vals = {}
 	      if not deloitte_move.account_id and deloitte_move.account[:2] not in ['23','33']:
                    vals['account_id'] =  account_obj.search(cr, uid, [('company_id','=',company_id),('code','=', deloitte_move.account)])
+		   if not  vals['account_id'] and len(deloitte_move.account)< 4:
+                        vals['account_id'] =  account_obj.search(cr, uid, [('company_id','=',company_id),('code','=', '0'+deloitte_move.account)])
+	      if not deloitte_move.counter_account_id and deloitte_move.counter_account[:2] not in ['23','33']:
+                   vals['caounter_account_id'] =  account_obj.search(cr, uid, [('company_id','=',company_id),('code','=', deloitte_move.counter_account)])
+		   if not  vals['counter_account_id'] and len(deloitte_move.counter_account)<4:
+                        vals['counter_account_id'] =  account_obj.search(cr, uid, [('company_id','=',company_id),('code','=', '0'+deloitte_move.counter_account)])
+		 
               if deloitte_move.analytic_account and not deloitte_move.analytic_account_id:
                    vals['analytic_account_id'] =  analytic_obj.search(cr, uid, [('company_id','=',company_id),('code','=', deloitte_move.analytic_account)])
               if vals:
