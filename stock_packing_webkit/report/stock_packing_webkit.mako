@@ -32,7 +32,7 @@
          <td style="width:50% ;min-height:100px;">
 ${_("Shipping Address")}   
 <hr>
-${pick.address_id.address_label|carriage_returns}
+${pick.address_id.address_label|carriage_returns or ''}
          </td>
          <td style="width:50%">
          %if pick.address_id.phone :
@@ -49,7 +49,7 @@ ${_("VAT")}: ${pick.partner_id and pick.partner_id.vat or pick.address_id.partne
         %endif
 %if pick.address_id and pick.sale_id and pick.sale_id.partner_order_id and pick.address_id.address_label != pick.sale_id.partner_order_id.address_label:
         <b>${_("Ordering Contact")}</b><br>
-        ${pick.sale_id.partner_order_id.address_label|carriage_returns}
+        ${pick.sale_id.partner_order_id.address_label|carriage_returns or ''}
 %endif
 
          </td>
@@ -74,14 +74,14 @@ ${_("VAT")}: ${pick.partner_id and pick.partner_id.vat or pick.address_id.partne
         %endif
 %if pick.address_id and pick.sale_id and pick.sale_id.partner_order_id and pick.address_id.address_label != pick.sale_id.partner_order_id.address_label:
         <b>${_("Ordering Contact")}</b><br>
-        ${pick.sale_id.partner_order_id.address_label|carriage_returns}
+        ${pick.sale_id.partner_order_id.address_label|carriage_returns or ''}
 %endif
 
          </td>
          <td style="width:50%">
 ${_("Shipping Address")}
 <hr>
-${pick.address_id.address_label|carriage_returns}
+${pick.address_id.address_label|carriage_returns or ''}
          </td>
         </tr>
         %endif
@@ -252,7 +252,7 @@ ${pick.address_id.address_label|carriage_returns}
            <td style="white-space:nowrap;text-align:left;">${line.product_packaging.ean or line.product_id.ean13 or ''}</td>
 %endif
 %if pick.print_lot:
-           <td style="white-space:normal;text-align:left;">${line.prodlot_id.prefix or ''}${line.prodlot_id.prefix and '-'}${line.prodlot_id.name or '' }</td>
+           <td style="white-space:normal;text-align:left;">${line.prodlot_id.prefix or ''}${line.prodlot_id.prefix and '-' or ''}${line.prodlot_id.name or '' }</td>
 %endif
 %if pick.print_packing:
            <td style="white-space:normal;text-align:left;">${line.product_packaging.qty and line.product_qty/line.product_packaging.qty or ''}</td>
