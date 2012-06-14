@@ -32,7 +32,7 @@
          <td style="width:50% ;min-height:100px;">
 ${_("Shipping Address")}   
 <hr>
-${pick.address_id.address_label|carriage_returns or ''}
+${pick.address_id and pick.address_id.address_label|carriage_returns or ''}
          </td>
          <td style="width:50%">
          %if pick.address_id.phone :
@@ -81,7 +81,7 @@ ${_("VAT")}: ${pick.partner_id and pick.partner_id.vat or pick.address_id.partne
          <td style="width:50%">
 ${_("Shipping Address")}
 <hr>
-${pick.address_id.address_label|carriage_returns or ''}
+${pick.address_id and pick.address_id.address_label|carriage_returns or ''}
          </td>
         </tr>
         %endif
