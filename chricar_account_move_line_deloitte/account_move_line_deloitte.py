@@ -320,7 +320,7 @@ class chricar_account_move_line_deloitte(osv.osv):
          l['journal_id'] = vals['journal_id']
          l['state'] = 'draft'
          l['date'] = vals['date']
-         #l['period_id'] = vals['period_id']
+         l['period_id'] = vals['period_id']
          l['move_id'] = context['move_id']
          analytic_usage = ''
          #_logger.info('FGF move_line = %s' % (l))
@@ -391,9 +391,9 @@ class chricar_account_move_line_deloitte(osv.osv):
          context['journal_analytic_id'] = journal_analytic_id
  
 	 to_post = []
-         cr.execute("""select  company_id, period_id, symbol||'-'||name||'-D' as name, max(date)
+         cr.execute("""select  distinct company_id, period_id, symbol||'-'||name||'-D' as name, date
                   from chricar_account_move_line_deloitte
-                 where id in (%s) group by 1,2,3 """ % (','.join(map(str,acc_deloitte_ids)) ))
+                 where id in (%s)  """ % (','.join(map(str,acc_deloitte_ids)) ))
          period_ids = [] 
          for move in cr.dictfetchall():
              vals = dict(move)
@@ -414,12 +414,16 @@ class chricar_account_move_line_deloitte(osv.osv):
              #_logger.info('FGF move vals %s' % (vals))
 	     c = {}
 	     c['novalidate'] = True
-             move_id = move_obj.create(cr, uid, vals,  c )
+             # moves_lines from ONE move may have different dates
+             _logger.debug('FGF move_id before %s', vals  )
+             move_id = move_obj.search(cr,uid, [('company_id','=',vals['company_id']), ('period_id','=',vals['period_id']), ('name','=',vals['name']) ])
+             if not move_id:
+                move_id = move_obj.create(cr, uid, vals,  c )
 	     to_post.append(move_id)
              #move_id = super(account_move, self).create(cr, uid, vals, {} )
              context['move_id'] = move_id 
              vals['move_id'] = move_id 
-             #_logger.info('FGF move_id = %s' % (move_id))
+             _logger.debug('FGF move_id = %s' % (move_id))
              # FGF 20120304 - this code is copied from a 2 years old working sql procedure !
              # writing in python from scratch would look much different
              cr.execute("""
