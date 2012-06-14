@@ -320,7 +320,7 @@ class chricar_account_move_line_deloitte(osv.osv):
          l['journal_id'] = vals['journal_id']
          l['state'] = 'draft'
          l['date'] = vals['date']
-         l['period_id'] = vals['period_id']
+         #l['period_id'] = vals['period_id']
          l['move_id'] = context['move_id']
          analytic_usage = ''
          #_logger.info('FGF move_line = %s' % (l))
@@ -391,9 +391,9 @@ class chricar_account_move_line_deloitte(osv.osv):
          context['journal_analytic_id'] = journal_analytic_id
  
 	 to_post = []
-         cr.execute("""select distinct company_id, period_id, symbol||'-'||name||'-D' as name, date
+         cr.execute("""select  company_id, period_id, symbol||'-'||name||'-D' as name, max(date)
                   from chricar_account_move_line_deloitte
-                 where id in (%s)""" % (','.join(map(str,acc_deloitte_ids)) ))
+                 where id in (%s) group by 1,2,3 """ % (','.join(map(str,acc_deloitte_ids)) ))
          period_ids = [] 
          for move in cr.dictfetchall():
              vals = dict(move)
