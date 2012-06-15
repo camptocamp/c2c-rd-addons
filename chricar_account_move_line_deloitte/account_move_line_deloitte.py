@@ -417,7 +417,9 @@ class chricar_account_move_line_deloitte(osv.osv):
              # moves_lines from ONE move may have different dates
              _logger.debug('FGF move_id before %s', vals  )
              move_id = move_obj.search(cr,uid, [('company_id','=',vals['company_id']), ('period_id','=',vals['period_id']), ('name','=',vals['name']) ])
-             if not move_id:
+             if move_id:
+                continue
+             else:
                 move_id = move_obj.create(cr, uid, vals,  c )
 	     to_post.append(move_id)
              #move_id = super(account_move, self).create(cr, uid, vals, {} )
