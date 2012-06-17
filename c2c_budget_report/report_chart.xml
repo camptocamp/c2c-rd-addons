@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <report
+      auto="False"
+      file="c2c_budget_report/report/report_c2c_budget_item.mako"
+      id="report_c2c_budget_item_chart"
+      model="c2c_budget.item"
+      name="report.c2c_budget.item.chart"
+      report_type="webkit"
+      string="Budget Item Chart Webkit"/>
+  </data>
+</openerp>
+

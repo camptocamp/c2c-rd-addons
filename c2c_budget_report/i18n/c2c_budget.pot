@@ -1,0 +1,527 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* c2c_budget
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 6.1rc1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-01-23 22:03+0000\n"
+"PO-Revision-Date: 2012-01-23 22:03+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: c2c_budget
+#: field:c2c_budget.version,name:0
+msgid "Version Name"
+msgstr ""
+
+#. module: c2c_budget
+#: code:addons/c2c_budget/report/budget_vs_reality.py:45
+#, python-format
+msgid "Budget Vs. Actual"
+msgstr ""
+
+#. module: c2c_budget
+#: model:ir.ui.menu,name:c2c_budget.menu_budget_c2c
+msgid "Budget c2c"
+msgstr ""
+
+#. module: c2c_budget
+#: constraint:c2c_budget.line:0
+msgid "The line's bugdet item must belong to the budget structure                 defined in the budget"
+msgstr ""
+
+#. module: c2c_budget
+#: selection:c2c_budget.item,style:0
+msgid "Bold"
+msgstr ""
+
+#. module: c2c_budget
+#: model:ir.actions.wizard,name:c2c_budget.action_validate_budget_structure
+#: model:ir.actions.wizard,name:c2c_budget.wizard_validate_budget_structure
+msgid "Validate Budget Structure"
+msgstr ""
+
+#. module: c2c_budget
+#: field:c2c_budget.item,company_id:0
+#: field:c2c_budget.version,company_id:0
+msgid "Company"
+msgstr ""
+
+#. module: c2c_budget
+#: constraint:account.period:0
+msgid "Error ! The duration of the Period(s) is/are invalid. "
+msgstr ""
+
+#. module: c2c_budget
+#: model:ir.actions.wizard,name:c2c_budget.wizard_budget_by_period
+msgid "Budget By Periods"
+msgstr ""
+
+#. module: c2c_budget
+#: field:c2c_budget.version,user_id:0
+msgid "User In Charge"
+msgstr ""
+
+#. module: c2c_budget
+#: view:c2c_budget.version:0
+msgid "Budgets Versions"
+msgstr ""
+
+#. module: c2c_budget
+#: model:ir.model,name:c2c_budget.model_account_account
+msgid "Account"
+msgstr ""
+
+#. module: c2c_budget
+#: field:c2c_budget.item,level:0
+msgid "Level"
+msgstr ""
+
+#. module: c2c_budget
+#: view:c2c_budget:0
+#: field:c2c_budget,note:0
+#: view:c2c_budget.item:0
+#: field:c2c_budget.item,note:0
+#: view:c2c_budget.version:0
+#: field:c2c_budget.version,note:0
+msgid "Notes"
+msgstr ""
+
+#. module: c2c_budget
+#: view:c2c_budget.item:0
+#: model:ir.ui.menu,name:c2c_budget.menu_budget_item_list
+msgid "Budget Items"
+msgstr ""
+
+#. module: c2c_budget
+#: field:c2c_budget.line,amount:0
+msgid "Amount"
+msgstr ""
+
+#. module: c2c_budget
+#: field:c2c_budget.item,account:0
+msgid "Financial Account"
+msgstr ""
+
+#. module: c2c_budget
+#: constraint:c2c_budget:0
+msgid "Date Error: The end date is defined before the start date"
+msgstr ""
+
+#. module: c2c_budget
+#: constraint:account.account:0
+msgid "Error ! You can not create recursive accounts."
+msgstr ""
+
+#. module: c2c_budget
+#: view:c2c_budget.item:0
+#: field:c2c_budget.item,calculation:0
+msgid "Calculation"
+msgstr ""
+
+#. module: c2c_budget
+#: code:addons/c2c_budget/report/budget_by_period.py:43
+#, python-format
+msgid "Budget by Periods"
+msgstr ""
+
+#. module: c2c_budget
+#: field:c2c_budget.line,analytic_account_id:0
+#: model:ir.model,name:c2c_budget.model_account_analytic_account
+msgid "Analytic Account"
+msgstr ""
+
+#. module: c2c_budget
+#: constraint:account.account:0
+msgid "For views usage must be: Not Allowed"
+msgstr ""
+
+#. module: c2c_budget
+#: view:c2c_budget.item:0
+msgid "Accounts"
+msgstr ""
+
+#. module: c2c_budget
+#: constraint:account.account:0
+msgid "You must assign mandatory or fixed analytic account usage for P&L accounts"
+msgstr ""
+
+#. module: c2c_budget
+#: constraint:account.analytic.account:0
+msgid "Error! You can not create recursive analytic accounts."
+msgstr ""
+
+#. module: c2c_budget
+#: constraint:c2c_budget.line:0
+msgid "The line's period must overlap the budget's start or end dates"
+msgstr ""
+
+#. module: c2c_budget
+#: code:addons/c2c_budget/report/budget_by_period.py:95
+#, python-format
+msgid "Previous"
+msgstr ""
+
+#. module: c2c_budget
+#: field:c2c_budget,budget_item_id:0
+msgid "Budget Structure"
+msgstr ""
+
+#. module: c2c_budget
+#: sql_constraint:account.account:0
+msgid "The code of the account must be unique per company !"
+msgstr ""
+
+#. module: c2c_budget
+#: code:addons/c2c_budget/report/budget_by_period.py:119
+#, python-format
+msgid "Next"
+msgstr ""
+
+#. module: c2c_budget
+#: model:ir.actions.report.xml,name:c2c_budget.report_c2c_budget_tree_webkit
+msgid "Item Chart Webkit"
+msgstr ""
+
+#. module: c2c_budget
+#: field:c2c_budget.item,type:0
+msgid "Type"
+msgstr ""
+
+#. module: c2c_budget
+#: field:c2c_budget,create_date:0
+#: field:c2c_budget.version,create_date:0
+msgid "Creation Date"
+msgstr ""
+
+#. module: c2c_budget
+#: view:c2c_budget.item:0
+msgid "For item of type 'view', you can define a method of calculation based on other items."
+msgstr ""
+
+#. module: c2c_budget
+#: field:c2c_budget,budget_version_ids:0
+#: view:c2c_budget.version:0
+#: model:ir.ui.menu,name:c2c_budget.menu_budget_version_list
+msgid "Budget Versions"
+msgstr ""
+
+#. module: c2c_budget
+#: constraint:c2c_budget.item:0
+msgid "Error ! You can not create recursive                 budget items structure."
+msgstr ""
+
+#. module: c2c_budget
+#: view:c2c_budget:0
+msgid "Versions"
+msgstr ""
+
+#. module: c2c_budget
+#: view:c2c_budget:0
+#: field:c2c_budget.version,budget_id:0
+#: model:ir.model,name:c2c_budget.model_c2c_budget
+msgid "Budget"
+msgstr ""
+
+#. module: c2c_budget
+#: code:addons/c2c_budget/report/compare_versions.py:45
+#: model:ir.actions.wizard,name:c2c_budget.wizard_compare_versions
+#, python-format
+msgid "Versions Comparing"
+msgstr ""
+
+#. module: c2c_budget
+#: code:addons/c2c_budget/report/compare_versions.py:64
+#, python-format
+msgid "vs."
+msgstr ""
+
+#. module: c2c_budget
+#: view:c2c_budget.analytic_line:0
+msgid "Analytic Budget Lines"
+msgstr ""
+
+#. module: c2c_budget
+#: field:c2c_budget.item,balance_real:0
+msgid "Balance REAL"
+msgstr ""
+
+#. module: c2c_budget
+#: field:c2c_budget.line,currency_id:0
+#: field:c2c_budget.version,currency_id:0
+msgid "Currency"
+msgstr ""
+
+#. module: c2c_budget
+#: constraint:account.account:0
+msgid "You must define an analytic account for fixed, else nothing"
+msgstr ""
+
+#. module: c2c_budget
+#: model:ir.model,name:c2c_budget.model_c2c_budget_report_abstraction
+msgid "Report Abstraction"
+msgstr ""
+
+#. module: c2c_budget
+#: model:ir.actions.wizard,name:c2c_budget.wizard_budget_vs_reality
+msgid "Budget vs. Actual"
+msgstr ""
+
+#. module: c2c_budget
+#: view:c2c_budget.line:0
+#: view:c2c_budget.version:0
+#: field:c2c_budget.version,budget_line_ids:0
+#: model:ir.model,name:c2c_budget.model_c2c_budget_line
+#: model:ir.ui.menu,name:c2c_budget.menu_budget_line_list
+msgid "Budget Lines"
+msgstr ""
+
+#. module: c2c_budget
+#: constraint:account.account:0
+msgid "Configuration Error! \n"
+"You can not define children to an account with internal type different of \"View\"! "
+msgstr ""
+
+#. module: c2c_budget
+#: field:c2c_budget,start_date:0
+msgid "Start Date"
+msgstr ""
+
+#. module: c2c_budget
+#: field:c2c_budget.line,amount_in_budget_currency:0
+msgid "In Budget's Currency"
+msgstr ""
+
+#. module: c2c_budget
+#: field:c2c_budget.item,style:0
+msgid "Style"
+msgstr ""
+
+#. module: c2c_budget
+#: code:addons/c2c_budget/report/budget_consolidation.py:45
+#: model:ir.actions.wizard,name:c2c_budget.wizard_budget_consolidation
+#, python-format
+msgid "Budget Consolidation"
+msgstr ""
+
+#. module: c2c_budget
+#: model:ir.model,name:c2c_budget.model_c2c_budget_wizard_abstraction
+msgid "Wizard Abstraction"
+msgstr ""
+
+#. module: c2c_budget
+#: view:c2c_budget.item:0
+msgid "Budgets Items"
+msgstr ""
+
+#. module: c2c_budget
+#: selection:c2c_budget.item,style:0
+#: selection:c2c_budget.item,type:0
+msgid "Normal"
+msgstr ""
+
+#. module: c2c_budget
+#: view:c2c_budget.analytic_line:0
+#: view:c2c_budget.line:0
+#: view:c2c_budget.version:0
+msgid "Total Amount"
+msgstr ""
+
+#. module: c2c_budget
+#: field:c2c_budget,active:0
+#: field:c2c_budget.item,active:0
+msgid "Active"
+msgstr ""
+
+#. module: c2c_budget
+#: view:c2c_budget.item:0
+msgid "Here is a simple example: result=(%(ebitda)f+%(ebit)f)*2"
+msgstr ""
+
+#. module: c2c_budget
+#: code:addons/c2c_budget/report/budget_vs_reality.py:98
+#: code:addons/c2c_budget/report/budget_vs_reality.py:99
+#, python-format
+msgid "Actual"
+msgstr ""
+
+#. module: c2c_budget
+#: view:c2c_budget.item:0
+msgid "Start your formula by 'result=' and use standard math symbols with items codes surrounded by %()f . Items' codes will be replaced by items' values and then parsed in python code. So be sure to be python compilant."
+msgstr ""
+
+#. module: c2c_budget
+#: field:c2c_budget.version,ref_date:0
+msgid "Reference Date"
+msgstr ""
+
+#. module: c2c_budget
+#: field:c2c_budget.item,children_ids:0
+msgid "Children Items"
+msgstr ""
+
+#. module: c2c_budget
+#: view:c2c_budget:0
+#: model:ir.ui.menu,name:c2c_budget.menu_budget_list
+msgid "Budgets"
+msgstr ""
+
+#. module: c2c_budget
+#: model:ir.actions.wizard,name:c2c_budget.act_budgetlines_from_aa
+msgid "Open Budgets Lines"
+msgstr ""
+
+#. module: c2c_budget
+#: model:ir.ui.menu,name:c2c_budget.menu_budget_item_tree
+msgid "Budget Items Structures"
+msgstr ""
+
+#. module: c2c_budget
+#: model:ir.model,name:c2c_budget.model_c2c_budget_version
+msgid "Budget versions"
+msgstr ""
+
+#. module: c2c_budget
+#: field:c2c_budget,code:0
+#: field:c2c_budget.item,code:0
+#: field:c2c_budget.version,code:0
+msgid "Code"
+msgstr ""
+
+#. module: c2c_budget
+#: constraint:account.account:0
+msgid "Configuration Error! \n"
+"You can not select an account type with a deferral method different of \"Unreconciled\" for accounts with internal type \"Payable/Receivable\"! "
+msgstr ""
+
+#. module: c2c_budget
+#: model:ir.model,name:c2c_budget.model_c2c_budget_item
+msgid "Budget items"
+msgstr ""
+
+#. module: c2c_budget
+#: constraint:account.period:0
+msgid "Invalid period ! Some periods overlap or the date period is not in the scope of the fiscal year. "
+msgstr ""
+
+#. module: c2c_budget
+#: field:c2c_budget.line,period_id:0
+msgid "Period"
+msgstr ""
+
+#. module: c2c_budget
+#: view:c2c_budget.item:0
+msgid "Children"
+msgstr ""
+
+#. module: c2c_budget
+#: view:c2c_budget.item:0
+#: model:ir.actions.act_window,name:c2c_budget.open_budget_items_tree
+msgid "Budgets Structure"
+msgstr ""
+
+#. module: c2c_budget
+#: field:c2c_budget.item,parent_id:0
+msgid "Parent Item"
+msgstr ""
+
+#. module: c2c_budget
+#: code:addons/c2c_budget/report/budget_by_period.py:190
+#, python-format
+msgid "%"
+msgstr ""
+
+#. module: c2c_budget
+#: field:c2c_budget.line,name:0
+msgid "Description"
+msgstr ""
+
+#. module: c2c_budget
+#: field:c2c_budget.line,budget_version_id:0
+msgid "Budget Version"
+msgstr ""
+
+#. module: c2c_budget
+#: field:c2c_budget.item,balance_budget:0
+msgid "Balance Budget"
+msgstr ""
+
+#. module: c2c_budget
+#: model:ir.model,name:c2c_budget.model_account_period
+msgid "Account period"
+msgstr ""
+
+#. module: c2c_budget
+#: field:c2c_budget.line,budget_item_id:0
+msgid "Budget Item"
+msgstr ""
+
+#. module: c2c_budget
+#: selection:c2c_budget.item,style:0
+msgid "Invisible"
+msgstr ""
+
+#. module: c2c_budget
+#: model:ir.actions.act_window,name:c2c_budget.dblc_budget_structure
+msgid "Open Item"
+msgstr ""
+
+#. module: c2c_budget
+#: code:addons/c2c_budget/report/budget_by_period.py:165
+#: code:addons/c2c_budget/report/budget_consolidation.py:66
+#: code:addons/c2c_budget/report/budget_vs_reality.py:96
+#: code:addons/c2c_budget/report/compare_versions.py:67
+#, python-format
+msgid "Structure"
+msgstr ""
+
+#. module: c2c_budget
+#: field:c2c_budget,end_date:0
+msgid "End Date"
+msgstr ""
+
+#. module: c2c_budget
+#: field:c2c_budget,name:0
+#: field:c2c_budget.item,name:0
+msgid "Name"
+msgstr ""
+
+#. module: c2c_budget
+#: view:c2c_budget.item:0
+msgid "Reports"
+msgstr ""
+
+#. module: c2c_budget
+#: sql_constraint:account.period:0
+msgid "The name of the period must be unique per company!"
+msgstr ""
+
+#. module: c2c_budget
+#: selection:c2c_budget.item,type:0
+msgid "View"
+msgstr ""
+
+#. module: c2c_budget
+#: field:c2c_budget.item,sequence:0
+msgid "Sequence"
+msgstr ""
+
+#. module: c2c_budget
+#: model:ir.actions.wizard,name:c2c_budget.wizard_search_budget_lines
+#: model:ir.ui.menu,name:c2c_budget.menu_wizard_search_budget_lines
+msgid "Budget Lines Search"
+msgstr ""
+
+#. module: c2c_budget
+#: code:addons/c2c_budget/report/budget_by_period.py:125
+#: code:addons/c2c_budget/report/budget_consolidation.py:71
+#, python-format
+msgid "Total"
+msgstr ""
+
