@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_move_line_deloitte_delete" model="ir.ui.view">
+            <field name="name">chricar.account.move.line.deloitte.delete.form</field>
+            <field name="model">chricar.account.move.line.deloitte.delete</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Deloitte to Delete">
+                    <group colspan="4">
+                        <field name="fiscalyear" on_change="onchange_fiscalyear(fiscalyear)"/>
+                        <field name="delete_keep"/>
+                        <label align="0.7" colspan="4" string="Keep sets deloitte moves to draft, delete removes them"/>
+                        <separator string="Periods" colspan="4"/>
+                        <field name="period_from"/>
+                        <field name="period_to"/>
+                    </group>
+                    <separator string="" colspan="4"/>
+                    <group colspan="4" col="6">
+                        <button icon="gtk-cancel" special="cancel" string="Cancel"/>
+                        <button icon="terp-gtk-go-back-rtl" string="Delete Moves" name="button_delete" type="object"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="chricar_account_move_deloitte_delete_act" model="ir.actions.act_window">
+            <field name="name">Delete Posted Moves</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">chricar.account.move.line.deloitte.delete</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_move_line_deloitte_delete"/>
+            <field name="target">new</field>
+            <field name="multi">True</field>
+
+        </record>
+        <record model="ir.values" id="chricar_account_move_deloitte_delete">
+            <field name="model_id" ref="model_chricar_account_move_line_deloitte" />
+            <field name="name">Delete Postes Moves</field>
+            <field name="key2">client_action_multi</field>
+            <field name="value" eval="'ir.actions.act_window,' + str(ref('chricar_account_move_deloitte_delete_act'))" />
+            <field name="key">action</field>
+            <field name="model">chricar.account_move_line_deloitte</field>
+        </record>
+    </data>
+</openerp>
