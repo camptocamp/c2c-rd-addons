@@ -119,7 +119,7 @@ class c2c_budget_item(osv.osv):
                date2a = datetime.datetime.today() + relativedelta(months=+1)
                date2 = date2a.strftime('%Y-%m-%d')
                fiscalyear_pool = self.pool.get('account.fiscalyear')
-               fy_id = fiscalyear_pool.search(cr, uid, [('date_start','<=',date), ('date_stop','>=',date)])
+               fy_id = fiscalyear_pool.search(cr, uid, [('date_start','<=',date), ('date_stop','>=',date)],context=context)
                period_pool = self.pool.get('account.period')
                periods = period_pool.search(cr, uid, [('fiscalyear_id','in',fy_id), ('date_stop','<=',date2)])
 
@@ -179,9 +179,9 @@ class c2c_budget_item(osv.osv):
                             #FIXME Data error ?
                            try:
                                sums[current.id][fn] += sums[child.id][fn]
+                               print 'OK sums[current.id][fn] += sums[child.id][fn] %s %s' % ( current.id , child.id)
                            except:
-			       pass
-                        #       print ' sums[current.id][fn] += sums[child.id][fn]'
+                               print 'NOK sums[current.id][fn] += sums[child.id][fn] %s %s' % ( current.id , child.id)
                         #else:
                         #    sums[current.id][fn] += currency_obj.compute(cr, uid, child.company_id.currency_id.id, current.company_id.currency_id.id, sums[child.id][fn], context=context)
         res = {}
@@ -235,7 +235,7 @@ class c2c_budget_item(osv.osv):
                #date2 = (datetime.today() + relativedelta(months=+1)).strftime('%Y-%m-%d')
                #date2 = (datetime.today() + relativedelta(years=-1)).strftime('%Y-%m-%d')
                fiscalyear_pool = self.pool.get('account.fiscalyear')
-               fy_id = fiscalyear_pool.search(cr, uid, [('date_start','<=',date), ('date_stop','>=',date)])
+               fy_id = fiscalyear_pool.search(cr, uid, [('date_start','<=',date), ('date_stop','>=',date)],context=context)
                period_pool = self.pool.get('account.period')
                periods = period_pool.search(cr, uid, [('fiscalyear_id','in',fy_id),('date_stop','<=',date2)])
 
@@ -290,8 +290,7 @@ class c2c_budget_item(osv.osv):
                             try:
                                sums[current.id][fn] += sums[child.id][fn]
                             except:
-			       pass
-                        #       self._logger.debug('sums[current.id][fn] += sums[child.id][fn] `%s` `%s`', current.id, child.id)
+                               self._logger.debug('sums[current.id][fn] += sums[child.id][fn] `%s` `%s`', current.id, child.id)
                         #else:
                         #    sums[current.id][fn] += currency_obj.compute(cr, uid, child.company_id.currency_id.id, current.company_id.currency_id.id, sums[child.id][fn], context=context)
         res = {}
