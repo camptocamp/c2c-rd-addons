@@ -646,8 +646,15 @@ having sum(case when credit is null then 0 else credit end) != 0
                  #except:
                  #   raise osv.except_osv(_('Error :'), _('FGF Error neutralize %s %s') % (line, vals ))
 
-         
+           
          self.write(cr, uid, acc_deloitte_ids, {'state': 'done'} )
+	 # period_ids are stored incorrectly - no idea why
+         cr.execute("""
+	 update account_move_line l 
+	    set period_id = (select period_id from account_move m where m.id = l.move_id) 
+	  where period_id !=  (select period_id from account_move n where n.id = l.move_id) 
+	    and journal_id in (select id from account_journal where code like 'DE%');
+	 """)
 
          move_obj.button_validate(cr, uid, to_post, context)
          
