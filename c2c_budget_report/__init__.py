@@ -30,3 +30,4 @@
 import wizard
 import c2c_budget_item
 import report
+import c2c_budget_sequence
