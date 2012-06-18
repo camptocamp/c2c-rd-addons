@@ -2,7 +2,7 @@
 
 -- postgres tablefunc.sql must be loaded
 -- debian:  \i /usr/share/postgresql/8.4/contrib/tablefunc.sql
-
+/*
 create or replace function c2c_budget_sequence_company(company_id_i int )
    RETURNS void AS $$
    DECLARE
@@ -33,6 +33,9 @@ $$ LANGUAGE plpgsql;
 
 -- to start
 select  c2c_budget_sequence_company(company_id);
+*/
+
+create extension if not exists tablefunc;
  
 create or replace function c2c_budget_sequence()
    RETURNS void AS $$
