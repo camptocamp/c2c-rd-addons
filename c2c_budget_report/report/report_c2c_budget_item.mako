@@ -27,11 +27,9 @@ Selection:
   <table>
             <tr>
             <td>current year: ${context['data']['form']['period_from_name']} - ${context['data']['form']['period_to_name']}</td>
-<!-- not yet defined
-            <td>previous year: ${context['data']['form']['period_prev_from_name']} - ${context['data']['form']['period_prev_to_name']}</td>
--->
-%if context['data']['form']['print_previous_1000'] == 1:
-            <td>previous year in 1000</td>
+            <td>budget year: ${context['data']['form']['period_budget_from_name']} - ${context['data']['form']['period_budget_to_name']}</td>
+%if context['data']['form']['print_budget_1000'] == 1:
+            <td>budget year in 1000</td>
 %endif
 %if form and context['data']['form']['print_views_only'] == 1:
             <td>print only views</td>
@@ -43,7 +41,7 @@ Selection:
   <table>
             <tr>
             <td>current: all posted</td>
-            <td>previous: year to current month </td>
+            <td>budget: year to current month </td>
             </tr>
   </table>
 %endif
@@ -62,9 +60,10 @@ Selection:
           <td>Chapter</td>
           <td>Code</td>
           <td>Name</td>
-          <td align="right">Balance Budget</td>
           <td align="right">Balance Real</td>
+          <td align="right">Balance Budget</td>
           <td align="right">Real - Budget</td>
+          <td align="right">Diff %</td>
         </tr>
       </thead>
 
@@ -88,9 +87,14 @@ Selection:
               %if account.type == 'view' :
                 </b>
               %endif
-          <td align=right NOWRAP>${formatLang(account.balance_budget)  or ''|entity} </td>
           <td align=right NOWRAP>${formatLang(account.balance_real) or ''|entity} </td>
+          <td align=right NOWRAP>${formatLang(account.balance_budget)  or ''|entity} </td>
           <td align=right NOWRAP>${formatLang(account.balance_real-account.balance_budget) or ''|entity} </td>
+ %if account.balance_budget != 0 :
+          <td align=right NOWRAP>${formatLang((account.balance_real-account.balance_budget)*100/account.balance_budget ) or ''|entity} </td>
+ %else:
+          <td align=right NOWRAP>${_('NA')} </td>
+ %endif
         </tr>
         %endif
       </tbody>

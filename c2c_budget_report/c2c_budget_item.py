@@ -229,8 +229,8 @@ class c2c_budget_item(osv.osv):
             #    wheres.append(aml_query.strip())
             #filters = " AND ".join(wheres)
             #filters = ' AND period_id in ( select id from account_period where fiscalyear_id = %s ) ' % context.get('fiscalyear', False)
-            if context.get('periods', False):
-                periods = context.get('periods', False)
+            if context.get('periods_budget', False):
+                periods = context['periods_budget']
             else:
                # default if startet without form
                date = time.strftime('%Y-%m-%d')

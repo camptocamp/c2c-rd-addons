@@ -51,18 +51,19 @@ class budget_item_chart(osv.osv_memory):
                                     required=True),
         'period_from': fields.many2one('account.period', 'Start period'),
         'period_to': fields.many2one('account.period', 'End period'),
-        'period_prev_from': fields.many2one('account.period', 'Start period prev FY'),
-        'period_prev_to': fields.many2one('account.period', 'End period prev FY'),
+        'period_budget_from': fields.many2one('account.period', 'Start period budget FY'),
+        'period_budget_to': fields.many2one('account.period', 'End period budget FY'),
         'print_all_zero': fields.boolean('Print lines with all zero'),
         'print_chapter' : fields.boolean('Print chapter column'),
         'print_opening_dc' : fields.boolean('Print opening balance, debit and credit columns'),
         'print_views_only' : fields.boolean('Print only accounts of type view'),
-
-        'print_previous_1000' : fields.boolean('Print previous balance in 1000'),
+        'print_budget_1000' : fields.boolean('Print budget balance in 1000'),
+        'calc_sequence' : fields.boolean('Recalculate Budget Item Sequence (Sort by Code)'),
     }
     _defaults = {
        'print_chapter': lambda *a: True,
        'print_opening_dc': lambda *a: True,
+       'calc_sequence': lambda *a: True,
         }
 
     
@@ -93,41 +94,11 @@ class budget_item_chart(osv.osv_memory):
             if periods and len(periods) > 1:
                 start_period = periods[0]
                 end_period = periods[1]
-                res['value'] = {'period_from': start_period, 'period_to': end_period}
 
-            cr.execute('''
-                SELECT * FROM (SELECT p.id
-                               FROM account_period p,
-                                    account_fiscalyear f, 
-                                    account_fiscalyear pf 
-                               WHERE f.id = %s
-                                 AND pf.date_stop = f.date_start -1
-                                 AND p.fiscalyear_id = pf.id
-				 AND f.company_id = p.company_id
-				 AND pf.company_id = p.company_id
-                               ORDER BY p.date_start ASC
-                               LIMIT 1) AS period_prev_start
-                UNION ALL
-                SELECT * FROM (SELECT p.id
-                               FROM account_period p,
-                                    account_fiscalyear f, 
-                                    account_fiscalyear pf 
-                               WHERE f.id = %s
-                                 AND pf.date_stop = f.date_start -1
-                                 AND p.fiscalyear_id = pf.id
-				 AND f.company_id = p.company_id
-				 AND pf.company_id = p.company_id
-                               ORDER BY p.date_stop desc 
-                               LIMIT 1) AS period_prev_start
-                               ''', (fiscalyear_id, fiscalyear_id, ))
-            periods_prev =  [i[0] for i in cr.fetchall()]
-            if periods_prev and len(periods_prev) > 1:
-                start_prev_period = periods_prev[0]
-                end_prev_period = periods_prev[1]
                 res['value'] = {'period_from': start_period, 
                                 'period_to'  : end_period,
-                                'period_prev_from': start_prev_period, 
-                                'period_prev_to'  : end_prev_period, 
+                                'period_budget_from': start_period, 
+                                'period_budget_to'  : end_period, 
                                }
         return res
 
@@ -147,7 +118,10 @@ class budget_item_chart(osv.osv_memory):
         if context is None:
             context = {}
         data = self.read(cr, uid, ids, [], context=context)[0]
-
+	if data['calc_sequence']:
+	   cr.execute("""
+	     select  c2c_budget_sequence();
+	   """)
         self._logger.debug('open `%s` `%s` `%s`', context.get('open'), data['period_from'][0],  data['period_to'][0])
         if context.get('open')  == 'view':
             result = mod_obj.get_object_reference(cr, uid, 'c2c_budget', 'open_budget_items_tree')
@@ -164,17 +138,18 @@ class budget_item_chart(osv.osv_memory):
         if data['period_from'] and data['period_to']:
             result['periods'] = period_obj.build_ctx_periods(cr, uid, data['period_from'][0], data['period_to'][0])
             result['context'] = str({'fiscalyear': data['fiscalyear'][0], 'periods': result['periods']  })
-        if data['period_prev_from'] and data['period_prev_to']:
-            result['periods_prev'] = period_obj.build_ctx_periods(cr, uid, data['period_prev_from'][0], data['period_prev_to'][0])
-            if result['periods_prev']:
+        if data['period_budget_from'] and data['period_budget_to']:
+            result['periods_budget'] = period_obj.build_ctx_periods(cr, uid, data['period_budget_from'][0], data['period_budget_to'][0])
+            if result['periods_budget']:
                 result['context'] = str({'fiscalyear': data['fiscalyear'][0], 
                                 'chart_account_id' : data['chart_account_id'][0],
-                                'periods': result['periods'], 'periods_prev' : result['periods_prev'] ,
+                                'periods': result['periods'], 
+				'periods_budget' : result['periods_budget'] ,
                                 'print_all_zero'  : data['print_all_zero'],
                                 'print_chapter'   : data['print_chapter'],
                                 'print_opening_dc': data['print_opening_dc'],
                                 'print_views_only': data['print_views_only'],
-                                'print_previous_1000'   : data['print_previous_1000'],
+                                'print_budget_1000'   : data['print_budget_1000'],
                                 })
 
         if data['fiscalyear']:
@@ -184,10 +159,10 @@ class budget_item_chart(osv.osv_memory):
         if data['period_to']:
             result['name'] += '-' + period_obj.read(cr, uid, [data['period_to'][0]], context=context)[0]['code'] 
 
-        if data['period_prev_from']:
-            result['name'] += ' ' + period_obj.read(cr, uid, [data['period_prev_from'][0]], context=context)[0]['code'] 
-        if data['period_prev_to']:
-            result['name'] += '-' + period_obj.read(cr, uid, [data['period_prev_to'][0]], context=context)[0]['code'] 
+        if data['period_budget_from']:
+            result['name'] += ' ' + period_obj.read(cr, uid, [data['period_budget_from'][0]], context=context)[0]['code'] 
+        if data['period_budget_to']:
+            result['name'] += '-' + period_obj.read(cr, uid, [data['period_budget_to'][0]], context=context)[0]['code'] 
         return result
 
      
@@ -208,16 +183,16 @@ class budget_item_chart(osv.osv_memory):
         period_obj = self.pool.get('account.period')
         data.update({'period_from_name' :  period_obj.read(cr, uid, [data['period_from'][0]], context=context)[0]['code']})
         data.update({'period_to_name' :  period_obj.read(cr, uid, [data['period_to'][0]], context=context)[0]['code']})
-        data.update({'period_prev_from_name' :  period_obj.read(cr, uid, [data['period_prev_from'][0]], context=context)[0]['code'] or ''})
-        data.update({'period_prev_to_name' :  period_obj.read(cr, uid, [data['period_prev_to'][0]], context=context)[0]['code'] or ''})
+        data.update({'period_budget_from_name' :  period_obj.read(cr, uid, [data['period_budget_from'][0]], context=context)[0]['code'] or ''})
+        data.update({'period_budget_to_name' :  period_obj.read(cr, uid, [data['period_budget_to'][0]], context=context)[0]['code'] or ''})
 
         if data['period_from'] and data['period_to']:
             periods = period_obj.build_ctx_periods(cr, uid, data['period_from'][0], data['period_to'][0])
             context.update({'fiscalyear': data['fiscalyear'], 'periods': periods  })
 
-        if data['period_prev_from'] and data['period_prev_to']:
-            periods_prev = period_obj.build_ctx_periods(cr, uid, data['period_prev_from'][0], data['period_prev_to'][0])
-            context.update({'periods_prev': periods_prev  })
+        if data['period_budget_from'] and data['period_budget_to']:
+            periods_budget = period_obj.build_ctx_periods(cr, uid, data['period_budget_from'][0], data['period_budget_to'][0])
+            context.update({'periods_budget': periods_budget  })
 
         # get ids
         item_obj = self.pool.get('c2c_budget.item')
