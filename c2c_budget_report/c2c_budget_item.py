@@ -125,6 +125,8 @@ class c2c_budget_item(osv.osv):
 
             # FIXME - tuple must not return ',' if only one period is available - period_id in ( p,) should be period_id in ( p )
             filters = ' AND period_id in (%s) ' % (','.join(map(str,periods)) )
+	    company_id = self.pool.get('res.users').browse(cr, uid, uid, context=context).company_id.id
+	    filters += ' AND l.company_id = %s ' % ( company_id)
             # IN might not work ideally in case there are too many
             # children_and_consolidated, in that case join on a
             # values() e.g.:
@@ -177,6 +179,7 @@ class c2c_budget_item(osv.osv):
                     for child in current.children_ids:
                         #if child.company_id.currency_id.id == current.company_id.currency_id.id:
                             #FIXME Data error ?
+			    # sums include only lines with postings, where as current inćluds all accounts
                            try:
                                sums[current.id][fn] += sums[child.id][fn]
                                print 'OK sums[current.id][fn] += sums[child.id][fn] %s %s' % ( current.id , child.id)
@@ -241,6 +244,10 @@ class c2c_budget_item(osv.osv):
 
             # FIXME - tuple must not return ',' if only one period is available - period_id in ( p,) should be period_id in ( p )
             filters = ' AND period_id in (%s) ' % (','.join(map(str,periods)) )
+	    #filters += ' AND company_id = %s ' % ( context['company_id']
+	    # FIXME - how to get budget_Versionid
+	    budget_version_id = 50
+	    filters += ' AND budget_version_id = %s ' % ( budget_version_id )
             self._logger.error('periods FGF: %s %s', periods, tuple(periods))
             # IN might not work ideally in case there are too many
             # children_and_consolidated, in that case join on a
