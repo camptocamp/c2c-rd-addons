@@ -37,7 +37,7 @@ Budget Module:
 
 """
 , "depends" : 
-    [ "c2c_budget"
+    [ "c2c_budget","chricar_account_period_sum",
     ]
 , "init_xml" : []
 , "update_xml" : 
