@@ -29,18 +29,20 @@
     <table >
         %if order.company_id.address_label_position == 'left':
          <tr>
-         <td style="width:50%">
-${_("Shipping Address")}   
-<hr>
-           <pre>
-${order.dest_address_id.address_label}
-           <pre>
+         <td style="width:50%"> 
+             ${order.partner_address_id.address_label |carriage_returns }
          </td>
+
          <td style="width:50%">
-         %if order.partner_address_id.address_label != order.dest_address_id.address_label:
-<b>${_("Ordering Contact")}</b><br>
-${order.partner_address_id.address_label|carriage_returns}
+         %if order.dest_address_id and order.dest_address_id.address_label:
+           <b> ${_("Shipping Address")}</b><br>
+         
+            ${order.dest_address_id.address_label |carriage_returns }
+            <br>
          %endif
+
+<b>${_("Ordering Contact")}</b><br>
+         
          %if order.partner_address_id.phone :
 ${_("Phone")}: ${order.partner_id.phone|entity} <br>
         %endif
@@ -50,19 +52,11 @@ ${_("Fax")}: ${order.partner_address_id.fax|entity} <br>
         %if order.partner_address_id.email :
 ${_("Mail")}: ${order.partner_address_id.email|entity} <br>
         %endif
-         %if order.partner_address_id.address_label != order.dest_address_id.address_label:
-<br>
-<b>${_("Invoice Address")}</b><br>
-${order.partner_address_id.address_label|carriage_returns}
-         %endif
-        %if order.partner_address_id.partner_id.vat :
-${_("VAT")}: ${order.partner_address_id.partner_id.vat|entity} <br>
-        %endif
-   
+
          </td>
 
         </tr>
-        %endif
+        %endif 
 
         %if order.company_id.address_label_position == 'right' or not order.company_id.address_label_position:
          <tr>
@@ -118,7 +112,9 @@ ${order.partner_shipping_id.address_label}
             <td>${_("Reference")}</td>
           %endif
             <td style="white-space:nowrap">${_("Order Date")}</td>
-
+          %if order.payment_term :
+            <td style="white-space:nowrap">${_("Payment Term")}</td>
+          %endif
             <td style="white-space:nowrap">${_("Curr")}</td>
         </tr>
         <tr>
@@ -127,11 +123,13 @@ ${order.partner_shipping_id.address_label}
                ${order.client_order_ref}
             </td>
             %endif
-             <td>
             %if order.date_order:
+             <td>
                ${order.date_order or ''}</td>
             %endif
-
+            %if order.payment_term :
+               <td>${order.payment_term.name}</td>
+            %endif
             <td style="white-space:nowrap">${order.pricelist_id.currency_id.name} </td>
     </table>
     <h1><br /></h1>

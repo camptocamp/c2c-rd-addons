@@ -76,6 +76,7 @@ class purchase_order(osv.osv):
 
 
     _columns = {
+   	      'payment_term': fields.many2one('account.payment.term', 'Payment Term'),
               'print_uom': fields.function(_print_uom, method=True, type='boolean', string='Print UoM if different from UoS',),
               'print_ean': fields.function(_print_ean, method=True, type='boolean', string='Print EAN if available',),
               'print_code': fields.function(_print_code, method=True, type='boolean', string='Print code if available',),
@@ -99,3 +100,17 @@ class purchase_order(osv.osv):
 
 
 purchase_order()
+
+class res_partner(osv.osv):
+    _inherit = 'res.partner'
+    _columns = {
+        'property_payment_term_supplier': fields.property(
+            'account.payment.term',
+            type='many2one',
+            relation='account.payment.term',
+            string ='Supplier Payment Term',
+            view_load=True,
+            help="This payment term will be used instead of the default one for the current partner as supplier"),
+      }
+
+res_partner()
