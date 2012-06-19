@@ -206,7 +206,7 @@ msgstr "Referenz"
 #: report:addons/purchase_order_webkit/report/purchase_order.mako:116
 #: field:purchase.order,payment_term:0
 msgid "Payment Term"
-msgstr "Zahlungs Kondotion"
+msgstr "Zahlungs Kondition"
 
 #. module: purchase_order_webkit
 #: model:ir.actions.report.xml,name:purchase_order_webkit.purchaser_order_webkit
