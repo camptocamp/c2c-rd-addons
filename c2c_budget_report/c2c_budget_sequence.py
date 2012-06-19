@@ -37,9 +37,17 @@ class c2c_budget_item(osv.osv):
     _inherit = "c2c_budget.item"
 
     def init(self, cr):
-       cr.execute("""
+       # this is copied from a working solution
+       # should be rewritten in python
+       # FIXME - this works only on potgresql 9.1 upwards	    
+       try:
+          cr.execute("""
           create extension if not exists tablefunc;
           """)
+       except:
+	  # must be created manualy using - replace version and path !!!
+	  # \i /usr/share/postgresql/8.4/contrib/tablefunc.sql
+	  pass
 
        cr.execute("""
 create or replace function c2c_budget_sequence()
