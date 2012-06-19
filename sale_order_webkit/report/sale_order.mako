@@ -245,17 +245,17 @@ ${line.product_id.name or line.name|entity}
             <tr>
                 <td colspan="${order.cols}" style="border-style:none"/>
                 <td style="border-top: 2px solid"><b>${_("Net Total:")}</b></td>
-                <td class="amount" style="border-top:2px solid;">${formatLang(order.amount_untaxed, get_digits(dp='Sale Price'))} </td>
+                <td class="amount"  style="border-top:2px solid;text-align:right;">${formatLang(order.amount_untaxed, get_digits(dp='Sale Price'))} </td>
             </tr>
             <tr>
                 <td colspan="${order.cols}" style="border-style:none"/>
                 <td style="border-style:none"><b>${_("Taxes:")}</b></td>
-                <td class="amount">${formatLang(order.amount_tax, get_digits(dp='Sale Price'))} </td>
+                <td class="amount" style="text-align:right;">${formatLang(order.amount_tax, get_digits(dp='Sale Price'))} </td>
             </tr>
             <tr>
                 <td colspan="${order.cols}" style="border-style:none"/>
                 <td style="border-top:2px solid"><b>${_("Total:")}</b></td>
-                <td class="amount" style="border-top:2px solid;">${formatLang(order.amount_total, get_digits(dp='Sale Price'))} </td>
+                <td class="amount" style="border-top:2px solid;text-align:right;">${formatLang(order.amount_total, get_digits(dp='Sale Price'))} </td>
             </tr>
         </tfoot>
 

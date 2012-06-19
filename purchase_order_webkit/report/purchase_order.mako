@@ -27,6 +27,7 @@
 <br>
     <% setLang(order.partner_id.lang) %>
     <table >
+    
         %if order.company_id.address_label_position == 'left':
          <tr>
          <td style="width:50%"> 
@@ -57,41 +58,35 @@ ${_("Mail")}: ${order.partner_address_id.email|entity} <br>
 
         </tr>
         %endif 
-
         %if order.company_id.address_label_position == 'right' or not order.company_id.address_label_position:
          <tr>
          <td style="width:50%">
-         %if order.partner_order_id.address_label != order.partner_shipping_id.address_label:
-<b>${_("Ordering Contact")}</b><br>
-${order.partner_order_id.address_label|carriage_returns}
-        %endif
-         %if order.partner_order_id.phone :
-${_("Tel")}: ${order.partner_order_id.phone|entity} <br>
-        %endif
-        %if order.partner_order_id.fax :
-${_("Fax")}: ${order.partner_order_id.fax|entity} <br>
-        %endif
-        %if order.partner_order_id.email :
-${_("E-mail")}: ${order.partner_order_id.email|entity} <br>
-        %endif
-         %if order.partner_invoice_id.address_label != order.partner_shipping_id.address_label:
-<br>
-<b>${_("Invoice Address")}</b><br>
-${order.partner_invoice_id.address_label|carriage_returns}
+         %if order.dest_address_id and order.dest_address_id.address_label:
+           <b> ${_("Shipping Address")}</b><br>
+            ${order.dest_address_id.address_label |carriage_returns }
+           <br>
          %endif
-        %if order.partner_invoice_id.partner_id.vat :
-${_("VAT")}: ${order.partner_invoice_id.partner_id.vat|entity} <br>
+
+<b>${_("Ordering Contact")}</b><br>
+
+         %if order.partner_address_id.phone :
+${_("Phone")}: ${order.partner_id.phone|entity} <br>
+        %endif
+        %if order.partner_address_id.fax :
+${_("Fax")}: ${order.partner_address_id.fax|entity} <br>
+        %endif
+        %if order.partner_address_id.email :
+${_("Mail")}: ${order.partner_address_id.email|entity} <br>
         %endif
 
          </td>
+
          <td style="width:50%">
-${_("Shipping Address")}
-<hr>
-           <pre>
-${order.partner_shipping_id.address_label}
-           <pre>
+             ${order.partner_address_id.address_label |carriage_returns }
          </td>
+
         </tr>
+        
         %endif
     </table>
 
@@ -123,7 +118,7 @@ ${order.partner_shipping_id.address_label}
         </tr>
         <tr>
             %if order.partner_ref:
-               <td>${order.client_order_ref}</td>
+               <td>${order.partner_ref}</td>
             %endif
             %if order.date_order:
                <td>${order.date_order or ''}</td>
@@ -195,17 +190,17 @@ ${line.product_id.name or line.name|entity}
             <tr>
                 <td colspan="${order.cols}" style="border-style:none"/>
                 <td style="border-top: 2px solid"><b>${_("Net Total:")}</b></td>
-                <td class="amount" style="border-top:2px solid;">${formatLang(order.amount_untaxed, get_digits(dp='Sale Price'))} </td>
+                <td class="amount" style="border-top:2px solid;text-align:right;">${formatLang(order.amount_untaxed, get_digits(dp='Sale Price'))} </td>
             </tr>
             <tr>
                 <td colspan="${order.cols}" style="border-style:none"/>
                 <td style="border-style:none"><b>${_("Taxes:")}</b></td>
-                <td class="amount">${formatLang(order.amount_tax, get_digits(dp='Sale Price'))} </td>
+                <td class="amount" style="text-align:right;">${formatLang(order.amount_tax, get_digits(dp='Sale Price'))} </td>
             </tr>
             <tr>
                 <td colspan="${order.cols}" style="border-style:none"/>
                 <td style="border-top:2px solid"><b>${_("Total:")}</b></td>
-                <td class="amount" style="border-top:2px solid;">${formatLang(order.amount_total, get_digits(dp='Sale Price'))} </td>
+                <td class="amount" style="border-top:2px solid;text-align:right;">${formatLang(order.amount_total, get_digits(dp='Sale Price'))} </td>
             </tr>
         </tfoot>
 
