@@ -1,0 +1,19 @@
+<openerp>
+    <data>
+
+        <record id="view_order_line_sorted_form" model="ir.ui.view">
+        <field name="name">purchase.order.line.sorted.form</field>
+	<field name="model">purchase.order.line</field>
+        <field name="type">form</field>
+        <field name="inherit_id" ref="purchase.purchase_order_line_form"/>
+	<field name="arch" type="xml">
+		<xpath expr="/form/notebook/page[@string='History']" position="after">
+            <page string="Sorted Lines">
+		    <field colspan="4" name="order_line_sorted" nolabel="1" widget="one2many_list" readonly="1"/>
+	    </page>
+    </xpath>
+    </field>
+    </record>
+    </data>
+</openerp>
+        
