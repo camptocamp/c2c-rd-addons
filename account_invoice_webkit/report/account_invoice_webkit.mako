@@ -38,26 +38,26 @@ ${_("Supplier Address")}
 %endif
 ${inv.address_invoice_id.address_label|carriage_returns}
          </td>
-         <td style="width:50%">
-<table {border:none} >
+         <td style="width:50%;padding:0px;">
+<table  style="padding:0px;" >
          %if inv.address_invoice_id.phone :
 <tr>
-<td> ${_("Phone")}</td><td> ${inv.address_invoice_id.phone|entity} </td
+<td style="border:none"> ${_("Phone")}</td><td style="border:none"> ${inv.address_invoice_id.phone|entity} </td
 </tr>
         %endif
         %if inv.address_invoice_id.fax :
 <tr>
-<td>${_("Fax")}</td><td> ${inv.address_invoice_id.fax|entity} </td>
+<td style="border:none">${_("Fax")}</td><td style="border:none"> ${inv.address_invoice_id.fax|entity} </td>
 </tr>
         %endif
         %if inv.address_invoice_id.email :
 <tr>
-<td>${_("Mail")}</td><td>${inv.address_invoice_id.email|entity} </td>
+<td style="border:none">${_("Mail")}</td><td style="border:none">${inv.address_invoice_id.email|entity} </td>
 </tr>
         %endif
         %if inv.partner_id.vat :
 <tr>
-<td>${_("VAT")}</td><td> ${inv.partner_id.vat|entity} </td>
+<td style="border:none">${_("VAT")}</td><td style="border:none"> ${inv.partner_id.vat|entity} </td>
 </tr>
         %endif
 </table>
@@ -110,13 +110,13 @@ ${inv.address_invoice_id.address_label|carriage_returns}
     <h1 style="clear:both;">${_("ProForma")}</h1> 
     %endif
     %if inv.type == 'out_invoice' :
-    <h1 style="clear:both;">${_("Customer Invoice")} ${inv.number or ''|entity}</h1>
+    <h1 style="clear:both;">${_("Customer Invoice")} ${inv.number or ''|entity} : ${formatLang(inv.date_invoice, date=True)|entity}</h1>
     %elif inv.type == 'in_invoice' :
-    <h1 style="clear:both;">${_("Supplier Invoice")} ${inv.number or ''|entity}</h1>
+    <h1 style="clear:both;">${_("Supplier Invoice")} ${inv.number or ''|entity} : ${formatLang(inv.date_invoice, date=True)|entity}</h1>
     %elif inv.type == 'out_refund' :
-    <h1 style="clear:both;">${_("Customer Refund")} ${inv.number or ''|entity}</h1>
+    <h1 style="clear:both;">${_("Customer Refund")} ${inv.number or ''|entity} : ${formatLang(inv.date_invoice, date=True)|entity}</h1>
     %elif inv.type == 'in_refund' :
-    <h1 style="clear:both;">${_("Supplier Refund")} ${inv.number or ''|entity}</h1>
+    <h1 style="clear:both;">${_("Supplier Refund")} ${inv.number or ''|entity} : ${formatLang(inv.date_invoice, date=True)|entity}</h1>
     <span class="title">${_("Supplier Refund")} ${inv.number or ''|entity}</span> 
     %endif
     %if inv.state == 'cancel' :
@@ -129,8 +129,11 @@ ${inv.address_invoice_id.address_label|carriage_returns}
           %if inv.name :
             <td>${_("Customer Ref")}</td>
           %endif
-          %if inv.origin:
+          %if not inv.picking_ids and inv.origin:
             <td>${_("Origin")}</td>
+          %endif
+          %if inv.picking_ids:
+            <td>${_("Pickings/Order")}</td>
           %endif
           %if inv.reference:
             <td>${_("Reference")}</td>
@@ -138,7 +141,6 @@ ${inv.address_invoice_id.address_label|carriage_returns}
           %if inv.type in ['out_refund','in_refund']:
             <td style="white-space:nowrap">${_("Refund Date")}</td>
           %else:
-            <td style="white-space:nowrap">${_("Invoice Date")}</td>
           %endif
             <td style="white-space:nowrap">${_("Payment Term")}</td>
             <td style="white-space:nowrap">${_("Due Date")}</td>
@@ -148,17 +150,32 @@ ${inv.address_invoice_id.address_label|carriage_returns}
           %if inv.name :
             <td>${inv.name.rfind(':') > 0 and inv.name[:inv.name.rfind(':')] or inv.name}</td>
           %endif
-          %if inv.origin :
+          %if not inv.picking_ids and inv.origin:
             <td>${inv.origin} </td>
+          %endif
+          %if inv.picking_ids:
+            <td style="padding:0px;">
+           <table style="border:none;">
+          %for pick in inv.picking_ids:
+            <tr style="white-space:nowrap;border:none">
+             <td style="border:none">${pick.name} : ${formatLang(pick.date, date=True)|entity}</td>
+             %if pick.sale_id:
+	     <td style="border:none">${pick.sale_id.name} : ${formatLang(pick.sale_id.date_order, date=True)|entity}</td>
+             %endif
+            </tr>
+          %endfor   
+           </table> 
+            </td>
           %endif
           %if inv.reference :
              <td>${inv.reference}</td>
           %endif
-          <td>${formatLang(inv.date_invoice, date=True)|entity}</td>
           <td>${inv.payment_term.name or ''}</td>
           <td>${inv.date_due or ''}</td>
-         <td>${inv.currency_id.name}</td></tr>
+         <td>${inv.currency_id.name}</td>
+         </tr>
     </table>
+  
     <h1><br /></h1>
     <table >
         <thead>
