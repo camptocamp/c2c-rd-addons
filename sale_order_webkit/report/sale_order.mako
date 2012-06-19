@@ -145,8 +145,8 @@ ${order.partner_shipping_id.address_label}
           %if order.project_id:
             <td>${order.project_id.name}</td>
           %endif
-             <td>
             %if order.date_order:
+             <td>
                ${order.date_order or ''}</td>
             %endif
             %if order.carrier_id:
