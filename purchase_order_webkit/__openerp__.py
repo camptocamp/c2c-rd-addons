@@ -28,10 +28,10 @@
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 ##############################################################################
-{ "name" : "Webkit Report Purchase Order"
+{ "name" : "Webkit Report Purchase Order Payment Term, Incoterm"
 , "description" : """
 Purchase Order using Webkit,
-
+adds fields for supplier payment term and incoterm
 Address label with option to position address left, right
 using address label field with addressee's country specific zip position
 
