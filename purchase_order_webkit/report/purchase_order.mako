@@ -109,27 +109,32 @@ ${order.partner_shipping_id.address_label}
     <table  style="width:100%">
         <tr>
           %if order.partner_ref:
-            <td>${_("Reference")}</td>
+             <td>${_("Reference")}</td>
           %endif
-            <td style="white-space:nowrap">${_("Order Date")}</td>
+             <td style="white-space:nowrap">${_("Order Date")}</td>
           %if order.payment_term :
-            <td style="white-space:nowrap">${_("Payment Term")}</td>
+             <td style="white-space:nowrap">${_("Payment Term")}</td>
           %endif
+          %if order.incoterm:
+             <td style="white-space:nowrap">${_("Incoterm")}</td>
+          %endif
+
             <td style="white-space:nowrap">${_("Curr")}</td>
         </tr>
         <tr>
             %if order.partner_ref:
-            <td>
-               ${order.client_order_ref}
-            </td>
+               <td>${order.client_order_ref}</td>
             %endif
             %if order.date_order:
-             <td>
-               ${order.date_order or ''}</td>
+               <td>${order.date_order or ''}</td>
             %endif
             %if order.payment_term :
                <td>${order.payment_term.name}</td>
             %endif
+            %if order.incoterm:
+               <td>${order.incoterm.name}</td>
+            %endif
+
             <td style="white-space:nowrap">${order.pricelist_id.currency_id.name} </td>
     </table>
     <h1><br /></h1>

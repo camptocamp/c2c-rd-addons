@@ -39,6 +39,7 @@ suppress unused columns in purchase order lines."""
 , "version"      : "0.9"
 , "depends"      : 
     [ "purchase"
+    , "stock"
     , "report_webkit"
     , "c2c_partner_address_label"
     , "one2many_sorted"
@@ -46,7 +47,7 @@ suppress unused columns in purchase order lines."""
 , "category"     : "PurchaseManagement"
 , "author"       : "Camptocamp SA - Ferdinand Gassauer"
 , "website"      : "http://www.camptocamp.com/"
-, "data"         : ["purchase_view.xml","purchase_order_webkit_view.xml"]
+, "data"         : ["purchase_view.xml","partner_view.xml","purchase_order_webkit_view.xml"]
 , "installable"  : True
 , "auto_install" : False
 }
