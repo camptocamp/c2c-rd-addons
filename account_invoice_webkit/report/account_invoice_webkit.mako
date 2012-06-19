@@ -135,7 +135,11 @@ ${inv.address_invoice_id.address_label|carriage_returns}
           %if inv.reference:
             <td>${_("Reference")}</td>
           %endif
+          %if inv.type in ['out_refund','in_refund']:
+            <td style="white-space:nowrap">${_("Refund Date")}</td>
+          %else:
             <td style="white-space:nowrap">${_("Invoice Date")}</td>
+          %endif
             <td style="white-space:nowrap">${_("Payment Term")}</td>
             <td style="white-space:nowrap">${_("Due Date")}</td>
             <td>${_("Curr")}</td>
