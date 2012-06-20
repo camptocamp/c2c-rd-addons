@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: OpenERP Server 6.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-06-19 15:29+0000\n"
-"PO-Revision-Date: 2012-06-19 17:32+0200\n"
-"Last-Translator: Ferdinand Gassauer\n"
+"PO-Revision-Date: 2012-06-20 00:42+0000\n"
+"Last-Translator: Ferdinand @ Camptocamp <Unknown>\n"
 "Language-Team: American English <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: \n"
-"Plural-Forms: \n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2012-06-20 05:07+0000\n"
+"X-Generator: Launchpad (build 15435)\n"
 "Language: en_US\n"
-"X-Generator: Lokalize 1.4\n"
 
 #. module: purchase_order_webkit
 #: sql_constraint:purchase.order:0
@@ -96,7 +96,7 @@ msgstr "EAN"
 #: report:addons/purchase_order_webkit/report/purchase_order.mako:38
 #: report:addons/purchase_order_webkit/report/purchase_order.mako:88
 msgid "Shipping Address"
-msgstr "Lieferadresse "
+msgstr "Lieferadresse"
 
 #. module: purchase_order_webkit
 #: report:addons/purchase_order_webkit/report/purchase_order.mako:202
@@ -236,5 +236,3 @@ msgstr "Print code if available"
 #: model:ir.model,name:purchase_order_webkit.model_res_partner
 msgid "Partner"
 msgstr "Partner"
-
-
