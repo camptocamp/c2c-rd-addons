@@ -189,25 +189,25 @@ ${inv.address_invoice_id.address_label|carriage_returns}
     <h1><br /></h1>
     <table >
         <thead>
-          <tr>
+          <tr style=" border-width:1px; border-style:solid;">
 %if inv.print_code:
-            <th>${_("Code")}</th>
+            <th style="text-align:center;border-width:1px; border-style:solid;">${_("Code")}</th>
 %endif
-            <th>${_("Description")}</th>
+            <th style="text-align:center;border-width:1px; border-style:solid;">${_("Description")}</th>
 %if inv.print_ean:
-            <th>${_("EAN")}</th>
+            <th style="text-align:center;border-width:1px; border-style:solid;">${_("EAN")}</th>
 %endif
-            <th class>${_("Taxes")}</th>
-            <th class style="text-align:left;">${_("QTY")}</th>
-            <th class>${_("Unit")}</th>
-            <th style="text-align:left;white-space:nowrap;">${_("Unit Price")}</th>
+            <th style="text-align:center;border-width:1px; border-style:solid;">${_("Taxes")}</th>
+            <th style="text-align:center;border-width:1px; border-style:solid;">${_("QTY")}</th>
+            <th style="text-align:center;border-width:1px; border-style:solid;">${_("Unit")}</th>
+            <th style="text-align:center;white-space:nowrap;border-width:1px; border-style:solid;">${_("Unit Price")}</th>
           %if inv.print_price_unit_id == True:
-            <th style="text-align:left;">${_("Price/Unit")}</th>
+            <th style="text-align:center;border-width:1px; border-style:solid;">${_("Price/Unit")}</th>
           %endif
           %if inv.amount_discount != 0:
-            <th style="text-align:left;">${_("Disc.(%)")}</th>
+            <th style="text-align:center;border-width:1px; border-style:solid;">${_("Disc.(%)")}</th>
           %endif
-            <th style="text-align:left;">${_("Price")}</th>
+            <th style="text-align:center;border-width:1px; border-style:solid;">${_("Price")}</th>
          </tr>
         </thead>
         %for line in inv.invoice_line_sorted :
