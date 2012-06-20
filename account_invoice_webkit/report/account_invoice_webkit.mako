@@ -5,6 +5,7 @@
         pre {font-family:helvetica; font-size:12;}
     </style>
 </head>
+
 <body>
     <style  type="text/css">
      table {
@@ -26,19 +27,20 @@
     <% setLang(inv.partner_id.lang) %>
 <br>
     <table  >
-<!-- ****************************
+<!-- 
+****************************
 left Address
 ******************************-->
         %if inv.company_id.address_label_position == 'left':
          <tr>
-         <td style="width:50%">
+         <td style="width:50%;height:35mm;font-size:130%;padding-left:5mm;padding-top:3mm">
 %if inv.type in ('in_invoice','in_refund'):
 ${_("Supplier Address")}
 <hr>
 %endif
 ${inv.address_invoice_id.address_label|carriage_returns}
          </td>
-         <td style="width:50%;padding:0px;">
+         <td style="width:50%;padding:0px;font-size:100%;padding-left:5mm;padding-top:3mm">
 <table  style="padding:0px;" >
          %if inv.address_invoice_id.phone :
 <tr>
@@ -64,7 +66,8 @@ ${inv.address_invoice_id.address_label|carriage_returns}
          </td>
         </tr>
         %endif
-<!-- ****************************
+<!-- 
+****************************
 right Address
 ******************************-->
         %if inv.company_id.address_label_position == 'right' or not inv.company_id.address_label_position:
@@ -105,18 +108,25 @@ ${inv.address_invoice_id.address_label|carriage_returns}
 
     </table>
     <br>
-    <br>
+<!-- folding marks -->
+<table style="border:none">
+<tr style="border:none">
+<td style="text-align:left;border:none">.</td>
+<td style="text-align:right;border:none">.</td>
+</tr>
+</table>
+
     %if inv.state in ['proforma','proforma2']:
     <h1 style="clear:both;">${_("ProForma")}</h1> 
     %endif
     %if inv.type == 'out_invoice' :
-    <h1 style="clear:both;">${_("Customer Invoice")} ${inv.number or ''|entity} : ${formatLang(inv.date_invoice, date=True)|entity}</h1>
+    <h1 style="clear:both;">${_("Customer Invoice")} ${inv.number or ''|entity} / ${formatLang(inv.date_invoice, date=True)|entity}</h1>
     %elif inv.type == 'in_invoice' :
-    <h1 style="clear:both;">${_("Supplier Invoice")} ${inv.number or ''|entity} : ${formatLang(inv.date_invoice, date=True)|entity}</h1>
+    <h1 style="clear:both;">${_("Supplier Invoice")} ${inv.number or ''|entity} / ${formatLang(inv.date_invoice, date=True)|entity}</h1>
     %elif inv.type == 'out_refund' :
-    <h1 style="clear:both;">${_("Customer Refund")} ${inv.number or ''|entity} : ${formatLang(inv.date_invoice, date=True)|entity}</h1>
+    <h1 style="clear:both;">${_("Customer Refund")} ${inv.number or ''|entity} / ${formatLang(inv.date_invoice, date=True)|entity}</h1>
     %elif inv.type == 'in_refund' :
-    <h1 style="clear:both;">${_("Supplier Refund")} ${inv.number or ''|entity} : ${formatLang(inv.date_invoice, date=True)|entity}</h1>
+    <h1 style="clear:both;">${_("Supplier Refund")} ${inv.number or ''|entity} / ${formatLang(inv.date_invoice, date=True)|entity}</h1>
     <span class="title">${_("Supplier Refund")} ${inv.number or ''|entity}</span> 
     %endif
     %if inv.state == 'cancel' :
@@ -158,9 +168,9 @@ ${inv.address_invoice_id.address_label|carriage_returns}
            <table style="border:none;">
           %for pick in inv.picking_ids:
             <tr style="white-space:nowrap;border:none">
-             <td style="border:none">${pick.name} : ${formatLang(pick.date, date=True)|entity}</td>
+             <td style="border:none">${pick.name} / ${formatLang(pick.date, date=True)|entity}</td>
              %if pick.sale_id:
-	     <td style="border:none">${pick.sale_id.name} : ${formatLang(pick.sale_id.date_order, date=True)|entity}</td>
+	     <td style="border:none">${pick.sale_id.name} / ${formatLang(pick.sale_id.date_order, date=True)|entity}</td>
              %endif
             </tr>
           %endfor   
