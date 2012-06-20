@@ -1,22 +1,21 @@
-# Translation of OpenERP Server.
-# This file contains the translation of the following modules:
-#	* account_invoice_webkit
+# German translation for c2c-rd-addons
+# Copyright (c) 2012 Rosetta Contributors and Canonical Ltd 2012
+# This file is distributed under the same license as the c2c-rd-addons package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2012.
 #
-# Ferdinand Gassauer, 2012.
 msgid ""
 msgstr ""
-"Project-Id-Version: OpenERP Server 6.1\n"
-"Report-Msgid-Bugs-To: \n"
+"Project-Id-Version: c2c-rd-addons\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2012-06-19 15:26+0000\n"
-"PO-Revision-Date: 2012-06-19 17:27+0200\n"
-"Last-Translator: Ferdinand Gassauer\n"
-"Language-Team: American English <kde-i18n-doc@kde.org>\n"
+"PO-Revision-Date: 2012-01-24 07:36+0000\n"
+"Last-Translator: Ferdinand @ Camptocamp <Unknown>\n"
+"Language-Team: German <de@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: \n"
-"Plural-Forms: \n"
-"Language: en_US\n"
-"X-Generator: Lokalize 1.4\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2012-06-20 05:07+0000\n"
+"X-Generator: Launchpad (build 15435)\n"
 
 #. module: account_invoice_webkit
 #: report:addons/account_invoice_webkit/report/account_invoice_webkit.mako:243
@@ -31,7 +30,7 @@ msgstr "Kundengutschrift"
 #. module: account_invoice_webkit
 #: field:account.invoice,cols:0
 msgid "No of columns before totals"
-msgstr "No of columns before totals"
+msgstr ""
 
 #. module: account_invoice_webkit
 #: report:addons/account_invoice_webkit/report/account_invoice_webkit.mako:113
@@ -52,7 +51,7 @@ msgstr "Eingangsrechnungen"
 #. module: account_invoice_webkit
 #: report:addons/account_invoice_webkit/report/account_invoice_webkit.mako:176
 msgid "Unit Price"
-msgstr "Preis/ME"
+msgstr "Preis"
 
 #. module: account_invoice_webkit
 #: report:addons/account_invoice_webkit/report/account_invoice_webkit.mako:55
@@ -63,7 +62,7 @@ msgstr "E-Mail"
 #. module: account_invoice_webkit
 #: report:addons/account_invoice_webkit/report/account_invoice_webkit.mako:178
 msgid "Price/Unit"
-msgstr "PreisEinheit"
+msgstr "Preis/Einheit"
 
 #. module: account_invoice_webkit
 #: report:addons/account_invoice_webkit/report/account_invoice_webkit.mako:181
@@ -73,7 +72,7 @@ msgstr "Rabatt (%)"
 #. module: account_invoice_webkit
 #: field:account.invoice,print_ean:0
 msgid "Print EAN if available"
-msgstr "Print EAN if available"
+msgstr ""
 
 #. module: account_invoice_webkit
 #: report:addons/account_invoice_webkit/report/account_invoice_webkit.mako:50
@@ -89,7 +88,7 @@ msgstr "Beschreibung"
 #. module: account_invoice_webkit
 #: report:addons/account_invoice_webkit/report/account_invoice_webkit.mako:171
 msgid "EAN"
-msgstr "EAN"
+msgstr ""
 
 #. module: account_invoice_webkit
 #: model:ir.actions.report.xml,name:account_invoice_webkit.account_invoice_webkit
@@ -114,7 +113,7 @@ msgstr "Menge"
 #. module: account_invoice_webkit
 #: report:addons/account_invoice_webkit/report/account_invoice_webkit.mako:139
 msgid "Refund Date"
-msgstr "Datum Gutschrift"
+msgstr ""
 
 #. module: account_invoice_webkit
 #: report:addons/account_invoice_webkit/report/account_invoice_webkit.mako:45
@@ -135,22 +134,22 @@ msgstr "Ausdruck der Preiseinheit wenn ungleich 1"
 #. module: account_invoice_webkit
 #: report:addons/account_invoice_webkit/report/account_invoice_webkit.mako:110
 msgid "ProForma"
-msgstr "ProForma"
+msgstr ""
 
 #. module: account_invoice_webkit
 #: report:addons/account_invoice_webkit/report/account_invoice_webkit.mako:144
 msgid "Due Date"
-msgstr "Fällig"
+msgstr ""
 
 #. module: account_invoice_webkit
 #: report:addons/account_invoice_webkit/report/account_invoice_webkit.mako:130
 msgid "Customer Ref"
-msgstr "Kunden Referenz"
+msgstr ""
 
 #. module: account_invoice_webkit
 #: report:addons/account_invoice_webkit/report/account_invoice_webkit.mako:217
 msgid "Net Total"
-msgstr "Netto"
+msgstr ""
 
 #. module: account_invoice_webkit
 #: report:addons/account_invoice_webkit/report/account_invoice_webkit.mako:173
@@ -172,12 +171,12 @@ msgstr "USt."
 #. module: account_invoice_webkit
 #: report:addons/account_invoice_webkit/report/account_invoice_webkit.mako:226
 msgid "Total"
-msgstr "Brutto"
+msgstr ""
 
 #. module: account_invoice_webkit
 #: report:addons/account_invoice_webkit/report/account_invoice_webkit.mako:133
 msgid "Origin"
-msgstr "Ursprung"
+msgstr ""
 
 #. module: account_invoice_webkit
 #: sql_constraint:account.invoice:0
@@ -187,7 +186,7 @@ msgstr "Die Rechnungsnummer muss je Unternehmen eindeutig sein!"
 #. module: account_invoice_webkit
 #: report:addons/account_invoice_webkit/report/account_invoice_webkit.mako:167
 msgid "Code"
-msgstr "Code"
+msgstr ""
 
 #. module: account_invoice_webkit
 #: report:addons/account_invoice_webkit/report/account_invoice_webkit.mako:145
@@ -217,7 +216,7 @@ msgstr "Steuern"
 #. module: account_invoice_webkit
 #: field:account.invoice,print_code:0
 msgid "Print code if available"
-msgstr "Print code if available"
+msgstr ""
 
 #. module: account_invoice_webkit
 #: model:ir.model,name:account_invoice_webkit.model_account_invoice
@@ -233,12 +232,10 @@ msgstr "Lieferanten Gutschrift"
 #. module: account_invoice_webkit
 #: field:account.invoice,invoice_line_sorted:0
 msgid "Invoice Lines Sorted"
-msgstr "Sortierte Zeilen"
+msgstr ""
 
 #. module: account_invoice_webkit
 #: report:addons/account_invoice_webkit/report/account_invoice_webkit.mako:175
 #: report:addons/account_invoice_webkit/report/account_invoice_webkit.mako:204
 msgid "Unit"
 msgstr "ME"
-
-
