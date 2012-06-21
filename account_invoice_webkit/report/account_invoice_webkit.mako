@@ -116,24 +116,40 @@ ${inv.address_invoice_id.address_label|carriage_returns}
 </tr>
 </table>
 
+<br>
     %if inv.state in ['proforma','proforma2']:
     <h1 style="clear:both;">${_("ProForma")}</h1> 
     %endif
+
+<table style="width:auto;float:right;font-weight:bold;font-size:140%">
+<tr>
+  <td style="text-align:right">
     %if inv.type == 'out_invoice' :
-    <h1 style="clear:both;">${_("Customer Invoice")} ${inv.number or ''|entity} / ${formatLang(inv.date_invoice, date=True)|entity}</h1>
+      ${_("Customer Invoice")} 
     %elif inv.type == 'in_invoice' :
-    <h1 style="clear:both;">${_("Supplier Invoice")} ${inv.number or ''|entity} / ${formatLang(inv.date_invoice, date=True)|entity}</h1>
+      ${_("Supplier Invoice")} 
     %elif inv.type == 'out_refund' :
-    <h1 style="clear:both;">${_("Customer Refund")} ${inv.number or ''|entity} / ${formatLang(inv.date_invoice, date=True)|entity}</h1>
+      ${_("Customer Refund")} 
     %elif inv.type == 'in_refund' :
-    <h1 style="clear:both;">${_("Supplier Refund")} ${inv.number or ''|entity} / ${formatLang(inv.date_invoice, date=True)|entity}</h1>
-    <span class="title">${_("Supplier Refund")} ${inv.number or ''|entity}</span> 
+      ${_("Supplier Refund")} 
     %endif
+   </td>
+   <td  style="text-align:right;">${inv.number or ''|entity}
+   </td>
+   
+</tr>
+<tr>
+    <td style="text-align:right;">${_("Datum")} </td><td  style="text-align:right;"> ${formatLang(inv.date_invoice, date=True)|entity}</td>
+</tr>
+<tr>
+<td style="border:none"></td>
+</tr>
+</table>
+<br>
     %if inv.state == 'cancel' :
     <h1 style="clear:both;">${inv.state}</h1> 
+    <br/>
     %endif
-    <br/>
-    <br/>
     <table >
         <tr>
           %if inv.name :
