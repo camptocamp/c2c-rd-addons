@@ -26,10 +26,13 @@ from tools.translate import _
 
 class stock_production_lot(osv.osv):
     _inherit = 'stock.production.lot'
+
     def name_get(self, cr, uid, ids, context=None):
         _logger = logging.getLogger(__name__)
         res= super(stock_production_lot, self).name_get(cr, uid, ids, context)
-        #_logger.info('FGF lot res %s' % (res))
+	if not res:
+	   return []
+        _logger.debug('FGF lot res %s' % (res))
         #_logger.info('FGF lot context %s ' % (context))
         resd = dict(res)
         #_logger.info('FGF lot d %s ' % (resd))
@@ -37,9 +40,9 @@ class stock_production_lot(osv.osv):
         if context.get('location_id'):
           for lot in self.browse(cr, uid, ids, context):
             qty = lot.stock_available
-            #_logger.info('FGF lot res %s %s' % (lot.id, qty))
+            _logger.debug('FGF lot res %s %s' % (lot.id, qty))
             name_new = resd[lot.id] + '  [' + str(qty) +' '+ lot.product_id.uom_id.name+']'
-            #_logger.info('FGF lot name %s' % (name_new))
+            _logger.debug('FGF lot name %s' % (name_new))
             if lot.product_id.packaging:
                  pack_name = []
                  for pack in lot.product_id.packaging:
@@ -48,9 +51,9 @@ class stock_production_lot(osv.osv):
                  name_new += packs
             l = (lot.id,name_new)
             res1.append(l)
-                  
-            _logger.info('FGF lot res1 %s' % (res1))
+            _logger.debug('FGF lot res1 %s' % (res1))
         else:
+           _logger.debug('FGF lot res else %s' % (res))
            res1 = res
         return res1
         

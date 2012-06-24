@@ -69,7 +69,7 @@ class account_bank_statement(osv.osv):
             if amount_tax>0:
                 account_move_line_obj.write(cr, uid, move_ids, {'credit':amount_net})
 	    else: 
-                account_move_line_obj.write(cr, uid, move_ids, {'debit':amount_net})
+                account_move_line_obj.write(cr, uid, move_ids, {'debit':-amount_net})
 	    if entry_posted_reset:
 		account_journal_obj.write(cr, uid, st_line.statement_id.journal_id.id, {'entry_posted':False})
 

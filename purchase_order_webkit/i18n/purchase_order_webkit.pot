@@ -1,0 +1,234 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+# 	* purchase_order_webkit
+#
+# Ferdinand Gassauer, 2012.
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 6.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-06-19 15:29+0000\n"
+"PO-Revision-Date: 2012-06-19 17:32+0200\n"
+"Last-Translator: Ferdinand Gassauer\n"
+"Language-Team: American English <kde-i18n-doc@kde.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+"Language: en_US\n"
+"X-Generator: Lokalize 1.4\n"
+
+#. module: purchase_order_webkit
+#: sql_constraint:purchase.order:0
+msgid "Order Reference must be unique per Company!"
+msgstr ""
+
+#. module: purchase_order_webkit
+#: report:addons/purchase_order_webkit/report/purchase_order.mako:158
+msgid "Sub Total"
+msgstr ""
+
+#. module: purchase_order_webkit
+#: field:purchase.order,cols:0
+msgid "No of columns before totals"
+msgstr ""
+
+#. module: purchase_order_webkit
+#: report:addons/purchase_order_webkit/report/purchase_order.mako:150
+msgid "Tax"
+msgstr ""
+
+#. module: purchase_order_webkit
+#: report:addons/purchase_order_webkit/report/purchase_order.mako:75
+msgid "E-mail"
+msgstr ""
+
+#. module: purchase_order_webkit
+#: report:addons/purchase_order_webkit/report/purchase_order.mako:53
+msgid "Mail"
+msgstr ""
+
+#. module: purchase_order_webkit
+#: report:addons/purchase_order_webkit/report/purchase_order.mako:106
+msgid "Order N°"
+msgstr ""
+
+#. module: purchase_order_webkit
+#: field:purchase.order,print_ean:0
+msgid "Print EAN if available"
+msgstr ""
+
+#. module: purchase_order_webkit
+#: field:purchase.order,print_uom:0
+msgid "Print UoM if different from UoS"
+msgstr ""
+
+#. module: purchase_order_webkit
+#: report:addons/purchase_order_webkit/report/purchase_order.mako:119
+#: field:purchase.order,incoterm:0
+msgid "Incoterm"
+msgstr ""
+
+#. module: purchase_order_webkit
+#: report:addons/purchase_order_webkit/report/purchase_order.mako:50
+#: report:addons/purchase_order_webkit/report/purchase_order.mako:72
+msgid "Fax"
+msgstr ""
+
+#. module: purchase_order_webkit
+#: report:addons/purchase_order_webkit/report/purchase_order.mako:44
+#: report:addons/purchase_order_webkit/report/purchase_order.mako:65
+msgid "Ordering Contact"
+msgstr ""
+
+#. module: purchase_order_webkit
+#: report:addons/purchase_order_webkit/report/purchase_order.mako:146
+#: report:addons/purchase_order_webkit/report/purchase_order.mako:148
+msgid "Description"
+msgstr ""
+
+#. module: purchase_order_webkit
+#: report:addons/purchase_order_webkit/report/purchase_order.mako:155
+msgid "EAN"
+msgstr ""
+
+#. module: purchase_order_webkit
+#: report:addons/purchase_order_webkit/report/purchase_order.mako:38
+#: report:addons/purchase_order_webkit/report/purchase_order.mako:88
+msgid "Shipping Address"
+msgstr ""
+
+#. module: purchase_order_webkit
+#: report:addons/purchase_order_webkit/report/purchase_order.mako:202
+msgid "Taxes:"
+msgstr ""
+
+#. module: purchase_order_webkit
+#: report:addons/purchase_order_webkit/report/purchase_order.mako:47
+msgid "Phone"
+msgstr ""
+
+#. module: purchase_order_webkit
+#: report:addons/purchase_order_webkit/report/purchase_order.mako:102
+msgid "Quotation N°"
+msgstr ""
+
+#. module: purchase_order_webkit
+#: field:purchase.order,order_line_sorted:0
+msgid "Order Lines Sorted"
+msgstr ""
+
+#. module: purchase_order_webkit
+#: report:addons/purchase_order_webkit/report/purchase_order.mako:152
+msgid "UoM"
+msgstr ""
+
+#. module: purchase_order_webkit
+#: field:res.partner,property_payment_term_supplier:0
+msgid "Supplier Payment Term"
+msgstr ""
+
+#. module: purchase_order_webkit
+#: report:addons/purchase_order_webkit/report/purchase_order.mako:207
+msgid "Total:"
+msgstr ""
+
+#. module: purchase_order_webkit
+#: report:addons/purchase_order_webkit/report/purchase_order.mako:114
+msgid "Order Date"
+msgstr ""
+
+#. module: purchase_order_webkit
+#: model:ir.model,name:purchase_order_webkit.model_purchase_order
+msgid "Purchase Order"
+msgstr ""
+
+#. module: purchase_order_webkit
+#: report:addons/purchase_order_webkit/report/purchase_order.mako:69
+msgid "Tel"
+msgstr ""
+
+#. module: purchase_order_webkit
+#: view:purchase.order:0
+msgid "Sorted Lines"
+msgstr ""
+
+#. module: purchase_order_webkit
+#: report:addons/purchase_order_webkit/report/purchase_order.mako:157
+msgid "Price Unit"
+msgstr ""
+
+#. module: purchase_order_webkit
+#: report:addons/purchase_order_webkit/report/purchase_order.mako:83
+msgid "VAT"
+msgstr ""
+
+#. module: purchase_order_webkit
+#: report:addons/purchase_order_webkit/report/purchase_order.mako:152
+msgid "Quantity"
+msgstr ""
+
+#. module: purchase_order_webkit
+#: help:purchase.order,incoterm:0
+msgid ""
+"Incoterm which stands for 'International Commercial terms' implies its a "
+"series of sales terms which are used in the commercial transaction."
+msgstr ""
+
+#. module: purchase_order_webkit
+#: report:addons/purchase_order_webkit/report/purchase_order.mako:104
+msgid "Sale Order Canceled"
+msgstr ""
+
+#. module: purchase_order_webkit
+#: report:addons/purchase_order_webkit/report/purchase_order.mako:79
+msgid "Invoice Address"
+msgstr ""
+
+#. module: purchase_order_webkit
+#: report:addons/purchase_order_webkit/report/purchase_order.mako:145
+msgid "Code"
+msgstr ""
+
+#. module: purchase_order_webkit
+#: report:addons/purchase_order_webkit/report/purchase_order.mako:122
+msgid "Curr"
+msgstr ""
+
+#. module: purchase_order_webkit
+#: report:addons/purchase_order_webkit/report/purchase_order.mako:112
+msgid "Reference"
+msgstr ""
+
+#. module: purchase_order_webkit
+#: report:addons/purchase_order_webkit/report/purchase_order.mako:116
+#: field:purchase.order,payment_term:0
+msgid "Payment Term"
+msgstr ""
+
+#. module: purchase_order_webkit
+#: model:ir.actions.report.xml,name:purchase_order_webkit.purchaser_order_webkit
+msgid "WebKit Purchase Order"
+msgstr ""
+
+#. module: purchase_order_webkit
+#: report:addons/purchase_order_webkit/report/purchase_order.mako:197
+msgid "Net Total:"
+msgstr ""
+
+#. module: purchase_order_webkit
+#: help:res.partner,property_payment_term_supplier:0
+msgid ""
+"This payment term will be used instead of the default one for the current "
+"partner as supplier"
+msgstr ""
+
+#. module: purchase_order_webkit
+#: field:purchase.order,print_code:0
+msgid "Print code if available"
+msgstr ""
+
+#. module: purchase_order_webkit
+#: model:ir.model,name:purchase_order_webkit.model_res_partner
+msgid "Partner"
+msgstr ""

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <record id="view_budget_item_chart" model="ir.ui.view">
+      <field name="name">account.analytic.chart.sum.form</field>
+      <field name="model">account.analytic.chart.sum</field>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <form string="Budget Item Charts">
+          <group colspan="4">
+            <field
+              name="fiscalyear"
+              on_change="onchange_fiscalyear(fiscalyear)"
+              required="1"/>
+            <field name="chart_account_id"/>
+            <separator string="Periods" colspan="4"/>
+            <field name="period_from"/>
+            <field name="period_to"/>
+            <separator string="Period Budget" colspan="4"/>
+            <field name="period_budget_from"/>
+            <field name="period_budget_to"/>
+            <separator string="Report Output Controls" colspan="4"/>
+            <field name="print_all_zero"/>
+            <field name="print_chapter"/>
+            <field name="print_opening_dc"/>
+            <field name="print_views_only"/>
+            <field name="print_budget_1000"/>
+            <field name="calc_sequence"/>
+          </group>
+          <separator string="" colspan="4"/>
+          <group colspan="4" col="6">
+            <button
+              icon="gtk-cancel"
+              special="cancel"
+              string="Cancel"/>
+            <button
+              icon="terp-gtk-go-back-rtl"
+              name="budget_item_chart_open_window"
+              string="Open Charts"
+              type="object"/>
+            <button
+              icon="gtk-print"
+              name="budget_item_chart_open_report"
+              string="Print Chart"
+              type="object"/>
+          </group>
+        </form>
+      </field>
+    </record>
+    <record id="action_budget_item_chart" model="ir.actions.act_window">
+      <field name="name">Chart of Budget Items</field>
+      <field name="res_model">account.analytic.chart.sum</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="view_id" ref="view_budget_item_chart"/>
+      <field name="target">new</field>
+      <field name="help">Display your company chart of budget versus actual accounts per fiscal year and filter by period.</field>
+    </record>
+    <menuitem
+      action="action_budget_item_chart"
+      icon="STOCK_INDENT"
+      id="menu_action_account_anayltic_chart"
+      parent="account.menu_finance_charts"/>
+  </data>
+</openerp>

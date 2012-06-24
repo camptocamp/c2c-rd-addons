@@ -109,7 +109,9 @@ class chricar_account_move_line_deloitte(osv.osv):
 		 else:
 	              acc =  move.account
 
-             account_ids= self.pool.get('account.account').search(cr,uid,[('company_id','=',move.company_id.id),('code','=',acc)])
+             account_ids= self.pool.get('account.account').search(cr,uid,[('company_id','=',move.company_id.id),('code','=',acc),('type','!=','view')])
+	     if not account_ids and len(move.counter_account)==3:
+                    account_ids= self.pool.get('account.account').search(cr,uid,[('company_id','=',move.company_id.id),('code','=','0'+acc),('type','!=','view')])
              if len(account_ids):
                  result[move.id] = account_ids[0]
          return result
@@ -119,11 +121,19 @@ class chricar_account_move_line_deloitte(osv.osv):
          for move in self.browse(cr, uid, ids):
              result[move.id] = False
              if move.counter_account and move.company_id:
-                 if len(move.counter_account) == 4:
-                     acc = move.counter_account
-                 else:
-                     acc = move.counter_account[:2]+'00'
-                 account_ids= self.pool.get('account.account').search(cr,uid,[('company_id','=',move.company_id.id),('code','=',acc)])
+                 #if len(move.counter_account) == 4:
+                 #    acc = move.counter_account
+                 #else:
+                 #    acc = move.counter_account[:2]+'00'
+		 if move.counter_account[:2] in ['23','33']:
+                      acc = move.counter_account[:2]+'00'
+		 else:
+	              acc =  move.counter_account
+
+                 account_ids= self.pool.get('account.account').search(cr,uid,[('company_id','=',move.company_id.id),('code','=',acc),('type','!=','view')])
+		 if not account_ids and len(move.counter_account)==3:
+                    account_ids= self.pool.get('account.account').search(cr,uid,[('company_id','=',move.company_id.id),('code','=','0'+acc),('type','!=','view')])
+
                  if len(account_ids):
                      result[move.id] = account_ids[0]
          return result
@@ -220,12 +230,21 @@ class chricar_account_move_line_deloitte(osv.osv):
 
          _logger.debug('FGF account deloitte ids %s' % (acc_deloitte_ids))
          acc_deloitte_codes = []
+
          for deloitte_acc in  self.browse(cr, uid, acc_deloitte_ids, context=None):
-	     if deloitte_acc.account[:2] not in ['23','33'] \
-			     and deloitte_acc.account not in acc_codes \
-			     and deloitte_acc.account not in acc_deloitte_codes:
-                 acc_deloitte_codes.append(deloitte_acc.account)
-         _logger.debug('FGF missing acc_deloitte_codes %s' % (acc_deloitte_codes))
+           das = [deloitte_acc.account, deloitte_acc.counter_account]
+           _logger.debug('FGF missing das %s' % (das))
+           for da in das:
+	        if da and len(da)<4:
+	          da = '0'+da
+                _logger.debug('FGF da %s' % (da))
+	        if da and da[:2] not in ['23','33'] \
+			     and da not in acc_codes \
+			     and da not in acc_deloitte_codes:
+                     acc_deloitte_codes.append(da)
+                     _logger.debug('FGF missing da %s %s' % (da, acc_deloitte_codes))
+             
+         _logger.info('FGF missing acc_deloitte_codes %s' % (acc_deloitte_codes))
          
          counter= 0
          user_type = self.pool.get('account.account.type').search(cr, uid, [('code','=','view')])[0]
@@ -276,6 +295,14 @@ class chricar_account_move_line_deloitte(osv.osv):
               vals = {}
 	      if not deloitte_move.account_id and deloitte_move.account[:2] not in ['23','33']:
                    vals['account_id'] =  account_obj.search(cr, uid, [('company_id','=',company_id),('code','=', deloitte_move.account)])
+		   if not  vals['account_id'] and len(deloitte_move.account)< 4:
+                        vals['account_id'] =  account_obj.search(cr, uid, [('company_id','=',company_id),('code','=', '0'+deloitte_move.account)])
+	      if deloitte_move.counter_account and not deloitte_move.counter_account_id and deloitte_move.counter_account[:2] not in ['23','33']:
+                   vals['counter_account_id'] =  account_obj.search(cr, uid, [('company_id','=',company_id),('code','=', deloitte_move.counter_account)])
+		   if not vals['counter_account_id'] and len(deloitte_move.counter_account)<4:
+		   #if not vals.get('counter_account_id',False)  and deloitte_move.counter_account and len(deloitte_move.counter_account)<4:
+                        vals['counter_account_id'] =  account_obj.search(cr, uid, [('company_id','=',company_id),('code','=', '0'+deloitte_move.counter_account)])
+		 
               if deloitte_move.analytic_account and not deloitte_move.analytic_account_id:
                    vals['analytic_account_id'] =  analytic_obj.search(cr, uid, [('company_id','=',company_id),('code','=', deloitte_move.analytic_account)])
               if vals:
@@ -364,10 +391,10 @@ class chricar_account_move_line_deloitte(osv.osv):
          context['journal_analytic_id'] = journal_analytic_id
  
 	 to_post = []
-         cr.execute("""select distinct company_id, period_id, symbol||'-'||name||'-D' as name, date
+         cr.execute("""select  distinct company_id, period_id, symbol||'-'||name||'-D' as name, date
                   from chricar_account_move_line_deloitte
-                 where id in (%s)""" % (','.join(map(str,acc_deloitte_ids)) ))
-
+                 where id in (%s)  """ % (','.join(map(str,acc_deloitte_ids)) ))
+         period_ids = [] 
          for move in cr.dictfetchall():
              vals = dict(move)
 	     try:
@@ -387,12 +414,18 @@ class chricar_account_move_line_deloitte(osv.osv):
              #_logger.info('FGF move vals %s' % (vals))
 	     c = {}
 	     c['novalidate'] = True
-             move_id = move_obj.create(cr, uid, vals,  c )
+             # moves_lines from ONE move may have different dates
+             _logger.debug('FGF move_id before %s', vals  )
+             move_id = move_obj.search(cr,uid, [('company_id','=',vals['company_id']), ('period_id','=',vals['period_id']), ('name','=',vals['name']) ])
+             if move_id:
+                continue
+             else:
+                move_id = move_obj.create(cr, uid, vals,  c )
 	     to_post.append(move_id)
              #move_id = super(account_move, self).create(cr, uid, vals, {} )
              context['move_id'] = move_id 
              vals['move_id'] = move_id 
-             #_logger.info('FGF move_id = %s' % (move_id))
+             _logger.debug('FGF move_id = %s' % (move_id))
              # FGF 20120304 - this code is copied from a 2 years old working sql procedure !
              # writing in python from scratch would look much different
              cr.execute("""
@@ -515,7 +548,6 @@ company_id, vals['period_id'], vals['name'], \
 company_id, vals['period_id'], vals['name'], )
 )
              moves= []
-	     period_ids = []
              for line in cr.dictfetchall():
                  # FIXME - performance 
 		 v = dict(line)
@@ -614,8 +646,15 @@ having sum(case when credit is null then 0 else credit end) != 0
                  #except:
                  #   raise osv.except_osv(_('Error :'), _('FGF Error neutralize %s %s') % (line, vals ))
 
-         
+           
          self.write(cr, uid, acc_deloitte_ids, {'state': 'done'} )
+	 # period_ids are stored incorrectly - no idea why
+         cr.execute("""
+	 update account_move_line l 
+	    set period_id = (select period_id from account_move m where m.id = l.move_id) 
+	  where period_id !=  (select period_id from account_move n where n.id = l.move_id) 
+	    and journal_id in (select id from account_journal where code like 'DE%');
+	 """)
 
          move_obj.button_validate(cr, uid, to_post, context)
          

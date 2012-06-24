@@ -12,6 +12,7 @@ generated 2009-10-17 12:10:57+02"""
 , "update_xml"   : 
     [ "account_move_line_deloitte_view.xml"
     , "wizard/moves_deloitte_view.xml"
+    , "wizard/move_deloitte_delete.xml"
     , "security/rule.xml","security/ir.model.access.csv"
     ]
 , "auto_install" : False

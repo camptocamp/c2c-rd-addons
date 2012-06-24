@@ -302,7 +302,7 @@ class c2c_budget_item(osv.osv):
 
 
     _columns = {
-        'company_id': fields.many2one('res.company', 'Company', required=True),
+        'company_id': fields.many2one('res.company', 'Company'),
         'code' : fields.char('Code', size=50, required=True),
         'name' : fields.char('Name', size=200,  required=True),
         'active' : fields.boolean('Active'),

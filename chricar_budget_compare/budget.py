@@ -90,6 +90,8 @@ select 2*l.id as id,
     and v.id = l.budget_version_id
     and pc.id = l.period_id
     and pl.date_start = pc.date_start - interval '1 year'
+    and pc.company_id = v.company_id  
+    and pl.company_id = v.company_id  
   union all
 select 2*l.id -1 as id,
        p.id, 
@@ -118,6 +120,8 @@ select 2*l.id -1 as id,
     and v.id = l.budget_version_id
     and pl.id = l.period_id
     and pl.date_start = pc.date_start - interval '1 year'
+    and pc.company_id = v.company_id  
+    and pl.company_id = v.company_id  
   union all
 select -l.id*2 as id,
        p.id as parent_id, 
@@ -148,6 +152,8 @@ select -l.id*2 as id,
     and l.state = 'valid'
     and pc.id = l.period_id
     and pl.date_start = pc.date_start - interval '1 year'
+    and pc.company_id = a.company_id  
+    and pl.company_id = a.company_id  
   union all
 select -l.id*2-1 as id,
        p.id as parent_id, 
@@ -177,7 +183,9 @@ select -l.id*2-1 as id,
     and l.account_id = a.id
     and l.state = 'valid'
     and pl.id = l.period_id
-    and pl.date_start = pc.date_start - interval '1 year';
+    and pl.date_start = pc.date_start - interval '1 year'
+    and pc.company_id = a.company_id  
+    and pl.company_id = a.company_id  ;
     """)
 
 chricar_budget_compare()

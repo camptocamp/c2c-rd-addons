@@ -102,7 +102,7 @@ msgstr "Lieferung"
 #. module: stock_picking_webkit
 #: report:addons/stock_picking_webkit/report/stock_picking_webkit.mako:35
 msgid "Phone"
-msgstr "Telephon"
+msgstr "Telefon"
 
 #. module: stock_picking_webkit
 #: report:addons/stock_picking_webkit/report/stock_picking_webkit.mako:178

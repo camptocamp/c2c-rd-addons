@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_chricar_budget_compare,chricar.budget.compare,model_chricar_budget_compare,account.group_account_manager,1,0,0,0
+access_chricar_budget_compare_period,chricar.budget.compare.period,model_chricar_budget_compare_period,account.group_account_manager,1,0,0,0
+access_chricar_budget_compare_year,chricar.budget.compare.year,model_chricar_budget_compare_year,account.group_account_manager,1,0,0,0

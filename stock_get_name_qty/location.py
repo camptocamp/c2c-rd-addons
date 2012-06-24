@@ -45,7 +45,7 @@ class stock_location(osv.osv):
               if product.packaging:
                  pack_name = []
                  for pack in product.packaging:
-                     pack_name.append( '['+pack.ul.name + ' ' + _('á') + ' ' + str(pack.qty) +']' )
+                     pack_name.append( '['+pack.ul.name + ' ' + _(u'á') + ' ' + str(pack.qty) +']' )
                  packs = ','.join(pack_name)
 
           for loc in self.browse(cr, uid, ids, context):

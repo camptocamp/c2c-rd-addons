@@ -13,7 +13,7 @@ ToDo
  , "depends"      : ["product","chricar_view_id","c2c_budget"]
  , "init_xml"     : []
  , "demo_xml"     : []
- , "update_xml"   : ["budget_update.xml"]
+ , "update_xml"   : ["budget_update.xml","security/ir.model.access.csv"]
  , "auto_install" : False
  , "installable"  : True
 }

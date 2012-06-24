@@ -5,6 +5,7 @@
         pre {font-family:helvetica; font-size:12;}
     </style>
 </head>
+
 <body>
     <style  type="text/css">
      table {
@@ -26,45 +27,47 @@
     <% setLang(inv.partner_id.lang) %>
 <br>
     <table  >
-<!-- ****************************
+<!-- 
+****************************
 left Address
 ******************************-->
         %if inv.company_id.address_label_position == 'left':
          <tr>
-         <td style="width:50%">
+         <td style="width:50%;height:35mm;font-size:130%;padding-left:5mm;padding-top:3mm">
 %if inv.type in ('in_invoice','in_refund'):
 ${_("Supplier Address")}
 <hr>
 %endif
 ${inv.address_invoice_id.address_label|carriage_returns}
          </td>
-         <td style="width:50%">
-<table {border:none} >
+         <td style="width:50%;padding:0px;font-size:100%;padding-left:5mm;padding-top:3mm">
+<table  style="padding:0px;" >
          %if inv.address_invoice_id.phone :
 <tr>
-<td> ${_("Phone")}</td><td> ${inv.address_invoice_id.phone|entity} </td
+<td style="border:none"> ${_("Phone")}</td><td style="border:none"> ${inv.address_invoice_id.phone|entity} </td
 </tr>
         %endif
         %if inv.address_invoice_id.fax :
 <tr>
-<td>${_("Fax")}</td><td> ${inv.address_invoice_id.fax|entity} </td>
+<td style="border:none">${_("Fax")}</td><td style="border:none"> ${inv.address_invoice_id.fax|entity} </td>
 </tr>
         %endif
         %if inv.address_invoice_id.email :
 <tr>
-<td>${_("Mail")}</td><td>${inv.address_invoice_id.email|entity} </td>
+<td style="border:none">${_("Mail")}</td><td style="border:none">${inv.address_invoice_id.email|entity} </td>
 </tr>
         %endif
         %if inv.partner_id.vat :
 <tr>
-<td>${_("VAT")}</td><td> ${inv.partner_id.vat|entity} </td>
+<td style="border:none">${_("VAT")}</td><td style="border:none"> ${inv.partner_id.vat|entity} </td>
 </tr>
         %endif
 </table>
          </td>
         </tr>
         %endif
-<!-- ****************************
+<!-- 
+****************************
 right Address
 ******************************-->
         %if inv.company_id.address_label_position == 'right' or not inv.company_id.address_label_position:
@@ -105,37 +108,66 @@ ${inv.address_invoice_id.address_label|carriage_returns}
 
     </table>
     <br>
-    <br>
+<!-- folding marks -->
+<table style="border:none">
+<tr style="border:none">
+<td style="text-align:left;border:none">.</td>
+<td style="text-align:right;border:none">.</td>
+</tr>
+</table>
+
+<br>
     %if inv.state in ['proforma','proforma2']:
     <h1 style="clear:both;">${_("ProForma")}</h1> 
     %endif
+
+<table style="width:auto;float:right;font-weight:bold;font-size:140%">
+<tr>
+  <td style="text-align:right">
     %if inv.type == 'out_invoice' :
-    <h1 style="clear:both;">${_("Customer Invoice")} ${inv.number or ''|entity}</h1>
+      ${_("Customer Invoice")} 
     %elif inv.type == 'in_invoice' :
-    <h1 style="clear:both;">${_("Supplier Invoice")} ${inv.number or ''|entity}</h1>
+      ${_("Supplier Invoice")} 
     %elif inv.type == 'out_refund' :
-    <h1 style="clear:both;">${_("Customer Refund")} ${inv.number or ''|entity}</h1>
+      ${_("Customer Refund")} 
     %elif inv.type == 'in_refund' :
-    <h1 style="clear:both;">${_("Supplier Refund")} ${inv.number or ''|entity}</h1>
-    <span class="title">${_("Supplier Refund")} ${inv.number or ''|entity}</span> 
+      ${_("Supplier Refund")} 
     %endif
+   </td>
+   <td  style="text-align:right;">${inv.number or ''|entity}
+   </td>
+   
+</tr>
+<tr>
+    <td style="text-align:right;">${_("Datum")} </td><td  style="text-align:right;"> ${formatLang(inv.date_invoice, date=True)|entity}</td>
+</tr>
+<tr>
+<td style="border:none"></td>
+</tr>
+</table>
+<br>
     %if inv.state == 'cancel' :
     <h1 style="clear:both;">${inv.state}</h1> 
+    <br/>
     %endif
-    <br/>
-    <br/>
     <table >
         <tr>
           %if inv.name :
             <td>${_("Customer Ref")}</td>
           %endif
-          %if inv.origin:
+          %if not inv.picking_ids and inv.origin:
             <td>${_("Origin")}</td>
+          %endif
+          %if inv.picking_ids:
+            <td>${_("Pickings/Order")}</td>
           %endif
           %if inv.reference:
             <td>${_("Reference")}</td>
           %endif
-            <td style="white-space:nowrap">${_("Invoice Date")}</td>
+          %if inv.type in ['out_refund','in_refund']:
+            <td style="white-space:nowrap">${_("Refund Date")}</td>
+          %else:
+          %endif
             <td style="white-space:nowrap">${_("Payment Term")}</td>
             <td style="white-space:nowrap">${_("Due Date")}</td>
             <td>${_("Curr")}</td>
@@ -144,39 +176,54 @@ ${inv.address_invoice_id.address_label|carriage_returns}
           %if inv.name :
             <td>${inv.name.rfind(':') > 0 and inv.name[:inv.name.rfind(':')] or inv.name}</td>
           %endif
-          %if inv.origin :
+          %if not inv.picking_ids and inv.origin:
             <td>${inv.origin} </td>
+          %endif
+          %if inv.picking_ids:
+            <td style="padding:0px;">
+           <table style="border:none;">
+          %for pick in inv.picking_ids:
+            <tr style="white-space:nowrap;border:none">
+             <td style="border:none">${pick.name} / ${formatLang(pick.date, date=True)|entity}</td>
+             %if pick.sale_id:
+	     <td style="border:none">${pick.sale_id.name} / ${formatLang(pick.sale_id.date_order, date=True)|entity}</td>
+             %endif
+            </tr>
+          %endfor   
+           </table> 
+            </td>
           %endif
           %if inv.reference :
              <td>${inv.reference}</td>
           %endif
-          <td>${formatLang(inv.date_invoice, date=True)|entity}</td>
           <td>${inv.payment_term.name or ''}</td>
           <td>${inv.date_due or ''}</td>
-         <td>${inv.currency_id.name}</td></tr>
+         <td>${inv.currency_id.name}</td>
+         </tr>
     </table>
+  
     <h1><br /></h1>
     <table >
         <thead>
-          <tr>
+          <tr style=" border-width:1px; border-style:solid;">
 %if inv.print_code:
-            <th>${_("Code")}</th>
+            <th style="text-align:center;border-width:1px; border-style:solid;">${_("Code")}</th>
 %endif
-            <th>${_("Description")}</th>
+            <th style="text-align:center;border-width:1px; border-style:solid;">${_("Description")}</th>
 %if inv.print_ean:
-            <th>${_("EAN")}</th>
+            <th style="text-align:center;border-width:1px; border-style:solid;">${_("EAN")}</th>
 %endif
-            <th class>${_("Taxes")}</th>
-            <th class style="text-align:left;">${_("QTY")}</th>
-            <th class>${_("Unit")}</th>
-            <th style="text-align:left;white-space:nowrap;">${_("Unit Price")}</th>
+            <th style="text-align:center;border-width:1px; border-style:solid;">${_("Taxes")}</th>
+            <th style="text-align:center;border-width:1px; border-style:solid;">${_("QTY")}</th>
+            <th style="text-align:center;border-width:1px; border-style:solid;">${_("Unit")}</th>
+            <th style="text-align:center;white-space:nowrap;border-width:1px; border-style:solid;">${_("Unit Price")}</th>
           %if inv.print_price_unit_id == True:
-            <th style="text-align:left;">${_("Price/Unit")}</th>
+            <th style="text-align:center;border-width:1px; border-style:solid;">${_("Price/Unit")}</th>
           %endif
           %if inv.amount_discount != 0:
-            <th style="text-align:left;">${_("Disc.(%)")}</th>
+            <th style="text-align:center;border-width:1px; border-style:solid;">${_("Disc.(%)")}</th>
           %endif
-            <th style="text-align:left;">${_("Price")}</th>
+            <th style="text-align:center;border-width:1px; border-style:solid;">${_("Price")}</th>
          </tr>
         </thead>
         %for line in inv.invoice_line_sorted :
