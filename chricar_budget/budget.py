@@ -200,10 +200,13 @@ class chricar_budget(osv.osv):
             fy_date_start = line.budget_version_id.budget_id.start_date
             fy_date_stop  = line.budget_version_id.budget_id.end_date
             cr.execute("""select coalesce(sum(product_qty),0) from stock_move s,
-                                                       stock_location l
+                                                       stock_location l,
+						       stock_location d
                                  where state='done'
                                    and l.usage = 'production'
                                    and l.id = s.location_id
+                                   and d.usage != 'production'
+                                   and d.id = s.location_dest_id
                                    and product_id = %d
                                    and to_char(date,'YYYY-MM-DD') between '%s' and '%s'""" % (product,fy_date_start,fy_date_stop))
             harvest = cr.fetchone()
