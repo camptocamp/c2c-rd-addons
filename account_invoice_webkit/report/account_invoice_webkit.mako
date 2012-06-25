@@ -164,10 +164,7 @@ ${inv.address_invoice_id.address_label|carriage_returns}
           %if inv.reference:
             <td>${_("Reference")}</td>
           %endif
-          %if inv.type in ['out_refund','in_refund']:
-            <td style="white-space:nowrap">${_("Refund Date")}</td>
-          %else:
-          %endif
+
             <td style="white-space:nowrap">${_("Payment Term")}</td>
             <td style="white-space:nowrap">${_("Due Date")}</td>
             <td>${_("Curr")}</td>
@@ -176,9 +173,11 @@ ${inv.address_invoice_id.address_label|carriage_returns}
           %if inv.name :
             <td>${inv.name.rfind(':') > 0 and inv.name[:inv.name.rfind(':')] or inv.name}</td>
           %endif
+
           %if not inv.picking_ids and inv.origin:
             <td>${inv.origin} </td>
           %endif
+
           %if inv.picking_ids:
             <td style="padding:0px;">
            <table style="border:none;">
@@ -193,9 +192,11 @@ ${inv.address_invoice_id.address_label|carriage_returns}
            </table> 
             </td>
           %endif
+
           %if inv.reference :
              <td>${inv.reference}</td>
           %endif
+
           <td>${inv.payment_term.name or ''}</td>
           <td>${inv.date_due or ''}</td>
          <td>${inv.currency_id.name}</td>
