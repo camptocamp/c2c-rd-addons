@@ -89,6 +89,7 @@ class chricar_budget(osv.osv):
         res = {}
         for line in self.browse(cr, uid, ids, context=context):
             res[line.id] = line.surface * line.yield_qty
+            #res[line.id] = 0
         return res
 
      def _product_qty_stock(self, cr, uid, ids, name, args, context=None):

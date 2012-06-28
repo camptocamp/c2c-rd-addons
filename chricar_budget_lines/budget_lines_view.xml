@@ -63,7 +63,7 @@ Production
             <group colspan="2" col="2">
               <separator string="Other Info" colspan="2"/>
               <field
-                domain="[('usage'),'=','production')]"
+                domain="[('usage','=','production')]"
                 name="location_id"
                 select="1"/>
               <field name="partner_id" select="1"/>

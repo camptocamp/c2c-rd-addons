@@ -189,7 +189,8 @@ class chricar_budget_lines_production(osv.osv):
      def _amount_production(self, cr, uid, ids, name, args, context=None):
         res = {}
         for line in self.browse(cr, uid, ids, context=context):
-            q = line.quantity
+          q = line.quantity
+	  if line.budget_id:
             if line.quantity_base == 'surface':
                q = line.budget_id.surface
             if line.quantity_base == 'product_qty':
