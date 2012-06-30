@@ -26,8 +26,12 @@
     "category": 'Sales Management',
     'complexity': "normal",
     "description": """
+
 Invoices Services ordered together with products which are invoiced based on pickings
-================================
+
+Sets invoice policy to picking for SO with only services and picking for all others
+this should be made configurable
+
 
 
     """,
