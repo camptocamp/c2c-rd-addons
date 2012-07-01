@@ -82,7 +82,7 @@ class stock_move(osv.osv):
             'location_dest_id' : location_dest_id,
             'price_unit_id' : pu_id,
             'price_unit' : prod_obj.standard_price * product_qty,
-            'name' : 'Harvest',
+            'name' : _('Harvest'),
             'prodlot_id' : prodlot_id ,
             'product_packaging_id' : product_packaging_id,
               }

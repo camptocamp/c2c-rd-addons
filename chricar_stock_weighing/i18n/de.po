@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 6.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-07-01 08:33+0000\n"
-"PO-Revision-Date: 2012-07-01 10:35+0200\n"
+"POT-Creation-Date: 2012-07-01 08:45+0000\n"
+"PO-Revision-Date: 2012-07-01 10:46+0200\n"
 "Last-Translator: Ferdinand Gassauer\n"
 "Language-Team: American English <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"X-Launchpad-Export-Date: 2012-07-01 04:53+0000\n"
-"X-Generator: Launchpad (build 15520)\n"
+"Plural-Forms: \n"
+"Language: en_US\n"
 "X-Generator: Lokalize 1.4\n"
 
 #. module: chricar_stock_weighing
@@ -161,10 +161,12 @@ msgid "Consignement Note Number"
 msgstr "Konsignationsnummer"
 
 #. module: chricar_stock_weighing
+#: code:addons/chricar_stock_weighing/mrp.py:85
 #: model:ir.actions.act_window,name:chricar_stock_weighing.mrp_production_harvest_action
 #: model:ir.ui.menu,name:chricar_stock_weighing.menu_mrp_production_harvest_action
 #: view:mrp.production:0
 #: view:stock.move:0
+#, python-format
 msgid "Harvest"
 msgstr "Ernte"
 
