@@ -34,8 +34,9 @@ this shows all resources which need further interaction (are not done or cancele
 "purchase"
 ,"sale"
 ,"stock"
+,"mrp"
      ],
-    'update_xml': ['purchase_view.xml','sale_view.xml','stock_view.xml', 'account_invoice_view.xml', 'partner_view.xml'       ],
+    'update_xml': ['purchase_view.xml','sale_view.xml','stock_view.xml', 'account_invoice_view.xml', 'partner_view.xml','mrp_view.xml'       ],
     'demo_xml': [],
     'installable': True,
     'active': False,
