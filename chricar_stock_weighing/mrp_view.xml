@@ -102,6 +102,7 @@ Harvest
       <field name="res_model">mrp.production</field>
       <field name="view_type">form</field>
       <field name="view_mode">tree,form</field>
+      <field name="context">{'search_default_to_do':1}</field>
     </record>
     <record model="ir.actions.act_window.view" id="mrp_production_harvest_action_act2_view2">
       <field name="sequence" eval="1"/>
