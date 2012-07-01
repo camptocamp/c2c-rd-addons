@@ -1,0 +1,30 @@
+
+<openerp>
+ <data>
+         <record id="view_mrp_production_todo_filter" model="ir.ui.view">
+            <field name="name">mrp.production.todo.select</field>
+            <field name="model">mrp.production</field>
+            <field name="inherit_id" ref="mrp.view_mrp_production_filter"/>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+              <xpath expr="/search/group/filter[@string='Pending']" position="before">
+                  <filter icon="terp-gtk-jump-to-ltr" name="to_do" string="To Do" domain="[('state','not in',('done','cancel'))]" help="All what needs your attention."/>
+                <separator orientation="vertical"/>
+              </xpath>
+           </field>
+         </record>
+
+        <record id="mrp.mrp_production_action" model="ir.actions.act_window">
+            <field name="name">Manufacturing Orders</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">mrp.production</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,calendar,graph,gantt</field>
+            <field name="view_id" eval="False"/>
+            <field name="search_view_id" ref="view_mrp_production_todo_filter"/>
+            <field name="context">{'search_default_to_do':1}</field>
+            <field name="help">Manufacturing Orders are usually proposed automatically by OpenERP based on the bill of materials and the procurement rules, but you can also create manufacturing orders manually. OpenERP will handle the consumption of the raw materials (stock decrease) and the production of the finished products (stock increase) when the order is processed.</field>
+        </record>
+
+ </data>
+</openerp>
