@@ -29,3 +29,4 @@
 ##############################################################################
 
 import move_deloitte_transfer
+import move_deloitte_delete

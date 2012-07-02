@@ -99,7 +99,7 @@ BEGIN
       from account_move_line l, account_journal j
       where move_id = move_id_i
         and j.id = l.journal_id
-        and coalesce(j.is_opening_balance,False) is False
+        and (j.is_opening_balance is null or j.is_opening_balance is false)
       order by account_id -- to avoid dead locks
   LOOP
     if add_sub_i = 1 then
@@ -297,7 +297,7 @@ BEGIN
             account_account_period_sum s,
             account_period p,    --new
             account_fiscalyear y, --new
-            account_period lp,
+            account_period lp, -- last year periods
             account_account_type t
           where 
             t.close_method != 'none'

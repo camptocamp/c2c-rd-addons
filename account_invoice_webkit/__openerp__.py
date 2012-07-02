@@ -34,6 +34,8 @@ Invoice using Webkit,
 
 Address label with option to position address left, right
 using address label field with addressee's country specific zip position
+
+top margin of webkit header must be set to 35mm to get correctly positioned folding marks
 """
 , "version"      : "0.9"
 , "depends"      : 

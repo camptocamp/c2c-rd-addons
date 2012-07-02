@@ -548,6 +548,21 @@ class stock_inventory(osv.osv):
         self._logger.debug('FGF action_confirm inventur %s', context )
         return super(stock_inventory,self).action_confirm(cr, uid, ids, context)
 
+    def action_done(self, cr, uid, ids, context=None):
+        """ Finish the inventory
+        set the inv date as move date
+        @return: True
+        """
+        res = super(stock_inventory, self).action_done(cr, uid, ids, context)
+
+        move_obj = self.pool.get('stock.move') 
+	move_ids = []
+	for inv in self.browse(cr, uid, ids):
+	    for m in inv.move_ids:
+		move_ids.append(m.id)
+        move_obj.write(cr, uid, move_ids, {'date':  inv.date,'date_expected': inv.date})
+        
+        return True
 
 stock_inventory()
 

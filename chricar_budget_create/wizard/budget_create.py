@@ -43,11 +43,16 @@ class c2c_budget_create(osv.osv_memory):
         }
 
     def replace_lines(self, cr, uid, ids, periods, context=None):
+        if not context:
+           context={}
         budget_lines_obj = self.pool.get('c2c_budget.line')
-        delete_ids = budget_lines_obj.search(cr, uid, [('period_id','in', periods),('period_source_id','!=', False)], context )
-        budget_lines_obj.unlink(cr, uid, delete_ids);
+        delete_ids = budget_lines_obj.search(cr, uid, [('period_id','in', periods),('period_source_id','!=', False)],  )
+        if delete_ids:
+            budget_lines_obj.unlink(cr, uid, delete_ids);
         
     def c2c_budget_create(self, cr, uid, ids, context=None):
+        if not context:
+           context = {}
         _logger = logging.getLogger(__name__)
         
         period_obj = self.pool.get('account.period')
@@ -107,7 +112,7 @@ class c2c_budget_create(osv.osv_memory):
             _logger.info('FGF period_new2 %s' % (periods_new2))
             #
             if data['replace_lines']:
-                self.replace_lines(self, cr, uid, ids, periods_new2, context=None)
+                self.replace_lines(cr, uid, ids, periods_new2, context)
                 
             val = {'budget_version_id': data['budget_version_id'][0],
                    'currency_id' : currency_id,
@@ -118,10 +123,13 @@ class c2c_budget_create(osv.osv_memory):
             cr.execute("""
 select -sum(l.debit-l.credit) as amount, l.analytic_account_id, budget_item_id, l.period_id as period_source_id
   from account_move_line l,
-       c2c_budget_item_account_rel r
+       c2c_budget_item_account_rel r,
+       c2c_budget_item i
 where l.period_id in (%s)
   and r.account_id = l.account_id
-group by l.analytic_account_id, budget_item_id, l.period_id""" % (','.join(map(str,periods))))
+  and r.budget_item_id = i.id
+  and l.company_id = %s
+group by l.analytic_account_id, budget_item_id, l.period_id""" % (','.join(map(str,periods)), company_id))
             
             for line in cr.dictfetchall():
                 _logger.info('FGF line %s' % ( line))
@@ -133,6 +141,7 @@ group by l.analytic_account_id, budget_item_id, l.period_id""" % (','.join(map(s
             #_logger.info('FGF line vals %s' % (vals))
             #if vals:
             #    budget_lines_obj.create(cr, uid, vals)
+	return True
                  
 c2c_budget_create()
        

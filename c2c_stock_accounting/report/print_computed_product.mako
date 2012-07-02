@@ -95,7 +95,7 @@ ${_("Selection")}
             <th style="text-align:right;white-space:nowrap">${  formatLang(cumul_categ_qty)}</th>
             <th style="text-align:left;white-space:nowrap"></th>
             <th style="text-align:left;white-space:nowrap"></th>
-            <th style="text-align:right;white-space:nowrap;">${  formatLang(cumul_categ_valuation1)}</th>
+            <th style="text-align:right;white-space:nowrap;">${  formatLang(cumul_categ_valuation)}</th>
             <th style="text-align:right;white-space:nowrap;">${  formatLang(cumul_categ_valuation2)}</th>
             <th style="text-align:left;white-space:nowrap"></th>
          </tr>
