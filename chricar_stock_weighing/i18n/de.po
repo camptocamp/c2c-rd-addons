@@ -7,16 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 6.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-07-01 08:45+0000\n"
-"PO-Revision-Date: 2012-07-01 10:46+0200\n"
-"Last-Translator: Ferdinand Gassauer\n"
+"POT-Creation-Date: 2012-07-01 08:33+0000\n"
+"PO-Revision-Date: 2012-07-01 11:57+0000\n"
+"Last-Translator: Ferdinand @ Camptocamp <Unknown>\n"
 "Language-Team: American English <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: \n"
-"Plural-Forms: \n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2012-07-02 04:58+0000\n"
+"X-Generator: Launchpad (build 15520)\n"
 "Language: en_US\n"
-"X-Generator: Lokalize 1.4\n"
 
 #. module: chricar_stock_weighing
 #: field:stock.picking,tractor_tare:0
@@ -71,11 +71,11 @@ msgstr "Produkt das den Hauptnamen speichert"
 #. module: chricar_stock_weighing
 #: help:stock.picking,consignment_note:0
 msgid ""
-"Number of Consignement Note (AWB,CIM,CMR,CDT,MDT)  "
-"http://www.tis-gdv.de/tis/bedingungen/trpdoku/inhalt.htm#1"
+"Number of Consignement Note (AWB,CIM,CMR,CDT,MDT)  http://www.tis-"
+"gdv.de/tis/bedingungen/trpdoku/inhalt.htm#1"
 msgstr ""
-"Konsignationsnummer (AWB,CIM,CMR,CDT,MDT)  "
-"http://www.tis-gdv.de/tis/bedingungen/trpdoku/inhalt.htm#1"
+"Konsignationsnummer (AWB,CIM,CMR,CDT,MDT)  http://www.tis-"
+"gdv.de/tis/bedingungen/trpdoku/inhalt.htm#1"
 
 #. module: chricar_stock_weighing
 #: view:mrp.production:0
@@ -120,8 +120,7 @@ msgstr "Aspirieren"
 #. module: chricar_stock_weighing
 #: model:ir.actions.act_window,name:chricar_stock_weighing.chricar_weighing
 #: model:ir.ui.menu,name:chricar_stock_weighing.menu_chricar_weighing
-#: view:stock.move:0
-#: view:stock.picking:0
+#: view:stock.move:0 view:stock.picking:0
 msgid "Weighing"
 msgstr "Wiegungen"
 
@@ -133,7 +132,8 @@ msgstr "Starte Fertigungsauftrag"
 #. module: chricar_stock_weighing
 #: constraint:stock.move:0
 msgid "You try to assign a lot which is not from the same product"
-msgstr "Sie versuchen eine Losnummer ohne Bezug zu diesem Produkt zuzuweisen."
+msgstr ""
+"Sie versuchen eine Losnummer ohne Bezug zu diesem Produkt zuzuweisen."
 
 #. module: chricar_stock_weighing
 #: constraint:stock.move:0
@@ -161,12 +161,9 @@ msgid "Consignement Note Number"
 msgstr "Konsignationsnummer"
 
 #. module: chricar_stock_weighing
-#: code:addons/chricar_stock_weighing/mrp.py:85
 #: model:ir.actions.act_window,name:chricar_stock_weighing.mrp_production_harvest_action
 #: model:ir.ui.menu,name:chricar_stock_weighing.menu_mrp_production_harvest_action
-#: view:mrp.production:0
-#: view:stock.move:0
-#, python-format
+#: view:mrp.production:0 view:stock.move:0
 msgid "Harvest"
 msgstr "Ernte"
 
@@ -274,8 +271,7 @@ msgid "Total Gross"
 msgstr "Brutto Gesamt"
 
 #. module: chricar_stock_weighing
-#: sql_constraint:mrp.production:0
-#: sql_constraint:stock.picking:0
+#: sql_constraint:mrp.production:0 sql_constraint:stock.picking:0
 msgid "Reference must be unique per Company!"
 msgstr "Die Referenz muss je Firma eindeutig sein"
 
@@ -320,8 +316,7 @@ msgid "Production lot is used to adminster production lots"
 msgstr "Verwaltet Produktionslose"
 
 #. module: chricar_stock_weighing
-#: field:stock.move,sample:0
-#: field:stock.picking,sample:0
+#: field:stock.move,sample:0 field:stock.picking,sample:0
 msgid "Sample Number"
 msgstr "Probenummer"
 
@@ -370,5 +365,3 @@ msgstr "Offen"
 #: field:stock.picking,trailer_tare:0
 msgid "Trailer Tare Weight"
 msgstr "Anhänger Tara"
-
-
