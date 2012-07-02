@@ -36,6 +36,7 @@ import time
 from osv import fields,osv
 import pooler
 from mx.DateTime import now, DateTime, localtime
+from tools.translate import _
 
 class stock_move(osv.osv):
     _inherit = "stock.move"
@@ -65,29 +66,23 @@ class stock_move(osv.osv):
 #    }
 
 
-    def onchange_harvest_product_qty(self, cr, uid, ids,product_qty,product_id,date_planned,product_uom,location_src_id,location_dest_id,prodlot_id,product_packaging_id):
+    def onchange_harvest_product_qty(self, cr, uid, ids, product_qty, product_id, product_uom, date_planned,prodlot_id,location_src_id,location_dest_id,product_packaging_id):
         res = {}
-        if product_qty and product_qty > 0.0:
-        #   raise osv.except_osv(_('Test Error 1'),
-        #                 _('Trigger Qty = %s',) % (product_qty))
-        #   return res
-        #else:
-           pu    = self.pool.get('product.product').browse(cr, uid, product_id)
-           pu_id = pu.price_unit_id.id
+        if product_id and product_qty and product_qty > 0.0:
+           prod_obj    = self.pool.get('product.product').browse(cr, uid, product_id)
+           pu_id = prod_obj.price_unit_id.id
            move_value = 0.0
            res = {'value' : {
             'product_id' : product_id,
-            #'date_planned' : date_planned,
-            'date_planned' : now().strftime('%Y-%m-%d %H:%M:%S'),
-            'date'         : now().strftime('%Y-%m-%d %H:%M:%S'),
+	    'date_expected' : time.strftime('%Y-%m-%d %H:%M:%S'),
+	    'date_planned' : date_planned,
+	    'date'         : time.strftime('%Y-%m-%d %H:%M:%S'),
             'product_uom' : product_uom,
             'location_id' : location_src_id,
             'location_dest_id' : location_dest_id,
             'price_unit_id' : pu_id,
-            'price_unit' : pu.standard_price,
-            'price_unit_coeff' : pu.standard_price_coeff,
-            'move_value_cost' : product_qty * pu.standard_price_coeff,
-            'name' : 'Harvest',
+            'price_unit' : prod_obj.standard_price * product_qty,
+            'name' : _('Harvest'),
             'prodlot_id' : prodlot_id ,
             'product_packaging_id' : product_packaging_id,
               }
@@ -95,7 +90,7 @@ class stock_move(osv.osv):
            #raise osv.except_osv(_('Test Error 2'),
            #             _('Trigger Qty = %s',) % (product_qty))
 
-           return res
+        return res
 
 stock_move()
 
