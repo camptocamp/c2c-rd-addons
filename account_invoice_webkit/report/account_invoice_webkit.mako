@@ -237,7 +237,10 @@ ${inv.address_invoice_id.address_label|carriage_returns}
 
 %if line.note and len(line.note.replace('\n','')) > 0 :
 <br>
-            ${line.note |carriage_returns}
+<style type="text/css">
+note {font-size:75%};
+</style>
+<note>            ${line.note |carriage_returns} </note>
 %endif
 </td>
 %if inv.print_ean:
