@@ -59,3 +59,41 @@ class sale_order(osv.osv):
     }
 
 sale_order()
+
+class stock_picking(osv.osv):
+    _inherit = "stock.picking"
+
+    def _check_internal_order(self, cr, uid, ids, context=None):
+        """ Checks whether invoce state mataches order_policy and default partner location type
+        @return: True or False
+        """
+        for pick in self.browse(cr, uid, ids, context=context):
+	    if pick.invoice_state != 'none' :
+	      if  pick.sale_id and pick.sale_id.order_policy == 'internal':
+                return False
+	      if pick.partner_id and pick.partner_id.property_stock_customer.usage== 'internal': 
+                return False
+	    if pick.invoice_state == 'none':
+	      if  pick.sale_id and pick.sale_id.order_policy != 'internal':
+                return False
+	      if pick.partner_id and pick.partner_id.property_stock_customer.usage == 'customer': 
+                return False
+	    
+        return True
+
+    def _get_constraints(self, cr, uid, context=None):
+        _logger  = logging.getLogger(__name__)
+	res = ''
+        self._logger.info('FGF pick constraints a %s', res)
+	#res = super(stock_picking, self)._constraints
+        self._logger.info('FGF pick constraints b %s', res)
+	c = (_check_internal_order, 'incorrect invoice state', ['invoice_state'])
+        self._logger.info('FGF pick constraints c %s', c)
+	#res.append(c)
+	return res
+    #FIXME - should be replaced by _get_constraints 
+    _constraints = [(_check_internal_order, 'incorrect invoice state', ['invoice_state'])]
+
+stock_picking()
+
+   
