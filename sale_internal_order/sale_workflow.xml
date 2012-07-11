@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="sale.trans_router_wait_invoice" model="workflow.transition">
+            <field name="act_from" ref="sale.act_router"/>
+            <field name="act_to" ref="sale.act_wait_invoice"/>
+            <field name="condition">(order_policy!='internal')</field>
+        </record>
+        <record id="sale.trans_router_end_invoice" model="workflow.transition">
+            <field name="act_from" ref="sale.act_router"/>
+            <field name="act_to" ref="sale.act_invoice_end"/>
+            <field name="condition">(order_policy=='internal')</field>
+        </record>
+
+    </data>
+</openerp>
