@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <record id="product_normal_form_portal_view" model="ir.ui.view">
+      <field name="name">product.normal.portal.form</field>
+      <field name="model">product.product</field>
+      <field name="type">form</field>
+      <field name="inherit_id" ref="product.product_normal_form_view"/>
+      <field name="arch" type="xml">
+        <field name="sale_ok" position="after">
+          <field name="display_portal_ok" groups="base.group_extended" />
+        </field>
+      </field>
+    </record>
+
+  </data>
+</openerp>
