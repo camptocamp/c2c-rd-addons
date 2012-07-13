@@ -119,15 +119,28 @@
                                     </notebook>
                                 </form>
                                 <tree string="Sales Order Lines" editable="bottom">
-                                    <field colspan="4" name="name"/>
-                                    <field name="product_uom_qty" string="Qty(UoM)"/>
-                                    <field name="product_uom" string="UoM"/>
+				    <field context="{'partner_id':parent.partner_id, 'quantity':product_uom_qty, 'pricelist':parent.pricelist_id, 'shop':parent.shop_id, 'uom':product_uom}"
+					   name="product_id" widget="selection"
+					   on_change="product_id_change(parent.pricelist_id,product_id,product_uom_qty,product_uom,product_uos_qty,product_uos,name,parent.partner_id, False, True, parent.date_order, product_packaging, parent.fiscal_position, False, context)"/>
+                                    <field name="name"/>
+                                    <field
+                                                context="{'partner_id':parent.partner_id, 'quantity':product_uom_qty, 'pricelist':parent.pricelist_id, 'shop':parent.shop_id, 'uom':product_uom}"
+                                                name="product_uom_qty"
+                                                on_change="product_id_change(parent.pricelist_id,product_id,product_uom_qty,product_uom,product_uos_qty,product_uos,name,parent.partner_id, False, False, parent.date_order, product_packaging, parent.fiscal_position, True, context)"/>
+                                    <field name="product_uom" 
+                                                on_change="product_uom_change(parent.pricelist_id,product_id,product_uom_qty,product_uom,product_uos_qty,product_uos,name,parent.partner_id, False, False, parent.date_order, context)"
+                                                nolabel="1"/>
+
                                     <field groups="product.group_uos" name="product_uos_qty" string="Qty(UoS)"/>
                                     <field groups="product.group_uos" name="product_uos" string="UoS"/>
+                                    <field name="product_packaging" 
+                                                context="{'partner_id':parent.partner_id, 'quantity':product_uom_qty, 'pricelist':parent.pricelist_id, 'shop':parent.shop_id, 'uom':product_uom}" on_change="product_packaging_change(parent.pricelist_id, product_id, product_uom_qty, product_uom, parent.partner_id, product_packaging, True, context)"
+                                                domain="[('product_id','=',product_id)]" groups="base.group_extended"
+                                                />
                                     <field name="discount"/>
                                     <field name="price_unit"/>
                                     <field name="price_subtotal"/>
-                                    <field name="state"/>
+                                    <field name="state" invisible="1"/>
                                 </tree>
                             </field>
                             <newline/>
