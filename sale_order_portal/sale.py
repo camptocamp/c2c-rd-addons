@@ -34,7 +34,7 @@ class sale_order(osv.osv):
               ( 'sale.order.line'
               , 'order_id'
               , 'Order Lines Sorted'
-              , search = [('display_portal_ok', '=', True)]
+              , search = [('product_id.display_portal_ok', '=', True)]
               , states={'draft': [('readonly', False)]}
               , order  = 'product_id.categ_id.name, product_id.name'
               ),
