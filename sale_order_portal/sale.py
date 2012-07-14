@@ -54,22 +54,42 @@ class sale_order(osv.osv):
 	product_ids = prod_obj.search(cr, uid, [('display_portal_ok','=',True)])
 	for order in self.browse(cr,uid,ids,context):
 	    for product in prod_obj.browse(cr,uid,product_ids):
+		p = product.name
 		vals = {
 		       'order_id' : order.id,
 		       'product_id': product.id,
-		       'name' : product.name,
+		       'name' : '\''+p+'\'',
 		       'product_uom': product.uom_id.id,
 		       'product_uom_qty' : 0,
 		       'price_unit': product.list_price,
-		       'type': product.procure_method,
-                       'state' : 'draft',
+		       'type': '\''+product.procure_method+'\'',
+		       'product_packaging' : product.packaging and product.packaging[0].id or 'null',
+                       'state' : '\''+'draft'+'\'',
+		       'delay': 0.0,
 		       }
-		so_line_obj.create(cr, 1, vals)
+		# the following statement takes 120 seconds to insert 400 rows
+		#so_line_obj.create(cr, 1, vals)
+		# the following statement takes 2 seconds to insert 400 rows
+                cr.execute("""
+		insert into sale_order_line(order_id,product_id,name,product_uom,product_uom_qty,price_unit,type,product_packaging,state,delay)
+		values (%s, %s, %s,%s,%s,%s,%s,%s,%s,%s)""" % (
+			vals['order_id'],
+			vals['product_id'],
+			vals['name'],
+			vals['product_uom'],
+			vals['product_uom_qty'],
+			vals['price_unit'],
+			vals['type'],
+			vals['product_packaging'],
+			vals['state'],
+			vals['delay'],
+			)
+		)
 
     def rm_zero_lines(self, cr, uid, ids, context=None):
 	so_line_obj = self.pool.get('sale.order.line')
 	for order in self.browse(cr,uid,ids,context):
-	    line_ids = so_line_obj.search(cr, uid, [('order_id','=',order.id),('product_uom_qty','=',0)])
+	    line_ids = so_line_obj.search(cr, uid , [('order_id','=',order.id),('product_uom_qty','=',0)])
 	    so_line_obj.unlink(cr, uid, line_ids)
 
 sale_order()
