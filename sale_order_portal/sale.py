@@ -33,7 +33,7 @@ class sale_order(osv.osv):
         'order_line_portal_sorted' : one2many_sorted.one2many_sorted
               ( 'sale.order.line'
               , 'order_id'
-              , 'Order Lines'
+              , 'Product to Order'
               , states={'draft': [('readonly', False)]}
               , order  = 'categ_id.name , product_id.name'
               ),
