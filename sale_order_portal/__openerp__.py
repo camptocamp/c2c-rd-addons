@@ -29,7 +29,7 @@
 Simple Sale order entry for partners
 """,
     'author': 'Camptocamp Austria',
-    'depends': [ 'sale','portal'],
+    'depends': [ 'sale_uos_entry','stock_get_name_qty','portal'],
     'update_xml': ['sale_view.xml'
        ],
     #'update_xml': ['product_view.xml'],

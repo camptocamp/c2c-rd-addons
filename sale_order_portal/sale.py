@@ -30,20 +30,20 @@ class sale_order(osv.osv):
   
     _columns = {
         'categ_id': fields.many2one('product.category','Category', help="Select category to be displayed"),
-        'order_line_port1al_sorted' : one2many_sorted.one2many_sorted
+        'order_line_portal_sorted' : one2many_sorted.one2many_sorted
               ( 'sale.order.line'
               , 'order_id'
-              , 'Order Lines Sorted'
+              , 'Order Lines'
               , states={'draft': [('readonly', False)]}
-              , order  = 'product_id.categ_id.name, product_id.name'
+              , order  = 'categ_id.name , product_id.name'
               ),
-        'order_line_port1al_ordered_sorted' : one2many_sorted.one2many_sorted
+        'order_line_portal_ordered_sorted' : one2many_sorted.one2many_sorted
               ( 'sale.order.line'
               , 'order_id'
-              , 'Order Lines Sorted'
-              , search = [('product_id.display_portal_ok', '=', True), ('product_uom_qty','<>',0)]
+              , 'Ordered Products'
+              , search = [('product_uom_qty','<>',0)]
               , states={'draft': [('readonly', False)]}
-              , order  = 'product_id.categ_id.name, product_id.name'
+              , order  = 'categ_id.name , product_id.name'
               ),
         }
 
@@ -51,12 +51,12 @@ class sale_order(osv.osv):
         prod_obj = self.pool.get('product.product')
 	so_line_obj = self.pool.get('sale.order.line')
 
-	product_ids = prod_obj.search(cr, uid, [('display_portal_ok','=',True)],context)
+	product_ids = prod_obj.search(cr, uid, [('display_portal_ok','=',True)])
 	for order in self.browse(cr,uid,ids,context):
 	    for product in prod_obj.browse(cr,uid,product_ids):
 		vals = {
 		       'order_id' : order.id,
-		       'product_id ': product.id,
+		       'product_id': product.id,
 		       'name' : product.name,
 		       'product_uom': product.uom_id.id,
 		       'product_uom_qty' : 0,
@@ -72,14 +72,13 @@ class sale_order(osv.osv):
 	    line_ids = so_line_obj.search(cr, uid, [('order_id','=',order.id),('product_uom_qty','=',0)])
 	    so_line_obj.unlink(cr, uid, line_ids)
 
-
-
 sale_order()
 
 class sale_order_line(osv.osv):
     _inherit = "sale.order.line"
     _columns = {
-         'categ_id'           : fields.related ('product_id','categ_id',type="many2one", relation="product.category", string='Category',readonly=True),
+         'categ_id'       : fields.related('product_id','categ_id',type="many2one", relation="product.category", string='Category',readonly=True),
+         'code'           : fields.related('product_id','code',type="varchar", string='Code',readonly=True),
 	}
 sale_order_line()
 
