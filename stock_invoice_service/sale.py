@@ -40,9 +40,10 @@ class sale_order(osv.osv):
                    if line.product_id.type == 'product':
                        products = True
 	       # FIXME this should be configurable
-	       if products:
+	       if o.order_policy != 'internal':
+	         if products:
 		   self.write(cr, uid, o.id, {'order_policy' : 'picking'})
-               else:
+                 else:
 		   self.write(cr, uid, o.id, {'order_policy' : 'manual'})
             #   if not products:
 	    #	       raise osv.except_osv(_('Invalid order policy !'), _('You must not select "Invoice on shipped quantities" for services ! Suggestion: "Deliver & invoice on demand"'))

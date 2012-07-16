@@ -35,7 +35,7 @@ technical:
 """,
     'author': 'Camptocamp Austria',
     'depends': [ 'sale','stock' ],
-    'update_xml': ['partner_view.xml',
+    'update_xml': ['partner_view.xml','sale_workflow.xml'
        ],
     #'update_xml': ['product_view.xml'],
     'demo_xml': [],

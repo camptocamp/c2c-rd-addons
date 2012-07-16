@@ -32,7 +32,7 @@ class mrp_production(osv.osv):
         }
 
     def create(self, cr, uid, vals, context=None):
-        if vals.get('name', '/'):
+        if vals.get('name', '/') == '/':
             vals.update({'name':  self.pool.get('ir.sequence').get(cr, uid, 'mrp.production')})
         return super(mrp_production, self).create(cr, uid, vals, context=context)
 

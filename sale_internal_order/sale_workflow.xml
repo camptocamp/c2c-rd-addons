@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="sale.trans_router_wait_invoice" model="workflow.transition">
+            <field name="act_from" ref="sale.act_router"/>
+            <field name="act_to" ref="sale.act_wait_invoice"/>
+            <field name="condition">(order_policy!='internal')</field>
+    </record>
+
+        <record id="sale.act_done" model="workflow.activity">
+            <field name="wkf_id" ref="sale.wkf_sale"/>
+            <field name="name">done</field>
+            <field name="flow_stop">True</field>
+            <field name="kind">function</field>
+            <field name="action">write({'state':'done'})</field>
+            <field name="join_mode">AND</field>
+            <field name="condition">(order_policy!='internal')</field>
+        </record>
+        <record id="sale.act_done_internal" model="workflow.activity">
+            <field name="wkf_id" ref="sale.wkf_sale"/>
+            <field name="name">done</field>
+            <field name="flow_stop">True</field>
+            <field name="kind">function</field>
+            <field name="action">write({'state':'done'})</field>
+            
+            <field name="condition">(order_policy=='internal')</field>
+        </record>
+
+        <record id="sale.trans_ship_end_done" model="workflow.transition">
+            <field name="act_from" ref="sale.act_ship_end"/>
+            <field name="act_to" ref="sale.act_done"/>
+            <field name="condition">(order_policy!='internal')</field>
+        </record>
+        <record id="sale.trans_ship_internal_end_done" model="workflow.transition">
+            <field name="act_from" ref="sale.act_ship_end"/>
+            <field name="act_to" ref="sale.act_done_internal"/>
+            <field name="condition">(order_policy == 'internal')</field>
+        </record>
+
+    </data>
+</openerp>
