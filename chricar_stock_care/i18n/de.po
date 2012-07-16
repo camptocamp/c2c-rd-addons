@@ -125,7 +125,7 @@ msgstr "Vorgang Fortsetzen"
 #. module: chricar_stock_care
 #: selection:stock.move,activity:0
 msgid "Restore"
-msgstr "Wiederherstellen"
+msgstr "Umlagern"
 
 #. module: chricar_stock_care
 #: selection:stock.move,activity:0
