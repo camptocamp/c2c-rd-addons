@@ -49,6 +49,7 @@ class stock_move(osv.osv):
      ACTIVITY_SELECTION = {
                               'dehumidify':'Dehumidify',
                               'restore':'Restore',
+                              'ventilate':'Ventilate',
                               'aspirate':'Aspirate',
                               'purify':'Purify',
                               'check':'Check',
