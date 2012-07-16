@@ -2,20 +2,26 @@
 # This file contains the translation of the following modules:
 #	* chricar_stock_care
 #
+# Ferdinand Gassauer, 2012.
 msgid ""
 msgstr ""
-"Project-Id-Version: OpenERP Server 6.1rc1\n"
+"Project-Id-Version: OpenERP Server 6.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-01-23 22:07+0000\n"
-"PO-Revision-Date: 2012-01-24 01:36+0000\n"
-"Last-Translator: Joël Grand-Guillaume @ CampToCamp "
-"<joel.grandguillaume@camptocamp.com>\n"
-"Language-Team: \n"
+"POT-Creation-Date: 2012-07-16 10:38+0000\n"
+"PO-Revision-Date: 2012-07-16 12:40+0200\n"
+"Last-Translator: Ferdinand Gassauer\n"
+"Language-Team: American English <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2012-07-14 06:42+0000\n"
-"X-Generator: Launchpad (build 15614)\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+"Language: en_US\n"
+"X-Generator: Lokalize 1.4\n"
+
+#. module: chricar_stock_care
+#: selection:stock.move,activity:0
+msgid "Ventilate"
+msgstr "Belüften"
 
 #. module: chricar_stock_care
 #: view:stock.picking:0
@@ -70,10 +76,14 @@ msgstr ""
 "Dieser Lagerort wird für die Verbuchung der Produktionsverluste verwendet"
 
 #. module: chricar_stock_care
+#: model:stock.move,activity:0
+msgid "aspirate"
+msgstr "aspirate"
+
+#. module: chricar_stock_care
 #: constraint:stock.move:0
 msgid "You try to assign a lot which is not from the same product"
-msgstr ""
-"Sie versuchen eine Losnummer ohne Bezug zu diesem Produkt zuzuweisen."
+msgstr "Sie versuchen eine Losnummer ohne Bezug zu diesem Produkt zuzuweisen."
 
 #. module: chricar_stock_care
 #: constraint:stock.move:0
@@ -125,7 +135,7 @@ msgstr "Vorgang Fortsetzen"
 #. module: chricar_stock_care
 #: selection:stock.move,activity:0
 msgid "Restore"
-msgstr "Wiederherstellen"
+msgstr "Umlagern"
 
 #. module: chricar_stock_care
 #: selection:stock.move,activity:0
@@ -144,8 +154,8 @@ msgstr "Lagerbuchung"
 msgid ""
 "If In and Out are measured and a factor exists the quantity will be reduced"
 msgstr ""
-"Wenn Ein- und Ausgang gemessen werden und ein Faktor existiert wird die "
-"Menge reduziert"
+"Wenn Ein- und Ausgang gemessen werden und ein Faktor existiert wird die Menge "
+"reduziert"
 
 #. module: chricar_stock_care
 #: field:stock.move,humidity:0
@@ -178,3 +188,5 @@ msgstr "Lagerbetreuung"
 #: selection:stock.move,activity:0
 msgid "Check"
 msgstr "Prüfe"
+
+
