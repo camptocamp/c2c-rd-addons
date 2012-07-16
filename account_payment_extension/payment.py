@@ -98,7 +98,7 @@ class res_partner_bank(osv.osv):
                 state = vals['state']
             else:
                 state = partner_bank.state
-            sql = "UPDATE res_partner_bank SET default_bank='0' WHERE partner_id=%i AND default_bank='1' AND state='%s' AND id<>%i" % (partner_id, state, ids[0])
+            sql = "UPDATE res_partner_bank SET default_bank='0' WHERE partner_id=%i AND default_bank='1' AND state='%s' AND id!=%i" % (partner_id, state, ids[0])
             cr.execute(sql)
         return super(res_partner_bank, self).write(cr, uid, ids, vals, context=context)
 
@@ -263,11 +263,11 @@ class payment_order(osv.osv):
                 }
                 
                 amount = self.pool.get('res.currency').compute(cr, uid, currency_id, company_currency_id, line_amount, context=ctx)
-                if currency_id <> company_currency_id:
+                if currency_id != company_currency_id:
                     amount_cur = self.pool.get('res.currency').compute(cr, uid, company_currency_id, currency_id, amount, context=ctx)
                     val['amount_currency'] = -amount_cur
 
-                if line.account_id and line.account_id.currency_id and line.account_id.currency_id.id <> company_currency_id:
+                if line.account_id and line.account_id.currency_id and line.account_id.currency_id.id != company_currency_id:
                     val['currency_id'] = line.account_id.currency_id.id
                     if company_currency_id == line.account_id.currency_id.id:
                         amount_cur = line_amount
@@ -279,7 +279,7 @@ class payment_order(osv.osv):
 
                 # Fill the secondary amount/currency
                 # if currency is not the same than the company
-                if currency_id <> company_currency_id:
+                if currency_id != company_currency_id:
                     amount_currency = line_amount
                     move_currency_id = currency_id
                 else:
@@ -303,7 +303,7 @@ class payment_order(osv.osv):
 
                 aml_ids = [x.id for x in self.pool.get('account.move').browse(cr, uid, move_id, context).line_id]
                 for x in self.pool.get('account.move.line').browse(cr, uid, aml_ids, context):
-                    if x.state <> 'valid':
+                    if x.state != 'valid':
                         raise osv.except_osv(_('Error !'), _('Account move line "%s" is not valid') % x.name)
 
                 if line.move_line_id and not line.move_line_id.reconcile_id:
@@ -368,7 +368,7 @@ class payment_line(osv.osv):
         return result
 
     _columns = {
-        'move_line_id': fields.many2one('account.move.line', 'Entry line', domain="[('reconcile_id','=', False), ('amount_to_pay','<>',0), ('account_id.type','=',parent.type),('payment_type','ilike',parent.payment_type_name or '%')]", help='This Entry Line will be referred for the information of the ordering customer.'),
+        'move_line_id': fields.many2one('account.move.line', 'Entry line', domain="[('reconcile_id','=', False), ('amount_to_pay','!=',0), ('account_id.type','=',parent.type),('payment_type','ilike',parent.payment_type_name or '%')]", help='This Entry Line will be referred for the information of the ordering customer.'),
         'payment_move_id': fields.many2one('account.move', 'Payment Move', readonly=True, help='Account move that pays this debt.'),
         'account_id': fields.many2one('account.account', 'Account'),
         'type': fields.related('order_id','type', type='selection', selection=[('payable','Payable'),('receivable','Receivable')], readonly=True, store=True, string='Type'),

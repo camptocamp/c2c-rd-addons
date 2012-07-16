@@ -70,7 +70,7 @@ class stock_location_product(osv.osv_memory):
                        'to_date': location_obj['to_date'],
                        'display_with_zero_qty': location_obj['display_with_zero_qty'],
                 },
-                'domain': [('type', '<>', 'service')],
+                'domain': [('type', '!=', 'service')],
             }
 stock_location_product()
 
@@ -90,7 +90,7 @@ class product_product(osv.osv):
             for prod in self.browse(cr, uid, res_all):
                 qty = prod.get('qty_available')
                 vir = prod.get('virtual_available')
-                if qty <> 0.0 or vir <> 0.0:
+                if qty != 0.0 or vir != 0.0:
                     res.append(prod) 
         else: 
            self._logger.info('FGF stock_location_product  all')
@@ -102,7 +102,7 @@ class product_product(osv.osv):
     def not_0(self, cr, uid, digits, context):
 	to_check = context.get('to_check')
 	for t in to_check:
-	    if round(t,digits) <> 0.0:
+	    if round(t,digits) != 0.0:
 		return True
         return False
 

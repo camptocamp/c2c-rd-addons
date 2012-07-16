@@ -41,7 +41,7 @@ class sale_order(osv.osv):
               ( 'sale.order.line'
               , 'order_id'
               , 'Ordered Products'
-              , search = [('product_uom_qty','<>',0)]
+              , search = [('product_uom_qty','!=',0)]
               , states={'draft': [('readonly', False)]}
               , order  = 'categ_id.name , product_id.name'
               ),

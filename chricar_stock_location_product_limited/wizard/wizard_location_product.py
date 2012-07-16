@@ -27,7 +27,7 @@ import time
 def _action_open_window(self, cr, uid, data, context=None): 
     c={'location': data['ids'][0],'from_date':data['form']['from_date'],'to_date':data['form']['to_date']}
     product_obj = pooler.get_pool(cr.dbname).get('product.product')
-    ids = product_obj.search(cr, uid, [('type','<>','service')],context=c)
+    ids = product_obj.search(cr, uid, [('type','!=','service')],context=c)
     if not data['form']['display_with_zero_qty']:          
         products = product_obj.read(cr, uid, ids, ['id', 'qty_available','virtual_available'], context=c)
         ids=[]

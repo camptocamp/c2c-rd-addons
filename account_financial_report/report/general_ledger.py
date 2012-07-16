@@ -127,7 +127,7 @@ class general_ledger(rml_parse.rml_parse):
             # We are in the case of we are on the top of the account move Line
             cr.execute("SELECT distinct(ac.code) as code_rest,ac.name as name_rest "\
                 "FROM account_account AS ac, account_move_line mv "\
-                "WHERE ac.id = mv.account_id and mv.move_id = " + num_id_move + " and mv.account_id <> " + account_id )
+                "WHERE ac.id = mv.account_id and mv.move_id = " + num_id_move + " and mv.account_id != " + account_id )
             res_mv = cr.dictfetchall()
             # we need a result more than 2 line to make the test so we will made the the on 1 because we have exclude the current line
             if (len(res_mv) >=1):
@@ -238,20 +238,20 @@ class general_ledger(rml_parse.rml_parse):
                 if child_account.type != 'view' \
                 and len(move_line_obj.search(self.cr, self.uid,
                     [('account_id','=',child_account.id)],
-                    context=ctx)) <> 0 :
+                    context=ctx)) != 0 :
                     res.append(child_account)
             elif form['display_account'] == 'bal_solde':
                 if child_account.type != 'view' \
                 and len(move_line_obj.search(self.cr, self.uid,
                     [('account_id','=',child_account.id)],
-                    context=ctx)) <> 0 :
-                    if balance_account <> 0.0:
+                    context=ctx)) != 0 :
+                    if balance_account != 0.0:
                         res.append(child_account)
             else:
                 if child_account.type != 'view' \
                 and len(move_line_obj.search(self.cr, self.uid,
                     [('account_id','>=',child_account.id)],
-                    context=ctx)) <> 0 :
+                    context=ctx)) != 0 :
                     res.append(child_account)
         ##
         if not len(res):
@@ -343,7 +343,7 @@ class general_ledger(rml_parse.rml_parse):
         digits = decimal_precision_obj.browse(self.cr, self.uid, ids)[0].digits
 
         #if abs(sum) > 10**-int(config['price_accuracy']) and form['initial_balance']:
-        if round(sum,digits) <> 0.0  and form['initial_balance']:
+        if round(sum,digits) != 0.0  and form['initial_balance']:
             res.insert(0, {
                 'date': self.min_date,
                 'name': _('Initial balance'),

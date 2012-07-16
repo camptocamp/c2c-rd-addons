@@ -229,7 +229,7 @@ class chricar_budget(osv.osv):
             else:
                 harvest = line.harvest
             self._logger.debug('harvest yield 2 `%s``%s`', surface_used, harvest)
-            if surface_used and surface_used <> 0.0  and  harvest and harvest <> 0.0:
+            if surface_used and surface_used != 0.0  and  harvest and harvest != 0.0:
                  harvest_yield = harvest / surface_used
             res[line.id]  = harvest_yield
         return res
@@ -243,7 +243,7 @@ class chricar_budget(osv.osv):
             surface_used  = line.surface
             harvest       = line.harvest
             self._logger.debug('harvest yield 2 `%s` `%s`', surface_used,harvest)
-            if surface_used and surface_used <> 0.0  and  harvest and harvest <> 0.0:
+            if surface_used and surface_used != 0.0  and  harvest and harvest != 0.0:
                  harvest_yield = harvest / surface_used
             res[line.id]  = harvest_yield
         return res
@@ -256,7 +256,7 @@ class chricar_budget(osv.osv):
             yield_qty  = line.yield_qty
             harvest_net = line.harvest_net
             self._logger.debug('harvest yield 2 `%s` `%s`', yield_qty,harvest_net)
-            if yield_qty <> 0.0  and harvest_net <> 0.0:
+            if yield_qty != 0.0  and harvest_net != 0.0:
                  harvest_yield_diff =  ((harvest_net / yield_qty) - 1.0) * 100
             res[line.id]  = harvest_yield_diff
         return res
@@ -371,7 +371,7 @@ class chricar_budget_surface(osv.osv):
             surface_used_detail  = line.name
             harvest_detail       = line.harvest
             self._logger.debug('harvest yield detail `%s` `%s` `%s`', name, surface_used_detail, harvest_detail)
-            if surface_used_detail and surface_used_detail <> 0.0 and harvest_detail and harvest_detail <> 0.0:
+            if surface_used_detail and surface_used_detail != 0.0 and harvest_detail and harvest_detail != 0.0:
                  harvest_yield_detail = harvest_detail / surface_used_detail
             res[line.id]  = harvest_yield_detail
         return res
