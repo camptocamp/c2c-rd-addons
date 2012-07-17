@@ -322,6 +322,8 @@ Definition of Parent Companies
                     <field name="name"/>
                     <field name="ref" groups="base.group_extended"/>
                     <field name="owners_share"/>
+                    <field name="owners_direct_share"/>
+                    <field name="owners_consol_share"/>
                 </tree>
             </field>
         </record>

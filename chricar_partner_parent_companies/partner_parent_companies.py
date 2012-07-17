@@ -74,7 +74,7 @@ class res_partner(osv.osv) :
 
     _inherit = "res.partner"
     
-    def _get_share(self, cr, uid, share_owner_id, partner_id, share, owner_share, consolidate):
+    def _get_share(self, cr, uid, share_owner_id, partner_id, share, owner_share, consolidate, level = 1):
         _logger = logging.getLogger(__name__)
         share_child = share
         owners_share = owner_share
@@ -92,10 +92,16 @@ class res_partner(osv.osv) :
                 self._logger.debug('B partner %s share %s' %( parent_share.partner_id.name, share) )
                     
                 if parent_share.partner_parent_id.id == share_owner_id:
+                  if consolidate == 'all':
                     owners_share += share
                     self._logger.debug('FGF owner %s partner %s share-res %s' %(share_owner_id, partner.name, owners_share) )
+                  elif consolidate == 'direct' and level == 1:
+                    owners_share += share
+                  elif consolidate == 'consol' and parent_share.consolidation == True:
+                    owners_share += share
                 else:
-                    owners_share = self._get_share(cr, uid, share_owner_id, parent_share.partner_parent_id.id,  share, owners_share, consolidate)
+                    level += 1
+                    owners_share = self._get_share(cr, uid, share_owner_id, parent_share.partner_parent_id.id,  share, owners_share, consolidate, level)
                     self._logger.debug('FGF not owner %s partner %s share-res %s' %(share_owner_id, partner.name, owners_share) )
 
         return owners_share
@@ -106,10 +112,33 @@ class res_partner(osv.osv) :
         res = {}
         for partner in self.browse(cr, uid, ids):
             if context.get('share_owner_id'):
-               res[partner.id] = self._get_share(cr, uid, context['share_owner_id'], partner.id, None, 0.0, 'True')
+               res[partner.id] = self._get_share(cr, uid, context['share_owner_id'], partner.id, None, 0.0, 'all')
             else:
                res[partner.id] = 0
         return res
+        
+    def _get_owners_direct_share(self, cr, uid, ids, name, args, context):
+        if not context:
+            context = {}
+        res = {}
+        for partner in self.browse(cr, uid, ids):
+            if context.get('share_owner_id'):
+               res[partner.id] = self._get_share(cr, uid, context['share_owner_id'], partner.id, None, 0.0, 'direct' )
+            else:
+               res[partner.id] = 0
+        return res
+        
+    def _get_owners_consol_share(self, cr, uid, ids, name, args, context):
+        if not context:
+            context = {}
+        res = {}
+        for partner in self.browse(cr, uid, ids):
+            if context.get('share_owner_id'):
+               res[partner.id] = self._get_share(cr, uid, context['share_owner_id'], partner.id, None, 0.0, 'consol')
+            else:
+               res[partner.id] = 0
+        return res
+        
         
     _columns = \
         { 'partner_ids'               : fields.one2many
@@ -131,7 +160,8 @@ class res_partner(osv.osv) :
             , order  = 'partner_id.name,valid_from'
             )
         , 'owners_share'             : fields.function(_get_owners_share, digits=(9,6), string='Owners Share', help="multi-level Owner share")
-        
+        , 'owners_direct_share'      : fields.function(_get_owners_direct_share, digits=(9,6), string='Owners Direct Share', help="Owners direct share")
+        , 'owners_consol_share'      : fields.function(_get_owners_consol_share, digits=(9,6), string='Owners Share Consolidate', help="Owners share to consolidate")
         }
 res_partner()
 
