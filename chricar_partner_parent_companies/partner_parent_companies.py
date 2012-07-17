@@ -10,6 +10,7 @@
 from osv import fields,osv
 from tools.translate import _
 import one2many_sorted
+import logging
 
 class res_partner_parent_company(osv.osv):
      _name  = "res.partner.parent_company"
@@ -72,6 +73,44 @@ res_partner_parent_company()
 class res_partner(osv.osv) :
 
     _inherit = "res.partner"
+    
+    def _get_share(self, cr, uid, share_owner_id, partner_id, share, owner_share, consolidate):
+        _logger = logging.getLogger(__name__)
+        share_child = share
+        owners_share = owner_share
+        for partner in self.browse(cr, uid, [partner_id]):
+            self._logger.debug('partner %s share %s' %( partner.name, share) )
+            for parent_share in partner.partner_current_ids:
+                self._logger.debug('A partner %s parent %s share %s' %( parent_share.partner_id.name,parent_share.partner_parent_id.name, parent_share.percentage ) )
+                if parent_share.percentage >0 :
+                    if not share_child:
+                        share = parent_share.percentage
+                    else:
+                        share = share_child * parent_share.percentage / 100
+                else:
+                    share = 0.0
+                self._logger.debug('B partner %s share %s' %( parent_share.partner_id.name, share) )
+                    
+                if parent_share.partner_parent_id.id == share_owner_id:
+                    owners_share += share
+                    self._logger.debug('FGF owner %s partner %s share-res %s' %(share_owner_id, partner.name, owners_share) )
+                else:
+                    owners_share = self._get_share(cr, uid, share_owner_id, parent_share.partner_parent_id.id,  share, owners_share, consolidate)
+                    self._logger.debug('FGF not owner %s partner %s share-res %s' %(share_owner_id, partner.name, owners_share) )
+
+        return owners_share
+
+    def _get_owners_share(self, cr, uid, ids, name, args, context):
+        if not context:
+            context = {}
+        res = {}
+        for partner in self.browse(cr, uid, ids):
+            if context.get('share_owner_id'):
+               res[partner.id] = self._get_share(cr, uid, context['share_owner_id'], partner.id, None, 0, 'True')
+            else:
+               res[partner.id] = 0
+        return res
+        
     _columns = \
         { 'partner_ids'               : fields.one2many
             ('res.partner.parent_company','partner_id','Parent Companies')
@@ -91,5 +130,10 @@ class res_partner(osv.osv) :
             , search = [('valid_until', '=', False)]
             , order  = 'partner_id.name,valid_from'
             )
+        , 'owners_share'             : fields.function(_get_owners_share, digits=(9,6), string='Owners Share', help="multi-level Owner share")
+        
         }
 res_partner()
+
+
+    

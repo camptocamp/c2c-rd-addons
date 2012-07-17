@@ -307,5 +307,54 @@ Definition of Parent Companies
       id="menu_partner_tree_struct"
       parent="base.menu_address_book"/>
         -->
+                <!--
+          =======================
+          Partner
+          =======================
+        -->
+        <record id="view_partner_owner_tree" model="ir.ui.view">
+            <field name="name">res.partner.owner.tree</field>
+            <field name="model">res.partner</field>
+            <field name="type">tree</field>
+            <field eval="30" name="priority"/>
+            <field name="arch" type="xml">
+                <tree string="Partners">
+                    <field name="name"/>
+                    <field name="ref" groups="base.group_extended"/>
+                    <field name="owners_share"/>
+                </tree>
+            </field>
+        </record>
+
+       <record id="view_res_partner_owner_filter" model="ir.ui.view">
+            <field name="name">res.partner.owner.select</field>
+            <field name="model">res.partner</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string="Search Partner">
+                   <group col='10' colspan='4'>
+                        <filter string="Customers" name="customer" icon="terp-personal" domain="[('customer','=',1)]" help="Customer Partners"/>
+                        <filter string="Suppliers" name="supplier" icon="terp-personal" domain="[('supplier','=',1)]" help="Supplier Partners"/>
+                        <separator orientation="vertical"/>
+                        <field name="name" select="1"/>
+                        <field name="country" select="1"/>
+                   </group>
+               </search>
+            </field>
+        </record>
+
+        
+      <act_window
+      domain="[('owners_share', '>', 0.0)]"
+      context="{'share_owner_id' : active_id, 'search_view_id':'view_partner_owner_tree'}"
+      id="act_partner_owner"
+      name="Owners Share"
+      res_model="res.partner"
+      src_model="res.partner"
+      view_id="view_partner_owner_tree"
+      
+      view_mode="tree,form"
+      view_type="form"/>
+
   </data>
 </openerp>
