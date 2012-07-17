@@ -45,12 +45,12 @@ class product_product(osv.osv):
 
     def uos_coeff_inv_change(self, cr, uid, ids, uos_coeff_inv=None, context=None):
         _logger = logging.getLogger(__name__)
-        _logger.info('FGF sale uos_coeff_inv %s'  % uos_coeff_inv )
+        _logger.debug('FGF sale uos_coeff_inv %s'  % uos_coeff_inv )
         res = {}
         res['value'] = {}
         if uos_coeff_inv:
               res['value']['uos_coeff'] = 1.0/uos_coeff_inv
-        _logger.info('FGF sale uos res %s' % (res) )
+        _logger.debug('FGF sale uos res %s' % (res) )
         return res    
     
     def _product_pack_available(self, cr, uid, ids, name, args, context=None):

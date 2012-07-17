@@ -33,9 +33,9 @@ class stock_production_lot(osv.osv):
 	if not res:
 	   return []
         _logger.debug('FGF lot res %s' % (res))
-        #_logger.info('FGF lot context %s ' % (context))
+        #_logger.debug('FGF lot context %s ' % (context))
         resd = dict(res)
-        #_logger.info('FGF lot d %s ' % (resd))
+        #_logger.debug('FGF lot d %s ' % (resd))
         res1 =[]
         if context.get('location_id'):
           for lot in self.browse(cr, uid, ids, context):

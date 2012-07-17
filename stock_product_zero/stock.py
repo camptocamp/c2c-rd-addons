@@ -29,7 +29,7 @@ class stock_location_product(osv.osv_memory):
 
     def action_open_window_nok(self, cr, uid, ids, context=None):
         res = super(stock_location_product, self).action_open_window( cr, uid, ids, context=None)
-        self._logger.info('FGF stock_location_product action_open_window pre %s', res) 
+        self._logger.debug('FGF stock_location_product action_open_window pre %s', res) 
 
         location_products = self.read(cr, uid, ids, ['display_with_zero_qty'], context)
         # FIXME - I am not able to add display_with_zero_qty to context
@@ -37,7 +37,7 @@ class stock_location_product(osv.osv_memory):
 
         if location_products:
             res['context']['display_with_zero_qty'] = location_products['display_with_zero_qty']
-        #self._logger.info('FGF stock_location_product action_open_window post %s', res) 
+        #self._logger.debug('FGF stock_location_product action_open_window post %s', res) 
         return res
 
     def action_open_window(self, cr, uid, ids, context=None):
@@ -84,16 +84,16 @@ class product_product(osv.osv):
     def read_test(self,cr, uid, ids, fields=None, context=None, load='_classic_read'):
         res_all = super(product_product, self).read(cr,uid, ids, fields, context, load='_classic_read')
         res = []
-        self._logger.info('FGF stock_location_product read ids %s', res_all)
+        self._logger.debug('FGF stock_location_product read ids %s', res_all)
         if  context.get('display_with_zero_qty') and context.get('display_with_zero_qty') is False:
-            self._logger.info('FGF stock_location_product read  only not null')
+            self._logger.debug('FGF stock_location_product read  only not null')
             for prod in self.browse(cr, uid, res_all):
                 qty = prod.get('qty_available')
                 vir = prod.get('virtual_available')
                 if qty != 0.0 or vir != 0.0:
                     res.append(prod) 
         else: 
-           self._logger.info('FGF stock_location_product  all')
+           self._logger.debug('FGF stock_location_product  all')
         res = res_all
         # FIXME - result should be sorted by name 
         # http://wiki.python.org/moin/SortingListsOfDictionaries - returns (unicode?) error on name  

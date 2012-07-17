@@ -49,22 +49,22 @@ class sale_order_line(osv.osv):
             uom=False, qty_uos=0, uos=False, name='', partner_id=False,
             lang=False, update_tax=True, date_order=False, packaging=False, fiscal_position=False, flag=False, context=None):
         _logger = logging.getLogger(__name__)
-        _logger.info('FGF sale uos' )
+        _logger.debug('FGF sale uos' )
 
         qty_helper =  qty
         if product and uos and qty_uos != 0 :
-            _logger.info('FGF sale uom,uos ,qty, qty_uos %s,%s,%s,%s' %( uom,uos, qty, qty_uos ))
+            _logger.debug('FGF sale uom,uos ,qty, qty_uos %s,%s,%s,%s' %( uom,uos, qty, qty_uos ))
             product_obj = self.pool.get('product.product')
             for prod in product_obj.browse(cr, uid, [product], context):
                  qty_helper = qty_uos / (prod.uos_coeff or 1)
                  #qty_helper = qty_uos / 0.004
             
-        _logger.info('FGF sale uos qty_helper %s' % (qty_helper) )
+        _logger.debug('FGF sale uos qty_helper %s' % (qty_helper) )
 
         res = super(sale_order_line, self).product_id_change(cr, uid, ids, pricelist, product, qty_helper,
             uom, qty_uos, uos, name, partner_id,
             lang, update_tax, date_order, packaging, fiscal_position, flag, context)
-        _logger.info('FGF sale uos res %s' % (res) )
+        _logger.debug('FGF sale uos res %s' % (res) )
         res['value']['product_uom_qty'] = qty_helper
         return res    
             
@@ -72,7 +72,7 @@ class sale_order_line(osv.osv):
             uom=False, qty_uos=0, uos=False, name='', partner_id=False,
             lang=False, update_tax=True, date_order=False, packaging=False, fiscal_position=False, flag=False, context=None):
         _logger = logging.getLogger(__name__)
-        _logger.info('FGF sale uos product %s qty %s' % (product,qty))
+        _logger.debug('FGF sale uos product %s qty %s' % (product,qty))
 
         #FIXME - must set product_packaging and qty to the minimum multiple found in product_packaging
         product_obj = self.pool.get('product.product')
@@ -81,12 +81,12 @@ class sale_order_line(osv.osv):
           for products in product_obj.browse(cr, uid, [product], context):
             if products.packaging and products.packaging[0].qty and qty == 1 and products.packaging[0].qty != 1 :
                 qty2 = products.packaging[0].qty
-        _logger.info('FGF sale uos product %s qty2 %s' % (product,qty2))
+        _logger.debug('FGF sale uos product %s qty2 %s' % (product,qty2))
         res = super(sale_order_line, self).product_id_change(cr, uid, ids, pricelist, product, qty2,
             uom, qty_uos, uos, name, partner_id,
             lang, update_tax, date_order, packaging, fiscal_position, flag, context)
         res['value']['product_uos_qty_helper'] = res['value']['product_uos_qty']
-        _logger.info('FGF sale uos res %s' % (res) )
+        _logger.debug('FGF sale uos res %s' % (res) )
         return res    
 
 

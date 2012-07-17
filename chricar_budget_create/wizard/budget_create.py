@@ -80,12 +80,12 @@ class c2c_budget_create(osv.osv_memory):
             start_date = version.budget_id.start_date
             end_date = version.budget_id.end_date
             company_id = version.company_id.id
-        _logger.info('FGF version date %s %s' % (start_date,end_date))
-        _logger.info('FGF version context %s' % (context))
+        _logger.debug('FGF version date %s %s' % (start_date,end_date))
+        _logger.debug('FGF version context %s' % (context))
         periods_new = period_obj.search(cr, uid, [('company_id','=',company_id), ('date_start','>=',start_date), ('date_stop','<=',end_date)])
         if not isinstance(periods_new, list):
             periods_new = [periods_new]
-        _logger.info('FGF periods_new %s' % (periods_new))
+        _logger.debug('FGF periods_new %s' % (periods_new))
         periods = []
         if data['period_from'] and data['period_to']:
             periods = period_obj.build_ctx_periods(cr, uid, data['period_from'][0], data['period_to'][0])
@@ -94,7 +94,7 @@ class c2c_budget_create(osv.osv_memory):
 
             
         if periods:
-            _logger.info('FGF periods %s' % (periods))
+            _logger.debug('FGF periods %s' % (periods))
 
             cr.execute("""select p.id ,pn.id 
                             from account_period p,
@@ -105,11 +105,11 @@ class c2c_budget_create(osv.osv_memory):
                            """ % (','.join(map(str,periods)) , ','.join(map(str,periods_new))))
             period_map_list = cr.fetchall()
             period_map = dict(period_map_list)
-            _logger.info('FGF period_map %s' % (period_map))
+            _logger.debug('FGF period_map %s' % (period_map))
             periods_new2 = []
             for p in period_map_list:
                 periods_new2.append(p[1])
-            _logger.info('FGF period_new2 %s' % (periods_new2))
+            _logger.debug('FGF period_new2 %s' % (periods_new2))
             #
             if data['replace_lines']:
                 self.replace_lines(cr, uid, ids, periods_new2, context)
@@ -132,13 +132,13 @@ where l.period_id in (%s)
 group by l.analytic_account_id, budget_item_id, l.period_id""" % (','.join(map(str,periods)), company_id))
             
             for line in cr.dictfetchall():
-                _logger.info('FGF line %s' % ( line))
+                _logger.debug('FGF line %s' % ( line))
                 val.update(line)
                 val['period_id'] =  period_map[line['period_source_id']]
                 vals.append(val)
-                _logger.info('FGF budget line %s' % (val))
+                _logger.debug('FGF budget line %s' % (val))
                 budget_lines_obj.create(cr, uid, val)
-            #_logger.info('FGF line vals %s' % (vals))
+            #_logger.debug('FGF line vals %s' % (vals))
             #if vals:
             #    budget_lines_obj.create(cr, uid, vals)
 	return True
