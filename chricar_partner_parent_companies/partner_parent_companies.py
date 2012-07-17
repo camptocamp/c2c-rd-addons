@@ -106,7 +106,7 @@ class res_partner(osv.osv) :
         res = {}
         for partner in self.browse(cr, uid, ids):
             if context.get('share_owner_id'):
-               res[partner.id] = self._get_share(cr, uid, context['share_owner_id'], partner.id, None, 0, 'True')
+               res[partner.id] = self._get_share(cr, uid, context['share_owner_id'], partner.id, None, 0.0, 'True')
             else:
                res[partner.id] = 0
         return res
