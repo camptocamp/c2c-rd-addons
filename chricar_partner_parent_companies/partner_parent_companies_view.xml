@@ -358,5 +358,40 @@ Definition of Parent Companies
       view_mode="tree,form"
       view_type="form"/>
 
+                <!--
+          =======================
+          Company
+          =======================
+        -->
+        <record id="view_company_owner_tree" model="ir.ui.view">
+            <field name="name">res.company.owner.tree</field>
+            <field name="model">res.company</field>
+            <field name="type">tree</field>
+            <field eval="30" name="priority"/>
+            <field name="arch" type="xml">
+                <tree string="Companies">
+                    <field name="name"/>
+                    <field name="partner_id"/>
+                    <field name="owners_share"/>
+                    <field name="owners_direct_share"/>
+                    <field name="owners_consol_share"/>
+                </tree>
+            </field>
+        </record>
+
+
+      <act_window
+      domain="[('owners_share', '>', 0.0)]"
+      context="{'share_owner_id' : partner_id, 'search_view_id':'view_partner_owner_tree'}"
+      id="act_company_owner"
+      name="Owners Share"
+      res_model="res.company"
+      src_model="res.company"
+      view_id="view_company_owner_tree"
+
+      view_mode="tree,form"
+      view_type="form"/>
+
+      
   </data>
 </openerp>

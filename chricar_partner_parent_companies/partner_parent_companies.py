@@ -169,5 +169,14 @@ class res_partner(osv.osv) :
         }
 res_partner()
 
+class res_company(osv.osv):
+    _inherit = 'res.company'
 
+    _columns = {
+          'owners_share'             : fields.related('partner_id', 'owners_share', type='float', string='Owners Share', help="multi-level Owner share")
+        , 'owners_direct_share'      : fields.related('partner_id', 'owners_direct_share', type='float', string='Owners Direct Share', help="Owners direct share")
+        , 'owners_consol_share'      : fields.related('partner_id', 'owners_consol_share', type='float',string='Owners Share Consolidate', help="Owners share to consolidate")
+        }
+        
+res_company()
     
