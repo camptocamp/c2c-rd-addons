@@ -79,8 +79,10 @@ class res_partner(osv.osv) :
         _logger = logging.getLogger(__name__)
         share_child = share
         owners_share = owner_share
+        level_child = level
         for partner in self.browse(cr, uid, [partner_id]):
             self._logger.debug('partner %s share %s' %( partner.name, share) )
+            
             for parent_share in partner.partner_current_ids:
                 self._logger.debug('A parent %s share %s share_child %s' %( parent_share.partner_parent_id.name, parent_share.percentage, share_child ) )
                 if parent_share.percentage >0 :
@@ -96,7 +98,7 @@ class res_partner(osv.osv) :
                   if consolidate == 'all':
                     owners_share += share
                     self._logger.debug('FGF owner %s partner %s share-res %s' %(share_owner_id, partner.name, owners_share) )
-                  elif consolidate == 'direct' and level == 1:
+                  elif consolidate == 'direct' and level_child == 1:
                     owners_share += share
                   elif consolidate == 'consol' and parent_share.consolidation == True:
                     owners_share += share
@@ -105,7 +107,7 @@ class res_partner(osv.osv) :
                     self._logger.debug('FGF A not owner - partner %s share %s share-res %s' %( partner.name, share, owners_share) )
                     owners_share = self._get_share(cr, uid, share_owner_id, parent_share.partner_parent_id.id,  share, owners_share, consolidate, level)
                     self._logger.debug('FGF B not owner - partner %s share %s share-res %s' %( partner.name, share, owners_share) )
-
+                    
         return owners_share
 
     def _get_owners_share(self, cr, uid, ids, name, args, context):
