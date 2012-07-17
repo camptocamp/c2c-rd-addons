@@ -276,9 +276,9 @@ chricar_top()
 
 class res_partner(osv.osv):
       _inherit = "res.partner"
-      _logger = logging.getLogger(__name__)
 
       def _lease_current_sum(self, cr, uid, ids, field_name, arg, context=None):
+         _logger = logging.getLogger(__name__)
          result = {}
          lease_current_sum = 0.0
          for p in self.browse(cr, uid, ids, context):
@@ -300,6 +300,7 @@ class res_partner(osv.osv):
          return result
 
       def _lease_current_participation_sum(self, cr, uid, ids, field_name, arg, context=None):
+         _logger = logging.getLogger(__name__)
          result = {}
          lease_current_participation_sum = 0.0
          for p in self.browse(cr, uid, ids, context):
