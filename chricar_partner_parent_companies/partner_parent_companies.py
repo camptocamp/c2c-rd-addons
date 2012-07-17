@@ -73,6 +73,7 @@ res_partner_parent_company()
 class res_partner(osv.osv) :
 
     _inherit = "res.partner"
+    _logger = logging.getLogger(__name__)
     
     def _get_share(self, cr, uid, share_owner_id, partner_id, share, owner_share, consolidate, level = 1):
         _logger = logging.getLogger(__name__)
@@ -81,12 +82,12 @@ class res_partner(osv.osv) :
         for partner in self.browse(cr, uid, [partner_id]):
             self._logger.debug('partner %s share %s' %( partner.name, share) )
             for parent_share in partner.partner_current_ids:
-                self._logger.debug('A partner %s parent %s share %s' %( parent_share.partner_id.name,parent_share.partner_parent_id.name, parent_share.percentage ) )
+                self._logger.debug('A parent %s share %s share_child %s' %( parent_share.partner_parent_id.name, parent_share.percentage, share_child ) )
                 if parent_share.percentage >0 :
-                    if not share_child:
-                        share = parent_share.percentage
-                    else:
+                    if share_child != None:
                         share = share_child * parent_share.percentage / 100
+                    else:
+                        share = parent_share.percentage
                 else:
                     share = 0.0
                 self._logger.debug('B partner %s share %s' %( parent_share.partner_id.name, share) )
@@ -101,8 +102,9 @@ class res_partner(osv.osv) :
                     owners_share += share
                 else:
                     level += 1
+                    self._logger.debug('FGF A not owner - partner %s share %s share-res %s' %( partner.name, share, owners_share) )
                     owners_share = self._get_share(cr, uid, share_owner_id, parent_share.partner_parent_id.id,  share, owners_share, consolidate, level)
-                    self._logger.debug('FGF not owner %s partner %s share-res %s' %(share_owner_id, partner.name, owners_share) )
+                    self._logger.debug('FGF B not owner - partner %s share %s share-res %s' %( partner.name, share, owners_share) )
 
         return owners_share
 
