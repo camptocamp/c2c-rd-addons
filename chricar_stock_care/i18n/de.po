@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 6.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-01-23 22:07+0000\n"
+"POT-Creation-Date: 2012-07-16 10:38+0000\n"
 "PO-Revision-Date: 2012-07-16 11:46+0000\n"
 "Last-Translator: Joël Grand-Guillaume @ CampToCamp "
 "<joel.grandguillaume@camptocamp.com>\n"
@@ -15,9 +15,14 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2012-07-17 05:12+0000\n"
-"X-Generator: Launchpad (build 15627)\n"
+"X-Launchpad-Export-Date: 2012-07-18 05:49+0000\n"
+"X-Generator: Launchpad (build 15637)\n"
 "Language: en_US\n"
+
+#. module: chricar_stock_care
+#: selection:stock.move,activity:0
+msgid "Ventilate"
+msgstr ""
 
 #. module: chricar_stock_care
 #: view:stock.picking:0
@@ -70,6 +75,11 @@ msgid ""
 "This location will be used to move production loss from destination location"
 msgstr ""
 "Dieser Lagerort wird für die Verbuchung der Produktionsverluste verwendet"
+
+#. module: chricar_stock_care
+#: model:stock.move,activity:0
+msgid "aspirate"
+msgstr ""
 
 #. module: chricar_stock_care
 #: constraint:stock.move:0
@@ -140,8 +150,7 @@ msgid "Stock Move"
 msgstr "Lagerbuchung"
 
 #. module: chricar_stock_care
-#: help:stock.move,factor:0
-#: help:stock.move,humidity:0
+#: help:stock.move,factor:0 help:stock.move,humidity:0
 #: help:stock.move,humidity_dest:0
 msgid ""
 "If In and Out are measured and a factor exists the quantity will be reduced"
