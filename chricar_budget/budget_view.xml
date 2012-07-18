@@ -91,6 +91,8 @@ generated 2009-08-18 23:44:30+02
             <field name="harvest_soil"/>
             <field name="harvest_net"/>
             <field name="harvest_yield"/>
+          <field name="damage_yield"/>
+          <field name="damage_rembourse"/>
             <field name="price" select="1"/>
             <field name="price_unit_id" select="1"/>
             <field name="amount" select="1"/>
@@ -181,6 +183,8 @@ generated 2009-08-18 23:44:30+02
           <field name="harvest_soil"/>
           <field name="harvest_net" sum="Sum Harvest Net"/>
           <field name="harvest_yield_diff"/>
+          <field name="damage_yield"/>
+          <field name="damage_rembourse"/>
           <field name="price" select="1"/>
           <field name="price_unit_id" select="1"/>
           <field name="amount"  sum="Sum Amount"/>
@@ -218,7 +222,12 @@ generated 2009-08-18 23:44:30+02
       action="chricar_budget_act1"
       id="menu_chricar_budget_list"
       parent="c2c_budget.menu_budget_c2c"
-      sequence="150"/>&#xA;&#xA;==============================================&#xA;Modification of Parents&#xA;==============================================&#xA;--&gt;&#xA;    &#xA;    &#xA;    &#xA;    &#xA;    &#xA;    &#xA;    &#xA;    &#xA;    &#xA;    &#xA;    &#xA;    &#xA;    &#xA;    
+      sequence="150"/>
+<!--
+==============================================
+Modification of Parents
+==============================================
+-->
     <act_window
       domain="[('budget_version_id', '=', active_id)]"
       id="act_budget_version_2_product_plan"

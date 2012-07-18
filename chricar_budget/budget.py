@@ -295,6 +295,8 @@ class chricar_budget(osv.osv):
        'product_qty_lot'    : fields.related ('prod_lot_id','stock_available', type="float",  string="Uninvoiced Lot", readonly = True ,help="Uninvoiced quantitiy of this production lot"),
        'amount_qty_stock'   : fields.function(_amount_qty_stock, method=True, string='Unsold Stock Value' ,digits_compute=dp.get_precision('Budget'),help="Stock Qty * Planned Sale Price"),
        'amount_qty_lot'     : fields.function(_amount_qty_lot, method=True, string='Uninvoiced Lot Value' ,digits_compute=dp.get_precision('Budget'),help="Uninvoiced Lot Qty * Planned Sale Price"),
+       'damage_yield'       : fields.float   ('Damage Yield', digits=(16,0),help="The yield reduction assessed by the insurance")       ,
+       'damage_rembourse'   : fields.float   ('Damage Rembours', digits=(16,0),help="The remboursement per ha assessed by the insurance")       ,
 
 }
      _defaults = {
