@@ -274,9 +274,9 @@ class account_balance(report_sxw.rml_parse):
                 #
                 if form['display_account'] == 'bal_mouvement' and account['parent_id']:
                     # Include accounts with movements
-                    if res['balance'] <> 0.0 \
-                            or res['debit'] <> 0.0 \
-                            or res['credit'] <> 0.0:
+                    if res['balance'] != 0.0 \
+                            or res['debit'] != 0.0 \
+                            or res['credit'] != 0.0:
                 #    if abs(res['balance']) >= 0.5 * 10**-int(config['price_accuracy']) \
                 #            or abs(res['credit']) >= 0.5 * 10**-int(config['price_accuracy']) \
                 #            or abs(res['debit']) >= 0.5 * 10**-int(config['price_accuracy']):
@@ -284,7 +284,7 @@ class account_balance(report_sxw.rml_parse):
                 elif form['display_account'] == 'bal_solde' and account['parent_id']:
                     # Include accounts with balance
                     #if abs(res['balance']) >= 0.5 * 10**-int(config['price_accuracy']):
-                    if res['balance'] <> 0.0 :
+                    if res['balance'] != 0.0 :
                         result_acc.append(res)
                 else:
                     # Include all accounts

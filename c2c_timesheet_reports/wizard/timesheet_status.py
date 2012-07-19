@@ -69,7 +69,7 @@ class wiz_timesheet_status(wizard.interface):
         
         #values from the form
         companies_ids = []
-        if 'company' in data['form'] and data['form']['company'] <> False:
+        if 'company' in data['form'] and data['form']['company'] != False:
             companies_ids.append(data['form']['company'])
         
         #no company selected in the first form

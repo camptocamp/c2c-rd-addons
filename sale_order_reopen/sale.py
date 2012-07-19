@@ -43,7 +43,7 @@ class sale_order(osv.osv):
     def allow_reopen(self, cr, uid, ids, context=None):
         _logger = logging.getLogger(__name__)
 
-        _logger.info('FGF sale_order reopen %s' % (ids))
+        _logger.debug('FGF sale_order reopen %s' % (ids))
         stock_picking_obj = self.pool.get('stock.picking')
         account_invoice_obj = self.pool.get('account.invoice')
         for order in self.browse(cr, uid, ids, context):
@@ -71,7 +71,7 @@ class sale_order(osv.osv):
         """
         _logger = logging.getLogger(__name__)
 
-        _logger.info('FGF sale_order action reopen %s' % (ids))
+        _logger.debug('FGF sale_order action reopen %s' % (ids))
 	self.allow_reopen(cr, uid, ids, context=None)
         account_invoice_obj = self.pool.get('account.invoice')
         stock_picking_obj = self.pool.get('stock.picking')
@@ -86,10 +86,10 @@ class sale_order(osv.osv):
                 for inv in order.invoice_ids:
                     account_invoice_obj.action_reopen(cr, uid, [inv.id])
                     if inv.journal_id.update_posted: 
-                        _logger.info('FGF sale_order reopen cancel invoice %s' % (ids))
+                        _logger.debug('FGF sale_order reopen cancel invoice %s' % (ids))
                         account_invoice_obj.action_cancel(cr, uid, [inv.id])
                     else:
-                        _logger.info('FGF sale_order reopen cancel 2 invoice %s' % (ids))
+                        _logger.debug('FGF sale_order reopen cancel 2 invoice %s' % (ids))
                         account_invoice_obj.write(cr, uid, [inv.id], {'state':'cancel', 'move_id':False})
 
             if order.picking_ids:
@@ -121,9 +121,9 @@ class sale_order(osv.osv):
 
 	    wf_service = netsvc.LocalService("workflow")
 
-            _logger.info('FGF sale_order trg del %s' % (order.id))
+            _logger.debug('FGF sale_order trg del %s' % (order.id))
             wf_service.trg_delete(uid, 'sale.order', order.id, cr)
-            _logger.info('FGF sale_order trg create %s' % (order.id))
+            _logger.debug('FGF sale_order trg create %s' % (order.id))
             wf_service.trg_create(uid, 'sale.order', order.id, cr)
 
             #self.log_sale(cr, uid, ids, context=context)  
@@ -134,11 +134,11 @@ class sale_order(osv.osv):
 #    def button_reopen(self, cr, uid, ids, context=None):
 #        _logger = logging.getLogger(__name__)   
 #        self.allow_reopen(cr, uid, ids, context)
-#        _logger.info('FGF picking allow open  '   )
+#        _logger.debug('FGF picking allow open  '   )
 #        self.write(cr, uid, ids, {'state':'draft'})
-#        _logger.info('FGF picking draft  '   )
+#        _logger.debug('FGF picking draft  '   )
 #        self.log_picking(cr, uid, ids, context=context)
-#        _logger.info('FGF picking log'   )
+#        _logger.debug('FGF picking log'   )
 
         
     

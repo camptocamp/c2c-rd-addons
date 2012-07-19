@@ -41,13 +41,13 @@ class journal_print(report_sxw.rml_parse):
             journal_ids = data['form']['journal_ids'][0][2]
             periods = ','.join([str(id) for id in period_ids])
             journals = ','.join([str(id) for id in journal_ids])
-            self.cr.execute('select id from account_move where period_id in ('+ periods +') and journal_id in ('+ journals +') and state<>\'draft\' order by ('+ data['form']['sort_selection'] +'),id')
+            self.cr.execute('select id from account_move where period_id in ('+ periods +') and journal_id in ('+ journals +') and state!=\'draft\' order by ('+ data['form']['sort_selection'] +'),id')
             move_ids = map(lambda x: x[0], self.cr.fetchall())
         else:
             move_ids = []
             journalperiods = self.pool.get('account.journal.period').browse(self.cr, self.uid, ids)
             for jp in journalperiods:
-                self.cr.execute('select id from account_move where period_id=\'%s\' and journal_id=\'%s\' and state<>\'draft\' order by date,id' % (jp.period_id.id, jp.journal_id.id))
+                self.cr.execute('select id from account_move where period_id=\'%s\' and journal_id=\'%s\' and state!=\'draft\' order by date,id' % (jp.period_id.id, jp.journal_id.id))
                 move_ids.extend(map(lambda x: x[0], self.cr.fetchall()))
 
         objects = self.pool.get('account.move').browse(self.cr, self.uid, move_ids)

@@ -206,7 +206,7 @@ class mrp_bom(osv.osv):
         mrp_bom_obj=self.pool.get('mrp.bom')
         value = 0.0
         for bom in self.browse(cr, uid, ids, context=context):
-            other_bom_ids = mrp_bom_obj.search(cr, uid, [('product_id','=',bom.product_id.id),('state','=','confirm'),('id','<>',bom.id)])
+            other_bom_ids = mrp_bom_obj.search(cr, uid, [('product_id','=',bom.product_id.id),('state','=','confirm'),('id','!=',bom.id)])
             if other_bom_ids or not bom.bom_lines:
                  value = bom.standard_price_pu / bom.price_unit_id.coefficient * bom.product_qty_explode
             else:

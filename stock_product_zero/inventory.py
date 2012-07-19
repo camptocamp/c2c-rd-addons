@@ -68,7 +68,7 @@ class stock_fill_inventory(osv.osv_memory):
     def fill_inventory(self, cr, uid, ids, context=None):
         #unfortunately not hook
         inventory_id = context['id']
-        self._logger.info('FGF fill inventory ids, context %s, %s' % (ids,context))
+        self._logger.debug('FGF fill inventory ids, context %s, %s' % (ids,context))
         display_with_zero_qty = None  
         # FIXME - display_with_zero_qty access not possible
         #fill_inventory = self.browse(cr, uid, ids, context=context)

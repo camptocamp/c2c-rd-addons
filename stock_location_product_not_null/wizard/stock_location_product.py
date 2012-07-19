@@ -38,9 +38,9 @@ class stock_location_product(osv.osv_memory):
         """
         mod_obj = self.pool.get('ir.model.data')
         for location_obj in self.read(cr, uid, ids, ['from_date', 'to_date', 'display_with_zero_qty']):
-            domain_ext = [('type', '<>', 'service')]
+            domain_ext = [('type', '!=', 'service')]
             if location_obj['display_with_zero_qty'] == False:
-                domain_ext = ['|',('qty_available','<>',0),('virtual_available','<>',0),('type', '<>', 'service')]
+                domain_ext = ['|',('qty_available','!=',0),('virtual_available','!=',0),('type', '!=', 'service')]
             return {
                 'name': False, 
                 'view_type': 'form', 

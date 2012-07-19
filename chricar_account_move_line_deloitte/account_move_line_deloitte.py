@@ -226,7 +226,7 @@ class chricar_account_move_line_deloitte(osv.osv):
          for acc in  account_obj.browse(cr, uid, acc_ids, context=None):
              if acc.code not in acc_codes:
                  acc_codes.append(acc.code)
-         #_logger.info('FGF account names %s' % (acc_codes))
+         #_logger.debug('FGF account names %s' % (acc_codes))
 
          _logger.debug('FGF account deloitte ids %s' % (acc_deloitte_ids))
          acc_deloitte_codes = []
@@ -244,7 +244,7 @@ class chricar_account_move_line_deloitte(osv.osv):
                      acc_deloitte_codes.append(da)
                      _logger.debug('FGF missing da %s %s' % (da, acc_deloitte_codes))
              
-         _logger.info('FGF missing acc_deloitte_codes %s' % (acc_deloitte_codes))
+         _logger.debug('FGF missing acc_deloitte_codes %s' % (acc_deloitte_codes))
          
          counter= 0
          user_type = self.pool.get('account.account.type').search(cr, uid, [('code','=','view')])[0]
@@ -323,12 +323,12 @@ class chricar_account_move_line_deloitte(osv.osv):
          l['period_id'] = vals['period_id']
          l['move_id'] = context['move_id']
          analytic_usage = ''
-         #_logger.info('FGF move_line = %s' % (l))
+         #_logger.debug('FGF move_line = %s' % (l))
          for acc in account_obj.browse(cr, uid, [line['account_id']], context):
                  analytic_usage =  acc.account_analytic_usage
                  if analytic_usage == 'none':
                      l['analytic_account_id'] = ''
-                 #_logger.info('FGF move_line = %s' % (l))
+                 #_logger.debug('FGF move_line = %s' % (l))
                  move_line_id = move_line_obj.create(cr, uid, l, context)
                  #move_line_id = super(account_move_line, self).create(cr, uid, l, context)
 
@@ -342,7 +342,7 @@ class chricar_account_move_line_deloitte(osv.osv):
                        l['amount'] = -l['debit']
                     else:
                        l['amount'] = l['credit']
-                    #_logger.info('FGF move_analyitc line = %s' % (l))
+                    #_logger.debug('FGF move_analyitc line = %s' % (l))
 	            del l['analytic_account_id']
 	            del l['analytic_lines']
 	            del l['state']
@@ -411,7 +411,7 @@ class chricar_account_move_line_deloitte(osv.osv):
                 'date'       : date,
 		#'journal_analytic_id': journal_analytic_id,
              })
-             #_logger.info('FGF move vals %s' % (vals))
+             #_logger.debug('FGF move vals %s' % (vals))
 	     c = {}
 	     c['novalidate'] = True
              # moves_lines from ONE move may have different dates
@@ -570,7 +570,7 @@ company_id, vals['period_id'], vals['name'], )
                      #raise osv.except_osv(_('Error :'), _('FGF insert deloitte move %s %s') % (line, vals))
                  #    raise osv.except_osv(_('Error :'), _('FGF insert deloitte move %s ') % ( v))
 
-             #_logger.info('FGF create_move moves %s' % (moves))
+             #_logger.debug('FGF create_move moves %s' % (moves))
              #self.create_move(cr, uid, moves)
         
          journal_id = journal_obj.search(cr, uid, [('company_id','=',company_id),('code','=','DEN')], context=context)

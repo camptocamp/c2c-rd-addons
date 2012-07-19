@@ -38,7 +38,7 @@ class sale_order(osv.osv):
 
        res = super(sale_order, self)._columns['order_policy']
        _logger  = logging.getLogger(__name__)
-       self._logger.info('FGF help %s', res)
+       self._logger.debug('FGF help %s', res)
 
        return res 
 
@@ -84,11 +84,11 @@ class stock_picking(osv.osv):
     def _get_constraints(self, cr, uid, context=None):
         _logger  = logging.getLogger(__name__)
 	res = ''
-        self._logger.info('FGF pick constraints a %s', res)
+        self._logger.debug('FGF pick constraints a %s', res)
 	#res = super(stock_picking, self)._constraints
-        self._logger.info('FGF pick constraints b %s', res)
+        self._logger.debug('FGF pick constraints b %s', res)
 	c = (_check_internal_order, 'incorrect invoice state', ['invoice_state'])
-        self._logger.info('FGF pick constraints c %s', c)
+        self._logger.debug('FGF pick constraints c %s', c)
 	#res.append(c)
 	return res
     #FIXME - should be replaced by _get_constraints 

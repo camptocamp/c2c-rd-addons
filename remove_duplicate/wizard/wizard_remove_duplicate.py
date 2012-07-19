@@ -41,7 +41,7 @@ class wizard_merge_duplicates(osv.osv_memory):
     _columns = { 'model_id' : fields.many2one('ir.model', 'Model', required=True)}
 
     def select_table(self, cr, uid, ids, context) :
-        self._logger.info("select_table ids: %s context: %s", ids, context) ###########
+        self._logger.debug("select_table ids: %s context: %s", ids, context) ###########
 #        if context['active_model'] == 'ir.model' :
 #            return 'old_form'
 #        else :
@@ -66,7 +66,7 @@ class wizard_merge_duplicates(osv.osv_memory):
             , 'context'   : context
             , 'type'      : 'ir.actions.act_window'
             }
-        self._logger.info("result: %s", result)
+        self._logger.debug("result: %s", result)
         return result
     # end def select_table
 # end class wizard_merge_duplicates
