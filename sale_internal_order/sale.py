@@ -68,15 +68,20 @@ class stock_picking(osv.osv):
         @return: True or False
         """
         for pick in self.browse(cr, uid, ids, context=context):
-	    if pick.invoice_state != 'none' :
+	  if pick.state != 'cancel':
+	    if pick.invoice_state != 'none':
 	      if  pick.sale_id and pick.sale_id.order_policy == 'internal':
+		raise osv.except_osv(_('Error'), _('Sale order with order policy %s must not have pickings %s with invoice policy %s ')% (pick.sale_id.order_policy,pic.name, pick.invoice_state))
                 return False
 	      if pick.partner_id and pick.partner_id.property_stock_customer.usage== 'internal': 
+		raise osv.except_osv(_('Error'), _('Sale order with order policy %s must not have partners with customer stock usage other than internal ')% (pick.sale_id.order_policy))
                 return False
-	    if pick.invoice_state == 'none':
+	    else:
 	      if  pick.sale_id and pick.sale_id.order_policy != 'internal':
+		raise osv.except_osv(_('Error'), _('Sale order with order policy %s must not have pickings %s with invoice policy %s ')% (pick.sale_id.order_policy, pick.name, pick.invoice_state))
                 return False
 	      if pick.partner_id and pick.partner_id.property_stock_customer.usage == 'customer': 
+		raise osv.except_osv(_('Error'), _('Sale order with order policy %s must not have partners with customer stock usage other than internal ')% (pick.sale_id.order_policy))
                 return False
 	    
         return True
