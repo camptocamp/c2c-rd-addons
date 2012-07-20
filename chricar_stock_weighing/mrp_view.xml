@@ -168,7 +168,7 @@ Harvest
           <field name="protein" attrs="{'readonly':[('state','=','done')]}"/>
           <field name="sample" attrs="{'readonly':[('state','=','done')]}"/>
           <field name="aspirates" attrs="{'readonly':[('state','=','done')]}"/>
-          <field name="location_id" select="2" string="From" attrs="{'readonly':[('state','=','done')]}"  invisible="1"/>
+          <field name="location_id" select="2" string="From" attrs="{'readonly':[('state','=','done')]}"  />
           <field name="location_dest_id" select="2" string="Destination" attrs="{'readonly':[('state','=','done')]}" />
           <field name="name" attrs="{'readonly':[('state','=','done')]}"/>
           <field name="state" attrs="{'readonly':[('state','=','done')]}"  invisible="1"/>
