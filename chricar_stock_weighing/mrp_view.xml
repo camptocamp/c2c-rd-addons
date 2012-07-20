@@ -172,8 +172,8 @@ Harvest
           <field name="location_dest_id" select="2" string="Destination" attrs="{'readonly':[('state','=','done')]}" />
           <field name="name" attrs="{'readonly':[('state','=','done')]}"/>
           <field name="state" attrs="{'readonly':[('state','=','done')]}"  invisible="1"/>
-          <field name="price_unit_id" groups="base.group_extended" attrs="{'readonly':[('state','=','done')]}"  invisible="1"/>
-          <field name="move_value_cost" groups="base.group_extended" attrs="{'readonly':[('state','=','done')]}" />
+          <field name="price_unit_id" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant" attrs="{'readonly':[('state','=','done')]}"  invisible="1"/>
+          <field name="move_value_cost" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant" attrs="{'readonly':[('state','=','done')]}" />
         </tree>
       </field>
     </record>
@@ -201,8 +201,8 @@ Harvest
           <field name="location_dest_id" select="2" string="Destination" readonly="1"/>
           <field name="name" readonly="1"/>
           <field name="state" readonly="1"/>
-          <field name="price_unit_id" groups="base.group_extended" readonly="1"/>
-          <field name="move_value_cost" groups="base.group_extended" readonly="1"/>
+          <field name="price_unit_id" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant" readonly="1"/>
+          <field name="move_value_cost" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant" readonly="1"/>
         </tree>
       </field>
     </record>
@@ -232,10 +232,10 @@ Harvest
           <field name="location_dest_id" string="To" readonly="1"/>
           <field name="date_expected" readonly="1" string="Wiegedatum"/>
           <field name="name" readonly="1"/>
-          <field name="price_unit_id" groups="base.group_extended" readonly="1"/>
-          <field name="price_unit" groups="base.group_extended" readonly="1"/>
-          <field name="price_unit_coeff" groups="base.group_extended" readonly="1"/>
-          <field name="move_value_cost" groups="base.group_extended" readonly="1"/>
+          <field name="price_unit_id" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant" readonly="1"/>
+          <field name="price_unit" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant" readonly="1"/>
+          <field name="price_unit_coeff" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant" readonly="1"/>
+          <field name="move_value_cost" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant" readonly="1"/>
           <field name="state" readonly="1"/>
         </form>
       </field>

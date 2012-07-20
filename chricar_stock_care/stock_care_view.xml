@@ -104,10 +104,10 @@ generated 2010-04-03 21:47:30+02
 <newline/>
 <field name="date" groups="base.group_extended"/>
 <field name="name"/>
-<field name="price_unit" groups="base.group_extended"/>
-<field name="price_unit_coeff" groups="base.group_extended"/>
-<field name="price_unit_id" groups="base.group_extended"/>
-<field name="move_value_cost" groups="base.group_extended"/>
+<field name="price_unit" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant"/>
+<field name="price_unit_coeff" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant"/>
+<field name="price_unit_id" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant"/>
+<field name="move_value_cost" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant"/>
 </group>
 </form>
 
