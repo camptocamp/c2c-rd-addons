@@ -11,6 +11,7 @@ from osv import fields,osv
 from tools.translate import _
 import one2many_sorted
 import logging
+import time
 
 class res_partner_parent_company(osv.osv):
      _name  = "res.partner.parent_company"
@@ -145,22 +146,31 @@ class res_partner(osv.osv) :
         
         
     _columns = \
-        { 'partner_ids'               : fields.one2many
-            ('res.partner.parent_company','partner_id','Parent Companies')
+        {
+          'partner_ids'       : one2many_sorted.one2many_sorted
+            ( 'res.partner.parent_company'
+            , 'partner_id'
+            , 'Parent Companies'
+            , order  = 'partner_parent_id.name,valid_from'
+            )
         , 'partner_current_ids'       : one2many_sorted.one2many_sorted
             ( 'res.partner.parent_company'
             , 'partner_id'
             , 'Parent Companies Current'
-            , search = [('valid_until', '=', False)]
+            , search = ['|',('valid_until', '=', False),('valid_until', '>',time.strftime('%Y-%m-%d')) ]
             , order  = 'partner_parent_id.name,valid_from'
             )
-        , 'participation_ids'         : fields.one2many
-            ('res.partner.parent_company','partner_parent_id','Participations')
+        , 'participation_ids' : one2many_sorted.one2many_sorted
+            ( 'res.partner.parent_company'
+            , 'partner_parent_id'
+            , 'Participations'
+            , order  = 'partner_id.name,valid_from'
+            )
         , 'participation_current_ids' : one2many_sorted.one2many_sorted
             ( 'res.partner.parent_company'
             , 'partner_parent_id'
             , 'Participations Current'
-            , search = [('valid_until', '=', False)]
+            , search = ['|',('valid_until', '=', False),('valid_until', '>',time.strftime('%Y-%m-%d')) ]
             , order  = 'partner_id.name,valid_from'
             )
         , 'owners_share'             : fields.function(_get_owners_share, digits=(9,6), string='Owners Share', help="multi-level Owner share")
