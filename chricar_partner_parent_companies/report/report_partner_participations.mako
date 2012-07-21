@@ -46,21 +46,21 @@
         </tr>
       </thead>
 
- %for partner in sorted(partner.participation_ids, cmp=partner.pool.get('res.partner.parent_company').cmp_func())) :
+ %for share in partner.participation_current_ids:
      <tbody >
         <tr>
-          <td style="text-align:right;white-space:nowrap;">${formatLang(partner.name)}</td>
-          <td style="text-align:right;white-space:nowrap;">${formatLang(partner.paid_in)}</td>
-          <td style="text-align:right;white-space:nowrap;">${formatLang(partner.agio)}</td>
-          <td style="text-align:right;white-space:nowrap;">${formatLang(partner.percentage or'' )}</td>
-          <td>${partner.partner_id.name}</td>
-          <td>${partner.consolidation or ''}</td>
-          <td>${partner.valid_from or ''|entity}</td>
-          <td>${partner.valid_until or ''|entity}</td>
-          <td>${partner.valid_fiscal_from or ''|entity}</td>
-          <td>${partner.valid_fiscal_until or ''|entity}</td>
-          <td>${partner.comment or ''|entity}</td>
-          <td>${partner.state or ''|entity}</td>
+          <td style="text-align:right;white-space:nowrap;">${formatLang(share.name)}</td>
+          <td style="text-align:right;white-space:nowrap;">${formatLang(share.paid_in or '')}</td>
+          <td style="text-align:right;white-space:nowrap;">${formatLang(share.agio or '')}</td>
+          <td style="text-align:right;white-space:nowrap;">${formatLang(share.percentage or'' )}</td>
+          <td>${share.partner_id.name}</td>
+          <td>${share.consolidation or ''}</td>
+          <td>${share.valid_from or ''|entity}</td>
+          <td>${share.valid_until or ''|entity}</td>
+          <td>${share.valid_fiscal_from or ''|entity}</td>
+          <td>${share.valid_fiscal_until or ''|entity}</td>
+          <td>${share.comment or ''|entity}</td>
+          <td>${share.state or ''|entity}</td>
         </tr>
 
      </tbody>
