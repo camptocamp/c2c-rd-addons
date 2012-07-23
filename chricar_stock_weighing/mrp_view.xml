@@ -92,6 +92,7 @@ Harvest
               name="button_cancel"
               states="draft,ready,confirmed,in_production,picking_except"
               string="Cancel"/>
+            <button name="action_reopen" type="object" states="done,cancel,waiting,assigned,confirmed" string="Reset To Draft" icon="gtk-convert" groups="base.group_extended" />
           </group>
         </form>
       </field>
