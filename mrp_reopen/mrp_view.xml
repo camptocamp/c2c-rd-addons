@@ -22,7 +22,7 @@
             <field name="inherit_id" ref="mrp.mrp_production_form_view"/>
             <field name="arch" type="xml">
                 <xpath expr="/form/notebook/page[@string='Consumed Products']/group/field[@name='state']" position="after">
-                    <button name="action_reopen" type="object" states="done,cancel,waiting,assigned,confirmed" string="Reset To Draft" icon="gtk-convert" groups="base.group_extended" />
+                    <button name="action_reopen" type="object" states="done,cancel,waiting,assigned,confirmed" string="Reset To Draft" icon="gtk-convert" groups="mrp.group_mrp_manager" />
                 </xpath>
             </field>
         </record>
