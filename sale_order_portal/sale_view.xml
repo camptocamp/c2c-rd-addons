@@ -248,8 +248,10 @@
                                 <separator string="Conditions" colspan="2"/>
                                 <field name="payment_term" widget="selection"/>
                                 <field name="fiscal_position" widget="selection"/>
-                                <field name="company_id" widget="selection" groups="base.group_multi_company"/>
-                                <field name="vertical_comp"/>
+				<field name="company_id" widget="selection" groups="base.group_multi_company"/>
+				<!--
+				<field name="vertical_comp"/>
+-->
                             </group>
                             <group colspan="2" col="2" groups="base.group_extended">
                                 <separator string="Dates" colspan="2"/>
