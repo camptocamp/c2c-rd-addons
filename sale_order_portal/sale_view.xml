@@ -272,7 +272,7 @@
 
 
         <record id="action_order_portal_form" model="ir.actions.act_window">
-            <field name="name">Sales Orders Portal</field>
+            <field name="name">Sales Orders Portal (experimental)</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">sale.order</field>
             <field name="view_type">form</field>
