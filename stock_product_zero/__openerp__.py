@@ -29,11 +29,12 @@
 This module will not print/display products with zero quantity values in many reports and tree lists.
 Especially important if the company has a lot of locations with a very limited number of products 
 like consignations locations at supplieres or customers
+Adds a nice inventory report based on webkit
 
 """,
     'author': 'Camptocamp Austria',
-    'depends': [ 'stock','one2many_sorted' ],
-    'update_xml': ['stock_view.xml','inventory_view.xml',
+    'depends': [ 'stock','one2many_sorted',"report_webkit" ],
+    'update_xml': ['stock_view.xml','inventory_view.xml','stock_inventory_webkit.xml',
        ],
     #'update_xml': ['product_view.xml'],
     'demo_xml': [],
