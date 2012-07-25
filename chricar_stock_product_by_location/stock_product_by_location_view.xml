@@ -231,7 +231,7 @@ generated 2009-09-19 23:51:03+02
     <record model="ir.ui.view" id="chricar_stock_move_dba_form">
       <field name="name">chricar.stock.move.dba.form</field>
       <field name="model">stock.move</field>
-      <field name="priority">1</field>
+      <field name="priority">100</field>
       <field name="type">form</field>
       <field name="arch" type="xml">
         <form string="Stock Moves DBA">
