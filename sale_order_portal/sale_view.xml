@@ -5,6 +5,7 @@
       <field name="name">product.normal.portal.form</field>
       <field name="model">product.product</field>
       <field name="type">form</field>
+      <field name="priority" eval="30"/>
       <field name="inherit_id" ref="product.product_normal_form_view"/>
       <field name="arch" type="xml">
         <field name="sale_ok" position="after">
@@ -248,8 +249,10 @@
                                 <separator string="Conditions" colspan="2"/>
                                 <field name="payment_term" widget="selection"/>
                                 <field name="fiscal_position" widget="selection"/>
-                                <field name="company_id" widget="selection" groups="base.group_multi_company"/>
-                                <field name="vertical_comp"/>
+				<field name="company_id" widget="selection" groups="base.group_multi_company"/>
+				<!--
+				<field name="vertical_comp"/>
+-->
                             </group>
                             <group colspan="2" col="2" groups="base.group_extended">
                                 <separator string="Dates" colspan="2"/>
@@ -272,7 +275,7 @@
 
 
         <record id="action_order_portal_form" model="ir.actions.act_window">
-            <field name="name">Sales Orders Portal</field>
+            <field name="name">Sales Orders Portal (experimental)</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">sale.order</field>
             <field name="view_type">form</field>

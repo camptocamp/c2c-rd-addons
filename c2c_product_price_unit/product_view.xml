@@ -134,8 +134,8 @@
       <field name="arch" type="xml">
         <field name="standard_price" position="replace">
         <field name="standard_price" groups="c2c_product_price_unit.group_c2c_product_price_unit_manager" />
-        <field name="standard_price_pu" />
-        <field name="price_unit_id" />
+        <field name="standard_price_pu" groups="c2c_product_price_unit.group_c2c_product_price_unit_manager"/>
+        <field name="price_unit_id" groups="c2c_product_price_unit.group_c2c_product_price_unit_manager"/>
         </field>
       </field>
     </record>
@@ -150,8 +150,8 @@
       <field name="arch" type="xml">
         <field name="lst_price" position="replace">
         <field name="lst_price" groups="c2c_product_price_unit.group_c2c_product_price_unit_manager" />
-        <field name="list_price_pu" />
-        <field name="list_price_unit_id" />
+        <field name="list_price_pu" groups="c2c_product_price_unit.group_c2c_product_price_unit_manager"/>
+        <field name="list_price_unit_id" groups="c2c_product_price_unit.group_c2c_product_price_unit_manager"/>
         </field>
       </field>
     </record>

@@ -88,13 +88,17 @@ work per task
               domain="[('date','&lt;',time.strftime('%%Y-01-01 00:00:00')) ,('date','&gt;=',(datetime.date.today() + relativedelta(years=-1)).strftime('%%Y-01-01 00:00:00')) ]"
               help="Last year work"
               icon="terp-go-year"
-              string="Last Yr"/>
+	      string="Last Yr"/>
+
             <newline/>
             <field name="project_id"/>
             <field name="task_id"/>
-            <field name="user_id"/>
             <field name="name"/>
             <field name="company_id"/>
+            <separator orientation="vertical"/>
+            <field name="user_id">
+	      <filter domain="[('user_id','=',uid)]" help="My Work" icon="terp-personal" name="mywork"/>
+            </field>
           </group>
           <newline/>
           <group expand="0" string="Extended Filters..." colspan="4" col="8">
@@ -136,7 +140,7 @@ work per task
       <field name="res_model">project.task.work</field>
       <field name="view_type">form</field>
       <field name="view_mode">tree,form</field>
-      <field name="context">{ 'search_default_today':1}</field>
+      <field name="context">{ 'search_default_today':1, 'search_default_mywork':1}</field>
       <field name="search_view_id" ref="c2_cproject_task_search"/>
       <field name="view_id" ref="project_task_work_c2c_form"/>
     </record>

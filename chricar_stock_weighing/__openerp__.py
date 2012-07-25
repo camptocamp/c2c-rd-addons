@@ -15,7 +15,7 @@ Extension to Production
  * quality attributes for stock_moves
  """
 , "category"     : "Client Modules/Farm"
-, "depends"      : ["stock", "mrp", "delivery", "c2c_sale_multi_partner"]
+, "depends"      : ["stock", "mrp", "delivery", "c2c_sale_multi_partner","mrp_reopen"]
 , "init_xml"     : []
 , "demo_xml"     : []
 , "update_xml"   : 

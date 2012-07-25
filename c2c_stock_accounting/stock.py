@@ -291,7 +291,8 @@ class stock_move(osv.osv):
 		if move.price_unit and move.purchase_line_id.order_id.state != 'draft':
                     result[move.id] = round(move.product_qty * move.price_unit,digits)
 	        else:
-                    result[move.id] = round(move.purchase_line_id.price_subtotal / move.purchase_line_id.product_qty * move.product_qty,digits) 
+                    rate = super(res_currency_account, self)._get_conversion_rate(cr, uid, move.purchase_line_id.order_id.price_list_id.currency_id.id, move.company_id.currency_id.id, context=context)
+                    result[move.id] = round(move.purchase_line_id.price_subtotal / move.purchase_line_id.product_qty * move.product_qty * rate ,digits) 
             elif move.location_id.usage == 'internal': 
                 loc_id = str(move.location_id.id)
                 self._logger.debug('loc_id `%s`', loc_id)
