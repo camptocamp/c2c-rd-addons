@@ -53,16 +53,29 @@ class mrp_production(osv.osv):
         now = ' ' + _('Invalid') + time.strftime(' [%Y%m%d %H%M%S]')
         for mrp in self.browse(cr, uid, ids):
             _logger.debug('FGF production action reopen mrp %s ' %(mrp.name)   )
+            # FIXME
+            # current implementation deletes all stock_moves (creates some work
+            # to reinsert lots etc)
+            # reset to waiting is better but needs complex workflow modification
+            # no time to do and test this
+            #move_line_obj.write(cr, uid, ml_ids, {'state':'waiting'})
             ml_ids = []
+            for ml in mrp.move_lines:
+                ml_ids.append(ml.id)
             for ml in mrp.move_lines2:
                 ml_ids.append(ml.id)
-            _logger.debug('FGF production action reopen mrp %s ' %(ml_ids)   )
-            move_line_obj.write(cr, uid, ml_ids, {'state':'draft'})
-            ml_ids = []
+            for ml in mrp.move_created_ids:
+                ml_ids.append(ml.id)
             for ml in mrp.move_created_ids2:
                 ml_ids.append(ml.id)
             _logger.debug('FGF production action reopen mrp %s ' %(ml_ids)   )
+            #move_line_obj.write(cr, uid, ml_ids, {'state':'waiting'})
             move_line_obj.write(cr, uid, ml_ids, {'state':'draft'})
+            # client has also produciton orders without BOM, so we do not want
+            # to delete the entered lines, and no new ones will be created
+            # automatically
+            if mrp.bom_id:
+                move_line_obj.unlink(cr, uid, ml_ids)
             # we have to handle real time accounting stock moves
             #FIXME - performance, should be an id - link to production 
             #aml_ids = account_move_line_obj.search(cr, uid, [('production_id','=',mrp.id)])
@@ -101,13 +114,14 @@ class mrp_production(osv.osv):
                            }
                           attachment_obj.write(cr, uid, a.id, vals)
 
+            #self.write(cr, uid, mrp.id, {'state':'confirmed'})
             self.write(cr, uid, mrp.id, {'state':'draft'})
             wf_service = netsvc.LocalService("workflow")
 
             wf_service.trg_delete(uid, 'mrp.production', mrp.id, cr)
             wf_service.trg_create(uid, 'mrp.production', mrp.id, cr)
 
-            message = _("Manufacturing order '%s' is reset to draft") % (
+            message = _("Manufacturing order '%s' is reset to waitung") % (
                     mrp.name,)
             self.log(cr, uid, mrp.id, message)            
         return True
