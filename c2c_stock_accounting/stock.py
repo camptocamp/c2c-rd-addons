@@ -271,6 +271,7 @@ class stock_move(osv.osv):
 	return self._compute_move_value_cost2(cr, uid, ids3, context)
 	
     def _compute_move_value_cost2(self, cr, uid, ids2,  context):
+        res_curr_acc = self.pool.get('res.currency')
         self._logger.debug('sql sorted ids `%s`', ids2)
 	if not context:
 	    context = {}
@@ -291,7 +292,7 @@ class stock_move(osv.osv):
 		if move.price_unit and move.purchase_line_id.order_id.state != 'draft':
                     result[move.id] = round(move.product_qty * move.price_unit,digits)
 	        else:
-                    rate = super(res_currency_account, self)._get_conversion_rate(cr, uid, move.purchase_line_id.order_id.price_list_id.currency_id.id, move.company_id.currency_id.id, context=context)
+                    rate = res_curr_acc._get_conversion_rate(cr, uid, move.purchase_line_id.order_id.pricelist_id.currency_id, move.company_id.currency_id, context=context)
                     result[move.id] = round(move.purchase_line_id.price_subtotal / move.purchase_line_id.product_qty * move.product_qty * rate ,digits) 
             elif move.location_id.usage == 'internal': 
                 loc_id = str(move.location_id.id)
