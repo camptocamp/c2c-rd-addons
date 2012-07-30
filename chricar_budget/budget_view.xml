@@ -105,6 +105,7 @@ generated 2009-08-18 23:44:30+02
             <field name="budget_version_id" select="1"/>
 	    <field name="prod_lot_id" select="1" domain="[('product_id','=',product_id)]" context="{'product_id':product_id}"/>
             <field name="amount_prod_lot"/>
+            <field name="surface_unused"/>
             <field name="location_ids" widget="one2many_list" nolabel="1" colspan="2">
               <tree string="Fields" editable="bottom">
                 <field
@@ -174,6 +175,7 @@ generated 2009-08-18 23:44:30+02
             select="1"/>
           <field name="product_uom"/>
           <field name="surface" select="1" sum="Sum Surface"/>
+          <field name="surface_unused" select="1" sum="Sum Surface"/>
           <field name="yield_qty" select="1"/>
           <field name="product_qty" select="1" sum="Sum Quantity"/>
           <field name="product_qty_lot"  sum="Sum On Lot"/>

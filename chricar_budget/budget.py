@@ -261,6 +261,17 @@ class chricar_budget(osv.osv):
             res[line.id]  = harvest_yield_diff
         return res
 
+     def _surface_unused(self, cr, uid, ids, name, args, context=None):
+        res = {}
+        for line in self.browse(cr, uid, ids, context=context):
+            surface_remaining = line.surface
+            for loc in line.location_ids:
+                surface_remaining -= loc.name
+            res[line.id]  = surface_remaining
+
+        return res
+
+
 
      _columns = {
        'amount'             : fields.function(_amount_line, method=True, string='Total Sales Planned' ,digits_compute=dp.get_precision('Budget'),
@@ -277,6 +288,7 @@ class chricar_budget(osv.osv):
        'product_qty'        : fields.function(_product_qty_line, method=True, string='Planned Quantity' ,digits=(16,0),
                              help="Surface * Yield"),
        'surface'            : fields.float   ('Surface (ha)', digits=(16,2)),
+       'surface_unused'     : fields.function(_surface_unused, method=True, string='Surface unused', digits=(16,2), help="Surface not yet assigned"),
        'yield_qty'          : fields.float   ('Yield qty/ha', digits=(16,0)),
        'yield_sale'         : fields.function(_yield_line, method=True, string='Sales/ha' ,digits_compute=dp.get_precision('Budget'),
                               help="Planned Sales / Surface"),
