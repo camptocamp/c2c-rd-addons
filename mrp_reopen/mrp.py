@@ -121,7 +121,7 @@ class mrp_production(osv.osv):
             wf_service.trg_delete(uid, 'mrp.production', mrp.id, cr)
             wf_service.trg_create(uid, 'mrp.production', mrp.id, cr)
 
-            message = _("Manufacturing order '%s' is reset to waitung") % (
+            message = _("Manufacturing order '%s' is reset to waiting") % (
                     mrp.name,)
             self.log(cr, uid, mrp.id, message)            
         return True
