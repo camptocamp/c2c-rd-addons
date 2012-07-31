@@ -7,13 +7,14 @@ msgstr ""
 "Project-Id-Version: OpenERP Server 6.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-07-30 07:41+0000\n"
-"PO-Revision-Date: 2012-07-30 07:41+0000\n"
-"Last-Translator: <>\n"
+"PO-Revision-Date: 2012-07-30 12:01+0000\n"
+"Last-Translator: Ferdinand @ Camptocamp <Unknown>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: \n"
-"Plural-Forms: \n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2012-07-31 05:19+0000\n"
+"X-Generator: Launchpad (build 15702)\n"
 
 #. module: chricar_budget
 #: field:chricar.budget.surface,name:0
@@ -141,8 +142,7 @@ msgid "chricar.budget.production"
 msgstr "chricar.budget.production"
 
 #. module: chricar_budget
-#: field:chricar.budget,product_id:0
-#: field:chricar.budget.surface,budget_id:0
+#: field:chricar.budget,product_id:0 field:chricar.budget.surface,budget_id:0
 #: model:ir.model,name:chricar_budget.model_product_product
 msgid "Product"
 msgstr "Produkt"
@@ -218,14 +218,12 @@ msgid "Planned Quantity"
 msgstr "geplante Menge"
 
 #. module: chricar_budget
-#: field:chricar.budget,budget_version_id:0
-#: view:chricar.budget.production:0
+#: field:chricar.budget,budget_version_id:0 view:chricar.budget.production:0
 msgid "Budget Version"
 msgstr "Budget Version"
 
 #. module: chricar_budget
-#: field:chricar.budget,harvest:0
-#: field:chricar.budget.surface,harvest:0
+#: field:chricar.budget,harvest:0 field:chricar.budget.surface,harvest:0
 msgid "Harvest"
 msgstr "Ernte"
 
@@ -265,8 +263,7 @@ msgid "Fields"
 msgstr "Schläge"
 
 #. module: chricar_budget
-#: view:chricar.budget:0
-#: field:chricar.budget,name:0
+#: view:chricar.budget:0 field:chricar.budget,name:0
 msgid "Notes"
 msgstr "Notizen"
 
@@ -307,8 +304,7 @@ msgid "ha total"
 msgstr "ha Gesamt"
 
 #. module: chricar_budget
-#: field:c2c_budget.version,budget_ids:0
-#: view:chricar.budget:0
+#: field:c2c_budget.version,budget_ids:0 view:chricar.budget:0
 #: view:chricar.budget.production:0
 #: model:ir.actions.act_window,name:chricar_budget.chricar_budget_act1
 #: model:ir.ui.menu,name:chricar_budget.menu_chricar_budget_list
@@ -431,5 +427,6 @@ msgstr "Produkt Budget"
 #. module: chricar_budget
 #: help:chricar.budget,sale_from:0
 msgid "Sale lines will be created aliquot for not individually planned sales"
-msgstr "Verkaufsbudgetzeilen werden aliquote für nicht manuell geplante Mengen gebildet"
-
+msgstr ""
+"Verkaufsbudgetzeilen werden aliquote für nicht manuell geplante Mengen "
+"gebildet"
