@@ -54,6 +54,7 @@ class stock_picking(osv.osv):
           'total_gross'    : fields.float   ('Total Gross', digits=(5,0)),
           'seal'           : fields.char    ('Seals', size=32),
           'sample'         : fields.char    ('Sample Number', size=32),
+          'print_net_only' : fields.boolean ('Print Only Net Weight'),
     }
 
 #    def _get_number_weighing(self, cr, uid, moves, context=None):

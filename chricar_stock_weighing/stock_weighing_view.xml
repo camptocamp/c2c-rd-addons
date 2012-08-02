@@ -22,6 +22,7 @@ Modification of picking out
             <field name="sample"/>
             <field name="seal"/>
             <field name="consignment_note"/>
+            <field name="print_net_only"/>
             <newline/>
             <group string="Tractor" colspan="2" col="2">
               <field name="tractor_number"/>
@@ -69,6 +70,7 @@ Modification of picking
             <field name="sample"/>
             <field name="seal"/>
             <field name="consignment_note"/>
+            <field name="print_net_only"/>
             <newline/>
             <group string="Tractor" colspan="2" col="2">
               <field name="tractor_number"/>
