@@ -313,7 +313,7 @@ msgstr "Produktions Los"
 #. module: chricar_stock_weighing
 #: field:stock.picking,trailer_net:0
 msgid "Trailer Net Weight"
-msgstr "Annhänger Netto"
+msgstr "Anhänger Netto"
 
 #. module: chricar_stock_weighing
 #: model:ir.ui.menu,name:chricar_stock_weighing.menu_chricar_weighing_picking_m6
