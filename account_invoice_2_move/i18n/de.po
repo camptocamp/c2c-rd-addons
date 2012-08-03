@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 6.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-08-03 03:52+0000\n"
-"PO-Revision-Date: 2012-08-03 05:53+0200\n"
+"POT-Creation-Date: 2012-08-03 04:31+0000\n"
+"PO-Revision-Date: 2012-08-03 06:31+0200\n"
 "Last-Translator: Ferdinand Gassauer\n"
 "Language-Team: American English <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -22,6 +22,11 @@ msgstr ""
 #: view:account.move.line:0
 msgid "Payable Accounts"
 msgstr "Verbindlichkeiten"
+
+#. module: account_invoice_2_move
+#: view:account.move.line:0
+msgid "Other Accounts"
+msgstr "Andere"
 
 #. module: account_invoice_2_move
 #: view:account.move.line:0
