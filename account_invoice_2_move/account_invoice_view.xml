@@ -12,6 +12,8 @@
                   <separator orientation="vertical"/>
                 <filter name="filter_receivable" icon="terp-sale" string="Receivable Accounts" domain="[('account_id.type','=','receivable')]"/>
                 <filter name="filter_payable" icon="terp-purchase" string="Payable Accounts" domain="[('account_id.type','=','payable')]"/>
+                <filter name="filter_others" icon="terp-folder-orange" string="Other Accounts" domain="[('account_id.type','not in',['payable','receivable'])]"/>
+                
               </xpath>
             </field>
         </record>
@@ -32,6 +34,12 @@
            context="{ 'search_default_unreconciled':1, 'search_default_filter_receivable':1, 'search_default_filter_payable':1  }"
            src_model="res.partner"
            res_model="account.move.line"/>
+
+        <act_window
+            context="{'search_default_next_partner':0,'view_mode':True, 'search_default_unreconciled':1 }"
+            id="account.action_account_manual_reconcile" name="Journal Items"
+            res_model="account.move.line"
+            view_id="account.view_move_line_tree"/>
 
     </data>
 </openerp>
