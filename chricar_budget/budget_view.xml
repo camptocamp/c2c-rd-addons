@@ -186,7 +186,7 @@ generated 2009-08-18 23:44:30+02
           <field name="harvest_net" sum="Sum Harvest Net"/>
           <field name="harvest_yield_diff"/>
           <field name="damage_yield"/>
-          <field name="damage_rembourse"/>
+          <field name="damage_rembourse" sum="Sum Damage Rembourse"/>
           <field name="price" select="1"/>
           <field name="price_unit_id" select="1"/>
           <field name="amount"  sum="Sum Amount"/>
