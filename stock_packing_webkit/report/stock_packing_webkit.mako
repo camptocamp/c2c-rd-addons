@@ -276,7 +276,7 @@ ${pick.address_id and pick.address_id.address_label|carriage_returns or ''}
 <tr><td style="text-align:left;"> ${_("Seal")}</td><td>  ${pick.seal}</td></tr>
 %endif
 %if 'number_weighing' in pick._columns and pick.number_weighing:
-<tr><td style="text-align:left;"> ${_("Number Weighing")}</td><td>  ${pick.number_weiging}</td></tr>
+<tr><td style="text-align:left;"> ${_("Number Weighing")}</td><td>  ${pick.number_weighing}</td></tr>
 %endif
 <!-- empty char string is 5 char long-->
 %if 'date_weighing' in pick._columns and len(pick.date_weighing)>5  :  
