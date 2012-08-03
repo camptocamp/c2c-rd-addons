@@ -20,13 +20,14 @@
 ##############################################################################
 
 {
-    "name" : "Adds link from invoice to partner moves",
+    "name" : "Adds links to unreconciled partner moves",
     "version" : "1.0",
     "author" : "Camptocamp Austria",
     "category": 'Accounting & Finance',
     'complexity': "normal",
     "description": """
-link from invoice to journal items
+link from invoice and partner to unreconciled journal items (move lines)
+add search buttons for payables and receivables to search view for journal items
 ==================================
 
     """,

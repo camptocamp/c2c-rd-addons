@@ -2,12 +2,35 @@
 <openerp>
     <data>
 
+        <record id="view_account_move_line_filter_pay_rec" model="ir.ui.view">
+            <field name="name">account.move.line.filter.pay_rec</field>
+            <field name="model">account.move.line</field>
+            <field name="type">search</field>
+            <field name="inherit_id" ref="account.view_account_move_line_filter"/>
+            <field name="arch" type="xml">
+              <xpath expr="/search/group/filter[@string='Unreconciled']" position="after">
+                  <separator orientation="vertical"/>
+                <filter name="filter_receivable" icon="terp-sale" string="Receivable Accounts" domain="[('account_id.type','=','receivable')]"/>
+                <filter name="filter_payable" icon="terp-purchase" string="Payable Accounts" domain="[('account_id.type','=','payable')]"/>
+              </xpath>
+            </field>
+        </record>
+
+
         <act_window
            id="act_account_invoice_2_move_line"
-           name="Account Move Lines"
+           name="Unreconciled Move Lines"
            domain="[('partner_id','=', partner_id)] "
-           context="{ 'search_default_unreconciled':1 }"
+           context="{ 'search_default_unreconciled':1, 'search_default_filter_receivable':1, 'search_default_filter_payable':1   }"
            src_model="account.invoice"
+           res_model="account.move.line"/>
+
+        <act_window
+           id="act_partner_2_move_line"
+           name="Unreconciled Move Lines"
+           domain="[('partner_id','=', active_id)] "
+           context="{ 'search_default_unreconciled':1, 'search_default_filter_receivable':1, 'search_default_filter_payable':1  }"
+           src_model="res.partner"
            res_model="account.move.line"/>
 
     </data>
