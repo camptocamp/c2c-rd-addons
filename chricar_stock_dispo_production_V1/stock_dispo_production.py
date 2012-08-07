@@ -172,10 +172,10 @@ class sale_order_line(osv.osv):
 	_logger = logging.getLogger(__name__)
         res = {}
         for line in self.browse(cr, uid, ids, context):
-            _logger.info('FGF move_state line %s' % (line))
+            _logger.debug('FGF move_state line %s' % (line))
             res[line.id] = False
             for move in line.stock_dispo_production_ids:
-                _logger.info('FGF move_state state %s' % (move.state))
+                _logger.debug('FGF move_state state %s' % (move.state))
                 if move.state == 'draft':            
                     res[line.id]  = True
         return res             

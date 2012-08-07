@@ -49,6 +49,7 @@ class stock_move(osv.osv):
      ACTIVITY_SELECTION = {
                               'dehumidify':'Dehumidify',
                               'restore':'Restore',
+                              'ventilate':'Ventilate',
                               'aspirate':'Aspirate',
                               'purify':'Purify',
                               'check':'Check',
@@ -76,8 +77,8 @@ class stock_move(osv.osv):
             'product_uom'     : product.uom_id.id,
             'price_unit_id'   : product.price_unit_id.id,
             'price_unit'      : product.standard_price ,
-            'price_unit_coeff': product.standard_price_coeff ,
-            'date_expected'    : time.strftime('%Y-%m-%d %H:%M:%S'),
+            'price_unit_pu'   : product.standard_price_pu ,
+            'date_expected'   : time.strftime('%Y-%m-%d %H:%M:%S'),
             'date'            : time.strftime('%Y-%m-%d %H:%M:%S'),
             'product_qty'     : 0.0,
             'factor'          : '',

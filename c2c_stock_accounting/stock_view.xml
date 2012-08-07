@@ -99,8 +99,8 @@
         <xpath expr="/form[@string='Stock Moves']" position="inside">
           <group colspan="2" col="2" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant">
             <separator string="Values" colspan="2"/>
-            <field name="move_value_cost"/>
-            <field name="move_value_sale"/>
+            <field name="move_value_cost" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant"/>
+            <field name="move_value_sale" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant"/>
             <field name="period_id"/>
           </group>
         </xpath>
@@ -117,21 +117,20 @@
             </field>
         </field>
     </record>
-    <!-- product list -->
-    <record model="ir.ui.view" id="product_tree_value_cost_view">
-      <field name="name">product.tree.value.cost.view</field>
+    <!-- product access rigths -->
+
+
+
+    <!-- product form -->
+    <record model="ir.ui.view" id="product_normal_form_rigths_view">
+      <field name="name">product.normal.rights.form</field>
       <field name="model">product.product</field>
-      <field name="inherit_id" ref="product.product_product_tree_view"/>
+      <field name="inherit_id" ref="product.product_normal_form_view"/>
       <field name="arch" type="xml">
-	      <field name="standard_price" position="after">
-		 <field name="valuation1" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant" sum="Value"/>
-		 <field name="valuation2" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant" sum="Value 2"/>
-		 <field name="valuation_diff" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant" sum="Diff"/>
-		 <field name="avg_price" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant"/>
-		 <field name="stock_account_id" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant"/>
-		 <field name="expense_account_id" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant"/>
-         </field>
-      </field>
+	      <xpath expr="/form/notebook/page[@string='Information']/group[2]" position="attributes">
+		 <attribute name="groups">c2c_stock_accounting.group_c2c_stock_accounting_accountant</attribute>
+              </xpath>	        
+        </field>
     </record>
 
     <!-- product search-->
@@ -164,7 +163,6 @@
     </record>
 			
 
-    <!-- product moves IN/OUT - make refrenece mandatory -->
 
 
 			

@@ -429,7 +429,7 @@ Modification of Parents (only for matching table prefixes)
                           <field
                             attrs="{ 'readonly': [('state','!=','draft')]} "
                             invisible="1"
-                            name="move_value_cost"/>
+                            name="move_value_cost" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant"/>
                           <field
                             attrs="{ 'readonly': [('state','!=','draft')]} "
                             invisible="1"
@@ -502,7 +502,7 @@ Modification of Parents (only for matching table prefixes)
                               name="product_uom"/>
                             <field
                               attrs="{ 'readonly': [('state','!=','draft')]} "
-                              name="move_value_cost"/>
+                              name="move_value_cost" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant"/>
                             <field
                               attrs="{ 'readonly': [('state','!=','draft')]} "
                               invisible="1"
@@ -568,7 +568,7 @@ Modification of Parents (only for matching table prefixes)
                           <field
                             attrs="{ 'readonly': [('state','!=','draft')]} "
                             invisible="1"
-                            name="move_value_cost"/>
+                            name="move_value_cost" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant"/>
                           <field
                             attrs="{ 'readonly': [('state','!=','draft')]} "
                             invisible="1"
@@ -636,7 +636,7 @@ Modification of Parents (only for matching table prefixes)
                             name="product_uom"/>
                           <field
                             attrs="{ 'readonly': [('state','!=','draft')]} "
-                            name="move_value_cost"/>
+                            name="move_value_cost" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant"/>
                           <field
                             attrs="{ 'readonly': [('state','!=','draft')]} "
                             invisible="1"
@@ -699,7 +699,7 @@ Modification of Parents (only for matching table prefixes)
                           <field
                             attrs="{ 'readonly': [('state','!=','draft')]} "
                             invisible="1"
-                            name="move_value_cost"/>
+                            name="move_value_cost" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant"/>
                           <field
                             attrs="{ 'readonly': [('state','!=','draft')]} "
                             invisible="1"
@@ -767,7 +767,7 @@ Modification of Parents (only for matching table prefixes)
                             name="product_uom"/>
                           <field
                             attrs="{ 'readonly': [('state','!=','draft')]} "
-                            name="move_value_cost"/>
+                            name="move_value_cost" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant"/>
                           <field
                             attrs="{ 'readonly': [('state','!=','draft')]} "
                             invisible="1"
@@ -832,7 +832,7 @@ Modification of Parents (only for matching table prefixes)
                           <field
                             attrs="{ 'readonly': [('state','!=','draft')]} "
                             invisible="1"
-                            name="move_value_cost"/>
+                            name="move_value_cost" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant"/>
                           <field
                             attrs="{ 'readonly': [('state','!=','draft')]} "
                             invisible="1"
@@ -900,7 +900,7 @@ Modification of Parents (only for matching table prefixes)
                             name="product_uom"/>
                           <field
                             attrs="{ 'readonly': [('state','!=','draft')]} "
-                            name="move_value_cost"/>
+                            name="move_value_cost" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant"/>
                           <field
                             attrs="{ 'readonly': [('state','!=','draft')]} "
                             invisible="1"
@@ -963,7 +963,7 @@ Modification of Parents (only for matching table prefixes)
                           <field
                             attrs="{ 'readonly': [('state','!=','draft')]} "
                             invisible="1"
-                            name="move_value_cost"/>
+                            name="move_value_cost" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant"/>
                           <field
                             attrs="{ 'readonly': [('state','!=','draft')]} "
                             invisible="1"
@@ -1031,7 +1031,7 @@ Modification of Parents (only for matching table prefixes)
                             name="product_uom"/>
                           <field
                             attrs="{ 'readonly': [('state','!=','draft')]} "
-                            name="move_value_cost"/>
+                            name="move_value_cost" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant"/>
                           <field
                             attrs="{ 'readonly': [('state','!=','draft')]} "
                             invisible="1"
@@ -1094,7 +1094,7 @@ Modification of Parents (only for matching table prefixes)
                         name="product_uom"/>
                       <field
                         attrs="{ 'readonly': [('state','!=','draft')]} "
-                        name="move_value_cost"/>
+                        name="move_value_cost" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant"/>
                       <field
                         name="state"
                         readonly="1"/>
@@ -1170,7 +1170,7 @@ Modification of Parents (only for matching table prefixes)
                           name="product_uom"/>
                         <field
                           attrs="{ 'readonly': [('state','!=','draft')]} "
-                          name="move_value_cost"/>
+                          name="move_value_cost" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant"/>
                         <field
                           attrs="{ 'readonly': [('state','!=','draft')]} "
                           invisible="1"

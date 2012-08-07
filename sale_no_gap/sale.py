@@ -32,7 +32,7 @@ class sale_order(osv.osv):
         }
 
     def create(self, cr, uid, vals, context=None):
-        if vals.get('name', '/'):
+        if vals.get('name', '/') == '/':
             vals.update({'name':  self.pool.get('ir.sequence').get(cr, uid, 'sale.order')})
         return super(sale_order, self).create(cr, uid, vals, context=context)
 

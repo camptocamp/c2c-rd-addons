@@ -35,6 +35,7 @@
 import time
 from osv import fields,osv
 import pooler
+import logging
 
 class product_product(osv.osv):
     _inherit = "product.product"
@@ -59,6 +60,20 @@ class product_product(osv.osv):
         cr.execute('SELECT indexname FROM pg_indexes WHERE indexname = \'name_category_default_code_name_template_variants_index\'')
         if not cr.fetchone():
             cr.execute('CREATE INDEX name_category_default_code_name_template_variants_index ON product_product(name_category,default_code,name_template,variants)')
+
+    def copy(self, cr, uid, id, default=None, context=None):
+        if context is None:
+             context={}
+        if not default:
+             default = {}
+        res = super(product_product, self).copy(cr, uid, id, default=default, context=context)
+        _logger  = logging.getLogger(__name__)
+        self._logger.debug('FGF id %s, res %s' % (id,res))
+        for product in self.browse(cr, uid, [id], context):
+            self._logger.debug('FGF categ id %s' % (product.categ_id.id))
+            self.write(cr, uid, [res], {'name_category': product.categ_id.name })
+
+        return res
 
 product_product()
           

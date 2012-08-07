@@ -60,7 +60,7 @@ def search_entries(self, cr, uid, data, context):
         ctx = '''context="{'journal_id': %d}"''' % payment.mode.journal.id
 
     # Search for move line to pay:
-    domain = [('reconcile_id', '=', False),('account_id.type', '=', payment.type),('amount_to_pay', '<>', 0)]
+    domain = [('reconcile_id', '=', False),('account_id.type', '=', payment.type),('amount_to_pay', '!=', 0)]
 
     if payment.type =='payable' and not show_refunds:
         domain += [ ('credit','>',0) ]

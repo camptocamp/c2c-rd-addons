@@ -1,0 +1,40 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+# 	* account_invoice_2_move
+#
+# Ferdinand Gassauer, 2012.
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 6.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-08-03 04:31+0000\n"
+"PO-Revision-Date: 2012-08-03 06:31+0200\n"
+"Last-Translator: Ferdinand Gassauer\n"
+"Language-Team: American English <kde-i18n-doc@kde.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+"Language: en_US\n"
+"X-Generator: Lokalize 1.4\n"
+
+#. module: account_invoice_2_move
+#: view:account.move.line:0
+msgid "Payable Accounts"
+msgstr ""
+
+#. module: account_invoice_2_move
+#: view:account.move.line:0
+msgid "Other Accounts"
+msgstr ""
+
+#. module: account_invoice_2_move
+#: view:account.move.line:0
+msgid "Receivable Accounts"
+msgstr ""
+
+#. module: account_invoice_2_move
+#: model:ir.actions.act_window,name:account_invoice_2_move.act_account_invoice_2_move_line
+#: model:ir.actions.act_window,name:account_invoice_2_move.act_partner_2_move_line
+msgid "Unreconciled Move Lines"
+msgstr ""

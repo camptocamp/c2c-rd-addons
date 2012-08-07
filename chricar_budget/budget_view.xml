@@ -91,6 +91,8 @@ generated 2009-08-18 23:44:30+02
             <field name="harvest_soil"/>
             <field name="harvest_net"/>
             <field name="harvest_yield"/>
+          <field name="damage_yield"/>
+          <field name="damage_rembourse"/>
             <field name="price" select="1"/>
             <field name="price_unit_id" select="1"/>
             <field name="amount" select="1"/>
@@ -103,6 +105,7 @@ generated 2009-08-18 23:44:30+02
             <field name="budget_version_id" select="1"/>
 	    <field name="prod_lot_id" select="1" domain="[('product_id','=',product_id)]" context="{'product_id':product_id}"/>
             <field name="amount_prod_lot"/>
+            <field name="surface_unused"/>
             <field name="location_ids" widget="one2many_list" nolabel="1" colspan="2">
               <tree string="Fields" editable="bottom">
                 <field
@@ -172,6 +175,7 @@ generated 2009-08-18 23:44:30+02
             select="1"/>
           <field name="product_uom"/>
           <field name="surface" select="1" sum="Sum Surface"/>
+          <field name="surface_unused" select="1" sum="Sum Surface"/>
           <field name="yield_qty" select="1"/>
           <field name="product_qty" select="1" sum="Sum Quantity"/>
           <field name="product_qty_lot"  sum="Sum On Lot"/>
@@ -181,6 +185,8 @@ generated 2009-08-18 23:44:30+02
           <field name="harvest_soil"/>
           <field name="harvest_net" sum="Sum Harvest Net"/>
           <field name="harvest_yield_diff"/>
+          <field name="damage_yield"/>
+          <field name="damage_rembourse" sum="Sum Damage Rembourse"/>
           <field name="price" select="1"/>
           <field name="price_unit_id" select="1"/>
           <field name="amount"  sum="Sum Amount"/>
@@ -218,7 +224,12 @@ generated 2009-08-18 23:44:30+02
       action="chricar_budget_act1"
       id="menu_chricar_budget_list"
       parent="c2c_budget.menu_budget_c2c"
-      sequence="150"/>&#xA;&#xA;==============================================&#xA;Modification of Parents&#xA;==============================================&#xA;--&gt;&#xA;    &#xA;    &#xA;    &#xA;    &#xA;    &#xA;    &#xA;    &#xA;    &#xA;    &#xA;    &#xA;    &#xA;    &#xA;    &#xA;    
+      sequence="150"/>
+<!--
+==============================================
+Modification of Parents
+==============================================
+-->
     <act_window
       domain="[('budget_version_id', '=', active_id)]"
       id="act_budget_version_2_product_plan"

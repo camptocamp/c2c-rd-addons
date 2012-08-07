@@ -88,20 +88,20 @@ class stock_production_lot(osv.osv):
     def name_get(self, cr, uid, ids, context=None):
         _logger = logging.getLogger(__name__)
         res= super(stock_production_lot, self).name_get(cr, uid, ids, context)
-        _logger.info('FGF lot res negative %s' % (res))
+        _logger.debug('FGF lot res negative %s' % (res))
         res1 = []
         if context.get('location_id'):
             lots_to_show = []
             for lot in self.browse(cr, uid, ids, context):
                 if lot.product_id.allow_negative_stock or lot.stock_available != 0:
                     lots_to_show.append(lot.id)
-            _logger.info('FGF lot res negative to show %s' % (lots_to_show))
+            _logger.debug('FGF lot res negative to show %s' % (lots_to_show))
             if lots_to_show:
                 for r in res:
-                    _logger.info('FGF lot res negative r %s,%s' % (r, res))
+                    _logger.debug('FGF lot res negative r %s,%s' % (r, res))
                     if r[0] in lots_to_show:
                        res1.append(r)
-                       #_logger.info('FGF lot res negative res 1%s' % (res1))
+                       #_logger.debug('FGF lot res negative res 1%s' % (res1))
         else:
             res1 = res
             
@@ -128,7 +128,7 @@ class stock_location(osv.osv):
                             loc_to_show.append(loc.id)
             if loc_to_show:
                 for r in res:
-                    _logger.info('FGF loc res negative r %s,%s' % (r, res))
+                    _logger.debug('FGF loc res negative r %s,%s' % (r, res))
                     if r[0] in loc_to_show:
                        res1.append(r)
             else: # FIXME workaround 

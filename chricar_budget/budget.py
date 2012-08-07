@@ -89,6 +89,7 @@ class chricar_budget(osv.osv):
         res = {}
         for line in self.browse(cr, uid, ids, context=context):
             res[line.id] = line.surface * line.yield_qty
+            #res[line.id] = 0
         return res
 
      def _product_qty_stock(self, cr, uid, ids, name, args, context=None):
@@ -200,10 +201,13 @@ class chricar_budget(osv.osv):
             fy_date_start = line.budget_version_id.budget_id.start_date
             fy_date_stop  = line.budget_version_id.budget_id.end_date
             cr.execute("""select coalesce(sum(product_qty),0) from stock_move s,
-                                                       stock_location l
+                                                       stock_location l,
+						       stock_location d
                                  where state='done'
                                    and l.usage = 'production'
                                    and l.id = s.location_id
+                                   and d.usage != 'production'
+                                   and d.id = s.location_dest_id
                                    and product_id = %d
                                    and to_char(date,'YYYY-MM-DD') between '%s' and '%s'""" % (product,fy_date_start,fy_date_stop))
             harvest = cr.fetchone()
@@ -225,7 +229,7 @@ class chricar_budget(osv.osv):
             else:
                 harvest = line.harvest
             self._logger.debug('harvest yield 2 `%s``%s`', surface_used, harvest)
-            if surface_used and surface_used <> 0.0  and  harvest and harvest <> 0.0:
+            if surface_used and surface_used != 0.0  and  harvest and harvest != 0.0:
                  harvest_yield = harvest / surface_used
             res[line.id]  = harvest_yield
         return res
@@ -239,7 +243,7 @@ class chricar_budget(osv.osv):
             surface_used  = line.surface
             harvest       = line.harvest
             self._logger.debug('harvest yield 2 `%s` `%s`', surface_used,harvest)
-            if surface_used and surface_used <> 0.0  and  harvest and harvest <> 0.0:
+            if surface_used and surface_used != 0.0  and  harvest and harvest != 0.0:
                  harvest_yield = harvest / surface_used
             res[line.id]  = harvest_yield
         return res
@@ -252,10 +256,21 @@ class chricar_budget(osv.osv):
             yield_qty  = line.yield_qty
             harvest_net = line.harvest_net
             self._logger.debug('harvest yield 2 `%s` `%s`', yield_qty,harvest_net)
-            if yield_qty <> 0.0  and harvest_net <> 0.0:
+            if yield_qty != 0.0  and harvest_net != 0.0:
                  harvest_yield_diff =  ((harvest_net / yield_qty) - 1.0) * 100
             res[line.id]  = harvest_yield_diff
         return res
+
+     def _surface_unused(self, cr, uid, ids, name, args, context=None):
+        res = {}
+        for line in self.browse(cr, uid, ids, context=context):
+            surface_remaining = line.surface
+            for loc in line.location_ids:
+                surface_remaining -= loc.name
+            res[line.id]  = surface_remaining
+
+        return res
+
 
 
      _columns = {
@@ -273,6 +288,7 @@ class chricar_budget(osv.osv):
        'product_qty'        : fields.function(_product_qty_line, method=True, string='Planned Quantity' ,digits=(16,0),
                              help="Surface * Yield"),
        'surface'            : fields.float   ('Surface (ha)', digits=(16,2)),
+       'surface_unused'     : fields.function(_surface_unused, method=True, string='Surface unused', digits=(16,2), help="Surface not yet assigned"),
        'yield_qty'          : fields.float   ('Yield qty/ha', digits=(16,0)),
        'yield_sale'         : fields.function(_yield_line, method=True, string='Sales/ha' ,digits_compute=dp.get_precision('Budget'),
                               help="Planned Sales / Surface"),
@@ -291,6 +307,8 @@ class chricar_budget(osv.osv):
        'product_qty_lot'    : fields.related ('prod_lot_id','stock_available', type="float",  string="Uninvoiced Lot", readonly = True ,help="Uninvoiced quantitiy of this production lot"),
        'amount_qty_stock'   : fields.function(_amount_qty_stock, method=True, string='Unsold Stock Value' ,digits_compute=dp.get_precision('Budget'),help="Stock Qty * Planned Sale Price"),
        'amount_qty_lot'     : fields.function(_amount_qty_lot, method=True, string='Uninvoiced Lot Value' ,digits_compute=dp.get_precision('Budget'),help="Uninvoiced Lot Qty * Planned Sale Price"),
+       'damage_yield'       : fields.float   ('Damage Yield', digits=(16,0),help="The yield reduction assessed by the insurance")       ,
+       'damage_rembourse'   : fields.float   ('Damage Rembours', digits=(16,0),help="The remboursement per ha assessed by the insurance")       ,
 
 }
      _defaults = {
@@ -367,7 +385,7 @@ class chricar_budget_surface(osv.osv):
             surface_used_detail  = line.name
             harvest_detail       = line.harvest
             self._logger.debug('harvest yield detail `%s` `%s` `%s`', name, surface_used_detail, harvest_detail)
-            if surface_used_detail and surface_used_detail <> 0.0 and harvest_detail and harvest_detail <> 0.0:
+            if surface_used_detail and surface_used_detail != 0.0 and harvest_detail and harvest_detail != 0.0:
                  harvest_yield_detail = harvest_detail / surface_used_detail
             res[line.id]  = harvest_yield_detail
         return res

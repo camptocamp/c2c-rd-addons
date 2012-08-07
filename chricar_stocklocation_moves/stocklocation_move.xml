@@ -125,10 +125,10 @@
           <field name="period_id" select="1"/>
           <field name="date" select="1"/>
           <field name="product_qty" sum="Sum Quantity"/>
-          <field name="move_value_cost" groups="base.group_extended" sum="Sum Cost Value"/>
-          <field name="cost_price" groups="base.group_extended"/>
-          <field name="move_value_sale" groups="base.group_extended" sum="Sum Sale Value"/>
-          <field name="sale_price" groups="base.group_extended"/>
+          <field name="move_value_cost" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant" sum="Sum Cost Value"/>
+          <field name="cost_price" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant"/>
+          <field name="move_value_sale" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant" sum="Sum Sale Value"/>
+          <field name="sale_price" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant"/>
           <field name="prodlot_id" select="1"/>
           <field name="state" select="1"/>
         </tree>
@@ -150,10 +150,10 @@
           <field name="period_id" select="1"/>
           <field name="date" select="1"/>
           <field name="product_qty" sum="Sum Quantity" select="2"/>
-          <field name="move_value_cost" sum="Sum Cost Value" select="2"/>
-          <field name="cost_price" groups="base.group_extended" select="2"/>
-          <field name="move_value_sale" groups="base.group_extended" sum="Sum Sale Value" select="2"/>
-          <field name="sale_price" groups="base.group_extended" select="2"/>
+          <field name="move_value_cost" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant" sum="Sum Cost Value" select="2"/>
+          <field name="cost_price" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant" select="2"/>
+          <field name="move_value_sale" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant" sum="Sum Sale Value" select="2"/>
+          <field name="sale_price" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant" select="2"/>
           <field name="prodlot_id" select="1"/>
           <field name="state" select="1"/>
         </form>
@@ -218,10 +218,10 @@
           <field name="location_id" select="1"/>
           <field name="usage" select="1"/>
           <field name="product_qty"/>
-          <field name="move_value_cost" groups="base.group_extended" sum="Sum Cost Value" select="2"/>
-          <field name="cost_price" groups="base.group_extended" select="2"/>
-          <field name="move_value_sale" groups="base.group_extended" sum="Sum Sale Value" select="2"/>
-          <field name="sale_price" groups="base.group_extended" select="2"/>
+          <field name="move_value_cost" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant" sum="Sum Cost Value" select="2"/>
+          <field name="cost_price" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant" select="2"/>
+          <field name="move_value_sale" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant" sum="Sum Sale Value" select="2"/>
+          <field name="sale_price" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant" select="2"/>
         </tree>
       </field>
     </record>

@@ -333,7 +333,7 @@ class account_bank_statement_line(osv.osv):
         
         account_obj =  self.pool.get('account.account')
         res = account_obj.get_analytic(cr, uid, ids, account_id)
-        _logger.info('FGF bank change %s:%s', result, res)
+        _logger.debug('FGF bank change %s:%s', result, res)
 
         if result and res:
             result['value'].update( res['value'])

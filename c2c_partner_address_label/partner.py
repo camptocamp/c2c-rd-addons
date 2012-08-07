@@ -78,9 +78,9 @@ class res_partner_address(osv.osv):
     def _address_label(self, cr, uid, ids, name, arg, context=None):
         _logger = logging.getLogger(__name__)
         res = {}
-        _logger.info('FGF address_label ids %s ' % (ids))
+        _logger.debug('FGF address_label ids %s ' % (ids))
         for a in self.browse(cr,uid,ids,context):
-            _logger.info('FGF address_label street %s' % (a.street))
+            _logger.debug('FGF address_label street %s' % (a.street))
             lf ='\n'
             l = a.partner_id.name or ''
             if a.partner_id.title:
@@ -104,7 +104,7 @@ class res_partner_address(osv.osv):
                 if line.strip():
                     address_compact += line + '\n'
             res[a.id] = l + lf + address_compact
-            _logger.info('FGF address_label %s' % (res[a.id]))
+            _logger.debug('FGF address_label %s' % (res[a.id]))
         return res
 
 # new in 6.1 labe_format        

@@ -55,7 +55,7 @@ class c2c_budget_item(osv.osv):
         account_obj = self.pool.get('account.account')
         budget_item_obj = self.pool.get('c2c_budget.item')
         missing_parent_ids = list(parent_ids)
-        _logger.info('FGF missing parent %s' % (missing_parent_ids))
+        _logger.debug('FGF missing parent %s' % (missing_parent_ids))
         for account in account_obj.browse(cr, uid, parent_ids, context=None):
             if account.parent_id and account.parent_id.id not in missing_parent_ids:
                 missing_parent_ids.append(account.parent_id.id)
@@ -75,14 +75,14 @@ class c2c_budget_item(osv.osv):
                 val1['code']= account.code
                 val1['name']= account.name
                 budget_items_missing.append(val1)
-                _logger.info('FGF budget_items missing  %s' % (val1))
+                _logger.debug('FGF budget_items missing  %s' % (val1))
                 self.create(cr, uid, val1)
  
     def budget_item_parent_rel_create(self, cr, uid, parent_ids, context): 
         _logger = logging.getLogger(__name__)
         budget_item_obj = self.pool.get('c2c_budget.item')
 	company_id = context['company_id']
-        _logger.info('FGF parent dict company_id %s' % (company_id))
+        _logger.debug('FGF parent dict company_id %s' % (company_id))
         cr.execute("""select a.code, p.code
              from account_account a,
                   account_account p
@@ -91,25 +91,25 @@ class c2c_budget_item(osv.osv):
 	      and a.company_id = %s
            """ % ( company_id))
         parent_dict = dict(cr.fetchall())
-        _logger.info('FGF parent dict %s' % (parent_dict))
+        _logger.debug('FGF parent dict %s' % (parent_dict))
         parent_rel = []
         budget_missing_parents_ids = budget_item_obj.search(cr, uid, [('parent_id','=',False)],context=context)
-        _logger.info('FGF missing parent ids %s' % (budget_missing_parents_ids))
+        _logger.debug('FGF missing parent ids %s' % (budget_missing_parents_ids))
         for item in budget_item_obj.browse(cr, uid, budget_missing_parents_ids, context):
-            _logger.info('FGF parent itemcode %s' % (item.code))
+            _logger.debug('FGF parent itemcode %s' % (item.code))
             try: 
               #if item.code == parent_dict[item.code]:
-                _logger.info('FGF parent  %s' % (item.code))
+                _logger.debug('FGF parent  %s' % (item.code))
                 code_parent = parent_dict[item.code]
                 budget_item_id = budget_item_obj.search(cr, uid, [('code','=',item.code)],context=context)[0]
                 budget_parent_id = budget_item_obj.search(cr, uid, [('code','=',code_parent)],context=context)[0]
 		# if a item structure exists we must append the new structure to the existing one
                 parent_rel.append((budget_item_id, budget_parent_id))
             except:
-                _logger.info('FGF parent pass %s' % (item.code))
+                _logger.debug('FGF parent pass %s' % (item.code))
                 pass
         parent_rel_done = []
-        _logger.info('FGF parent rel ids %s' % (parent_rel))
+        _logger.debug('FGF parent rel ids %s' % (parent_rel))
         if parent_rel:
           while not parent_rel_done or parent_rel != parent_rel_done :
             for r in parent_rel:
@@ -124,7 +124,7 @@ class c2c_budget_item(osv.osv):
 	budget_top_id = context['budget_top_id']
 	if budget_top_id:   
 	   missing_top = self.search(cr, uid,[('id','!=', budget_top_id),('parent_id','=',False )],context=context)
-	   _logger.info('FGF missing top %s %s' % (budget_top_id, missing_top))
+	   _logger.debug('FGF missing top %s %s' % (budget_top_id, missing_top))
            if missing_top:
 	       self.write(cr,uid,missing_top,{'parent_id': budget_top_id})
 
@@ -139,7 +139,7 @@ class c2c_budget_item(osv.osv):
 			  and a.company_id = %s
                           and (a.id,b.id) not in (select account_id ,b.id as budget_item_id from c2c_budget_item_account_rel);"""  %(company_id))
         for missing in cr.dictfetchall():
-            _logger.info('FGF missing rel %s' % (missing))
+            _logger.debug('FGF missing rel %s' % (missing))
             self.write(cr, uid, [missing['budget_item_id']], {'account' : [(6,0, [missing['account_id']])]}, context )
          
  
@@ -175,7 +175,7 @@ class c2c_budget_item(osv.osv):
             budget_items_missing.append(val1)
             if budget_item['parent_id'] not in parent_ids:
                 parent_ids.append(budget_item['parent_id'])
-            _logger.info('FGF items missing %s' % (val1))
+            _logger.debug('FGF items missing %s' % (val1))
             budget_item_obj.create(cr, uid, val1, context)
         # create missing view structure
 	context['company_id'] = company_id

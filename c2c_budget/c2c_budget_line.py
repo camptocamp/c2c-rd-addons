@@ -298,7 +298,7 @@ class c2c_budget_line(osv.osv):
                 )
             
             if l.budget_item_id.id not in flat_items_ids:
-                _logger.info('FGF budget_item not in structure %s' % ( l.budget_item_id.id))
+                _logger.debug('FGF budget_item not in structure %s' % ( l.budget_item_id.id))
                 return False
         return True
         

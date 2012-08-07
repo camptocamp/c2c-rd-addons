@@ -37,12 +37,12 @@ class purchase_order(osv.osv):
         res = super(purchase_order, self)._prepare_order_line_move(cr, uid, order, order_line, picking_id, context)
 	prod_obj = self.pool.get('product.product')
 	prod_id = res['product_id']
-        self._logger.info('FGF PO prepare line %s %s' % (prod_id, res))
+        self._logger.debug('FGF PO prepare line %s %s' % (prod_id, res))
 	for prod in  prod_obj.browse(cr, uid, [prod_id] ,context):
 	    if len(prod.packaging):
 		res['product_packaging'] = prod.packaging[0].id
 	
-        self._logger.info('FGF PO prepare line `%s`', res)
+        self._logger.debug('FGF PO prepare line `%s`', res)
 
         
         return res

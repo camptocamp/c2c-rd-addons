@@ -42,7 +42,7 @@ class account_bank_statement(osv.osv):
         amount_tax = 0.0
         if st_line.tax_id:
             precision = self.pool.get('decimal.precision').precision_get(cr, uid, 'Account')
-            if st_line.amount <> round(st_line.amount_net + st_line.amount_tax, precision):
+            if st_line.amount != round(st_line.amount_net + st_line.amount_tax, precision):
                           raise osv.except_osv(_('Error !'),
                               _('VAT and Amount Net do not match Amount in line "%s"') % st_line.name)
             if st_line.partner_id:
@@ -134,7 +134,7 @@ class account_bank_statement(osv.osv):
         move = st_line # shorter
         if move.tax_id:
             precision = self.pool.get('decimal.precision').precision_get(cr, uid, 'Account')
-            if move.amount <> round(move.amount_net + move.amount_tax, precision):
+            if move.amount != round(move.amount_net + move.amount_tax, precision):
                           raise osv.except_osv(_('Error !'),
                               _('VAT and Amount Net do not match Amount in line "%s"') % move.name)
             if move.partner_id:
@@ -166,18 +166,18 @@ class account_bank_statement(osv.osv):
             'analytic_account_id': st_line.analytic_account_id and st_line.analytic_account_id.id or False
         }
 
-        if st.currency.id <> company_currency_id:
+        if st.currency.id != company_currency_id:
             amount_cur = res_currency_obj.compute(cr, uid, company_currency_id,
                         st.currency.id, amount, context=context)
             val['amount_currency'] = -amount_cur
 
-        if st_line.account_id and st_line.account_id.currency_id and st_line.account_id.currency_id.id <> company_currency_id:
+        if st_line.account_id and st_line.account_id.currency_id and st_line.account_id.currency_id.id != company_currency_id:
             val['currency_id'] = st_line.account_id.currency_id.id
             amount_cur = res_currency_obj.compute(cr, uid, company_currency_id,
                     st_line.account_id.currency_id.id, amount, context=context)
             val['amount_currency'] = -amount_cur
 
-        if amount_tax <> 0.0 and move.tax_id:
+        if amount_tax != 0.0 and move.tax_id:
                     val['tax_amount']   = amount_net
                     val['tax_code_id'] = move.tax_id.base_code_id.id
 
@@ -187,7 +187,7 @@ class account_bank_statement(osv.osv):
 
 
         # VAT Move line                 
-        if amount_tax <> 0.0 and move.tax_id:
+        if amount_tax != 0.0 and move.tax_id:
              account_move_line_obj.create(cr, uid, {
                     'name': move.name,
                     'date': move.date,
@@ -214,7 +214,7 @@ class account_bank_statement(osv.osv):
 
         amount_currency = False
         currency_id = False
-        if st.currency.id <> company_currency_id:
+        if st.currency.id != company_currency_id:
             amount_currency = st_line.amount
             currency_id = st.currency.id
         account_move_line_obj.create(cr, uid, {
@@ -237,7 +237,7 @@ class account_bank_statement(osv.osv):
                 account_move_obj.browse(cr, uid, move_id,
                     context=context).line_id],
                 context=context):
-            if line.state <> 'valid':
+            if line.state != 'valid':
                 raise osv.except_osv(_('Error !'),
                         _('Journal Item "%s" is not valid') % line.name)
 

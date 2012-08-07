@@ -63,7 +63,7 @@ class sale_order(osv.osv):
             context = {}
         _logger = logging.getLogger(__name__)
         now = time.strftime('%Y-%m-%d %H:%M:%S'),
-        #_logger.info('FGF sale pull internal context %s' % (context))
+        #_logger.debug('FGF sale pull internal context %s' % (context))
         location_dest_id = ''
         if context['form'] and context['form']['location_dest_id']:
             location_dest_id = context['form']['location_dest_id'][0]
@@ -121,11 +121,11 @@ class sale_order(osv.osv):
 		    and usage='internal'
                   order by sequence""") 
             for loc in cr.fetchall():
-                #_logger.info('FGF sale location %s ' % (loc))
+                #_logger.debug('FGF sale location %s ' % (loc))
                 location_id = loc[0]
                 context['location_id'] = loc[0]
                 context['location'] = loc[0]
-                #_logger.info('FGF sale location context %s ' % (context))
+                #_logger.debug('FGF sale location context %s ' % (context))
                 #qty_availiable = product_obj.get_product_available(cr, uid, [product_id] , context)
                 qty_available = 0.0
 		if product_id:
@@ -142,7 +142,7 @@ class sale_order(osv.osv):
                             qty_available -= uom_obj._compute_qty(cr, uid, move.product_uom.id,move.product_qty, move.product_id.uom_id.id)
 
                 #qty_avail = qty_availiable.get(product_id)
-                #_logger.info('FGF sale location product %s %s %s ' % (product_id, qty_available, qty_requested))
+                #_logger.debug('FGF sale location product %s %s %s ' % (product_id, qty_available, qty_requested))
                 ml = {'shop_id':shop_id, 'location_id':location_id,  'location_dest_id':location_dest_id, 'product_id': product_id, 'name': name, 'product_packaging': product_packaging}
                 if qty_requested > 0 and qty_available >0:
                   if qty_available >= qty_requested:
@@ -154,7 +154,7 @@ class sale_order(osv.osv):
                         if not loc_ids:
                             main_location_id = location_id
                         loc_ids.append(location_id)
-                    #_logger.info('FGF sale location product available %s %s %s ' % (product_id, qty_available, qty_requested))
+                    #_logger.debug('FGF sale location product available %s %s %s ' % (product_id, qty_available, qty_requested))
                   elif qty_available > 0 and qty_available < qty_requested:
                     qty_requested = qty_requested - qty_available
                     ml.update({'product_qty':qty_available})
@@ -209,7 +209,7 @@ class sale_order(osv.osv):
             stock_moves.update( move_vals )
             stock_moves['location_id'] = loc
             pick.update( stock_moves )
-            #_logger.info('FGF sale pick %s ' % (pick)) 
+            #_logger.debug('FGF sale pick %s ' % (pick)) 
             picking_id = picking_obj.create(cr, uid, pick, context=context)
             for l in move_lines:
                 line = dict(l)
@@ -231,11 +231,11 @@ class sale_order(osv.osv):
                        }
                     ml.update(mlt)
                     ml.update(move_vals)
-                    #_logger.info('FGF sale move line %s ' % (ml)) 
+                    #_logger.debug('FGF sale move line %s ' % (ml)) 
                     move_obj.create(cr, uid, ml,  context=context)
 
         if back_log_lines:
-            #_logger.info('FGF back_log lines %s ' % (back_log_lines))
+            #_logger.debug('FGF back_log lines %s ' % (back_log_lines))
             pick = pick_vals
             # create residual picking - must be processed manually
             if main_location_id:
@@ -266,7 +266,7 @@ class sale_order(osv.osv):
                        }
                 ml.update(mlt)
                 ml.update(move_vals)
-                #_logger.info('FGF sale move line %s ' % (ml))
+                #_logger.debug('FGF sale move line %s ' % (ml))
                 move_obj.create(cr, uid, ml,  context=context)
 	    #picking_obj.action_cancel(cr, uid, [picking_id], context=None)
 

@@ -30,12 +30,14 @@ class stock_location(osv.osv):
     def name_get(self, cr, uid, ids, context=None):
         product_obj = self.pool.get('product.product')
         _logger = logging.getLogger(__name__)
-        #_logger.info('FGF loc ids %s' % (ids))
+        #_logger.debug('FGF loc ids %s' % (ids))
         res= super(stock_location, self).name_get(cr, uid, ids, context)
-        #_logger.info('FGF loc res %s' % (res))
-        #_logger.info('FGF loc context %s ' % (context))
+        digits = self.pool.get('decimal.precision').precision_get(cr, uid, 'Product UoM')
+
+        #_logger.debug('FGF loc res %s' % (res))
+        #_logger.debug('FGF loc context %s ' % (context))
         resd = dict(res)
-        #_logger.info('FGF loc d %s ' % (resd))
+        #_logger.debug('FGF loc d %s ' % (resd))
         res1 =[]
         if context.get('product_id'):
        
@@ -51,15 +53,15 @@ class stock_location(osv.osv):
           for loc in self.browse(cr, uid, ids, context):
             qty = loc.stock_real
             qty_v = loc.stock_virtual
-            qty_str = str(qty)
+            qty_str = str(round(qty,digits))
             if qty_v != qty:
-                qty_str += ' / ' + str(qty_v)
+                qty_str += ' / ' + str(round(qty_v,digits))
             name_new = resd[loc.id] + ' [ ' + qty_str + uom_name + ' ]' + packs 
-            #_logger.info('FGF loc name %s' % (name_new))
+            #_logger.debug('FGF loc name %s' % (name_new))
       
             l = (loc.id,name_new)
             res1.append(l)
-            #_logger.info('FGF loc res1 %s' % (res1))
+            #_logger.debug('FGF loc res1 %s' % (res1))
         else:
            res1 = res
         return res1

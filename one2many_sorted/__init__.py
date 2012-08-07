@@ -202,8 +202,8 @@ class many2many_sorted(fields.many2many):
                 sortable.append(d)
             for key in order :
                 sortable.sort(key=lambda d: d[key[0]], reverse=key[1])
-            self._logger.info("many2many order criteria: %s", order) ######
-            for d in sortable : self._logger.info("sorted %s", d) #############
+            self._logger.debug("many2many order criteria: %s", order) ######
+            for d in sortable : self._logger.debug("sorted %s", d) #############
             for r in _obj.browse(cr, user, [d['id'] for d in sortable], context=context) :
                 res[k].append(r.id)
         return res

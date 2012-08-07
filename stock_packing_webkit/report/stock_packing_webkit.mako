@@ -276,7 +276,7 @@ ${pick.address_id and pick.address_id.address_label|carriage_returns or ''}
 <tr><td style="text-align:left;"> ${_("Seal")}</td><td>  ${pick.seal}</td></tr>
 %endif
 %if 'number_weighing' in pick._columns and pick.number_weighing:
-<tr><td style="text-align:left;"> ${_("Number Weighing")}</td><td>  ${pick.number_weiging}</td></tr>
+<tr><td style="text-align:left;"> ${_("Number Weighing")}</td><td>  ${pick.number_weighing}</td></tr>
 %endif
 <!-- empty char string is 5 char long-->
 %if 'date_weighing' in pick._columns and len(pick.date_weighing)>5  :  
@@ -305,6 +305,7 @@ ${pick.address_id and pick.address_id.address_label|carriage_returns or ''}
             <td>${ formatLang(pick.trailer_net or '')}</td>
             <td>${ formatLang(pick.total_net or '')}</td>
         </tr>
+%if 'print_net_only' in pick._columns and not pick.print_net_only:
         <tr>
             <td style="text-align:left;">${_("Tare")}</td>
             <td >${ formatLang(pick.tractor_tare or '')}</td>
@@ -317,6 +318,7 @@ ${pick.address_id and pick.address_id.address_label|carriage_returns or ''}
             <td >${ formatLang(pick.trailer_gross or '') }</td>
             <td>${ formatLang(pick.total_gross or '')}</td>
         </tr>
+%endif
     </table>
 %endif       
 </td>
