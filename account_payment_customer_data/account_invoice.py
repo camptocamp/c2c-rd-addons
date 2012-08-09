@@ -43,6 +43,7 @@ class account_invoice(osv.osv) :
             , help="""Numeric field used for electronic banking.\nContains number specified by the recipient."""
             )
         }
+    _defaults = { 'customer_data': lambda self, cr, uid, context: ''}
 
     def _check_reference(self, cr, uid, ids):
         for invoice in self.browse(cr, uid, ids):

@@ -8,10 +8,10 @@
 #    01-APS-2011 (GK) created
 #
 # WARNING: This program as such is intended to be used by professional
-# programmers who take the whole responsability of assessing all potential
+# programmers who take the whole responsibility of assessing all potential
 # consequences resulting from its eventual inadequacies and bugs.
 # End users who are looking for a ready-to-use solution with commercial
-# garantees and support are strongly adviced to contract a Free Software
+# guarantees and support are strongly advised to contract a Free Software
 # Service Company.
 #
 # This program is Free Software; you can redistribute it and/or
@@ -131,11 +131,6 @@ class payment_order(osv.osv) :
             return date
     # end def _sepa_payment_date
 
-    def _invoice_customer_data(self) :
-        invoice_obj = self.pool.get('account.invoice')
-        return invoice_obj._columns.has_key("customer_data")
-    # end def _invoice_customer_data
-
     def sepa_payments(self, order, company) :
         dates = {}
         for line in order.line_ids :
@@ -225,7 +220,7 @@ class payment_order(osv.osv) :
                                 ( _('Data Error !')
                                 , _('A descriptive text for the payment is missing')
                                 )
-                        if self._invoice_customer_data() and invoice.customer_data :
+                        if invoice.customer_data :
                             customer_data = invoice.customer_data
                         else :
                             customer_data = "NOTPROVIDED"
