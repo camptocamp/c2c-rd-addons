@@ -7,7 +7,7 @@
       <field name="type">form</field>
       <field name="inherit_id" ref="account.invoice_supplier_form"/>
       <field name="arch" type="xml">
-        <xpath expr="/form/field[@name='currency_id']" position="after">
+        <xpath expr="/form/group/field[@name='currency_id']" position="after">
           <field name="customer_data"/>
         </xpath>
       </field>
