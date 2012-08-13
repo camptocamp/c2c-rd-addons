@@ -108,8 +108,8 @@ ${company.partner_id.address and company.partner_id.address[0].email or ''|entit
 </field>
             <field eval="40.0" name="margin_top"/>
             <field eval="20.0" name="margin_bottom"/>
-	    <field eval="13.0" name="margin_left"/>
-	    <field eval="10.0" name="margin_right"/>
+            <field eval="13.0" name="margin_left"/>
+            <field eval="10.0" name="margin_right"/>
             <field name="css" ><![CDATA[
 body {
 font-family:helvetica;

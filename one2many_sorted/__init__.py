@@ -101,9 +101,9 @@ class one2many_sorted(fields.one2many):
             else :
                 order = self._order
         ids2 = self.selected(cr, user, obj, ids, context=context)
-	sortable = []
+        sortable = []
         for r in _obj.browse(cr, user, ids2, context=context) :
-	    d = {}
+            d = {}
             for key in ([('id', False)] + order) :
                 o = r
                 for m in key[0].split('.'):
@@ -111,8 +111,8 @@ class one2many_sorted(fields.one2many):
                         o = getattr(o, m.strip("()"))()
                     else :
                         o = getattr(o, m)
-		d[key[0]] = o if not isinstance(o, str) else _(o)
-	    sortable.append(d)
+                d[key[0]] = o if not isinstance(o, str) else _(o)
+            sortable.append(d)
         for key in order :
             sortable.sort(key=lambda d: d[key[0]], reverse=key[1])
         res = {}

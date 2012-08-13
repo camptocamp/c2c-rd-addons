@@ -28,7 +28,7 @@ class mrp_production(osv.osv):
     _inherit = "mrp.production"
 
     _defaults = {
-	 'name' : '/',
+         'name' : '/',
         }
 
     def create(self, cr, uid, vals, context=None):

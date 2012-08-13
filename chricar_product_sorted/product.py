@@ -48,11 +48,11 @@ class product_product(osv.osv):
 
     _columns = {
           'name_category': fields.related('categ_id', 'name', type="char", size=64, relation="product.category", string="Category",  select="1",
-		       #store = True
+                       #store = True
                        store =  { 
-			       'product.product'  : (lambda self, cr, uid, ids, c={}: ids, ['categ_id'], 10),
-			       'product.category' : ( _update_category_name, ['name'] , 10)
-			       }
+                               'product.product'  : (lambda self, cr, uid, ids, c={}: ids, ['categ_id'], 10),
+                               'product.category' : ( _update_category_name, ['name'] , 10)
+                               }
                     ),
      }
     # FIXME - not sure if index works if column default_code is empty 

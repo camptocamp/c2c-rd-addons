@@ -28,12 +28,12 @@
 #
 ##############################################################################
 from osv import fields, osv
-	
+        
 
 class product_product(osv.osv):
-	_inherit = "product.product"
-	_columns = {
-		'picture':    	fields.binary('Image'),
-	}
-	_order = "default_code"
+        _inherit = "product.product"
+        _columns = {
+                'picture':            fields.binary('Image'),
+        }
+        _order = "default_code"
 product_product()

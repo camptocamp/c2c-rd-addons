@@ -34,9 +34,9 @@ class account_journal(osv.osv):
 
     _columns = {
         'product_in_line': fields.selection([('forbidden', 'Forbidden'),('allowed','Allowed'), ('mandatory', 'Mandatory'),],
-		  'Product in Inv. Line', size=16, required=True,
-		  help="Invoices lines coding requirements for stockable products for manual invoices"),
-	}
+                  'Product in Inv. Line', size=16, required=True,
+                  help="Invoices lines coding requirements for stockable products for manual invoices"),
+        }
     _defaults = {
         'product_in_line': 'forbidden',
             }
@@ -48,18 +48,18 @@ class account_invoice(osv.osv):
    
     def _check_product_in_line(self,cr,uid,ids,context=None):
         for inv in self.browse(cr, uid, ids, context=context):
-         for line in inv.invoice_line:		
-	  if line.product_id.type != 'service' and inv.state == 'open':
-	    if line.product_id and line.invoice_id.journal_id.product_in_line == 'forbidden' and not line.invoice_id.picking_ids :
-	        raise osv.except_osv(_('Error !'), _('Stockable product %s are not allowed for manual invoices of this journal: %s !') % (line.product_id.name,line.invoice_id.journal_id.name) )
-		return False
-	    if not line.product_id and (line.invoice_id.journal_id.product_in_line == 'mandatory' or line.invoice_id.picking_ids) :
-	        raise osv.except_osv(_('Error !'), _('Stockable product is required for this journal: %s !') % line.invoice_id.journal_id.name) 
-		return False
+         for line in inv.invoice_line:                
+          if line.product_id.type != 'service' and inv.state == 'open':
+            if line.product_id and line.invoice_id.journal_id.product_in_line == 'forbidden' and not line.invoice_id.picking_ids :
+                raise osv.except_osv(_('Error !'), _('Stockable product %s are not allowed for manual invoices of this journal: %s !') % (line.product_id.name,line.invoice_id.journal_id.name) )
+                return False
+            if not line.product_id and (line.invoice_id.journal_id.product_in_line == 'mandatory' or line.invoice_id.picking_ids) :
+                raise osv.except_osv(_('Error !'), _('Stockable product is required for this journal: %s !') % line.invoice_id.journal_id.name) 
+                return False
         return True
 
     _constraints = [
         (_check_product_in_line, 'Error ! Violating product coding guideline ', ['state']),
-	]
+        ]
 
 account_invoice()    

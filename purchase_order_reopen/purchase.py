@@ -72,7 +72,7 @@ class purchase_order(osv.osv):
         _logger = logging.getLogger(__name__)
 
         _logger.debug('FGF purchase_order action reopen %s' % (ids))
-	self.allow_reopen(cr, uid, ids, context=None)
+        self.allow_reopen(cr, uid, ids, context=None)
         account_invoice_obj = self.pool.get('account.invoice')
         stock_picking_obj = self.pool.get('stock.picking')
         report_xml_obj = self.pool.get('ir.actions.report.xml')
@@ -115,14 +115,14 @@ class purchase_order(osv.osv):
                     attachment_obj.write(cr, uid, a.id, vals)
 
             self.write(cr, uid, order.id, {'state':'draft'})
-	    line_ids = []
-	    for line in order.order_line:
-	        line_ids.append(line.id)
-	    order_line_obj.write(cr, uid, line_ids, {'state':'draft'})
+            line_ids = []
+            for line in order.order_line:
+                line_ids.append(line.id)
+            order_line_obj.write(cr, uid, line_ids, {'state':'draft'})
 
-	    wf_service = netsvc.LocalService("workflow")
+            wf_service = netsvc.LocalService("workflow")
             wf_service.trg_delete(uid, 'purchase.order', order.id, cr)
-	    wf_service.trg_create(uid, 'purchase.order', order.id, cr)
+            wf_service.trg_create(uid, 'purchase.order', order.id, cr)
 #self.log_purchase(cr, uid, ids, context=context)  
             
         return True

@@ -125,8 +125,8 @@ class c2c_budget_item(osv.osv):
 
             # FIXME - tuple must not return ',' if only one period is available - period_id in ( p,) should be period_id in ( p )
             filters = ' AND period_id in (%s) ' % (','.join(map(str,periods)) )
-	    company_id = self.pool.get('res.users').browse(cr, uid, uid, context=context).company_id.id
-	    filters += ' AND l.company_id = %s ' % ( company_id)
+            company_id = self.pool.get('res.users').browse(cr, uid, uid, context=context).company_id.id
+            filters += ' AND l.company_id = %s ' % ( company_id)
             # IN might not work ideally in case there are too many
             # children_and_consolidated, in that case join on a
             # values() e.g.:
@@ -179,8 +179,8 @@ class c2c_budget_item(osv.osv):
                     for child in current.children_ids:
                         #if child.company_id.currency_id.id == current.company_id.currency_id.id:
                             #FIXME Data error ?
-			    # sums include only lines with postings, where as current inćluds all accounts
-			   if sums.get(current.id) and sums.get(child.id):
+                            # sums include only lines with postings, where as current inćluds all accounts
+                           if sums.get(current.id) and sums.get(child.id):
                            #try:
                                sums[current.id][fn] += sums[child.id][fn]
                                #print 'OK sums[current.id][fn] += sums[child.id][fn] %s %s' % ( current.id , child.id)
@@ -246,9 +246,9 @@ class c2c_budget_item(osv.osv):
             # FIXME - tuple must not return ',' if only one period is available - period_id in ( p,) should be period_id in ( p )
             filters = ' AND period_id in (%s) ' % (','.join(map(str,periods)))
             # if no budget versions are defined we take all budget data of the matching periods
-	    if context.get('budget_version_ids'):
-	        budget_version_ids = context['budget_version_ids']
-	        filters += ' AND budget_version_id n ( %s ) ' % ( budget_version_ids )
+            if context.get('budget_version_ids'):
+                budget_version_ids = context['budget_version_ids']
+                filters += ' AND budget_version_id n ( %s ) ' % ( budget_version_ids )
             self._logger.error('periods FGF: %s %s', periods, tuple(periods))
             # IN might not work ideally in case there are too many
             # children_and_consolidated, in that case join on a
@@ -313,9 +313,9 @@ class c2c_budget_item(osv.osv):
         'balance_real': fields.function(__compute_real_sum, digits_compute=dp.get_precision('Account'), method=True, string='Balance REAL', multi='balance_sum'),
         'balance_budget': fields.function(__compute_budget_sum, digits_compute=dp.get_precision('Account'), method=True, string='Balance Budget', multi='balance_budget_sum'),
         'level': fields.function(_get_level, string='Level', method=True, type='integer',
-		             store={
-			         'c2c_bidget.item': (_get_children_and_consol, ['level', 'parent_id'], 10),
-			          }),
+                             store={
+                                 'c2c_bidget.item': (_get_children_and_consol, ['level', 'parent_id'], 10),
+                                  }),
             }
 
     _defaults = {

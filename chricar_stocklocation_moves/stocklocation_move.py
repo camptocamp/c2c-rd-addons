@@ -57,10 +57,10 @@ class chricar_report_location_moves(osv.osv):
         }
         _order = 'product_id'
         def init(self, cr) :
-	        drop_view_if_exists(cr, "chricar_report_location_moves_sum")
-	        drop_view_if_exists(cr, "chricar_report_location_moves")
+                drop_view_if_exists(cr, "chricar_report_location_moves_sum")
+                drop_view_if_exists(cr, "chricar_report_location_moves")
                 cr.execute("""
-		create or replace view chricar_report_location_moves
+                create or replace view chricar_report_location_moves
                 as (
                 select id*2 as id,name,
                      picking_id,product_id, 
@@ -105,9 +105,9 @@ class chricar_report_location_moves_sum(osv.osv):
                 'usage'      : fields.related('location_id','usage',type="char", relation="stock.location", string="Usage", readonly=True),
                 'categ_id'   : fields.related('product_id','categ_id',type="many2one", relation="product.category", string="Category", readonly=True),
         }
-        _order = 'product_id'	
+        _order = 'product_id'        
         def init(self, cr):
-	        drop_view_if_exists(cr, "chricar_report_location_moves_sum")
+                drop_view_if_exists(cr, "chricar_report_location_moves_sum")
                 cr.execute("""
                 create or replace view chricar_report_location_moves_sum
                 as ( 

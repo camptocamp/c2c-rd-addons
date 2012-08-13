@@ -27,19 +27,19 @@ import logging
 class stock_inventory(osv.osv):
     _inherit= "stock.inventory"
     _columns = {
-	#'inventory_line_id': fields.one2many('stock.inventory.line', 'inventory_id', 'Inventories', states={'done': [('readonly', True)]}),
-	'inventory_line_id': one2many_sorted.one2many_sorted 
-	        ( 'stock.inventory.line'
-		, 'inventory_id'
-	        , 'Inventories'
-		, states={'done': [('readonly', True)]}
-		, order = 'product_id.name'	),
-	'inventory_line_loc_id': one2many_sorted.one2many_sorted 
-	        ( 'stock.inventory.line'
-		, 'inventory_id'
-	        , 'Inventories'
-		, states={'done': [('readonly', True)]}
-		, order = 'location_id.name, product_id.name'	),
+        #'inventory_line_id': fields.one2many('stock.inventory.line', 'inventory_id', 'Inventories', states={'done': [('readonly', True)]}),
+        'inventory_line_id': one2many_sorted.one2many_sorted 
+                ( 'stock.inventory.line'
+                , 'inventory_id'
+                , 'Inventories'
+                , states={'done': [('readonly', True)]}
+                , order = 'product_id.name'        ),
+        'inventory_line_loc_id': one2many_sorted.one2many_sorted 
+                ( 'stock.inventory.line'
+                , 'inventory_id'
+                , 'Inventories'
+                , states={'done': [('readonly', True)]}
+                , order = 'location_id.name, product_id.name'        ),
 
         'move_ids': one2many_sorted.many2many_sorted('stock.move', 'stock_inventory_move_rel', 'inventory_id', 'move_id', 'Created Moves' , order = 'product_id.name, prodlot_id.prefix, prodlot_id.name')
     }

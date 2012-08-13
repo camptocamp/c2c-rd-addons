@@ -88,7 +88,7 @@ work per task
               domain="[('date','&lt;',time.strftime('%%Y-01-01 00:00:00')) ,('date','&gt;=',(datetime.date.today() + relativedelta(years=-1)).strftime('%%Y-01-01 00:00:00')) ]"
               help="Last year work"
               icon="terp-go-year"
-	      string="Last Yr"/>
+              string="Last Yr"/>
 
             <newline/>
             <field name="project_id"/>
@@ -97,7 +97,7 @@ work per task
             <field name="company_id"/>
             <separator orientation="vertical"/>
             <field name="user_id">
-	      <filter domain="[('user_id','=',uid)]" help="My Work" icon="terp-personal" name="mywork"/>
+              <filter domain="[('user_id','=',uid)]" help="My Work" icon="terp-personal" name="mywork"/>
             </field>
           </group>
           <newline/>

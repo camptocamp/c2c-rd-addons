@@ -118,11 +118,11 @@ class chricar_account_move_line_igel(osv.osv):
              acc_names.append(acc.name)
          #_logger.debug('FGF account names %s' % (acc_names))
 
-	 #_logger.debug('FGF account igel ids %s' % (acc_igel_ids))
-	 acc_igel_names = []
+         #_logger.debug('FGF account igel ids %s' % (acc_igel_ids))
+         acc_igel_names = []
          for igel_acc in  self.browse(cr, uid, acc_igel_ids, context=None):
              acc_igel_names.append(igel_acc.kontoname)
-	 #_logger.debug('FGF account igel names %s' % (acc_igel_names))
+         #_logger.debug('FGF account igel names %s' % (acc_igel_names))
 
          now =  time.strftime("%Y%m%d%H%M%S")
          counter= 0

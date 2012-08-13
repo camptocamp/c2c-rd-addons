@@ -72,7 +72,7 @@ class sale_order(osv.osv):
         _logger = logging.getLogger(__name__)
 
         _logger.debug('FGF sale_order action reopen %s' % (ids))
-	self.allow_reopen(cr, uid, ids, context=None)
+        self.allow_reopen(cr, uid, ids, context=None)
         account_invoice_obj = self.pool.get('account.invoice')
         stock_picking_obj = self.pool.get('stock.picking')
         report_xml_obj = self.pool.get('ir.actions.report.xml')
@@ -115,11 +115,11 @@ class sale_order(osv.osv):
 
             self.write(cr, uid, order.id, {'state':'draft'})
             line_ids = []
-	    for line in order.order_line:
-		line_ids.append(line.id)
-	    order_line_obj.write(cr, uid, line_ids, {'state':'draft'})
+            for line in order.order_line:
+                line_ids.append(line.id)
+            order_line_obj.write(cr, uid, line_ids, {'state':'draft'})
 
-	    wf_service = netsvc.LocalService("workflow")
+            wf_service = netsvc.LocalService("workflow")
 
             _logger.debug('FGF sale_order trg del %s' % (order.id))
             wf_service.trg_delete(uid, 'sale.order', order.id, cr)

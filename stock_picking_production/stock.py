@@ -38,10 +38,10 @@ class stock_picking(osv.osv):
         for pick in self.browse(cr, uid, ids, context=context):
             res[pick.id] = 0
             for line in pick.move_lines:
-         	if line.location_id.usage in ['inventory', 'production'] or line.location_dest_id.usage in ['inventory', 'production'] :
+                 if line.location_id.usage in ['inventory', 'production'] or line.location_dest_id.usage in ['inventory', 'production'] :
                     res[pick.id] = 1
                     break
-	        else:
+                 else:
                     res[pick.id] = -1
 
         return res
