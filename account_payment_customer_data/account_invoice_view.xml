@@ -7,7 +7,7 @@
       <field name="type">form</field>
       <field name="inherit_id" ref="account.invoice_supplier_form"/>
       <field name="arch" type="xml">
-        <xpath expr="/form/notebook/page[@string='Invoice']//field[@name='date_due']" position="after">
+        <xpath expr="/form/notebook/page[@string="Invoice"]//field[@name='due_date']" position="after">
           <field name="customer_data"/>
         </xpath>
       </field>

@@ -8,10 +8,10 @@
 #    01-APR-2011 (GK) created
 #
 # WARNING: This program as such is intended to be used by professional
-# programmers who take the whole responsability of assessing all potential
+# programmers who take the whole responsibility of assessing all potential
 # consequences resulting from its eventual inadequacies and bugs.
 # End users who are looking for a ready-to-use solution with commercial
-# garantees and support are strongly adviced to contract a Free Software
+# guarantees and support are strongly advised to contract a Free Software
 # Service Company.
 #
 # This program is Free Software; you can redistribute it and/or
@@ -51,8 +51,9 @@ The "payment day" is, if unspecified or in the past, the file-creation-date.
     [ "account_payment"
     , "base_iban"
     , "xml_template"
+    , "account_payment_customer_data"
     ]
-, "init_xml"    : ["payment_data.xml"]
+, "init_xml"    : []
 , "demo_xml"    : []
 , "update_xml"  : ["wizard/generate_sepa_view.xml"]
 , "test"        : []

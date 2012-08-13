@@ -8,10 +8,10 @@
 #    05-AUG-2010 (GK) created
 #
 # WARNING: This program as such is intended to be used by professional
-# programmers who take the whole responsability of assessing all potential
+# programmers who take the whole responsibility of assessing all potential
 # consequences resulting from its eventual inadequacies and bugs.
 # End users who are looking for a ready-to-use solution with commercial
-# garantees and support are strongly adviced to contract a Free Software
+# guarantees and support are strongly advised to contract a Free Software
 # Service Company.
 #
 # This program is Free Software; you can redistribute it and/or
@@ -109,11 +109,6 @@ class payment_order(osv.osv) :
                 % (partner.name)
             )
     # end def _address
-
-    def _invoice_customer_data(self) :
-        invoice_obj = self.pool.get('account.invoice')
-        return invoice_obj._columns.has_key("customer_data")
-    # end def _invoice_customer_data
 
     def _u2a(self, text) :
         if not text : return ""
@@ -240,7 +235,7 @@ class payment_order(osv.osv) :
                         customer_ref.append(self._u2a(line.communication).upper())
                     if line.communication2 :
                         customer_ref.append(self._u2a(line.communication2).upper())
-                    if self._invoice_customer_data() and invoice.customer_data :
+                    if invoice.customer_data :
                         customer_data = invoice.customer_data[0:12]
                     if not (customer_ref or customer_data) :
                         raise osv.except_osv \
