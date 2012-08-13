@@ -24,6 +24,7 @@ from osv import fields, osv
 from tools.translate import _
 import logging
 import one2many_sorted
+import decimal_precision as dp
 
 class sale_order(osv.osv):
     _inherit = "sale.order"
@@ -49,48 +50,71 @@ class sale_order(osv.osv):
 
     def get_order_lines(self, cr, uid, ids, context=None):
         prod_obj = self.pool.get('product.product')
-	so_line_obj = self.pool.get('sale.order.line')
+        so_line_obj = self.pool.get('sale.order.line')
+        fp = self.pool.get('account.fiscal.position')
 
-	product_ids = prod_obj.search(cr, uid, [('display_portal_ok','=',True)])
-	for order in self.browse(cr,uid,ids,context):
-	    for product in prod_obj.browse(cr,uid,product_ids):
-		p = product.name
-		vals = {
-		       'order_id' : order.id,
-		       'product_id': product.id,
-		       'name' : '\''+p+'\'',
-		       'product_uom': product.uom_id.id,
-		       'product_uom_qty' : 0,
-		       'price_unit': product.list_price,
-		       'type': '\''+product.procure_method+'\'',
-		       'product_packaging' : product.packaging and product.packaging[0].id or 'null',
+        product_ids = prod_obj.search(cr, uid, [('display_portal_ok','=',True)])
+        for order in self.browse(cr,uid,ids,context):
+            fpos = order.partner_id.property_account_position.id
+            ordered_product_ids = []
+            for ordered in order.order_line:
+                ordered_product_ids.append( ordered.product_id.id)
+            for product in prod_obj.browse(cr,uid,product_ids):
+              if product.id not in ordered_product_ids:
+                p = product.name
+                vals = {
+                       'order_id' : order.id,
+                       'product_id': product.id,
+                       'name' : p,
+                       'product_uom': product.uom_id.id,
+                       'product_uom_qty' : 0,
+                       'price_unit': product.list_price,
+                       'type': product.procure_method,
+                       'product_packaging' : product.packaging and product.packaging[0].id or '',
+                       'content_qty' : product.packaging and product.packaging[0].qty or 1.0,
+                       'state' : 'draft',
+                       'delay': 0.0,
+                       'tax_id' : [(6, 0, fp.map_tax(cr, uid, fpos, product.taxes_id))],
+                       }
+                vals_sql = {
+                       'order_id' : order.id,
+                       'product_id': product.id,
+                       'name' : '\''+p+'\'',
+                       'product_uom': product.uom_id.id,
+                       'product_uom_qty' : 0,
+                       'price_unit': product.list_price,
+                       'type': '\''+product.procure_method+'\'',
+                       'product_packaging' : product.packaging and product.packaging[0].id or 'null',
+                       'content_qty' : product.packaging and product.packaging[0].qty or 1.0,
                        'state' : '\''+'draft'+'\'',
-		       'delay': 0.0,
-		       }
-		# the following statement takes 120 seconds to insert 400 rows
-		#so_line_obj.create(cr, 1, vals)
-		# the following statement takes 2 seconds to insert 400 rows
-                cr.execute("""
-		insert into sale_order_line(order_id,product_id,name,product_uom,product_uom_qty,price_unit,type,product_packaging,state,delay)
-		values (%s, %s, %s,%s,%s,%s,%s,%s,%s,%s)""" % (
-			vals['order_id'],
-			vals['product_id'],
-			vals['name'],
-			vals['product_uom'],
-			vals['product_uom_qty'],
-			vals['price_unit'],
-			vals['type'],
-			vals['product_packaging'],
-			vals['state'],
-			vals['delay'],
-			)
-		)
+                       'delay': 0.0,
+                       }
+                # the following statement takes 120 seconds to insert 400 rows
+                so_line_obj.create(cr, 1, vals)
+                # the following statement takes 2 seconds to insert 400 rows
+                #cr.execute("""
+                #insert into
+                #sale_order_line(order_id,product_id,name,product_uom,product_uom_qty,price_unit,type,product_packaging,content_qty,state,delay)
+                #values (%s, %s, %s,%s,%s,%s,%s,%s,%s,%s,%s)""" % (
+                #        vals['order_id'],
+                #        vals['product_id'],
+                #        vals['name'],
+                #        vals['product_uom'],
+                #        vals['product_uom_qty'],
+                #        vals['price_unit'],
+                #        vals['type'],
+                #        vals['product_packaging'],
+                #        vals['content_qty'],
+                #        vals['state'],
+                #        vals['delay'],
+                #        )
+                #)
 
     def rm_zero_lines(self, cr, uid, ids, context=None):
-	so_line_obj = self.pool.get('sale.order.line')
-	for order in self.browse(cr,uid,ids,context):
-	    line_ids = so_line_obj.search(cr, uid , [('order_id','=',order.id),('product_uom_qty','=',0)])
-	    so_line_obj.unlink(cr, uid, line_ids)
+        so_line_obj = self.pool.get('sale.order.line')
+        for order in self.browse(cr,uid,ids,context):
+            line_ids = so_line_obj.search(cr, uid , [('order_id','=',order.id),('product_uom_qty','=',0)])
+            so_line_obj.unlink(cr, uid, line_ids)
 
 sale_order()
 
@@ -99,7 +123,28 @@ class sale_order_line(osv.osv):
     _columns = {
          'categ_id'       : fields.related('product_id','categ_id',type="many2one", relation="product.category", string='Category',readonly=True),
          'code'           : fields.related('product_id','code',type="varchar", string='Code',readonly=True),
-	}
+         'product_pack_qty_helper': fields.float('Package #' ,digits_compute= dp.get_precision('Product UoS'), readonly=True, states={'draft': [('readonly', False)]}),
+        }
+
+    def product_pack_helper_change(self, cr, uid, ids,pack_helper_qty, content_qty, 
+            pricelist, product, qty=0,
+            uom=False, qty_uos=0, uos=False, name='', partner_id=False,
+                        lang=False, update_tax=True, date_order=False,
+                        packaging=False, fiscal_position=False, flag=False,
+                        context=None):
+        
+        qty = round(pack_helper_qty * content_qty,0)
+        res = super(sale_order_line, self).product_id_change(cr,uid, ids, 
+            pricelist, product, qty,
+            uom, qty_uos, uos, name, partner_id,
+                        lang, update_tax, date_order,
+                        packaging, fiscal_position, flag,
+                        context)
+
+        res['value']['qty'] = qty
+
+        return res
+
 sale_order_line()
 
 class product_template(osv.osv):
