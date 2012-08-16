@@ -25,6 +25,7 @@ from tools.translate import _
 import logging
 import one2many_sorted
 import decimal_precision as dp
+import time as tm
 
 class sale_order(osv.osv):
     _inherit = "sale.order"
@@ -59,6 +60,8 @@ class sale_order(osv.osv):
             ordered_product_ids = []
             for ordered in order.order_line:
                 ordered_product_ids.append( ordered.product_id.id)
+            t_tot = 0
+            t_count = 0
             for product in prod_obj.browse(cr,uid,product_ids):
               if product.id not in ordered_product_ids:
                 p = product.name
@@ -90,7 +93,12 @@ class sale_order(osv.osv):
                        'delay': 0.0,
                        }
                 # the following statement takes 120 seconds to insert 400 rows
+                
+                t1 = tm.time()
                 so_line_obj.create(cr, 1, vals)
+                t_tot += tm.time() - t1
+                t_count += 1
+                 
                 # the following statement takes 2 seconds to insert 400 rows
                 #cr.execute("""
                 #insert into
@@ -109,6 +117,12 @@ class sale_order(osv.osv):
                 #        vals['delay'],
                 #        )
                 #)
+            
+            _logger  = logging.getLogger(__name__)
+            if t_count >0:
+                _logger.debug('FGF create count %s time %s avg %s '
+                    %(t_count,t_tot*1000.0, t_tot*1000.0/t_count)   )
+
 
     def rm_zero_lines(self, cr, uid, ids, context=None):
         so_line_obj = self.pool.get('sale.order.line')
