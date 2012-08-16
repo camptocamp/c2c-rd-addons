@@ -45,7 +45,7 @@ class stock_location_product(osv.osv_memory):
         self._logger.debug('FGF stock_location_product context %s' % context)
         if context is None:
             context = {}
-            res = super(stock_location_product, self).action_open_window(cr, uid, ids, context)
+        res = super(stock_location_product, self).action_open_window(cr, uid, ids, context)
         if context.get('open') == 'report':
              mod_obj = self.pool.get('ir.model.data')
              rep_obj = self.pool.get('ir.actions.report.xml')
