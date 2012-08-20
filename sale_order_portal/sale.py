@@ -50,6 +50,9 @@ class sale_order(osv.osv):
         }
 
     def get_order_lines(self, cr, uid, ids, context=None):
+        context = context or {}
+        lang = context.get('lang',False)
+
         prod_obj = self.pool.get('product.product')
         so_line_obj = self.pool.get('sale.order.line')
         fp = self.pool.get('account.fiscal.position')
@@ -62,9 +65,14 @@ class sale_order(osv.osv):
                 ordered_product_ids.append( ordered.product_id.id)
             t_tot = 0
             t_count = 0
-            for product in prod_obj.browse(cr,uid,product_ids):
+            if order.partner_id:
+                lang = order.partner_id.lang
+            context = {'lang': lang, 'partner_id': order.partner_id.id}
+            for product in prod_obj.browse(cr,uid,product_ids, context):
               if product.id not in ordered_product_ids:
                 p = product.name
+                if product.default_code:
+                    p = '['+product.default_code+'] ' +p
                 vals = {
                        'order_id' : order.id,
                        'product_id': product.id,
