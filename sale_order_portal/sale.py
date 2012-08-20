@@ -174,5 +174,8 @@ class product_template(osv.osv):
     _columns = {
         'display_portal_ok': fields.boolean('Display in Partner Portal', help="Determines if the product can be visible in the list of product within a selection from a sale order line."),
     }
+    _default = {
+            'display_portal_ok': lambda *a : False
+            }
 product_template()
 
