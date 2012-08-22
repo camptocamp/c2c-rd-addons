@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 6.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-08-22 15:03+0000\n"
-"PO-Revision-Date: 2012-08-22 17:06+0200\n"
+"POT-Creation-Date: 2012-08-22 15:27+0000\n"
+"PO-Revision-Date: 2012-08-22 17:28+0200\n"
 "Last-Translator: Ferdinand Gassauer\n"
 "Language-Team: American English <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -40,6 +40,11 @@ msgid "Fiscal Year Data"
 msgstr ""
 
 #. module: account_fiscalyear_info
+#: field:account.fiscalyear,date_payroll_tax_audit:0
+msgid "Payroll Tax Audit"
+msgstr ""
+
+#. module: account_fiscalyear_info
 #: field:account.fiscalyear,date_balance_resulution:0
 msgid "Balance Resolution"
 msgstr ""
@@ -47,6 +52,11 @@ msgstr ""
 #. module: account_fiscalyear_info
 #: model:ir.model,name:account_fiscalyear_info.model_account_fiscalyear
 msgid "Fiscal Year"
+msgstr ""
+
+#. module: account_fiscalyear_info
+#: field:account.fiscalyear,date_tax_audit:0
+msgid "Tax Audit"
 msgstr ""
 
 #. module: account_fiscalyear_info

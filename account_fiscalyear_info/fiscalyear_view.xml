@@ -18,6 +18,8 @@
           <field name="date_balance_publish"/>
           <field name="date_tax_file"/>
           <field name="date_tax_assessed"/>
+          <field name="date_tax_audit"/>
+          <field name="date_payroll_tax_audit"/>
         </tree>
       </field>
     </record>

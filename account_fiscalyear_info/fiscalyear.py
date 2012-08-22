@@ -32,6 +32,8 @@ class account_fiscalyear(osv.osv):
         , 'date_balance_file_reg'   : fields.date("Balance filed to Commercial Register")
         , 'date_balance_publish'    : fields.date("Balance Publishing")
         , 'date_tax_file'           : fields.date("Tax filed to Authorities")
-        , 'date_tax_assessed'        : fields.date("Tax assesed by Authorities")
+        , 'date_tax_assessed'       : fields.date("Tax assesed by Authorities")
+        , 'date_tax_audit'          : fields.date("Tax Audit")
+        , 'date_payroll_tax_audit'  : fields.date("Payroll Tax Audit")
     }
 account_fiscalyear()

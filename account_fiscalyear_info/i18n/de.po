@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 6.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-08-22 15:03+0000\n"
-"PO-Revision-Date: 2012-08-22 17:06+0200\n"
+"POT-Creation-Date: 2012-08-22 15:27+0000\n"
+"PO-Revision-Date: 2012-08-22 17:28+0200\n"
 "Last-Translator: Ferdinand Gassauer\n"
 "Language-Team: American English <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -32,12 +32,17 @@ msgstr "Geschäftsjahr Extra Daten"
 #. module: account_fiscalyear_info
 #: constraint:account.fiscalyear:0
 msgid "Error! The start date of the fiscal year must be before his end date."
-msgstr "Fehler! Der Beginn des Geschäftsjahres muss vor dem Ende liegen."
+msgstr "Fehler! Der Beginn des geschäftsjahres muss vor dem Ende liegen."
 
 #. module: account_fiscalyear_info
 #: view:account.fiscalyear:0
 msgid "Fiscal Year Data"
 msgstr "Geschäftsjahres Daten"
+
+#. module: account_fiscalyear_info
+#: field:account.fiscalyear,date_payroll_tax_audit:0
+msgid "Payroll Tax Audit"
+msgstr "Lohnsteuer Prüfung"
 
 #. module: account_fiscalyear_info
 #: field:account.fiscalyear,date_balance_resulution:0
@@ -48,6 +53,11 @@ msgstr "Bilanz Beschluss"
 #: model:ir.model,name:account_fiscalyear_info.model_account_fiscalyear
 msgid "Fiscal Year"
 msgstr "Geschäftsjahr"
+
+#. module: account_fiscalyear_info
+#: field:account.fiscalyear,date_tax_audit:0
+msgid "Tax Audit"
+msgstr "Steuer Prüfung"
 
 #. module: account_fiscalyear_info
 #: field:account.fiscalyear,date_tax_assessed:0
