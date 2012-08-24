@@ -18,7 +18,7 @@
             <field name="name">sale.order.portal.tree</field>
             <field name="model">sale.order</field>
             <field name="type">tree</field>
-            <field name="priority">2</field>
+            <field name="priority">100</field>
             <field name="arch" type="xml">
                 <tree string="Sales Orders" colors="grey:state=='cancel';blue:state in ('waiting_date','manual');red:state in ('invoice_except','shipping_except')">
                     <field name="name"/>
@@ -44,10 +44,10 @@
                         <group col="4" colspan="4">
                             <field name="name"/>
                             <field name="date_order"/>
-                            <field name="shop_id" on_change="onchange_shop_id(shop_id)" widget="selection" groups="base.group_extended"/>
+                            <field name="shop_id" on_change="onchange_shop_id(shop_id)" widget="selection" groups="base.group_extended" invisible="1"/>
                             <field name="client_order_ref"/>
                         </group>
-                        <group col="2" colspan="2">
+                        <group col="2" colspan="2" >
                             <field name="invoiced"/>
                             <field name="shipped"/>
                         </group>
@@ -56,15 +56,16 @@
                         <page string="Sales Order">
                             <field name="partner_id" options='{"quick_create": false}' on_change="onchange_partner_id(partner_id)"  context="{'search_default_customer':1}" required="1" widget="selection"/>
                             <field domain="[('partner_id','=',partner_id)]" name="partner_order_id" on_change="onchange_partner_order_id(partner_order_id, partner_invoice_id, partner_shipping_id)" options='{"quick_create": false}'/>
-                            <field domain="[('partner_id','=',partner_id)]" name="partner_invoice_id" groups="base.group_extended" options='{"quick_create": false}'/>
-                            <field domain="[('partner_id','=',partner_id)]" name="partner_shipping_id" groups="base.group_extended" options='{"quick_create": false}'/>
-                            <field domain="[('type','=','sale')]" name="pricelist_id" groups="base.group_extended" on_change="onchange_pricelist_id(pricelist_id,order_line)"/>
+                            <field domain="[('partner_id','=',partner_id)]" name="partner_invoice_id" groups="base.group_extended" options='{"quick_create": false}' invisible="1"/>
+                            <field domain="[('partner_id','=',partner_id)]" name="partner_shipping_id" groups="base.group_extended" options='{"quick_create": false}' invisible="1"/>
+                            <field domain="[('type','=','sale')]" name="pricelist_id" groups="base.group_extended" on_change="onchange_pricelist_id(pricelist_id,order_line)" invisible="1"/>
                             <field name="project_id" context="{'partner_id':partner_id, 'contact_id':partner_order_id, 'pricelist_id':pricelist_id, 'default_name':name}" groups="analytic.group_analytic_accounting" domain="[('parent_id','!=',False)]"/>
                             <!--
                             <field name="categ_id" widget="selection" />
-                            -->
-                            <button name="get_order_lines" string="Create Product List (~15 sec)" type="object" icon="terp-gtk-go-back-rtl" help="Fill list with all orderable products, retains already ordered lines"/>
-                            <button name="rm_zero_lines" string="Confirm" type="object" icon="terp-gtk-go-back-rtl" help="Delete products with quantity 0"/>
+			    -->
+			    <field name="state_portal" invisible="1"/>
+   	                    <button colspan="4" name="get_order_lines" string="Create Product List (~15 sec)" type="object" icon="terp-gtk-go-back-rtl" help="Fill list with all orderable products, retains already ordered lines" attrs="{'invisible':['|',('state','!=', 'draft'),('state_portal','!=','confirmed')]}"/>
+    		            <button colspan="4" name="rm_zero_lines" string="Confirm" type="object" icon="terp-gtk-go-back-rtl" help="Delete products with quantity 0" attrs="{'invisible':['|',('state','!=', 'draft'),('state_portal','!=','in_progress')]}"/>
 
                             <newline/>
                             <notebook colspan ="5">
@@ -113,7 +114,7 @@
                                             </group>
                                         </group>
                                         </page>
-                                        <page groups="base.group_extended" string="Extra Info">
+                                        <page groups="base.group_extended" string="Extra Info" >
                                             <field name="type"/>
                                             <field name="delay"/>
                                             <field name="th_weight"/>
@@ -308,5 +309,19 @@
         
         <menuitem action="action_order_portal_form" id="menu_sale_portal_order" parent="base.menu_sales" sequence="3" groups="base.group_sale_salesman,base.group_sale_manager"/>
 
+     <!-- SO -->
+    <record model="ir.ui.view" id="view_sale_order_tree_portal">
+      <field name="name">view_sale_order_portal.view</field>
+      <field name="model">sale.order</field>
+      <field name="inherit_id" ref="sale.view_order_tree"/>
+      <field name="type">tree</field>
+      <field name="arch" type="xml">
+        <field name="state" position="after">
+          <field name="state_portal" />
+        </field>
+      </field>
+    </record>
+
+        
   </data>
 </openerp>

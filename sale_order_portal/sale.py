@@ -31,6 +31,9 @@ class sale_order(osv.osv):
     _inherit = "sale.order"
   
     _columns = {
+        'state_portal' : fields.selection([('in_progress','In Progress'),
+                                           ('confirmed','Confirmed')],
+                                           'Portal State'),
         'categ_id': fields.many2one('product.category','Category', help="Select category to be displayed"),
         'order_line_portal_sorted' : one2many_sorted.one2many_sorted
               ( 'sale.order.line'
@@ -56,6 +59,8 @@ class sale_order(osv.osv):
         prod_obj = self.pool.get('product.product')
         so_line_obj = self.pool.get('sale.order.line')
         fp = self.pool.get('account.fiscal.position')
+
+        self.write(cr, uid, ids, {'state_portal':'in_progress'})
 
         product_ids = prod_obj.search(cr, uid, [('display_portal_ok','=',True)])
         for order in self.browse(cr,uid,ids,context):
@@ -125,7 +130,7 @@ class sale_order(osv.osv):
                 #        vals['delay'],
                 #        )
                 #)
-            
+             
             _logger  = logging.getLogger(__name__)
             if t_count >0:
                 _logger.debug('FGF create count %s time %s avg %s '
@@ -134,6 +139,7 @@ class sale_order(osv.osv):
 
     def rm_zero_lines(self, cr, uid, ids, context=None):
         so_line_obj = self.pool.get('sale.order.line')
+        self.write(cr, uid, ids, {'state_portal':'confirmed'})
         for order in self.browse(cr,uid,ids,context):
             line_ids = so_line_obj.search(cr, uid , [('order_id','=',order.id),('product_uom_qty','=',0)])
             so_line_obj.unlink(cr, uid, line_ids)
