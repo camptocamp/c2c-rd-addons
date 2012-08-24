@@ -70,7 +70,7 @@
 
                             <newline/>
                             <notebook colspan ="5">
-                             <page string="Products to Order">
+                             <page string="Products to Order" attrs="{'readonly':[('state','!=','draft')]}">
                      
                             <field colspan="4" name="order_line_portal_sorted" nolabel="1" widget="one2many_list">
                                 
@@ -115,7 +115,7 @@
                                             </group>
                                         </group>
                                         </page>
-                                        <page groups="base.group_extended" string="Extra Info" >
+                                        <page groups="base.group_extended" string="Extra Info">
                                             <field name="type"/>
                                             <field name="delay"/>
                                             <field name="th_weight"/>
@@ -125,7 +125,7 @@
                                             <field name="property_ids" colspan="4" nolabel="1"/>
 
                                         </page>
-                                        <page string="History" groups="base.group_extended">
+                                        <page string="History" groups="base.group_extended" >
                                             <separator colspan="4" string="Invoice Lines"/>
                                             <field colspan="4" name="invoice_lines" nolabel="1"/>
                                             <separator colspan="4" string="Stock Moves"/>
@@ -142,33 +142,33 @@
                                     <field context="{'partner_id':parent.partner_id, 'quantity':product_uom_qty, 'pricelist':parent.pricelist_id, 'shop':parent.shop_id, 'uom':product_uom}"
                                            name="product_id" widget="selection" invisible="1" 
                                            on_change="product_id_change(parent.pricelist_id,product_id,product_uom_qty,product_uom,product_uos_qty,product_uos,name,parent.partner_id, False, True, parent.date_order, product_packaging, parent.fiscal_position, False, context)"/>
-                                    <field name="name" />
+                                    <field name="name" readonly="1"/>
                                     <field groups="product.group_uos" name="product_uos_qty" string="Qty(UoS)"/>
                                     <field groups="product.group_uos" name="product_uos" string="UoS"/>
                                     <field name="product_pack_qty_helper" on_change="product_pack_helper_change(product_pack_qty_helper, content_qty, parent.pricelist_id,product_id,product_uom_qty,product_uom,product_uos_qty,product_uos,name,parent.partner_id, False, False, parent.date_order, product_packaging, parent.fiscal_position, True, context)"/>
                                     <field name="parcel_qty" invisible="1"/>
-                                    <field name="product_packaging"   
+				    <field name="product_packaging"  readonly="1"
                                            context="{'partner_id':parent.partner_id, 'quantity':product_uom_qty, 'pricelist':parent.pricelist_id, 'shop':parent.shop_id, 'uom':product_uom}" on_change="product_packaging_change(parent.pricelist_id, product_id, product_uom_qty, product_uom, parent.partner_id, product_packaging, True, context)"
                                            domain="[('product_id','=',product_id)]"/>
-                                    <field name="content_qty" />
+                                    <field name="content_qty" readonly="1"/>
                                     <field context="{'partner_id':parent.partner_id, 'quantity':product_uom_qty, 'pricelist':parent.pricelist_id, 'shop':parent.shop_id, 'uom':product_uom}"
-                                           name="product_uom_qty"
+					    name="product_uom_qty" 
                                            on_change="product_id_change(parent.pricelist_id,product_id,product_uom_qty,product_uom,product_uos_qty,product_uos,name,parent.partner_id, False, False, parent.date_order, product_packaging, parent.fiscal_position, True, context)"/>
                                     <field name="product_uom"
                                            on_change="product_uom_change(parent.pricelist_id,product_id,product_uom_qty,product_uom,product_uos_qty,product_uos,name,parent.partner_id, False, False, parent.date_order, context)"
-                                           nolabel="1"/>
+                                           nolabel="1" readonly="1"/>
 
                                     <field name="discount" invisible="1"/>
-                                    <field name="price_unit"  />
+                                    <field name="price_unit" readonly="1" />
                                     <field name="price_subtotal"  />
                                     <field name="state" invisible="1"/>
                                     <field name="tax_id" invisible="1"/>
                                 </tree>
                             </field>
                      </page>
-                     <page string="Ordered Products">
+                     <page string="Ordered Products" attrs="{'readonly':[('state','!=','draft')]}">
                              <field colspan="4" name="order_line_portal_ordered_sorted" nolabel="1" widget="one2many_list">
-                                <tree string="Ordered" editable="bottom">
+                                 <tree string="Sales Order Lines" editable="bottom">
                                     <!--
                                     <field name="categ_id"/>
                                     <field name="code"/>
@@ -176,29 +176,28 @@
                                     <field context="{'partner_id':parent.partner_id, 'quantity':product_uom_qty, 'pricelist':parent.pricelist_id, 'shop':parent.shop_id, 'uom':product_uom}"
                                            name="product_id" widget="selection" invisible="1"
                                            on_change="product_id_change(parent.pricelist_id,product_id,product_uom_qty,product_uom,product_uos_qty,product_uos,name,parent.partner_id, False, True, parent.date_order, product_packaging, parent.fiscal_position, False, context)"/>
-                                    <field name="name" />
+                                    <field name="name" readonly="1"/>
                                     <field groups="product.group_uos" name="product_uos_qty" string="Qty(UoS)"/>
                                     <field groups="product.group_uos" name="product_uos" string="UoS"/>
                                     <field name="product_pack_qty_helper" on_change="product_pack_helper_change(product_pack_qty_helper, content_qty, parent.pricelist_id,product_id,product_uom_qty,product_uom,product_uos_qty,product_uos,name,parent.partner_id, False, False, parent.date_order, product_packaging, parent.fiscal_position, True, context)"/>
                                     <field name="parcel_qty" invisible="1"/>
-                                    <field name="product_packaging"
+                    <field name="product_packaging"  readonly="1"
                                            context="{'partner_id':parent.partner_id, 'quantity':product_uom_qty, 'pricelist':parent.pricelist_id, 'shop':parent.shop_id, 'uom':product_uom}" on_change="product_packaging_change(parent.pricelist_id, product_id, product_uom_qty, product_uom, parent.partner_id, product_packaging, True, context)"
                                            domain="[('product_id','=',product_id)]"/>
-                                    <field name="content_qty" />
+                                    <field name="content_qty" readonly="1"/>
                                     <field context="{'partner_id':parent.partner_id, 'quantity':product_uom_qty, 'pricelist':parent.pricelist_id, 'shop':parent.shop_id, 'uom':product_uom}"
-                                           name="product_uom_qty"
+                        name="product_uom_qty"
                                            on_change="product_id_change(parent.pricelist_id,product_id,product_uom_qty,product_uom,product_uos_qty,product_uos,name,parent.partner_id, False, False, parent.date_order, product_packaging, parent.fiscal_position, True, context)"/>
                                     <field name="product_uom"
                                            on_change="product_uom_change(parent.pricelist_id,product_id,product_uom_qty,product_uom,product_uos_qty,product_uos,name,parent.partner_id, False, False, parent.date_order, context)"
-                                           nolabel="1"/>
+                                           nolabel="1" readonly="1"/>
 
                                     <field name="discount" invisible="1"/>
-                                    <field name="price_unit"  />
+                                    <field name="price_unit" readonly="1" />
                                     <field name="price_subtotal"  />
                                     <field name="state" invisible="1"/>
                                     <field name="tax_id" invisible="1"/>
                                 </tree>
-
                             </field>
                     </page>
             <!--
