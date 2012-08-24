@@ -30,6 +30,7 @@
                     <field name="amount_untaxed" sum="Total Tax Excluded"/>
                     <field name="amount_total" sum="Total Tax Included"/>
                     <field name="state"/>
+                    <field name="state_portal"/>
                 </tree>
             </field>
         </record>
@@ -55,17 +56,17 @@
                     <notebook colspan="5">
                         <page string="Sales Order">
                             <field name="partner_id" options='{"quick_create": false}' on_change="onchange_partner_id(partner_id)"  context="{'search_default_customer':1}" required="1" widget="selection"/>
-                            <field domain="[('partner_id','=',partner_id)]" name="partner_order_id" on_change="onchange_partner_order_id(partner_order_id, partner_invoice_id, partner_shipping_id)" options='{"quick_create": false}'/>
+                            <field domain="[('partner_id','=',partner_id)]" name="partner_order_id" on_change="onchange_partner_order_id(partner_order_id, partner_invoice_id, partner_shipping_id)" options='{"quick_create": false}' invisible="1"/>
                             <field domain="[('partner_id','=',partner_id)]" name="partner_invoice_id" groups="base.group_extended" options='{"quick_create": false}' invisible="1"/>
                             <field domain="[('partner_id','=',partner_id)]" name="partner_shipping_id" groups="base.group_extended" options='{"quick_create": false}' invisible="1"/>
                             <field domain="[('type','=','sale')]" name="pricelist_id" groups="base.group_extended" on_change="onchange_pricelist_id(pricelist_id,order_line)" invisible="1"/>
                             <field name="project_id" context="{'partner_id':partner_id, 'contact_id':partner_order_id, 'pricelist_id':pricelist_id, 'default_name':name}" groups="analytic.group_analytic_accounting" domain="[('parent_id','!=',False)]"/>
                             <!--
                             <field name="categ_id" widget="selection" />
-			    -->
-			    <field name="state_portal" invisible="1"/>
-   	                    <button colspan="4" name="get_order_lines" string="Create Product List (~15 sec)" type="object" icon="terp-gtk-go-back-rtl" help="Fill list with all orderable products, retains already ordered lines" attrs="{'invisible':['|',('state','!=', 'draft'),('state_portal','!=','confirmed')]}"/>
-    		            <button colspan="4" name="rm_zero_lines" string="Confirm" type="object" icon="terp-gtk-go-back-rtl" help="Delete products with quantity 0" attrs="{'invisible':['|',('state','!=', 'draft'),('state_portal','!=','in_progress')]}"/>
+                            -->
+                            <field name="state_portal" invisible="1"/>
+                            <button  name="get_order_lines" string="Create Product List (~15 sec)" type="object" icon="terp-gtk-go-back-rtl" help="Fill list with all orderable products, retains already ordered lines" attrs="{'invisible':['|',('state','!=', 'draft'),('state_portal','=','in_progress')]}"/>
+                            <button  name="rm_zero_lines" string="Confirm" type="object" icon="terp-gtk-go-back-rtl" help="Delete products with quantity 0" attrs="{'invisible':['|',('state','!=', 'draft'),('state_portal','!=','in_progress')]}"/>
 
                             <newline/>
                             <notebook colspan ="5">
