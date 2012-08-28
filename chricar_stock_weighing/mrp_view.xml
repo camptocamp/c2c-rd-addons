@@ -160,6 +160,7 @@ Harvest
           <field name="product_qty" sum="Sum Quantity" attrs="{'readonly':[('state', '!=','draft')]}" on_change="onchange_harvest_product_qty(product_qty, parent.product_id.id, parent.product_uom.id, parent.date_planned, parent.prodlot_id.id, parent.location_src_id.id, parent.location_dest_id.id, parent.product_packaging_id.id)"/>
           <field name="product_id" attrs="{'readonly':[('state', '!=','draft')]}" invisible="1"/>
           <field name="product_uom" attrs="{'readonly':[('state', '!=','draft')]}" invisible="1"/>
+	  <field name="product_packaging_id" attrs="{'readonly': [('state','!=','draft')]}" />
 	  <field name="packaging_qty" attrs="{'readonly': [('state','!=','draft')]}" />
           <field name="date_expected" attrs="{'readonly':[('state', '!=','draft')]}" string="Weighing Date"/>
           <field name="date" attrs="{'readonly':[('state', '!=','draft')]}" string="Recording Date"  invisible="1"/>
