@@ -28,7 +28,7 @@ class sale_order(osv.osv):
     _inherit = "sale.order"
 
     _defaults = {
-	 'name' : '/',
+         'name' : '/',
         }
 
     def create(self, cr, uid, vals, context=None):

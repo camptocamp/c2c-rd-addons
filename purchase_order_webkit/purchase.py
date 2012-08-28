@@ -29,10 +29,10 @@ class purchase_order(osv.osv):
     def _print_uom(self, cr, uid, ids, name, args, context=None):
         res = {}
         for order in self.browse(cr, uid, ids, context=context):
-	  print_uom = False
-	  if order.order_line:
+          print_uom = False
+          if order.order_line:
             for line in order.order_line:
-		   print_uom = True
+                   print_uom = True
           res[order.id] =  print_uom
         return res
 
@@ -67,7 +67,7 @@ class purchase_order(osv.osv):
              cols += 2
           if order.print_ean:
              cols += 1
-	  if order.print_code:
+          if order.print_code:
              cols += 1
            
           res[order.id] = cols
@@ -76,8 +76,8 @@ class purchase_order(osv.osv):
 
 
     _columns = {
-   	      'payment_term': fields.many2one('account.payment.term', 'Payment Term'),
-	      'incoterm': fields.many2one('stock.incoterms', 'Incoterm', help="Incoterm which stands for 'International Commercial terms' implies its a series of sales terms which are used in the commercial transaction."),
+                 'payment_term': fields.many2one('account.payment.term', 'Payment Term'),
+              'incoterm': fields.many2one('stock.incoterms', 'Incoterm', help="Incoterm which stands for 'International Commercial terms' implies its a series of sales terms which are used in the commercial transaction."),
 
               'print_uom': fields.function(_print_uom, method=True, type='boolean', string='Print UoM if different from UoS',),
               'print_ean': fields.function(_print_ean, method=True, type='boolean', string='Print EAN if available',),
@@ -102,11 +102,11 @@ class purchase_order(osv.osv):
 
     def onchange_partner_id(self, cr, uid, ids, partner_id):
         res = super(purchase_order, self).onchange_partner_id(cr, uid, ids, partner_id)
-	partner = self.pool.get('res.partner')
-	if partner_id :
-	    supplier = partner.browse(cr, uid, partner_id)
+        partner = self.pool.get('res.partner')
+        if partner_id :
+            supplier = partner.browse(cr, uid, partner_id)
             payment_term_id = supplier.property_payment_term_supplier.id
-	    if payment_term_id:
+            if payment_term_id:
                res['value']= {'payment_term': payment_term_id,}
         return res
 

@@ -44,8 +44,8 @@ class sale_order(osv.osv):
                 help="This indicates the status of the internal pull calculation"),
     }
     _defaults = {
-        'pull_intern' : True,		    
-		    }
+        'pull_intern' : True,                    
+                    }
 
     def copy(self, cr, uid, id, default=None, context=None):
         if not default:
@@ -75,7 +75,7 @@ class sale_order(osv.osv):
         lot_obj = self.pool.get('stock.production.lot')
         company_obj = self.pool.get('res.company')
         shop_obj = self.pool.get('sale.shop')
-	uom_obj = self.pool.get('product.uom')
+        uom_obj = self.pool.get('product.uom')
 
         if not context.get('company_id'):
             company_id = company_obj._company_default_get(cr, uid, 'stock.company', context=context),
@@ -99,7 +99,7 @@ class sale_order(osv.osv):
                         sale_order o
                   where l.order_id in (%s)
                     and l.order_id = o.id
-		    and product_id is not null
+                    and product_id is not null
                   group by o.shop_id, product_id, l.name, product_packaging""" % order_ids2)
         for product_qty in cr.dictfetchall():
             product_id = product_qty['product_id']
@@ -112,13 +112,13 @@ class sale_order(osv.osv):
                 if not location_dest_id:
                     location_dest_id = shop.warehouse_id.lot_output_id.id
                 address_id = shop.warehouse_id.partner_address_id and shop.warehouse_id.partner_address_id.id 
-		loc_fallback_id = shop.warehouse_id.lot_stock_id.id
-	    # update source location of auto SO
+                loc_fallback_id = shop.warehouse_id.lot_stock_id.id
+            # update source location of auto SO
             # select source location
             cr.execute("""select id
                    from stock_location
                   where sequence > 0
-		    and usage='internal'
+                    and usage='internal'
                   order by sequence""") 
             for loc in cr.fetchall():
                 #_logger.debug('FGF sale location %s ' % (loc))
@@ -128,14 +128,14 @@ class sale_order(osv.osv):
                 #_logger.debug('FGF sale location context %s ' % (context))
                 #qty_availiable = product_obj.get_product_available(cr, uid, [product_id] , context)
                 qty_available = 0.0
-		if product_id:
-		  # will return all qty including sub locations
+                if product_id:
+                  # will return all qty including sub locations
                   #for product in product_obj.browse(cr, uid, [product_id], context):
                   #    qty_available = product.qty_available 
-		  # have to calculate qty for this location
-		    qty_available = 0.0
-		    move_ids = move_obj.search(cr, uid, ['|',('location_dest_id','=',location_id),('location_id','=',location_id),('product_id','=',product_id),('state','=','done')], context=context)
-		    for move in move_obj.browse(cr, uid, move_ids, context=context):
+                  # have to calculate qty for this location
+                    qty_available = 0.0
+                    move_ids = move_obj.search(cr, uid, ['|',('location_dest_id','=',location_id),('location_id','=',location_id),('product_id','=',product_id),('state','=','done')], context=context)
+                    for move in move_obj.browse(cr, uid, move_ids, context=context):
                         if move.location_dest_id.id == location_id:
                             qty_available += uom_obj._compute_qty(cr, uid, move.product_uom.id,move.product_qty, move.product_id.uom_id.id)
                         else:
@@ -168,13 +168,13 @@ class sale_order(osv.osv):
                 back_log_lines.append({'product_id': product_id, 'product_qty':qty_requested, 'name':name, 'product_packaging': product_packaging})
 
             
-	# update SO , source location to location_dest_id
-	cr.execute("""update stock_move
-	                 set location_id = %s
-		       where picking_id in (select id 
-		                from stock_picking 
-		               where sale_id in (%s)
-		                 and state != 'done')""" % (location_dest_id, order_ids2))
+        # update SO , source location to location_dest_id
+        cr.execute("""update stock_move
+                         set location_id = %s
+                       where picking_id in (select id 
+                                from stock_picking 
+                               where sale_id in (%s)
+                                 and state != 'done')""" % (location_dest_id, order_ids2))
         # now we create a stock_picking for each location
         pick_vals = {
                 'type' : 'internal',
@@ -200,7 +200,7 @@ class sale_order(osv.osv):
             for addr in  location_obj.browse(cr,uid,[loc],context):
                 address_id = addr.id
                 pick['origin'] = _('auto pull picking')+' '+ location_obj.read(cr, uid, loc,['name'])['name']
-				
+                                
             #if address_id:
             #    pick['address_id'] = address_id
             pick['name'] =  self.pool.get('ir.sequence').get(cr, uid, 'stock.picking.internal') 
@@ -241,18 +241,18 @@ class sale_order(osv.osv):
             if main_location_id:
                 loc = main_location_id
             else:
-		loc = loc_fallback_id
+                loc = loc_fallback_id
             pick['location_id'] = loc
-	    if loc:
+            if loc:
               for add in location_obj.browse(cr, uid, [loc], context):
                 pick['address_id'] = add.address_id.id
-	    if pick.get('name'):
-	        del pick['name']
+            if pick.get('name'):
+                del pick['name']
             pick['origin'] = _('back log')
             picking_id = picking_obj.create(cr, uid, pick, context=context)
             for l in back_log_lines:
               line = dict(l)
-	      if line['product_id']:
+              if line['product_id']:
                 ml = pick
                 prod_lot_id = ''
                 mlt = {
@@ -268,7 +268,7 @@ class sale_order(osv.osv):
                 ml.update(move_vals)
                 #_logger.debug('FGF sale move line %s ' % (ml))
                 move_obj.create(cr, uid, ml,  context=context)
-	    #picking_obj.action_cancel(cr, uid, [picking_id], context=None)
+            #picking_obj.action_cancel(cr, uid, [picking_id], context=None)
 
             
         self.write(cr, uid, order_ids, {'state_internal':'calculated','pull_intern_date':now}, context=None )

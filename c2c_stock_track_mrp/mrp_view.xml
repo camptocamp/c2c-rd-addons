@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
   <data>
-      <!--
+
     <record model="ir.ui.view" id="mrp_production_lot_form_view">
       <field name="name">mrp.production.lot.form</field>
       <field name="model">mrp.production</field>
@@ -14,7 +14,7 @@
         </xpath>
       </field>
     </record>
-    -->
+
     
     
     <record model="ir.ui.view" id="mrp_production_lot_form1_view">
@@ -23,31 +23,29 @@
       <field name="inherit_id" ref="mrp.mrp_production_form_view"/>
       <field name="type">form</field>
       <field name="arch" type="xml">
-          <xpath expr="/form/notebook/page[@string='Consumed Products']/field[@name='move_lines']/tree/field[@name='product_uom']" position="after">
-              <field name="prodlot_id" domain="[('product_id','=',product_id),('location_id','=',location_id)]"/>
+          <xpath expr="/form/notebook/page[@string='Consumed Products']/field[@name='move_lines']/tree/field[@name='prodlot_id']" position="replace">
+              <field name="prodlot_id" domain="[('product_id','=',product_id)]" context="{'product_id':product_id}"/>
           </xpath>
       </field>
     </record>
-    <!--
     <record model="ir.ui.view" id="mrp_production_lot_form2_view">
       <field name="name">mrp.production.lot.form2</field>
       <field name="model">mrp.production</field>
       <field name="inherit_id" ref="mrp.mrp_production_form_view"/>
       <field name="type">form</field>
       <field name="arch" type="xml">
-          <xpath expr="/form/notebook/page[@string='Consumed Products']/field[@name='move_lines2']/tree/field[@name='product_uom']" position="after">
-              <field name="prodlot_id" domain="[('product_id','=',product_id),('location_id','=',location_id)]"/>
+          <xpath expr="/form/notebook/page[@string='Consumed Products']/field[@name='move_lines2']/tree/field[@name='prodlot_id']" position="replace">
+              <field name="prodlot_id" domain="[('product_id','=',product_id)]" context="{'product_id':product_id}"/>
           </xpath>
       </field>
     </record>
-    -->
     <record model="ir.ui.view" id="mrp_production_lot_form3_view">
       <field name="name">mrp.production.lot.form3</field>
       <field name="model">mrp.production</field>
       <field name="inherit_id" ref="mrp.mrp_production_form_view"/>
       <field name="type">form</field>
       <field name="arch" type="xml">
-          <xpath expr="/form/notebook/page[@string='Finished Products']/field[@name='move_created_ids']/tree/field[@name='product_uom']" position="after">
+          <xpath expr="/form/notebook/page[@string='Finished Products']/field[@name='move_created_ids']/tree/field[@name='prodlot_id']" position="replace">
               <field name="prodlot_id" domain="[('product_id','=',product_id)]"/>
               <button name="%(stock.track_line)d"
                   string="Split in production lots" type="action" icon="gtk-justify-fill"

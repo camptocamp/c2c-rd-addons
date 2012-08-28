@@ -33,21 +33,21 @@ class stock_picking(osv.osv):
     _inherit = 'stock.picking'
 
     def _invoice_hook(self, cr, uid, picking, invoice_id):
-	res = super(stock_picking, self)._invoice_hook(cr, uid, picking, invoice_id)
+        res = super(stock_picking, self)._invoice_hook(cr, uid, picking, invoice_id)
 
         obj_sale_order_line = self.pool.get('sale.order.line')
         obj_invoice_line = self.pool.get('account.invoice.line')
-	states=['confirmed', 'done', 'exception']
+        states=['confirmed', 'done', 'exception']
 
-	if picking.sale_id.order_policy == 'picking': # to be sure as this might have changed ?!
-	    for line in picking.sale_id.order_line:
-		lines = []
-		if line.product_id.type == 'service':  # FIXME consumable
-		    if line.invoiced:
-		        continue
-		    elif (line.state in states):
-			lines.append(line.id)
-	        created_lines = obj_sale_order_line.invoice_line_create(cr, uid, lines)
+        if picking.sale_id.order_policy == 'picking': # to be sure as this might have changed ?!
+            for line in picking.sale_id.order_line:
+                lines = []
+                if line.product_id.type == 'service':  # FIXME consumable
+                    if line.invoiced:
+                        continue
+                    elif (line.state in states):
+                        lines.append(line.id)
+                created_lines = obj_sale_order_line.invoice_line_create(cr, uid, lines)
                 obj_invoice_line.write(cr, uid, created_lines, {'invoice_id':invoice_id}) 
 
         return res

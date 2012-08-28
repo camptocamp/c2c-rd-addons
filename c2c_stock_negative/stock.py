@@ -65,7 +65,7 @@ class stock_move(osv.osv):
             if move.product_id.allow_negative_stock or move.product_id.categ_id.allow_negative_stock:
                do_check = False
             if do_check:
-	       # name field = product qty
+               # name field = product qty
                cr.execute(
                "select sum(name) \
                   from chricar_stock_product_by_location_prodlot \
@@ -132,7 +132,7 @@ class stock_location(osv.osv):
                     if r[0] in loc_to_show:
                        res1.append(r)
             else: # FIXME workaround 
-	        res1 = res
+                res1 = res
 
                 
         else:

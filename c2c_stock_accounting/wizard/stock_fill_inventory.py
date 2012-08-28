@@ -28,20 +28,20 @@ class stock_fill_inventory(osv.osv_memory):
 
 
     def fill_inventory(self, cr, uid, ids, context=None):    
-	if not context:
-	    context = {}
-	if ids and len(ids):
-	    ids_1 = ids[0]
+        if not context:
+            context = {}
+        if ids and len(ids):
+            ids_1 = ids[0]
 
-	res = super(stock_fill_inventory, self).fill_inventory(cr, uid, ids, context)
+        res = super(stock_fill_inventory, self).fill_inventory(cr, uid, ids, context)
 
 
-	fill_inventory = self.browse(cr, uid, ids_1, context=context)
-	inventory_obj = self.pool.get('stock.inventory')
+        fill_inventory = self.browse(cr, uid, ids_1, context=context)
+        inventory_obj = self.pool.get('stock.inventory')
         inventory_id = context['active_ids'][0]
         inventory_obj.write(cr, uid, inventory_id , {'recursive' : fill_inventory.recursive, 'location_id': fill_inventory.location_id.id})
-	
-	return res
+        
+        return res
 
 
 stock_fill_inventory()

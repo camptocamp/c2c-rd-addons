@@ -121,16 +121,16 @@ class chricar_budget(osv.osv):
 
         move_obj = self.pool.get('stock.move')
         for line in self.browse(cr, uid, ids, context=context):
-	    # uninvoiced pickings
+            # uninvoiced pickings
             amount = 0
-	    if line.prod_lot_id:
+            if line.prod_lot_id:
                  move_ids = move_obj.search(cr, uid, [('prodlot_id','=',line.prod_lot_id.id)])
-	         #_logger.debug('FGF uninvoiced move_ids %s' % (move_ids))
+                 #_logger.debug('FGF uninvoiced move_ids %s' % (move_ids))
                  for move in move_obj.browse(cr, uid, move_ids):
-	           if  move.picking_id and move.picking_id.type == 'out' and move.state == 'done' and not move.picking_id.invoice_ids:
-		       _logger.debug('FGF uninvoiced move pick line id  %s %s' % (move.picking_id.name, move.product_id.name))
+                   if  move.picking_id and move.picking_id.type == 'out' and move.state == 'done' and not move.picking_id.invoice_ids:
+                       _logger.debug('FGF uninvoiced move pick line id  %s %s' % (move.picking_id.name, move.product_id.name))
                        amount += move.product_qty *  line.price / line.price_unit_id.coefficient
-            res[line.id] += amount		   
+            res[line.id] += amount                   
 
         return res
 
@@ -143,29 +143,29 @@ class chricar_budget(osv.osv):
          res = {}
          _logger = logging.getLogger(__name__) 
          for line in self.browse(cr, uid, ids, context=context):
-	   invoice_line_ids = []
+           invoice_line_ids = []
            amount = 0
-	   if line.prod_lot_id:
+           if line.prod_lot_id:
              #move_ids = move_obj.search(cr, uid, [('prodlot_id','=',line.prod_lot_id.id),('picking_id','>','0')])
              move_ids = move_obj.search(cr, uid, [('prodlot_id','=',line.prod_lot_id.id)])
-	     #_logger.debug('FGF move_ids %s' % (move_ids))
+             #_logger.debug('FGF move_ids %s' % (move_ids))
              for move in move_obj.browse(cr, uid, move_ids):
-		 if  move.picking_id :
-		   _logger.debug('FGF move pick id %s %s %s' % (move.picking_id.name , move.picking_id.type, move.picking_id.state))
-		   if  move.picking_id.invoice_ids :
+                 if  move.picking_id :
+                   _logger.debug('FGF move pick id %s %s %s' % (move.picking_id.name , move.picking_id.type, move.picking_id.state))
+                   if  move.picking_id.invoice_ids :
                     for inv in move.picking_id.invoice_ids:
-		      _logger.debug('FGF move pick inv %s %s %s' % (inv.number, inv.type, inv.state))
+                      _logger.debug('FGF move pick inv %s %s %s' % (inv.number, inv.type, inv.state))
                       if inv.state in ['open','paid'] and inv.invoice_line:
-			for inv_line in inv.invoice_line:
+                        for inv_line in inv.invoice_line:
                           if inv_line.product_id == line.product_id: # FIXME problematic if 2 lots are in one invoice 
-			    if inv_line.id not in invoice_line_ids:
+                            if inv_line.id not in invoice_line_ids:
                                invoice_line_ids.append(inv_line.id)
-	   for l in ail.browse(cr, uid, invoice_line_ids):    
-	        if l.invoice_id.type == 'out_invoice':
+           for l in ail.browse(cr, uid, invoice_line_ids):    
+                if l.invoice_id.type == 'out_invoice':
                      amount += l.price_subtotal
-		else:
+                else:
                      amount -= l.price_subtotal
-	   #_logger.debug('FGF move pick inv %s line %s  amount %s cum amount %s' % (inv.number, inv_line.name, inv_line.price_subtotal,amount))
+           #_logger.debug('FGF move pick inv %s line %s  amount %s cum amount %s' % (inv.number, inv_line.name, inv_line.price_subtotal,amount))
            res[line.id] = amount
          return res
 
@@ -202,7 +202,7 @@ class chricar_budget(osv.osv):
             fy_date_stop  = line.budget_version_id.budget_id.end_date
             cr.execute("""select coalesce(sum(product_qty),0) from stock_move s,
                                                        stock_location l,
-						       stock_location d
+                                                       stock_location d
                                  where state='done'
                                    and l.usage = 'production'
                                    and l.id = s.location_id
@@ -238,8 +238,8 @@ class chricar_budget(osv.osv):
         res = {}
         self._logger.debug('harvest yield 1')
         for line in self.browse(cr, uid, ids, context=context):
-	    harvest_yield = 0.0
-	    harvest = 0.0
+            harvest_yield = 0.0
+            harvest = 0.0
             surface_used  = line.surface
             harvest       = line.harvest
             self._logger.debug('harvest yield 2 `%s` `%s`', surface_used,harvest)
@@ -252,7 +252,7 @@ class chricar_budget(osv.osv):
         res = {}
         self._logger.debug('harvest yield 2')
         for line in self.browse(cr, uid, ids, context=context):
-	    harvest_yield_diff = 0.0
+            harvest_yield_diff = 0.0
             yield_qty  = line.yield_qty
             harvest_net = line.harvest_net
             self._logger.debug('harvest yield 2 `%s` `%s`', yield_qty,harvest_net)
@@ -260,6 +260,17 @@ class chricar_budget(osv.osv):
                  harvest_yield_diff =  ((harvest_net / yield_qty) - 1.0) * 100
             res[line.id]  = harvest_yield_diff
         return res
+
+     def _surface_unused(self, cr, uid, ids, name, args, context=None):
+        res = {}
+        for line in self.browse(cr, uid, ids, context=context):
+            surface_remaining = line.surface
+            for loc in line.location_ids:
+                surface_remaining -= loc.name
+            res[line.id]  = surface_remaining
+
+        return res
+
 
 
      _columns = {
@@ -277,6 +288,7 @@ class chricar_budget(osv.osv):
        'product_qty'        : fields.function(_product_qty_line, method=True, string='Planned Quantity' ,digits=(16,0),
                              help="Surface * Yield"),
        'surface'            : fields.float   ('Surface (ha)', digits=(16,2)),
+       'surface_unused'     : fields.function(_surface_unused, method=True, string='Surface unused', digits=(16,2), help="Surface not yet assigned"),
        'yield_qty'          : fields.float   ('Yield qty/ha', digits=(16,0)),
        'yield_sale'         : fields.function(_yield_line, method=True, string='Sales/ha' ,digits_compute=dp.get_precision('Budget'),
                               help="Planned Sales / Surface"),
@@ -321,9 +333,9 @@ class chricar_budget(osv.osv):
      def product_id_change(self, cr, uid, ids, product_id):
          res = {}
          for product in self.pool.get('product.product').browse(cr, uid, [product_id]):
-	    res = {'product_uom' : product.uom_id.id,
-	           'price_unit_id' : product.price_unit_id.id,
-		   }
+            res = {'product_uom' : product.uom_id.id,
+                   'price_unit_id' : product.price_unit_id.id,
+                   }
 
          return {'value': res}
 
@@ -345,7 +357,7 @@ class chricar_budget_surface(osv.osv):
         res = {}
         
         for line in self.browse(cr, uid, ids, context=context):
-	    harvest = 0.0
+            harvest = 0.0
             product       = line.budget_id.product_id.id
             location      = line.location_id.id
             fy_date_start = line.budget_id.budget_version_id.budget_id.start_date
@@ -369,7 +381,7 @@ class chricar_budget_surface(osv.osv):
         res = {}
         
         for line in self.browse(cr, uid, ids, context=context):
-	    harvest_yield_detail = 0.0  
+            harvest_yield_detail = 0.0  
             surface_used_detail  = line.name
             harvest_detail       = line.harvest
             self._logger.debug('harvest yield detail `%s` `%s` `%s`', name, surface_used_detail, harvest_detail)

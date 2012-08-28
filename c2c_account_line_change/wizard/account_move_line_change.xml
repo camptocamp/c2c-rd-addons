@@ -67,7 +67,7 @@
       target="new"
       view_mode="form"
       view_type="form"/>
-	-->
+        -->
     <act_window
       id="act_account_move_line_change_wizard"
       name="Change Account"

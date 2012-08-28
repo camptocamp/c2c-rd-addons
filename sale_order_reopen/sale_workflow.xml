@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
-	    <!--
+            <!--
         <record id="sale.act_done" model="workflow.activity">
             <field name="wkf_id" ref="sale.wkf_sale"/>
             <field name="name">done</field>

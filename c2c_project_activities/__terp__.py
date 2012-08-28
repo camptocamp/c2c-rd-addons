@@ -25,35 +25,35 @@
 #
 ##############################################################################
 {
-	"name" : "Project activities",
-	"version" : "1.0",
-	"author" : "Camptocamp",
-	"category" : "Generic Modules/Human Resources",
-	"module":
+        "name" : "Project activities",
+        "version" : "1.0",
+        "author" : "Camptocamp",
+        "category" : "Generic Modules/Human Resources",
+        "module":
 """
     Add activities on analytic account which can be choosen in timesheet completion. The goal is to improve 
     statistics on wich activities take time in project. Users will choose for each timesheet line a related activity.
     Adding activities on parent account will allow child to benefit from. So you can define a set of activities 
     for each parent analytic account like:
 
-	Administratif
-		- Intern
-		- Project 1
-	Customers project
-		- Project X
-		- Project Y
-	What will be true for Administratif, will be true for Intern too.
+        Administratif
+                - Intern
+                - Project 1
+        Customers project
+                - Project X
+                - Project Y
+        What will be true for Administratif, will be true for Intern too.
 """,
-	"website": "http://camptocamp.com",
-	"depends" : ["account",
+        "website": "http://camptocamp.com",
+        "depends" : ["account",
                 "hr_timesheet_sheet",
                 "project"
                 ],
-	"init_xml" : ["security/c2c_project_activites_security.xml"],
-	"demo_xml" : ["c2c_activities_demo.xml"],
-	"update_xml" : [
-		"c2c_project_activities_view.xml",
-	],
-	"active": False,
-	"installable": True
+        "init_xml" : ["security/c2c_project_activites_security.xml"],
+        "demo_xml" : ["c2c_activities_demo.xml"],
+        "update_xml" : [
+                "c2c_project_activities_view.xml",
+        ],
+        "active": False,
+        "installable": True
 }

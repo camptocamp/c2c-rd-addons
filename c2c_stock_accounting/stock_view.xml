@@ -127,9 +127,9 @@
       <field name="model">product.product</field>
       <field name="inherit_id" ref="product.product_normal_form_view"/>
       <field name="arch" type="xml">
-	      <xpath expr="/form/notebook/page[@string='Information']/group[2]" position="attributes">
-		 <attribute name="groups">c2c_stock_accounting.group_c2c_stock_accounting_accountant</attribute>
-              </xpath>	        
+              <xpath expr="/form/notebook/page[@string='Information']/group[2]" position="attributes">
+                 <attribute name="groups">c2c_stock_accounting.group_c2c_stock_accounting_accountant</attribute>
+              </xpath>                
         </field>
     </record>
 
@@ -139,11 +139,11 @@
         <field name="model">product.product</field>
         <field name="inherit_id" ref="product.product_search_form_view"/>
         <field name="arch" type="xml">
-	<field name="categ_id" position="after">
-	   <newline/>
+        <field name="categ_id" position="after">
+           <newline/>
            <group expand="0" string="Extended Filters..." groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant">
-	      <field name="stock_account_id" widget="selection" />
-	      <field name="expense_account_id" widget="selection" />
+              <field name="stock_account_id" widget="selection" />
+              <field name="expense_account_id" widget="selection" />
            </group>
          </field>
       </field>
@@ -153,7 +153,7 @@
         <field name="model">product.product</field>
         <field name="inherit_id" ref="product.product_search_form_view"/>
         <field name="arch" type="xml">
-	 <xpath expr="/search/group/filter[@string='Category']" position="before">
+         <xpath expr="/search/group/filter[@string='Category']" position="before">
              <filter string='Stock Account' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'stock_account_id'}" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant"/>
              <filter string='Expense Account' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'expense_account_id'}" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant"/>
              <separator orientation="vertical"/>
@@ -161,11 +161,11 @@
          </xpath>
       </field>
     </record>
-			
+                        
 
 
 
-			
+                        
 
     <!-- product moves IN/OUT - make refrenece mandatory -->
     <record model="ir.ui.view" id="view_move_tree_reception_referenc_picking">
@@ -247,8 +247,8 @@
                    <field name="value_correction"/>
                    <field name="product_qty" />
                    <field name="product_uom" string="Unit Of Measure"/>
-		   <field name="location_id" context="{'product_id':product_id}" domain="[('usage','=','internal')]" string="Stock Location"/>
-		   <field name="prodlot_id" context="{'location_id':location_id}" groups="base.group_extended" domain="[('product_id','=',product_id)]"/>
+                   <field name="location_id" context="{'product_id':product_id}" domain="[('usage','=','internal')]" string="Stock Location"/>
+                   <field name="prodlot_id" context="{'location_id':location_id}" groups="base.group_extended" domain="[('product_id','=',product_id)]"/>
                    <field name="location_dest_id" domain="[('usage','=','inventory')]" string="Diff Location"/>
                </group>
                <group colspan="2" col="2">
@@ -284,8 +284,8 @@
                <field name="product_uom" string="UoM"/>
                <field name="value_correction"/>
                <field name="name" string="Reason"/>
-	       <field name="location_id" context="{'product_id':product_id}"  domain="[('usage','=','internal')]" string="Stock Location"/>
-	       <field name="prodlot_id" context="{'location_id':location_id}" groups="base.group_extended" domain="[('product_id','=',product_id)]"/>
+               <field name="location_id" context="{'product_id':product_id}"  domain="[('usage','=','internal')]" string="Stock Location"/>
+               <field name="prodlot_id" context="{'location_id':location_id}" groups="base.group_extended" domain="[('product_id','=',product_id)]"/>
                <field name="location_dest_id" domain="[('usage','=','inventory')]" string="Diff Location"/>
                <field name="product_qty" invisible="1"/>
                <field name="date"/>
@@ -360,9 +360,9 @@
             <field name="inherit_id" ref="stock.view_normal_property_acc_form"/>
             <field name="priority">26</field>
             <field name="arch" type="xml">
-		    <xpath expr="/form/notebook/page[@string='Accounting']/group/group/field[@name='valuation']" position="after">
-			    <field name="stock_account_id" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant"/>
-			    <field name="expense_account_id" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant"/>
+                    <xpath expr="/form/notebook/page[@string='Accounting']/group/group/field[@name='valuation']" position="after">
+                            <field name="stock_account_id" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant"/>
+                            <field name="expense_account_id" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant"/>
                     </xpath>
            </field>
        </record>

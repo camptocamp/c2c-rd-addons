@@ -7,21 +7,26 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 6.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-07-01 08:33+0000\n"
-"PO-Revision-Date: 2012-07-01 11:57+0000\n"
+"POT-Creation-Date: 2012-08-02 07:03+0000\n"
+"PO-Revision-Date: 2012-08-02 12:24+0000\n"
 "Last-Translator: Ferdinand @ Camptocamp <Unknown>\n"
 "Language-Team: American English <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2012-07-25 04:58+0000\n"
-"X-Generator: Launchpad (build 15679)\n"
+"X-Launchpad-Export-Date: 2012-08-28 08:59+0000\n"
+"X-Generator: Launchpad (build 15864)\n"
 "Language: en_US\n"
 
 #. module: chricar_stock_weighing
 #: field:stock.picking,tractor_tare:0
 msgid "Tractor Tare Weight"
 msgstr "Zugmaschine Tara"
+
+#. module: chricar_stock_weighing
+#: field:stock.move,weighing_slip:0
+msgid "Weighing Slip Number"
+msgstr "Wiegenummer"
 
 #. module: chricar_stock_weighing
 #: field:stock.picking,tractor_gross:0
@@ -59,9 +64,9 @@ msgid "License Number Trailer"
 msgstr "Kennzeichenn Anhänger"
 
 #. module: chricar_stock_weighing
-#: constraint:stock.move:0
-msgid "You must assign a production lot for this product"
-msgstr "Sie müssen zwingend eine Losnummer für dieses Produkt angeben"
+#: field:stock.picking,trailer_gross:0
+msgid "Trailer Gross Weight"
+msgstr "Anhänger Brutto"
 
 #. module: chricar_stock_weighing
 #: help:mrp.production,product_packaging_id:0
@@ -83,9 +88,9 @@ msgid "Field"
 msgstr "Feld"
 
 #. module: chricar_stock_weighing
-#: field:stock.picking,trailer_gross:0
-msgid "Trailer Gross Weight"
-msgstr "Anhänger Brutto"
+#: view:mrp.production:0
+msgid "Reset To Draft"
+msgstr "Auf Entwurf setzen"
 
 #. module: chricar_stock_weighing
 #: model:ir.model,name:chricar_stock_weighing.model_stock_picking
@@ -161,9 +166,11 @@ msgid "Consignement Note Number"
 msgstr "Konsignationsnummer"
 
 #. module: chricar_stock_weighing
+#: code:addons/chricar_stock_weighing/mrp.py:85
 #: model:ir.actions.act_window,name:chricar_stock_weighing.mrp_production_harvest_action
 #: model:ir.ui.menu,name:chricar_stock_weighing.menu_mrp_production_harvest_action
 #: view:mrp.production:0 view:stock.move:0
+#, python-format
 msgid "Harvest"
 msgstr "Ernte"
 
@@ -230,9 +237,9 @@ msgid "Total Qty"
 msgstr "Gesamtmenge"
 
 #. module: chricar_stock_weighing
-#: field:stock.move,weighing_slip:0
-msgid "Weighing Slip Number"
-msgstr "Wiegenummer"
+#: field:stock.picking,print_net_only:0
+msgid "Print Only Net Weight"
+msgstr "Drucke nur Netto Gewicht"
 
 #. module: chricar_stock_weighing
 #: view:stock.move:0
@@ -303,12 +310,17 @@ msgstr "Produktions Los"
 #. module: chricar_stock_weighing
 #: field:stock.picking,trailer_net:0
 msgid "Trailer Net Weight"
-msgstr "Annhänger Netto"
+msgstr "Anhänger Netto"
 
 #. module: chricar_stock_weighing
 #: model:ir.ui.menu,name:chricar_stock_weighing.menu_chricar_weighing_picking_m6
 msgid "Internal Moves"
 msgstr "Interne Lieferungen"
+
+#. module: chricar_stock_weighing
+#: constraint:stock.move:0
+msgid "You must assign a production lot for this product"
+msgstr "Sie müssen zwingend eine Losnummer für dieses Produkt angeben"
 
 #. module: chricar_stock_weighing
 #: help:mrp.production,prodlot_id:0

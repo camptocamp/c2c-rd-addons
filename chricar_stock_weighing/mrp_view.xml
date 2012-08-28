@@ -156,28 +156,60 @@ Harvest
       <field name="priority">26</field>
       <field name="arch" type="xml">
         <tree string="Harvest" editable="top">
-          <field name="weighing_slip" attrs="{'readonly':[('state','=','done')]}"/>
-          <field name="product_qty" sum="Sum Quantity" attrs="{'readonly':[('state','=','done')]}" on_change="onchange_harvest_product_qty(product_qty, parent.product_id.id, parent.product_uom.id, parent.date_planned, parent.prodlot_id.id, parent.location_src_id.id, parent.location_dest_id.id, parent.product_packaging_id.id)"/>
-          <field name="product_id" attrs="{'readonly':[('state','=','done')]}" invisible="1"/>
-          <field name="product_uom" attrs="{'readonly':[('state','=','done')]}" invisible="1"/>
-          <field name="date_expected" attrs="{'readonly':[('state','=','done')]}" string="Weighing Date"/>
-          <field name="date" attrs="{'readonly':[('state','=','done')]}" string="Recording Date"  invisible="1"/>
-          <field name="prodlot_id" attrs="{'readonly':[('state','=','done')]}"  invisible="1"/>
-          <field name="humidity" attrs="{'readonly':[('state','=','done')]}"/>
-          <field name="temperature" attrs="{'readonly':[('state','=','done')]}"/>
-          <field name="specific_weight" attrs="{'readonly':[('state','=','done')]}"/>
-          <field name="protein" attrs="{'readonly':[('state','=','done')]}"/>
-          <field name="sample" attrs="{'readonly':[('state','=','done')]}"/>
-          <field name="aspirates" attrs="{'readonly':[('state','=','done')]}"/>
-          <field name="location_id" select="2" string="From" attrs="{'readonly':[('state','=','done')]}"  />
-          <field name="location_dest_id" select="2" string="Destination" attrs="{'readonly':[('state','=','done')]}" />
-          <field name="name" attrs="{'readonly':[('state','=','done')]}"/>
-          <field name="state" attrs="{'readonly':[('state','=','done')]}"  invisible="1"/>
-          <field name="price_unit_id" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant" attrs="{'readonly':[('state','=','done')]}"  invisible="1"/>
-          <field name="move_value_cost" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant" attrs="{'readonly':[('state','=','done')]}" />
+          <field name="weighing_slip" attrs="{'readonly':[('state', '!=','draft')]}"/>
+          <field name="product_qty" sum="Sum Quantity" attrs="{'readonly':[('state', '!=','draft')]}" on_change="onchange_harvest_product_qty(product_qty, parent.product_id.id, parent.product_uom.id, parent.date_planned, parent.prodlot_id.id, parent.location_src_id.id, parent.location_dest_id.id, parent.product_packaging_id.id)"/>
+          <field name="product_id" attrs="{'readonly':[('state', '!=','draft')]}" invisible="1"/>
+          <field name="product_uom" attrs="{'readonly':[('state', '!=','draft')]}" invisible="1"/>
+          <field name="date_expected" attrs="{'readonly':[('state', '!=','draft')]}" string="Weighing Date"/>
+          <field name="date" attrs="{'readonly':[('state', '!=','draft')]}" string="Recording Date"  invisible="1"/>
+          <field name="prodlot_id" attrs="{'readonly':[('state', '!=','draft')]}"  invisible="1"/>
+          <field name="humidity" attrs="{'readonly':[('state', '!=','draft')]}"/>
+          <field name="temperature" attrs="{'readonly':[('state', '!=','draft')]}"/>
+          <field name="specific_weight" attrs="{'readonly':[('state', '!=','draft')]}"/>
+          <field name="protein" attrs="{'readonly':[('state', '!=','draft')]}"/>
+          <field name="sample" attrs="{'readonly':[('state', '!=','draft')]}"/>
+          <field name="aspirates" attrs="{'readonly':[('state', '!=','draft')]}"/>
+          <field name="location_id" select="2" string="From" attrs="{'readonly':[('state', '!=','draft')]}"  />
+          <field name="location_dest_id" select="2" string="Destination" attrs="{'readonly':[('state', '!=','draft')]}" />
+          <field name="name" attrs="{'readonly':[('state', '!=','draft')]}"/>
+          <field name="state" attrs="{'readonly':[('state', '!=','draft')]}"  invisible="1"/>
+          <field name="price_unit_id" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant" attrs="{'readonly':[('state', '!=','draft')]}"  invisible="1"/>
+          <field name="move_value_cost" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant" attrs="{'readonly':[('state', '!=','draft')]}" />
         </tree>
       </field>
     </record>
+
+    <record id="chricar_harvest_form_view" model="ir.ui.view">
+      <field name="name">chricar.harvest.form.view</field>
+      <field name="model">stock.move</field>
+      <field name="type">tree</field>
+      <field name="priority">26</field>
+      <field name="arch" type="xml">
+        <form string="Harvest" >
+          <field name="weighing_slip" attrs="{'readonly':[('state', '!=','draft')]}"/>
+          <field name="product_qty" sum="Sum Quantity" attrs="{'readonly':[('state', '!=','draft')]}" on_change="onchange_harvest_product_qty(product_qty, parent.product_id.id, parent.product_uom.id, parent.date_planned, parent.prodlot_id.id, parent.location_src_id.id, parent.location_dest_id.id, parent.product_packaging_id.id)"/>
+          <field name="product_id" attrs="{'readonly':[('state', '!=','draft')]}" invisible="1"/>
+          <field name="product_uom" attrs="{'readonly':[('state', '!=','draft')]}" invisible="1"/>
+          <field name="date_expected" attrs="{'readonly':[('state', '!=','draft')]}" string="Weighing Date"/>
+          <field name="date" attrs="{'readonly':[('state', '!=','draft')]}" string="Recording Date"  invisible="1"/>
+          <field name="prodlot_id" attrs="{'readonly':[('state', '!=','draft')]}"  invisible="1"/>
+          <field name="humidity" attrs="{'readonly':[('state', '!=','draft')]}"/>
+          <field name="temperature" attrs="{'readonly':[('state', '!=','draft')]}"/>
+          <field name="specific_weight" attrs="{'readonly':[('state', '!=','draft')]}"/>
+          <field name="protein" attrs="{'readonly':[('state', '!=','draft')]}"/>
+          <field name="sample" attrs="{'readonly':[('state', '!=','draft')]}"/>
+          <field name="aspirates" attrs="{'readonly':[('state', '!=','draft')]}"/>
+          <field name="location_id" select="2" string="From" attrs="{'readonly':[('state', '!=','draft')]}"  />
+          <field name="location_dest_id" select="2" string="Destination" attrs="{'readonly':[('state', '!=','draft')]}" />
+          <field name="name" attrs="{'readonly':[('state', '!=','draft')]}"/>
+          <field name="state" attrs="{'readonly':[('state', '!=','draft')]}"  invisible="1"/>
+          <field name="price_unit_id" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant" attrs="{'readonly':[('state', '!=','draft')]}"  invisible="1"/>
+          <field name="move_value_cost" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant" attrs="{'readonly':[('state', '!=','draft')]}" />
+        </form>
+      </field>
+    </record>
+
+
     <record id="chricar_weighing_tree_view" model="ir.ui.view">
       <field name="name">chricar.weighing.tree.view</field>
       <field name="model">stock.move</field>

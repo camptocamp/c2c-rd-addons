@@ -30,18 +30,19 @@ class stock_production_lot(osv.osv):
     def name_get(self, cr, uid, ids, context=None):
         _logger = logging.getLogger(__name__)
         res= super(stock_production_lot, self).name_get(cr, uid, ids, context)
-	if not res:
-	   return []
+        if not res:
+           return []
         _logger.debug('FGF lot res %s' % (res))
         #_logger.debug('FGF lot context %s ' % (context))
         resd = dict(res)
+        digits = self.pool.get('decimal.precision').precision_get(cr, uid, 'Product UoM')
         #_logger.debug('FGF lot d %s ' % (resd))
         res1 =[]
         if context.get('location_id'):
           for lot in self.browse(cr, uid, ids, context):
             qty = lot.stock_available
             _logger.debug('FGF lot res %s %s' % (lot.id, qty))
-            name_new = resd[lot.id] + '  [' + str(qty) +' '+ lot.product_id.uom_id.name+']'
+            name_new = resd[lot.id] + '  [' + str(round(qty,digits)) +' '+ lot.product_id.uom_id.name+']'
             _logger.debug('FGF lot name %s' % (name_new))
             if lot.product_id.packaging:
                  pack_name = []

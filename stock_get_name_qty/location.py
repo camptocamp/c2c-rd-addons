@@ -32,6 +32,8 @@ class stock_location(osv.osv):
         _logger = logging.getLogger(__name__)
         #_logger.debug('FGF loc ids %s' % (ids))
         res= super(stock_location, self).name_get(cr, uid, ids, context)
+        digits = self.pool.get('decimal.precision').precision_get(cr, uid, 'Product UoM')
+
         #_logger.debug('FGF loc res %s' % (res))
         #_logger.debug('FGF loc context %s ' % (context))
         resd = dict(res)
@@ -51,9 +53,9 @@ class stock_location(osv.osv):
           for loc in self.browse(cr, uid, ids, context):
             qty = loc.stock_real
             qty_v = loc.stock_virtual
-            qty_str = str(qty)
+            qty_str = str(round(qty,digits))
             if qty_v != qty:
-                qty_str += ' / ' + str(qty_v)
+                qty_str += ' / ' + str(round(qty_v,digits))
             name_new = resd[loc.id] + ' [ ' + qty_str + uom_name + ' ]' + packs 
             #_logger.debug('FGF loc name %s' % (name_new))
       

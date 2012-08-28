@@ -94,7 +94,7 @@ class stock_picking(osv.osv):
         @return: True
         """
         _logger = logging.getLogger(__name__)
-	self.allow_reopen(cr, uid, ids, context=None)
+        self.allow_reopen(cr, uid, ids, context=None)
         move_line_obj = self.pool.get('stock.move')
         account_move_line_obj = self.pool.get('account.move.line')
         account_move_obj = self.pool.get('account.move')

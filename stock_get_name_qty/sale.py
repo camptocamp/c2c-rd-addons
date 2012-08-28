@@ -28,10 +28,12 @@ class product_product(osv.osv):
     _inherit = 'product.product'
 
     def name_get(self, cr, uid, ids, context=None):
-	if not context: 
+        if not context: 
              context = {}
         _logger = logging.getLogger(__name__)
         res= super(product_product, self).name_get(cr, uid, ids, context)
+        digits = self.pool.get('decimal.precision').precision_get(cr, uid, 'Product UoM')
+
         #_logger.debug('FGF prod res %s' % (res))
         #_logger.debug('FGF prod context %s ' % (context))
         res1 =[]
@@ -43,9 +45,9 @@ class product_product(osv.osv):
               uom_name = ' '+product.uom_id.name
               qty = product.qty_available
               qty_v = product.virtual_available
-              qty_str = str(qty)
+              qty_str = str(round(qty,digits))
               if qty_v != qty:
-                  qty_str += ' / ' + str(qty_v)
+                  qty_str += ' / ' + str(round(qty_v,digits))
               name_new = r[1] + ' [ ' + qty_str + uom_name + ' ]'
               #_logger.debug('FGF prod name %s' % (name_new))
               if product.packaging:

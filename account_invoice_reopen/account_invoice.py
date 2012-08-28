@@ -64,7 +64,7 @@ class account_invoice(osv.osv):
 
 
     def action_reopen(self, cr, uid, ids, *args):
-	_logger = logging.getLogger(__name__)
+        _logger = logging.getLogger(__name__)
 
         context = {} # TODO: Use context from arguments
         attachment_obj = self.pool.get('ir.attachment')
@@ -73,7 +73,7 @@ class account_invoice(osv.osv):
         account_move_line_obj = self.pool.get('account.move.line')
         report_xml_obj = self.pool.get('ir.actions.report.xml')
         invoices = self.read(cr, uid, ids, ['move_id', 'payment_ids', 'id'])
-	_logger.debug('FGF reopen invoices %s' % (invoices))
+        _logger.debug('FGF reopen invoices %s' % (invoices))
 
         wf_service = netsvc.LocalService("workflow")
         
@@ -82,7 +82,7 @@ class account_invoice(osv.osv):
         for i in invoices:
             if i['move_id']:
                 move_ids.append(i['move_id'][0])
-	        _logger.debug('FGF reopen move_ids %s' % (move_ids))
+                _logger.debug('FGF reopen move_ids %s' % (move_ids))
                 for move in account_move_obj.browse(cr, uid, move_ids):
                     if not move.journal_id.reopen_posted:
                         raise osv.except_osv(_('Error !'), _('You can not reopen invoice of this journal [%s]! You need to need to set "Allow Update Posted Entries" first')%(move.journal_id.name))
@@ -92,7 +92,7 @@ class account_invoice(osv.osv):
                 for move_line in pay_ids:
                     if move_line.reconcile_id or (move_line.reconcile_partial_id and move_line.reconcile_partial_id.line_partial_ids):
                         raise osv.except_osv(_('Error !'), _('You can not reopen an invoice which is partially paid! You need to unreconcile related payment entries first!'))
-	    self.write(cr, uid, i['id'], {'state':'draft'})
+            self.write(cr, uid, i['id'], {'state':'draft'})
             wf_service.trg_delete(uid, 'account.invoice', i['id'], cr)
             wf_service.trg_create(uid, 'account.invoice', i['id'], cr)
 
@@ -123,24 +123,24 @@ class account_invoice(osv.osv):
             for move in account_move_obj.browse(cr , uid, move_ids):
                 name = move.name + now
                 account_move_obj.write(cr, uid, [move.id], {'name':name})
-	        _logger.debug('FGF reopen move_copy moveid %s' % (move.id) )
-		if move.journal_id.entry_posted:
+                _logger.debug('FGF reopen move_copy moveid %s' % (move.id) )
+                if move.journal_id.entry_posted:
                      raise osv.except_osv(_('Error !'), _('You can not reopen an invoice if the journal is set to skip draft!'))
-		move_copy_id = account_move_obj.copy(cr, uid, move.id)
-	        _logger.debug('FGF reopen move_copy_id %s' % (move_copy_id))
+                move_copy_id = account_move_obj.copy(cr, uid, move.id)
+                _logger.debug('FGF reopen move_copy_id %s' % (move_copy_id))
                 name = name + '*'
                 cr.execute("""update account_move_line
                                  set debit=credit, credit=debit
                                where move_id = %s;""" % (move_copy_id))
                 account_move_obj.write(cr, uid, [move_copy_id], {'name':name})
-	        _logger.debug('FGF reopen move_copy_id validate' )
+                _logger.debug('FGF reopen move_copy_id validate' )
                 account_move_obj.button_validate(cr, uid, [move_copy_id], context=None)
-	        _logger.debug('FGF reopen move_copy_id validated' )
+                _logger.debug('FGF reopen move_copy_id validated' )
                 # reconcile 
                 r_id = self.pool.get('account.move.reconcile').create(cr, uid, {'type': 'auto'})
-	        _logger.debug('FGF reopen reconcile_id %s' % (r_id))
+                _logger.debug('FGF reopen reconcile_id %s' % (r_id))
                 line_ids = account_move_line_obj.search(cr, uid, [('move_id','in',[move_copy_id, move.id])])
-	        _logger.debug('FGF reopen reconcile_line_ids %s' % (line_ids))
+                _logger.debug('FGF reopen reconcile_line_ids %s' % (line_ids))
                 lines_to_reconile = []
                 for ltr in account_move_line_obj.browse(cr, uid, line_ids):
                     if ltr.account_id.id in (ltr.partner_id.property_account_payable.id, ltr.partner_id.property_account_receivable.id):

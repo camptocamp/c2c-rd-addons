@@ -2,8 +2,8 @@
 <openerp>
   <data>
     <!--
-	 Journal
-	-->
+         Journal
+        -->
     <record id="chricar_report_location_moves_search" model="ir.ui.view">
       <field name="name">chricar.report.location.moves.search</field>
       <field name="model">chricar.report.location.moves</field>
@@ -200,8 +200,8 @@
       id="menu_action_chricar_location_tree_intern"
       parent="stock.next_id_61"/>
     <!--
-	 Journal
-	-->
+         Journal
+        -->
     <!--
     <menuitem
       name="Blaustauden/Lager/Quantity"
@@ -248,7 +248,7 @@
       parent="stock.next_id_61"/>
     <!--
       act windows
-	-->
+        -->
     <act_window
       domain="[('product_id', '=', active_id)]"
       id="act_chricar_product_stock_open"

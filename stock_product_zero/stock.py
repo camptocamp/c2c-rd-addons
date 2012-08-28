@@ -100,24 +100,24 @@ class product_product(osv.osv):
         return res
 
     def not_0(self, cr, uid, digits, context):
-	to_check = context.get('to_check')
-	for t in to_check:
-	    if round(t,digits) != 0.0:
-		return True
+        to_check = context.get('to_check')
+        for t in to_check:
+            if round(t,digits) != 0.0:
+                return True
         return False
 
     def fields_to_check(self, cr, uid):
         fields = ['qty_available', 'virtual_available' ]
-	return fields
+        return fields
     
     def search_0(self, cr, uid, res, context):
-	res2 = []
+        res2 = []
         digits = self.pool.get('decimal.precision').precision_get(cr, uid, 'Product UoM')
         for prod in self.browse(cr,uid,res,context):
-	    to_check = []
-	    for v in self.fields_to_check(cr, uid):
-	        v1 = eval('prod.'+v)
-	        to_check.append(v1)  
+            to_check = []
+            for v in self.fields_to_check(cr, uid):
+                v1 = eval('prod.'+v)
+                to_check.append(v1)  
             context['to_check'] = to_check
             if self.not_0(cr, uid, digits, context):
                 res2.append(prod.id)
@@ -129,9 +129,9 @@ class product_product(osv.osv):
         if not context.get('location') or  context.get('display_with_zero_qty',True) :
             res = super(product_product, self).search(cr, uid, args, offset, limit, order, context, count)
         else:
-	    # FIXME how to handle offset and limit
+            # FIXME how to handle offset and limit
             res_all = super(product_product, self).search(cr, uid, args, None, None, order, context, count)
-	    res = self.search_0(cr, uid, res_all, context)
+            res = self.search_0(cr, uid, res_all, context)
  
         return res
       

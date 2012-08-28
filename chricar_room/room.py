@@ -53,7 +53,7 @@ class chricar_room(osv.osv):
        'garden_access'      : fields.boolean ('Garden Access'),
        'floor'              : fields.selection([('unknown','unknown'),
                                                 ('stone','Stone'),
-						('wood','Wood'),
+                                                ('wood','Wood'),
                                                 ('screed','Screed'),
                                                 ('tiles','Tiles'),
                                                 ('carpet','Carpet')], 'Floor'),

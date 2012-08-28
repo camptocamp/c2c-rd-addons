@@ -1,13 +1,13 @@
 # Translation of OpenERP Server.
 # This file contains the translation of the following modules:
-#	* chricar_budget
+# 	* chricar_budget
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: OpenERP Server 6.1rc1\n"
+"Project-Id-Version: OpenERP Server 6.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-01-23 22:05+0000\n"
-"PO-Revision-Date: 2012-01-23 22:05+0000\n"
+"POT-Creation-Date: 2012-07-30 07:41+0000\n"
+"PO-Revision-Date: 2012-07-30 07:41+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,13 +16,18 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: chricar_budget
+#: field:chricar.budget.surface,name:0
+msgid "ha used"
+msgstr ""
+
+#. module: chricar_budget
 #: view:chricar.budget:0
 msgid "Sum Harvest"
 msgstr ""
 
 #. module: chricar_budget
-#: field:chricar.budget.surface,surface_location:0
-msgid "ha total"
+#: help:chricar.budget,damage_yield:0
+msgid "The yield reduction assessed by the insurance"
 msgstr ""
 
 #. module: chricar_budget
@@ -41,6 +46,11 @@ msgid "Other Info"
 msgstr ""
 
 #. module: chricar_budget
+#: field:chricar.budget,product_qty_stock:0
+msgid "Unsold Stock"
+msgstr ""
+
+#. module: chricar_budget
 #: model:ir.model,name:chricar_budget.model_chricar_budget
 msgid "chricar.budget"
 msgstr ""
@@ -53,6 +63,11 @@ msgstr ""
 #. module: chricar_budget
 #: help:chricar.budget.surface,name:0
 msgid "Surface of field used for this product"
+msgstr ""
+
+#. module: chricar_budget
+#: help:chricar.budget,damage_rembourse:0
+msgid "The remboursement per ha assessed by the insurance"
 msgstr ""
 
 #. module: chricar_budget
@@ -71,6 +86,11 @@ msgid "Error: Invalid EAN code"
 msgstr ""
 
 #. module: chricar_budget
+#: help:chricar.budget,amount_prod_lot:0
+msgid "Invoiced production lots"
+msgstr ""
+
+#. module: chricar_budget
 #: field:chricar.budget.surface,location_id:0
 msgid "Location"
 msgstr ""
@@ -81,18 +101,28 @@ msgid "Soil %"
 msgstr ""
 
 #. module: chricar_budget
+#: field:chricar.budget,amount_prod_lot:0
+msgid "Sales Prod Lot"
+msgstr ""
+
+#. module: chricar_budget
 #: field:chricar.budget,sale_to:0
 msgid "Sale end"
 msgstr ""
 
 #. module: chricar_budget
-#: field:chricar.budget.surface,name:0
-msgid "ha used"
+#: field:chricar.budget,harvest_yield:0
+msgid "Yield/ha"
 msgstr ""
 
 #. module: chricar_budget
 #: field:chricar.budget,surface:0
 msgid "Surface (ha)"
+msgstr ""
+
+#. module: chricar_budget
+#: field:chricar.budget,amount_qty_stock:0
+msgid "Unsold Stock Value"
 msgstr ""
 
 #. module: chricar_budget
@@ -111,8 +141,7 @@ msgid "chricar.budget.production"
 msgstr ""
 
 #. module: chricar_budget
-#: field:chricar.budget,product_id:0
-#: field:chricar.budget.surface,budget_id:0
+#: field:chricar.budget,product_id:0 field:chricar.budget.surface,budget_id:0
 #: model:ir.model,name:chricar_budget.model_product_product
 msgid "Product"
 msgstr ""
@@ -148,13 +177,13 @@ msgid "Sum ha"
 msgstr ""
 
 #. module: chricar_budget
-#: field:chricar.budget,harvest_yield:0
-msgid "Yield/ha"
+#: help:chricar.budget,product_qty_stock:0
+msgid "Uninvoiced quantitiy of this product"
 msgstr ""
 
 #. module: chricar_budget
-#: field:chricar.budget,product_uom:0
-msgid "Product UOM"
+#: field:chricar.budget,price_unit_id:0
+msgid "Price Unit"
 msgstr ""
 
 #. module: chricar_budget
@@ -163,19 +192,37 @@ msgid "Total surface of field"
 msgstr ""
 
 #. module: chricar_budget
+#: view:chricar.budget:0
+msgid "Sum On Stock"
+msgstr ""
+
+#. module: chricar_budget
+#: field:chricar.budget,product_uom:0
+msgid "Product UOM"
+msgstr ""
+
+#. module: chricar_budget
+#: view:chricar.budget:0
+msgid "Sum Prod Lot"
+msgstr ""
+
+#. module: chricar_budget
+#: view:chricar.budget:0
+msgid "Sum Uninvoiced Value"
+msgstr ""
+
+#. module: chricar_budget
 #: field:chricar.budget,product_qty:0
 msgid "Planned Quantity"
 msgstr ""
 
 #. module: chricar_budget
-#: field:chricar.budget,budget_version_id:0
-#: view:chricar.budget.production:0
+#: field:chricar.budget,budget_version_id:0 view:chricar.budget.production:0
 msgid "Budget Version"
 msgstr ""
 
 #. module: chricar_budget
-#: field:chricar.budget,harvest:0
-#: field:chricar.budget.surface,harvest:0
+#: field:chricar.budget,harvest:0 field:chricar.budget.surface,harvest:0
 msgid "Harvest"
 msgstr ""
 
@@ -195,6 +242,11 @@ msgid "Budget Versions"
 msgstr ""
 
 #. module: chricar_budget
+#: field:chricar.budget,amount:0
+msgid "Total Sales Planned"
+msgstr ""
+
+#. module: chricar_budget
 #: field:chricar.budget.production,name:0
 msgid "Production Budget"
 msgstr ""
@@ -210,14 +262,13 @@ msgid "Fields"
 msgstr ""
 
 #. module: chricar_budget
-#: view:chricar.budget:0
-#: field:chricar.budget,name:0
+#: view:chricar.budget:0 field:chricar.budget,name:0
 msgid "Notes"
 msgstr ""
 
 #. module: chricar_budget
-#: field:chricar.budget,amount:0
-msgid "Total Sales Planned"
+#: view:chricar.budget:0
+msgid "Sum On Lot"
 msgstr ""
 
 #. module: chricar_budget
@@ -247,8 +298,12 @@ msgid "Fiscal Year"
 msgstr ""
 
 #. module: chricar_budget
-#: field:c2c_budget.version,budget_ids:0
-#: view:chricar.budget:0
+#: field:chricar.budget.surface,surface_location:0
+msgid "ha total"
+msgstr ""
+
+#. module: chricar_budget
+#: field:c2c_budget.version,budget_ids:0 view:chricar.budget:0
 #: view:chricar.budget.production:0
 #: model:ir.actions.act_window,name:chricar_budget.chricar_budget_act1
 #: model:ir.ui.menu,name:chricar_budget.menu_chricar_budget_list
@@ -272,8 +327,8 @@ msgid "Budget Versions "
 msgstr ""
 
 #. module: chricar_budget
-#: field:chricar.budget,price_unit_id:0
-msgid "Price Unit"
+#: field:chricar.budget,damage_rembourse:0
+msgid "Damage Rembours"
 msgstr ""
 
 #. module: chricar_budget
@@ -287,6 +342,7 @@ msgid "Budget versions"
 msgstr ""
 
 #. module: chricar_budget
+#: field:chricar.budget,prod_lot_id:0
 #: field:chricar.budget.surface,prodlot_id:0
 msgid "Production Lot"
 msgstr ""
@@ -294,6 +350,11 @@ msgstr ""
 #. module: chricar_budget
 #: help:chricar.budget.surface,harvest_yield:0
 msgid "Harvested yield qty this year on this location"
+msgstr ""
+
+#. module: chricar_budget
+#: field:chricar.budget,damage_yield:0
+msgid "Damage Yield"
 msgstr ""
 
 #. module: chricar_budget
@@ -332,6 +393,16 @@ msgid "Budget Produktion"
 msgstr ""
 
 #. module: chricar_budget
+#: help:chricar.budget,amount_qty_stock:0
+msgid "Stock Qty * Planned Sale Price"
+msgstr ""
+
+#. module: chricar_budget
+#: view:chricar.budget:0
+msgid "Sum Stock Value"
+msgstr ""
+
+#. module: chricar_budget
 #: view:chricar.budget:0
 msgid "Accounting"
 msgstr ""
@@ -356,4 +427,3 @@ msgstr ""
 #: help:chricar.budget,sale_from:0
 msgid "Sale lines will be created aliquot for not individually planned sales"
 msgstr ""
-

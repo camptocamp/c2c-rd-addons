@@ -39,14 +39,14 @@ class sale_order(osv.osv):
                for line in o.order_line:
                    if line.product_id.type == 'product':
                        products = True
-	       # FIXME this should be configurable
-	       if o.order_policy != 'internal':
-	         if products:
-		   self.write(cr, uid, o.id, {'order_policy' : 'picking'})
+               # FIXME this should be configurable
+               if o.order_policy != 'internal':
+                 if products:
+                   self.write(cr, uid, o.id, {'order_policy' : 'picking'})
                  else:
-		   self.write(cr, uid, o.id, {'order_policy' : 'manual'})
+                   self.write(cr, uid, o.id, {'order_policy' : 'manual'})
             #   if not products:
-	    #	       raise osv.except_osv(_('Invalid order policy !'), _('You must not select "Invoice on shipped quantities" for services ! Suggestion: "Deliver & invoice on demand"'))
+            #               raise osv.except_osv(_('Invalid order policy !'), _('You must not select "Invoice on shipped quantities" for services ! Suggestion: "Deliver & invoice on demand"'))
         return super(sale_order,self).action_wait(cr, uid, ids, context)
 
 sale_order()

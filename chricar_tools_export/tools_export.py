@@ -28,51 +28,51 @@ class ir_model(osv.osv):
     #def _psql_csv_export(self, cr, uid, ids, field_name, arg, context=None):
     def _psql_csv_export(self, cr, uid, ids):
         res = {}
-	ir_exports_obj = self.pool.get('ir.exports')
-	ir_exports_line_obj = self.pool.get('ir.exports.line')
+        ir_exports_obj = self.pool.get('ir.exports')
+        ir_exports_line_obj = self.pool.get('ir.exports.line')
         for model in self.browse(cr, uid, ids, context):
             export_ids = ir_exports_obj.search(cr, uid, [('resource', '=', model.model)])
             ir_exports_obj.unlink(cr, uid, export_ids , context=context)
-	    ir_export_id = ir_exports_obj.create(cr, uid, {
+            ir_export_id = ir_exports_obj.create(cr, uid, {
                         'name': 'default_export',
                         'resource': model.model,
-			})
-	    m = model.model.replace('.','_')
+                        })
+            m = model.model.replace('.','_')
             psql = "\o %s.csv"%(m)
             psql = psql +"\n\nselect \'%s_\'||id as id"%(m)
-	    t_exists = False
-	    cr.execute("select True from information_schema.tables where table_name='%s' " % (m))
+            t_exists = False
+            cr.execute("select True from information_schema.tables where table_name='%s' " % (m))
             t_exists = bool(cr.fetchone())
             if t_exists:
              for field in model.field_id:
-		f = field.name
+                f = field.name
 
                 ir_exports_line_obj.create(cr, uid, {
-			'name' : f,
-			'export_id' : ir_export_id 
-			})
+                        'name' : f,
+                        'export_id' : ir_export_id 
+                        })
 
                 export = False
-		cr.execute("select True from information_schema.columns where table_name='%s' and column_name='%s'" % (m,f))
-		f_exists = bool(cr.fetchone())
+                cr.execute("select True from information_schema.columns where table_name='%s' and column_name='%s'" % (m,f))
+                f_exists = bool(cr.fetchone())
                 if f_exists:
                   if field.required == True or field.ttype == 'text':
                     export = True
                   else:
                     cr.execute("select True from %s where \"%s\" is not null limit 1"% (m,f))
-		    export = bool(cr.fetchone())
+                    export = bool(cr.fetchone())
 
                   if field.ttype == 'many2one':
                        r = field.relation.replace('.','_')
-		       f = "\'%s_\'||%s as \"%s:id\"" % (r,f,f)
-		       export = True
-	          else:
-		       f = '"'+f+'"'
+                       f = "\'%s_\'||%s as \"%s:id\"" % (r,f,f)
+                       export = True
+                  else:
+                       f = '"'+f+'"'
                 if export == True:
                     psql = psql + '\n  , ' + f
-		                
+                                
             psql = psql + '\n from '+ m + ';'
-	    res[model.id] = psql
+            res[model.id] = psql
         return res
 
     _inherit = 'ir.model'
@@ -88,8 +88,8 @@ class ir_model(osv.osv):
         model_obj = self.pool.get('ir.model')
         model_ids  = model_obj.search(cr,uid,'')        
         res = {}
-	ir_exports_obj = self.pool.get('ir.exports')
-	ir_exports_line_obj = self.pool.get('ir.exports.line')
+        ir_exports_obj = self.pool.get('ir.exports')
+        ir_exports_line_obj = self.pool.get('ir.exports.line')
         counter = 0.0
         for model in sorted(self.browse(cr, uid, model_ids, context)):
             counter +=1

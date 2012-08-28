@@ -36,13 +36,13 @@
             <field name="name">product.product.pack.tree</field>
             <field name="model">product.product</field>
             <field name="type">tree</field>
-	    <field name="inherit_id" ref="product.product_product_tree_view"/>
+            <field name="inherit_id" ref="product.product_product_tree_view"/>
             <field eval="7" name="priority"/>
             <field name="arch" type="xml">
-	      <field name="virtual_available" position="after">
-		  <field name="pack_qty_available"/>
-		  <field name="pack_name"/>
-	      </field>
+              <field name="virtual_available" position="after">
+                  <field name="pack_qty_available"/>
+                  <field name="pack_name"/>
+              </field>
             </field>
         </record>
         <record id="view_inventory_pack_form" model="ir.ui.view">
@@ -57,7 +57,7 @@
                 </xpath>
             </field>
     </record>
-	<!-- 
+        <!-- 
         <record id="view_inventory_pack_form2" model="ir.ui.view">
             <field name="name">stock.inventory.pack.form</field>
             <field name="model">stock.inventory</field>
@@ -70,7 +70,7 @@
                     <field name="pack_name"/>
                 </xpath>
             </field>
-	</record>
+        </record>
 -->
         
   </data>

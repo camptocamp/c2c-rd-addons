@@ -29,11 +29,11 @@ class sale_order(osv.osv):
     def _print_uom(self, cr, uid, ids, name, args, context=None):
         res = {}
         for order in self.browse(cr, uid, ids, context=context):
-	  print_uom = False
-	  if order.order_line:
+          print_uom = False
+          if order.order_line:
             for line in order.order_line:
                 if not line.product_uos or line.product_uos and line.product_uom != line.product_uos:
-		   print_uom = True
+                   print_uom = True
           res[order.id] =  print_uom
         return res
 
@@ -107,7 +107,7 @@ class sale_order(osv.osv):
              cols += 1
           if order.print_discount:
              cols += 1
-	  if order.print_code:
+          if order.print_code:
              cols += 1
            
           res[order.id] = cols

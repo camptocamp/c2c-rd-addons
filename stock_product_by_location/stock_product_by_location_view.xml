@@ -246,9 +246,9 @@ generated 2009-09-19 23:51:03+02
           <field name="location_dest_id" readonly="1"/>
           <field name="prodlot_id" readonly="1"/>
           <field name="product_qty" readonly="1"/>
-	  <field name="price_unit_id" readonly="1"/>
-	  <!--
-	  <field name="price_unit_sale_id" readonly="1"/>
+          <field name="price_unit_id" readonly="1"/>
+          <!--
+          <field name="price_unit_sale_id" readonly="1"/>
 -->
           <field name="name" readonly="1"/>
         </form>
