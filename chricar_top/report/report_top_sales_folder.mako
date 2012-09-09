@@ -14,8 +14,9 @@
      pre {font-family:helvetica; font-size:12;}
     </style>
 %for top in objects:
-<% setLang(top.partner_id.lang) %>
+<%setLang(top.partner_id.lang)%>
 <h1>${_("Info Folders")}</h1>
+
 <table>
     <tbody>
         <tr>
@@ -79,7 +80,7 @@
         <tr>
         <td>${_("Category")}</td>
         <td>${top.category or ''|entity}</td>
-        </tr>t
+        </tr>
         %endif
 
         %if top.rooms:
@@ -182,8 +183,8 @@ ${top.note_sales or ''|entity}</pre></td>
         %endif
 
       </tbody>
-    <table>
- <p style="page-break-after:always"></p>
+    </table>
+<p style="page-break-after:always"></p>
 %endfor
 </body>
 
