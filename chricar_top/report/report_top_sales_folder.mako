@@ -15,8 +15,8 @@
     </style>
 %for top in objects:
 <% setLang(top.partner_id.lang) %>
+<h1>${_("Info Folders")}</h1>
 <table>
-<h1>${_("Info Folder")}</h1>
     <tbody>
         <tr>
         <td>${_("Object")}</td>
@@ -60,7 +60,7 @@
         %if top.operating_cost:
         <tr>
         <td>${_("Monthly Operating Cost Net")}</td>
-        <td>${formatLang(round(top.operating_cost ,0))} or ''|entity €  
+        <td>${formatLang(round(top.operating_cost ,0)) or '' | entity} €  
           %if top.surface and top.surface <> 0:
             (${formatLang((top.operating_cost or 0 ) / top.surface )}€/m²)
           %endif
