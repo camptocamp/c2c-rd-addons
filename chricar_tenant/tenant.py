@@ -139,7 +139,7 @@ class chricar_top(osv.osv):
              now = time.strftime('%Y-%m-%d %H:%M:%S')
              tenant_obj = self.pool.get('chricar.tenant')
              tenant_ids = tenant_obj.search(cr,uid,['|',('to_date','=',False),('to_date','>',now),('name','<=',now),('top_id','=',p.id)])
-             lease_cur = 0
+             lease_cur = 0.0
              for lease in tenant_obj.browse(cr, uid, tenant_ids,context):
                  lease_cur = lease.lease
              result[p.id] = lease_cur
@@ -152,7 +152,7 @@ class chricar_top(osv.osv):
              now = time.strftime('%Y-%m-%d %H:%M:%S')
              tenant_obj = self.pool.get('chricar.tenant')
              tenant_ids = tenant_obj.search(cr,uid,['|',('to_date','=',False),('to_date','>',now),('name','<=',now),('top_id','=',p.id)])
-             price = 0
+             price = 0.0
              for lease in tenant_obj.browse(cr, uid, tenant_ids,context):
                  price = lease.price
              potential = 0.0

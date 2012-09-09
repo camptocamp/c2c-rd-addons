@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: OpenERP Server 6.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-08-22 15:27+0000\n"
-"PO-Revision-Date: 2012-08-22 17:28+0200\n"
-"Last-Translator: Ferdinand Gassauer\n"
+"PO-Revision-Date: 2012-08-23 15:27+0000\n"
+"Last-Translator: Ferdinand @ Camptocamp <Unknown>\n"
 "Language-Team: American English <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: \n"
-"Plural-Forms: \n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2012-09-05 05:03+0000\n"
+"X-Generator: Launchpad (build 15901)\n"
 "Language: en_US\n"
-"X-Generator: Lokalize 1.5\n"
 
 #. module: account_fiscalyear_info
 #: field:account.fiscalyear,date_balance_publish:0
@@ -73,5 +73,3 @@ msgstr "Bilanz Firmenbuch Einreichung"
 #: field:account.fiscalyear,date_tax_file:0
 msgid "Tax filed to Authorities"
 msgstr "Steuer Erklärung"
-
-

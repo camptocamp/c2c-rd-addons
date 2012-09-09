@@ -173,14 +173,15 @@ class chricar_top(osv.osv):
                                                 ], 'Air Condition' ),
 }
      _defaults = {
-       'active'            : lambda *a: 1,
+       'active'            : lambda *a: True,
        'alarm'             : lambda *a: False,
        'old_building'      : lambda *a: False,
        'floor'             : lambda *a: '0',
-       'balcony'           : lambda *a: '0',
-       'terrace'           : lambda *a: '0',
-       'garage'            : lambda *a: '0',
-       'carport'           : lambda *a: '0',
+       'balcony'           : lambda *a: 0,
+       'terrace'           : lambda *a: 0,
+       'garden'            : lambda *a: 0,
+       'garage'            : lambda *a: 0,
+       'carport'           : lambda *a: 0,
        'heating'           : lambda *a: 'self_contained_central',
        'heating_source'    : lambda *a: 'gas',
        'internet'          : lambda *a: False,
@@ -250,7 +251,7 @@ class chricar_top(osv.osv):
             if top.staircase != '0' or top.floor != '0':    
                  top_name  += '/' 
             top_name += top.name 
-            if top.surface > 0:
+            if top.surface > 0.0:
                 top_name += ' ('+ str(top.surface) + u'm²)'
             
             company = comp_obj.search(cr,1,[('partner_id','=',top.partner_id.id)])
