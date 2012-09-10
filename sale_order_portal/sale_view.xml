@@ -135,8 +135,8 @@
                                 </form>
                                 
                                 <tree string="Sales Order Lines" editable="bottom">
+                                    <field name="categ_name"/>
                                     <!--
-                                    <field name="categ_id"/>
                                     <field name="code"/>
                                     -->
                                     <field context="{'partner_id':parent.partner_id, 'quantity':product_uom_qty, 'pricelist':parent.pricelist_id, 'shop':parent.shop_id, 'uom':product_uom}"
@@ -169,8 +169,8 @@
                      <page string="Ordered Products" attrs="{'readonly':[('state','!=','draft')]}">
                              <field colspan="4" name="order_line_portal_ordered_sorted" nolabel="1" widget="one2many_list">
                                  <tree string="Sales Order Lines" editable="bottom">
+                                    <field name="categ_name"/>
                                     <!--
-                                    <field name="categ_id"/>
                                     <field name="code"/>
                                     -->
                                     <field context="{'partner_id':parent.partner_id, 'quantity':product_uom_qty, 'pricelist':parent.pricelist_id, 'shop':parent.shop_id, 'uom':product_uom}"
@@ -283,7 +283,7 @@
 
 
         <record id="action_order_portal_form" model="ir.actions.act_window">
-            <field name="name">Sales Orders Portal (experimental)</field>
+            <field name="name">Sales Orders Portal</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">sale.order</field>
             <field name="view_type">form</field>
@@ -306,8 +306,11 @@
       <field name="act_window_id" ref="action_order_portal_form"/>
     </record>
 
-        
-        <menuitem action="action_order_portal_form" id="menu_sale_portal_order" parent="base.menu_sales" sequence="3" groups="base.group_sale_salesman,base.group_sale_manager"/>
+        <menuitem icon="terp-partner"
+           id="menu_sale_portal" name="Sale Portal"
+           sequence="0" groups="base.group_sale_salesman,base.group_sale_manager"/>
+
+        <menuitem action="action_order_portal_form" id="menu_sale_portal_order" parent="menu_sale_portal" sequence="3" groups="base.group_sale_salesman,base.group_sale_manager"/>
 
      <!-- SO -->
     <record model="ir.ui.view" id="view_sale_order_tree_portal">
