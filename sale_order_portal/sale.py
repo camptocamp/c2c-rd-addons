@@ -208,15 +208,15 @@ class sale_order_line(osv.osv):
             if line.product_packaging:
                 if res['value']['product_uom_qty'] > line.product_id.qty_available or res['value']['product_uom_qty'] > line.product_id.qty_available - line.product_id.outgoing_qty:
                      pack_name = line.product_packaging.ul.name
-                     res['warning']['message'] = _('The ordered quantity of %s %s ( %s %s) is currently not available, our sales person will contact you to offer alternatives, please just save the data' %
-                    (pack_helper_qty, pack_name, pack_helper_qty * content_qty, line.product_uos.name or line.product_uom.name  ))
+                     warning_msg = _("""The ordered quantity of %s %s (%s %s) is currently not available, our sales person will contact you to offer alternatives, please just save the data""") % \
+                     (pack_helper_qty, pack_name, pack_helper_qty * content_qty, line.product_uos.name or line.product_uom.name  )
+                     res['warning']['message'] = warning_msg
             else:
                 if pack_helper_qty > line.product_id.qty_available or pack_helper_qty > line.product_id.qty_available - line.product_id.outgoing_qty:
                      pack_name = line.product_id.uom_id.name
                      res['value']['product_uom_qty'] = qty
-                     res['warning']['message'] = _('The ordered quantity of %s %s is currently not available, our sales person will contact you to offer alternatives, please just save the data' %
-                    (pack_helper_qty, pack_name))
-
+                     warning_msg = _('The ordered quantity of %s %s is currently not available, our sales person will contact you to offer alternatives, please just save the data') % (pack_helper_qty, pack_name) 
+                     res['warning']['message'] = warning_msg 
         _logger.debug('FGF SO portal pack change warning delete %s', res)
 
         return res
@@ -232,7 +232,6 @@ class sale_order_line(osv.osv):
                 pricelist, product, qty, uom, qty_uos, uos, name, partner_id,
                                         lang, update_tax, date_order, packaging,
                                         fiscal_position, flag, context)
-        #res['warning']['message'] = _('The ordererd quantity is currently not available, our sales person will contact you to offer alternatives')
         if res.get('warning') and res['warning'].get('message'):
             res['warning']['message'] = ''
         return res

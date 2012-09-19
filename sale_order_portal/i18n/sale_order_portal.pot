@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 6.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-08-24 17:05+0000\n"
-"PO-Revision-Date: 2012-08-24 19:10+0200\n"
+"POT-Creation-Date: 2012-09-19 20:35+0000\n"
+"PO-Revision-Date: 2012-09-19 22:37+0200\n"
 "Last-Translator: Ferdinand Gassauer\n"
 "Language-Team: American English <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -19,7 +19,7 @@ msgstr ""
 "X-Generator: Lokalize 1.5\n"
 
 #. module: sale_order_portal
-#: field:sale.order.line,categ_id:0
+#: field:sale.order.line,categ_id:0 field:sale.order.line,categ_name:0
 msgid "Category"
 msgstr ""
 
@@ -31,6 +31,14 @@ msgstr ""
 #. module: sale_order_portal
 #: selection:sale.order,state_portal:0
 msgid "Confirmed"
+msgstr ""
+
+#. module: sale_order_portal
+#: code:addons/sale_order_portal/sale.py:211
+#, python-format
+msgid ""
+"The ordered quantity of %s %s (%s %s) is currently not available, our sales "
+"person will contact you to offer alternatives, please just save the data"
 msgstr ""
 
 #. module: sale_order_portal
@@ -50,8 +58,19 @@ msgid ""
 msgstr ""
 
 #. module: sale_order_portal
+#: model:ir.actions.act_window,name:sale_order_portal.action_order_portal_form
+#: model:ir.ui.menu,name:sale_order_portal.menu_sale_portal_order
+msgid "Sales Orders Portal"
+msgstr ""
+
+#. module: sale_order_portal
 #: field:sale.order,order_line_portal_sorted:0
 msgid "Product to Order"
+msgstr ""
+
+#. module: sale_order_portal
+#: model:ir.ui.menu,name:sale_order_portal.menu_sale_portal
+msgid "Sale Portal"
 msgstr ""
 
 #. module: sale_order_portal
@@ -163,18 +182,15 @@ msgstr ""
 
 #. module: sale_order_portal
 #: view:sale.order:0
-msgid "Ordered"
-msgstr ""
-
-#. module: sale_order_portal
-#: view:sale.order:0
 msgid "History"
 msgstr ""
 
 #. module: sale_order_portal
-#: model:ir.actions.act_window,name:sale_order_portal.action_order_portal_form
-#: model:ir.ui.menu,name:sale_order_portal.menu_sale_portal_order
-msgid "Sales Orders Portal (experimental)"
+#: code:addons/sale_order_portal/sale.py:218
+#, python-format
+msgid ""
+"The ordered quantity of %s %s is currently not available, our sales person "
+"will contact you to offer alternatives, please just save the data"
 msgstr ""
 
 #. module: sale_order_portal
