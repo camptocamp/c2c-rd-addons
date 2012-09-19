@@ -184,7 +184,13 @@ class sale_order_line(osv.osv):
                         packaging=False, fiscal_position=False, flag=False,
                         context=None):
         
-        qty = round(pack_helper_qty * content_qty,0)
+        _logger  = logging.getLogger(__name__)
+        qty = pack_helper_qty
+        if packaging:
+            qty = round(pack_helper_qty * content_qty,0)
+            qty_uos = round(pack_helper_qty * content_qty,0)
+            uos = uom
+
         res = super(sale_order_line, self).product_id_change(cr,uid, ids, 
             pricelist, product, qty,
             uom, qty_uos, uos, name, partner_id,
@@ -194,7 +200,43 @@ class sale_order_line(osv.osv):
 
         res['value']['qty'] = qty
 
+        _logger.debug('FGF SO portal pack change %s', res)
+
+        if res['warning'].get('message'):
+           del res['warning']['message']
+        for line in self.browse(cr, uid, ids, context):
+            if line.product_packaging:
+                if res['value']['product_uom_qty'] > line.product_id.qty_available or res['value']['product_uom_qty'] > line.product_id.qty_available - line.product_id.outgoing_qty:
+                     pack_name = line.product_packaging.ul.name
+                     res['warning']['message'] = _('The ordered quantity of %s %s ( %s %s) is currently not available, our sales person will contact you to offer alternatives, please just save the data' %
+                    (pack_helper_qty, pack_name, pack_helper_qty * content_qty, line.product_uos.name or line.product_uom.name  ))
+            else:
+                if pack_helper_qty > line.product_id.qty_available or pack_helper_qty > line.product_id.qty_available - line.product_id.outgoing_qty:
+                     pack_name = line.product_id.uom_id.name
+                     res['value']['product_uom_qty'] = qty
+                     res['warning']['message'] = _('The ordered quantity of %s %s is currently not available, our sales person will contact you to offer alternatives, please just save the data' %
+                    (pack_helper_qty, pack_name))
+
+        _logger.debug('FGF SO portal pack change warning delete %s', res)
+
         return res
+
+    def product_id_change(self, cr, uid, ids, pricelist, product, qty=0,
+                            uom=False, qty_uos=0, uos=False, name='',
+                            partner_id=False,
+                                        lang=False, update_tax=True,
+                                        date_order=False, packaging=False,
+                                        fiscal_position=False, flag=False,
+                                        context=None):
+        res = super(sale_order_line, self).product_id_change(cr, uid, ids,
+                pricelist, product, qty, uom, qty_uos, uos, name, partner_id,
+                                        lang, update_tax, date_order, packaging,
+                                        fiscal_position, flag, context)
+        #res['warning']['message'] = _('The ordererd quantity is currently not available, our sales person will contact you to offer alternatives')
+        if res['warning'].get('message'):
+            del res['warning']['message']
+        return res
+
 
 sale_order_line()
 
