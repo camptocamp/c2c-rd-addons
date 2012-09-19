@@ -202,8 +202,8 @@ class sale_order_line(osv.osv):
 
         _logger.debug('FGF SO portal pack change %s', res)
 
-        if res['warning'].get('message'):
-           del res['warning']['message']
+        if res.get('warning') and res['warning'].get('message'):
+            res['warning']['message'] = ''
         for line in self.browse(cr, uid, ids, context):
             if line.product_packaging:
                 if res['value']['product_uom_qty'] > line.product_id.qty_available or res['value']['product_uom_qty'] > line.product_id.qty_available - line.product_id.outgoing_qty:
@@ -221,7 +221,7 @@ class sale_order_line(osv.osv):
 
         return res
 
-    def product_id_change(self, cr, uid, ids, pricelist, product, qty=0,
+    def product_id_change_portal(self, cr, uid, ids, pricelist, product, qty=0,
                             uom=False, qty_uos=0, uos=False, name='',
                             partner_id=False,
                                         lang=False, update_tax=True,
@@ -233,8 +233,8 @@ class sale_order_line(osv.osv):
                                         lang, update_tax, date_order, packaging,
                                         fiscal_position, flag, context)
         #res['warning']['message'] = _('The ordererd quantity is currently not available, our sales person will contact you to offer alternatives')
-        if res['warning'].get('message'):
-            del res['warning']['message']
+        if res.get('warning') and res['warning'].get('message'):
+            res['warning']['message'] = ''
         return res
 
 
