@@ -14,7 +14,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2012-09-20 04:56+0000\n"
+"X-Launchpad-Export-Date: 2012-09-21 04:56+0000\n"
 "X-Generator: Launchpad (build 15985)\n"
 "Language: en_US\n"
 
@@ -294,9 +294,3 @@ msgstr "Auftragsposition"
 #: view:sale.order:0
 msgid "Stock Moves"
 msgstr "Lagerbuchungen"
-
-#~ msgid "Ordered"
-#~ msgstr "Bestellt"
-
-#~ msgid "Sales Orders Portal (experimental)"
-#~ msgstr "Sales Orders Portal (experimental)"
