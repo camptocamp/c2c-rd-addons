@@ -54,7 +54,7 @@ where p.name = split_part(i.origin,':',1) and (p.id,i.id) not in (select picking
             default = {}
         default = default.copy()
         default.update({'invoice_ids': [],})
-	return super(stock_picking, self).copy(cr, uid, id, default, context)
+        return super(stock_picking, self).copy(cr, uid, id, default, context)
                 
 
 stock_picking()

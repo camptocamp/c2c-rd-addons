@@ -37,8 +37,8 @@ class account_move_line_change(osv.osv_memory):
         return  {'account_id' : line.account_id.id, 
                  'account_type' : line.account_id.type, 
                  'account_user_type' : line.account_id.user_type.id,
-	             'period_id' : line.period_id.id, 
-	             'period_state' : line.period_id.state,}
+                     'period_id' : line.period_id.id, 
+                     'period_state' : line.period_id.state,}
 
     _columns = {
         'account_id'       : fields.many2one('account.account','Current Account' ),

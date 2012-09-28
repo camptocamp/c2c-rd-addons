@@ -28,7 +28,7 @@ class product_product(osv.osv):
     _inherit = 'product.product'
 
     def name_get(self, cr, uid, ids, context=None):
-	if not context: 
+        if not context: 
              context = {}
         _logger = logging.getLogger(__name__)
         res= super(product_product, self).name_get(cr, uid, ids, context)

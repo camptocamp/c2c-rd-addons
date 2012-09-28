@@ -28,7 +28,7 @@ class account_bank_statement(osv.osv):
     _inherit = "account.bank.statement"
 
     def create_move_from_st_line(self, cr, uid, st_line_id, company_currency_id, next_number, context=None):
-	res = super(account_bank_statement, self).create_move_from_st_line( cr, uid, st_line_id, company_currency_id, next_number, context)
+        res = super(account_bank_statement, self).create_move_from_st_line( cr, uid, st_line_id, company_currency_id, next_number, context)
 
         res_currency_obj = self.pool.get('res.currency')
         account_move_obj = self.pool.get('account.move')
@@ -53,25 +53,25 @@ class account_bank_statement(osv.osv):
                          
             amount_tax = amount_move - amount_net
 
-	    # update amount to amount_net
-	    bank_debit_account_id = st_line.statement_id.journal_id.default_debit_account_id.id
-	    bank_credit_account_id = st_line.statement_id.journal_id.default_credit_account_id.id
-	    move_ids = account_move_line_obj.search(cr, uid, [('move_id','=',res),('account_id','not in',[bank_debit_account_id,bank_debit_account_id])])
-	    entry_posted = st_line.statement_id.journal_id.entry_posted
-	    entry_posted_reset = False
-	    if not entry_posted:
-		# to disable the update check
-		account_journal_obj.write(cr, uid, st_line.statement_id.journal_id.id, {'entry_posted':True})
-	        entry_posted_reset = True
-	    if not len(move_ids) == 1 :
-		    raise osv.except_osv(_('Error !'),
-	            _('must only find one move line %s"') % st_line.name)
+            # update amount to amount_net
+            bank_debit_account_id = st_line.statement_id.journal_id.default_debit_account_id.id
+            bank_credit_account_id = st_line.statement_id.journal_id.default_credit_account_id.id
+            move_ids = account_move_line_obj.search(cr, uid, [('move_id','=',res),('account_id','not in',[bank_debit_account_id,bank_debit_account_id])])
+            entry_posted = st_line.statement_id.journal_id.entry_posted
+            entry_posted_reset = False
+            if not entry_posted:
+                # to disable the update check
+                account_journal_obj.write(cr, uid, st_line.statement_id.journal_id.id, {'entry_posted':True})
+                entry_posted_reset = True
+            if not len(move_ids) == 1 :
+                    raise osv.except_osv(_('Error !'),
+                    _('must only find one move line %s"') % st_line.name)
             if amount_tax>0:
                 account_move_line_obj.write(cr, uid, move_ids, {'credit':amount_net})
-	    else: 
+            else: 
                 account_move_line_obj.write(cr, uid, move_ids, {'debit':-amount_net})
-	    if entry_posted_reset:
-		account_journal_obj.write(cr, uid, st_line.statement_id.journal_id.id, {'entry_posted':False})
+            if entry_posted_reset:
+                account_journal_obj.write(cr, uid, st_line.statement_id.journal_id.id, {'entry_posted':False})
 
             # create tax line
             account_move_line_obj.create(cr, uid, {
@@ -91,7 +91,7 @@ class account_bank_statement(osv.osv):
                     'tax_code_id': st_line.tax_id.tax_code_id.id,
                     } , context=context)
 
-	return res
+        return res
 
     def create_move_from_st_line_v6(self, cr, uid, st_line_id, company_currency_id, st_line_number, context=None):
         if context is None:
@@ -320,15 +320,15 @@ class account_bank_statement_line(osv.osv):
         value = {}
         if tax_id:
             result = self.onchange_tax(cr, uid, ids, tax_id, amount, partner_id)
-	    value = result.get('value') 
+            value = result.get('value') 
             self._logger.debug('r1 `%s` `%s`', result, value)
         
-	if not date:
-	    # FIXME not nice
-	    #v2 = { 'value' : {'date': date_statement}}
-	    #v2a = v2.get('value')
-	    #v1.update(v2a)
-	    value['date']  =  date_statement
+        if not date:
+            # FIXME not nice
+            #v2 = { 'value' : {'date': date_statement}}
+            #v2a = v2.get('value')
+            #v1.update(v2a)
+            value['date']  =  date_statement
         self._logger.debug('r2 `%s`', value)
         return {'value' : value }
         
@@ -340,7 +340,7 @@ class account_bank_statement_line(osv.osv):
         if len(account_obj.tax_ids) == 1:
             self._logger.debug('tax_ids `%s`', account_obj.tax_ids)
             for tax_rec in account_obj.tax_ids:
-                tax_id = tax_rec.id		
+                tax_id = tax_rec.id                
             result = {'value': {
                 'tax_id': tax_id,
             }

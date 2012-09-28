@@ -99,14 +99,14 @@ class account_invoice(osv.osv):
     _inherit = "account.invoice"
 
     def _refund_cleanup_lines(self, cr, uid, lines):
-	for line in lines:
-	  if line.get('price_unit_id'):
-	        line['price_unit_id'] = line['price_unit_id'][0]
-	res = super(account_invoice, self)._refund_cleanup_lines(cr, uid, lines)
-	if res:
+        for line in lines:
+          if line.get('price_unit_id'):
+                line['price_unit_id'] = line['price_unit_id'][0]
+        res = super(account_invoice, self)._refund_cleanup_lines(cr, uid, lines)
+        if res:
           resd = res[0][2]
-	  resd['price_unit_id'] =  line['price_unit_id']
-	  res = [(res[0][0], res[0][1], resd)]
+          resd['price_unit_id'] =  line['price_unit_id']
+          res = [(res[0][0], res[0][1], resd)]
         return res
 
 

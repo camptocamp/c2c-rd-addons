@@ -207,6 +207,7 @@ Modification of Parents (only for matching table prefixes)
           <field name="lease_current"/>
           <field name="lease_current_m2"/>
           <field name="lease_potential"/>
+          <field name="unpaid_rate"/>
         </field>
       </field>
     </record>
@@ -220,6 +221,7 @@ Modification of Parents (only for matching table prefixes)
           <field name="lease_current" sum="Sum Current"/>
           <field name="lease_potential" sum="Sum Potential"/>
           <field name="tenant_id" select="1"/>
+          <field name="unpaid_rate"/>
         </field>
       </field>
     </record>
@@ -232,6 +234,7 @@ Modification of Parents (only for matching table prefixes)
           <field name="lease_current_m2"/>
           <field name="lease_current" sum="Sum Current"/>
           <field name="lease_potential" sum="Sum Potential"/>
+          <field name="unpaid_rate"/>
           <!--
                     <field name="tenant_id" select="1"/>
 -->

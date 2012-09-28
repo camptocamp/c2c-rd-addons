@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+
+    <record model="ir.ui.view" id="account_fiscalyear_data_list">
+      <field name="name">fiscalyear.data.list</field>
+      <field name="model">account.fiscalyear</field>
+      <field name="priority">100</field>
+      <field name="type">tree</field>
+      <field name="arch" type="xml">
+        <tree string="Fiscal Year Data" editable="bottom">
+          <field name="company_id"/>
+          <field name="code"/>
+          <field name="name"/>
+
+          <field name="date_balance_resulution"/>
+          <field name="date_balance_file_reg"/>
+          <field name="date_balance_publish"/>
+          <field name="date_tax_file"/>
+          <field name="date_tax_assessed"/>
+          <field name="date_tax_audit"/>
+          <field name="date_payroll_tax_audit"/>
+        </tree>
+      </field>
+    </record>
+    
+    <record model="ir.actions.act_window" id="account_fiscalyear_data_act1">
+      <field name="name">Fiscal Year extra Data</field>
+      <field name="res_model">account.fiscalyear</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="view_id" ref="account_fiscalyear_data_list"/>
+    </record>
+    <record model="ir.actions.act_window.view" id="account_fiscalyear_data_act1_view2">
+      <field name="sequence" eval="1"/>
+      <field name="view_mode">tree</field>
+      <field name="view_id" ref="account_fiscalyear_data_list"/>
+      <field name="act_window_id" ref="account_fiscalyear_data_act1"/>
+    </record>
+    <!--
+    <record model="ir.actions.act_window.view" id="account_fiscalyear_data_act1_view1">
+      <field name="sequence" eval="2"/>
+      <field name="view_mode">form</field>
+      <field name="view_id" ref="account_fiscalyear_data_form"/>
+      <field name="act_window_id" ref="account_fiscalyear_data_act1"/>
+    </record>
+    -->
+    <menuitem
+      action="account_fiscalyear_data_act1"
+      id="menu_account_fiscalyear_data_list"
+      parent="account.next_id_23"
+      sequence="10"/>
+  </data>
+</openerp>

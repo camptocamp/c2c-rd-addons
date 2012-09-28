@@ -53,13 +53,14 @@ class payment_order_create(osv.osv_memory):
         if context is None : context = {}
         order_obj = self.pool.get('payment.order')
         line_obj  = self.pool.get('account.move.line')
+        invoice_obj  = self.pool.get('account.invoice')
         mod_obj   = self.pool.get('ir.model.data')
         obj       = self.browse(cr, uid, ids, context=context)[0]
         payment   = order_obj.browse(cr, uid, context['active_id'], context=context)
         domain    = \
             [ ('reconcile_id', '=', False)
             , ('account_id.type', '=', 'payable')
-            , ('amount_to_pay', '>', 0)
+            # , ('amount_to_pay', '>', 0) # see later in if statements
             ]
         domain   += \
             [ '|'
@@ -71,11 +72,17 @@ class payment_order_create(osv.osv_memory):
         for line in line_obj.browse(cr, uid, ids) :
             if line.invoice.payment_block : continue
             if line.move_id.state == 'draft' : continue # FGF no idea why this fails
-            if (line.invoice and not line.invoice.partner_bank_id) and payment.mode.require_bank_account : continue
             if line.partner_id.payment_block : continue
             if (line.partner_id.payment_obey_balance 
                 and obj.balance_filter 
                 and not ((line.partner_id.debit - line.partner_id.credit) >= obj.min_balance)) : continue
+            # FIXME - GKö - currently no bank account invoice - hence records are not selected
+            # manual creation puts bank account into invoice
+            if (line.invoice and not line.invoice.partner_bank_id):
+                if not line.invoice.partner_id.bank_ids and payment.mode.require_bank_account : 
+                    continue
+                else:
+                    invoice_obj.write(cr, uid, line.invoice.id, {'partner_bank_id' : line.invoice.partner_id.bank_ids[0].id })
             line_ids.append(line.id)
         context.update({'line_ids': line_ids})
         model_data_ids = mod_obj.search \

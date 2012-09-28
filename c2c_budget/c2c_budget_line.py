@@ -47,7 +47,7 @@ class c2c_budget_line(osv.osv):
         result = []
         self._logger.debug('periods_ids `%s`', periods_ids)
         self._logger.debug('lines `%s`', periods_ids)
-	 
+         
         if len(periods_ids) == 0:
             return result
         for l in lines :

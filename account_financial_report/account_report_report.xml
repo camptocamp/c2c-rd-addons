@@ -2,62 +2,62 @@
 <openerp>
   <data >
 
-	# Report full account balance
+        # Report full account balance
         <report
             id="account_balance_full"
             string="**Full account balance"
             model="account.account"
             name="account.balance.full"
             rml="account_financial_report/report/account_balance_full.rml"
-			header="False"
-			auto="False"
-			menu="False"/>
+                        header="False"
+                        auto="False"
+                        menu="False"/>
 
-	# Report cumulative general ledger
+        # Report cumulative general ledger
         <report
             id="account_general_ledger_cumulative"
             string="**Cumulative general ledger"
             model="account.account"
             name="account.general.ledger.cumulative"
             rml="account_financial_report/report/general_ledger.rml"
-			header="False"
-			auto="False"
-			menu="False"/>
+                        header="False"
+                        auto="False"
+                        menu="False"/>
 
-	# Report cumulative general ledger landscape
+        # Report cumulative general ledger landscape
         <report
             id="account_general_ledger_cumulative_landscape"
             string="**Cumulative general ledger landscape"
             model="account.account"
             name="account.general.ledger.cumulative.landscape"
             rml="account_financial_report/report/general_ledger_landscape.rml"
-			header="False"
-			auto="False"
-			menu="False"/>
+                        header="False"
+                        auto="False"
+                        menu="False"/>
 
-	# Report account chart
-		<report
+        # Report account chart
+                <report
             id="account_account_chart_report"
-			string="**Chart of accounts"
-			model="account.account"
-			name="account.account.chart.report"
-			rml="account_financial_report/report/account_chart.rml"
-			header="False"
-			auto="False"
-			menu="True"/>
+                        string="**Chart of accounts"
+                        model="account.account"
+                        name="account.account.chart.report"
+                        rml="account_financial_report/report/account_chart.rml"
+                        header="False"
+                        auto="False"
+                        menu="True"/>
 
-	# Report invoice list
-		<report
+        # Report invoice list
+                <report
             id="account_invoice_list_report"
-			string="**Invoice list"
-			model="account.invoice"
-			name="account.invoice.list.report"
-			rml="account_financial_report/report/invoice_list.rml"
-			header="False"
-			auto="False"
-			menu="True"/>
+                        string="**Invoice list"
+                        model="account.invoice"
+                        name="account.invoice.list.report"
+                        rml="account_financial_report/report/invoice_list.rml"
+                        header="False"
+                        auto="False"
+                        menu="True"/>
 
-	# Report account move line
+        # Report account move line
         <report
             id="report_account_move_line"
             string="**Entry lines"
@@ -67,7 +67,7 @@
             header="False"
             auto="True"/>
 
-	# Report account move
+        # Report account move
         <report
             id="report_account_move_line_record"
             string="**Entry"

@@ -81,14 +81,14 @@ class c2c_budget_item(osv.osv):
     def budget_item_parent_rel_create(self, cr, uid, parent_ids, context): 
         _logger = logging.getLogger(__name__)
         budget_item_obj = self.pool.get('c2c_budget.item')
-	company_id = context['company_id']
+        company_id = context['company_id']
         _logger.debug('FGF parent dict company_id %s' % (company_id))
         cr.execute("""select a.code, p.code
              from account_account a,
                   account_account p
             where p.id = a.parent_id
-	      and a.company_id = p.company_id
-	      and a.company_id = %s
+              and a.company_id = p.company_id
+              and a.company_id = %s
            """ % ( company_id))
         parent_dict = dict(cr.fetchall())
         _logger.debug('FGF parent dict %s' % (parent_dict))
@@ -103,7 +103,7 @@ class c2c_budget_item(osv.osv):
                 code_parent = parent_dict[item.code]
                 budget_item_id = budget_item_obj.search(cr, uid, [('code','=',item.code)],context=context)[0]
                 budget_parent_id = budget_item_obj.search(cr, uid, [('code','=',code_parent)],context=context)[0]
-		# if a item structure exists we must append the new structure to the existing one
+                # if a item structure exists we must append the new structure to the existing one
                 parent_rel.append((budget_item_id, budget_parent_id))
             except:
                 _logger.debug('FGF parent pass %s' % (item.code))
@@ -121,22 +121,22 @@ class c2c_budget_item(osv.osv):
 
     def budget_parent(self, cr, uid, context):
         _logger = logging.getLogger(__name__)
-	budget_top_id = context['budget_top_id']
-	if budget_top_id:   
-	   missing_top = self.search(cr, uid,[('id','!=', budget_top_id),('parent_id','=',False )],context=context)
-	   _logger.debug('FGF missing top %s %s' % (budget_top_id, missing_top))
+        budget_top_id = context['budget_top_id']
+        if budget_top_id:   
+           missing_top = self.search(cr, uid,[('id','!=', budget_top_id),('parent_id','=',False )],context=context)
+           _logger.debug('FGF missing top %s %s' % (budget_top_id, missing_top))
            if missing_top:
-	       self.write(cr,uid,missing_top,{'parent_id': budget_top_id})
+               self.write(cr,uid,missing_top,{'parent_id': budget_top_id})
 
     def budget_item_account_rel(self, cr, uid, context):
         _logger = logging.getLogger(__name__)
-	company_id = context['company_id']
+        company_id = context['company_id']
         cr.execute(""" select a.id as account_id,b.id budget_item_id 
                          from account_account a,
                               c2c_budget_item b
                         where a.code = b.code
                           and b.type != 'view'
-			  and a.company_id = %s
+                          and a.company_id = %s
                           and (a.id,b.id) not in (select account_id ,b.id as budget_item_id from c2c_budget_item_account_rel);"""  %(company_id))
         for missing in cr.dictfetchall():
             _logger.debug('FGF missing rel %s' % (missing))
@@ -148,7 +148,7 @@ class c2c_budget_item(osv.osv):
         _logger = logging.getLogger(__name__)
         budget_item_obj = self.pool.get('c2c_budget.item')
         budget_top_id = budget_item_obj.search(cr, uid, [('parent_id','=',False)])[0]
-	context['budget_top_id'] = budget_top_id
+        context['budget_top_id'] = budget_top_id
         # will create missing budget items + structure as for accounts
         user_type_ids = self.pool.get('account.account.type').search(cr, uid, [('code','in',['income','expense'])])
         if context.get('company_id'):
@@ -178,7 +178,7 @@ class c2c_budget_item(osv.osv):
             _logger.debug('FGF items missing %s' % (val1))
             budget_item_obj.create(cr, uid, val1, context)
         # create missing view structure
-	context['company_id'] = company_id
+        context['company_id'] = company_id
         budget_item_obj.budget_item_views_create(cr, uid, parent_ids, context) 
         budget_item_obj.budget_item_parent_rel_create(cr, uid, parent_ids, context) 
         budget_item_obj.budget_item_account_rel(cr, uid, context)

@@ -28,7 +28,7 @@ class account_bank_statement_line(osv.osv):
     def _get_statement_date(self, cursor, user, ids,  context=None):
         res = {}        
         for line in self.browse(cursor, user, ids, context=context):
-	    if line and line.statement_id:
+            if line and line.statement_id:
                 res[line.id] = line.statement_id.date or ''
         return res    
 

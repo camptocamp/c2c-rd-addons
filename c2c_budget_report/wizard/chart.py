@@ -118,10 +118,10 @@ class budget_item_chart(osv.osv_memory):
         if context is None:
             context = {}
         data = self.read(cr, uid, ids, [], context=context)[0]
-	if data['calc_sequence']:
-	   cr.execute("""
-	     select  c2c_budget_sequence();
-	   """)
+        if data['calc_sequence']:
+           cr.execute("""
+             select  c2c_budget_sequence();
+           """)
         self._logger.debug('open `%s` `%s` `%s`', context.get('open'), data['period_from'][0],  data['period_to'][0])
         if context.get('open')  == 'view':
             result = mod_obj.get_object_reference(cr, uid, 'c2c_budget', 'open_budget_items_tree')
@@ -144,7 +144,7 @@ class budget_item_chart(osv.osv_memory):
                 result['context'] = str({'fiscalyear': data['fiscalyear'][0], 
                                 'chart_account_id' : data['chart_account_id'][0],
                                 'periods': result['periods'], 
-				'periods_budget' : result['periods_budget'] ,
+                                'periods_budget' : result['periods_budget'] ,
                                 'print_all_zero'  : data['print_all_zero'],
                                 'print_chapter'   : data['print_chapter'],
                                 'print_opening_dc': data['print_opening_dc'],

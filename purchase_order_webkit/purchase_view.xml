@@ -3,27 +3,27 @@
 
         <record id="view_order_sorted_form" model="ir.ui.view">
         <field name="name">purchase.order.sorted.form</field>
-	<field name="model">purchase.order</field>
+        <field name="model">purchase.order</field>
         <field name="type">form</field>
         <field name="inherit_id" ref="purchase.purchase_order_form"/>
-	<field name="arch" type="xml">
-		<xpath expr="/form/notebook/page[@string='Notes']" position="after">
+        <field name="arch" type="xml">
+                <xpath expr="/form/notebook/page[@string='Notes']" position="after">
             <page string="Sorted Lines">
-		    <field colspan="4" name="order_line_sorted" nolabel="1" widget="one2many_list" readonly="1"/>
-	    </page>
+                    <field colspan="4" name="order_line_sorted" nolabel="1" widget="one2many_list" readonly="1"/>
+            </page>
     </xpath>
     </field>
     </record>
 
         <record id="view_order_terms_form" model="ir.ui.view">
         <field name="name">purchase.order.terms.form</field>
-	<field name="model">purchase.order</field>
+        <field name="model">purchase.order</field>
         <field name="type">form</field>
         <field name="inherit_id" ref="purchase.purchase_order_form"/>
-	<field name="arch" type="xml">
-		<xpath expr="/form/notebook/page[@string='Purchase Order']/field[@name='partner_address_id']" position="after">
-		    <field  name="payment_term" />
-		    <field  name="incoterm" />
+        <field name="arch" type="xml">
+                <xpath expr="/form/notebook/page[@string='Purchase Order']/field[@name='partner_address_id']" position="after">
+                    <field  name="payment_term" />
+                    <field  name="incoterm" />
     </xpath>
     </field>
     </record>

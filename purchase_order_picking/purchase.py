@@ -35,13 +35,13 @@ class purchase_order(osv.osv):
         _logger = logging.getLogger(__name__)
         
         res = super(purchase_order, self)._prepare_order_line_move(cr, uid, order, order_line, picking_id, context)
-	prod_obj = self.pool.get('product.product')
-	prod_id = res['product_id']
+        prod_obj = self.pool.get('product.product')
+        prod_id = res['product_id']
         self._logger.debug('FGF PO prepare line %s %s' % (prod_id, res))
-	for prod in  prod_obj.browse(cr, uid, [prod_id] ,context):
-	    if len(prod.packaging):
-		res['product_packaging'] = prod.packaging[0].id
-	
+        for prod in  prod_obj.browse(cr, uid, [prod_id] ,context):
+            if len(prod.packaging):
+                res['product_packaging'] = prod.packaging[0].id
+        
         self._logger.debug('FGF PO prepare line `%s`', res)
 
         

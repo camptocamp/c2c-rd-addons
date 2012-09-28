@@ -74,9 +74,9 @@ class stock_move(osv.osv):
            move_value = 0.0
            res = {'value' : {
             'product_id' : product_id,
-	    'date_expected' : time.strftime('%Y-%m-%d %H:%M:%S'),
-	    'date_planned' : date_planned,
-	    'date'         : time.strftime('%Y-%m-%d %H:%M:%S'),
+            'date_expected' : time.strftime('%Y-%m-%d %H:%M:%S'),
+            'date_planned' : date_planned,
+            'date'         : time.strftime('%Y-%m-%d %H:%M:%S'),
             'product_uom' : product_uom,
             'location_id' : location_src_id,
             'location_dest_id' : location_dest_id,

@@ -243,12 +243,12 @@ generated 2009-09-19 23:51:03+02
           <field name="prodlot_id" select="1"/>
           <field name="product_qty" select="1"/>
           <field name="move_value_cost" select="1" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant"/>
-	  <field name="move_value_sale" select="1" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant"/>
-	  <!--
+          <field name="move_value_sale" select="1" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant"/>
+          <!--
           <field name="price_unit_id" select="1"/>
-	  <field name="price_unit_sale_id" select="1"/>
-	  -->
-	  <field name="name" select="1"/>
+          <field name="price_unit_sale_id" select="1"/>
+          -->
+          <field name="name" select="1"/>
           <field name="state" invisible="1"/>
         </form>
       </field>
@@ -269,10 +269,10 @@ generated 2009-09-19 23:51:03+02
           <field name="product_qty" select="1" sum="Product Qty"/>
           <field name="move_value_cost" select="1" sum="Value Cost" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant"/>
           <field name="avg_price_calc" select="1" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant"/>
-	  <field name="move_value_sale" select="1" sum="Value Sale" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant"/>
-	  <!--
+          <field name="move_value_sale" select="1" sum="Value Sale" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant"/>
+          <!--
           <field name="price_unit_id" select="1"/>
-	  <field name="price_unit_sale_id" select="1"/>
+          <field name="price_unit_sale_id" select="1"/>
 -->
           <field name="name" select="1"/>
           <field name="state" select="1"/>

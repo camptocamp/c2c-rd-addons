@@ -97,8 +97,8 @@ class account_fy_period_sum(osv.osv):
         , 'balance'            : fields.float   ('Balance Period', digits_compute=dp.get_precision('Account')    ,readonly=True)
         , 'balance_cumulative' : fields.float   ('Balance cumulativ', digits_compute=dp.get_precision('Account')    ,readonly=True)
 #        , 'sum_fy_period_id'   : fields.integer ('Account FY id'             ,readonly=True)
-        , 'date_start'	   : fields.date    ('Date Start',readonly=True)
-        , 'date_stop'	   : fields.date    ('Date Stop' ,readonly=True)
+        , 'date_start'           : fields.date    ('Date Start',readonly=True)
+        , 'date_stop'           : fields.date    ('Date Stop' ,readonly=True)
         , 'move_line_ids'      : fields.one2many('account.move.line','account_period_sum_id','Account_moves')
         }
     _order = 'date_start asc,name'
@@ -271,7 +271,7 @@ create or replace view account_account_fiscalyear_sum as
       y.id,
       to_char(y.date_stop,'YYYY') || case when to_char(y.date_stop,'MM')  != '12'
                                      then  '-'||to_char(y.date_stop,'MM')
-                                     else '' end	    ,
+                                     else '' end            ,
       y.date_start,
       y.date_stop;
 """)

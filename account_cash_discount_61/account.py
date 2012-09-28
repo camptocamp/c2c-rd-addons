@@ -36,7 +36,7 @@ class account_voucher(osv.osv):
         res = super(account_voucher,self).writeoff_move_line_get(cr, uid, voucher_id, line_total, move_id, name, company_currency, current_currency, context=None)
         self._logger.debug('reconcile - voucher writeoff A voucher_id, move_id: %s %s' % (voucher_id, move_id ))
         self._logger.debug('reconcile - voucher writeoff B context: %s' % context)
-	if res:
+        if res:
             res['is_write_off']=True
         self._logger.debug('reconcile - voucher writeoff: %s' % res)
         return res
@@ -69,7 +69,7 @@ class account_move_line(osv.osv):
         return res
 
     def reconcile_cash_discount(self, cr, uid, ids, move_ids, lines, write_off_ids=None, context=None):
-	if not context:
+        if not context:
            context = {}
         self._logger.debug('reconcile - action_move_line_create  voucher ids, context %s,%s' % (ids, context))
         move_obj = self.pool.get('account.move')
@@ -257,8 +257,8 @@ class account_move_line(osv.osv):
             self._logger.debug('reconcile - writeoff deb/cred remaining: %s/%s ' % (write_off_debit,write_off_credit))
             if not float_is_zero(write_off_debit, prec):
                 self._logger.debug('reconcile - write_off_debit: %s' % write_off_debit)
-		if not context.get('writeoff_acc_id',False):
-	             raise osv.except_osv (_('Error !'), _('No write off account defined.'))
+                if not context.get('writeoff_acc_id',False):
+                     raise osv.except_osv (_('Error !'), _('No write off account defined.'))
                 mlt = dict(ml)
                 mlt.update({
                        'debit' : write_off_debit,
@@ -270,8 +270,8 @@ class account_move_line(osv.osv):
                 move_line_obj.create(cr, uid, mlt)
             if not float_is_zero(write_off_credit, prec): 
                 self._logger.debug('reconcile - write_off_credit: %s' % write_off_credit)
-		if not context.get('writeoff_acc_id',False):
-	             raise osv.except_osv (_('Error !'), _('No write off account defined.'))
+                if not context.get('writeoff_acc_id',False):
+                     raise osv.except_osv (_('Error !'), _('No write off account defined.'))
                 mlt = dict(ml)
                 mlt.update({
                        'credit' : write_off_credit,
@@ -298,9 +298,9 @@ class account_move_line(osv.osv):
         
     
     def reconcile(self, cr, uid, ids, type='auto', writeoff_acc_id=False, writeoff_period_id=False, writeoff_journal_id=False, context=None):
-	if not context :
+        if not context :
             context = {}
-	context['writeoff_acc_id'] = writeoff_acc_id
+        context['writeoff_acc_id'] = writeoff_acc_id
         move_line_obj = self.pool.get('account.move.line')
 
         lines_selected = []

@@ -29,7 +29,7 @@ class account_move(osv.osv):
 
     def post_incompatible(self, cr, uid, ids, context=None):
         self._logger.debug('post move context `%s`', context)
-	if not context:
+        if not context:
             context= {}
         journal_id = context.get('journal_id')
         period_id = []

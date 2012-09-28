@@ -74,8 +74,8 @@ generated 2009-08-18 23:44:30+02
             <field
               colspan="4"
               domain="[('supply_method' ,'=', 'produce')]"
-	      name="product_id"
-	      on_change="product_id_change(product_id)"
+              name="product_id"
+              on_change="product_id_change(product_id)"
               select="1"/>
           </group>
           <group string="Accounting" colspan="2" col="4">
@@ -103,7 +103,7 @@ generated 2009-08-18 23:44:30+02
                              <field name="partner_id" select="1" />
                              -->
             <field name="budget_version_id" select="1"/>
-	    <field name="prod_lot_id" select="1" domain="[('product_id','=',product_id)]" context="{'product_id':product_id}"/>
+            <field name="prod_lot_id" select="1" domain="[('product_id','=',product_id)]" context="{'product_id':product_id}"/>
             <field name="amount_prod_lot"/>
             <field name="surface_unused"/>
             <field name="location_ids" widget="one2many_list" nolabel="1" colspan="2">
@@ -122,7 +122,7 @@ generated 2009-08-18 23:44:30+02
                 <field name="harvest" sum="Sum Harvest"/>
                 <field name="harvest_yield"/>
                 <field name="product_id"/>
-		<field name="prodlot_id"  domain="[('product_id','=',product_id)]" context="{'product_id':product_id}"/>
+                <field name="prodlot_id"  domain="[('product_id','=',product_id)]" context="{'product_id':product_id}"/>
               </tree>
               <form string="Fields">
                 <field
@@ -138,7 +138,7 @@ generated 2009-08-18 23:44:30+02
                 <field name="harvest"/>
                 <field name="harvest_yield"/>
                 <field name="product_id"/>
-		<field name="prodlot_id"  domain="[('product_id','=',product_id)]" context="{'product_id':product_id}"/>
+                <field name="prodlot_id"  domain="[('product_id','=',product_id)]" context="{'product_id':product_id}"/>
               </form>
             </field>
             <!--
@@ -171,7 +171,7 @@ generated 2009-08-18 23:44:30+02
           <field
             domain="[('supply_method' ,'=', 'produce')]"
             name="product_id"
-	    on_change="product_id_change(product_id)"
+            on_change="product_id_change(product_id)"
             select="1"/>
           <field name="product_uom"/>
           <field name="surface" select="1" sum="Sum Surface"/>

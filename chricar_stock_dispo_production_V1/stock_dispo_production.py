@@ -67,14 +67,14 @@ class stock_move(osv.osv):
 
         if category == 'big':
             if not name:
-	        name = 'Übergröße'
+                name = 'Übergröße'
             if location_big_id:
                 location_dest_id = location_big_id
             else:
                 location_dest_id = location_id
 
         if category == 'small':
-	    if not name:
+            if not name:
                 name = 'Untergröße'
             if location_small_id:
                 location_dest_id = location_small_id
@@ -82,7 +82,7 @@ class stock_move(osv.osv):
                 location_dest_id = location_id
 
         if category == 'faulty':
-	    if not name:
+            if not name:
                 name = 'Mangelware'
             if location_faulty_id:
                 location_dest_id = location_faulty_id
@@ -90,7 +90,7 @@ class stock_move(osv.osv):
                 location_dest_id = location_id
 
         if category == 'waste':
-	    if not name:
+            if not name:
                 name = 'Abfall'
             if location_waste_id:
                 location_dest_id = location_waste_id
@@ -101,7 +101,7 @@ class stock_move(osv.osv):
         if not product_id:
             move_value_cost = 0.0
         else:
-	    product = self.pool.get('product.product').browse(cr, uid, [product_id])[0]
+            product = self.pool.get('product.product').browse(cr, uid, [product_id])[0]
             if product:
                 move_value_cost = round(product.standard_price * product_qty,2)
   
@@ -169,7 +169,7 @@ class sale_order_line(osv.osv):
     _inherit = "sale.order.line"
     
     def _move_state(self, cr, uid, ids, names=None, arg=False, context=None):
-	_logger = logging.getLogger(__name__)
+        _logger = logging.getLogger(__name__)
         res = {}
         for line in self.browse(cr, uid, ids, context):
             _logger.debug('FGF move_state line %s' % (line))
@@ -268,7 +268,7 @@ class sale_order_line(osv.osv):
             , readonly=True
             , states=_states_mask
             , search=[('category', '=', 'sell')]
-	    , order  = 'id'
+            , order  = 'id'
         #    , set={'category' : 'sell'}
             )
         , 'stock_dispo_production_small_ids' : one2many_sorted.one2many_sorted
@@ -278,7 +278,7 @@ class sale_order_line(osv.osv):
             , readonly=True
             , states=_states_mask
             , search=[('category', '=', 'small')]
-	    , order  = 'id'
+            , order  = 'id'
         #    , set={'category' : 'small'}
             )
         , 'stock_dispo_production_big_ids'   : one2many_sorted.one2many_sorted
@@ -288,7 +288,7 @@ class sale_order_line(osv.osv):
             , readonly=True
             , states=_states_mask
             , search=[('category', '=', 'big')]
-	    , order  = 'id'
+            , order  = 'id'
         #    , set={'category' : 'big'}
             )
         , 'stock_dispo_production_faulty_ids': one2many_sorted.one2many_sorted
@@ -298,7 +298,7 @@ class sale_order_line(osv.osv):
             , readonly=True
             , states=_states_mask
             , search=[('category', '=', 'faulty')]
-	    , order  = 'id'
+            , order  = 'id'
         #    , set={'category' : 'faulty'}
             )
         , 'stock_dispo_production_waste_ids' : one2many_sorted.one2many_sorted
@@ -308,7 +308,7 @@ class sale_order_line(osv.osv):
             , readonly=True
             , states=_states_mask
             , search=[('category', '=', 'waste')]
-	    , order  = 'id'
+            , order  = 'id'
             )
         , 'stock_dispo_production_draft_ids' : one2many_sorted.one2many_sorted
             ( 'stock.move'
@@ -317,7 +317,7 @@ class sale_order_line(osv.osv):
             , readonly=True
             , states=_states_mask
             , search=[('state', '=', 'draft')]
-	    , order  = 'id'
+            , order  = 'id'
         #.    , set={'category' : 'waste'}
             )
         , 'stock_dispo_production_ids'       : fields.one2many

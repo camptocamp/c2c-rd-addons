@@ -91,11 +91,11 @@ class c2c_budget_line(osv.osv):
      def _amount_cash_cum (self,cr, uid, ids, name, arg, context=None):
         result = {}
         for plan in self.browse (cr, uid, ids) :
-	    date_due = plan.date_planning
-	    if plan.date_due:
-	        date_due = plan.date_due
-	    if not date_due:
-	        date_due = plan.period_id.date_stop
+            date_due = plan.date_planning
+            if plan.date_due:
+                date_due = plan.date_due
+            if not date_due:
+                date_due = plan.period_id.date_stop
             cr.execute("""select sum(l.amount) 
                             from c2c_budget_line l,
                                  c2c_budget_item i,
@@ -156,8 +156,8 @@ class c2c_budget_line(osv.osv):
        'date_planning'      : fields.date     ('Date Planning'),
        'is_current'         : fields.function (_is_current, method=True, type="boolean", string="Is Current",
                                 store = {
-				  'c2c_budget.version': (_is_current_version,['is_current'], 10),
-				  'c2c_budget.item': (_is_cash,['is_cash'], 10)}
+                                  'c2c_budget.version': (_is_current_version,['is_current'], 10),
+                                  'c2c_budget.item': (_is_cash,['is_cash'], 10)}
                                               ),
                                     
        'state'              : fields.selection([('draft','Draft'), ('planned','Planned'), ('product','Product'), ('done','Done'),('cancel','Canceled')], 'Status',
@@ -190,7 +190,7 @@ class chricar_budget_lines_production(osv.osv):
         res = {}
         for line in self.browse(cr, uid, ids, context=context):
           q = line.quantity
-	  if line.budget_id:
+          if line.budget_id:
             if line.quantity_base == 'surface':
                q = line.budget_id.surface
             if line.quantity_base == 'product_qty':
@@ -570,7 +570,7 @@ class chricar_budget(osv.osv):
 
         # create new lines for not individually planned sales
       def button_auto_generate_sale_lines(self, cr, uid, ids, context=None):
-	# Call delete function instead of copy
+        # Call delete function instead of copy
        self._logger.debug('autogenerate `%s`', context)
        for prod_plan in self.browse(cr, uid, ids, context):
         period_obj  = self.pool.get('account.period')
@@ -672,7 +672,7 @@ class chricar_budget(osv.osv):
                   'auto_type' : 'sale',
                   'name' : 'generated '+ prod_plan.product_id.name + ' - ' + (prod_plan.product_id.variants or '') ,
                   'quantity' : qty_monthly,
-		  'currency_id' : prod_plan.budget_version_id.currency_id.id,
+                  'currency_id' : prod_plan.budget_version_id.currency_id.id,
                         }
                  self._logger.debug('vals    `%s`', vals)
                  bls_obj.create(cr, uid, vals )
@@ -708,7 +708,7 @@ class chricar_budget(osv.osv):
                   'auto_generated' : 1,
                   'auto_type' : 'cost',
                   'name' : 'generated cost '+ prod_plan.product_id.name + ' - ' + (prod_plan.product_id.variants or '') ,
-		  'currency_id' : prod_plan.budget_version_id.currency_id.id,
+                  'currency_id' : prod_plan.budget_version_id.currency_id.id,
                   }
               self._logger.debug('vals cost `vals_costs`', vals_cost)
               bls_obj.create(cr, uid, vals_cost )
@@ -731,7 +731,7 @@ class chricar_budget(osv.osv):
                   'auto_generated' : 1,
                   'auto_type' : 'cost',
                   'name' : 'generated production value '+ prod_plan.product_id.name + ' - ' + (prod_plan.product_id.variants or '') ,
-		  'currency_id' : prod_plan.budget_version_id.currency_id.id,
+                  'currency_id' : prod_plan.budget_version_id.currency_id.id,
                   }
           self._logger.debug('vals cost `%s`', vals_cost)
           bls_obj.create(cr, uid, vals_cost )

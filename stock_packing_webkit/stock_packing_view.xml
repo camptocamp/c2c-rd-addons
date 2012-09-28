@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
-	<data>
+        <data>
         <record id="vpicktree_address" model="ir.ui.view">
             <field name="name">stock.picking.address.tree</field>
             <field name="model">stock.picking</field>
