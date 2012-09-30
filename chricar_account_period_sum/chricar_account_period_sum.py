@@ -31,6 +31,7 @@ from tools.translate import _
 import decimal_precision as dp
 import logging
 
+
 # name should hold the period name + special names
 
 class account_period(osv.osv):
@@ -449,6 +450,31 @@ class account_account_period_sum_delta(osv.osv):
         self._logger.debug('periods `%s`', periods)
         return periods
 
+    class one2many_movelines (fields.one2many):
+        #_logger      = logging.getLogger(_name)
+        def get (self, cr, obj, ids, name, user=None, offset=0, context=None, values={}):
+            res = {}
+            for id in ids :
+                res[id] = []
+                print "ID",id
+                per = obj.pool.get('account.account.period.sum.delta').browse(cr, user, id, context=context)
+                ids2 = obj.pool.get (self._obj).search \
+                    ( cr
+                    , user
+                    , [ ('company_id', '=', per.company_id.id)
+                      , ('account_id', '=', per.account_id.id)
+                      , ('period_id', '=', per.period_id.id)
+                      ]
+                    , limit = self._limit
+                    )
+                for r in ids2:
+                    #self._logger.debug('r_ids2 `%s`', r)
+                    res [per.id].append(r)
+            return res
+        #  set missing
+    # end class one2many_periods
+
+
     _columns = \
         { 'name'             : fields.char    ('Period', size=16,readonly=True)
         , 'company_id'       : fields.many2one('res.company', 'Company', required=True)
@@ -464,7 +490,7 @@ class account_account_period_sum_delta(osv.osv):
         , 'balance_prev_cum' : fields.function(__balance_cum, digits_compute=dp.get_precision('Account'), method=True, string='Prev Cum', multi='balance_cum',readonly=True)
         , 'balance_diff_cum' : fields.function(__balance_cum, digits_compute=dp.get_precision('Account'), method=True, string='Diff Cum', multi='balance_cum',readonly=True)
         , 'balance_diff_pro_cum' : fields.function(__balance_cum, digits_compute=dp.get_precision('Account'), method=True, string='Diff Cum %', multi='balance_cum',readonly=True)
-#        , 'balance_cumulative' : fields.float   ('Balance cumulativ', digits_compute=dp.get_precision('Account')    ,readonly=True)
+        , 'move_line_ids'    : one2many_movelines('account.move.line', 'id','Account Moves',readonly=True)
         }
     #_order = 'name'
 
