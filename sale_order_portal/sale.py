@@ -40,7 +40,7 @@ class sale_order(osv.osv):
               , 'order_id'
               , 'Product to Order'
               , states={'draft': [('readonly', False)]}
-              , order  = 'categ_id.name , product_id.name'
+              , order  = 'categ_name , product_id.name'
               ),
         'order_line_portal_ordered_sorted' : one2many_sorted.one2many_sorted
               ( 'sale.order.line'
@@ -48,11 +48,12 @@ class sale_order(osv.osv):
               , 'Ordered Products'
               , search = [('product_uom_qty','!=',0)]
               , states={'draft': [('readonly', False)]}
-              , order  = 'categ_id.name , product_id.name'
+              , order  = 'categ_name , product_id.name'
               ),
         }
 
     def get_order_lines(self, cr, uid, ids, context=None):
+        _logger  = logging.getLogger(__name__)
         context = context or {}
         lang = context.get('lang',False)
 
@@ -75,6 +76,7 @@ class sale_order(osv.osv):
             context = {'lang': lang, 'partner_id': order.partner_id.id}
             for product in prod_obj.browse(cr,uid,product_ids, context):
               if product.id not in ordered_product_ids:
+                packaging_id = product.packaging and product.packaging[0].id or None,  
                 p = product.name
                 if product.default_code:
                     p = '['+product.default_code+'] ' +p
@@ -86,7 +88,7 @@ class sale_order(osv.osv):
                        'product_uom_qty' : 0,
                        'price_unit': product.list_price,
                        'type': product.procure_method,
-                       'product_packaging' : product.packaging and product.packaging[0].id or '',
+                       'product_packaging' : packaging_id,
                        'content_qty' : product.packaging and product.packaging[0].qty or 1.0,
                        'state' : 'draft',
                        'delay': 0.0,
@@ -108,7 +110,18 @@ class sale_order(osv.osv):
                 # the following statement takes 120 seconds to insert 400 rows
                 
                 t1 = tm.time()
-                so_line_obj.create(cr, 1, vals)
+                _logger.debug('FGF SO portal vals %s', vals)
+                line_id = so_line_obj.create(cr, 1, vals)
+                product_values = so_line_obj.product_id_change(cr,uid, [line_id], 
+                         order.pricelist_id.id, product.id, 0,
+                         product.uom_id.id, 0, product.uos_id.id, product.name,
+                         order.partner_id.id,
+                         order.partner_id.lang, None, order.date_order,
+                         packaging_id,
+                         order.partner_id.property_account_position.id,
+                         None, context)
+                _logger.debug('FGF SO portal product_values %s', product_values)
+                so_line_obj.write(cr, 1, line_id, {'price_unit' : product_values['value']['price_unit']})
                 t_tot += tm.time() - t1
                 t_count += 1
                  
@@ -131,7 +144,6 @@ class sale_order(osv.osv):
                 #        )
                 #)
              
-            _logger  = logging.getLogger(__name__)
             if t_count >0:
                 _logger.debug('FGF create count %s time %s avg %s '
                     %(t_count,t_tot*1000.0, t_tot*1000.0/t_count)   )
@@ -148,8 +160,19 @@ sale_order()
 
 class sale_order_line(osv.osv):
     _inherit = "sale.order.line"
+
+    def _categ_name_get(self, cr, uid, ids, prop, unknow_none, context=None):
+        if not len(ids):
+            return []
+        res = {}
+        for line in self.browse(cr, uid, ids, context):
+            name = line.product_id.categ_id.name
+            res[line.id] =  name
+        return res
+        
     _columns = {
          'categ_id'       : fields.related('product_id','categ_id',type="many2one", relation="product.category", string='Category',readonly=True),
+         'categ_name'     : fields.function(_categ_name_get, type="char", string='Category'),
          'code'           : fields.related('product_id','code',type="varchar", string='Code',readonly=True),
          'product_pack_qty_helper': fields.float('Package #' ,digits_compute= dp.get_precision('Product UoS'), readonly=True, states={'draft': [('readonly', False)]}),
         }
@@ -161,7 +184,13 @@ class sale_order_line(osv.osv):
                         packaging=False, fiscal_position=False, flag=False,
                         context=None):
         
-        qty = round(pack_helper_qty * content_qty,0)
+        _logger  = logging.getLogger(__name__)
+        qty = pack_helper_qty
+        if packaging:
+            qty = round(pack_helper_qty * content_qty,0)
+            qty_uos = round(pack_helper_qty * content_qty,0)
+            uos = uom
+
         res = super(sale_order_line, self).product_id_change(cr,uid, ids, 
             pricelist, product, qty,
             uom, qty_uos, uos, name, partner_id,
@@ -171,7 +200,42 @@ class sale_order_line(osv.osv):
 
         res['value']['qty'] = qty
 
+        _logger.debug('FGF SO portal pack change %s', res)
+
+        if res.get('warning') and res['warning'].get('message'):
+            res['warning']['message'] = ''
+        for line in self.browse(cr, uid, ids, context):
+            if line.product_packaging:
+                if res['value']['product_uom_qty'] > line.product_id.qty_available or res['value']['product_uom_qty'] > line.product_id.qty_available - line.product_id.outgoing_qty:
+                     pack_name = line.product_packaging.ul.name
+                     warning_msg = _("""The ordered quantity of %s %s (%s %s) is currently not available, our sales person will contact you to offer alternatives, please just save the data""") % \
+                     (pack_helper_qty, pack_name, pack_helper_qty * content_qty, line.product_uos.name or line.product_uom.name  )
+                     res['warning']['message'] = warning_msg
+            else:
+                if pack_helper_qty > line.product_id.qty_available or pack_helper_qty > line.product_id.qty_available - line.product_id.outgoing_qty:
+                     pack_name = line.product_id.uom_id.name
+                     res['value']['product_uom_qty'] = qty
+                     warning_msg = _('The ordered quantity of %s %s is currently not available, our sales person will contact you to offer alternatives, please just save the data') % (pack_helper_qty, pack_name) 
+                     res['warning']['message'] = warning_msg 
+        _logger.debug('FGF SO portal pack change warning delete %s', res)
+
         return res
+
+    def product_id_change_portal(self, cr, uid, ids, pricelist, product, qty=0,
+                            uom=False, qty_uos=0, uos=False, name='',
+                            partner_id=False,
+                                        lang=False, update_tax=True,
+                                        date_order=False, packaging=False,
+                                        fiscal_position=False, flag=False,
+                                        context=None):
+        res = super(sale_order_line, self).product_id_change(cr, uid, ids,
+                pricelist, product, qty, uom, qty_uos, uos, name, partner_id,
+                                        lang, update_tax, date_order, packaging,
+                                        fiscal_position, flag, context)
+        if res.get('warning') and res['warning'].get('message'):
+            res['warning']['message'] = ''
+        return res
+
 
 sale_order_line()
 
@@ -184,4 +248,5 @@ class product_template(osv.osv):
             'display_portal_ok': lambda *a : False
             }
 product_template()
+
 

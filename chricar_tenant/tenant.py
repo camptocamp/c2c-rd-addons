@@ -32,9 +32,12 @@
 # 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 ###############################################
+from datetime import datetime
 import time
 from osv import fields,osv
 import pooler
+import logging
+from tools.translate import _
 
 class chricar_tenant(osv.osv):
      _name = "chricar.tenant"
@@ -102,14 +105,6 @@ class chricar_tenant(osv.osv):
 
 chricar_tenant()
 
-#*************************************************************Y
-class chricar_top(osv.osv):
-#*************************************************************Y
-      _inherit = "chricar.top"
-      _columns = {
-          'tenant_ids': fields.one2many('chricar.tenant','top_id','Tenant'),
-      }
-chricar_top()
 class res_partner(osv.osv):
       _inherit = "res.partner"
       _columns = {
@@ -163,6 +158,28 @@ class chricar_top(osv.osv):
              result[p.id] = potential
          return result
 
+     def _unpaid_rate(self, cr, uid, ids, field_name, arg, context=None):
+         _logger = logging.getLogger(__name__)
+         result = {}
+         for leases in self.browse(cr, uid, ids, context):
+             # days
+             unpaid = 0
+             total = 0
+             for lease in leases.tenant_ids:
+                 to_date = datetime.strptime(lease.to_date or time.strftime('%Y-%m-%d'),'%Y-%m-%d')
+                 from_date = datetime.strptime(lease.name,'%Y-%m-%d')
+                 days = to_date - from_date
+                 total += days.days
+                 if lease.partner_id and lease.partner_id.name == _('Leerstehung'):
+                     unpaid += days.days
+                 self._logger.info('FGF unpaid %s %s %s %s %s' % (leases.name,lease.partner_id.name,days.days, total, unpaid))
+             if total > 0:
+                 result[leases.id] = float(unpaid)/float(total)*100
+             else:
+                 result[leases.id] = None
+         return result
+
+
      def _tenant_current(self, cr, uid, ids, field_name, arg, context=None):
          result = {}
          for p in self.browse(cr, uid, ids, context):
@@ -185,7 +202,9 @@ class chricar_top(osv.osv):
      'lease_current'      : fields.function(_lease_current, method=True, string="Current Lease",type='float',digits=(16,0)),
      'lease_current_m2'   : fields.function(_lease_current_m2, method=True, string="Current/m²",type='float',digits=(16,2)),
      'lease_potential'    : fields.function(_lease_potential, method=True, string="Potential Lease",type='float',digits=(16,0)),
+     'unpaid_rate'        : fields.function(_unpaid_rate, method=True, string="Unpaid Rate",type='float',digits=(3,0)),
      'tenant_id'          : fields.function(_tenant_current, method=True, type='many2one', relation='res.partner', string='Tenant' ),
+     'tenant_ids'         : fields.one2many('chricar.tenant','top_id','Tenant'),
      #'tenant_id'          : fields.function(_tenant_current, method=True, string='Tenant',type='char', size=128 ),
      }
 chricar_top()

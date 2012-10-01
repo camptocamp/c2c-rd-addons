@@ -116,9 +116,10 @@ class stock_picking(osv.osv):
                 self._logger.debug('price_unit invoice_line-hook coeff: `%s`', coeff)
                 price_unit_pu = move_line.price_unit_pu or move_line.price_unit * coeff or ''
             if move_line.sale_line_id:
-                price_unit = move_line.price_unit or ''
-                price_unit_pu = move_line.price_unit or ''
-                price_unit_id = move_line.price_unit_id.id or ''
+                coeff = self.pool.get('c2c_product.price_unit').get_coeff(cr, uid, move_line.price_unit_sale_id.id)
+                price_unit = move_line.price_unit_sale or ''
+                price_unit_pu = move_line.price_unit_sale * coeff or ''
+                price_unit_id = move_line.price_unit_sale_id.id or ''
           
         inv_line_obj = self.pool.get('account.invoice.line')
         inv_line_obj.write(cr, uid, invoice_line_id, {'price_unit_id': price_unit_id, 'price_unit_pu': price_unit_pu})
