@@ -536,8 +536,8 @@ class stock_inventory(osv.osv):
     _inherit = "stock.inventory"
     _logger = logging.getLogger(__name__)
     _columns = {
-        'recursive': fields.boolean("Include children", readonly=True, help="If checked, products contained in child locations of selected location will be included as well."),
-        'location_id'        : fields.many2one('stock.location','Location', select=True),
+        'recursive': fields.boolean("Include children", readonly=True, help="If checked, products contained in child locations of selected location are included as well."),
+        'location_id'        : fields.many2one('stock.location','Location', select=True, readonly=True, help="Displays selected loaction"),
         }
 
 
