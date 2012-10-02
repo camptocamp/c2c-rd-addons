@@ -32,8 +32,8 @@
 , "description"  : """Adds reference between Invoice and Picking"""
 , "version"      : "0.9"
 , "depends"      : ["stock", "account", "purchase", "sale"]
-, "category"     : "Accounting"
-, "author"       : "Camptocamp SA - Ferdinand Gassauer"
+, "category"     : "Accounting & Finance"
+, "author"       : "Camptocamp Austria"
 , "website"      : "http://www.camptocamp.com/"
 , "data"         : 
     [ "invoice_view.xml"

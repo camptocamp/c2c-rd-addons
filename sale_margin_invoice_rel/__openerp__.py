@@ -4,7 +4,7 @@
 # Copyright (c) 2010 Camptocamp SA (http://www.camptocamp.com) 
 # All Right Reserved
 #
-# Author : Ferdinand GAssauer (Camptocamp Austria)
+# Author : Ferdinand Gassauer (Camptocamp Austria)
 #
 # WARNING: This program as such is intended to be used by professional
 # programmers who take the whole responsability of assessing all potential
@@ -33,7 +33,7 @@
 , "version"      : "0.9"
 , "depends"      : ["sale_margin"]
 , "category"     : "Sale"
-, "author"       : "Camptocamp SA - Ferdinand Gassauer"
+, "author"       : "Camptocamp Austria"
 , "website"      : "http://www.camptocamp.com/"
 , "data"         : ["invoice_view.xml"]
 , "installable"  : True

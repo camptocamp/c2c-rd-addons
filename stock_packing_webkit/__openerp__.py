@@ -4,7 +4,7 @@
 # Copyright (c) 2010 Camptocamp SA (http://www.camptocamp.com) 
 # All Right Reserved
 #
-# Author : Ferdinand GAssauer (Camptocamp Austria)
+# Author : Ferdinand Gassauer (Camptocamp Austria)
 #
 # WARNING: This program as such is intended to be used by professional
 # programmers who take the whole responsability of assessing all potential
@@ -45,7 +45,7 @@ shows address in internal tree view"""
     , "one2many_sorted"
     ]
 , "category"     : "Warehouse Management"
-, "author"       : "Camptocamp SA - Ferdinand Gassauer"
+, "author"       : "Camptocamp Austria"
 , "website"      : "http://www.camptocamp.com/"
 , "data"         : ["stock_packing_webkit_view.xml", "stock_packing_view.xml"]
 , "installable"  : True
