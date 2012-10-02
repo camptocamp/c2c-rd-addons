@@ -170,7 +170,7 @@ class product_product(osv.osv):
       _columns = {
           'stock_product_by_location_ids': fields.one2many('stock_product_by_location','product_id','Product by Stock '),
       }
-#FIXME
+
 #copy must not copy stock_product_by_location_ids
       def copy (self, cr, uid, id, default={}, context=None):
           default = default.copy()
@@ -189,12 +189,6 @@ class stock_location(osv.osv):
           default = default.copy()
           default['stock_product_by_location_ids'] = []
           return super(stock_location, self).copy (cr, uid, id, default, context)
-      # end def copy
-#FIXME
-      def copy (self, cr, uid, id, default={}, context=None):
-          default = default.copy()
-          default['stock_product_by_location_ids'] = []
-          return super(product_product, self).copy (cr, uid, id, default, context)
       # end def copy
 
 #copy must not copy stock_product_by_location_ids

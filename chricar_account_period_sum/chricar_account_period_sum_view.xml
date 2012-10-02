@@ -171,8 +171,28 @@
                         <field name="balance_prev_cum"/>
                         <field name="balance_diff_cum"/>
                         <field name="balance_diff_pro_cum"/>
+                        <field name="account_id" invisible="1"/>
+                        <field name="period_id" invisible="1"/>
                       </group>
                       <newline/>
+
+                      <field name="move_line_ids" widget="one2many_list" colspan="4" nolabel="1" readonly="1">
+                        <tree string="Move Lines">
+                          <field name="statement_id"/>
+                          <field name="move_id"/>
+                          <field name="name"/>
+                          <field name="partner_id"/>
+                          <field name="ref"/>
+                          <field name="debit"/>
+                          <field name="credit"/>
+                          <field name="currency_id"/>
+                          <field name="amount_currency"/>
+                          <field name="tax_code_id"/>
+                          <field name="tax_amount"/>
+                          <field name="date"/>
+                          <field name="date_maturity"/>
+                        </tree>
+                      </field>
                       <!--
                       <field name="move_line_ids" widget="one2many_list" colspan="4" nolabel="1" readonly="1">
                         <tree string="Move Lines">
@@ -189,8 +209,8 @@
                           <field name="tax_amount"/>
                           <field name="date"/>
                           <field name="date_maturity"/>
-                   <field name="invoice"/>
-                   <field name="analytic_lines"/>
+                          <field name="invoice"/>
+                          <field name="analytic_lines"/>
                         </tree>
                       </field>
                    -->

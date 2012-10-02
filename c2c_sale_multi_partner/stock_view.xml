@@ -32,5 +32,19 @@
         </page>
       </field>
     </record>
+    <record model="ir.ui.view" id="c2c_view_stock_int_picking_note_print">
+      <field name="name">stock.picking.int.form.c2c_note_print</field>
+      <field name="model">stock.picking</field>
+      <field name="inherit_id" ref="stock.view_picking_form"/>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <page string="Notes" position="after">
+          <page string="Notes Printed">
+            <field colspan="4" name="note_print" nolabel="1"/>
+          </page>
+        </page>
+      </field>
+    </record>
+
   </data>
 </openerp>

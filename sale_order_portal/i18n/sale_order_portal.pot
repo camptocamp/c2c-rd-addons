@@ -1,0 +1,276 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+# 	* sale_order_portal
+#
+# Ferdinand Gassauer, 2012.
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 6.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-09-19 20:35+0000\n"
+"PO-Revision-Date: 2012-09-19 22:37+0200\n"
+"Last-Translator: Ferdinand Gassauer\n"
+"Language-Team: American English <kde-i18n-doc@kde.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+"Language: en_US\n"
+"X-Generator: Lokalize 1.5\n"
+
+#. module: sale_order_portal
+#: field:sale.order.line,categ_id:0 field:sale.order.line,categ_name:0
+msgid "Category"
+msgstr ""
+
+#. module: sale_order_portal
+#: selection:sale.order,state_portal:0
+msgid "In Progress"
+msgstr ""
+
+#. module: sale_order_portal
+#: selection:sale.order,state_portal:0
+msgid "Confirmed"
+msgstr ""
+
+#. module: sale_order_portal
+#: code:addons/sale_order_portal/sale.py:211
+#, python-format
+msgid ""
+"The ordered quantity of %s %s (%s %s) is currently not available, our sales "
+"person will contact you to offer alternatives, please just save the data"
+msgstr ""
+
+#. module: sale_order_portal
+#: view:sale.order:0
+msgid "Confirm"
+msgstr ""
+
+#. module: sale_order_portal
+#: field:sale.order.line,product_pack_qty_helper:0
+msgid "Package #"
+msgstr ""
+
+#. module: sale_order_portal
+#: constraint:product.template:0
+msgid ""
+"Error: The default UOM and the purchase UOM must be in the same category."
+msgstr ""
+
+#. module: sale_order_portal
+#: model:ir.actions.act_window,name:sale_order_portal.action_order_portal_form
+#: model:ir.ui.menu,name:sale_order_portal.menu_sale_portal_order
+msgid "Sales Orders Portal"
+msgstr ""
+
+#. module: sale_order_portal
+#: field:sale.order,order_line_portal_sorted:0
+msgid "Product to Order"
+msgstr ""
+
+#. module: sale_order_portal
+#: model:ir.ui.menu,name:sale_order_portal.menu_sale_portal
+msgid "Sale Portal"
+msgstr ""
+
+#. module: sale_order_portal
+#: view:sale.order:0
+msgid "Total Tax Excluded"
+msgstr ""
+
+#. module: sale_order_portal
+#: view:sale.order:0
+msgid "Products to Order"
+msgstr ""
+
+#. module: sale_order_portal
+#: view:sale.order:0
+msgid "Conditions"
+msgstr ""
+
+#. module: sale_order_portal
+#: view:sale.order:0
+msgid "Invoice Lines"
+msgstr ""
+
+#. module: sale_order_portal
+#: view:sale.order:0
+msgid "Untaxed amount"
+msgstr ""
+
+#. module: sale_order_portal
+#: view:sale.order:0
+msgid "UoS"
+msgstr ""
+
+#. module: sale_order_portal
+#: view:sale.order:0 field:sale.order,order_line_portal_ordered_sorted:0
+msgid "Ordered Products"
+msgstr ""
+
+#. module: sale_order_portal
+#: sql_constraint:sale.order:0
+msgid "Order Reference must be unique per Company!"
+msgstr ""
+
+#. module: sale_order_portal
+#: view:sale.order:0
+msgid "Packings"
+msgstr ""
+
+#. module: sale_order_portal
+#: view:sale.order:0
+msgid "Sales Order Lines"
+msgstr ""
+
+#. module: sale_order_portal
+#: view:sale.order:0
+msgid "Sales Orders"
+msgstr ""
+
+#. module: sale_order_portal
+#: field:sale.order,state_portal:0
+msgid "Portal State"
+msgstr ""
+
+#. module: sale_order_portal
+#: help:product.template,display_portal_ok:0
+msgid ""
+"Determines if the product can be visible in the list of product within a "
+"selection from a sale order line."
+msgstr ""
+
+#. module: sale_order_portal
+#: view:sale.order:0
+msgid "Other Information"
+msgstr ""
+
+#. module: sale_order_portal
+#: view:sale.order:0
+msgid "Properties"
+msgstr ""
+
+#. module: sale_order_portal
+#: view:sale.order:0
+msgid "Dates"
+msgstr ""
+
+#. module: sale_order_portal
+#: view:sale.order:0
+msgid "Notes"
+msgstr ""
+
+#. module: sale_order_portal
+#: view:sale.order:0
+msgid "Taxes"
+msgstr ""
+
+#. module: sale_order_portal
+#: model:ir.model,name:sale_order_portal.model_product_template
+msgid "Product Template"
+msgstr ""
+
+#. module: sale_order_portal
+#: view:sale.order:0
+msgid "Logistic"
+msgstr ""
+
+#. module: sale_order_portal
+#: view:sale.order:0
+msgid "Total Tax Included"
+msgstr ""
+
+#. module: sale_order_portal
+#: view:sale.order:0
+msgid "History"
+msgstr ""
+
+#. module: sale_order_portal
+#: code:addons/sale_order_portal/sale.py:218
+#, python-format
+msgid ""
+"The ordered quantity of %s %s is currently not available, our sales person "
+"will contact you to offer alternatives, please just save the data"
+msgstr ""
+
+#. module: sale_order_portal
+#: field:sale.order.line,code:0
+msgid "Code"
+msgstr ""
+
+#. module: sale_order_portal
+#: field:product.template,display_portal_ok:0
+msgid "Display in Partner Portal"
+msgstr ""
+
+#. module: sale_order_portal
+#: view:sale.order:0
+msgid "Invoices"
+msgstr ""
+
+#. module: sale_order_portal
+#: view:sale.order:0
+msgid "Qty(UoS)"
+msgstr ""
+
+#. module: sale_order_portal
+#: view:sale.order:0
+msgid "Delete products with quantity 0"
+msgstr ""
+
+#. module: sale_order_portal
+#: view:sale.order:0
+msgid "Create Product List (~15 sec)"
+msgstr ""
+
+#. module: sale_order_portal
+#: view:sale.order:0
+msgid "States"
+msgstr ""
+
+#. module: sale_order_portal
+#: view:sale.order:0
+msgid "Fill list with all orderable products, retains already ordered lines"
+msgstr ""
+
+#. module: sale_order_portal
+#: view:sale.order:0
+msgid "Extra Info"
+msgstr ""
+
+#. module: sale_order_portal
+#: model:ir.actions.act_window,help:sale_order_portal.action_order_portal_form
+msgid ""
+"Sales Orders help you manage quotations and orders from your customers. "
+"OpenERP suggests that you start by creating a quotation. Once it is "
+"confirmed, the quotation will be converted into a Sales Order. OpenERP can "
+"handle several types of products so that a sales order may trigger tasks, "
+"delivery orders, manufacturing orders, purchases and so on. Based on the "
+"configuration of the sales order, a draft invoice will be generated so that "
+"you just have to confirm it when you want to bill your customer."
+msgstr ""
+
+#. module: sale_order_portal
+#: view:sale.order:0
+msgid "References"
+msgstr ""
+
+#. module: sale_order_portal
+#: model:ir.model,name:sale_order_portal.model_sale_order view:sale.order:0
+msgid "Sales Order"
+msgstr ""
+
+#. module: sale_order_portal
+#: view:sale.order:0
+msgid "Order Line"
+msgstr ""
+
+#. module: sale_order_portal
+#: model:ir.model,name:sale_order_portal.model_sale_order_line
+msgid "Sales Order Line"
+msgstr ""
+
+#. module: sale_order_portal
+#: view:sale.order:0
+msgid "Stock Moves"
+msgstr ""
