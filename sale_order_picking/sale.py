@@ -62,11 +62,14 @@ class sale_order(osv.osv):
         cr.execute(sql)
         locations = cr.dictfetchall()
         
+        lot_id = ''
         for r in locations:
+          if not lot_id or r['prodlot_id'] < lot_id:
+            lot_id = r['prodlot_id']
 	    res['location_id'] = r['id']
 	    if r['prodlot_id']:
                res['prodlot_id'] = r['prodlot_id']        
-            continue
+             
      
                
         return res
