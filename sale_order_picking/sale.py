@@ -37,12 +37,12 @@ class sale_order(osv.osv):
         lot_ids = prodlot_obj.search(cr, uid, [('product_id','=', product_id)])
         lot_where = ' '
         if lot_ids:        
-	    lot_where = ' and m.prodlot_id in ' + str(tuple(lot_ids)) + ' '
+	    lot_where = ' and m.prodlot_id in (' + ','.join([str(id) for id in lot_ids]) + ') '
         
         # find stock location with 
         top_location_id = order.shop_id.warehouse_id.lot_stock_id.id
         location_ids = stock_location_obj.search(cr, uid, [('location_id','child_of', [top_location_id]) ], context=context)
-                             
+        location_where = ' ('+ ','.join([str(id) for id in location_ids]) +') ' 
         
         sql = """select l.id, m.prodlot_id,
                  sum(case when l.id = m.location_dest_id then product_qty
@@ -58,7 +58,7 @@ class sale_order(osv.osv):
                  having sum(case when l.id = m.location_dest_id then product_qty
                       else -product_qty end) > 0
                  order by m.prodlot_id asc
-               """ % (product_id, lot_where, tuple(location_ids))
+               """ % (product_id, lot_where, location_where)
         cr.execute(sql)
         locations = cr.dictfetchall()
         
