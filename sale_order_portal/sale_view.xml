@@ -276,8 +276,23 @@
                             <separator colspan="4" string="Packings"/>
                             <field colspan="4" name="picking_ids" nolabel="1"/>
                         </page>
-                    </notebook>
-                </form>
+                        <page string="Mail" >
+                            <separator colspan="4" string="Mails"/>
+                            <field colspan="4" name="emails" nolabel="1" >
+                                <tree string="Emails" colors="grey:state in ('sent', 'cancel');blue:state=='outgoing';red:state=='exception';black:state=='received'">
+                    <field name="date"/>
+                    <field name="subject"/>
+                    <field name="email_from"/>
+                    <field name="user_id" string="User"/>
+                    <field name="message_id" invisible="1"/>
+                    <field name="partner_id" invisible="1"/>
+                    <field name="state"/>
+                                </tree>
+                         </field>
+                       </page>
+                       </notebook>
+                       </form>
+
             </field>
         </record>
 
