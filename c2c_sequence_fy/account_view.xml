@@ -12,7 +12,6 @@
           <field name="prefix_pattern"/>
           <field name="suffix_pattern"/>
           <field name="create_sequence"/>
-          <field name="monthly_sequence"/>
         </field>
       </field>
     </record>

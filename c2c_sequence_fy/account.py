@@ -23,7 +23,7 @@ from osv import fields, osv
 
 class account_journal(osv.osv):
     _inherit = "account.journal"
-    _selection = [('none','No creation'), ('create','Create'), ('create_fy','Create per Fiscal Year')]
+    _selection = [('none','No creation'), ('create','Create'), ('create_fy','Create per Fiscal Year'), ('create_period','Create per Period')]
     _columns = \
     { 'prefix_pattern' : fields.char('Prefix Pattern', size=64, help="Prefix pattern for the sequence if not defined in sequence")
     , 'suffix_pattern' : fields.char('Suffix Pattern', size=64, help="Suffix pattern for the sequence if not defined in sequence")
@@ -33,13 +33,9 @@ class account_journal(osv.osv):
         , required = "True"
         , help = """Sequence will be created on the fly using the code of the journal and for fy the fy prefix to compose the prefix"""
         )
-    , 'monthly_sequence':fields.boolean('Monthly sequences',
-            help="this will create monthly sequences using the period number as additional prefix/suffix pattern.\
-Period number is usualy the month number (Jan=01) unless the fiscal year does not start with January")
     }
     _defaults = {
        'create_sequence' : 'create_fy',
-       'monthly_sequence': lambda *a: False,
     }
 
     def create_sequence(self, cr, uid, vals, context=None):
