@@ -26,6 +26,7 @@
 , 'category'    : 'Accounting & Finance'
 , 'description' : """
 This module adds 
+* monthly sequences for journals
 * "fy", "stn", "stc" and "jn" as placeholder for prefix and suffix.
 
 * creation rules for missing sequences in ir_sequence_type and account journal

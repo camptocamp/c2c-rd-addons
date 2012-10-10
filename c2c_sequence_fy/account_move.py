@@ -27,6 +27,7 @@ class account_move(osv.osv):
     _inherit = "account.move"
     _logger = logging.getLogger(__name__)
 
+    # 20121010 Fgf NOT USED ANY MORE
     def post_incompatible(self, cr, uid, ids, context=None):
         self._logger.debug('post move context `%s`', context)
         if not context:

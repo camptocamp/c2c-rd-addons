@@ -8,11 +8,12 @@
       <field name="type">form</field>
       <field name="arch" type="xml">
         <xpath expr="/form//separator[@string='Legend (for prefix, suffix)']" position="after">
-          <group>
-            <label colspan="8" string="Current Fiscal Year: %%(fy)s (see sequence code in fiscalyear)"/>
-            <label colspan="8" string="Abbreviated name of the journal: %%(jn)s"/>
-            <label colspan="8" string="Abbreviated name of the sequence-code: %%(stn)s"/>
-            <label colspan="8" string="Abbreviated code of the sequence-code: %%(stc)s"/>
+          <group colspan="4" col="1">
+            <label colspan="1" string="Current Fiscal Year: %%(fy)s (see sequence code in fiscalyear)"/>
+            <label colspan="1" string="Abbreviated name of the journal: %%(jn)s"/>
+            <label colspan="1" string="Abbreviated name of the sequence-code: %%(stn)s"/>
+            <label colspan="1" string="Abbreviated code of the sequence-code: %%(stc)s"/>
+            <label colspan="1" string="Number of period (April = 01 if FY start in Arpil) : %%(pe)s"/>
           </group>
         </xpath>
       </field>
