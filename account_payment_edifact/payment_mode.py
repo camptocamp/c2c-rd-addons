@@ -75,6 +75,7 @@ class payment_mode(osv.osv) :
              , ('ZZZ', _('Mutually defined'))
              ]
             , 'Financial Charges Allocation'
+            , required=True
             )
         }
     _defaults = {'charges_alloc'    : lambda *a: '14'}
