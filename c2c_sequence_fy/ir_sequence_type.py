@@ -23,7 +23,7 @@ from osv import fields, osv
 
 class ir_sequence_type(osv.osv):
     _inherit = 'ir.sequence.type'
-    _selection = [('none','No creation'), ('create','Create'), ('create_fy','Create per Fiscal Year')]
+    _selection = [('none','No creation'), ('create','Create'), ('create_fy','Create per Fiscal Year'),('create_period','Create per Period (Month)')]
     _columns = \
     { 'prefix_pattern' : fields.char('Prefix Pattern', size=64, help="Prefix pattern for the sequence")
     , 'suffix_pattern' : fields.char('Suffix Pattern', size=64, help="Suffix pattern for the sequence")

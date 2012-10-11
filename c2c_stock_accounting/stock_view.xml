@@ -381,7 +381,7 @@
 
         <record id="view_inventory_lot_form" model="ir.ui.view">
             <field name="name">stock.inventory.lot.form</field>
-            <field name="model">stock.inventory</field>
+            <field name="model">stock.inventory.line.</field>
             <field name="inherit_id" ref="stock.view_inventory_form"/>
             
             <field name="arch" type="xml">
@@ -392,6 +392,18 @@
         </record>
 
 
+   <!-- display selected location  -->
+        <record id="stock_inventory_loc_form" model="ir.ui.view">
+            <field name="name">stock.inventory.loc.form</field>
+            <field name="model">stock.inventory</field>
+            <field name="inherit_id" ref="stock.view_inventory_form"/>
+            <field name="arch" type="xml">
+                <field name="date" position = "after" >
+                    <field name="location_id" />
+                    <field name="recursive" />
+                </field>
+            </field>
+        </record>
    
   </data>
 </openerp>

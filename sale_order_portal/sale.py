@@ -50,6 +50,7 @@ class sale_order(osv.osv):
               , states={'draft': [('readonly', False)]}
               , order  = 'categ_name , product_id.name'
               ),
+         'emails'       : fields.related('partner_id','emails', type="one2many", relation="mail.message", string='Messages',readonly=True),
         }
 
     def get_order_lines(self, cr, uid, ids, context=None):
