@@ -75,14 +75,19 @@ class payment_order_create(osv.osv_memory):
             if line.partner_id.payment_block : continue
             if (line.partner_id.payment_obey_balance 
                 and obj.balance_filter 
-                and not ((line.partner_id.debit - line.partner_id.credit) >= obj.min_balance)) : continue
-            # FIXME - GKö - currently no bank account invoice - hence records are not selected
-            # manual creation puts bank account into invoice
+                and ((line.partner_id.credit - line.partner_id.debit) >= obj.min_balance)) : continue
             if (line.invoice and not line.invoice.partner_bank_id):
                 if not line.invoice.partner_id.bank_ids and payment.mode.require_bank_account : 
                     continue
                 else:
-                    invoice_obj.write(cr, uid, line.invoice.id, {'partner_bank_id' : line.invoice.partner_id.bank_ids[0].id })
+                    if line.invoice.partner_id.bank_ids :
+                        vals = {'partner_bank_id' : line.invoice.partner_id.bank_ids[0].id}
+                        invoice_obj.write(cr, uid, line.invoice.id, vals)
+                    else :
+                        raise osv.except_osv \
+                            ( _('Data model error ! !')
+                            , _('Partner %s has no bank account information') % line.invoice.partner_id.name
+                            )
             line_ids.append(line.id)
         context.update({'line_ids': line_ids})
         model_data_ids = mod_obj.search \
