@@ -90,6 +90,7 @@ class payment_order_create(osv.osv_memory):
             #  partner_id.debit :
             #     positive: credit
             #     negative: debit 
+            # https://bugs.launchpad.net/openobject-addons/+bug/1066066
             partner_balance = -line.partner_id.debit
             _logger.info('FGF pay partner balance %s ' % (partner_balance))
             if (line.partner_id.payment_obey_balance 
