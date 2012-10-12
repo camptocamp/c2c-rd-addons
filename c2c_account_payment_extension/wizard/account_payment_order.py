@@ -75,7 +75,7 @@ class payment_order_create(osv.osv_memory):
             if line.partner_id.payment_block : continue
             if (line.partner_id.payment_obey_balance 
                 and obj.balance_filter 
-                and ((line.partner_id.credit - line.partner_id.debit) >= obj.min_balance)) : continue
+                and ((line.partner_id.credit - line.partner_id.debit) <= obj.min_balance)) : continue
             if (line.invoice and not line.invoice.partner_bank_id):
                 if not line.invoice.partner_id.bank_ids and payment.mode.require_bank_account : 
                     continue
