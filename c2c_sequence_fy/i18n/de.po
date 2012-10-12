@@ -180,7 +180,7 @@ msgstr "Präfix Muster der Sequenz"
 msgid "Current Fiscal Year: %(fy)s (see sequence code in fiscalyear)"
 msgstr ""
 "Laufendes Geschäftsjahr: %(fy)s (beachte Sequenz-Code im "
-"Geschäftsjahrferdinand)"
+"Geschäftsjahr"
 
 #. module: c2c_sequence_fy
 #: view:ir.sequence:0
