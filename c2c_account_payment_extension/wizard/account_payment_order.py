@@ -77,10 +77,20 @@ class payment_order_create(osv.osv_memory):
         _logger.info('FGF pay line domain %s' % (domain))
         _logger.info('FGF pay line context %s' % (context))
         ids = line_obj.search(cr, uid, domain, context=context)
+        ids2 = ','.join(map(str,ids))
+        sql = """select partner_id, round(sum(debit-credit),2) as balance
+                   from account_move_line
+                  where id in (%s)
+                  group by partner_id""" % (ids2)
+        cr.execute(sql)
+        partner_balances = dict(cr.fetchall())
+        precision = self.pool.get('decimal.precision').precision_get(cr, uid, 'Account')
+        _logger.info('FGF partner_balance %s' % (partner_balances))
+
         _logger.info('FGF pay line ids %s' % (ids))
         line_ids = []
         for line in line_obj.browse(cr, uid, ids) :
-            _logger.info('FGF line %si %s ' % (line.id, line.partner_id.name))
+            _logger.info('FGF line %s %s ' % (line.id, line.partner_id.name))
             _logger.info('FGF pay block %s' % (line.invoice.payment_block))
             if line.invoice.payment_block : continue
             _logger.info('FGF pay partner block %s' % (line.partner_id.payment_block))
@@ -92,10 +102,24 @@ class payment_order_create(osv.osv_memory):
             #     negative: debit 
             # https://bugs.launchpad.net/openobject-addons/+bug/1066066
             partner_balance = -line.partner_id.debit
-            _logger.info('FGF pay partner balance %s ' % (partner_balance))
+
+            # check  balance  of records due for this payment order
+            #sql = """select sum(debit-credit)
+            #           from account_move_line
+            #          where partner_id = %s
+            #            and id in (%s)""" % (line.partner_id.id, ids2)
+            #cr.execute(sql)
+            #res = cr.fetchone()
+            #balance_to_pay = res and -res[0] or 0
+            balance_to_pay = -round(partner_balances[line.partner_id.id],precision)
+
+            _logger.info('FGF pay partner balance %s amount to pay %s balance_to_pay %s Obey %s' % (partner_balance, line.amount_to_pay, balance_to_pay, line.partner_id.payment_obey_balance ))
             if (line.partner_id.payment_obey_balance 
                 and obj.balance_filter 
-                and ( -partner_balance <= obj.min_balance)) : continue 
+                and (-partner_balance < obj.min_balance 
+                or balance_to_pay < obj.min_balance) ) : continue 
+            elif not line.amount_to_pay > 0: continue
+                
             _logger.info('FGF pay bank invoice %s, partner %s' % (line.invoice.partner_bank_id, line.invoice and line.invoice.partner_id.bank_ids ))
             if (line.invoice and not line.invoice.partner_bank_id):
                 if not line.invoice.partner_id.bank_ids and payment.mode.require_bank_account : 
