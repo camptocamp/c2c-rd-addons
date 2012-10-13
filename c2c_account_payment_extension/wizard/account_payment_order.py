@@ -34,8 +34,10 @@ from osv import osv, fields
 import logging
 from tools.translate import _
 
+
 class payment_order_create(osv.osv_memory):
     _inherit     = 'payment.order.create'
+
     _columns     = \
         { 'balance_filter' : fields.boolean
             ( 'Only partners with total liability'
@@ -46,9 +48,20 @@ class payment_order_create(osv.osv_memory):
             , help="Will select only partners with total payment balance greater than this amount."
             )
         }
+
+    def _get_min_balance_default(self, cr, uid, context=None):
+        _logger = logging.getLogger(__name__)
+        _logger.info('FGF pay min_balance context %s' % (context))
+        min_balance = 0
+        order_obj = self.pool.get('payment.order')
+        for order in order_obj.browse(cr, uid, [ context['active_id'] ]):
+            min_balance = order.mode.amount_partner_min
+        return min_balance
+
+
     _defaults    = \
         { 'balance_filter' : lambda *a: True
-        , 'min_balance'    : lambda *a: 0
+        , 'min_balance'    : _get_min_balance_default
         }
 
     def search_entries(self, cr, uid, ids, context=None):
@@ -137,6 +150,8 @@ class payment_order_create(osv.osv_memory):
             line_ids.append(line.id)
         _logger.info('FGF line_ids %s' % (line_ids))
 # End search modification
+
+# 
 
         context.update({'line_ids': line_ids})
         model_data_ids = mod_obj.search(cr, uid,[('model', '=', 'ir.ui.view'), ('name', '=', 'view_create_payment_order_lines')], context=context)
