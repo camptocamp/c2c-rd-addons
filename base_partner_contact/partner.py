@@ -106,13 +106,13 @@ class res_partner(osv.osv):
     _columns = {
         'first_name' : fields.char('First Name', size=32),
         'middle_name' : fields.char('Middle Name', size=16),
-        'last_name' : fields.char('Name / Last Name', size=64),
+        'last_name' : fields.char('Name / Last Name', size=128),
         'salutation_id' : fields.many2one('res.partner.salutation','Salutation'),
         'salutation_partner_id' : fields.many2one('res.partner.salutation','Salutation with Partner'),
         'title_prefix_id' : fields.many2one('res.partner.title','Title Prefix'),
         'title_postfix_id' : fields.many2one('res.partner.title','Title Postfix'),
         'name_prefix_id' : fields.many2one('res.partner.title','Name Prefix', help="Example: de, von, Graf"),
-        'name' : fields.function(_compose_name, type='char', string='Name / Nachname', size=128, help="used for alphapetical sort",store = True), # or function field
+        'name' : fields.function(_compose_name, type='char', string='Name', size=128, help="used for alphapetical sort",store = True), # or function field
         'full_name' : fields.function(_compose_full_name, type='char', string='Full Name', size=128, help="used for address"), # or function field
         'full_name_with_partner' : fields.function(_compose_full_name_with_partner, type='char', string='Full Name', size=128, help="used for address"), # or function field
         'is_company' : fields.boolean('Is Company', help="Check if the contact is a company, otherwise it is a person" ), # from v7.0
