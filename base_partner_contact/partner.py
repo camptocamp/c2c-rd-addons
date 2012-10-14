@@ -121,6 +121,11 @@ class res_partner(osv.osv):
         'is_company' : lambda *a: True,
         }
         
+        
+    def init(self, cr):
+        cr.execute("""update res_partner
+                         set last_name = name
+                       where last_name is null;""")
 
 #    def onchange_name(self, cr, uid, id, is_company = False, name='', first_name='', last_name='', middle_name='', title_prefix_id='', title_postfix_id='', context={}):
 #        vals = {}
