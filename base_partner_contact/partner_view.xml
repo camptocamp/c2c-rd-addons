@@ -11,14 +11,14 @@
       <field name="name" position="replace">
           
           <field name="is_company"/>
-          <field name="salutation_id" attrs="{'invisible':[('is_company','=','1')]}"/>
-          <field name="salutation_partner_id" attrs="{'invisible':[('is_company','=','1')]}"/>
-          <field name="title_prefix_id" attrs="{'invisible':[('is_company','=','1')]}" domain="[('domain', '=', 'contact')]"/>
+          <field name="salutation_id" attrs="{'invisible':[('is_company','=','1')]}" options='{"quick_create": false}'/>
+          <field name="salutation_partner_id" attrs="{'invisible':[('is_company','=','1')]}" options='{"quick_create": false}'/>
+          <field name="title_prefix_id" attrs="{'invisible':[('is_company','=','1')]}" domain="[('domain', '=', 'contact')]" options='{"quick_create": false}'/>
           <field name="first_name" attrs="{'invisible':[('is_company','=','1')]}"/>
           <field name="middle_name" attrs="{'invisible':[('is_company','=','1')]}"/>
-          <field name="name_prefix_id" attrs="{'invisible':[('is_company','=','1')]}"/>
+          <field name="name_prefix_id" attrs="{'invisible':[('is_company','=','1')]}" options='{"quick_create": false}'/>
           <field name="last_name"/>
-          <field name="title_postfix_id" attrs="{'invisible':[('is_company','=','1')]}" domain="[('domain', '=', 'contact')]"/>
+          <field name="title_postfix_id" attrs="{'invisible':[('is_company','=','1')]}" domain="[('domain', '=', 'contact')]" options='{"quick_create": false}'/>
           <field name="name" colspan="6" />
           <field name="full_name" colspan="6" attrs="{'invisible':[('is_company','=','1')]}"/>
           

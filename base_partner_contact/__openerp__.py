@@ -31,7 +31,7 @@ This module allows to uses person as partners respecting first, middle, last nam
     "depends" : ["base"],
     "init_xml" : [ ],
     "demo_xml" : [ ],
-    "update_xml" : [ "partner_view.xml" ],
+    "update_xml" : [ "partner_view.xml", "security/ir.model.access.csv", ],
     "installable": True
 }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
