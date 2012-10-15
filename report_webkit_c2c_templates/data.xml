@@ -36,9 +36,9 @@ ${_("Commercial Register:")} ${company.commercial_register or ''}<br>
 ${_("VAT:")} ${company.partner_id.vat or ''}
                 </td>
                 <td style="white-space:normal;text-align:left;font-size:9;width:30 %;" >
-${_("Bank:")} ${company.partner_id.bank_ids[0].bank.name}<br>
-${_("IBAN:")} ${company.partner_id.bank_ids[0].acc_number}<br>
-${_("BIC:")} ${company.partner_id.bank_ids[0].bank_bic}
+${_("Bank:")} ${company.company_bank_id.bank.name}<br>
+${_("IBAN:")} ${company.company_bank_id.acc_number}<br>
+${_("BIC:")} ${company.company_bank_id.bank.bic}
 </td>
                 <td style="text-align:left;font-size:9;width:5%;" >${_("Page")} <span class="page"/></td>
                 <td style="text-align:left;font-size:9;width:5%;">  of  <span class="topage"/></td>
