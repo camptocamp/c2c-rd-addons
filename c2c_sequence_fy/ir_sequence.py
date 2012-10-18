@@ -63,12 +63,12 @@ class ir_sequence(osv.osv):
         company_ids = self.pool.get('res.company').search(cr, uid, [], order='company_id', context=context) + [False]
         seq_id = sequence_id
         
-            
-        if context['journal_id'] and context['period_id']:
+        create_sequence = ''    
+        if context.get('journal_id') and context['journal_id']:
             journal_obj = self.pool.get('account.journal')
             for journal in journal_obj.browse(cr, uid, [context['journal_id']]):
-                
-                if journal.create_sequence == 'create_period':
+                create_sequence = journal.create_sequence
+                if journal.create_sequence == 'create_period' and context.get('period_id') and context['period_id']:
                     per_seq_obj = self.pool.get('account.sequence.period')
                     per_seq_ids = per_seq_obj.search(cr, uid,  [('sequence_main_id','=', sequence_id),('period_id','=',context['period_id'])])
                     if per_seq_ids:
@@ -95,7 +95,7 @@ class ir_sequence(osv.osv):
                           }
                         per_seq_obj.create(cr, uid, vals2)
                         
-                elif journal.create_sequence == 'create_fy' : 
+        if context.get('fiscalyear_id') and context['fiscalyear_id'] :
                     fy = context['fiscalyear_id'] 
                     self._logger.debug('fy `%s`', fy)
                     if fy:
@@ -125,6 +125,8 @@ class ir_sequence(osv.osv):
                           ,'fiscalyear_id'    : context['fiscalyear_id']
                           }
                           fy_seq_obj.create(cr, uid, vals2)
+        
+        
                           
         self._logger.debug('next_by_id seq_id `%s`', seq_id)
              
