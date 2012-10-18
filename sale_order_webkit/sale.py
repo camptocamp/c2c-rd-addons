@@ -32,7 +32,7 @@ class sale_order(osv.osv):
           print_uom = False
           if order.order_line:
             for line in order.order_line:
-                if not line.product_uos or line.product_uos and line.product_uom != line.product_uos:
+                if not line.product_uos or (line.product_uos and line.product_uom.id == line.product_uos.id):
                    print_uom = True
           res[order.id] =  print_uom
         return res

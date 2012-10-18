@@ -23,7 +23,7 @@ from osv import fields, osv
 
 class account_journal(osv.osv):
     _inherit = "account.journal"
-    _selection = [('none','No creation'), ('create','Create'), ('create_fy','Create per Fiscal Year')]
+    _selection = [('none','No creation'), ('create','Create'), ('create_fy','Create per Fiscal Year'), ('create_period','Create per Period')]
     _columns = \
     { 'prefix_pattern' : fields.char('Prefix Pattern', size=64, help="Prefix pattern for the sequence if not defined in sequence")
     , 'suffix_pattern' : fields.char('Suffix Pattern', size=64, help="Suffix pattern for the sequence if not defined in sequence")
@@ -35,7 +35,7 @@ class account_journal(osv.osv):
         )
     }
     _defaults = {
-       'create_sequence' : 'create_fy'
+       'create_sequence' : 'create_fy',
     }
 
     def create_sequence(self, cr, uid, vals, context=None):

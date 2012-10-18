@@ -85,7 +85,10 @@ ${_("Selection")}
             <th style="text-align:right">${_("Valuation Diff")}</th>
          </tr>
         </thead>
-%for prod in objects :
+<%
+sorted_objects = sorted(objects, key=lambda o : o.categ_id.name + o.name) 
+%>
+%for prod in sorted_objects :
         <tbody>
 %if (all_zero or prod.qty_available !=0  or prod.valuation1 !=0 or prod.valuation2 !=0 ):
 

@@ -64,8 +64,7 @@ class account_fiscalyear(osv.osv):
                   """)          
         
         cr.execute("""update ir_sequence
-                         set prefix = replace(prefix,'/','-'),
-                             padding = 0
+                         set prefix = replace(prefix,'/','-')
                   """)          
 
 account_fiscalyear()

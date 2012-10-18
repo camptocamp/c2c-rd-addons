@@ -27,6 +27,7 @@
     'category': 'Warehouse Management',
     'description': """
 Adds some info fields to stock location
+makes lot ref searchable
 """,
     'author': 'Camptocamp Austria',
     'depends': [ 'stock' ],
