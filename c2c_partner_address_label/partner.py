@@ -82,9 +82,14 @@ class res_partner_address(osv.osv):
         for a in self.browse(cr,uid,ids,context):
             _logger.debug('FGF address_label street %s' % (a.street))
             lf ='\n'
-            l = a.partner_id.name or ''
-            if a.partner_id.title:
-                 l = l + ' ' + a.partner_id.title.name
+
+            bc = self.pool.get('ir.module.module').search(cr, uid,  [('name', '=', 'base_partner_contact'),('state', '=', 'installed')], context=context)
+            if bc:
+                l = a.partner_id.full_name
+            else:
+                l = a.partner_id.name or ''
+                if a.partner_id.title:
+                    l = l + ' ' + a.partner_id.title.name
 
             bc = self.pool.get('ir.module.module').search(cr, uid,  [('name', '=', 'base_contact'),('state', '=', 'installed')], context=context)
 

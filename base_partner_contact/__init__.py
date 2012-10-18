@@ -1,9 +1,8 @@
-# -*- coding: utf-8 -*-
+# -*- encoding: utf-8 -*-
 ##############################################################################
-#
+#    
 #    OpenERP, Open Source Management Solution
-#    Copyright (C) 2004-2010 Tiny SPRL (<http://tiny.be>).
-#    Copyright (C) 2010-2012 Camptocamp Austria (<http://www.camptocamp.at>)
+#    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -16,26 +15,9 @@
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
 #
 ##############################################################################
-
-
-{
-    'name': 'Stock Extensions',
-    'version': '0.7',
-    'category': 'Warehouse Management',
-    'description': """
-Adds some info fields to stock location
-makes lot ref searchable
-""",
-    'author': 'Camptocamp Austria',
-    'depends': [ 'stock' ],
-    'update_xml': ['stock_view.xml',
-       ],
-    #'update_xml': ['product_view.xml'],
-    'demo_xml': [],
-    'installable': False,
-    'active': False,
-}
+import partner
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+

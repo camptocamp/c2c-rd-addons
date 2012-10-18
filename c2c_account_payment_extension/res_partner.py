@@ -40,8 +40,8 @@ class res_partner(osv.osv):
             , help="Do not include credit/debit of this account in payment selection"
             )
         , 'payment_obey_balance'  : fields.boolean
-            ( 'Payment Obey Balance'
-            , help="Do not balance credit/debit of this account in payment selection"
+            ( 'Payment Check Balance'
+            , help="Check payment due and total balance of this account in payment selection. Lines will not be selected if payment due or total balance is not a liability"
             )
         }
     _defaults = \
