@@ -399,6 +399,8 @@
             <field name="inherit_id" ref="stock.view_inventory_form"/>
             <field name="arch" type="xml">
                 <field name="date" position = "after" >
+                    <label colspan="2" nolabel="1" string='' />
+                    <label colspan="2" nolabel="1" string='Please choose the exact date: last date of month - time 23:59:59' />
                     <field name="location_id" />
                     <field name="recursive" />
                 </field>
