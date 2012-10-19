@@ -22,6 +22,7 @@
 
 from osv import fields, osv
 import logging
+from tools.translate import _
 
 class stock_fill_inventory(osv.osv_memory):
     _inherit = "stock.fill.inventory"
