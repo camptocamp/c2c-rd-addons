@@ -460,7 +460,7 @@ class stock_move(osv.osv):
 
 
 
-    def action_done(self, cr, uid, ids, context=None):
+    def action_correction_done(self, cr, uid, ids, context=None):
         """to be able to post moves for past dates (mainly corrections) it is necessary to store the date_expected instead of the current date
           the date field is used to select records in the location structure and others
           for accounting purpose it is absolutely necessary to be able to do this.
@@ -472,9 +472,9 @@ class stock_move(osv.osv):
             if move.state in ['done','cancel']:
                  continue
             move_ids.append(move.id)
-        res = super(stock_move, self).action_done(cr, uid, ids, context)
-        move = self.read(cr, uid, move_ids, ['date_expected'], context)
-        self.write(cr, uid, move_ids, {'date': move[0]['date_expected']}, context=context)
+            date1 = move.date
+        res = super(stock_move, self).action_done(cr, uid, move_ids, context)
+        self.write(cr, uid, move_ids, {'date': date1, 'date_expected' : date1}, context=context)
         return res
 
 stock_move()
