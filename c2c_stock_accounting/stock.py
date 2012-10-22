@@ -473,8 +473,8 @@ class stock_move(osv.osv):
                  continue
             move_ids.append(move.id)
         res = super(stock_move, self).action_done(cr, uid, ids, context)
-        move = self.read(cr, uid, move_ids, ['date_expected'], context)
-        self.write(cr, uid, move_ids, {'date': move[0]['date_expected']}, context=context)
+        move = self.read(cr, uid, move_ids, ['date'], context)
+        self.write(cr, uid, move_ids, {'date': move[0]['date'],'date_expected': move[0]['date'] }, context=context)
         return res
 
 stock_move()
