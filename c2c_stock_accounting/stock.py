@@ -541,14 +541,105 @@ class stock_inventory(osv.osv):
         }
 
 
-    def action_confirm(self, cr, uid, ids, context=None):
+    def _inventory_line_hook(self, cr, uid, line, value):
+        """ Creates a stock move from an inventory line
+        calculates the inv difference between product_qty and product_qty_calc
+        @param inventory_line:
+        @param move_vals:
+        @return:
+        """
+        self._logger.debug('FGF inv line hook %s %s' % ( line, value)  )
+        change = line.product_qty - line.product_qty_calc
+        location_id = line.product_id.product_tmpl_id.property_stock_inventory.id
+        
+        if change > 0:
+            value.update( {
+                'product_qty': change,
+                'location_id': location_id,
+                'location_dest_id': line.location_id.id,
+            })
+        else :
+            value.update( {
+                'product_qty': -change,
+                'location_id': line.location_id.id,
+                'location_dest_id': location_id,
+            })
+        self._logger.debug('FGF inv line hook after %s %s %s' % (change, line, value)  )
+        return super(stock_inventory, self)._inventory_line_hook(cr, uid, line, value)
+        
+    def action_confirm_nok(self, cr, uid, ids, context=None):
         if not context:
             context = {}
         context['prodlot_null'] = True
         for inventory in self.browse(cr, uid, ids, context):
             context['location'] = inventory.location_id.id
-        self._logger.debug('FGF action_confirm inventur %s', context )
-        return super(stock_inventory,self).action_confirm(cr, uid, ids, context)
+        self._logger.debug('FGF action_confirm inventory %s', context )
+        res = super(stock_inventory, self).action_confirm(cr, uid, ids, context)
+        move_obj = self.pool.get('stock.move')
+        move_ids = []
+        for mi in inventory.move_ids:
+             move_ids.append(mi.id)
+        move_0_ids = move_obj.search(cr, uid, [('product_qty', '=', 0), ('id','in',move_ids)])
+        self._logger.debug('FGF confirm del move_ids %s %s' % (move_0_ids, move_ids)  )
+        ctx = {}
+        ctx['call_unlink'] = True
+        move_obj.unlink(cr, uid, move_0_ids,ctx)
+        return res
+
+    def action_confirm(self, cr, uid, ids, context=None):
+        """ Confirm the inventory and writes its finished date
+        computes difference between data entry and computed values for the inventory
+        does not create 0 lines
+        @return: True
+        """
+        if context is None:
+            context = {}
+        # to perform the correct inventory corrections we need analyze stock location by
+        # location, never recursively, so we use a special context
+        product_context = dict(context, compute_child=False)
+
+        location_obj = self.pool.get('stock.location')
+        for inv in self.browse(cr, uid, ids, context=context):
+            move_ids = []
+            for line in inv.inventory_line_id:
+                pid = line.product_id.id
+                
+                #product_context.update(uom=line.product_uom.id, to_date=inv.date, date=inv.date, prodlot_id=line.prod_lot_id.id)
+                #amount = location_obj._product_get(cr, uid, line.location_id.id, [pid], product_context)[pid]
+
+                change = line.product_qty - line.product_qty_calc 
+                lot_id = line.prod_lot_id.id
+                if change:
+                    location_id = line.product_id.product_tmpl_id.property_stock_inventory.id
+                    value = {
+                        'name': 'INV:' + str(line.inventory_id.id) + ':' + line.inventory_id.name,
+                        'product_id': line.product_id.id,
+                        'product_uom': line.product_uom.id,
+                        'prodlot_id': lot_id,
+                        'date': inv.date,
+                    }
+                    if change > 0:
+                        value.update( {
+                            'product_qty': change,
+                            'location_id': location_id,
+                            'location_dest_id': line.location_id.id,
+                        })
+                        move_ids.append(self._inventory_line_hook(cr, uid, line, value))
+
+                    elif change < 0:
+                        value.update( {
+                            'product_qty': -change,
+                            'location_id': line.location_id.id,
+                            'location_dest_id': location_id,
+                        })
+                        move_ids.append(self._inventory_line_hook(cr, uid, line, value))
+                        
+            message = _("Inventory '%s' is done.") %(inv.name)
+            self.log(cr, uid, inv.id, message)
+            self.write(cr, uid, [inv.id], {'state': 'confirm', 'move_ids': [(6, 0, move_ids)]})
+            self.pool.get('stock.move').action_confirm(cr, uid, move_ids, context=context)
+        return True
+
 
     def action_done(self, cr, uid, ids, context=None):
         """ Finish the inventory
