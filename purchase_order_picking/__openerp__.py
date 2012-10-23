@@ -38,7 +38,7 @@ Add packing to purichase order line
     'init_xml': [],
     'update_xml': ['purchase_view.xml' ],
     'demo_xml': [],
-    'installable': True,
+    'installable': False,
     'auto_install': False,
 }
 

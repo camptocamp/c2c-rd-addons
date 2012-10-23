@@ -39,7 +39,7 @@ This module implements a dashboard for management
     'depends': ['board', 'sale', 'purchase', 'account'],
     'update_xml': ['management_board.xml','management_board_graph.xml','security/ir.model.access.csv'],
     'demo_xml': [],
-    'installable': True,
+    'installable': False,
     'active': False,
 }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

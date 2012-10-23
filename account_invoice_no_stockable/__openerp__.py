@@ -35,7 +35,7 @@ Forbid, allow or require  stockable product encoding  for journals
     'init_xml': [],
     'update_xml': ['account_invoice_view.xml'],
     'demo_xml': [],
-    'installable': True,
+    'installable': False,
     'auto_install': False,
 }
 

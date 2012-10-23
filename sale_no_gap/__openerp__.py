@@ -35,7 +35,7 @@ Sale orders no gap
     'init_xml': [],
     'update_xml': [],
     'demo_xml': [],
-    'installable': True,
+    'installable': False,
     'auto_install': False,
 }
 

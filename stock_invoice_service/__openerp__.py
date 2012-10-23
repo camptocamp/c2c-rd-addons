@@ -40,7 +40,7 @@ this should be made configurable
     'init_xml': [],
     'update_xml': [],
     'demo_xml': [],
-    'installable': True,
+    'installable': False,
     'auto_install': False,
 }
 

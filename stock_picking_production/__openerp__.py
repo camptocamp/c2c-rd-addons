@@ -35,7 +35,7 @@ Records moves from/to production locations.
     'init_xml': [],
     'update_xml': ['stock_view.xml' ],
     'demo_xml': [],
-    'installable': True,
+    'installable': False,
     'auto_install': False,
 }
 

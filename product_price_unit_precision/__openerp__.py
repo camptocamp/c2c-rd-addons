@@ -53,7 +53,7 @@ Invoice must have in any case the max(SO/PO precision)
     'init_xml': [],
     'update_xml': ["product_data.xml"],
     'demo_xml': [],
-    'installable': True,
+    'installable': False,
     'auto_install': False,
 }
 

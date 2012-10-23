@@ -41,7 +41,7 @@ usually only visible after printing the picking.
     'init_xml': [],
     'update_xml': ['stock_view.xml','stock_workflow.xml' ],
     'demo_xml': [],
-    'installable': True,
+    'installable': False,
     'auto_install': False,
 }
 

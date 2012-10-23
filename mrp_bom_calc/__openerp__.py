@@ -41,7 +41,7 @@
             'mrp_bom_workflow.xml',
     ],
     'demo_xml': [],
-    'installable': True,
+    'installable': False,
     'active': False,
     'certificate': '',
 }
