@@ -81,7 +81,6 @@ class sale_order(osv.osv):
 
         now = ' ' + _('Invalid') + time.strftime(' [%Y%m%d %H%M%S]')
         for order in self.browse(cr, uid, ids):
-
             if order.invoice_ids:
                 for inv in order.invoice_ids:
                     account_invoice_obj.action_reopen(cr, uid, [inv.id])
@@ -117,7 +116,7 @@ class sale_order(osv.osv):
             line_ids = []
             for line in order.order_line:
                 line_ids.append(line.id)
-            order_line_obj.write(cr, uid, line_ids, {'state':'draft'})
+            order_line_obj.write(cr, uid, line_ids, {'state':'draft', 'invoiced': False})
 
             wf_service = netsvc.LocalService("workflow")
 
