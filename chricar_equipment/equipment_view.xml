@@ -154,7 +154,7 @@ Modification of Parents (only for matching table prefixes)
                 <field name="contract" select="2"/>
                 <field name="date_contract" select="2"/>
                 <field name="partner_id" select="2"/>
-                <field name="room_id" select="2"/>
+                <field name="room_id" select="2" domain="[('top_id','=',parent.id)]"/>
                 <field name="notice_period" select="1"/>
                 <field name="lease" select="1"/>
                 <field name="note" select="2"/>
@@ -164,7 +164,7 @@ Modification of Parents (only for matching table prefixes)
                   <field name="name" select="2"/>
                   <field name="date_from" select="1"/>
                   <field name="date_to" select="1"/>
-                  <field name="room_id" select="2"/>
+                <field name="room_id" select="2" domain="[('top_id','=',parent.id)]"/>
                   <field name="lease" select="1"/>
                 </group>
                 <group string="Service" colspan="2" col="2">
