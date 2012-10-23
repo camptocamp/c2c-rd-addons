@@ -166,7 +166,9 @@ class chricar_top(osv.osv):
              unpaid = 0
              total = 0
              for lease in leases.tenant_ids:
-                 to_date = datetime.strptime(lease.to_date or time.strftime('%Y-%m-%d'),'%Y-%m-%d')
+                 to_day = time.strftime('%Y-%m-%d')
+                 to_date = datetime.strptime(min(lease.to_date or to_day,to_day),'%Y-%m-%d')
+                 #to_date = datetime.strptime(lease.to_date or time.strftime('%Y-%m-%d'),'%Y-%m-%d')
                  from_date = datetime.strptime(lease.name,'%Y-%m-%d')
                  days = to_date - from_date
                  total += days.days
@@ -202,7 +204,7 @@ class chricar_top(osv.osv):
      'lease_current'      : fields.function(_lease_current, method=True, string="Current Lease",type='float',digits=(16,0)),
      'lease_current_m2'   : fields.function(_lease_current_m2, method=True, string="Current/m²",type='float',digits=(16,2)),
      'lease_potential'    : fields.function(_lease_potential, method=True, string="Potential Lease",type='float',digits=(16,0)),
-     'unpaid_rate'        : fields.function(_unpaid_rate, method=True, string="Unpaid Rate",type='float',digits=(3,0)),
+     'unpaid_rate'        : fields.function(_unpaid_rate, method=True, string="Unpaid Rate",type='float',digits=(3,0),help="Percentage not rented days until today"),
      'tenant_id'          : fields.function(_tenant_current, method=True, type='many2one', relation='res.partner', string='Tenant' ),
      'tenant_ids'         : fields.one2many('chricar.tenant','top_id','Tenant'),
      #'tenant_id'          : fields.function(_tenant_current, method=True, string='Tenant',type='char', size=128 ),
