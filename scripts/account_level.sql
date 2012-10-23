@@ -1,5 +1,4 @@
 
-
 -- not very sophisticated :-(
 
 update account_account set level = 0;
