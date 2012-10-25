@@ -75,6 +75,7 @@ class sale_order(osv.osv):
         self.allow_reopen(cr, uid, ids, context=None)
         account_invoice_obj = self.pool.get('account.invoice')
         stock_picking_obj = self.pool.get('stock.picking')
+        stock_move_obj = self.pool.get('stock.move')
         report_xml_obj = self.pool.get('ir.actions.report.xml')
         attachment_obj = self.pool.get('ir.attachment')
         order_line_obj = self.pool.get('sale.order.line')
@@ -95,6 +96,11 @@ class sale_order(osv.osv):
                 for pick in order.picking_ids:
                     stock_picking_obj.action_reopen(cr, uid, [pick.id])
                     stock_picking_obj.write(cr, uid, [pick.id], {'state':'cancel'})
+                    if pick.move_lines:
+                        move_ids = []
+                        for m in pick.move_lines:
+                            move_ids.append(m.id)
+                        stock_move_obj.write(cr, uid, move_ids, {'state':'cancel'})
                     #stock_picking_obj.action_cancel(cr, uid, [pick.id])
                      
             # for some reason datas_fname has .pdf.pdf extension
