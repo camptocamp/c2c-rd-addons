@@ -196,7 +196,7 @@ class payment_order(osv.osv) :
                     if not customer_ref :
                         raise osv.except_osv \
                             ( _('Data Error !')
-                            , _('A descriptive text for the payment is missing')
+                            , _('A descriptive text for the payment is missing for %s'% (own_ref))
                             )
                     
                 p_address = self._address(line.partner_id, ['invoice', 'default', False])
@@ -241,7 +241,7 @@ class payment_order(osv.osv) :
                     if not (customer_ref or customer_data) :
                         raise osv.except_osv \
                             ( _('Data Error !')
-                            , _('A descriptive text for the payment is missing')
+                            , _('A descriptive text for the payment is missing for %s'% (own_ref))
                             )
 
                     p_address = self._address(line.partner_id, ['invoice', 'default', False])
