@@ -37,6 +37,46 @@ class stock_location_product(osv.osv_memory):
     def action_open_report_col(self, cr, uid, ids, context=None):
         res = super(stock_location_product, self).action_open_report(cr, uid, ids, context)
         res['report_name'] =  'report.product.col'
+        self._logger.debug('_action_open_report_col %s', res)
+        
+        d = res['context']['local_to_date2']
+        e =  "','YYYY-MM-DD HH24:MI:SS')"
+        date_begin = "to_date('" + d + e
+        d = res['context']['local_to_date1']
+        date_end = "to_date('" + d + e
+        where_company = ''        
+        where_location_ids = ''
+        location_id = res['context']['location']
+        location_obj = self.pool.get('stock.location')
+        location_ids = location_obj.search(cr, uid, [('location_id', 'child_of', location_id)])
+        where_location_ids = ' and location_id in (' + ','.join([str(id) for id in location_ids])    + ') '
+        self._logger.debug('FGF %s %s' %(date_begin,date_end))
+        sql = """select product_id,
+        sum(case when date < %s then product_qty else 0 end) as qty_begin,
+        sum(case when date >= %s then qty_plus else 0 end) as qty_plus,
+        sum(case when date >= %s then qty_minus else 0 end) as qty_minus,
+        sum(case when date >= %s then qty_inventory else 0 end) as qty_inventory,
+        sum(product_qty) as qty_end,
+        sum(case when date < %s then move_value_cost else 0 end) as value_begin,
+        sum(case when date >= %s then cost_plus else 0 end) as value_plus,
+        sum(case when date >= %s then cost_minus else 0 end) as value_minus,
+        sum(case when date >= %s then cost_inventory else 0 end) as value_inventory,
+        sum(move_value_cost) as value_end
+            from chricar_location_move_col
+          where date < %s
+            %s  -- where company
+            %s  -- where location_id
+          group by product_id
+          order by product_id""" % (date_begin,date_begin,date_begin,date_begin, date_begin,date_begin,date_begin,date_begin, date_end, where_company, where_location_ids )
+        self._logger.debug('_action_open_report_col products %s', sql)
+        cr.execute(sql)
+        rows = cr.dictfetchall()
+        #self._logger.debug('_action_open_report_col rows %s', rows)
+        products = {}
+        for r in rows:
+            products[r['product_id']] = r
+        self._logger.debug('_action_open_report_col products %s', products)    
+        res['context']['products'] = products    
         return res
 
 
