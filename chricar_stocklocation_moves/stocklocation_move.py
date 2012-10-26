@@ -124,3 +124,58 @@ class chricar_report_location_moves_sum(osv.osv):
                    )
                 """)
 chricar_report_location_moves_sum()
+
+
+class chricar_report_location_moves_columns(osv.osv):
+        _name = "chricar.report.location.moves.columns"
+        _description = "Reporting columns for stock move aggregate"
+        _auto = False
+        _columns = {
+                'company_id'  : fields.many2one('res.company', 'Company', readonly=True),
+                'product_id'  : fields.many2one('product.product', 'Product', readonly=True),
+                'location_id' : fields.many2one('stock.location', 'Location', readonly=True),
+                'picking_id'  : fields.many2one('stock.picking', 'Picking', readonly=True),
+                'date'        : fields.datetime('Date Time', readonly=True),
+                'date2'       : fields.date('Date', readonly=True),
+                'product_qty'   : fields.float('Quantity', readonly=True),
+                'qty_plus'      : fields.float('Qty Plus', readonly=True),
+                'qty_minus'     : fields.float('Qty Minus', readonly=True),
+                'qty_inventory' : fields.float('Qty Inventory', readonly=True),
+                'move_value_cost': fields.float('Cost Value', readonly=True),
+                'cost_plus'      : fields.float('Qty Plus', readonly=True),
+                'cost_minus'     : fields.float('Qty Minus', readonly=True),
+                'cost_inventory' : fields.float('Qty Inventory', readonly=True),
+                'categ_id'   : fields.related('product_id','categ_id',type="many2one", relation="product.category", string="Category", readonly=True),
+        }
+        _order = 'product_id'        
+        def init(self, cr):
+                drop_view_if_exists(cr, "chricar_report_location_moves_columns")
+                cr.execute("""
+                create or replace view chricar_report_location_moves_columns as
+select company_id, product_id,location_id, picking_id,date, date::date as date2,
+       product_qty,
+       case when product_qty >0 then product_qty else 0 end as qty_plus ,
+       case when product_qty <0 then product_qty else 0 end as qty_minus,
+       0 as qty_inventory,
+       move_value_cost,
+       case when move_value_cost >0 then move_value_cost else 0 end as cost_plus ,
+       case when move_value_cost <0 then move_value_cost else 0 end as cost_minus,
+       0 as cost_inventory
+       from chricar_report_location_moves
+       where state ='done' 
+       and id not in (select move_id from stock_inventory_move_rel)
+union all      
+select company_id, product_id, location_id, picking_id,date,date::date as date2,
+       product_qty,
+       0,0,
+       product_qty as qty_inventory,
+       move_value_cost,
+       0,0,
+       move_value_cost as cost_inventory
+       from chricar_report_location_moves
+       where state ='done'
+       and id  in (select move_id from stock_inventory_move_rel)
+;  
+                   )
+                """)
+chricar_report_location_moves_columns()
