@@ -12,13 +12,16 @@
        <button
              icon="gtk-print"
              name="action_open_report_col"
-             string="Print Report Col"
+             string="Print Location Product Sums"
+             help="This List shows begin,plus,minus,inventoy,end (quantity and value) per product for selected locations and periods"
              type="object"/>
+<!--
        <button
              icon="gtk-print"
              name="action_open_window_col"
-             string="Open Report Col"
+             string="Open Window Col"
              type="object"/>
+-->
     </button>
     </field>
 </record>

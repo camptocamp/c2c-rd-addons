@@ -22,9 +22,9 @@
 
 from osv import fields, osv
 from datetime import datetime, date, time
+from tools.translate import _
 import logging
 import tools
-import pytz
 
 class stock_location_product(osv.osv_memory):
     _inherit = "stock.location.product"
@@ -40,10 +40,17 @@ class stock_location_product(osv.osv_memory):
         self._logger.debug('_action_open_report_col %s', res)
         
         d = res['context']['local_to_date2']
+        if not d:
+           raise osv.except_osv(_('Error'), _('You must define a comparison date - Beginning of Period'))
         e =  "','YYYY-MM-DD HH24:MI:SS')"
         date_begin = "to_date('" + d + e
         d = res['context']['local_to_date1']
+        if not d:
+           raise osv.except_osv(_('Error'), _('You must define a comparison date - End of Period'))
         date_end = "to_date('" + d + e
+        if date_begin > date_end:
+           raise osv.except_osv(_('Error'), _('Date Begin must be before Date End'))
+           
         where_company = ''        
         where_location_ids = ''
         location_id = res['context']['location']
