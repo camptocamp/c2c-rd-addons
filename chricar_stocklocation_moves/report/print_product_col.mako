@@ -27,6 +27,7 @@
       cumul_categ_value_minus = 0.0
       cumul_categ_value_inventory = 0.0
       cumul_categ_value_end = 0.0
+      cumul_categ_lines = 0.0
       
       cumul_tot_qty_begin = 0.0
       cumul_tot_qty_plus = 0.0
@@ -113,9 +114,8 @@ sorted_objects = sorted(objects, key=lambda o : o.categ_id.name + o.name)
 %>
 %for prod in sorted_objects :
         <tbody>
-%if (all_zero or prod.qty_available !=0  or prod.valuation1 !=0 or prod.valuation2 !=0 ):
 
-%if categ and categ != prod.categ_id.name:
+%if categ and categ != prod.categ_id.name and cumul_categ_lines > 0:
           <tr>
             <th style="text-align:left;white-space:nowrap">${categ} ${_("TOTAL")}</th>
             <th style="text-align:left;white-space:nowrap"></th>
@@ -148,9 +148,10 @@ sorted_objects = sorted(objects, key=lambda o : o.categ_id.name + o.name)
       cumul_categ_value_minus = 0.0
       cumul_categ_value_inventory = 0.0
       cumul_categ_value_end = 0.0
-  %>    
+      cumul_categ_lines = 0
+%>    
 %endif
-<tr>
+
 <% 
     if products.get(str(prod.id),False):
         qty_begin = products[str(prod.id)]['qty_begin'] 
@@ -174,7 +175,10 @@ sorted_objects = sorted(objects, key=lambda o : o.categ_id.name + o.name)
         value_minus = 0
         value_inventory = 0
         value_end = 0
- %>
+%>
+
+%if (all_zero or qty_begin !=0 or qty_plus !=0 or qty_minus !=0 or qty_inventory !=0 or qty_end !=0 or value_begin !=0 or value_plus !=0 or value_minus !=0 or value_inventory !=0 or value_end !=0 ):
+      <tr>
           
             <td>${prod.name}</td>
             <td>${prod.uom_id.name or ''}</td>
@@ -213,6 +217,7 @@ sorted_objects = sorted(objects, key=lambda o : o.categ_id.name + o.name)
     cumul_categ_value_minus += value_minus
     cumul_categ_value_inventory += value_inventory
     cumul_categ_value_end += value_end
+    cumul_categ_lines += 1
     
     cumul_tot_qty_begin += qty_begin 
     cumul_tot_qty_plus += qty_plus
@@ -231,7 +236,8 @@ sorted_objects = sorted(objects, key=lambda o : o.categ_id.name + o.name)
         </tbody>
 %endfor
         <tfoot>
-                  <tr>
+        <!--
+            <tr>
             <th style="text-align:left;white-space:nowrap">${categ} ${_("TOTAL")}</th>
             <th style="text-align:right;white-space:nowrap"></th>
             <th style="text-align:right;white-space:nowrap">${  formatLang(cumul_categ_qty_begin)}</th>
@@ -246,6 +252,7 @@ sorted_objects = sorted(objects, key=lambda o : o.categ_id.name + o.name)
             <th style="text-align:right;white-space:nowrap;">${  formatLang(cumul_categ_value_end)}</th>
 
          </tr>
+         -->
          <tr>
             <th style="text-align:right;white-space:nowrap"></th>
             <th style="text-align:right;white-space:nowrap"></th>
