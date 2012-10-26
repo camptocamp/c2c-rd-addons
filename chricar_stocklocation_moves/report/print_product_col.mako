@@ -236,7 +236,7 @@ sorted_objects = sorted(objects, key=lambda o : o.categ_id.name + o.name)
         </tbody>
 %endfor
         <tfoot>
-        <!--
+%if cumul_categ_lines >0:
             <tr>
             <th style="text-align:left;white-space:nowrap">${categ} ${_("TOTAL")}</th>
             <th style="text-align:right;white-space:nowrap"></th>
@@ -252,7 +252,7 @@ sorted_objects = sorted(objects, key=lambda o : o.categ_id.name + o.name)
             <th style="text-align:right;white-space:nowrap;">${  formatLang(cumul_categ_value_end)}</th>
 
          </tr>
-         -->
+%endif
          <tr>
             <th style="text-align:right;white-space:nowrap"></th>
             <th style="text-align:right;white-space:nowrap"></th>

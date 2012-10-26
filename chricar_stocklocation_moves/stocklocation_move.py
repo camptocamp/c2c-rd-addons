@@ -25,8 +25,6 @@
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 ##############################################################################
-from mx import DateTime
-from mx.DateTime import now
 from osv import fields, osv
 from tools import config
 from tools.sql import drop_view_if_exists
