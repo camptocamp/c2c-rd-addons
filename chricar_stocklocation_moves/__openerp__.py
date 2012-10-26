@@ -3,7 +3,7 @@
 , "version"      : "0.1"
 , "author"       : "ChriCar Beteiligungs- und Beratungs- GmbH"
 , "category"     : "Warehouse Management"
-, "depends"      : ["stock", "c2c_stock_accounting"]
+, "depends"      : ["c2c_stock_accounting"]
 , "init_xml"     : []
 , "update_xml"   : ["stocklocation_move.xml","security/ir.model.access.csv"]
 , "auto_install" : False
