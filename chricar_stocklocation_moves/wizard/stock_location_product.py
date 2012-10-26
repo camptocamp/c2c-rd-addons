@@ -36,6 +36,7 @@ class stock_location_product(osv.osv_memory):
 
     def action_open_report_col(self, cr, uid, ids, context=None):
         res = super(stock_location_product, self).action_open_report(cr, uid, ids, context)
+        res['report_name'] =  'report.product.col'
         return res
 
 

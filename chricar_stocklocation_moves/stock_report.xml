@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <report
+      auto="False"
+      file="chricar_stocklocation_moves/report/print_product_col.mako"
+      id="report_product_col"
+      model="product.product"
+      name="report.product.col"
+      report_type="webkit"
+      string="Print Products Cols(effective Date)"/>
+  </data>
+</openerp>
