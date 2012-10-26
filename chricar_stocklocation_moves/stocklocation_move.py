@@ -169,7 +169,9 @@ select id,company_id, product_id,location_id, picking_id, prodlot_id,
        0 as cost_inventory,state
        from chricar_report_location_moves
        where state ='done' 
-       and id not in (select move_id from stock_inventory_move_rel)
+       and id not in (select 2*move_id from stock_inventory_move_rel
+                      union
+                      select 2*move_id-1 from stock_inventory_move_rel)
 union all      
 select id,company_id, product_id, location_id, picking_id, prodlot_id,
        date,date::date as date2,period_id,
@@ -181,7 +183,9 @@ select id,company_id, product_id, location_id, picking_id, prodlot_id,
        move_value_cost as cost_inventory,state
        from chricar_report_location_moves
        where state ='done'
-       and id  in (select move_id from stock_inventory_move_rel)
+       and id  in (select 2*move_id from stock_inventory_move_rel
+                      union
+                      select 2*move_id-1 from stock_inventory_move_rel)
 )""")
            
 chricar_location_move_col()
