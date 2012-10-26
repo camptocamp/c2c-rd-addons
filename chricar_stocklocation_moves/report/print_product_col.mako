@@ -16,6 +16,7 @@
       categ = ''
       stock_account = ''
       expense_account = ''
+      
       cumul_categ_qty_begin = 0.0
       cumul_categ_qty_plus = 0.0
       cumul_categ_qty_minus = 0.0
@@ -26,6 +27,18 @@
       cumul_categ_value_minus = 0.0
       cumul_categ_value_inventory = 0.0
       cumul_categ_value_end = 0.0
+      
+      cumul_tot_qty_begin = 0.0
+      cumul_tot_qty_plus = 0.0
+      cumul_tot_qty_minus = 0.0
+      cumul_tot_qty_inventory = 0.0
+      cumul_tot_qty_end = 0.0
+      cumul_tot_value_begin = 0.0
+      cumul_tot_value_plus = 0.0
+      cumul_tot_value_minus = 0.0
+      cumul_tot_value_inventory = 0.0
+      cumul_tot_value_end = 0.0
+      
       products = context['products']
 
  
@@ -107,22 +120,22 @@ sorted_objects = sorted(objects, key=lambda o : o.categ_id.name + o.name)
             <th style="text-align:left;white-space:nowrap">${categ} ${_("TOTAL")}</th>
             <th style="text-align:left;white-space:nowrap"></th>
             <th style="text-align:right;white-space:nowrap">${  formatLang(cumul_categ_qty_begin)}</th>
-            <th style="text-align:left;white-space:nowrap">${  formatLang(cumul_categ_qty_plus)}</th>
-            <th style="text-align:left;white-space:nowrap">${  formatLang(cumul_categ_qty_minus)}</th>
+            <th style="text-align:right;white-space:nowrap">${  formatLang(cumul_categ_qty_plus)}</th>
+            <th style="text-align:right;white-space:nowrap">${  formatLang(cumul_categ_qty_minus)}</th>
             <th style="text-align:right;white-space:nowrap;">${  formatLang(cumul_categ_qty_inventory)}</th>
             <th style="text-align:right;white-space:nowrap;">${  formatLang(cumul_categ_qty_end)}</th>
             <th style="text-align:right;white-space:nowrap">${  formatLang(cumul_categ_value_begin)}</th>
-            <th style="text-align:left;white-space:nowrap">${  formatLang(cumul_categ_value_plus)}</th>
-            <th style="text-align:left;white-space:nowrap">${  formatLang(cumul_categ_value_minus)}</th>
+            <th style="text-align:right;white-space:nowrap">${  formatLang(cumul_categ_value_plus)}</th>
+            <th style="text-align:right;white-space:nowrap">${  formatLang(cumul_categ_value_minus)}</th>
             <th style="text-align:right;white-space:nowrap;">${  formatLang(cumul_categ_value_inventory)}</th>
             <th style="text-align:right;white-space:nowrap;">${  formatLang(cumul_categ_value_end)}</th>
          </tr>
          <tr>
             <th style="text-align:right;white-space:nowrap"></th>
             <th style="text-align:right;white-space:nowrap"></th>
-            <th style="text-align:left;white-space:nowrap"></th>
-            <th style="text-align:left;white-space:nowrap"></th>
-            <th style="text-align:left;white-space:nowrap"></th>
+            <th style="text-align:right;white-space:nowrap"></th>
+            <th style="text-align:right;white-space:nowrap"></th>
+            <th style="text-align:right;white-space:nowrap"></th>
          </tr>
 <%
       cumul_categ_qty_begin = 0.0
@@ -200,6 +213,18 @@ sorted_objects = sorted(objects, key=lambda o : o.categ_id.name + o.name)
     cumul_categ_value_minus += value_minus
     cumul_categ_value_inventory += value_inventory
     cumul_categ_value_end += value_end
+    
+    cumul_tot_qty_begin += qty_begin 
+    cumul_tot_qty_plus += qty_plus
+    cumul_tot_qty_minus += qty_minus
+    cumul_tot_qty_inventory += qty_inventory
+    cumul_tot_qty_end += qty_end
+
+    cumul_tot_value_begin += value_begin
+    cumul_tot_value_plus  += value_plus
+    cumul_tot_value_minus += value_minus
+    cumul_tot_value_inventory += value_inventory
+    cumul_tot_value_end += value_end
  %>
     </tr>
 %endif
@@ -209,28 +234,40 @@ sorted_objects = sorted(objects, key=lambda o : o.categ_id.name + o.name)
                   <tr>
             <th style="text-align:left;white-space:nowrap">${categ} ${_("TOTAL")}</th>
             <th style="text-align:right;white-space:nowrap"></th>
-            <th style="text-align:left;white-space:nowrap"></th>
-            <th style="text-align:left;white-space:nowrap"></th>
-            <th style="text-align:right;white-space:nowrap;"></th>
-            <th style="text-align:right;white-space:nowrap;"></th>
-            <th style="text-align:left;white-space:nowrap"></th>
+            <th style="text-align:right;white-space:nowrap">${  formatLang(cumul_categ_qty_begin)}</th>
+            <th style="text-align:right;white-space:nowrap">${  formatLang(cumul_categ_qty_plus)}</th>
+            <th style="text-align:right;white-space:nowrap">${  formatLang(cumul_categ_qty_minus)}</th>
+            <th style="text-align:right;white-space:nowrap;">${  formatLang(cumul_categ_qty_inventory)}</th>
+            <th style="text-align:right;white-space:nowrap;">${  formatLang(cumul_categ_qty_end)}</th>
+            <th style="text-align:right;white-space:nowrap">${  formatLang(cumul_categ_value_begin)}</th>
+            <th style="text-align:right;white-space:nowrap">${  formatLang(cumul_categ_value_plus)}</th>
+            <th style="text-align:right;white-space:nowrap">${  formatLang(cumul_categ_value_minus)}</th>
+            <th style="text-align:right;white-space:nowrap;">${  formatLang(cumul_categ_value_inventory)}</th>
+            <th style="text-align:right;white-space:nowrap;">${  formatLang(cumul_categ_value_end)}</th>
+
          </tr>
          <tr>
             <th style="text-align:right;white-space:nowrap"></th>
-            <th style="text-align:left;white-space:nowrap"></th>
-            <th style="text-align:left;white-space:nowrap"></th>
-            <th style="text-align:left;white-space:nowrap"></th>
-            <th style="text-align:left;white-space:nowrap"></th>
+            <th style="text-align:right;white-space:nowrap"></th>
+            <th style="text-align:right;white-space:nowrap"></th>
+            <th style="text-align:right;white-space:nowrap"></th>
+            <th style="text-align:right;white-space:nowrap"></th>
          </tr>
 
           <tr>
             <th style="text-align:left;white-space:nowrap">${_("GRAND TOTAL")}</th>
             <th style="text-align:right;white-space:nowrap"></th>
-            <th style="text-align:left;white-space:nowrap"></th>
-            <th style="text-align:left;white-space:nowrap"></th>
-            <th style="text-align:right;white-space:nowrap;"></th>
-            <th style="text-align:right;white-space:nowrap;"></th>
-            <th style="text-align:right;white-space:nowrap;"></th>
+            <th style="text-align:right;white-space:nowrap">${  formatLang(cumul_tot_qty_begin)}</th>
+            <th style="text-align:right;white-space:nowrap">${  formatLang(cumul_tot_qty_plus)}</th>
+            <th style="text-align:right;white-space:nowrap">${  formatLang(cumul_tot_qty_minus)}</th>
+            <th style="text-align:right;white-space:nowrap;">${  formatLang(cumul_tot_qty_inventory)}</th>
+            <th style="text-align:right;white-space:nowrap;">${  formatLang(cumul_tot_qty_end)}</th>
+            <th style="text-align:right;white-space:nowrap">${  formatLang(cumul_tot_value_begin)}</th>
+            <th style="text-align:right;white-space:nowrap">${  formatLang(cumul_tot_value_plus)}</th>
+            <th style="text-align:right;white-space:nowrap">${  formatLang(cumul_tot_value_minus)}</th>
+            <th style="text-align:right;white-space:nowrap;">${  formatLang(cumul_tot_value_inventory)}</th>
+            <th style="text-align:right;white-space:nowrap;">${  formatLang(cumul_tot_value_end)}</th>
+
          </tr>
         </tfoot>
 </table>
