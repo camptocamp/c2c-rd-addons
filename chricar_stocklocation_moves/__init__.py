@@ -29,4 +29,5 @@
 #
 ##############################################################################
 #
-import  stocklocation_move
+import stocklocation_move
+import wizard
