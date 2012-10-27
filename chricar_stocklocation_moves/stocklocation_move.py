@@ -34,19 +34,21 @@ class chricar_report_location_moves(osv.osv):
         _description = "Location Moves"
         _auto = False
         _columns = {
-                'name'       : fields.char ('Name',size=16, readonly=True),
+                'company_id'  : fields.many2one('res.company', 'Company', readonly=True),
+                'name'        : fields.char ('Name',size=16, readonly=True),
                 'picking_id'  : fields.many2one('stock.picking','Stock Picking', readonly=True),
                 'product_id'  : fields.many2one('product.product', 'Product', readonly=True),
                 'location_id' : fields.many2one('stock.location', 'Location', readonly=True),
                 'partner_id'  : fields.many2one('res.partner', 'Partner', readonly=True),
                 'period_id'   : fields.many2one('account.period', 'Period', readonly=True),
                 'prodlot_id'  : fields.many2one('stock.production.lot', 'Production Lot', readonly=True),
-                'date': fields.date    ('Date',readonly=True),
+                'date'        : fields.date    ('Date',readonly=True),
                 'product_qty' : fields.float('Quantity', readonly=True),
                 'move_value_cost' : fields.float('Cost Value', readonly=True),
                 'move_value_sale' : fields.float('Sale Value', readonly=True),
                 'cost_price' : fields.float('Cost Price', readonly=True),
                 'sale_price' : fields.float('Sale Price', readonly=True),
+                'value_correction': fields.float('Value Correction', readonly=True),
                 'usage'      : fields.related('location_id','usage',type="char", relation="stock.location", string="Usage", readonly=True),
                 'variants'   : fields.related('product_id','variants',type="char", relation="product.product", string="Variants", readonly=True),
                 'categ_id'   : fields.related('product_id','categ_id',type="many2one", relation="product.category", string="Category", readonly=True),
@@ -70,6 +72,7 @@ class chricar_report_location_moves(osv.osv):
                      product_qty,move_value_cost,move_value_sale,
                      case when product_qty != 0 then  move_value_cost/product_qty  else 0 end as cost_price,
                      case when product_qty != 0 then  move_value_sale/product_qty  else 0 end as sale_price,
+                     value_correction,
                      state, company_id
                 from stock_move
                     
@@ -82,6 +85,7 @@ class chricar_report_location_moves(osv.osv):
                      -product_qty,-move_value_cost,-move_value_sale,
                      case when product_qty != 0 then  move_value_cost/product_qty  else 0 end as cost_price,
                      case when product_qty != 0 then  move_value_sale/product_qty  else 0 end as sale_price,
+                     -value_correction,
                      state, company_id
                 from stock_move
                     
@@ -167,9 +171,11 @@ select id,company_id, product_id,location_id, picking_id, prodlot_id,
        0 as cost_inventory,state
        from chricar_report_location_moves
        where state ='done' 
+       and value_correction is null 
        and id not in (select 2*move_id from stock_inventory_move_rel
                       union
                       select 2*move_id-1 from stock_inventory_move_rel)
+           
 union all      
 select id,company_id, product_id, location_id, picking_id, prodlot_id,
        date,date::date as date2,period_id,
@@ -181,9 +187,11 @@ select id,company_id, product_id, location_id, picking_id, prodlot_id,
        move_value_cost as cost_inventory,state
        from chricar_report_location_moves
        where state ='done'
-       and id  in (select 2*move_id from stock_inventory_move_rel
+       and (value_correction is not null
+        or id  in (select 2*move_id from stock_inventory_move_rel
                       union
                       select 2*move_id-1 from stock_inventory_move_rel)
+           )
 )""")
            
 chricar_location_move_col()
