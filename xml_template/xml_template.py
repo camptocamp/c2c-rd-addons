@@ -89,7 +89,11 @@ class xml_template(osv.osv):
             generator = XML_Generator.XML_Generator(obj.content, nsmap) # can be optimized as function field!
             xml = generator.generate(**scope_dict)
             if obj.schema :
-                self.is_schema_valid(cr, uid, id, xml)
+                if not self.is_schema_valid(cr, uid, id, xml) :
+                    raise osv.except_osv \
+                        ( _("Data Error !")
+                        , _("The generated XML does not conform to schema '%s'" % obj.schema)
+                        )
             return xml
         raise osv.except_osv \
             ( _("Data Error !")
@@ -104,7 +108,7 @@ class xml_template(osv.osv):
         :return: Boolean
         """
         obj = self.browse(cr, uid, id)
-        if obj and obj.schema :
+        if obj :
             parser = etree.XMLParser(no_network=False)
             schema_root = etree.parse(obj.schema, parser)
             if ".xsd" in obj.schema.lower() :
@@ -117,10 +121,12 @@ class xml_template(osv.osv):
                     , _("Unknown schema type: %s" % obj.schmea)
                     )
             return schema.validate(xml)
-        raise osv.except_osv \
-            ( _("Data Error !")
-            , _("Invalid Template with ID: %s" % id)
-            )
+        else :
+            raise osv.except_osv \
+                ( _("Data Error !")
+                , _("Invalid Template with ID: %s" % id)
+                )
+        return False
     # end def is_schema_valid
 
     def _remove_attachments(self, cr, uid, attach_to, name, fname, description, context=None) :
