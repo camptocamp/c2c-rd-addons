@@ -43,10 +43,12 @@ class stock_location_product(osv.osv_memory):
         if not d:
            raise osv.except_osv(_('Error'), _('You must define a comparison date - Beginning of Period'))
         e =  "','YYYY-MM-DD HH24:MI:SS')"
+        # Date begin = last second of the period before the reporting period
         date_begin = "to_date('" + d + e
         d = res['context']['local_to_date1']
         if not d:
            raise osv.except_osv(_('Error'), _('You must define a comparison date - End of Period'))
+        # Date end = last second of the reporting period
         date_end = "to_date('" + d + e
         if date_begin > date_end:
            raise osv.except_osv(_('Error'), _('Date Begin must be before Date End'))
@@ -59,18 +61,18 @@ class stock_location_product(osv.osv_memory):
         where_location_ids = ' and location_id in (' + ','.join([str(id) for id in location_ids])    + ') '
         self._logger.debug('FGF %s %s' %(date_begin,date_end))
         sql = """select product_id,
-        sum(case when date < %s then product_qty else 0 end) as qty_begin,
-        sum(case when date >= %s then qty_plus else 0 end) as qty_plus,
-        sum(case when date >= %s then qty_minus else 0 end) as qty_minus,
-        sum(case when date >= %s then qty_inventory else 0 end) as qty_inventory,
+        sum(case when date <= %s then product_qty else 0 end) as qty_begin,
+        sum(case when date > %s then qty_plus else 0 end) as qty_plus,
+        sum(case when date > %s then qty_minus else 0 end) as qty_minus,
+        sum(case when date > %s then qty_inventory else 0 end) as qty_inventory,
         sum(product_qty) as qty_end,
-        sum(case when date < %s then move_value_cost else 0 end) as value_begin,
-        sum(case when date >= %s then cost_plus else 0 end) as value_plus,
-        sum(case when date >= %s then cost_minus else 0 end) as value_minus,
-        sum(case when date >= %s then cost_inventory else 0 end) as value_inventory,
+        sum(case when date <= %s then move_value_cost else 0 end) as value_begin,
+        sum(case when date > %s then cost_plus else 0 end) as value_plus,
+        sum(case when date > %s then cost_minus else 0 end) as value_minus,
+        sum(case when date > %s then cost_inventory else 0 end) as value_inventory,
         sum(move_value_cost) as value_end
             from chricar_location_move_col
-          where date < %s
+          where date <= %s
             %s  -- where company
             %s  -- where location_id
           group by product_id
