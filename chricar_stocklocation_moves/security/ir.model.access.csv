@@ -1,3 +1,4 @@
 "id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
 "access_report_stock_locationmove","chricar.report.location.moves","model_chricar_report_location_moves","stock.group_stock_user",1,0,0,0
 "access_report_stock_locationmove_sum","chricar.report.location.moves_sum","model_chricar_report_location_moves_sum","stock.group_stock_user",1,0,0,0
+"access_chricar_location_move_col","chricar.location.move.col","model_chricar_location_move_col","stock.group_stock_user",1,0,0,0
