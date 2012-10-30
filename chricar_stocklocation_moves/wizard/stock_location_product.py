@@ -42,14 +42,14 @@ class stock_location_product(osv.osv_memory):
         d = res['context']['local_to_date2']
         if not d:
            raise osv.except_osv(_('Error'), _('You must define a comparison date - Beginning of Period'))
-        e =  "','YYYY-MM-DD HH24:MI:SS')"
+        e =  "','YYYY-MM-DD HH24:MI:SS')::timestamp without time zone"
         # Date begin = last second of the period before the reporting period
-        date_begin = "to_date('" + d + e
+        date_begin = "to_timestamp('" + d + e
         d = res['context']['local_to_date1']
         if not d:
            raise osv.except_osv(_('Error'), _('You must define a comparison date - End of Period'))
         # Date end = last second of the reporting period
-        date_end = "to_date('" + d + e
+        date_end = "to_timestamp('" + d + e
         if date_begin > date_end:
            raise osv.except_osv(_('Error'), _('Date Begin must be before Date End'))
            
@@ -77,7 +77,7 @@ class stock_location_product(osv.osv_memory):
             %s  -- where location_id
           group by product_id
           order by product_id""" % (date_begin,date_begin,date_begin,date_begin, date_begin,date_begin,date_begin,date_begin, date_end, where_company, where_location_ids )
-        self._logger.debug('_action_open_report_col products %s', sql)
+        self._logger.info('_action_open_report_col products %s', sql)
         cr.execute(sql)
         rows = cr.dictfetchall()
         #self._logger.debug('_action_open_report_col rows %s', rows)
