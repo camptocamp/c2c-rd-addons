@@ -42,7 +42,7 @@ class account_invoice(osv.osv):
         _logger = logging.getLogger(__name__)
 
         res = {}
-        min_size = 100
+        min_size = 150
         size = min_size, min_size
         for inv in self.browse(cr, uid, ids, context=context):
           if inv.type == 'out_invoice' and qr_mod == True:
@@ -56,7 +56,7 @@ class account_invoice(osv.osv):
             currency = ''.join([inv.currency_id.name, str(inv.residual)])
             usage  = ''
             ref    = ', '.join([inv.number, inv.date_invoice]) 
-            display = ''
+            display = _('This QR-Code will be used to initialize bank payment, you will need to confirm this payment using your E-banking system')
             
             lf ='\n'
             qr_string = lf.join([service,version,code,function,bic,partner,iban,currency,usage,ref,display])

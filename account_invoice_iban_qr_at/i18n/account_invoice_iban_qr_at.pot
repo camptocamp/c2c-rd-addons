@@ -1,0 +1,75 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+# 	* account_invoice_iban_qr_at
+# <> <>, 2012.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 6.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-10-31 20:50+0000\n"
+"PO-Revision-Date: 2012-10-31 21:58+0100\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_invoice_iban_qr_at
+#: constraint:account.invoice:0
+msgid "Error: \"Reference\" is missing"
+msgstr ""
+
+#. module: account_invoice_iban_qr_at
+#: field:account.invoice,iban_qr_code:0
+msgid "IBAN QR"
+msgstr ""
+
+#. module: account_invoice_iban_qr_at
+#: constraint:account.invoice:0
+msgid "Error ! Violating product coding guideline "
+msgstr ""
+
+#. module: account_invoice_iban_qr_at
+#: model:ir.actions.report.xml,name:account_invoice_iban_qr_at.account_invoice_webkit
+msgid "WebKit Invoice"
+msgstr ""
+
+#. module: account_invoice_iban_qr_at
+#: constraint:account.invoice:0
+msgid "You must not define an analytic account."
+msgstr ""
+
+#. module: account_invoice_iban_qr_at
+#: sql_constraint:account.invoice:0
+msgid "Invoice Number must be unique per Company!"
+msgstr ""
+
+#. module: account_invoice_iban_qr_at
+#: constraint:account.invoice:0
+msgid "Error: Invalid \"Customer Data\" [numeric12]"
+msgstr ""
+
+#. module: account_invoice_iban_qr_at
+#: model:ir.model,name:account_invoice_iban_qr_at.model_account_invoice
+msgid "Invoice"
+msgstr ""
+
+#. module: account_invoice_iban_qr_at
+#: code:addons/account_invoice_iban_qr_at/account_invoice.py:59
+#, python-format
+msgid ""
+"This QR-Code will be used to initialize bank payment, you will need to "
+"confirm this payment using your E-banking system"
+msgstr ""
+
+#. module: account_invoice_iban_qr_at
+#: constraint:account.invoice:0
+msgid "You must not alter a fixed analytic account."
+msgstr ""
+
+#. module: account_invoice_iban_qr_at
+#: constraint:account.invoice:0
+msgid "You must assign an analytic account.(invoice)"
+msgstr ""
