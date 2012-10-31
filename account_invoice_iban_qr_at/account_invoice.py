@@ -61,7 +61,7 @@ class account_invoice(osv.osv):
             lf ='\n'
             qr_string = lf.join([service,version,code,function,bic,partner,iban,currency,usage,ref,display])
             _logger.debug('FGF QR string %s', qr_string)
-            qr = qrencode.encode_scaled(qr_string,min_size)
+            qr = qrencode.encode_scaled(qr_string,min_size,1)
             
             # FIXME - do not use external file !!!
             # qr_pic = base64.encodestring(qr[2]) # does not work
