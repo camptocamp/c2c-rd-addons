@@ -30,13 +30,10 @@ try:
 except:
     qr_mod = False   
 import base64
-import Image
+#import Image
 import sys
 
 import logging
-
-#images = qrencode.encode_scaled('woah!',100)
-#images[2].save('out2.png')
 
 class account_invoice(osv.osv):
     _inherit = "account.invoice"
@@ -66,9 +63,11 @@ class account_invoice(osv.osv):
             _logger.debug('FGF QR string %s', qr_string)
             qr = qrencode.encode_scaled(qr_string,min_size)
             
-            # FIXME - do not use extaernal file !!!
+            # FIXME - do not use external file !!!
+            # qr_pic = base64.encodestring(qr[2]) # does not work
             qr[2].save('/tmp/IBAN.png')
             qr_pic = base64.encodestring(file('/tmp/IBAN.png', 'rb').read())
+            
             
             res[inv.id] = qr_pic
           else:
