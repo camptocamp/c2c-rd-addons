@@ -52,7 +52,7 @@ class account_invoice(osv.osv):
             function = 'SCT'
             bic     = inv.company_id.company_bank_id and inv.company_id.company_bank_id.bank.bic or ''
             partner = inv.company_id.name
-            iban    = inv.company_id.company_bank_id and inv.company_id.company_bank_id.acc_number or ''
+            iban    = inv.company_id.company_bank_id and inv.company_id.company_bank_id.acc_number.replace(' ','') or ''
             currency = ''.join([inv.currency_id.name, str(inv.residual)])
             usage  = ''
             ref    = ', '.join([inv.number, inv.date_invoice]) 
