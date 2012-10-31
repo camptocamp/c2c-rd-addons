@@ -33,6 +33,7 @@ import time
 from osv import fields,osv
 import decimal_precision as dp
 import one2many_sorted
+from tools.translate import _
 
 import logging
 
@@ -274,6 +275,16 @@ class chricar_budget(osv.osv):
             res[line.id]  = harvest_yield_diff
         return res
 
+     def _harvest_done(self, cr, uid, ids, name, args, context=None):
+        res = {}
+        mrp_production_obj = self.pool.get('mrp.production')
+        for line in self.browse(cr, uid, ids, context=context):
+            res[line.id] = ''
+            mrp_ids=mrp_production_obj.search(cr, uid, [('prodlot_id','=',line.prod_lot_id.id)])
+            for mrp in mrp_production_obj.browse(cr, uid, mrp_ids):
+                res[line.id] = ' ('+_(mrp.state)+')'
+        return res
+         
      def _surface_unused(self, cr, uid, ids, name, args, context=None):
         res = {}
         for line in self.browse(cr, uid, ids, context=context):
@@ -314,6 +325,7 @@ class chricar_budget(osv.osv):
        'harvest_net'        : fields.function(_harvest_net, method=True, string='Net/ha' ,digits=(16,0), help="Harvested qty net - without soil this year", readonly=True),
        'harvest_yield'      : fields.function(_harvest_yield, method=True, string='Yield/ha' ,digits=(16,0), help="Harvested yield qty this year", readonly=True),
        'harvest_yield_diff' : fields.function(_harvest_yield_diff, method=True, string='Yield Net Diff' ,digits=(16,2), help="Harvested yield Diff", readonly=True),
+       'harvest_done'       : fields.function(_harvest_done, method=True, string='Harvest Done' ,type='char', help="Harvested production order state", readonly=True),
        'prod_lot_id'        : fields.many2one('stock.production.lot', 'Production Lot', domain="[('product_id','=',product_id)]"),
        'amount_prod_lot'    : fields.function(_amount_prod_lot, method=True, string='Sales Prod Lot' ,digits_compute=dp.get_precision('Budget'),help="Invoiced production lots"),
        'product_qty_stock'  : fields.related ('product_id', 'qty_available', type="float",  string="Unsold Stock", readonly = True ,help="Uninvoiced quantitiy of this product"),
