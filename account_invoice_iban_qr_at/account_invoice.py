@@ -24,7 +24,11 @@ from osv import fields, osv, orm
 from tools.translate import _
 import one2many_sorted
 
-import qrencode
+try:
+    import qrencode
+    qr_mod = True
+except:
+    qr_mod = False   
 import base64
 import Image
 import sys
@@ -41,10 +45,10 @@ class account_invoice(osv.osv):
         _logger = logging.getLogger(__name__)
 
         res = {}
-        min_size = 200
+        min_size = 100
         size = min_size, min_size
         for inv in self.browse(cr, uid, ids, context=context):
-          if inv.type == 'out_invoice':
+          if inv.type == 'out_invoice' and qr_mod == True:
             service = 'BCD'
             version = '001'
             code    = '1'

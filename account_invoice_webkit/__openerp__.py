@@ -45,6 +45,7 @@ top margin of webkit header must be set to 35mm to get correctly positioned fold
     , "picking_invoice_rel"
     , "stock_packing_webkit"
     , "one2many_sorted"
+    , "account_invoice_iban_qr_at"
     ]
 , "category"     : "Accounting & Finance"
 , "author"       : "Camptocamp SA - NBessi, Ferdinand Gassauer"
