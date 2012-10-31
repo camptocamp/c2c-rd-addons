@@ -115,22 +115,35 @@ class chricar_budget(osv.osv):
      def _amount_qty_lot(self, cr, uid, ids, name, args, context=None):
         _logger = logging.getLogger(__name__) 
         res = {}
-        for line in self.browse(cr, uid, ids, context=context):
-            # unsold prodlot value
-            res[line.id] = (line.product_qty_lot * line.price / line.price_unit_id.coefficient)
+
+        warehouse_obj = self.pool.get('stock.warehouse')
+        location_obj = self.pool.get('stock.location')
+
+        location_ids = [] # internal warehouse locations
+        wids = warehouse_obj.search(cr, uid, [], context=context)
+        for w in warehouse_obj.browse(cr, uid, wids, context=context):
+            location_ids.append(w.lot_stock_id.id)
+
+        child_location_ids = location_obj.search(cr, uid, [('location_id', 'child_of', location_ids)])
+        location_ids = child_location_ids or location_ids
+        _logger.debug('FGF loaction_ids %s' % (location_ids))
+
 
         move_obj = self.pool.get('stock.move')
+        move_obj = self.pool.get('chricar.report.location.moves')
         for line in self.browse(cr, uid, ids, context=context):
-            # uninvoiced pickings
+            # uninvoiced pickings 
             amount = 0
             if line.prod_lot_id:
-                 move_ids = move_obj.search(cr, uid, [('prodlot_id','=',line.prod_lot_id.id)])
-                 #_logger.debug('FGF uninvoiced move_ids %s' % (move_ids))
+                 move_ids = move_obj.search(cr, uid, [('prodlot_id','=',line.prod_lot_id.id),('state','!=','cancel')])
+                 _logger.debug('FGF uninvoiced move_ids %s' % (move_ids))
                  for move in move_obj.browse(cr, uid, move_ids):
-                   if  move.picking_id and move.picking_id.type == 'out' and move.state == 'done' and not move.picking_id.invoice_ids:
-                       _logger.debug('FGF uninvoiced move pick line id  %s %s' % (move.picking_id.name, move.product_id.name))
-                       amount += move.product_qty *  line.price / line.price_unit_id.coefficient
-            res[line.id] += amount                   
+                     # FIXME - not all location_ids are at customers , missing identifier
+                     if move.location_id.id not in location_ids and move.location_id.usage=='internal' and move.state == 'done':
+                         amount += move.product_qty *  line.price / line.price_unit_id.coefficient
+                         _logger.debug('FGF loaction %s %s' % (move.product_id.name,move.location_id.name))
+   
+            res[line.id] = amount                   
 
         return res
 
