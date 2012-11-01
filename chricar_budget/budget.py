@@ -113,10 +113,7 @@ class chricar_budget(osv.osv):
             res[line.id] = max( ((line.product_qty_stock * line.price / line.price_unit_id.coefficient) - line.amount_qty_lot), 0)
         return res
 
-     def _amount_qty_lot(self, cr, uid, ids, name, args, context=None):
-        _logger = logging.getLogger(__name__) 
-        res = {}
-
+     def _get_locations(self, cr, uid, context):
         warehouse_obj = self.pool.get('stock.warehouse')
         location_obj = self.pool.get('stock.location')
 
@@ -127,8 +124,14 @@ class chricar_budget(osv.osv):
 
         child_location_ids = location_obj.search(cr, uid, [('location_id', 'child_of', location_ids)])
         location_ids = child_location_ids or location_ids
-        _logger.debug('FGF loaction_ids %s' % (location_ids))
+        #_logger.debug('FGF loaction_ids %s' % (location_ids))
+        return location_ids
 
+     def _amount_qty_lot(self, cr, uid, ids, name, args, context=None):
+        _logger = logging.getLogger(__name__) 
+        res = {}
+
+        location_ids = self._get_locations(cr, uid, context)
 
         move_obj = self.pool.get('stock.move')
         move_obj = self.pool.get('chricar.report.location.moves')
