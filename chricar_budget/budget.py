@@ -342,9 +342,9 @@ class chricar_budget(osv.osv):
      _order = "name"
 
      _sql_constraints = [
-        ('surface_0', 'CHECK (surface>0)',  'Surface must be greater than 0 !'),
-    ]
-
+        ('surface_0', 'CHECK (surface>0)',  'Surface must be greater than 0 !')
+        , ('budget_lot_unique_index', 'unique (prod_lot_id)' ,  'Lot must be unique!')
+        ]
 
      def copy(self, cr, uid, id, default=None, context=None):
         if default is None:
