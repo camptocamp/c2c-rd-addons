@@ -93,7 +93,10 @@ generated 2009-08-18 23:44:30+02
             <field name="harvest_yield"/>
           <field name="damage_yield"/>
           <field name="damage_rembourse"/>
+<group colspan="2" col="4">
             <field name="price" select="1"/>
+            <field name="price_expected" select="1"/>
+</group>
             <field name="price_unit_id" select="1"/>
             <field name="amount" select="1"/>
             <field name="yield_sale" select="1"/>
@@ -191,6 +194,7 @@ generated 2009-08-18 23:44:30+02
           <field name="price_unit_id" select="1"/>
           <field name="amount"  sum="Sum Amount"/>
           <field name="amount_prod_lot"  sum="Sum Prod Lot"/>
+          <field name="price_expected" select="1"/>
           <field name="amount_qty_lot"  sum="Sum Uninvoiced Value"/>
           <field name="amount_qty_stock"  sum="Sum Stock Value"/>
           <field name="yield_sale" select="1"/>

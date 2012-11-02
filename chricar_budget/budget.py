@@ -110,7 +110,7 @@ class chricar_budget(osv.osv):
      def _amount_qty_stock(self, cr, uid, ids, name, args, context=None):
         res = {}
         for line in self.browse(cr, uid, ids, context=context):
-            res[line.id] = max( ((line.product_qty_stock * line.price / line.price_unit_id.coefficient) - line.amount_qty_lot), 0)
+            res[line.id] = max( ((line.product_qty_stock * (line.price_expected or line.price) / line.price_unit_id.coefficient) - line.amount_qty_lot), 0)
         return res
 
      def _get_locations(self, cr, uid, context):
@@ -144,7 +144,7 @@ class chricar_budget(osv.osv):
                  for move in move_obj.browse(cr, uid, move_ids):
                      # FIXME - not all location_ids are at customers , missing identifier
                      if move.location_id.id not in location_ids and move.location_id.usage=='internal' and move.state == 'done':
-                         amount += move.product_qty *  line.price / line.price_unit_id.coefficient
+                         amount += move.product_qty *  (line.price_expected or line.price) / line.price_unit_id.coefficient
                          _logger.debug('FGF loaction %s %s' % (move.product_id.name,move.location_id.name))
    
             res[line.id] = amount                   
@@ -308,7 +308,8 @@ class chricar_budget(osv.osv):
        'location_ids'       : fields.one2many('chricar.budget.surface','budget_id','Location Surface used'),
        'name'               : fields.text    ('Notes'),
        #'partner_id'         : fields.many2one('res.partner','Partner'),
-       'price'              : fields.float   ('Price', digits=(16,2),help="Exected average price"),
+       'price'              : fields.float   ('Price planned', digits=(16,2),help="Planned average price"),
+       'price_expected'     : fields.float   ('Price expected', digits=(16,2),help="Expected average price if different from planned price"),
        'price_unit_id'      : fields.many2one('c2c_product.price_unit','Price Unit', required=True),
        'product_id'         : fields.many2one('product.product','Product', select=True, required=True),
        'product_uom'        : fields.many2one('product.uom', 'Product UOM', required=True),
