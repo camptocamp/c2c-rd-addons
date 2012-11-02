@@ -243,7 +243,7 @@ ${inv.address_invoice_id.address_label|carriage_returns}
 %if inv.print_code:
            <td>${line.product_id.default_code or ''|entity}</td>
 %endif
-           <td>${line.product_id.name or line.name|entity}
+           <td>${line.name or line.product_id.name |entity}
 
 %if line.note and len(line.note.replace('\n','')) > 0 :
 <br>
