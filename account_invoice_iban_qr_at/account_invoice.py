@@ -19,21 +19,17 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-import decimal_precision as dp
 from osv import fields, osv, orm
 from tools.translate import _
-import one2many_sorted
+import tempfile
+import base64
+import logging
 
 try:
     import qrencode
     qr_mod = True
 except:
     qr_mod = False   
-import base64
-#import Image
-import sys
-
-import logging
 
 class account_invoice(osv.osv):
     _inherit = "account.invoice"
@@ -62,12 +58,10 @@ class account_invoice(osv.osv):
             qr_string = lf.join([service,version,code,function,bic,partner,iban,currency,usage,ref,display])
             _logger.debug('FGF QR string %s', qr_string)
             qr = qrencode.encode_scaled(qr_string,min_size,2)
-            
-            # FIXME - do not use external file !!!
-            # qr_pic = base64.encodestring(qr[2]) # does not work
-            qr[2].save('/tmp/IBAN.png')
-            qr_pic = base64.encodestring(file('/tmp/IBAN.png', 'rb').read())
-            
+            f = tempfile.TemporaryFile(mode="r+")
+            qr[2].save(f)
+            f.seek(0)
+            qr_pic = base64.encodestring(f.read())            
             
             res[inv.id] = qr_pic
           else:
