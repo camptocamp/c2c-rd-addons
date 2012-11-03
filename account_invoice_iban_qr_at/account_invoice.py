@@ -41,7 +41,7 @@ class account_invoice(osv.osv):
         min_size = 150
         size = min_size, min_size
         for inv in self.browse(cr, uid, ids, context=context):
-          if inv.type == 'out_invoice' and qr_mod == True:
+          if inv.type == 'out_invoice' and inv.number and qr_mod == True:
             service = 'BCD'
             version = '001'
             code    = '1'
@@ -51,17 +51,20 @@ class account_invoice(osv.osv):
             iban    = inv.company_id.company_bank_id and inv.company_id.company_bank_id.acc_number.replace(' ','') or ''
             currency = ''.join([inv.currency_id.name, str(inv.residual)])
             usage  = ''
-            ref    = ', '.join([inv.number, inv.date_invoice]) 
+            ref    = ', '.join([inv.number, inv.date_invoice or '']) 
             display = _('This QR-Code will be used to initialize bank payment, you will need to confirm this payment using your E-banking system')
             
             lf ='\n'
             qr_string = lf.join([service,version,code,function,bic,partner,iban,currency,usage,ref,display])
             _logger.debug('FGF QR string %s', qr_string)
             qr = qrencode.encode_scaled(qr_string,min_size,2)
-            f = tempfile.TemporaryFile(mode="r+")
-            qr[2].save(f)
-            f.seek(0)
-            qr_pic = base64.encodestring(f.read())            
+            # FIXME
+            #f = tempfile.TemporaryFile(mode="r+")
+            #qr[2].save(f)
+            #f.seek(0)
+            #qr_pic = base64.encodestring(f.read())            
+            qr[2].save('/tmp/IBAN.png')
+            qr_pic = base64.encodestring('/tmp/IBAN.png')            
             
             res[inv.id] = qr_pic
           else:
