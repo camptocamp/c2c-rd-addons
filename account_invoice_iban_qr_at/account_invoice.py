@@ -58,13 +58,11 @@ class account_invoice(osv.osv):
             qr_string = lf.join([service,version,code,function,bic,partner,iban,currency,usage,ref,display])
             _logger.debug('FGF QR string %s', qr_string)
             qr = qrencode.encode_scaled(qr_string,min_size,2)
-            # FIXME
-            #f = tempfile.TemporaryFile(mode="r+")
-            #qr[2].save(f)
-            #f.seek(0)
-            #qr_pic = base64.encodestring(f.read())            
-            qr[2].save('/tmp/IBAN.png')
-            qr_pic = base64.encodestring('/tmp/IBAN.png')            
+            f = tempfile.TemporaryFile(mode="r+")
+            qrCode = qr[2]
+            qrCode.save(f,'png')
+            f.seek(0)
+            qr_pic = base64.encodestring(f.read())            
             
             res[inv.id] = qr_pic
           else:
