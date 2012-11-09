@@ -100,8 +100,6 @@ custom_tl
 gtk6
 gtk61
 hr_timesheet_invoice_create_ext
-i18n
-i18n.moved
 l10n_at_real_estate_c2c
 mail_partner
 migration_process.txt
