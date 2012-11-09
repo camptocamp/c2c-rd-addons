@@ -20,7 +20,6 @@ account_payment_edifact
 account_payment_extension
 account_payment_sepa
 analytic_user_function_project
-base_ordered
 base_partner_contact
 c2c_account_closing_remarks
 c2c_account_interest
@@ -160,3 +159,4 @@ xml_template
 DONE
 ----
 
+base_ordered
