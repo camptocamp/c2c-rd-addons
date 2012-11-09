@@ -3,16 +3,18 @@
   <data>
     <record model="ir.ui.view" id="c2c_res_partner_address_label_form">
       <field name="name">c2c.res.partner.address.label.form</field>
-      <field name="model">res.partner.address</field>
-      <field name="inherit_id" ref="base.view_partner_address_form1"/>
+      <field name="model">res.partner</field>
       <field name="type">form</field>
+      <field name="inherit_id" ref="base.view_partner_form"/>
       <field name="arch" type="xml">
-        <field name="state_id" position="after">
-          <field name="address_label" height="150"/>
-        </field>
+        <page string="Contacts" position="after">
+          <page string="Address Label">
+            <field name="address_label" height="150"/>
+          </page>
+        </page>
       </field>
     </record>
-
+    
  <!-- Country  now uses address_format
     <record model="ir.ui.view" id="c2c_res_country_label_form">
       <field name="name">c2c.res.country.label.form</field>

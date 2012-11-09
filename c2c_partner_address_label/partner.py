@@ -72,8 +72,8 @@ res_company()
 #----------------------------------------------------------
 #  Address
 #----------------------------------------------------------
-class res_partner_address(osv.osv):
-    _inherit = 'res.partner.address'
+class res_partner(osv.osv):
+    _inherit = 'res.partner'
 
     def _address_label(self, cr, uid, ids, name, arg, context=None):
         _logger = logging.getLogger(__name__)
@@ -83,27 +83,32 @@ class res_partner_address(osv.osv):
             _logger.debug('FGF address_label street %s' % (a.street))
             lf ='\n'
 
-            bc = self.pool.get('ir.module.module').search(cr, uid,  [('name', '=', 'base_partner_contact'),('state', '=', 'installed')], context=context)
-            if bc:
-                l = a.partner_id.full_name
+#            bc = self.pool.get('ir.module.module').search(cr, uid,  [('name', '=', 'base_partner_contact'),('state', '=', 'installed')], context=context)
+#            if bc:
+#                l = a.full_name
+#            else:
+#                l = a.name or ''
+#                if a.title:
+#                    l = l + ' ' + a.title.name
+#
+#            bc = self.pool.get('ir.module.module').search(cr, uid,  [('name', '=', 'base_contact'),('state', '=', 'installed')], context=context)
+#
+#            if not bc:
+#                t = ''
+#                if a.title:
+#                    t = a.title.name + ' ' or ''
+#                if a.name:
+#                    t = t + a.name
+#                if t:
+#                    l = l + lf + t
+
+          
+           
+            if a.parent_id:
+                l = a.parent_id.name + lf + a.name
             else:
-                l = a.partner_id.name or ''
-                if a.partner_id.title:
-                    l = l + ' ' + a.partner_id.title.name
-
-            bc = self.pool.get('ir.module.module').search(cr, uid,  [('name', '=', 'base_contact'),('state', '=', 'installed')], context=context)
-
-            if not bc:
-                t = ''
-                if a.title:
-                    t = a.title.name + ' ' or ''
-                if a.name:
-                    t = t + a.name
-                if t:
-                    l = l + lf + t
-
-            
-            address = self._display_address(cr,uid,a)
+                l = a.name
+            address = self._display_address(cr,uid,a,without_company=True)
             address_compact =''
             for line in address.split('\n'):
                 if line.strip():
@@ -112,52 +117,8 @@ class res_partner_address(osv.osv):
             _logger.debug('FGF address_label %s' % (res[a.id]))
         return res
 
-# new in 6.1 labe_format        
-    def _address_label_old(self, cr, uid, ids, name, arg, context=None):
-        res = {}
-        lf ='\x0A'
-        for a in self.browse(cr, uid, ids, context=context):
-             l = a.partner_id.name or ''
-             if a.partner_id.title:
-                  l = l + ' ' + a.partner_id.title.name
-             t = ''
-             if a.title:
-                  t = a.title.name + ' ' or ''
-             if a.name:
-                  t = t + a.name
-             if t:
-                  l = l + lf + t
-             if a.street:
-                  l = l + lf + a.street
-             if a.street2:
-                  l = l + lf + a.street2
-             z = ''
-             if a.city:
-                  z = a.city
-             if a.zip:
-                  zip_position='before'
-                  if a.country_id.zip_position:
-                      zip_position = a.country_id.zip_position
-                  if zip_position == 'before':
-                      z = a.zip + ' ' + z
-                  if zip_position == 'after':
-                      if a.state_id.code:
-                          z = z + ', ' + a.state_id.code +', '+ a.zip
-                      else:
-                          z = z + ', ' + a.zip
-                  if zip_position == 'below':
-                      z = z + lf + a.zip
-             if z:
-                  l = l +lf + z
-             if a.state_id:
-                  l = l + lf + a.state_id.name
-             if a.country_id:
-                  l = l + lf + a.country_id.name
-             res[a.id] = l
-        return res
-
     _columns = {
         'address_label': fields.function(_address_label, type='text', method = True, string="Address Label"),
     }
     
-res_partner_address()
+res_partner()
