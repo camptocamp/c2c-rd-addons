@@ -137,7 +137,6 @@ sale_pull_internal
 sale_shipped_rate
 sale_uos_entry
 scripts
-search_todo
 stock_get_name_qty
 stock_inventory_line
 stock_invoice_service
@@ -160,3 +159,4 @@ DONE
 
 base_ordered
 c2c_period_yyyymm
+search_todo

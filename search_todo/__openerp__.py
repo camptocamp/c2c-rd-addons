@@ -38,7 +38,7 @@ this shows all resources which need further interaction (are not done or cancele
      ],
     'update_xml': ['purchase_view.xml','sale_view.xml','stock_view.xml', 'account_invoice_view.xml', 'partner_view.xml','mrp_view.xml'       ],
     'demo_xml': [],
-    'installable': False,
+    'installable': True,
     'active': False,
 }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

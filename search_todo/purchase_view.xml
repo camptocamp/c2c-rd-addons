@@ -7,7 +7,7 @@
             <field name="inherit_id" ref="purchase.view_purchase_order_filter"/>
             <field name="type">search</field>
             <field name="arch" type="xml">
-              <xpath expr="/search/group/filter[@name='draft']" position="before">
+              <xpath expr="/search/filter[@name='draft']" position="before">
                <filter icon="terp-gtk-jump-to-ltr" name="to_do" string="To Do" domain="[('state','not in',('done','cancel'))]" help="All what needs your attention."/>
                 <separator orientation="vertical"/>
               </xpath>

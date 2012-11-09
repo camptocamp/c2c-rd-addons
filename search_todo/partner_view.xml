@@ -1,6 +1,7 @@
 
 <openerp>
  <data>
+<!--
         <record id="action_all_partner_form" model="ir.actions.act_window">
             <field name="name">Partners</field>
             <field name="type">ir.actions.act_window</field>
@@ -12,7 +13,7 @@
             id="menu_partner_all_form"
             parent="base.menu_address_book"
             sequence="2"/>
-
+-->
 
  </data>
 </openerp>
