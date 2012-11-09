@@ -37,7 +37,6 @@ c2c_cashbox
 c2c_iban_formatter
 c2c_managment_board
 c2c_partner_address_label
-c2c_period_yyyymm
 c2c_process
 c2c_product_price_unit
 c2c_project_activities
@@ -160,3 +159,4 @@ DONE
 ----
 
 base_ordered
+c2c_period_yyyymm

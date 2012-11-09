@@ -54,7 +54,7 @@ class account_fiscalyear(osv.osv):
         cr.execute("""update account_period
                          set name = to_char(date_stop,'YYYYMM'),
                              code = to_char(date_stop,'YYYYMM')
-                            where name = to_char(date_stop,'MM/YYYY')
+                            where name != to_char(date_stop,'YYYYMM')
                   """)          
 
         cr.execute("""update account_period
