@@ -58,6 +58,6 @@ Requires "Constraint Manager" privilege-group.
 , "demo_xml"     : []
 , "update_xml"   : ["security/constraint_security.xml", "security/ir.model.access.csv", "constraint_view.xml"]
 , "test"         : []
-, "auto_install" : False
+, "auto_install" : True
 , "installable"  : True
 }

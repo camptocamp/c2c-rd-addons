@@ -95,7 +95,6 @@ chricar_tools_migrate
 chricar_tools_migrate.moved
 chricar_top
 chricar_view_id
-constraint
 crm_profile_c2c
 custom_tl
 gtk6
@@ -159,4 +158,5 @@ DONE
 
 base_ordered
 c2c_period_yyyymm
+constraint
 search_todo
