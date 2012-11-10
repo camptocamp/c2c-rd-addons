@@ -103,16 +103,13 @@ l10n_at_real_estate_c2c
 mail_partner
 migration_process.txt
 mrp_bom_calc
-mrp_no_gap
 mrp_reopen
 nassi-schneidermann
-no_gap_SO_PO_PICK
 one2many_sorted
 patches
 picking_invoice_rel
 product_price_unit_precision
 purchase_landed_costs
-purchase_no_gap
 purchase_order_picking
 purchase_order_reopen
 purchase_order_webkit
@@ -124,7 +121,6 @@ report_webkit_c2c_templates
 sale_internal_order
 sale_invoice_manual_link
 sale_margin_invoice_rel
-sale_no_gap
 sale_order_picking
 sale_order_portal
 sale_order_reopen
@@ -157,4 +153,7 @@ base_ordered
 c2c_partner_address_label
 c2c_period_yyyymm
 constraint
+mrp_no_gap
+purchase_no_gap
 search_todo
+sale_no_gap

@@ -8,7 +8,7 @@
             <field name="type">tree</field>
             <field name="arch" type="xml">
                 <field name="name" position="after">
-                    <field name="address_id"  groups="base.group_extended" />
+                    <field name="partner_id"  groups="base.group_extended" />
                 </field>
             </field>
         </record>
