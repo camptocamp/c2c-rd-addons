@@ -10,7 +10,6 @@ account_cash_discount_61
 account_cash_register_webkit
 account_financial_report
 account_fiscalyear_info
-account_invoice_2_move
 account_invoice_no_stockable
 account_invoice_refund
 account_invoice_reopen
@@ -148,12 +147,14 @@ xml_template
 DONE
 ----
 
+account_invoice_2_move
 base_ordered
+c2c_iban_formatter
 c2c_partner_address_label
 c2c_period_yyyymm
 constraint
 mrp_no_gap
 picking_invoice_rel
 purchase_no_gap
-search_todo
 sale_no_gap
+search_todo

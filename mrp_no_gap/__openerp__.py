@@ -31,11 +31,11 @@ Sale orders no gap
 
     """,
     'website': 'http://www.camptocamp.com',
-    "depends" : ["sale"],
+    "depends" : ["mrp"],
     'init_xml': [],
     'update_xml': [],
     'demo_xml': [],
-    'installable': False,
+    'installable': True,
     'auto_install': False,
 }
 

@@ -36,7 +36,7 @@ add search buttons for payables and receivables to search view for journal items
     'init_xml': [],
     'update_xml': ['account_invoice_view.xml'],
     'demo_xml': [],
-    'installable': False,
+    'installable': True,
     'auto_install': False,
 }
 
