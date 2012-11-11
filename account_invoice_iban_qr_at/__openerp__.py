@@ -28,29 +28,19 @@
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 ##############################################################################
-{ "name"         : "Webkit Report Invoice"
+{ "name"         : "Invoice IBAN QR CODE (AT) "
 , "description"  : """
-Invoice using Webkit,
-
-Address label with option to position address left, right
-using address label field with addressee's country specific zip position
-
-top margin of webkit header must be set to 35mm to get correctly positioned folding marks
+Adds an image datafeld to invoice with IBAN BIC Information according to
+http://www.stuzza.at/11250_DE.6858781c0841bfb08be3ce61a7d21fb40e0f0830
 """
 , "version"      : "0.9"
 , "depends"      : 
     [ "account"
-    , "report_webkit"
-    , "c2c_partner_address_label"
-    , "picking_invoice_rel"
-    , "stock_packing_webkit"
-    , "one2many_sorted"
-    , "account_invoice_iban_qr_at"
     ]
 , "category"     : "Accounting & Finance"
-, "author"       : "Camptocamp SA - NBessi, Ferdinand Gassauer"
+, "author"       : "Camptocamp Austria"
 , "website"      : "http://www.camptocamp.com/"
-, "data"         : ["account_invoice_webkit_view.xml"]
+, "data"         : ["account_qrcode_view.xml"]
 , "installable"  : True
 , "auto_install" : False
 }

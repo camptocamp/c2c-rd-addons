@@ -40,7 +40,7 @@ ${_("Supplier Address")}
 %endif
 ${inv.address_invoice_id.address_label|carriage_returns}
          </td>
-         <td style="width:50%;padding:0px;font-size:100%;padding-left:5mm;padding-top:3mm">
+         <td style="width:max;padding:0px;font-size:100%;padding-left:5mm;padding-top:3mm">
 <table  style="padding:0px;" >
          %if inv.address_invoice_id.phone :
 <tr>
@@ -64,6 +64,11 @@ ${inv.address_invoice_id.address_label|carriage_returns}
         %endif
 </table>
          </td>
+         %if 'iban_qr_code' in inv._columns and inv.iban_qr_code:
+         <td  style="width:150px">
+            ${helper.embed_image('png',inv.iban_qr_code, width=150)}
+         </td>
+         %endif
         </tr>
         %endif
 <!-- 
@@ -72,7 +77,12 @@ right Address
 ******************************-->
         %if inv.company_id.address_label_position == 'right' or not inv.company_id.address_label_position:
          <tr>
-         <td style="width:50%">
+        %if 'iban_qr_code' in inv._columns and inv.iban_qr_code:
+         <td  style="width:150px">
+            ${helper.embed_image('png',inv.iban_qr_code, width=150)}
+         </td>
+        %endif
+         <td>
 <table {border:none} >
          %if inv.address_invoice_id.phone :
 <tr>
@@ -233,7 +243,7 @@ ${inv.address_invoice_id.address_label|carriage_returns}
 %if inv.print_code:
            <td>${line.product_id.default_code or ''|entity}</td>
 %endif
-           <td>${line.product_id.name or line.name|entity}
+           <td>${line.name or line.product_id.name |entity}
 
 %if line.note and len(line.note.replace('\n','')) > 0 :
 <br>

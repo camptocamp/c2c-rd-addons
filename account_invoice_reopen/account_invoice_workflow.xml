@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
+        <!--
         <record id="act_reopen" model="workflow.activity">
             <field name="wkf_id" ref="account.wkf"/>
             <field name="name">reopen</field>
@@ -28,6 +29,7 @@ write({'state':'draft'})</field>
             <field name="act_to" ref="account.act_cancel"/>
             <field name="signal">invoice_cancel</field>
         </record>
+        -->
         <!-- new -->
         <!-- 20120502
    <record id="trans_open_draft" model="workflow.transition">

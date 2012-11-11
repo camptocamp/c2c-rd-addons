@@ -109,7 +109,7 @@ class ir_sequence(osv.osv):
                           for fy in fy_obj.browse(cr, uid, [fy]):
                               fy_code = fy.code
                               fy_name = fy.name
-                              prefix = journal.sequence_id.prefix + fy.code +'-'
+                              prefix = journal.sequence_id.prefix or '' + fy.code +'-'
                           sequence_code = journal.sequence_id.code
                           vals = \
                           { 'code'           : sequence_code

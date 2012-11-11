@@ -292,5 +292,67 @@
       view_mode="tree,form"
       view_type="form"/>
         -->
+    <record model="ir.ui.view" id="view_chricar_location_move_col_tree">
+      <field name="name">chricar.location.move.col.tree</field>
+      <field name="model">chricar.location.move.col</field>
+      <field name="type">tree</field>
+      <field name="priority">1</field>
+      <field name="arch" type="xml">
+        <tree string="Location Moves Columns" colors="grey:state=='cancel';blue:state not in ('cancel','done') ">
+          <field name="company_id"/>
+          <field name="categ_id" select="1"/>
+          <field name="product_id" select="1"/>
+          <field name="location_id" select="1"/>
+          <field name="picking_id" select="1"/>
+          <field name="prodlot_id" select="1"/>
+          <field name="period_id" select="1"/>
+          <field name="date" select="1"/>
+          <field name="date2" select="1"/>
+          <field name="product_qty" sum="Quantity"/>
+          <field name="qty_plus" sum="Qty Plus"/>
+          <field name="qty_minus" sum="Qty Minus"/>
+          <field name="qty_inventory" sum="Qty Inventory"/>
+          <field name="move_value_cost" sum="Cost"/>
+          <field name="cost_plus" sum="Cost Plus"/>
+          <field name="cost_minus" sum="Cost Minus"/>
+          <field name="cost_inventory" sum="Cost Inventory"/>
+          <field name="state"/>
+        </tree>
+      </field>
+    </record>
+    <record model="ir.actions.act_window" id="action_cc_report_location_moves_columns_tree">
+      <field name="name">Move Qty Cost Columns</field>
+      <field name="res_model">chricar.location.move.col</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree</field>
+      <field name="view_id" ref="view_chricar_location_move_col_tree"/>
+    </record>
+<!--
+    <record model="ir.actions.act_window.view" id="farm_sheet_detail_act1_view2">
+      <field name="sequence" eval="1"/>
+      <field name="view_mode">tree</field>
+      <field name="view_id" ref="view_chricar_location_moves_tree"/>
+      <field name="act_window_id" ref="action_chricar_location_tree"/>
+    </record>
+    <record model="ir.actions.act_window.view" id="farm_sheet_detail_act1_view1">
+      <field name="sequence" eval="2"/>
+      <field name="view_mode">form</field>
+      <field name="view_id" ref="view_chricar_location_moves_form"/>
+      <field name="act_window_id" ref="action_chricar_location_tree"/>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_cc_report_location_moves_columns_tree">
+      <field name="name">Move Qty Cost Columns</field>
+      <field name="res_model">chricar.location.move.col</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree</field>
+    </record>
+    -->
+
+    <menuitem
+      action="action_cc_report_location_moves_columns_tree"
+      id="menu_action_cc_report_location_moves_columns_tree"
+      parent="stock.next_id_61"/>
+        -->      
   </data>
 </openerp>

@@ -33,6 +33,7 @@ import time
 from osv import fields,osv
 import decimal_precision as dp
 import one2many_sorted
+from tools.translate import _
 
 import logging
 
@@ -109,28 +110,44 @@ class chricar_budget(osv.osv):
      def _amount_qty_stock(self, cr, uid, ids, name, args, context=None):
         res = {}
         for line in self.browse(cr, uid, ids, context=context):
-            res[line.id] = max( ((line.product_qty_stock * line.price / line.price_unit_id.coefficient) - line.amount_qty_lot), 0)
+            res[line.id] = max( ((line.product_qty_stock * (line.price_expected or line.price) / line.price_unit_id.coefficient) - line.amount_qty_lot), 0)
         return res
+
+     def _get_locations(self, cr, uid, context):
+        warehouse_obj = self.pool.get('stock.warehouse')
+        location_obj = self.pool.get('stock.location')
+
+        location_ids = [] # internal warehouse locations
+        wids = warehouse_obj.search(cr, uid, [], context=context)
+        for w in warehouse_obj.browse(cr, uid, wids, context=context):
+            location_ids.append(w.lot_stock_id.id)
+
+        child_location_ids = location_obj.search(cr, uid, [('location_id', 'child_of', location_ids)])
+        location_ids = child_location_ids or location_ids
+        #_logger.debug('FGF loaction_ids %s' % (location_ids))
+        return location_ids
 
      def _amount_qty_lot(self, cr, uid, ids, name, args, context=None):
         _logger = logging.getLogger(__name__) 
         res = {}
-        for line in self.browse(cr, uid, ids, context=context):
-            # unsold prodlot value
-            res[line.id] = (line.product_qty_lot * line.price / line.price_unit_id.coefficient)
+
+        location_ids = self._get_locations(cr, uid, context)
 
         move_obj = self.pool.get('stock.move')
+        move_obj = self.pool.get('chricar.report.location.moves')
         for line in self.browse(cr, uid, ids, context=context):
-            # uninvoiced pickings
+            # uninvoiced pickings 
             amount = 0
             if line.prod_lot_id:
-                 move_ids = move_obj.search(cr, uid, [('prodlot_id','=',line.prod_lot_id.id)])
-                 #_logger.debug('FGF uninvoiced move_ids %s' % (move_ids))
+                 move_ids = move_obj.search(cr, uid, [('prodlot_id','=',line.prod_lot_id.id),('state','!=','cancel')])
+                 _logger.debug('FGF uninvoiced move_ids %s' % (move_ids))
                  for move in move_obj.browse(cr, uid, move_ids):
-                   if  move.picking_id and move.picking_id.type == 'out' and move.state == 'done' and not move.picking_id.invoice_ids:
-                       _logger.debug('FGF uninvoiced move pick line id  %s %s' % (move.picking_id.name, move.product_id.name))
-                       amount += move.product_qty *  line.price / line.price_unit_id.coefficient
-            res[line.id] += amount                   
+                     # FIXME - not all location_ids are at customers , missing identifier
+                     if move.location_id.id not in location_ids and move.location_id.usage=='internal' and move.state == 'done':
+                         amount += move.product_qty *  (line.price_expected or line.price) / line.price_unit_id.coefficient
+                         _logger.debug('FGF loaction %s %s' % (move.product_id.name,move.location_id.name))
+   
+            res[line.id] = amount                   
 
         return res
 
@@ -261,6 +278,16 @@ class chricar_budget(osv.osv):
             res[line.id]  = harvest_yield_diff
         return res
 
+     def _harvest_done(self, cr, uid, ids, name, args, context=None):
+        res = {}
+        mrp_production_obj = self.pool.get('mrp.production')
+        for line in self.browse(cr, uid, ids, context=context):
+            res[line.id] = ''
+            mrp_ids=mrp_production_obj.search(cr, uid, [('prodlot_id','=',line.prod_lot_id.id)])
+            for mrp in mrp_production_obj.browse(cr, uid, mrp_ids):
+                res[line.id] = ' ('+_(mrp.state)+')'
+        return res
+         
      def _surface_unused(self, cr, uid, ids, name, args, context=None):
         res = {}
         for line in self.browse(cr, uid, ids, context=context):
@@ -281,7 +308,8 @@ class chricar_budget(osv.osv):
        'location_ids'       : fields.one2many('chricar.budget.surface','budget_id','Location Surface used'),
        'name'               : fields.text    ('Notes'),
        #'partner_id'         : fields.many2one('res.partner','Partner'),
-       'price'              : fields.float   ('Price', digits=(16,2),help="Exected average price"),
+       'price'              : fields.float   ('Price planned', digits=(16,2),help="Planned average price"),
+       'price_expected'     : fields.float   ('Price expected', digits=(16,2),help="Expected average price if different from planned price"),
        'price_unit_id'      : fields.many2one('c2c_product.price_unit','Price Unit', required=True),
        'product_id'         : fields.many2one('product.product','Product', select=True, required=True),
        'product_uom'        : fields.many2one('product.uom', 'Product UOM', required=True),
@@ -301,6 +329,7 @@ class chricar_budget(osv.osv):
        'harvest_net'        : fields.function(_harvest_net, method=True, string='Net/ha' ,digits=(16,0), help="Harvested qty net - without soil this year", readonly=True),
        'harvest_yield'      : fields.function(_harvest_yield, method=True, string='Yield/ha' ,digits=(16,0), help="Harvested yield qty this year", readonly=True),
        'harvest_yield_diff' : fields.function(_harvest_yield_diff, method=True, string='Yield Net Diff' ,digits=(16,2), help="Harvested yield Diff", readonly=True),
+       'harvest_done'       : fields.function(_harvest_done, method=True, string='Harvest Done' ,type='char', help="Harvested production order state", readonly=True),
        'prod_lot_id'        : fields.many2one('stock.production.lot', 'Production Lot', domain="[('product_id','=',product_id)]"),
        'amount_prod_lot'    : fields.function(_amount_prod_lot, method=True, string='Sales Prod Lot' ,digits_compute=dp.get_precision('Budget'),help="Invoiced production lots"),
        'product_qty_stock'  : fields.related ('product_id', 'qty_available', type="float",  string="Unsold Stock", readonly = True ,help="Uninvoiced quantitiy of this product"),
@@ -317,9 +346,9 @@ class chricar_budget(osv.osv):
      _order = "name"
 
      _sql_constraints = [
-        ('surface_0', 'CHECK (surface>0)',  'Surface must be greater than 0 !'),
-    ]
-
+        ('surface_0', 'CHECK (surface>0)',  'Surface must be greater than 0 !')
+        , ('budget_lot_unique_index', 'unique (prod_lot_id)' ,  'Lot must be unique!')
+        ]
 
      def copy(self, cr, uid, id, default=None, context=None):
         if default is None:

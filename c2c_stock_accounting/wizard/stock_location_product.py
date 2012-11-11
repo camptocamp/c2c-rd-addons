@@ -88,6 +88,7 @@ class stock_location_product(osv.osv_memory):
         res['context']['from_date2']= from_date2
         res['context']['to_date2']= to_date2
         res['context']['location_name']= self.pool.get('stock.location').read(cr, uid, res['context']['location'],['name'])['name']
+        #res['context']['cr1'] = cr
         self._logger.debug('FGF stock_location_product res neu %s' % res)
         return res
 

@@ -23,6 +23,62 @@ from osv import fields, osv
 from tools.translate import _
 import logging
 
+class account_bank_statement(osv.osv):
+    _inherit = "account.bank.statement"
+    _logger = logging.getLogger(__name__)
+
+
+    # we have to copy the method because wen need to pass period_id and journal_id to next_by_id
+    # rest is identical
+    def button_confirm_bank(self, cr, uid, ids, context=None):
+        obj_seq = self.pool.get('ir.sequence')
+        if context is None:
+            context = {}
+
+        for st in self.browse(cr, uid, ids, context=context):
+            j_type = st.journal_id.type
+            company_currency_id = st.journal_id.company_id.currency_id.id
+            if not self.check_status_condition(cr, uid, st.state, journal_type=j_type):
+                continue
+
+            self.balance_check(cr, uid, st.id, journal_type=j_type, context=context)
+            if (not st.journal_id.default_credit_account_id) \
+                    or (not st.journal_id.default_debit_account_id):
+                raise osv.except_osv(_('Configuration Error !'),
+                        _('Please verify that an account is defined in the journal.'))
+
+            if not st.name == '/':
+                st_number = st.name
+            else:
+                c = {'fiscalyear_id': st.period_id.fiscalyear_id.id, 'period_id': st.period_id.id, 'journal_id': st.journal_id.id}
+                #c = {'fiscalyear_id': move.period_id.fiscalyear_id.id, 'period_id': move.period_id.id, 'journal_id': move.journal_id.id}
+                if st.journal_id.sequence_id:
+                    st_number = obj_seq.next_by_id(cr, uid, st.journal_id.sequence_id.id, context=c)
+                else:
+                    st_number = obj_seq.next_by_code(cr, uid, 'account.bank.statement', context=c)
+
+            for line in st.move_line_ids:
+                if line.state <> 'valid':
+                    raise osv.except_osv(_('Error !'),
+                            _('The account entries lines are not in valid state.'))
+            for st_line in st.line_ids:
+                if st_line.analytic_account_id:
+                    if not st.journal_id.analytic_journal_id:
+                        raise osv.except_osv(_('No Analytic Journal !'),_("You have to assign an analytic journal on the '%s' journal!") % (st.journal_id.name,))
+                if not st_line.amount:
+                    continue
+                st_line_number = self.get_next_st_line_number(cr, uid, st_number, st_line, context)
+                self.create_move_from_st_line(cr, uid, st_line.id, company_currency_id, st_line_number, context)
+
+            self.write(cr, uid, [st.id], {
+                    'name': st_number,
+                    'balance_end_real': st.balance_end
+            }, context=context)
+            self.log(cr, uid, st.id, _('Statement %s is confirmed, journal items are created.') % (st_number,))
+        return self.write(cr, uid, ids, {'state':'confirm'}, context=context)
+
+account_bank_statement()
+        
 class account_move(osv.osv):
     _inherit = "account.move"
     _logger = logging.getLogger(__name__)
@@ -60,6 +116,8 @@ class account_move(osv.osv):
                    'WHERE id IN %s',
                    ('posted', tuple(valid_moves),))
         return True
+
+
         
     # 20121010 Fgf NOT USED ANY MORE
     def post_incompatible(self, cr, uid, ids, context=None):
