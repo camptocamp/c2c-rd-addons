@@ -107,7 +107,6 @@ mrp_reopen
 nassi-schneidermann
 one2many_sorted
 patches
-picking_invoice_rel
 product_price_unit_precision
 purchase_landed_costs
 purchase_order_picking
@@ -154,6 +153,7 @@ c2c_partner_address_label
 c2c_period_yyyymm
 constraint
 mrp_no_gap
+picking_invoice_rel
 purchase_no_gap
 search_todo
 sale_no_gap

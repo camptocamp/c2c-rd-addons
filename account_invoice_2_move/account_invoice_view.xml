@@ -8,7 +8,7 @@
             <field name="type">search</field>
             <field name="inherit_id" ref="account.view_account_move_line_filter"/>
             <field name="arch" type="xml">
-              <xpath expr="/search/group/filter[@string='Unreconciled']" position="after">
+              <xpath expr="/search/filter[@string='Unreconciled']" position="after">
                   <separator orientation="vertical"/>
                 <filter name="filter_receivable" icon="terp-sale" string="Receivable Accounts" domain="[('account_id.type','=','receivable')]"/>
                 <filter name="filter_payable" icon="terp-purchase" string="Payable Accounts" domain="[('account_id.type','=','payable')]"/>
