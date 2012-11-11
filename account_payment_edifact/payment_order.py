@@ -191,6 +191,8 @@ class payment_order(osv.osv) :
                         own_ref.append(self._u2a(invoice.reference).upper())
                     if l.communication != "/" :
                         customer_ref.append(self._u2a(l.communication).upper())
+                    else:
+                        customer_ref.append(self._u2a(invoice.number).upper())
                     if l.communication2 :
                         customer_ref.append(self._u2a(l.communication2).upper())
                     if not customer_ref :
@@ -234,6 +236,8 @@ class payment_order(osv.osv) :
                         own_ref.append(self._u2a(invoice.reference).upper())
                     if line.communication != "/" :
                         customer_ref.append(self._u2a(line.communication).upper())
+                    else:
+                        customer_ref.append(self._u2a(invoice.number).upper())
                     if line.communication2 :
                         customer_ref.append(self._u2a(line.communication2).upper())
                     if invoice.customer_data :
