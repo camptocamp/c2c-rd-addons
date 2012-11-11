@@ -29,12 +29,13 @@ class mail_message(osv.osv):
         partner_id = vals.get('partner_id',False)
         if not partner_id and vals.get('model',False):
             if vals['model'] == 'res.partner':
-                partner_id = vals['res_id']
+                vals['partner_id']= vals['res_id']
             else:
                 model_obj = self.pool.get(vals['model'])
                 if model_obj._columns['partner_id']:
-                    partner_id = model_obj.read(cr, uid, res_id,['partner_id'], context)[0]['partner_id']
-            vals['partner_id']= partner_id
+                    for res in model_obj.browse(cr, uid, [vals['res_id']], context):
+                        if res.partner_id:
+                             vals['partner_id']= res.partner_id.id
             
         return super(mail_message, self).create(cr, uid, vals, context)
 
