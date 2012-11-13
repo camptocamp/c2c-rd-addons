@@ -150,7 +150,6 @@ class payment_order(osv.osv) :
             s.append("RFF+PQ:%(move_name)s'" % l)
         if l['customer_data'] and not interntl :
             s.append("RFF+AEF:%(customer_data)s'" % l)
-#        s.append("FCA+%(fca)s'" % l)
 #        s.append("FII+BF+%(iban)s:%(name)s+%(bic)s:25:5'" % l)
         s.append("FII+BF+%(iban)s:%(name)s'" % l)
         s.append("NAD+BE+++%(name)s+%(street)s+%(city)s+%(zip)s+%(country)s'" % l) # sgr3
@@ -213,7 +212,6 @@ class payment_order(osv.osv) :
                     , 'currency'  : line.currency.name
                     , 'move_name' : (" ".join(customer_ref))[0:35]
                     , 'customer_data' : None
-                    , 'fca'       : order.mode.charges_alloc
                     , 'name'      : self._u2a(line.partner_id.name).upper()[0:35]
                     , 'street'    : self._u2a(p_address.street).upper()[0:35]
                     , 'city'      : self._u2a(p_address.city).upper()[0:35]
@@ -260,7 +258,6 @@ class payment_order(osv.osv) :
                         , 'currency'  : line.currency.name
                         , 'move_name' : (" ".join(customer_ref))[0:28] # smaller for AEF
                         , 'customer_data' : customer_data
-                        , 'fca'       : order.mode.charges_alloc
                         , 'name'      : self._u2a(line.partner_id.name).upper()[0:35]
                         , 'street'    : self._u2a(p_address.street).upper()[0:35]
                         , 'city'      : self._u2a(p_address.city).upper()[0:35]
