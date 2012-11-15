@@ -4,7 +4,7 @@
 # Copyright (c) 2010 Camptocamp SA (http://www.camptocamp.com) 
 # All Right Reserved
 #
-# Author : Ferdinand GAssauer (Camptocamp Austria)
+# Author : Ferdinand Gassauer (Camptocamp Austria)
 #
 # WARNING: This program as such is intended to be used by professional
 # programmers who take the whole responsability of assessing all potential
@@ -48,7 +48,7 @@ top margin of webkit header must be set to 35mm to get correctly positioned fold
     , "account_invoice_iban_qr_at"
     ]
 , "category"     : "Accounting & Finance"
-, "author"       : "Camptocamp SA - NBessi, Ferdinand Gassauer"
+, "author"       : "Camptocamp SA - NBessi, Camptocamp Austria"
 , "website"      : "http://www.camptocamp.com/"
 , "data"         : ["account_invoice_webkit_view.xml"]
 , "installable"  : True

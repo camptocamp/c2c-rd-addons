@@ -33,7 +33,7 @@
 , "version"      : "0.9"
 , "depends"      : ["report_webkit"]
 , "category"     : "Reports/Webkit"
-, "author"       : "Camptocamp Ferdinand Gassauer"
+, "author"       : "Camptocamp Austria"
 , "website"      : "http://www.camptocamp.com/"
 , "data"         : ["bank_account_view.xml", "data.xml"]
 , "installable"  : True
