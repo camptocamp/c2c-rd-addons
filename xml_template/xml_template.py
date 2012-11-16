@@ -168,7 +168,10 @@ class xml_template(osv.osv):
             , 'description'  : description
             }
         res = attachment_obj.create(cr, uid, vals, context=context)
+        import logging ###########
+        _logger = logging.getLogger(__name__) ##########
         for reference in obj.reference_ids :
+            _logger.info("ref %s refname %s", reference, reference.name) ##########
             vals = \
                 { "ir_attachment_id" : res
                 , "name"             : reference.name
