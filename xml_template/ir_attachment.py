@@ -50,7 +50,7 @@ class ir_attachment_ref(osv.osv):
         }
     _sql_constraints = \
         [( "ir_attachment_ref_name_index"
-         , "unique (name)"
+         , "unique (name,ir_attachment_id)"
          , "The Reference has to be unique!"
          )
         ]
