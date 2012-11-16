@@ -171,7 +171,7 @@ class xml_template(osv.osv):
         import logging ###########
         _logger = logging.getLogger(__name__) ##########
         for reference in obj.reference_ids :
-            _logger.info("ref %s refname %s", reference, reference.name) ##########
+            _logger.info("ref %s refname %s table %s ", reference, reference.name, reference.name._table) ##########
             vals = \
                 { "ir_attachment_id" : res
                 , "name"             : str(reference.name._table) + "," + str(reference.name.id)
