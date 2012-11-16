@@ -174,7 +174,7 @@ class xml_template(osv.osv):
             _logger.info("ref %s refname %s", reference, reference.name) ##########
             vals = \
                 { "ir_attachment_id" : res
-                , "name"             : reference.name._table + "," + reference.name.id
+                , "name"             : str(reference.name._table) + "," + str(reference.name.id)
                 }
             attach_ref_obj.create(cr, uid, vals, context=context)
         return res
