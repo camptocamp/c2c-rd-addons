@@ -27,15 +27,5 @@
       target="new"
       key2="client_action_multi"
       id="generate_sepa_act_window"/>
-    <!-- 
-    <record id="action_payment_order_sepa" model="ir.actions.act_window">
-      <field name="name">Generate SEPA</field>
-      <field name="res_model">payment.order.sepa</field>
-      <field name="view_type">form</field>
-      <field name="view_mode">form</field>
-      <field name="view_id" ref="payment_order_sepa_form_view"/>
-      <field name="target">new</field>
-    </record>
-    -->
   </data>
 </openerp>

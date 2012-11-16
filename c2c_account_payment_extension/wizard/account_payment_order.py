@@ -51,7 +51,7 @@ class payment_order_create(osv.osv_memory):
 
     def _get_min_balance_default(self, cr, uid, context=None):
         _logger = logging.getLogger(__name__)
-        _logger.info('FGF pay min_balance context %s' % (context))
+        _logger.debug('FGF pay min_balance context %s' % (context))
         min_balance = 0
         order_obj = self.pool.get('payment.order')
         for order in order_obj.browse(cr, uid, [ context['active_id'] ]):
@@ -87,8 +87,8 @@ class payment_order_create(osv.osv_memory):
             , ('date_maturity', '<=', obj.duedate)
             , ('date_maturity', '=', False)
             ]
-        _logger.info('FGF pay line domain %s' % (domain))
-        _logger.info('FGF pay line context %s' % (context))
+        _logger.debug('FGF pay line domain %s' % (domain))
+        _logger.debug('FGF pay line context %s' % (context))
         ids = line_obj.search(cr, uid, domain, context=context)
         ids2 = ','.join(map(str,ids))
         sql = """select partner_id, round(sum(debit-credit),2) as balance
@@ -98,15 +98,15 @@ class payment_order_create(osv.osv_memory):
         cr.execute(sql)
         partner_balances = dict(cr.fetchall())
         precision = self.pool.get('decimal.precision').precision_get(cr, uid, 'Account')
-        _logger.info('FGF partner_balance %s' % (partner_balances))
+        _logger.debug('FGF partner_balance %s' % (partner_balances))
 
-        _logger.info('FGF pay line ids %s' % (ids))
+        _logger.debug('FGF pay line ids %s' % (ids))
         line_ids = []
         for line in line_obj.browse(cr, uid, ids) :
-            _logger.info('FGF line %s %s ' % (line.id, line.partner_id.name))
-            _logger.info('FGF pay block %s' % (line.invoice.payment_block))
+            _logger.debug('FGF line %s %s ' % (line.id, line.partner_id.name))
+            _logger.debug('FGF pay block %s' % (line.invoice.payment_block))
             if line.invoice.payment_block : continue
-            _logger.info('FGF pay partner block %s' % (line.partner_id.payment_block))
+            _logger.debug('FGF pay partner block %s' % (line.partner_id.payment_block))
             if line.partner_id.payment_block : continue
             # FGF its crazy : 
             #  partner_id.credit always returns 0
@@ -126,14 +126,14 @@ class payment_order_create(osv.osv_memory):
             #balance_to_pay = res and -res[0] or 0
             balance_to_pay = -round(partner_balances[line.partner_id.id],precision)
 
-            _logger.info('FGF pay partner balance %s amount to pay %s balance_to_pay %s Obey %s' % (partner_balance, line.amount_to_pay, balance_to_pay, line.partner_id.payment_obey_balance ))
+            _logger.debug('FGF pay partner balance %s amount to pay %s balance_to_pay %s Obey %s' % (partner_balance, line.amount_to_pay, balance_to_pay, line.partner_id.payment_obey_balance ))
             if (line.partner_id.payment_obey_balance 
                 and obj.balance_filter 
                 and (-partner_balance < obj.min_balance 
                 or balance_to_pay < obj.min_balance) ) : continue 
             elif not line.amount_to_pay > 0: continue
                 
-            _logger.info('FGF pay bank invoice %s, partner %s' % (line.invoice.partner_bank_id, line.invoice and line.invoice.partner_id.bank_ids ))
+            _logger.debug('FGF pay bank invoice %s, partner %s' % (line.invoice.partner_bank_id, line.invoice and line.invoice.partner_id.bank_ids ))
             if (line.invoice and not line.invoice.partner_bank_id):
                 if not line.invoice.partner_id.bank_ids and payment.mode.require_bank_account : 
                     continue
@@ -146,9 +146,9 @@ class payment_order_create(osv.osv_memory):
                             ( _('Data model error ! !')
                             , _('Partner %s has no bank account information') % line.invoice.partner_id.name
                             )
-            _logger.info('FGF ACCEPTED %s' % (line.id))
+            _logger.debug('FGF ACCEPTED %s' % (line.id))
             line_ids.append(line.id)
-        _logger.info('FGF line_ids %s' % (line_ids))
+        _logger.debug('FGF line_ids %s' % (line_ids))
 # End search modification
 
 # 

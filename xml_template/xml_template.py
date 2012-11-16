@@ -171,7 +171,7 @@ class xml_template(osv.osv):
         for reference in obj.reference_ids :
             vals = \
                 { "ir_attachment_id" : res
-                , "name"             : reference.name
+                , "name"             : reference.name._table_name + "," + str(reference.name.id)
                 }
             attach_ref_obj.create(cr, uid, vals, context=context)
         return res

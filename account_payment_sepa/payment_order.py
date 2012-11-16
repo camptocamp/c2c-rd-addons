@@ -167,7 +167,7 @@ class payment_order(osv.osv) :
             elif p_bank not in dates[date] :
                 dates[date].add(P_Bank(p_bank, line))
             else :
-                dates[date].append(p_banks, line)
+                dates[date].append(p_bank, line)
 
         for date, p_banks in dates.iteritems() :
             for p_bank, lines in p_banks.iteritems() :
