@@ -1,0 +1,47 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* base_vat_check
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 6.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-11-16 21:45+0000\n"
+"PO-Revision-Date: 2012-11-16 21:45+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: base_vat_check
+#: selection:res.partner,vat_method:0
+msgid "Simple"
+msgstr "Simple"
+
+#. module: base_vat_check
+#: field:res.partner,vat_method:0
+msgid "VAT Method"
+msgstr "UID Methode"
+
+#. module: base_vat_check
+#: field:res.partner,vat_check_date:0
+msgid "VAT Check Date"
+msgstr "UID Prüfdatum"
+
+#. module: base_vat_check
+#: help:res.partner,vat_method:0
+msgid "'VIES' checks using http://ec.europa.eu/taxation_customs/vies, 'Simple' calculates checksum for specific countries"
+msgstr "'VIES' prüft mit http://ec.europa.eu/taxation_customs/vies, 'Simple' berechnet die Prüfziffer für einige Länder"
+
+#. module: base_vat_check
+#: model:ir.model,name:base_vat_check.model_res_partner
+msgid "Partner"
+msgstr "Partner"
+
+#. module: base_vat_check
+#: selection:res.partner,vat_method:0
+msgid "VIES"
+msgstr "VIES"
+
