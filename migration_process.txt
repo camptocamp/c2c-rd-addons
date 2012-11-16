@@ -127,7 +127,7 @@ sale_pull_internal
 sale_shipped_rate
 sale_uos_entry
 scripts
-stock_get_name_qty
+stock_get_name_qty # FIXME - inherit form changed
 stock_inventory_line
 stock_invoice_service
 stock_location_product_not_null
