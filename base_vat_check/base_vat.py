@@ -23,6 +23,7 @@ from osv import osv, fields
 from tools.translate import _
 
 import time
+import logging
 
 class res_partner(osv.osv):
     _inherit = 'res.partner'
@@ -42,6 +43,7 @@ class res_partner(osv.osv):
     }
 
     def check_vat_ext(self, cr, uid, ids, context):
+         _logger = logging.getLogger(__name__)
          if not context:
              context = {}
          vat = ''
@@ -55,24 +57,33 @@ class res_partner(osv.osv):
          method = 'none'
          date_now = time.strftime('%Y-%m-%d %H:%M:%S')
          if vat:
-                vat = vat.replace(' ','')
+            vat = vat.replace(' ','')
+            vat_mod = False
+            user_company = self.pool.get('res.users').browse(cr, uid, uid).company_id
+            if user_company.vat_check_vies:
                 try:
                     import vatnumber
-                    check = False
-                    try:
-                        check = vatnumber.check_vies(vat)
-                    except:
-                        raise osv.except_osv(_('Error'), _('VIES Error'))
-                    if check:
-                        method = 'vies'
-                    else:
-                        raise osv.except_osv(_('Error'), _('VIES check failed'))
+                    vat_mod = True
                 except:
-                    vat_country, vat_number = self._split_vat(vat)
-                    if self.simple_vat_check(cr, uid, vat_country, vat_number, context=context):
-                        method = 'simple'
-                    else:
-                        raise osv.except_osv(_('Error'), _('check number failed'))
+                    raise osv.except_osv(_('Error'), _('import module vatnumber failed - check VIES in res company needs this module'))
+
+            check = False
+            self._logger.debug('FGF vat ext %s %s' % (vat,vat_mod))
+            if vat_mod:
+                try:
+                    check = vatnumber.check_vies(vat)
+                except:
+                    raise osv.except_osv(_('Error'), _('General VIES Error - Syntax XX YYYYYY... XX=Country Code, YYYYY=VAT Number'))
+                if check:
+                    method = 'vies'
+                else:
+                    raise osv.except_osv(_('Error'), _('VIES VAT check failed'))
+            else:
+                vat_country, vat_number = self._split_vat(vat)
+                if self.simple_vat_check(cr, uid, vat_country, vat_number, context=context):
+                    method = 'simple'
+                else:
+                    raise osv.except_osv(_('Error'), _('simple VAT check digit failed'))
          vals = {'vat_method': method, 'vat_check_date': date_now}
          self.write(cr, uid, ids, vals)
          return vals
