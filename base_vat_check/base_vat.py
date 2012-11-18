@@ -20,40 +20,73 @@
 ##############################################################################
 
 from osv import osv, fields
+from tools.translate import _
+
 import time
 
 class res_partner(osv.osv):
     _inherit = 'res.partner'
 
     def check_vat(self, cr, uid, ids, context=None):
-         """ugly hack to check a second time as check_funct does not return which method succeded
          """
+         """
+         
          res = super(res_partner, self).check_vat(cr, uid, ids, context=None)
-                 
-         for partner in self.browse(cr, uid, ids, context):
-             #if res and partner.vat:
-             if partner.vat:
-                method = ''
-                date_now = time.strftime('%Y-%m-%d %H:%M:%S')
-                try:
-                    import vatnumber
-                    vat = vatnumber.check_vies(partner.vat.replace(' ',''))
-                    if vat:
-                        method = 'vies'
-                except:
-                    method = 'simple'
-             else:
-                method = False
-                date_now = False
-             self.write(cr, uid, ids, {'vat_method': method, 'vat_check_date': date_now})
+         self.check_vat_ext(cr, uid, ids, context=None)
          return res
           
     _columns = {
         'vat_subjected': fields.boolean('VAT Legal Statement', help="Check this box if the partner is subjected to the VAT. It will be used for the VAT legal statement."),
-        'vat_method':  fields.selection([('vies','VIES'),('simple','Simple')], 'VAT Method', readonly=True, help="""'VIES' checks using http://ec.europa.eu/taxation_customs/vies, 'Simple' calculates checksum for specific countries"""),
+        'vat_method':  fields.selection([('vies','VIES'),('simple','Simple'),('none','Not Checked')], 'VAT Method', readonly=True, help="""'VIES' checks using http://ec.europa.eu/taxation_customs/vies, 'Simple' calculates checksum for specific countries"""),
         'vat_check_date': fields.datetime('VAT Check Date', readonly=True),
     }
 
+    def check_vat_ext(self, cr, uid, ids, context):
+         if not context:
+             context = {}
+         vat = ''
+         if context.get('vat'):
+             if context['vat'] != 'none':
+                 vat = context['vat']
+         else:
+             for partner in self.browse(cr, uid, ids, context):
+                 if partner.vat:
+                     vat = partner.vat 
+         method = 'none'
+         date_now = time.strftime('%Y-%m-%d %H:%M:%S')
+         if vat:
+                vat = vat.replace(' ','')
+                try:
+                    import vatnumber
+                    check = False
+                    try:
+                        check = vatnumber.check_vies(vat)
+                    except:
+                        raise osv.except_osv(_('Error'), _('VIES Error'))
+                    if check:
+                        method = 'vies'
+                    else:
+                        raise osv.except_osv(_('Error'), _('VIES check failed'))
+                except:
+                    vat_country, vat_number = self._split_vat(vat)
+                    if self.simple_vat_check(cr, uid, vat_country, vat_number, context=context):
+                        method = 'simple'
+                    else:
+                        raise osv.except_osv(_('Error'), _('check number failed'))
+         vals = {'vat_method': method, 'vat_check_date': date_now}
+         self.write(cr, uid, ids, vals)
+         return vals
+         
+
+    def vat_change(self, cr, uid, ids, value, context=None):
+        res = super(res_partner, self).vat_change(cr, uid, ids, value, context=None)   
+
+        if not context:
+            context = {}
+        context['vat'] = value or 'none'
+        vals = self.check_vat_ext(cr, uid, ids, context)  
+        res['value'].update(vals)
+        return res
     
 res_partner()
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
