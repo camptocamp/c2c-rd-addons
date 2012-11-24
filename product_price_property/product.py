@@ -49,16 +49,59 @@ class product_product(osv.osv):
         }
 
     def init(self, cr):
-            
+
+        sql = """
+        insert into ir_property(res_id,type,company_id,name,value_float,fields_id)
+        select 'product.product,'||p.id , 'float', t.company_id, 'list_price',list_price,f.id
+          from product_template t,
+               product_product p,
+               ir_model_fields f
+         where t.id = p.product_tmpl_id
+           and list_price is not null
+           and f.name = 'list_price'
+           and f.model='product.product'
+           except select res_id,type,company_id,name,value_float,fields_id from ir_property
+           ;
+        """
+        cr.execute(sql)
+        sql = """
+        insert into ir_property(res_id,type,company_id,name,value_float,fields_id)
+        select 'product.product,'||p.id , 'float', t.company_id, 'standard_price',standard_price,f.id
+          from product_template t,
+               product_product p,
+               ir_model_fields f
+         where t.id = p.product_tmpl_id
+           and list_price is not null
+           and f.name = 'standard_price'
+           and f.model='product.product'
+           except select res_id,type,company_id,name,value_float,fields_id from ir_property
+           ;
+        """
+        cr.execute(sql)
+      
+        # for performane reasons we must use SQL inserts       
         sql = """
         select t.id as template_id, t.list_price, t.standard_price, p.id as product_id , t.company_id
           from product_template t,
                product_product p
          where t.id = p.product_tmpl_id
          order by p.id;
-        """
-        cr.execute(sql)
-        for template_id, list_price, standard_price, product_id, company_id in cr.fetchall():
-            self.write(cr, 1, [product_id], {'list_price': list_price, 'standard_price': standard_price} , context = {'company_id': company_id})
+        """   
+        #property_obj = self.pool.get('ir.property')
+        #for template_id, list_price, standard_price, product_id, company_id in cr.fetchall():
+        #    vals = {
+        #         'res_id': 'product.product,'+str(product_id), 
+        #         'type': 'float',
+        #         'company_id': company_id,
+        #        }
+        #    if list_price:
+        #        vals.update({ 'name' : 'list_price', 'value_float': list_price})
+        #        property_obj.create(cr, 1, vals)
+        #    if standard_price:
+        #        vals.update({ 'name' : 'standard_price', 'value_float': standard_price})
+        #        property_obj.create(cr, 1, vals)
+        # 
+        # this creates one record per company . wrong !!!
+        # self.write(cr, 1, [product_id], {'list_price': list_price, 'standard_price': standard_price} , context = {'company_id': company_id})
         
 product_product()
