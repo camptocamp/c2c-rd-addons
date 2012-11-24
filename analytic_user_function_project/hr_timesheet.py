@@ -50,13 +50,13 @@ class project_work(osv.osv):
           cr.execute("""
 update account_analytic_line a set product_id = (select product_id from analytic_user_funct_grid where user_id = a.user_id and account_id = a.account_id)
  where invoice_id is null and to_invoice is not null and product_id is not null
-   and id in (select id from account_analytic_line where invoice_id is null and to_invoice is not null and product_id is not null )
+   --and id in (select id from account_analytic_line where invoice_id is null and to_invoice is not null and product_id is not null )
    and account_id in (select account_id from analytic_user_funct_grid);
 """)
           cr.execute("""
 update account_analytic_line a set amount = (select -a.unit_amount * standard_price from product_product p, product_template t where p.id =  a.product_id and t.id = p.product_tmpl_id)
  where invoice_id is null and to_invoice is not null and product_id is not null and unit_amount is not null
-   and id in (select id from account_analytic_line where invoice_id is null and to_invoice is not null and product_id is not null )
+   --and id in (select id from account_analytic_line where invoice_id is null and to_invoice is not null and product_id is not null )
    and account_id in (select account_id from analytic_user_funct_grid);
 """)
 
