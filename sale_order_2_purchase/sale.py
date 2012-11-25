@@ -23,9 +23,95 @@ from osv import fields, osv
 import netsvc
 import logging
 
+class ir_property(osv.osv):
+    _inherit = 'ir.property'
+
+
+
 class sale_order(osv.osv):
     _inherit = "sale.order"
+  
+# _o_ are variables of the _o_ther company
 
+    def _sql(self, cr,uid, comp_o_id, inc_exp,account_o_id, product_id):
+                 
+        sql = """
+        insert into ir_property(res_id,type,company_id,name, value_reference, fields_id)
+        select 'product.template,'||t.id , 'many2one', %s, 'property_account_%s','account.account,'||%s,f.id
+          from product_template t,
+               product_product p,
+               ir_model_fields f
+         where t.id = p.product_tmpl_id 
+           and p.id = %s
+           and f.name = 'property_account_%s'
+           and f.model= 'product.template'
+           except select res_id,type,company_id,name,value_reference,fields_id from ir_property
+                """ % ( comp_o_id, inc_exp, account_o_id, product_id ,inc_exp) 
+        return sql
+                
+    def _product_o_update(self, cr, uid, product_id, comp_o_id, context):
+        """ create properties and VAT info forproduct
+        """
+        _logger = logging.getLogger(__name__)
+        
+        account_obj = self.pool.get('account.account')
+        product_obj = self.pool.get('product.product')
+        property_obj = self.pool.get('ir.property')
+        tax_obj = self.pool.get('account.tax')
+        
+        for product in product_obj.browse(cr, uid, [product_id], context):
+            # data from source company
+            ctx={'company_id':comp_o_id, 'force_company':comp_o_id }
+            
+            # customer tax
+            taxes_ids = product.taxes_id
+            self._logger.debug('FGF product custom tax %s', taxes_ids) 
+            taxes_o_ids = []
+            for tax in taxes_ids:
+                tax_o_id = tax_obj.search(cr, uid, [('company_id','=',comp_o_id),('type_tax_use','=',tax.type_tax_use),('amount','=',tax.amount)])
+                if tax_o_id:
+                   self._logger.debug('FGF cust tax_o_id %s', tax_o_id) 
+                   taxes_o_ids.append(tax_o_id[0])
+            if taxes_o_ids:
+                product_obj.write(cr, uid, product_id, {'taxes_id': [(6, 0, taxes_o_ids)]  }, context=ctx)
+                
+            # supplier tax
+            supplier_taxes_ids = product.supplier_taxes_id
+            self._logger.debug('FGF product supplier_tax %s', supplier_taxes_ids) 
+            taxes_o_ids = []
+            for tax in supplier_taxes_ids:
+                tax_o_id = tax_obj.search(cr, uid, [('company_id','=',comp_o_id),('type_tax_use','=',tax.type_tax_use),('amount','=',tax.amount)])
+                if tax_o_id:
+                   self._logger.debug('FGF supp tax_o_id %s', tax_o_id) 
+                   taxes_o_ids.append(tax_o_id[0])
+            if taxes_o_ids:
+                product_obj.write(cr, uid, product_id, {'supplier_taxes_id': [(6, 0, taxes_o_ids)]  }, context=ctx)
+                
+            # income account
+            property_account_income_code = product.property_account_income.code
+            self._logger.debug('FGF product income %s', property_account_income_code ) 
+            account_income_o_id = account_obj.search(cr, uid, [('company_id','=',comp_o_id),('code','=',property_account_income_code)])
+            if account_income_o_id:
+                self._logger.debug('FGF account_income_o_id %s', account_income_o_id[0]) 
+                # FIXME this does not update the correct company 
+                #product_obj.write(cr, uid, product_id, {'property_account_expense':account_expense_o_id[0]}, context=ctx)
+                sql = self._sql(cr,uid, comp_o_id, 'income', str(account_income_o_id[0]), product_id)
+                cr.execute(sql)
+            
+            # expense
+            property_account_expense_code = product.property_account_expense.code 
+            self._logger.debug('FGF product expense code %s', property_account_expense_code ) 
+            account_expense_o_id = account_obj.search(cr, uid, [('company_id','=',comp_o_id),('code','=',property_account_expense_code)])
+            if account_expense_o_id:
+                self._logger.debug('FGF account_expense_o_id %s', account_expense_o_id[0]) 
+                # FIXME this does not update the correct company 
+                #product_obj.write(cr, uid, product_id, {'property_account_expense':account_expense_o_id[0]}, context=ctx)
+                # we have to insert using sql 
+                sql = self._sql(cr,uid, comp_o_id, 'expense', str(account_expense_o_id[0]), product_id)
+                cr.execute(sql)
+                
+
+        
     def _create_intercompany_purchase_order(self, cr, uid, order, order_lines, picking_id=False, context=None):
         """ create an intercompany purchase order based on sale order
         """
@@ -41,17 +127,18 @@ class sale_order(osv.osv):
         if not comp_o_id:
             return False
         
-        ctx['company_id'] = comp_o_id
+       
+        ctx={'company_id':comp_o_id, 'force_company':comp_o_id }
         
-        po_obj = self.pool.get('purchase.order')
-        pol_obj = self.pool.get('purchase.order.line')
-        po_price_list_obj =  self.pool.get('product.pricelist')
-        warehouse_obj = self.pool.get('stock.warehouse')
-        sequence_obj = self.pool.get('ir.sequence')
-        product_obj = self.pool.get('product.product')
-        tax_obj = self.pool.get('account.tax')
-        product_obj = self.pool.get('product.product')
         fiscal_position_obj = self.pool.get('account.fiscal.position')
+        po_obj = self.pool.get('purchase.order')
+        po_price_list_obj =  self.pool.get('product.pricelist')
+        pol_obj = self.pool.get('purchase.order.line')
+        product_obj = self.pool.get('product.product')
+        product_obj = self.pool.get('product.product')
+        sequence_obj = self.pool.get('ir.sequence')
+        tax_obj = self.pool.get('account.tax')
+        warehouse_obj = self.pool.get('stock.warehouse')
         
         
         price_list_o_id = po_price_list_obj.search(cr, uid, [('company_id','=',comp_o_id),('type','=','purchase')])
@@ -90,6 +177,8 @@ class sale_order(osv.osv):
 
         ctx['partner_id'] = order.company_id.partner_id.id
         for line in order_lines:
+            # we need to create account properties and tax info in ther company if these are missing
+            self._product_o_update(cr, uid, line.product_id.id, comp_o_id, context)
             
             product = product_obj.browse(cr, uid, line.product_id.id, context=ctx)
             self._logger.debug('FGF product %s', product)            
@@ -104,6 +193,8 @@ class sale_order(osv.osv):
             self._logger.debug('FGF fpos %s', fpos)
             taxes_ids = fiscal_position_obj.map_tax(cr, uid, fpos, taxes)
             self._logger.debug('FGF taxes_ids %s', taxes_ids)
+            
+            
             
             vals_pol = {
                  'order_id' : po_id,
@@ -134,7 +225,9 @@ class sale_order(osv.osv):
             # FIXME
             if line.product_id.company_id:
                 product_obj.write(cr, uid, [line.product_id.id], {'company_id': ''})
-
+            
+            
+               
         
         #po_obj.wkf_confirm_order(cr, uid, [po_id], context=ctx)
         #po_obj.wkf_apprve_order(cr, uid, [po_id], context=ctx)
