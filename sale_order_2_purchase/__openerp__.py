@@ -31,7 +31,7 @@ This is useful if the "other company" orders in a sale portal
 instead of using the purchse process itself
 """,
     'author': 'Camptocamp Austria',
-    'depends': [ 'sale','purchase'],
+    'depends': [ 'sale','purchase','account'],
     'update_xml': [
        ],
     #'update_xml': ['product_view.xml'],
