@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+     <!-- SO -->
+
+   <record id="view_order_po_form" model="ir.ui.view">
+       <field name="name">sale.order.po.form</field>
+       <field name="model">sale.order</field>
+       <field name="inherit_id" ref="sale.view_order_form"/>
+       <field name="type">form</field>
+       <field name="arch" type="xml">
+           <button name="order_confirm" position="after">
+               
+               <button name="button_create_so_2_po" string="Create PO AM" type="object" icon="gtk-go-forward" help=" sequence"/>
+
+           </button>
+       </field>
+   </record>
+   
+
+        
+  </data>
+</openerp>

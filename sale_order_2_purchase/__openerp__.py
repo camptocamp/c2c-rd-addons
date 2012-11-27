@@ -34,7 +34,7 @@ instead of using the purchse process itself
     'depends': [ 'sale','purchase','account','product_price_property'],
     'update_xml': [
        ],
-    #'update_xml': ['product_view.xml'],
+    'update_xml': ['sale_view.xml'],
     'demo_xml': [],
     'installable': True,
     'active': False,

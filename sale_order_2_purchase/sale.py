@@ -125,6 +125,7 @@ class sale_order(osv.osv):
         partner_o_id = order.partner_id.id
         comp_o_id = company_obj.search(cr, uid, [('partner_id','=',partner_o_id)])[0]
         if not comp_o_id:
+            self._logger.debug('FGF no intercompany %s', partner_o_id)
             return False
         
        
@@ -239,5 +240,17 @@ class sale_order(osv.osv):
         res1 = self._create_intercompany_purchase_order(cr, uid, order, order_lines, picking_id, context)
         return res
     
+    def button_create_so_2_po(self, cr, uid, ids, context=None):
+        """ button to create PO for already confirmed SO
+        """
+        _logger = logging.getLogger(__name__)
+        context = context or {}
+        for order in self.browse(cr, uid, ids, context):
+            order_lines = order.order_line
+            self._logger.debug('FGF order %s', order, order_lines)
+            self._create_intercompany_purchase_order(cr, uid, order, order_lines, False, context)
+        
+    
+        
 sale_order()
 
