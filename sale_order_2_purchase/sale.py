@@ -138,6 +138,7 @@ class sale_order(osv.osv):
         product_obj = self.pool.get('product.product')
         product_obj = self.pool.get('product.product')
         sequence_obj = self.pool.get('ir.sequence')
+        so_obj = self.pool.get('sale.order')
         tax_obj = self.pool.get('account.tax')
         warehouse_obj = self.pool.get('stock.warehouse')
         
@@ -156,9 +157,7 @@ class sale_order(osv.osv):
         partner_o_id = order.company_id.partner_id.id
         
         
-        #fiscal_position_id =  order.company_id.partner_id.fiscal_position_id and order.company_id.partner_id.fiscal_position_id.id
-        # FIXME - Not sure that we can use the fiscal position of other partner - must be a property !?
-        fiscal_position_id = ''
+        fiscal_position_id =  order.company_id.partner_id.property_account_position and order.company_id.partner_id.property_account_position.id
         
         vals_po = {
             'name' : name_po 
@@ -172,6 +171,12 @@ class sale_order(osv.osv):
            ,'fiscal_position_id': fiscal_position_id
             }
         po_id = po_obj.create(cr, uid, vals_po, ctx)
+
+        for po_o in po_obj.browse(cr, uid, [po_id]):
+            po_name = po_o.name
+            for so in so_obj.browse(cr,uid, [order.id]):
+                so_obj.write(cr, uid, [so.id], { 'client_order_ref' : order.client_order_ref +' ('+po_name+')' })
+
         
         x_rate = ''
         # FIXME currency conversion missing
@@ -235,10 +240,10 @@ class sale_order(osv.osv):
       
                 
             
-    def _create_pickings_and_procurements(self, cr, uid, order, order_lines, picking_id=False, context=None):
-        res = super(sale_order, self)._create_pickings_and_procurements(cr, uid, order, order_lines, picking_id, context)
-        res1 = self._create_intercompany_purchase_order(cr, uid, order, order_lines, picking_id, context)
-        return res
+    #def _create_pickings_and_procurements(self, cr, uid, order, order_lines, picking_id=False, context=None):
+    #    res = super(sale_order, self)._create_pickings_and_procurements(cr, uid, order, order_lines, picking_id, context)
+    #    res1 = self._create_intercompany_purchase_order(cr, uid, order, order_lines, picking_id, context)
+    #    return res
     
     def button_create_so_2_po(self, cr, uid, ids, context=None):
         """ button to create PO for already confirmed SO
