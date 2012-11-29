@@ -179,7 +179,7 @@ ${line.product_id.name or line.name|entity}
            <td style="white-space:nowrap;text-align:left;">${line.product_uom.name or ''}</td>
 %endif
 %if order.print_ean:
-           <td style="white-space:nowrap;text-align:left;">${line.product_packaging.ean or line.product_id.ean13 or ''}</td>
+           <td style="white-space:nowrap;text-align:left;">${line.product_id.ean13 or ''}</td>
 %endif
            <td style="white-space:nowrap;text-align:right;">${line.price_unit or ''}</td>
            <td style="white-space:nowrap;text-align:right;">${line.price_subtotal or ''}</td>
