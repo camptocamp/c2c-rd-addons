@@ -79,8 +79,9 @@ class stock_picking(osv.osv):
             if pick.move_lines:
                 for move in pick.move_lines:
                     # FIXME - not sure if date or id has to be checked or both if average price is used
+                    # FGF 20121130 date_expected 
                     if move.product_id.cost_method == 'average':
-                      later_ids = move_line_obj.search(cr, uid, [('product_id','=',move.product_id.id),('state','=','done'),('date','>',move.date),('price_unit','!=',move.price_unit)])
+                      later_ids = move_line_obj.search(cr, uid, [('product_id','=',move.product_id.id),('state','=','done'),('date_expected','>',move.date),('price_unit','!=',move.price_unit),('company_id','=',move.company_id.id)])
                       if later_ids:
                         later_prices = []
                         for later_move in move_line_obj.browse(cr, uid, later_ids):
