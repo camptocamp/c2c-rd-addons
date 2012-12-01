@@ -105,4 +105,18 @@ class stock_picking(osv.osv):
     
 stock_picking()
 
+class stock_move(osv.osv):
+    _inherit = "stock.move"
 
+    def create(self, cr, uid, vals, context=None):
+        """
+        workaround to make inserted product available for validate process
+        """
+        new_id = super(stock_move, self).create(cr, uid, vals, context)
+        for move in self.browse(cr, uid, [new_id]):
+            if move.picking_id and move.picking_id.sale_order_id and move.product_id.company_id:
+                product_obj = self.pool.get('product.product')
+                product_obj.write(cr, 1, [move.product_id.id] , {'company_id':'' })
+        return new_id 
+        
+stock_move()
