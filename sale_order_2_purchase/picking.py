@@ -44,7 +44,7 @@ class stock_picking(osv.osv):
            context = {}
         for pick in self.browse(cr, 1, ids, context):
             if not pick.sale_order_id :
-                return
+                return True
             _logger = logging.getLogger(__name__)
             
             move_obj = self.pool.get('stock.move')
@@ -53,14 +53,11 @@ class stock_picking(osv.osv):
             
             picking_o_used_ids = [] # picking already used to set lots
             _logger.debug('FGF pic %s', pick.purchase_id.picking_o_ids)
-            
-            #for o in self.browse(cr, 1, [pick.purchase_id.id]):
-            
             for o in pick.purchase_id.picking_o_ids:
                 _logger.debug('FGF pic %s',o )
                 picking_o_used_ids.append(o.id)
-                _logger.debug('FGF picking_o_used_ids %s',o.id )
             picking_o_ids = []
+            _logger.debug('FGF picking_o_used_ids %s',picking_o_used_ids )
             
             for sale in sale_obj.browse(cr, 1, [pick.sale_order_id.id], context):
                 for p in sale.picking_ids:
@@ -69,7 +66,7 @@ class stock_picking(osv.osv):
                         picking_o_ids.append(p.id)
             _logger.debug('FGF picking_o_ids %s', picking_o_ids)
             if not picking_o_ids:
-                return
+                return True
             
             picking_o_ids2 = ','.join([str(id) for id in picking_o_ids])
             sql="""
@@ -100,12 +97,11 @@ class stock_picking(osv.osv):
                     _logger.debug('FGF write %s', vals)
                     move_obj.write(cr, uid, [line.id], vals)
                     
+            for p_o_id in picking_o_ids:
+                _logger.debug('FGF write p_o_id %s', p_o_id)
+                purchase_obj.write(cr, uid, [pick.purchase_id.id], {'picking_o_ids': [(4, p_o_id)]})
             
-            # many2many
-            
-            purchase_obj.write(cr, uid, [pick.purchase_id.id], {'picking_o_ids': [(6,0,picking_o_ids)]})
-            
-    
+        return True 
     
 stock_picking()
 
