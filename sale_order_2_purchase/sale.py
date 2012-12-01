@@ -23,10 +23,14 @@ from osv import fields, osv
 import netsvc
 import logging
 
-class ir_property(osv.osv):
-    _inherit = 'ir.property'
+class purchase_order(osv.osv):
+    _inherit = "purchase.order"
 
+    _columns = {
+          'sale_order_id': fields.many2one('sale.order', 'Sale Order Reference', help="Purchase order generted based on this sale order"),
+    }
 
+purchase_order()
 
 class sale_order(osv.osv):
     _inherit = "sale.order"
@@ -169,6 +173,7 @@ class sale_order(osv.osv):
            ,'pricelist_id': price_list_o_id[0]
            ,'location_id': location_id
            ,'fiscal_position_id': fiscal_position_id
+           ,'sale_order_id' : order.id
             }
         po_id = po_obj.create(cr, uid, vals_po, ctx)
 

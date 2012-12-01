@@ -31,10 +31,10 @@ This is useful if the "other company" orders in a sale portal
 instead of using the purchse process itself
 """,
     'author': 'Camptocamp Austria',
-    'depends': [ 'sale','purchase','account','product_price_property'],
+    'depends': [ 'sale','purchase','account','product_price_property','stock'],
     'update_xml': [
        ],
-    'update_xml': ['sale_view.xml'],
+    'update_xml': ['sale_view.xml','picking_view.xml'],
     'demo_xml': [],
     'installable': True,
     'active': False,

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+   <record id="stock_picking_in_inherit_so2po_purchase" model="ir.ui.view">
+       <field name="name">stock.picking.inherit.so2po.purchase</field>
+       <field name="model">stock.picking</field>
+       <field name="inherit_id" ref="purchase.stock_picking_in_inherit_purchase"/>
+       <field name="type">form</field>
+       <field name="arch" type="xml">
+           <field name="purchase_id" position="after">
+               <newline/>
+               <field name="sale_order_id" attrs="{'invisible': [('sale_order_id','=', False)]}"/> 
+
+               <button  name="button_update_so2po_move" type="object" icon="gtk-go-forward" string="Get lot from out picking"  help="Updates lots AND quantites using data from related out picking ONCE" attrs="{'invisible': [('sale_order_id','=', False)]}"/>
+
+           </field>
+       </field>
+   </record>
+   
+
+        
+  </data>
+</openerp>
