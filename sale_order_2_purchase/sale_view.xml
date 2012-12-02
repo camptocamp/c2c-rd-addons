@@ -10,8 +10,9 @@
        <field name="type">form</field>
        <field name="arch" type="xml">
            <button name="order_confirm" position="after">
+               <field name="comp_o_id" invisible="1"/>
                
-               <button name="button_create_so_2_po" string="Create PO AM" type="object" icon="gtk-go-forward" help=" sequence"/>
+               <button name="button_create_so_2_po" string="Create Intercompany PO" type="object" icon="gtk-go-forward" help="This creates an Interncompany Purchase Order if the partner is a company in the same database" attrs="{'invisible': ['|',('state','not in',('progress', 'done')),('comp_o_id','=', '')]}" />
 
            </button>
        </field>

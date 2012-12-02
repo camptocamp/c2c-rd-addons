@@ -37,6 +37,24 @@ class sale_order(osv.osv):
   
 # _o_ are variables of the _o_ther company
 
+    def _comp_o_id(self, cr, uid, ids, name, args, context=None):
+        res = {}
+        company_obj =  self.pool.get('res.company')
+        for order in self.browse(cr, uid, ids, context=context):
+            partner_o_id = order.partner_id.id
+            comp_o_ids = company_obj.search(cr, uid, [('partner_id','=',partner_o_id)])
+            if comp_o_ids: 
+                res[order.id] =  comp_o_ids[0]
+            else:
+                res[order.id] =  ''
+               
+        return res
+
+
+    _columns = {
+          'comp_o_id': fields.function(_comp_o_id, method=True, type='many2one', relation='res.company', string='Partner Company',),
+    }
+
     def _sql(self, cr,uid, comp_o_id, inc_exp,account_o_id, product_id):
                  
         sql = """
@@ -125,13 +143,13 @@ class sale_order(osv.osv):
             context = {}
         ctx = {}
         
-        company_obj =  self.pool.get('res.company')
-        partner_o_id = order.partner_id.id
-        comp_o_id = company_obj.search(cr, uid, [('partner_id','=',partner_o_id)])[0]
-        if not comp_o_id:
-            self._logger.debug('FGF no intercompany %s', partner_o_id)
-            return False
-        
+        #company_obj =  self.pool.get('res.company')
+        #partner_o_id = order.partner_id.id
+        #comp_o_id = company_obj.search(cr, uid, [('partner_id','=',partner_o_id)])[0]
+        #if not comp_o_id:
+        #    self._logger.debug('FGF no intercompany %s', partner_o_id)
+        #    return False
+        comp_o_id = order.comp_o_id.id
        
         ctx={'company_id':comp_o_id, 'force_company':comp_o_id }
         
