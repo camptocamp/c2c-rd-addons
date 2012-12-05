@@ -26,8 +26,7 @@
     'version': '1.0',
     'category': 'Others',
     'description': """
-adds a To Do Button as default to search views
-this shows all resources which need further interaction (are not done or canceled)
+installs all apps
 """,
     'author': 'Camptocamp Austria',
     'depends': [
