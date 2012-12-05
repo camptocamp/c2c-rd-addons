@@ -68,7 +68,7 @@ class stock_picking(osv.osv):
         @return: True or False
         """
         for pick in self.browse(cr, uid, ids, context=context):
-         if pick.state != 'cancel' and pick.sale_id:
+         if pick.state != 'cancel' and pick.sale_id and pick.type == 'out':
           if pick.invoice_state != 'none':
             if  pick.sale_id and pick.sale_id.order_policy == 'internal':
                   raise osv.except_osv(_('Error'), _('Sale order with order policy %s must not have pickings %s with invoice policy %s ')% (pick.sale_id.order_policy,pick.name, pick.invoice_state))

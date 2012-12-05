@@ -64,6 +64,7 @@ class ir_sequence(osv.osv):
         seq_id = sequence_id
         
         create_sequence = ''    
+        per_seq = False
         if context.get('journal_id') and context['journal_id']:
             journal_obj = self.pool.get('account.journal')
             for journal in journal_obj.browse(cr, uid, [context['journal_id']]):
@@ -94,8 +95,9 @@ class ir_sequence(osv.osv):
                           ,'period_id'        : context['period_id']
                           }
                         per_seq_obj.create(cr, uid, vals2)
+                        per_seq = True
                         
-        if context.get('fiscalyear_id') and context['fiscalyear_id'] :
+        if context.get('fiscalyear_id') and context['fiscalyear_id'] and not per_seq:
                     fy = context['fiscalyear_id'] 
                     self._logger.debug('fy `%s`', fy)
                     if fy:

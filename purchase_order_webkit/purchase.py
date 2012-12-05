@@ -43,7 +43,7 @@ class purchase_order(osv.osv):
           print_ean = False
           if order.order_line and order.company_id.print_ean:
             for line in order.order_line:
-                if line.product_packaging.ean or line.product_id.ean13 :
+                if line.product_id.ean13 :
                    print_ean = True
           res[order.id] =  print_ean
         return res
