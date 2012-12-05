@@ -67,14 +67,15 @@ class account_bank_statement(osv.osv):
                     raise osv.except_osv(_('Error !'),
                     _('must only find one move line %s"') % st_line.name)
             if amount_tax>0:
-                account_move_line_obj.write(cr, uid, move_ids, {'credit':amount_net})
-            else: 
-                account_move_line_obj.write(cr, uid, move_ids, {'debit':-amount_net})
+                account_move_line_obj.write(cr, uid, move_ids, {'credit':amount_net,'tax_amount': amount_net,'tax_code_id': st_line.tax_id.base_code_id.id})
+            if amount_tax<0:
+                account_move_line_obj.write(cr, uid, move_ids, {'debit':-amount_net,'tax_amount': amount_net,'tax_code_id': st_line.tax_id.base_code_id.id})
             if entry_posted_reset:
                 account_journal_obj.write(cr, uid, st_line.statement_id.journal_id.id, {'entry_posted':False})
 
             # create tax line
-            account_move_line_obj.create(cr, uid, {
+            if amount_tax != 0:
+                account_move_line_obj.create(cr, uid, {
                     'name': st_line.name,
                     'date': st_line.date,
                     'ref': st_line.ref,
