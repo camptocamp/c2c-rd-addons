@@ -73,7 +73,8 @@ class project_work(osv.osv):
         if timeline_id:
             obj_timesheet = self.pool.get('hr.analytic.timesheet')
             for work in self.browse(cr, uid, [res] ):
-                obj_timesheet.write(cr, uid, [timeline_id], {'to_invoice': work.to_invoice.id })
+                if work.to_invoice:
+                    obj_timesheet.write(cr, uid, [timeline_id], {'to_invoice': work.to_invoice.id })
 
 
         return res
