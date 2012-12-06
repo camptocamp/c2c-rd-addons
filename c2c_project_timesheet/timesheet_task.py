@@ -46,9 +46,10 @@ class project_work(osv.osv):
         return task_work_ids
 
     _columns = {
-        'date': fields.datetime('Date', select="1"),
-        'task_id': fields.many2one('project.task', 'Task', ondelete='cascade', required=True, select="1"),
-        'user_id': fields.many2one('res.users', 'Done by', required=True, select="1"),
+        #'date': fields.datetime('Date', select="1"),
+        #'task_id': fields.many2one('project.task', 'Task', ondelete='cascade', required=True, select="1"),
+        #'user_id': fields.many2one('res.users', 'Done by', required=True, select="1"),
+        'to_invoice': fields.many2one('hr_timesheet_invoice.factor', 'Type of Invoicing', help="It allows to set the discount while making invoice"),
         'project_id' : fields.related('task_id', 'project_id', type='many2one', relation="project.project", string='Project',
         store = True
         # FIXME activation of this function causes project_id not be stored on normal entry 
@@ -63,7 +64,19 @@ class project_work(osv.osv):
         if 'user_id' not in vals:
             for task in self.browse(cr, uid, ids, context=context):
                 vals['user_id'] = task.user_id.id
+                vals['to_invoice'] = task.to_invoice.id
         return super(project_work,self).write(cr, uid, ids, vals, context)
+
+    def create(self, cr, uid, vals, *args, **kwargs):
+        res = super(project_work,self).create(cr, uid, vals, *args, **kwargs)
+        timeline_id = vals.get('hr_analytic_timesheet_id') and vals['hr_analytic_timesheet_id'] or ''
+        if timeline_id:
+            obj_timesheet = self.pool.get('hr.analytic.timesheet')
+            for work in self.browse(cr, uid, [res] ):
+                obj_timesheet.write(cr, uid, [timeline_id], {'to_invoice': work.to_invoice.id })
+
+
+        return res
 
 project_work()
 
