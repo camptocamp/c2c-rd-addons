@@ -61,11 +61,23 @@ class project_work(osv.osv):
 
 
     def write(self, cr, uid, ids, vals, context=None):
+        obj_timesheet = self.pool.get('hr.analytic.timesheet')
+        self._logger.debug('FGF vals `%s`',  vals)
         if 'user_id' not in vals:
-            for task in self.browse(cr, uid, ids, context=context):
-                vals['user_id'] = task.user_id.id
-                vals['to_invoice'] = task.to_invoice.id
-        return super(project_work,self).write(cr, uid, ids, vals, context)
+                vals['user_id'] = uid
+        res= super(project_work,self).write(cr, uid, ids, vals, context)
+        for work in self.browse(cr, uid, ids, context=context):
+            if work.hr_analytic_timesheet_id and work.hr_analytic_timesheet_id.line_id:
+                val = {
+                   'to_invoice': work.to_invoice.id,
+                   'name' : work.task_id.name+': '+ work.name,
+                   'account_id' : work.task_id.project_id.analytic_account_id.id,
+                   }
+                self._logger.debug('FGF update analytic `%s` `%s`', work.hr_analytic_timesheet_id.line_id.id, val)
+                obj_analytic_line.write(cr, uid, [work.hr_analytic_timesheet_id.line_id.id], val)
+         
+                
+        return res
 
     def create(self, cr, uid, vals, *args, **kwargs):
         res = super(project_work,self).create(cr, uid, vals, *args, **kwargs)
