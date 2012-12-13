@@ -18,6 +18,7 @@ work per task
           <field name="hours" sum="Hours"  widget="float_time"/>
           <field name="date"/>
           <field name="user_id"/>
+          <field name="to_invoice"/>
           <field name="company_id" groups="base.group_multi_company"/>
           <field name="hr_analytic_timesheet_id" readonly="1" invisible="1"/>
         </tree>

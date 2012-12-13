@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<openerp>
+  <data noupdate="1">
+    <record model="timed.job" id="timed_job_demo_1" forcecreate="True">
+      <field name="name">Thread Watchdog</field>
+      <field name="model" search="[('model','=','timed.job')]" model="ir.model"/>
+      <field name="function">thread_watchdog</field>
+      <field name="args" eval="'''()'''"/>
+      <field name="state">minutes</field>
+      <field name="interval_number" eval="1"/>
+      <field name="numbercall" eval="-1"/>
+      <field name="repeat_missed" eval="False"/>
+    </record>
+    <record model="timed.job" id="timed_job_demo_2" forcecreate="True">
+      <field name="name">Two hour test</field>
+      <field name="model" search="[('model','=','timed.job')]" model="ir.model"/>
+      <field name="function">test</field>
+      <field name="args" eval="'''([[14.0,'Two hour test']])'''"/>
+      <field name="state">hours</field>
+      <field name="interval_number" eval="2"/>
+      <field name="numbercall" eval="10"/>
+      <field name="repeat_missed" eval="True"/>
+    </record>
+    <record model="timed.job" id="timed_job_demo_3" forcecreate="True">
+      <field name="name">Three day test</field>
+      <field name="model" search="[('model','=','timed.job')]" model="ir.model"/>
+      <field name="function">test</field>
+      <field name="args" eval="'''([[14.0,'Three day test']])'''"/>
+      <field name="state">days</field>
+      <field name="interval_number" eval="3"/>
+      <field name="numbercall" eval="-1"/>
+      <field name="repeat_missed" eval="True"/>
+      <field name="startup_predecessor" search="[('name','=','Two hour test')]" model="timed.job"/>
+    </record>
+    <record model="timed.job" id="timed_job_demo_4" forcecreate="True">
+      <field name="name">Monday, Saturday, Sunday test</field>
+      <field name="model" search="[('model','=','timed.job')]" model="ir.model"/>
+      <field name="function">test</field>
+      <field name="args" eval="'''([[14.0,'Monday, Saturday, Sunday test']])'''"/>
+      <field name="state">days_of_week</field>
+      <field name="day_list">1,6,7</field>
+      <field name="day_time">12:00:00</field>
+      <field name="numbercall" eval="-1"/>
+      <field name="repeat_missed" eval="False"/>
+      <field name="startup_predecessor" search="[('name','=','Two hour test')]" model="timed.job"/>
+    </record>
+    <record model="timed.job" id="timed_job_demo_5" forcecreate="True">
+      <field name="name">First, 15th, Ultimo test</field>
+      <field name="model" search="[('model','=','timed.job')]" model="ir.model"/>
+      <field name="function">test</field>
+      <field name="args" eval="'''([[14.0,'First, 15th, Ultimo test']])'''"/>
+      <field name="state">days_of_month</field>
+      <field name="day_list">1,15,-1</field>
+      <field name="day_time">13:00:00</field>
+      <field name="numbercall" eval="-1"/>
+      <field name="repeat_missed" eval="True"/>
+      <field name="startup_predecessor" search="[('name','=','Three day test')]" model="timed.job"/>
+    </record>
+    <record model="timed.job" id="timed_job_demo_6" forcecreate="True">
+      <field name="name">One minute test</field>
+      <field name="model" search="[('model','=','timed.job')]" model="ir.model"/>
+      <field name="function">test</field>
+      <field name="args" eval="'''([[70.0,'One minute test']])'''"/>
+      <field name="state">minutes</field>
+      <field name="interval_number" eval="1"/>
+      <field name="numbercall" eval="-1"/>
+      <field name="repeat_missed" eval="False"/>
+    </record>
+  </data>
+</openerp>

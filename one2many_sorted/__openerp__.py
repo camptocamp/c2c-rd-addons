@@ -70,6 +70,8 @@ Otherwise no sorting takes place.
 
 many2many_sorted has a similar syntax but without search feature.
 
+Note that it works on translated term, not only the text stored in the DB !
+
 
 """
 , "category"     : "Tools"
