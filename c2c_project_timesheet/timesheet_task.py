@@ -62,6 +62,7 @@ class project_work(osv.osv):
 
     def write(self, cr, uid, ids, vals, context=None):
         obj_timesheet = self.pool.get('hr.analytic.timesheet')
+        obj_analytic_line= self.pool.get('account.analytic.line')
         self._logger.debug('FGF vals `%s`',  vals)
         if 'user_id' not in vals:
                 vals['user_id'] = uid
