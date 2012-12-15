@@ -29,5 +29,5 @@
 #
 ##############################################################################
 import account_bankstatement
-import wizard
+#import wizard
 import report
