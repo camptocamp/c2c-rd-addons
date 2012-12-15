@@ -42,6 +42,8 @@ suppress unused columns in sale order lines."""
     , "report_webkit"
     , "c2c_partner_address_label"
     , "one2many_sorted"
+    , "delivery"
+    , "stock_packing_webkit"
     ]
 , "category"     : "Sales Management"
 , "author"       : "Camptocamp SA - Ferdinand Gassauer"
