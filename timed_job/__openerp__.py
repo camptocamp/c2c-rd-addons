@@ -24,6 +24,11 @@
 , 'category'     : "Tools"
 , 'description'  : """Executes job at a specific point in time and repeats this at a time-interval.
 
+Caveat:
+installation from command line with --stop-after-init will raise an error which can be ignored
+Example
+<type 'exceptions.TypeError'>: 'NoneType' object is not callable 
+
 Main features:
  - Executes a function "Function" on object "Object" with arguments "Arguments"
  - Starts the function at precise time "Start Time" (or on following periods, see below)
