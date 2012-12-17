@@ -7,8 +7,8 @@
 <Document>
   <CstmrCdtTrfInitn>
     <GrpHdr>
-      <MsgId text-eval="time.strftime('&#37;Y&#37;m&#37;d&#37;H&#37;M&#37;S')"/>
-      <CreDtTm text-eval="time.strftime('&#37;Y-&#37;m-&#37;dT&#37;H:&#37;M:&#37;S')"/>
+      <MsgId text-eval="time1"/>
+      <CreDtTm text-eval="time2"/>
       <NbOfTxs text-eval="sum(len(l) for date,l in sepa_payments(order,company).iteritems())"/>
       <CtrlSum text-eval="order.total"/>
       <InitgPty>
@@ -16,7 +16,7 @@
       </InitgPty>
     </GrpHdr>
     <PmtInf var="date,p_banks" loop-eval="sepa_payments(order,company).iteritems()">
-      <PmtInfId text-eval="time.strftime('&#37;Y&#37;m&#37;d&#37;H&#37;M&#37;S')"/>
+      <PmtInfId text-eval="time1"/>
       <PmtMtd text-eval="'TRF'"/>
       <CtrlSum text-eval="sum(line.amount for line in p_banks)"/>
       <ReqdExctnDt text-eval="date"/>
