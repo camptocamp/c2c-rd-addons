@@ -1,8 +1,14 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<openerp>
+  <data noupdate="1">
+    <record model="xml.template" id="xml_template_sepa_pain_001_001_02_austrian_002" forcecreate="True">
+      <field name="name">pain_001_001_02_austrian_002</field>
+      <field name="content" type="xml">
 <Document>
   <pain.001.001.02>
     <GrpHdr>
-      <MsgId text-eval="time.strftime('%Y%m%d%H%M%S')"/>
-      <CreDtTm text-eval="time.strftime('%Y-%m-%dT%H:%M:%S')"/>
+      <MsgId text-eval="time.strftime('&#37;Y&#37;m&#37;d&#37;H&#37;M&#37;S')"/>
+      <CreDtTm text-eval="time.strftime('&#37;Y-&#37;m-&#37;dT&#37;H:&#37;M:&#37;S')"/>
       <NbOfTxs text-eval="sum(len(l) for date,l in sepa_payments(order,company).iteritems())"/>
       <CtrlSum text-eval="order.total"/>
       <Grpg text-eval="'MIXD'"/>
@@ -15,7 +21,7 @@
       </InitgPty>
     </GrpHdr>
     <PmtInf var="date,p_banks" loop-eval="sepa_payments(order,company).iteritems()">
-      <PmtInfId text-eval="time.strftime('%Y%m%d%H%M%S')"/>
+      <PmtInfId text-eval="time.strftime('&#37;Y&#37;m&#37;d&#37;H&#37;M&#37;S')"/>
       <PmtMtd text-eval="'TRF'"/>
       <PmtTpInf>
         <SvcLvl>
@@ -64,3 +70,8 @@
     </PmtInf>
   </pain.001.001.02>
 </Document>
+      </field>
+    </record>
+  </data>
+</openerp>
+
