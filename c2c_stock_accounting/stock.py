@@ -364,7 +364,8 @@ class stock_move(osv.osv):
          result = {}
          for move in self.browse(cr, uid, ids):
              #period_ids= self.pool.get('account.period').search(cr,uid,[('date_start','<=',move.date),('date_stop','>=',move.date ), ('special','=',False)])
-             period_ids= self.pool.get('account.period').search(cr,uid,[('date_start','<=',move.date),('date_stop','>=',move.date ),('special','!=', True)])
+             #period_ids= self.pool.get('account.period').search(cr,uid,[('date_start','<=',move.date),('date_stop','>=',move.date ),('special','!=', True)])
+             period_ids= self.pool.get('account.period').search(cr,uid,[('date_start','<=',move.date_expected),('date_stop','>=',move.date_expected ),('special','!=', True)])
              
              if len(period_ids):
                  result[move.id] = period_ids[0]
