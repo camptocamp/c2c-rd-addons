@@ -49,7 +49,7 @@ class timed_job(osv.osv):
     _order          = 'lastcall'
     _running        = set()
     _logger         = logging.getLogger(_name)
-    _time_granule   = datetime.timedelta(seconds=15)
+    _time_granule   = datetime.timedelta(seconds=10)
     _max_scheduler_delta = datetime.timedelta(hours=6) # if no active job, it will run again after this time
     _basic_select   = "SELECT * FROM timed_job WHERE numbercall<>0 AND active"
     _interval_types = \
@@ -91,13 +91,13 @@ class timed_job(osv.osv):
         , 'args'                : fields.text
             ('Arguments'
             , required = True
-            , help = "Arguments to be passed to the method."
+            , help     = "Arguments to be passed to the method."
             )
         , 'day_list'            : fields.char
             ('Day list'
-            , size = 64
+            , size   = 64
             , states = _list_mask
-            , help="comma separated list of day-numbers (depending on 'Interval unit')."
+            , help   = "comma separated list of day-numbers (depending on 'Interval unit')."
             )
         , 'day_time'            : fields.char
             ('Start Time'
@@ -107,19 +107,19 @@ class timed_job(osv.osv):
             )
         , 'function'            : fields.char
             ('Function'
-            , size = 64
+            , size     = 64
             , required = True
-            , help="Name of the method to be called on the object when this scheduler is executed."
+            , help     = "Name of the method to be called on the object when this scheduler is executed."
             )
         , 'interval_number'     : fields.integer
             ('Interval Number'
             , states = _loop_mask
-            , help = "Repeat every 'Interval Unit'."
+            , help   = "Repeat every 'Interval Unit'."
             )
         , 'lastcall'            : fields.datetime
             ('Last Execution Time'
             , readonly = True
-            , help = "When did this job finish the last time?"
+            , help     = "When did this job finish (successfully) the last time?"
             )
         , 'model'               : fields.many2one
             ( 'ir.model'
@@ -144,6 +144,10 @@ class timed_job(osv.osv):
             ( 'Repeat Missed'
             , help = "Enable this if you want to execute missed occurences as soon as the server restarts"
             )
+        , 'notification_mail'   : fields.boolean
+            ( 'Notification by Mail'
+            , help = """Normally, if an error occurs, information is written to the server-log. If checked, an email is generated (using Mail-Template 'Notification Mail Template Timed Job'). Note, that in this case the Job is marked as successful"""
+            )
         , 'startup_predecessor' : fields.many2one
             ( 'timed.job'
             , 'Startup Predecessor'
@@ -153,7 +157,7 @@ class timed_job(osv.osv):
             (_interval_types
             , 'Interval Unit'
             , required = True
-            , help = """
+            , help     = """
 Depending on this interval unit the length of the interval can be specified:
  - "Minutes": every 'Interval Number' minutes beginning at 'Last Execution Time'
  - "Hours": every 'Interval Number' hours beginning at 'Last Execution Time'
@@ -166,15 +170,16 @@ Depending on this interval unit the length of the interval can be specified:
         }
 
     _defaults = \
-        { 'active'          : lambda *a : True
-        , 'args'            : lambda *a : '()'
-        , 'day_list'        : lambda *a : '1'
-        , 'day_time'        : lambda *a : '00:00:00'
-        , 'interval_number' : lambda *a : 1
-        , 'state'           : lambda *a : 'days'
-        , 'numbercall'      : lambda *a : -1
-        , 'repeat_missed'   : lambda *a : False
-        , 'user_id'         : lambda self, cr, uid, context : uid
+        { 'active'            : lambda *a : True
+        , 'args'              : lambda *a : '()'
+        , 'day_list'          : lambda *a : '1'
+        , 'day_time'          : lambda *a : '00:00:00'
+        , 'interval_number'   : lambda *a : 1
+        , 'state'             : lambda *a : 'days'
+        , 'numbercall'        : lambda *a : -1
+        , 'repeat_missed'     : lambda *a : False
+        , 'notification_mail' : lambda *a : False
+        , 'user_id'           : lambda self, cr, uid, context : uid
         }
 
     def str2tuple(self, s):
@@ -262,7 +267,7 @@ Depending on this interval unit the length of the interval can be specified:
     # end def __init__
 
     def _startup(self, dbname) :
-        self._logger.debug("_startup")
+#        self._logger.debug("_startup")
         
         def insert(job_dict, job) :
             if job['startup_predecessor'] and job['startup_predecessor'] in job_dict.keys() :
@@ -381,11 +386,7 @@ Depending on this interval unit the length of the interval can be specified:
         try :
             f(cr, uid, *args)
         except Exception :
-            self._logger.error \
-                ("Job call of %s.%s%s from user-id %s failed\n%s"
-                , model_obj._name, func, args, uid
-                , "\n".join(traceback.format_exception(*sys.exc_info()))
-                )
+            cr.rollback()
             raise
         c = time.clock() - c0
         t = time.time() - t0
@@ -425,14 +426,16 @@ Depending on this interval unit the length of the interval can be specified:
                     self._update_db(cr, job['id'], numbercall, now)
                     ok = True
                 next = self._next(next, job)
-        except Exception, exc:
-            cr.rollback()
-            self._logger.error \
-                ( "Job processing of '%s' (ir.model(%s).%s %s) failed due to: %s\n%s"
-                , job['name'], job['model'], job['function'], job['args'], exc
-                , "\n".join(traceback.format_exception(*sys.exc_info()))
-                )
-            raise
+        except Exception, exc :
+            if job['notification_mail'] :
+                self._send_mail(cr, job['user_id'], job['id'])
+            else :
+                self._logger.error \
+                    ( "Job processing of '%s' (ir.model(%s).%s %s) failed due to: %s\n%s"
+                    , job['name'], job['model'], job['function'], job['args'], exc
+                    , "\n".join(traceback.format_exception(*sys.exc_info()))
+                    )
+                raise
         finally:
             cr.close()
             if job['id'] in self._running : self._running.remove(job['id'])
@@ -472,6 +475,18 @@ Depending on this interval unit the length of the interval can be specified:
         finally :
             cr.close()
     # end def _scheduler
+
+    def _send_mail(cr, uid, job_id) :
+        name = "Notification Mail Template Timed Job"
+        mail_obj = self.pool.get("email.template")
+        tpl_ids = mail_obj.search(cr, uid, [("name", "=", name)])
+        exc_type, exc_value, exc_traceback = sys.exc_info()
+        context = {"exc_type" : exc_type, "exc_value" : exc_value, "exc_traceback" : exc_traceback}
+        if tpl_ids :
+            mail_obj.send_mail(cr, uid, tpl_ids[0], job_id, context=context)
+        else  :
+            self._logger.error("No Mail Template named '%s' defined", name)
+    # end def _send_mail
 
     def create(self, cr, uid, vals, context=None) :
         res = super(timed_job, self).create(cr, uid, vals, context=context)
@@ -519,6 +534,8 @@ Depending on this interval unit the length of the interval can be specified:
     # end def thread_watchdog
 
     def test(self, cr, uid, args=[]) :
+        if len(args) < 2 :
+            raise
         self._logger.debug("test: %s [%0.2f sec]", args[1], args[0])
         time.sleep(args[0])
     # end def test

@@ -15,6 +15,7 @@
           <field name="function"/>
           <field name="numbercall"/>
           <field name="repeat_missed"/>
+          <field name="notification_mail"/>
           <field name="startup_predecessor"/>
           <field name="user_id"/>
         </tree>
@@ -40,16 +41,15 @@
               </group>
               <newline/>
               <field name="day_time"/>
-              <newline/>
               <field name="numbercall"/>
               <newline/>
-              <field name="startup_predecessor"/>
-              <newline/>
               <field name="repeat_missed"/>
+              <field name="notification_mail"/>
               <newline/>
               <field name="lastcall" readonly="1"/>
-              <newline/>
               <field name="nextcall" readonly="1"/>
+              <newline/>
+              <field name="startup_predecessor"/>
             </page>
             <page string="Technical Data" groups="base.group_extended">
               <separator string="Function to Call" colspan="4"/>
@@ -98,14 +98,17 @@
       <field name="view_mode">tree,form,calendar</field>
       <field name="view_id" ref="timed_job_view_tree"/>
     </record>
+<!--
     <menuitem 
       id="menu_timed_job" 
       name="Timed Jobs" 
       parent="base.menu_config" 
       groups="base.group_extended"/>
+-->
     <menuitem 
       action="timed_job_act" 
       id="menu_timed_job_act" 
-      parent="menu_timed_job"/>
+      parent="base.menu_ir_cron"
+      groups="base.group_extended"/>
   </data>
 </openerp>

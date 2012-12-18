@@ -24,11 +24,6 @@
 , 'category'     : "Tools"
 , 'description'  : """Executes job at a specific point in time and repeats this at a time-interval.
 
-Caveat:
-installation from command line with --stop-after-init will raise an error which can be ignored
-Example
-<type 'exceptions.TypeError'>: 'NoneType' object is not callable 
-
 Main features:
  - Executes a function "Function" on object "Object" with arguments "Arguments"
  - Starts the function at precise time "Start Time" (or on following periods, see below)
@@ -40,6 +35,7 @@ Main features:
  - Insertion, deletion of jobs take immediate effect
  - Optionally, the missed executions can be repeated after a server outage ("Repeat Missed")
  - Optionally, a fixed number of execution times can be specified ("Number of Calls")
+ - Optionally, a notification mail will be sent in case of errors
  - Optionally, an execution dependency between jobs during server-startup can be specified ("Startup Predecessor")
    This specifies the job that has to be executed in advance during a server-startup.
  
@@ -67,6 +63,8 @@ Circular dependencies are (obviously) not allowed.
 During server startup, those jobs have to be executed prior to any other job - this may take a long time.
 Use those features judiciously.
 
+"Notification by Mail" - for technical reasons - results in a successful job execution. The error can only be seen in the generated mail.
+
 Depending on the log_level of the server, information (elapsed time / CPU time) about the executed jobs are written to the server log.
 
 The specified 'Function' must be known to the 'Object'.
@@ -80,17 +78,18 @@ The object 'Timed Job' provides two convenience functions for testing and sanity
 
 
 Programmatic interface :
- - _time_granule: A datetime.timedelta (default 15sec) that specifies the sparse time base (a value of 0 will not work!)
+ - _time_granule: A datetime.timedelta (default 10sec) that specifies the sparse time base (a value of 0 will not work!)
  - _max_scheduler_delta: A datetime.timedelta (default 6hours) that specifies the maximum interval for the scheduler to be executed
 """
 , "author"       : "Swing Entwicklung betrieblicher Informationssysteme GmbH"
 , "website"      : "http://www.swing-system.com"
-, 'depends'      : ["base"]
+, 'depends'      : ["base", "email_template"]
 , 'update_xml'   : 
     [ "security/ir.model.access.csv"
     , "timed_job_view.xml"
     ]
 , 'test'         : []
+, "init_xml"     : ["email_template_data.xml"]
 , 'demo_xml'     : ["timed_job_demo.xml"]
 , 'installable'  : True
 , 'auto_install' : False
