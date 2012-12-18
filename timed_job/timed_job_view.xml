@@ -108,7 +108,7 @@
     <menuitem 
       action="timed_job_act" 
       id="menu_timed_job_act" 
-      parent="base.menu_ir_cron"
+      parent="base.menu_custom"
       groups="base.group_extended"/>
   </data>
 </openerp>
