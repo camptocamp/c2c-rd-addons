@@ -29,5 +29,5 @@
 #
 ##############################################################################
 import stock_packing
-import wizard
+#import wizard
 import report
