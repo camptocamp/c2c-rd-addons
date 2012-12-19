@@ -490,7 +490,7 @@ Depending on this interval unit the length of the interval can be specified:
             self._logger.error('tpl: %s', tpl)
             self._logger.error('server: %s', tpl.mail_server_id)
             values["user_id"] = uid
-            values["body_html"] = """<?xml version="1.0"?>\n<data>"""+("</br>".join(traceback.format_exception(*sys.exc_info()))+"</data>"
+            values["body_html"] = """<?xml version="1.0"?>\n<data>""" + ("</br>".join(traceback.format_exception(*sys.exc_info()))) + "</data>"
             self._logger.error('Values2: %s', values)
             values["mail_server_id"] = tpl.mail_server_id.id
             values["partner_id"] = job.user_id.partner_id.id
