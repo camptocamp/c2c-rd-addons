@@ -488,12 +488,14 @@ Depending on this interval unit the length of the interval can be specified:
             values = mail_obj.generate_email(cr, uid, tpl.id, job_id, context=context)
             self._logger.error('Values: %s', values)
             values["user_id"] = uid
-            values["body_html"] = """<?xml version="1.0"?>\n<data><h1>"""+str(exc_type)+"""</h1><h2>"""+str(exc_value)+"""</h2>"""+("<br/>".join(exc_traceback))+"""</data>"""
+            values["body_html"] = """<?xml version="1.0"?>\n<data><h1>"""+str(exc_type)+"</h1><h2>"+str(exc_value)+"</h2>"+("<br/>".join(exc_traceback))+"</data>"
+            self._logger.error('Values2: %s', values)
             values["mail_server_id"] = tpl.mail_server_id.id
             values["partner_id"] = job.user_id.partner_id.id
+            self._logger.error('Values3: %s', values)
             del values["attachments"]
             del values["attachment_ids"]
-            self._logger.error('Values2: %s', values)
+            self._logger.error('ValuesE: %s', values)
             try :
                 self._logger.error("Mail values: %s", values) ###
                 mail_mail = self.pool.get('mail.message')
