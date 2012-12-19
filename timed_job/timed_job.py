@@ -393,7 +393,7 @@ Depending on this interval unit the length of the interval can be specified:
     # end def _call
 
     def _process_job(self, dbname, now, job) :
-        self._send_mail(cr, job['user_id'], job['id']) ###############
+#        self._send_mail(cr, job['user_id'], job['id']) ###############
         last = None
         if job['lastcall'] :
             last = datetime.datetime.strptime(job['lastcall'][0:19], '%Y-%m-%d %H:%M:%S')
