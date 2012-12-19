@@ -98,13 +98,6 @@
       <field name="view_mode">tree,form,calendar</field>
       <field name="view_id" ref="timed_job_view_tree"/>
     </record>
-<!--
-    <menuitem 
-      id="menu_timed_job" 
-      name="Timed Jobs" 
-      parent="base.menu_config" 
-      groups="base.group_extended"/>
--->
     <menuitem 
       action="timed_job_act" 
       id="menu_timed_job_act" 
