@@ -479,8 +479,6 @@ Depending on this interval unit the length of the interval can be specified:
         name = "Notification Timed Job"
         mail_obj = self.pool.get("email.template")
         tpl_ids = mail_obj.search(cr, uid, [("name", "=", name)])
-        exc_type, exc_value, exc_traceback = sys.exc_info() ###
-        context = {"exc_type" : exc_type, "exc_value" : exc_value, "exc_traceback" : exc_traceback} ###
         if tpl_ids :
             self._logger.error('Kyselac') ###
             tpl = mail_obj.browse(cr, uid, tpl_ids[0])
@@ -492,12 +490,8 @@ Depending on this interval unit the length of the interval can be specified:
             values["partner_id"] = job.user_id.partner_id.id
             del values["attachments"]
             del values["attachment_ids"]
-            self._logger.error('ValuesE: %s', values) #############
-            try : ###
-                mail_mail = self.pool.get('mail.message')
-                msg_id = mail_mail.create(cr, uid, values)
-            except Exception, ex : ###
-                self._logger.error('Exception: %s', str(ex)) ###
+            mail_mail = self.pool.get('mail.message')
+            msg_id = mail_mail.create(cr, uid, values)
         else  :
             self._logger.error("No Mail Template named '%s' defined", name)
     # end def _send_mail
