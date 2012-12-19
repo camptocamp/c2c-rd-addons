@@ -477,7 +477,7 @@ Depending on this interval unit the length of the interval can be specified:
     # end def _scheduler
 
     def _send_mail(cr, uid, job_id) :
-        self._logger.debug("_send_mail %s %s", uid, job_id) #######
+        self._logger.error("_send_mail %s %s", uid, job_id) #######
         name = "Notification Timed Job"
         mail_obj = self.pool.get("email.template")
         tpl_ids = mail_obj.search(cr, uid, [("name", "=", name)])
