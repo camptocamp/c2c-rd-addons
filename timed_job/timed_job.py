@@ -494,7 +494,7 @@ Depending on this interval unit the length of the interval can be specified:
                 values["partner_id"] = job.user_id.partner_id.id
                 del values["attachments"]
                 del values["attachment_ids"]
-                self._logger.error('Mail values: %s', values) ###
+                self._logger.error("Mail values: %s", values) ###
                 mail_mail = self.pool.get('mail.message')
                 msg_id = mail_mail.create(cr, uid, values, context=context)
             except Exception, ex :
