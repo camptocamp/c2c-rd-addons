@@ -481,7 +481,7 @@ Depending on this interval unit the length of the interval can be specified:
         exc_type, exc_value, exc_traceback = sys.exc_info()
         context = {"exc_type" : exc_type, "exc_value" : exc_value, "exc_traceback" : exc_traceback}
         if tpl_ids :
-            mail_obj.send_mail(cr, uid, tpl_ids[0], job_id, context=context)
+            mail_obj.send_mail(cr, uid, tpl_ids[0], job_id, force_send=True, context=context)
         else  :
             self._logger.error("No Mail Template named '%s' defined", name)
     # end def _send_mail
