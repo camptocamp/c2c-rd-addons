@@ -483,18 +483,21 @@ Depending on this interval unit the length of the interval can be specified:
         context = {"exc_type" : exc_type, "exc_value" : exc_value, "exc_traceback" : exc_traceback}
         if tpl_ids :
             self._logger.error('Kyselac') ###
-            tpl = mail_obj.browse(cr, uid, tpl_ids[0])
-            values = mail_obj.generate_email(cr, uid, tpl.id, job_id, context=context)
-            values["user_id"] = uid
-            values["body_html"] = """<?xml version="1.0"?>\n<data><h1>"""+str(exc_type)+"""</h1><h2>"""+str(exc_value)+"""</h2>"""+("<br/>".join(exc_traceback))+"""</data>"""
-            values["mail_server_id"] = tpl.mail_server_id.id
-            values["partner_id"] = job.user_id.partner_id.id
-            del values["attachments"]
-            del values["attachment_ids"]
-            self._logger.error('Mail values: %s', values) ###
-            mail_mail = self.pool.get('mail.message')
-            msg_id = mail_mail.create(cr, uid, values, context=context)
+            try :
+                tpl = mail_obj.browse(cr, uid, tpl_ids[0])
 #            msg_id = mail_obj.send_mail(cr, uid, tpl.id, job_id, force_send=False, context=context) # GKH don't know why this doesn't work
+                values = mail_obj.generate_email(cr, uid, tpl.id, job_id, context=context)
+                values["user_id"] = uid
+                values["body_html"] = """<?xml version="1.0"?>\n<data><h1>"""+str(exc_type)+"""</h1><h2>"""+str(exc_value)+"""</h2>"""+("<br/>".join(exc_traceback))+"""</data>"""
+                values["mail_server_id"] = tpl.mail_server_id.id
+                values["partner_id"] = job.user_id.partner_id.id
+                del values["attachments"]
+                del values["attachment_ids"]
+                self._logger.error('Mail values: %s', values) ###
+                mail_mail = self.pool.get('mail.message')
+                msg_id = mail_mail.create(cr, uid, values, context=context)
+            except Exception, ex :
+                self._logger.error('Exception: %s', str(ex))
         else  :
             self._logger.error("No Mail Template named '%s' defined", name)
     # end def _send_mail
