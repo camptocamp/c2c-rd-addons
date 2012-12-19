@@ -393,7 +393,6 @@ Depending on this interval unit the length of the interval can be specified:
     # end def _call
 
     def _process_job(self, dbname, now, job) :
-#        self._send_mail(cr, job['user_id'], job['id']) ###############
         last = None
         if job['lastcall'] :
             last = datetime.datetime.strptime(job['lastcall'][0:19], '%Y-%m-%d %H:%M:%S')
@@ -483,7 +482,7 @@ Depending on this interval unit the length of the interval can be specified:
         exc_type, exc_value, exc_traceback = sys.exc_info()
         context = {"exc_type" : exc_type, "exc_value" : exc_value, "exc_traceback" : exc_traceback}
         if tpl_ids :
-#            self._logger.error('Mail context: %s', context) ###
+            self._logger.error('Mail context: %s', context) ###
             values = mail_obj.generate_email(cr, uid, tpl_ids[0], job_id, context=context)
             values["user_id"] = uid
             values["body_html"] = """<?xml version="1.0"?>\n<data><h1>Test</h1></data>"""
@@ -493,7 +492,10 @@ Depending on this interval unit the length of the interval can be specified:
             self._logger.error('Mail values: %s', values) ###
             mail_mail = self.pool.get('mail.message')
             self._logger.error('Mail mail: %s', mail_mail) ###
-            msg_id = mail_mail.create(cr, uid, values, context=context)
+            try :
+                msg_id = mail_mail.create(cr, uid, values, context=context)
+            except Exception, ex :
+                self._logger.error('Exception: %s', str(ex))
 #            msg_id = mail_obj.send_mail(cr, uid, tpl_ids[0], job_id, force_send=False, context=context)
             self._logger.error('Mail: %s', msg_id) ###
 #            m_obj = self.pool.get('mail.mail') ###
