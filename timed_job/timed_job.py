@@ -476,33 +476,27 @@ Depending on this interval unit the length of the interval can be specified:
 
     def _send_mail(self, cr, uid, job_id) :
         job = self.browse(cr, uid, job_id)
-        self._logger.error('Mail: %s %s', uid, job_id) ###
         name = "Notification Timed Job"
         mail_obj = self.pool.get("email.template")
         tpl_ids = mail_obj.search(cr, uid, [("name", "=", name)])
         exc_type, exc_value, exc_traceback = sys.exc_info()
         context = {"exc_type" : exc_type, "exc_value" : exc_value, "exc_traceback" : exc_traceback}
         if tpl_ids :
-            self._logger.error('Mail context: %s', context) ###
             values = mail_obj.generate_email(cr, uid, tpl_ids[0], job_id, context=context)
             values["user_id"] = uid
-            values["body_html"] = """<?xml version="1.0"?>\n<data><h1>Test</h1></data>"""
+            values["body_html"] = """<?xml version="1.0"?>\n<data><h1>"""+str(exc_type)+"""</h1><h2>"""+str(exc_value)+"""</h2>"""+"<br/>".join(exc_traceback)+"""</data>"""
             values["mail_server_id"] = 1 #######
             values["partner_id"] = job.user_id.partner_id.id
             del values["attachments"]
             del values["attachment_ids"]
             self._logger.error('Mail values: %s', values) ###
             mail_mail = self.pool.get('mail.message')
-            self._logger.error('Mail mail: %s', mail_mail) ###
-            try :
-                msg_id = mail_mail.create(cr, uid, values, context=context)
-            except Exception, ex :
-                self._logger.error('Exception: %s', str(ex))
+            msg_id = mail_mail.create(cr, uid, values, context=context)
 #            msg_id = mail_obj.send_mail(cr, uid, tpl_ids[0], job_id, force_send=False, context=context)
-            self._logger.error('Mail: %s', msg_id) ###
-#            m_obj = self.pool.get('mail.mail') ###
-            m = mail_mail.browse(cr, uid, msg_id) ###
-            self._logger.error('Mail: %s', m) ###
+#            self._logger.error('Mail: %s', msg_id) ###
+##            m_obj = self.pool.get('mail.mail') ###
+#            m = mail_mail.browse(cr, uid, msg_id) ###
+#            self._logger.error('Mail: %s', m) ###
         else  :
             self._logger.error("No Mail Template named '%s' defined", name)
     # end def _send_mail
