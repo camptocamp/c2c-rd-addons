@@ -486,6 +486,7 @@ Depending on this interval unit the length of the interval can be specified:
             values = mail_obj.generate_email(cr, uid, tpl_ids[0], job_id, context=context)
             self._logger.error('Mail values: %s', values) ###
             mail_mail = self.pool.get('mail.mail')
+            self._logger.error('Mail mail: %s', mail_mail) ###
             msg_id = mail_mail.create(cr, uid, values, context=context)
 #            msg_id = mail_obj.send_mail(cr, uid, tpl_ids[0], job_id, force_send=False, context=context)
             self._logger.error('Mail: %s', msg_id) ###
