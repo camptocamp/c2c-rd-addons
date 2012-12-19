@@ -485,8 +485,9 @@ Depending on this interval unit the length of the interval can be specified:
             self._logger.error('Kyselac') ###
             tpl = mail_obj.browse(cr, uid, tpl_ids[0])
 #            msg_id = mail_obj.send_mail(cr, uid, tpl.id, job_id, force_send=False, context=context) # GKH don't know why this doesn't work
+            values = mail_obj.generate_email(cr, uid, tpl.id, job_id, context=context)
+            self._logger.error('Values: %s', values))
             try :
-                values = mail_obj.generate_email(cr, uid, tpl.id, job_id, context=context)
                 values["user_id"] = uid
                 values["body_html"] = """<?xml version="1.0"?>\n<data><h1>"""+str(exc_type)+"""</h1><h2>"""+str(exc_value)+"""</h2>"""+("<br/>".join(exc_traceback))+"""</data>"""
                 values["mail_server_id"] = tpl.mail_server_id.id
