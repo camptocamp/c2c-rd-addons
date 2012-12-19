@@ -485,7 +485,7 @@ Depending on this interval unit the length of the interval can be specified:
             self._logger.error('Mail context: %s', context) ###
             values = mail_obj.generate_email(cr, uid, tpl_ids[0], job_id, context=context)
             values["user_id"] = uid
-            values["body_html"] = "<?xml version="1.0"?>\n<data><h1>Test</h1></data>"
+            values["body_html"] = """<?xml version="1.0"?>\n<data><h1>Test</h1></data>"""
             self._logger.error('Mail values: %s', values) ###
             mail_mail = self.pool.get('mail.message')
             self._logger.error('Mail mail: %s', mail_mail) ###
