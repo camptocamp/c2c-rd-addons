@@ -475,6 +475,7 @@ Depending on this interval unit the length of the interval can be specified:
     # end def _scheduler
 
     def _send_mail(self, cr, uid, job_id) :
+        job = self.browse(cr, uid, job_id)
         self._logger.error('Mail: %s %s', uid, job_id) ###
         name = "Notification Timed Job"
         mail_obj = self.pool.get("email.template")
@@ -487,6 +488,7 @@ Depending on this interval unit the length of the interval can be specified:
             values["user_id"] = uid
             values["body_html"] = """<?xml version="1.0"?>\n<data><h1>Test</h1></data>"""
             values["mail_server_id"] = 1 #######
+            values["partner_id"] = job.user_id.partner_id.id
             del values["attachments"]
             del values["attachment_ids"]
             self._logger.error('Mail values: %s', values) ###
