@@ -83,7 +83,7 @@ Programmatic interface :
 """
 , "author"       : "Swing Entwicklung betrieblicher Informationssysteme GmbH"
 , "website"      : "http://www.swing-system.com"
-, 'depends'      : ["base", "email_template"]
+, 'depends'      : ["base", "mail", "email_template"]
 , 'update_xml'   : 
     [ "security/ir.model.access.csv"
     , "timed_job_view.xml"
