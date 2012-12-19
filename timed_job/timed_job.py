@@ -383,11 +383,7 @@ Depending on this interval unit the length of the interval can be specified:
         f = getattr(model_obj, func)
         t0 = time.time()
         c0 = time.clock()
-        try :
-            f(cr, uid, *args)
-        except Exception :
-            cr.rollback()
-            raise
+        f(cr, uid, *args)
         c = time.clock() - c0
         t = time.time() - t0
         self._logger.debug \
@@ -427,8 +423,10 @@ Depending on this interval unit the length of the interval can be specified:
                     ok = True
                 next = self._next(next, job)
         except Exception, exc :
+            cr.rollback()
             if job['notification_mail'] :
                 self._send_mail(cr, job['user_id'], job['id'])
+                cr.commit()
             else :
                 self._logger.error \
                     ( "Job processing of '%s' (ir.model(%s).%s %s) failed due to: %s\n%s"
@@ -477,7 +475,6 @@ Depending on this interval unit the length of the interval can be specified:
     # end def _scheduler
 
     def _send_mail(self, cr, uid, job_id) :
-        self._logger.error("_send_mail %s %s", uid, job_id) #######
         name = "Notification Timed Job"
         mail_obj = self.pool.get("email.template")
         tpl_ids = mail_obj.search(cr, uid, [("name", "=", name)])
