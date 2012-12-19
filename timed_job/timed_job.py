@@ -485,10 +485,12 @@ Depending on this interval unit the length of the interval can be specified:
             self._logger.error('Mail context: %s', context) ###
             values = mail_obj.generate_email(cr, uid, tpl_ids[0], job_id, context=context)
             self._logger.error('Mail values: %s', values) ###
-            msg_id = mail_obj.send_mail(cr, uid, tpl_ids[0], job_id, force_send=False, context=context)
+            mail_mail = self.pool.get('mail.mail')
+            msg_id = mail_mail.create(cr, uid, values, context=context)
+#            msg_id = mail_obj.send_mail(cr, uid, tpl_ids[0], job_id, force_send=False, context=context)
             self._logger.error('Mail: %s', msg_id) ###
-            m_obj = self.pool.get('mail.mail') ###
-            m = m_obj.browse(cr, uid, msg_id) ###
+#            m_obj = self.pool.get('mail.mail') ###
+            m = mail_mail.browse(cr, uid, msg_id) ###
             self._logger.error('Mail: %s', m) ###
         else  :
             self._logger.error("No Mail Template named '%s' defined", name)
