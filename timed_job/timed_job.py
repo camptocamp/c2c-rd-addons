@@ -479,29 +479,23 @@ Depending on this interval unit the length of the interval can be specified:
         name = "Notification Timed Job"
         mail_obj = self.pool.get("email.template")
         tpl_ids = mail_obj.search(cr, uid, [("name", "=", name)])
-        exc_type, exc_value, exc_traceback = sys.exc_info()
-        context = {"exc_type" : exc_type, "exc_value" : exc_value, "exc_traceback" : exc_traceback}
+        exc_type, exc_value, exc_traceback = sys.exc_info() ###
+        context = {"exc_type" : exc_type, "exc_value" : exc_value, "exc_traceback" : exc_traceback} ###
         if tpl_ids :
             self._logger.error('Kyselac') ###
             tpl = mail_obj.browse(cr, uid, tpl_ids[0])
 #            msg_id = mail_obj.send_mail(cr, uid, tpl.id, job_id, force_send=False, context=context) # GKH don't know why this doesn't work
             values = mail_obj.generate_email(cr, uid, tpl.id, job_id)
-#            self._logger.error('Values: %s', values) ###
-#            self._logger.error('tpl: %s', tpl) ###
-#            self._logger.error('server: %s', tpl.mail_server_id) ###
             values["user_id"] = uid
             values["body_html"] = """<?xml version="1.0"?>\n<data>""" + ("</br>".join(traceback.format_exception(*sys.exc_info()))) + "</data>"
-#            self._logger.error('Values2: %s', values)
             values["mail_server_id"] = tpl.mail_server_id.id
             values["partner_id"] = job.user_id.partner_id.id
-#            self._logger.error('Values3: %s', values)
             del values["attachments"]
             del values["attachment_ids"]
-            self._logger.error('ValuesE: %s', values)
+            self._logger.error('ValuesE: %s', values) #############
             try : ###
-                self._logger.error("Mail values: %s", values) ###
                 mail_mail = self.pool.get('mail.message')
-                msg_id = mail_mail.create(cr, uid, values, context=context)
+                msg_id = mail_mail.create(cr, uid, values)
             except Exception, ex : ###
                 self._logger.error('Exception: %s', str(ex)) ###
         else  :
