@@ -483,6 +483,8 @@ Depending on this interval unit the length of the interval can be specified:
         context = {"exc_type" : exc_type, "exc_value" : exc_value, "exc_traceback" : exc_traceback}
         if tpl_ids :
             self._logger.error('Mail context: %s', context) ###
+            values = mail_obj.generate_email(cr, uid, tpl_ids[0], job_id, context=context)
+            self._logger.error('Mail values: %s', values) ###
             msg_id = mail_obj.send_mail(cr, uid, tpl_ids[0], job_id, force_send=False, context=context)
             self._logger.error('Mail: %s', msg_id) ###
             m_obj = self.pool.get('mail.mail') ###
