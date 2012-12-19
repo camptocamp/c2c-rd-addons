@@ -482,10 +482,13 @@ Depending on this interval unit the length of the interval can be specified:
         exc_type, exc_value, exc_traceback = sys.exc_info()
         context = {"exc_type" : exc_type, "exc_value" : exc_value, "exc_traceback" : exc_traceback}
         if tpl_ids :
-            self._logger.error('Mail context: %s', context) ###
+#            self._logger.error('Mail context: %s', context) ###
             values = mail_obj.generate_email(cr, uid, tpl_ids[0], job_id, context=context)
             values["user_id"] = uid
             values["body_html"] = """<?xml version="1.0"?>\n<data><h1>Test</h1></data>"""
+            values["mail_server_id"] = 1 #######
+            del values["attachments"]
+            del values["attachment_ids"]
             self._logger.error('Mail values: %s', values) ###
             mail_mail = self.pool.get('mail.message')
             self._logger.error('Mail mail: %s', mail_mail) ###
