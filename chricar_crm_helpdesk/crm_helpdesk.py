@@ -60,7 +60,7 @@ class crm_helpdesk(osv.osv):
         'days_lead': fields.integer('Lead Days',help='Days before deadline date an action has to be taken (Term of notice)'),
         'days_warning': fields.integer('Warning Days',help='Days before beginning of lead time to allow action in time'),
         'date_warning': fields.function(_date_warning, method=True, string='Date Warning', type='date', store=True,help='Date the case is/has to be listed in ToDo'),
-        'partner_contact_id': fields.many2one('res.partner.contact', 'Partner Contact'),
+        'partner_id': fields.many2one('res.partner', 'Partner Contact'),
       }
     _defaults = {
         'days_lead': lambda *a: 0,
