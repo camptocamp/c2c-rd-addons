@@ -247,7 +247,7 @@ Definition of Parent Companies
     <menuitem
       action="action_partner_parent_companies_form"
       id="menu_partner_parent_companies_form"
-      parent="base.menu_address_book"/>
+      parent="base.menu_config_address_book"/>
     <!-- not working, because the structure must be in the resource not foreign
     <record id="view_partner_parent_companies_tree2" model="ir.ui.view">
       <field name="name">res.partner.parent_company.tree2</field>
