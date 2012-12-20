@@ -27,7 +27,7 @@
             <field name="inherit_id" ref="base.sequence_view"/>
             <field name="arch" type="xml">
                 <page position="after">
-                    <page string="Periods" groups="base.group_extended">
+                    <page string="Periods" >
                         <field name="period_ids" nolabel="1" colspan="4">
                             <tree string="Period Sequences" editable="bottom">
                                 <field name="period_id"/>
