@@ -14,17 +14,23 @@
         </field>
       </field>
     </record>
+<!--
     <record model="ir.ui.view" id="c2c_crm_case_form_view_helpdesk3">
       <field name="name">c2c.crm.helpdesk</field>
       <field name="model">crm.helpdesk</field>
       <field name="inherit_id" ref="crm_helpdesk.crm_case_form_view_helpdesk"/>
       <field name="type">form</field>
       <field name="arch" type="xml">
-        <field name="partner_address_id" position="after">
-          <field name="partner_contact_id" colspan="4"/>
+        <field name="date_closed" position="after">
+          <field name="days_lead" colspan="2"/>
+          <field name="days_warning" colspan="2"/>
+          <field name="date_warning" colspan="2"/>
         </field>
       </field>
+
     </record>
+-->
+<!--
     <record model="ir.ui.view" id="c2c_crm_case_form_view_helpdesk1">
       <field name="name">c2c.crm.helpdesk</field>
       <field name="model">crm.helpdesk</field>
@@ -34,6 +40,8 @@
         <field name="ref" position="replace"/>
       </field>
     </record>
+-->
+<!--
     <record model="ir.ui.view" id="c2c_crm_case_form_view_helpdesk2">
       <field name="name">c2c.crm.helpdesk1</field>
       <field name="model">crm.helpdesk</field>
@@ -58,6 +66,7 @@
         </xpath>
       </field>
     </record>
+-->
     <!-- Helpdesk Support Search View  -->
     <record id="view_crm_case_helpdesk_filter" model="ir.ui.view">
       <field name="name">CRM - Helpdesk Search</field>
