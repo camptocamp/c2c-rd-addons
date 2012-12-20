@@ -3,7 +3,7 @@
 #
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2010 Tiny SPRL (<http://tiny.be>).
-#    Copyright (C) 2010-2012 Camptocamp Austria (<http://www.camptocamp.at>)
+#    Copyright (C) 2010-2012 Camptocamp (<http://www.camptocamp.at>)
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -45,7 +45,7 @@ ToDo
 ** correct real time accounting
 * automatic handling of value roundings if qty_available is 0 after posting
 """,
-    'author': 'Camptocamp Austria',
+    'author': 'Camptocamp',
     'depends': ['product','purchase','sale', 'stock','stock_get_name_qty','stock_product_zero','report_webkit','c2c_stock_track_internal' ],
     'update_xml': ['security/stock_security.xml',
                    'stock_view.xml',

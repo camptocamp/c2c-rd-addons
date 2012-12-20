@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*- 
 ##############################################################################
 #
-# Copyright (c) Camptocamp SA - Joel Grand-Guillaume portÃ© par Nicolas Bessi 
+# Copyright (c) Camptocamp - Joel Grand-Guillaume portÃ© par Nicolas Bessi 
 #
 # WARNING: This program as such is intended to be used by professional
 # programmers who take the whole responsability of assessing all potential

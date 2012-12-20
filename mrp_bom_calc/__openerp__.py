@@ -5,7 +5,7 @@
 #    (http://wwww.zbeanztech.com) All Rights Reserved.
 # sinoj@zbeanztech.com
 # Copyright (c) 2009 ChriCar Bet. u Ber. GmbH
-# Copyright (c) 2012 Camptocamp Austria (http://www.camptocamp.at)
+# Copyright (c) 2012 Camptocamp (http://www.camptocamp.at)
 # Author : Ferdinand Gassauer (Camptocamp)
 #
 #    This program is free software: you can redistribute it and/or modify

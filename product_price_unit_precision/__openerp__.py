@@ -22,7 +22,7 @@
 {
     "name" : "Product Price Unit Precision",
     "version" : "1.1",
-    "author" : "Camptocamp Austria",
+    "author" : "Camptocamp",
     "category": 'Accounting & Finance',
     'complexity': "normal",
     "description": """

@@ -22,7 +22,7 @@
 {
     "name" : "Sale No Gap",
     "version" : "1.1",
-    "author" : "Camptocamp Austria",
+    "author" : "Camptocamp",
     "category": 'Sale Management',
     'complexity': "easy",
     "description": """

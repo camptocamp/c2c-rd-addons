@@ -22,7 +22,7 @@
 {
     "name" : "Stock Invoice Service",
     "version" : "1.1",
-    "author" : "Camptocamp Austria",
+    "author" : "Camptocamp",
     "category": 'Sales Management',
     'complexity': "normal",
     "description": """

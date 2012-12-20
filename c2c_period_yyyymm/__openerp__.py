@@ -30,7 +30,7 @@
     period_id will be added to stock_move, account_move_line etc and monthly resources can be easily selected avoiding the
     cumbersome from/to date selection
     """,
-    'author': 'Camptocamp Austria',
+    'author': 'Camptocamp',
     'depends': [ 'account'],
     'update_xml': [],
     'demo_xml': [],

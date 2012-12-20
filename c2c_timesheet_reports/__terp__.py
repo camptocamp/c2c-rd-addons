@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
 #
-# Copyright (c) Camptocamp SA
+# Copyright (c) Camptocamp
 # Author: Arnaud WÃŒst, Nicolas bessi
 #
 #

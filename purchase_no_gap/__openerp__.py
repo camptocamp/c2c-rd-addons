@@ -22,7 +22,7 @@
 {
     "name" : "Purchase No Gap",
     "version" : "1.1",
-    "author" : "Camptocamp Austria",
+    "author" : "Camptocamp",
     "category": 'Purchase Management',
     'complexity': "easy",
     "description": """

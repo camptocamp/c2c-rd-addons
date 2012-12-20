@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*- 
 ##############################################################################
 #
-# Copyright (c) Camptocamp SA - http://www.camptocamp.com
+# Copyright (c) Camptocamp - http://www.camptocamp.com
 # Author: Arnaud WÃŒst
 #
 #    This file is part of the c2c_budget module

@@ -22,7 +22,7 @@
 {
     "name" : "Production Order No Gap",
     "version" : "1.1",
-    "author" : "Camptocamp Austria",
+    "author" : "Camptocamp",
     "category": 'Manufacturing',
     'complexity': "easy",
     "description": """

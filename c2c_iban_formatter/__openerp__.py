@@ -5,7 +5,7 @@
 # Swing Entwicklung betrieblicher Informationssysteme GmbH
 # (<http://www.swing-system.com>)
 # Copyright (C) ChriCar Beteiligungs- und Beratungs- GmbH
-# Copyright (C) Camptocamp Austria
+# Copyright (C) Camptocamp
 # all rights reserved
 #    11-SEP-2009 (GK) created
 #
@@ -34,7 +34,7 @@
 ###############################################
 { "name"        : "Camptocamp IBAN formatting"
 , "version"     : "1.0"
-, "author"      : "Camptocamp Austria"
+, "author"      : "Camptocamp"
 , "website"     : "http://www.camptocamp.at"
 , "description" : """
 Formats IBAN in group by 4 characters

@@ -4,7 +4,7 @@
 # Swing Entwicklung betrieblicher Informationssysteme GmbH
 # (<http://www.swing-system.com>)
 # Copyright (C) ChriCar Beteiligungs- und Beratungs- GmbH
-# Copyright (C) Camptocamp Austria
+# Copyright (C) Camptocamp
 # all rights reserved
 #    11-SEP-2009 (GK) created
 #     1-OCT-2009 (GK) xml_generate_mixin

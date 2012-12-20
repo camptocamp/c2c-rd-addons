@@ -38,8 +38,8 @@ Add some common financial/accounting reports and some wizards to quickly compute
 
 They can be found in the "Financial Management/Legal Statements/Generic Reports" menu or in the tree/form views of accounts, journals, invoices, account entries and account move lines.
 
-Some reports are based on previous work by Pexego and others on the *c2c_finance_report* module for TinyERP 4.2 by Camptocamp SA.
-201101 ported to v6 by Camptocamp Austria
+Some reports are based on previous work by Pexego and others on the *c2c_finance_report* module for TinyERP 4.2 by Camptocamp.
+201101 ported to v6 by Camptocamp
 """
 , "init_xml" : []
 , "demo_xml" : []

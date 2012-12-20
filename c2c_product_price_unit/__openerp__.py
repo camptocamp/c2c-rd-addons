@@ -3,7 +3,7 @@
 #
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2010 Tiny SPRL (<http://tiny.be>).
-#    Copyright (C) 2010-2012 Camptocamp Austria (<http://www.camptocamp.at>)
+#    Copyright (C) 2010-2012 Camptocamp (<http://www.camptocamp.at>)
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -72,7 +72,7 @@ ToDo:
 ** Reports
 * Price Lists
     """,
-    'author': 'Camptocamp Austria',
+    'author': 'Camptocamp',
     'depends': ['product', 'purchase', 'sale_layout','hr_expense','account_anglo_saxon', 'c2c_stock_accounting' ],
     'update_xml': ['c2c_product.price_unit.xml',
                    'security/product_security.xml',

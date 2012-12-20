@@ -22,7 +22,7 @@
 {
     "name" : "MRP Reopen",
     "version" : "1.1",
-    "author" : "Camptocamp Austria",
+    "author" : "Camptocamp",
     "category": 'Manufacturing',
     'complexity': "normal",
     "description": """

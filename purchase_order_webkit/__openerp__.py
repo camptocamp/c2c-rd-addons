@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
 #
-# Copyright (c) 2010 Camptocamp SA (http://www.camptocamp.com) 
+# Copyright (c) 2010 Camptocamp (http://www.camptocamp.com) 
 # All Right Reserved
 #
-# Author : Ferdinand GAssauer (Camptocamp Austria)
+# Author : Ferdinand GAssauer (Camptocamp)
 #
 # WARNING: This program as such is intended to be used by professional
 # programmers who take the whole responsability of assessing all potential
@@ -45,7 +45,7 @@ suppress unused columns in purchase order lines."""
     , "one2many_sorted"
     ]
 , "category"     : "PurchaseManagement"
-, "author"       : "Camptocamp SA - Ferdinand Gassauer"
+, "author"       : "Camptocamp"
 , "website"      : "http://www.camptocamp.com/"
 , "data"         : ["purchase_view.xml","partner_view.xml","purchase_order_webkit_view.xml"]
 , "installable"  : True

@@ -3,7 +3,7 @@
 #
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2010 Tiny SPRL (<http://tiny.be>).
-#    Copyright (C) 2010-2012 Camptocamp Austria (<http://www.camptocamp.at>)
+#    Copyright (C) 2010-2012 Camptocamp (<http://www.camptocamp.at>)
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -28,7 +28,7 @@
     'description': """
 Add check to prohibit negative real stock quantites per location and/or lot
 """,
-    'author': 'Camptocamp Austria',
+    'author': 'Camptocamp',
     'depends': [ 'stock','chricar_stock_product_by_location','stock_get_name_qty'],
     'update_xml': [
     'stock_view.xml',

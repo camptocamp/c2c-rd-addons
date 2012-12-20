@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 { "name"         : "Budget Create"
 , "version"      : "1.0"
-, "author"       : "Camptocamp Austria"
+, "author"       : "Camptocamp"
 , "website"      : "http://www.chricar.at/ChriCar"
 , "description"  : """
 Create budget lines derived from account_move_lines of previous periods.

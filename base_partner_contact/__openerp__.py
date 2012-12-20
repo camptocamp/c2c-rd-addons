@@ -21,7 +21,7 @@
 {
     "name" : "Base Partner or Contact",
     "version" : "1.0",
-    "author" : "Camptocamp Austria",
+    "author" : "Camptocamp",
     "website" : "http://www.camptocamp.com",
     "category" : "Base",
     "description": """

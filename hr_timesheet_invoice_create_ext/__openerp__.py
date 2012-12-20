@@ -3,7 +3,7 @@
 #
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2010 Tiny SPRL (<http://tiny.be>).
-#    Copyright (C) 2010-2012 Camptocamp Austria (<http://www.camptocamp.at>)
+#    Copyright (C) 2010-2012 Camptocamp (<http://www.camptocamp.at>)
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -29,7 +29,7 @@ This module will allow to spezify
  * prefix for analytic account name
  * remove the default date of today as prefix for analytic account name
 """
-, 'author'      : 'Camptocamp Austria'
+, 'author'      : 'Camptocamp'
 , 'depends'     : [ 'hr_timesheet_invoice' ]
 , 'update_xml'  : ['wizard/hr_timesheet_invoice_create_view.xml']
 , 'demo_xml'    : []

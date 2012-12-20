@@ -3,7 +3,7 @@
 #
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2010 Tiny SPRL (<http://tiny.be>).
-#    Copyright (C) 2010-2012 Camptocamp Austria (<http://www.camptocamp.at>)
+#    Copyright (C) 2010-2012 Camptocamp (<http://www.camptocamp.at>)
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -32,7 +32,7 @@ This will be used
 * as source location for sales and internal moves
 
 """,
-    'author': 'Camptocamp Austria',
+    'author': 'Camptocamp',
     'depends': [ 'product','stock','sale','purchase' ],
     'update_xml': ['product_view.xml',
        ],

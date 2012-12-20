@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
 #
-# Copyright (c) 2010 Camptocamp SA (http://www.camptocamp.com) 
+# Copyright (c) 2010 Camptocamp (http://www.camptocamp.com) 
 # All Right Reserved
 #
-# Author : Ferdinand Gassauer (Camptocamp Austria)
+# Author : Ferdinand Gassauer (Camptocamp)
 #
 # WARNING: This program as such is intended to be used by professional
 # programmers who take the whole responsability of assessing all potential
@@ -33,7 +33,7 @@
 , "version"      : "0.9"
 , "depends"      : ["crm_helpdesk", "report_webkit"]
 , "category"     : 'CRM & SRM'
-, "author"       : "Camptocamp Austria"
+, "author"       : "Camptocamp"
 , "website"      : "http://www.camptocamp.at/"
 , "data"         : ["report_crm_helpdesk_view.xml"]
 , "installable"  : True

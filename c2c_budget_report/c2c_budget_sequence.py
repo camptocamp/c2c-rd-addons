@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*- 
 ##############################################################################
 #
-# Copyright (c) Camptocamp Austria - http://www.camptocamp.com
+# Copyright (c) Camptocamp - http://www.camptocamp.com
 # Author: Ferdinand Gassauer
 #
 #

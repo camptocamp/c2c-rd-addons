@@ -22,7 +22,7 @@
 {
     "name" : "Picking Reopen",
     "version" : "1.1",
-    "author" : "Camptocamp SA",
+    "author" : "Camptocamp",
     "category": 'Warehouse Management',
     'complexity': "normal",
     "description": """

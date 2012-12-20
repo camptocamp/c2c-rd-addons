@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*- 
 ##############################################################################
 #
-# Copyright (c) Camptocamp SA - http://www.camptocamp.com
+# Copyright (c) Camptocamp - http://www.camptocamp.com
 # Author: Arnaud WÃŒst ported by nbessi
 #
 #    This file is part of the c2c_budget module
@@ -29,7 +29,7 @@
 {
     "name" : "Advanced Budget",
     "version" : "5.0",
-    "author" : "Camptocamp SA (aw)",
+    "author" : "Camptocamp (aw)",
     "category" : "Generic Modules/Accounting",
     "website" : "http://camptocamp.com",
     "description": """

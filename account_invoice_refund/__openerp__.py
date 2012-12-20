@@ -22,7 +22,7 @@
 {
     "name" : "Adds partner reference to customer invoice view",
     "version" : "1.2",
-    "author" : "Camptocamp SA",
+    "author" : "Camptocamp",
     "category": 'Accounting & Finance',
     'complexity': "normal",
     "description": """

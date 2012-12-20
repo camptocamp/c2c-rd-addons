@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
 #
-# Copyright (c) 2010 Camptocamp SA (http://www.camptocamp.com) 
+# Copyright (c) 2010 Camptocamp (http://www.camptocamp.com) 
 # All Right Reserved
 #
-# Author : Ferdinand Gassauer (Camptocamp Austria)
+# Author : Ferdinand Gassauer (Camptocamp)
 #
 # WARNING: This program as such is intended to be used by professional
 # programmers who take the whole responsability of assessing all potential
@@ -33,7 +33,7 @@
 , "version"      : "0.9"
 , "depends"      : ["stock", "account", "purchase", "sale"]
 , "category"     : "Accounting"
-, "author"       : "Camptocamp SA - Ferdinand Gassauer"
+, "author"       : "Camptocamp"
 , "website"      : "http://www.camptocamp.com/"
 , "data"         : 
     [ "invoice_view.xml"
