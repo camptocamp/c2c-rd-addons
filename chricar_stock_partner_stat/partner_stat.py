@@ -161,7 +161,7 @@ select
   from 
     stock_move,
     account_period p,
-    res_partner_address a,
+    res_partner a,
     stock_picking s
   where a.id= s.address_id
     and s.id=picking_id
