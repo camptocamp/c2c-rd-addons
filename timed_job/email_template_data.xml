@@ -9,13 +9,8 @@
       <field name="email_from">${object.user_id.user_email or ''}</field>
       <field name="email_to">${object.user_id.user_email or ''}</field>
       <field name="auto_delete" eval="True"/>
-      <field name="mail_server_id" search="[('name','=','localhost')" model="ir.mail_server"/>
+      <field name="mail_server_id" search="[('name','=','localhost')]" model="ir.mail_server"/>
       <field name="subject">Timed Job Error for "${object.name}": "${object.model.name}".${object.function}${object.args}</field>
-      <field name="body_html" type="xml">
-        <h1>${context['exc_type']}</h1>
-        <h2>${context['exc_value']}</h2>
-        ${'<br/>'.join(context['exc_traceback'])}
-      </field>
     </record>
   </data>
 </openerp>
