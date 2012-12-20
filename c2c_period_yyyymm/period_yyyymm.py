@@ -55,12 +55,14 @@ class account_fiscalyear(osv.osv):
                          set name = to_char(date_stop,'YYYYMM'),
                              code = to_char(date_stop,'YYYYMM')
                             where name != to_char(date_stop,'YYYYMM')
+                              and special = False
                   """)          
 
         cr.execute("""update account_period
                          set name = to_char(date_stop,'YYYY') || '00 Opening Period',
                              code = to_char(date_stop,'YYYY') || '00'
-                            where name like 'Opening%'
+                            where special=True
+                              
                   """)          
         
         cr.execute("""update ir_sequence
