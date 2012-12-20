@@ -7,7 +7,7 @@
 Adds lead times to crm_heldesk
 """
 , "category"     : "CRM & SRM"
-, "depends"      : ["crm_helpdesk", "base_contact"]
+, "depends"      : ["crm_helpdesk"]
 , "init_xml"     : []
 , "demo_xml"     : []
 , "update_xml"   : ["crm_helpdesk_view.xml"]
