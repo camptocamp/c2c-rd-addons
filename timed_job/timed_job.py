@@ -480,7 +480,6 @@ Depending on this interval unit the length of the interval can be specified:
         mail_obj = self.pool.get("email.template")
         tpl_ids = mail_obj.search(cr, uid, [("name", "=", name)])
         if tpl_ids :
-            self._logger.error('Kyselac') ###
             tpl = mail_obj.browse(cr, uid, tpl_ids[0])
 #            msg_id = mail_obj.send_mail(cr, uid, tpl.id, job_id, force_send=False, context=context) # GKH don't know why this doesn't work
             values = mail_obj.generate_email(cr, uid, tpl.id, job_id)
@@ -488,6 +487,7 @@ Depending on this interval unit the length of the interval can be specified:
             values["body_html"] = """<?xml version="1.0"?>\n<data>""" + ("</br>".join(traceback.format_exception(*sys.exc_info()))) + "</data>"
             values["mail_server_id"] = tpl.mail_server_id.id
             values["partner_id"] = job.user_id.partner_id.id
+            values["subtype"] = "html"
             del values["attachments"]
             del values["attachment_ids"]
             mail_mail = self.pool.get('mail.message')
