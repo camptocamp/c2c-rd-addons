@@ -6,6 +6,7 @@
 Partner Layout
 ==============================================
     -->
+
     <!-- not necessary in WEB Client
     <record id="view_partner_form_c2c" model="ir.ui.view">
       <field name="name">res.partner.c2c.form</field>
@@ -19,25 +20,27 @@ Partner Layout
       </field>
     </record>
     -->
-<!-- FIXME Do not know how to write replace of o2m line -->
+<!-- this make Contacts NOT editable
     <record id="view_partner_form_c2c_1" model="ir.ui.view">
       <field name="name">res.partner.c2c_1.form</field>
       <field name="model">res.partner</field>
       <field name="type">form</field>
       <field name="inherit_id" ref="base.view_partner_form"/>
       <field name="arch" type="xml">
-        <xpath expr="/form/notebook/page[@string='General']/field[@name='address']"  position="attributes">
-          <attribute name="mode">tree,form</attribute>
+        <xpath expr="/form/sheet/notebook/page[@string='Contacts']/field[@name='child_ids']"  position="attributes">
+          <attribute name="mode">tree</attribute>
         </xpath>
       </field>
     </record>
+-->
+<!--
     <record id="view_partner_form_c2c_2" model="ir.ui.view">
       <field name="name">res.partner.c2c_2.form</field>
       <field name="model">res.partner</field>
       <field name="type">form</field>
       <field name="inherit_id" ref="base.view_partner_form"/>
       <field name="arch" type="xml">
-        <xpath expr="/form/notebook/page[@string='General']/field/tree[@string='Partner Contacts']/field[@name='name']" position="before">
+        <xpath expr="/form/notebook/page[@string='Address Label']/field/tree[@string='Partner Contacts']/field[@name='name']" position="before">
           <field name="type" />
         </xpath>
       </field>
@@ -48,12 +51,12 @@ Partner Layout
       <field name="type">form</field>
       <field name="inherit_id" ref="base.view_partner_form"/>
       <field name="arch" type="xml">
-        <xpath expr="/form/notebook/page[@string='General']/field/tree[@string='Partner Contacts']/field[@name='city']" position="after">
+        <xpath expr="/form/notebook/page[@string='Address Label']/field/tree[@string='Partner Contacts']/field[@name='city']" position="after">
           <field name="street" />
         </xpath>
       </field>
     </record>
-
+-->
 
   </data>
 </openerp>
