@@ -149,10 +149,10 @@ class account_move_line(osv.osv):
             #for tax in invoice_tax_obj.browse(cr, uid, invoice_tax_ids):
             #    tax_base_total += tax.base_amount
             #    tax_total += tax.tax_amount
-             
+            factor = 0 
             if write_off_debit > 0:
                 factor = write_off_debit / invoice_total
-            else:
+            elif write_off_credit > 0:
                 factor = write_off_credit / invoice_total
             self._logger.debug('reconcile - compare: %s invoice_discount_net= %s, factor : %s' % (invoice_discount_net, tax_base_total, factor))
             #if not float_is_zero(invoice_discount_net - tax_base_total, prec):
@@ -207,7 +207,7 @@ class account_move_line(osv.osv):
                    'name' : _('Discount'),
                 }
 
-            for tax_move in tax_moves:
+              for tax_move in tax_moves:
                 # FIXME code can be simplified / condensed
                 #base
                 mlt = dict(ml)
@@ -220,7 +220,7 @@ class account_move_line(osv.osv):
                        'tax_amount' : tax_move['base_discount_amount'],
                     })
                     write_off_debit -= tax_move['base_discount_amount']
-                else:
+                elif write_off_credit > 0.0:
                     mlt.update({
                        'debit' : 0.0,
                        'credit' : tax_move['base_discount_amount'],
