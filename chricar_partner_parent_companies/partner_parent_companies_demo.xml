@@ -3,12 +3,12 @@
   <data noupdate="1">
     <record id="res_partner_agrolait" model="res.partner">
       <field name="name">Agrolait Mother Comp</field>
-      <field model="res.partner.category" name="category_id" search="[('name','=','Important customers')]"/>
+      <field model="res.partner.category" name="category_id" search="[('name','=',u'Supplier')]"/>
     </record>
     <record id="res_partner_agrolait_particip" model="res.partner.parent_company">
       <field name="name">30</field>
-      <field model="res.partner" name="partner_id" search="[('name','=','Agrolait')]"/>
-      <field model="res.partner" name="partner_parent_id" search="[('name','=','Agrolait Mother Comp')]"/>
+      <field model="res.partner" name="partner_id" search="[('name','=',u'Agrolait')]"/>
+      <field model="res.partner" name="partner_parent_id" search="[('name','=',u'Agrolait Mother Comp')]"/>
     </record>
   </data>
 </openerp>
