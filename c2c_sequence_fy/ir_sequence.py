@@ -59,7 +59,7 @@ class ir_sequence(osv.osv):
         if not context: context = {}
         """ Draw an interpolated string using the specified sequence."""
         self._logger.debug('next_by_id `%s` `%s`', sequence_id, context)
-        self.check_read(cr, uid)
+        #self.check_read(cr, uid)
         company_ids = self.pool.get('res.company').search(cr, uid, [], order='company_id', context=context) + [False]
         seq_id = sequence_id
         
