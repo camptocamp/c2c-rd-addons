@@ -34,7 +34,10 @@
 , "version"      : "1.1"
 , "author"       : "Swing Entwicklung betrieblicher Informationssysteme GmbH"
 , "website"      : "http://www.swing-system.com"
-, "description"  : """Exports data via XML-files"""
+, "description"  : """Exports data via XML-files
+
+FIXME remove module import
+"""
 , "category"     : "Tool"
 , "depends"      : ["base"]
 , "init_xml"     : []
@@ -42,5 +45,5 @@
 , "update_xml"   : ["migrate_data_wizard.xml"]
 , "test"         : []
 , "auto_install" : False
-, "installable"  : True
+, "installable"  : False
 }

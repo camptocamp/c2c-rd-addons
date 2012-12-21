@@ -34,7 +34,10 @@
 , "version"      : "1.1"
 , "author"       : "Swing Entwicklung betrieblicher Informationssysteme GmbH"
 , "website"      : "http://www.swing-system.com"
-, "description"  : """Generate XML-file from a table that can be imported to OpenERP."""
+, "description"  : """Generate XML-file from a table that can be imported to OpenERP.
+
+FIXME remove module wizard
+"""
 , "category"     : "General Purpose"
 , "depends"      : ["base"]
 , "init_xml"     : []
@@ -42,5 +45,5 @@
 , "update_xml"   : ['wizard/generate_xml_view.xml']
 , "test"         : []
 , "auto_install" : False
-, "installable"  : True
+, "installable"  : False
 }
