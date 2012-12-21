@@ -53,7 +53,10 @@ The "payment day" is, if unspecified or in the past, the file-creation-date.
     , "xml_template"
     , "account_payment_customer_data"
     ]
-, "init_xml"    : []
+, "init_xml"    : 
+    [ "pain_001_001_03_austrian_001.xml"
+    , "pain_001_001_02_austrian_002.xml"
+    ]
 , "demo_xml"    : []
 , "update_xml"  : ["wizard/generate_sepa_view.xml"]
 , "test"        : []

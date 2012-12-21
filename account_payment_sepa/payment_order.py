@@ -276,7 +276,8 @@ class payment_order(osv.osv) :
                 , nsmap     = namespaces
                 , order     = order
                 , company   = company
-                , time      = time
+                , time1     = time.strftime('%Y%m%d%H%M%S')
+                , time2     = time.strftime('%Y-%m-%dT%H:%M:%S')
                 , sepa_payments = self.sepa_payments
                 )
             template_obj.attach_xml \
