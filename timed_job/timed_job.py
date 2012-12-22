@@ -439,6 +439,7 @@ Depending on this interval unit the length of the interval can be specified:
     # end def _process_job
 
     def _scheduler(self, dbname) :
+        if not datetime : return # during shutdown the time-feature may not exist anymore
         now = datetime.datetime.now()
         nextcall = now + self._max_scheduler_delta
         try :
@@ -511,8 +512,6 @@ Depending on this interval unit the length of the interval can be specified:
 
     def unlink(self, cr, uid, ids, context=None) :
         res = super(timed_job, self).unlink(cr, uid, ids, context=context)
-        cr.commit()
-        self._scheduler(cr.dbname)
         return res
     # end def unlink
 
