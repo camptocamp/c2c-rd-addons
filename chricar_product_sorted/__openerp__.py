@@ -7,7 +7,7 @@
 , "category"     : "Warehouse Management"
 , "depends"      : ["product"]
 , "init_xml"     : []
-, "demo_xml"     : []
+, "demo"         : []
 , "update_xml"   : ["product_update.xml"]
 , "auto_install" : False
 , "installable"  : True

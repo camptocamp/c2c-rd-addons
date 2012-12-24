@@ -8,7 +8,7 @@ generated 2009-10-17 12:10:57+02"""
 , "category"     : "Client Modules/ChriCar Addons"
 , "depends"      : ["account"]
 , "init_xml"     : []
-, "demo_xml"     : []
+, "demo"         : []
 , "update_xml"   : 
     [ "account_move_line_deloitte_view.xml"
     , "wizard/moves_deloitte_view.xml"

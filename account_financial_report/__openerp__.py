@@ -42,7 +42,7 @@ Some reports are based on previous work by Pexego and others on the *c2c_finance
 201101 ported to v6 by Camptocamp Austria
 """
 , "init_xml" : []
-, "demo_xml" : []
+, "demo"     : []
 , "update_xml" : 
   [ "account_report_report.xml"
   , "account_report_wizard.xml"

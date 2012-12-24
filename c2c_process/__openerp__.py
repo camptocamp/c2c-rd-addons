@@ -44,7 +44,7 @@
 , "category"    : "Client Modules/Camptocamp"
 , "depends"     : ["base"]
 , "init_xml"    : []
-, "demo_xml"    : []
+, "demo"        : []
 , "update_xml"  : ["base_view.xml"]
 , "auto_install": False
 , "installable" : True

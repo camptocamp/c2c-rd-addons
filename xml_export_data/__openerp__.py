@@ -41,7 +41,7 @@ FIXME remove module import
 , "category"     : "Tool"
 , "depends"      : ["base"]
 , "init_xml"     : []
-, "demo_xml"     : []
+, "demo"         : []
 , "update_xml"   : ["migrate_data_wizard.xml"]
 , "test"         : []
 , "auto_install" : False

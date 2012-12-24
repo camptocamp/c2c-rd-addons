@@ -62,7 +62,7 @@ other - naming !!!
 , "category"     : "Accounting & Finance"
 , "depends"      : ["account", "chricar_bank_vat", "sale", "stock"]
 , "init_xml"     : []
-, "demo_xml"     : []
+, "demo"         : []
 , "update_xml"   : ["account_analytic_view.xml"]
 , "auto_install" : False
 , "installable"  : True

@@ -7,7 +7,7 @@
 , "category"     : "Client Modules/ChriCar Addons"
 , "depends"      : ["account"]
 , "init_xml"     : []
-, "demo_xml"     : []
+, "demo"         : []
 , "update_xml"   : 
     [ "account_move_line_igel_view.xml"
     , "wizard/moves_igel_view.xml"

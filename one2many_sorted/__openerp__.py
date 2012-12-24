@@ -77,7 +77,7 @@ Note that it works on translated term, not only the text stored in the DB !
 , "category"     : "Tools"
 , "depends"      : ["base"]
 , "init_xml"     : []
-, "demo_xml"     : []
+, "demo"         : []
 , "update_xml"   : []
 , "test"         : []
 , "auto_install" : False

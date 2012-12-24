@@ -44,7 +44,7 @@ This reference is used by EDIFACT or SEPA.
 , "category"    : "Generic Modules/Payment"
 , "depends"     : ["account"]
 , "init_xml"    : []
-, "demo_xml"    : []
+, "demo"        : []
 , "update_xml"  : ["account_invoice_view.xml"]
 , "test"        : []
 , "auto_install": False

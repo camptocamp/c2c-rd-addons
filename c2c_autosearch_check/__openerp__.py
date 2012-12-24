@@ -43,7 +43,7 @@ This check will run periodically and turn off autosearch for ir_act_window where
 , "category"     : "Generic Modules/Base"
 , "depends"      : ["base"]
 , "init_xml"     : ["autosearch_data.xml"]
-, "demo_xml"     : []
+, "demo"         : []
 , "update_xml"   : ["autosearch_view.xml"]
 , "auto_install" : False
 , "installable"  : True

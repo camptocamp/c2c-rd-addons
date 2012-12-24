@@ -9,7 +9,7 @@ Adds lead times to crm_heldesk
 , "category"     : "CRM & SRM"
 , "depends"      : ["crm_helpdesk"]
 , "init_xml"     : []
-, "demo_xml"     : []
+, "demo"         : []
 , "update_xml"   : ["crm_helpdesk_view.xml"]
 , "auto_install" : False
 , "installable"  : True

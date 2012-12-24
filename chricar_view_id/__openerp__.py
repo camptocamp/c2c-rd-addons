@@ -50,7 +50,7 @@ fast:
 """
 , "depends"      : ["base"]
 , "init_xml"     : []
-, "demo_xml"     : []
+, "demo"         : []
 , "update_xml"   : []
 , "auto_install" : False
 , "installable"  : True

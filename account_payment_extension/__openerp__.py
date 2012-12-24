@@ -46,7 +46,7 @@ Based on previous work of Pablo Rocandio & Zikzakmedia (version for 4.2).
     , "account_payment"
     ]
 , "init_xml" : []
-, "demo_xml" : []
+, "demo"     : []
 , "update_xml" : 
     [ 'security/ir.model.access.csv'
     , "payment_wizard.xml"

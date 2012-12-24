@@ -29,7 +29,7 @@
 , "category"     : "Generic Modules/Others"
 , "depends"      : ["account","chricar_view_id"]
 , "init_xml"     : []
-, "demo_xml"     : []
+, "demo"         : []
 , "update_xml"   : []
 , "auto_install" : False
 , "installable"  : True

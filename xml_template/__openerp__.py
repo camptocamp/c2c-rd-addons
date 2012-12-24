@@ -193,7 +193,7 @@ Example-Code (generate a XML for an invoice and attach it to that invoice):
 , "category"     : "Tool"
 , "depends"      : ["base"]
 , "init_xml"     : []
-, "demo_xml"     : []
+, "demo"         : []
 , "update_xml"   : 
     [ "security/ir.model.access.csv"
     , "xml_template_view.xml"

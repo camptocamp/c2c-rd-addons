@@ -10,7 +10,7 @@ Adds partner, transaction type and period to stock move.
 , "category"     : "Warehouse Management"
 , "depends"      : ["stock", "sale", "purchase", "chricar_view_id", "c2c_stock_accounting"]
 , "init_xml"     : []
-, "demo_xml"     : []
+, "demo"         : []
 , "update_xml"   : ["partner_product_view.xml"]
 , "auto_install" : False
 , "installable"  : True

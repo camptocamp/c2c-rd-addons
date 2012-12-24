@@ -33,7 +33,7 @@ Does not support:
 , "category"     : "Accounting & Finance"
 , "depends"      : ["account_voucher"]
 , "init_xml"     : []
-, "demo_xml"     : []
+, "demo"         : []
 , "update_xml"   : ["bank_account_vat_view.xml"]
 , "auto_install" : False
 , "installable"  : True

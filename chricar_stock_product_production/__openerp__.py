@@ -15,7 +15,7 @@
     , "chricar_stock_dispo_production_V1"
     ]
 , "init_xml"     : []
-, "demo_xml"     : []
+, "demo"         : []
 , "update_xml"   : ["stock_product_production_view.xml"]
 , "auto_install" : False
 , "installable"  : True

@@ -45,7 +45,7 @@ FIXME ToDo remove wizard
 , "category"     : "General Purpose"
 , "depends"      : ["base"]
 , "init_xml"     : []
-, "demo_xml"     : []
+, "demo"         : []
 , "update_xml"   : ['table_generate_csv_wizard.xml']
 , "test"         : []
 , "auto_install" : False

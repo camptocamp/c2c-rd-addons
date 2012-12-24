@@ -6,7 +6,7 @@
 , "category"     : "Warehouse Management"
 , "depends"      : ["stock"]
 , "init_xml"     : []
-, "demo_xml"     : []
+, "demo"         : []
 , "update_xml"   : 
     [ "stock_product_by_location_view.xml"
     , "security/ir.model.access.csv"

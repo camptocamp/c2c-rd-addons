@@ -41,7 +41,7 @@ FIXME remove module wizard
 , "category"     : "General Purpose"
 , "depends"      : ["base"]
 , "init_xml"     : []
-, "demo_xml"     : []
+, "demo"         : []
 , "update_xml"   : ['wizard/generate_xml_view.xml']
 , "test"         : []
 , "auto_install" : False

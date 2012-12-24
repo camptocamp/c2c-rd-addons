@@ -13,7 +13,7 @@ generated 2009-07-09 16:17:22+02"""
     , "crm_helpdesk"
     ]
 , "init_xml"     : ["mig_top_init.xml"]
-, "demo_xml"     : []
+, "demo"         : []
 , "update_xml"   : ["security/group.xml","top_view.xml","location_income_tax_view.xml","report_webkit.xml","security/ir.model.access.csv"]
 , "auto_install" : False
 , "installable"  : True

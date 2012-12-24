@@ -17,7 +17,7 @@ Extension to Production
 , "category"     : "Client Modules/Farm"
 , "depends"      : ["stock", "mrp", "delivery", "c2c_sale_multi_partner","mrp_reopen"]
 , "init_xml"     : []
-, "demo_xml"     : []
+, "demo"         : []
 , "update_xml"   : 
     [ "stock_weighing_view.xml"
     , "mrp_view.xml"

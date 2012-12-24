@@ -8,7 +8,7 @@
 
 sorts the products by code"""
 , "init_xml"     : []
-, "demo_xml"     : []
+, "demo"         : []
 , "update_xml"   : ["chricar_product_image_view.xml"]
 , "auto_install" : False
 , "installable"  : True

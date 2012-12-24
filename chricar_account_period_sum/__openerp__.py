@@ -79,7 +79,7 @@ correct period sums.
     ,"report_webkit_chapter_server"
     ]
 , "init_xml" : []
-, "demo_xml" : []
+, "demo"     : []
 , "update_xml" : 
     [ "chricar_account_period_sum_view.xml"
     , "wizard/chart.xml"

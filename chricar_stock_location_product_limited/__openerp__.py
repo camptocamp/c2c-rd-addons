@@ -14,7 +14,7 @@ http://www.zbeanztech.com/
 """
 , "depends"      : ["stock"]
 , "init_xml"     : []
-, "demo_xml"     : []
+, "demo"         : []
 , "update_xml"   : ['stock_wizard.xml']
 , "auto_install" : False
 , "installable"  : True
