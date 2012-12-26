@@ -24,7 +24,7 @@ generated 2010-04-03 21:47:30+02
                         <field name="company_id" groups="base.group_multi_company" widget="selection"/>
                     </group>
                     <newline/>
-                    <group expand="0" string="Group By..." colspan="4" col="4" groups="base.group_extended">
+                    <group expand="0" string="Group By..." colspan="4" col="4" >
                         <filter string="State" icon="terp-stock_effects-object-colorize" domain="[]" context="{'group_by':'state'}"/>
                         <filter string="Date" icon="terp-go-month" domain="[]" context="{'group_by':'date'}"/>
                         <filter string="Partner" icon="terp-partner" name="Partner" domain="[]" context="{'group_by':'partner_id'}"/>
@@ -37,21 +37,20 @@ generated 2010-04-03 21:47:30+02
     <record id="chricar_stock_care_list" model="ir.ui.view">
       <field name="name">stock.picking.care.tree</field>
       <field name="model">stock.picking</field>
-      <field name="type">tree</field>
       <field eval="17" name="priority"/>
       <field name="arch" type="xml">
         <tree colors="red:state=='cancel'" string="Stock Care">
           <field name="name"/>
           <field name="type"  required="1"/>
-          <field name="origin" groups="base.group_extended"/>
-          <field name="partner_id"  groups="base.group_extended"/>
+          <field name="origin" />
+          <field name="partner_id"  />
           <field
             attrs="{'readonly':[('state','!=','draft')]}"
-            groups="base.group_extended"
-            name="address_id"
+            
+            name="partner_id"
             />
           <field name="date"/>
-          <field name="min_date" groups="base.group_extended"/>
+          <field name="min_date" />
           <field name="state"/>
         </tree>
       </field>
@@ -60,7 +59,6 @@ generated 2010-04-03 21:47:30+02
     <record id="chricar_stock_care_form" model="ir.ui.view">
       <field name="name">stock.picking.care.form</field>
       <field name="model">stock.picking</field>
-      <field name="type">form</field>
       <field eval="17" name="priority"/>
       <field name="arch" type="xml">
         <form string="Stock Care">
@@ -70,9 +68,11 @@ generated 2010-04-03 21:47:30+02
               name="type"/>
             <field name="name" readonly="1"/>
             <field name="partner_id"  colspan="6"/>
+<!--
             <field name="address_id"  colspan="6"/>
+-->
             <field name="date" />
-            <field name="min_date"  groups="base.group_extended"/>
+            <field name="min_date"  />
           </group>
           <field
             attrs="{'readonly':[('state','!=','draft')]}"
@@ -100,9 +100,9 @@ generated 2010-04-03 21:47:30+02
 <field name="factor" on_change="onchange_factor(product_qty,factor,price_unit_coeff)"/>
 <field name="product_dest_qty"/>
 <newline/>
-<field name="state" readonly="1" groups="base.group_extended"/>
+<field name="state" readonly="1" />
 <newline/>
-<field name="date" groups="base.group_extended"/>
+<field name="date" />
 <field name="name"/>
 <field name="price_unit" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant"/>
 <field name="price_unit_coeff" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant"/>
@@ -113,20 +113,20 @@ generated 2010-04-03 21:47:30+02
 
 <tree string="Stock Care" editable="top">
 <field name="activity"  required="1"/>
-<field name="date"  groups="base.group_extended"/>
+<field name="date"  />
 <field name="product_id"  on_change="onchange_product_id_activity(product_id,activity)"/>
 <field name="product_qty" on_change="onchange_factor(product_qty,factor,price_unit_coeff)"/>
 <field name="product_uom"/>
 <field name="location_id"  domain="[('usage', '=', 'internal')]"/>
 <field name="prodlot_id" domain="[('product_id', '=', product_id)]" on_change="onchange_lot_id_care(prodlot_id, product_qty, location_id)"/>
 <field name="location_dest_id"  domain="[('usage', 'in', ['internal','inventory'])]"/>
-<field name="location_loss_id"  domain="[('usage', 'in', ['inventory'])]" groups="base.group_extended"/>
+<field name="location_loss_id"  domain="[('usage', 'in', ['inventory'])]" />
 <field name="humidity"/>
 <field name="humidity_dest"/>
 <field name="factor" on_change="onchange_factor(product_qty,factor,price_unit_coeff)"/>
-<field name="product_dest_qty" groups="base.group_extended"/>
-<field name="state" readonly="1" groups="base.group_extended"/>
-<field name="date" groups="base.group_extended"/>
+<field name="product_dest_qty" />
+<field name="state" readonly="1" />
+<field name="date" />
 <field name="name"/>
 </tree>
 
@@ -183,7 +183,7 @@ generated 2010-04-03 21:47:30+02
     <menuitem
       action="chricar_stock_care_act1"
       id="menu_chricar_stock_care_list"
-      parent="stock.menu_stock_warehouse_mgmt"
+      parent="stock.menu_stock_inventory_control"
       sequence="20"/>
 <!--
     <record model="ir.actions.act_window" id="chricar_stock_care_act2">

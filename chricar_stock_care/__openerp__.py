@@ -6,7 +6,7 @@
 , "description"  : """Stock Care
 generated 2010-04-03 21:47:30+02"""
 , "category"     : "Client Modules/Farm"
-, "depends"      : ["product", "stock"]
+, "depends"      : ["product", "stock","c2c_stock_accounting"]
 , "init_xml"     : []
 , "demo"         : []
 , "update_xml"   : ["stock_care_view.xml"]
