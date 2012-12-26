@@ -32,13 +32,13 @@ This module installs everything we need for Austrian for payment
     'depends': [
 "c2c_austria_extension"
 ,"account_payment_edifact"
-,"purchase_payment"
+#,"purchase_payment"
 #,"sale_payment"
 ],
     'update_xml': [],
     #'update_xml': ['product_view.xml'],
     'demo_xml': [],
-    'installable': False,
+    'installable': True,
     'active': False,
 }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
