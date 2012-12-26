@@ -20,7 +20,7 @@
 #
 ##############################################################################
 
-import wizard
+#import wizard
 import pooler
 import time
 
