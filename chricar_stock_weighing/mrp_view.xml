@@ -152,7 +152,6 @@ Harvest
     <record id="chricar_harvest_tree_view" model="ir.ui.view">
       <field name="name">chricar.harvest.tree.view</field>
       <field name="model">stock.move</field>
-      <field name="type">tree</field>
       <field name="priority">26</field>
       <field name="arch" type="xml">
         <tree string="Harvest" editable="top">
@@ -184,7 +183,6 @@ Harvest
     <record id="chricar_harvest_form_view" model="ir.ui.view">
       <field name="name">chricar.harvest.form.view</field>
       <field name="model">stock.move</field>
-      <field name="type">tree</field>
       <field name="priority">26</field>
       <field name="arch" type="xml">
         <form string="Harvest" >
@@ -217,7 +215,6 @@ Harvest
     <record id="chricar_weighing_tree_view" model="ir.ui.view">
       <field name="name">chricar.weighing.tree.view</field>
       <field name="model">stock.move</field>
-      <field name="type">tree</field>
       <field name="priority">26</field>
       <field name="arch" type="xml">
         <tree string="Weighing" colors="blue:state=='draft'">
@@ -246,7 +243,6 @@ Harvest
     <record id="chricar_weighing_form_view" model="ir.ui.view">
       <field name="name">chricar.weighing.form.view</field>
       <field name="model">stock.move</field>
-      <field name="type">form</field>
       <field name="priority">26</field>
       <field name="arch" type="xml">
         <form string="Weighing">
