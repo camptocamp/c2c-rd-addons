@@ -38,7 +38,7 @@
     <menuitem
       action="action_report_sale_order_board_tree"
       id="menu_action_report_sale_order_board_tree"
-      parent="board.menu_dasboard"/>
+      parent="base.menu_reporting_dashboard"/>
     <!-- Purchase Order -->
     <record model="ir.ui.view" id="report_purchase_order_board_graph">
       <field name="name">report.purchase.order.board.graph</field>
@@ -76,7 +76,7 @@
     <menuitem
       action="action_report_purchase_order_board_tree"
       id="menu_action_report_purchase_order_board_tree"
-      parent="purchase.menu_purchase_deshboard"/>
+      parent="base.next_id_73"/>
     <!-- Invoices -->
     <record model="ir.ui.view" id="report_invoice_board_graph">
       <field name="name">report.invoice.board.graph</field>
@@ -116,7 +116,7 @@
     <menuitem
       action="action_report_invoice_board_tree"
       id="menu_action_report_invoice_board_tree"
-      parent="account.menu_dashboard_acc"/>
+      parent="account.menu_finance_reporting"/>
     <!-- Finance -->
     <record model="ir.ui.view" id="report_finance_board_graph">
       <field name="name">report.finance.board.graph</field>
@@ -156,6 +156,6 @@
     <menuitem
       action="action_report_finance_board_tree"
       id="menu_action_report_finance_board_tree"
-      parent="account.menu_dashboard_acc"/>
+      parent="account.menu_finance_reporting"/>
   </data>
 </openerp>

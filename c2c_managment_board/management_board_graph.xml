@@ -31,7 +31,7 @@
       action="open_board_manager"
       icon="terp-graph"
       id="menu_board_manager"
-      parent="account.menu_dashboard_acc"
+      parent="account.menu_finance_accounting"
       sequence="1"/>
   </data>
 </openerp>
