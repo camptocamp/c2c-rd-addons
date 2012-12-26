@@ -61,7 +61,6 @@
       <field name="name">move_tree_view_values.view</field>
       <field name="model">stock.move</field>
       <field name="inherit_id" ref="stock.view_move_tree"/>
-      <field name="type">tree</field>
       <field name="arch" type="xml">
         <field name="product_uom" position="after">
           <field name="move_value_cost" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant" sum="Value Cost"/>
@@ -74,7 +73,6 @@
       <field name="name">move_tree_view_values.view</field>
       <field name="model">stock.move</field>
       <field name="inherit_id" ref="stock.stock_move_tree"/>
-      <field name="type">tree</field>
       <field name="arch" type="xml">
         <field name="product_uom" position="after">
           <field name="move_value_cost" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant" sum="Value Cost"/>
@@ -87,7 +85,6 @@
       <field name="name">move_tree2_view_values.view</field>
       <field name="model">stock.move</field>
       <field name="inherit_id" ref="stock.stock_move_tree2"/>
-      <field name="type">tree</field>
       <field name="arch" type="xml">
         <field name="product_uom" position="after">
           <field name="move_value_cost" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant" sum="Value Cost"/>
