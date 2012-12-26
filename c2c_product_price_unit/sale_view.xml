@@ -5,7 +5,7 @@
     <record model="ir.ui.view" id="c2c_product_sale_oder_view">
       <field name="name">c2c_product.sale_order.view</field>
       <field name="model">sale.order</field>
-      <field name="inherit_id" ref="sale_layout.view_order_form_inherit_1"/>
+      <field name="inherit_id" ref="sale.view_order_form"/>
       <field name="type">form</field>
       <field name="arch" type="xml">
         <field name="price_unit" position="replace">
@@ -42,10 +42,10 @@
     <record model="ir.ui.view" id="c2c_sale_oder_line_tree_view">
       <field name="name">c2c_product.sale_order_line_tree.view</field>
       <field name="model">sale.order</field>
-      <field name="inherit_id" ref="sale_layout.view_order_form_inherit_1"/>
+      <field name="inherit_id" ref="sale.view_order_form"/>
       <field name="type">form</field>
       <field name="arch" type="xml">
-        <xpath expr="/form/notebook/page/field[@name='abstract_line_ids']/tree/field[@name='price_unit']" position="replace">
+        <xpath expr="/form/sheet/notebook/page[@string='Order Lines']/field/tree/field[@name='price_unit']" position="replace">
           <field name="price_unit_pu"/>
           <field name="price_unit_id"/>
           <field name="price_unit" groups="c2c_product_price_unit.group_c2c_product_price_unit_manager"/>
