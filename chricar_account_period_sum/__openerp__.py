@@ -76,7 +76,7 @@ correct period sums.
     , "account"
     , "c2c_account_closing_remarks"
     , "chricar_view_id"
-    ,"report_webkit_chapter_server"
+    #,"report_webkit_chapter_server"
     ]
 , "init_xml" : []
 , "demo"     : []
