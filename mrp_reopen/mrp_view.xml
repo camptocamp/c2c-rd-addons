@@ -18,10 +18,9 @@
         <record id="mrp_production_form_reopen_view_inherit" model="ir.ui.view">
             <field name="name">mrp.production.form.reopen.inherit</field>
             <field name="model">mrp.production</field>
-            <field name="type">form</field>
             <field name="inherit_id" ref="mrp.mrp_production_form_view"/>
             <field name="arch" type="xml">
-                <xpath expr="/form/notebook/page[@string='Consumed Products']/group/field[@name='state']" position="after">
+                <xpath expr="/form/header/field[@name='state']" position="before">
                     <button name="action_reopen" type="object" states="done,cancel,ready,in_production" string="Reset To Draft" icon="gtk-convert" groups="mrp.group_mrp_manager" help="This will DELETE all generates stock moves"/>
                 </xpath>
             </field>
