@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
   <data>
-    <!-- move values internal Form-->
-    <record model="ir.ui.view" id="picking_location_context_view">
-      <field name="name">picking.location.context.view</field>
-      <field name="model">stock.picking</field>
-      <field name="inherit_id" ref="stock.view_picking_form"/>
+    <!-- move values -->
+    <record model="ir.ui.view" id="stock_move_loction_form">
+      <field name="name">stock.move.loction.form</field>
+      <field name="model">stock.move</field>
+      <field name="inherit_id" ref="stock.view_move_form"/>
       <field name="arch" type="xml">
-        <xpath expr="/form/notebook/page[@string='Products']/field[@name='move_lines']/form[@string='Stock Moves']/group/field[@name='location_id']" position="attributes">
+        <xpath expr="/form/sheet/group/group[@name='origin_grp']/field[@name='location_id']" position="attributes">
              <attribute name="context">{'product_id':product_id}</attribute>
         </xpath>
       </field>
@@ -26,6 +26,7 @@
     </record>
 -->
     <!-- move values Outgoing-->
+<!--
     <record model="ir.ui.view" id="picking_out_location_context_view">
       <field name="name">picking.location.out.context.view</field>
       <field name="model">stock.picking</field>
@@ -36,8 +37,9 @@
         </xpath>
       </field>
     </record>
-
+-->
     <!-- move values default-->
+<!--
     <record model="ir.ui.view" id="move_location_context_form_view">
       <field name="name">move_location_context_form_view</field>
       <field name="model">stock.move</field>
@@ -48,7 +50,7 @@
         </xpath>
       </field>
     </record>
-
+-->
 
 
   </data>
