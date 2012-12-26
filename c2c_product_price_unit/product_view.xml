@@ -11,9 +11,9 @@
       <field name="type">form</field>
       <field name="arch" type="xml">
         <form string="Price Units">
-          <field name="name" select="1"/>
-          <field name="coefficient" select="1"/>
-          <field name="code" select="1"/>
+          <field name="name" />
+          <field name="coefficient" />
+          <field name="code" />
           <notebook colspan="4">
             <page string="invisible" invisible="1"/>
           </notebook>
@@ -27,9 +27,9 @@
       <field name="type">tree</field>
       <field name="arch" type="xml">
         <tree string="Price Units" editable="bottom">
-          <field name="coefficient" select="1"/>
-          <field name="name" select="1"/>
-          <field name="code" select="1"/>
+          <field name="coefficient" />
+          <field name="name" />
+          <field name="code" />
         </tree>
       </field>
     </record>

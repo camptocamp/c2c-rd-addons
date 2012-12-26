@@ -116,21 +116,21 @@
       <field name="arch" type="xml">
         <tree string="Location Moves" colors="grey:state=='cancel';blue:state not in ('cancel','done') ">
           <field name="picking_id"/>
-          <field name="categ_id" select="1"/>
-          <field name="product_id" select="1"/>
-          <field name="variants" select="1" invisible="1"/>
-          <field name="location_id" select="1"/>
-          <field name="usage" select="1"/>
-          <field name="partner_id" select="1"/>
-          <field name="period_id" select="1"/>
-          <field name="date" select="1"/>
+          <field name="categ_id" />
+          <field name="product_id" />
+          <field name="variants"  invisible="1"/>
+          <field name="location_id" />
+          <field name="usage" />
+          <field name="partner_id" />
+          <field name="period_id" />
+          <field name="date" />
           <field name="product_qty" sum="Sum Quantity"/>
           <field name="move_value_cost" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant" sum="Sum Cost Value"/>
           <field name="cost_price" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant"/>
           <field name="move_value_sale" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant" sum="Sum Sale Value"/>
           <field name="sale_price" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant"/>
-          <field name="prodlot_id" select="1"/>
-          <field name="state" select="1"/>
+          <field name="prodlot_id" />
+          <field name="state" />
         </tree>
       </field>
     </record>
@@ -142,20 +142,20 @@
       <field name="arch" type="xml">
         <form string="Location Moves">
           <field name="picking_id"/>
-          <field name="product_id" select="1"/>
-          <field name="categ_id" select="1"/>
-          <field name="location_id" select="1"/>
-          <field name="usage" select="1"/>
-          <field name="partner_id" select="1"/>
-          <field name="period_id" select="1"/>
-          <field name="date" select="1"/>
-          <field name="product_qty" sum="Sum Quantity" select="2"/>
-          <field name="move_value_cost" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant" sum="Sum Cost Value" select="2"/>
-          <field name="cost_price" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant" select="2"/>
-          <field name="move_value_sale" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant" sum="Sum Sale Value" select="2"/>
-          <field name="sale_price" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant" select="2"/>
-          <field name="prodlot_id" select="1"/>
-          <field name="state" select="1"/>
+          <field name="product_id" />
+          <field name="categ_id" />
+          <field name="location_id" />
+          <field name="usage" />
+          <field name="partner_id" />
+          <field name="period_id" />
+          <field name="date" />
+          <field name="product_qty" sum="Sum Quantity" />
+          <field name="move_value_cost" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant" sum="Sum Cost Value" />
+          <field name="cost_price" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant" />
+          <field name="move_value_sale" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant" sum="Sum Sale Value" />
+          <field name="sale_price" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant" />
+          <field name="prodlot_id" />
+          <field name="state" />
         </form>
       </field>
     </record>
@@ -213,15 +213,15 @@
       <field name="type">tree</field>
       <field name="arch" type="xml">
         <tree string="Location Product Quantities">
-          <field name="categ_id" select="1"/>
-          <field name="product_id" select="1"/>
-          <field name="location_id" select="1"/>
-          <field name="usage" select="1"/>
+          <field name="categ_id" />
+          <field name="product_id" />
+          <field name="location_id" />
+          <field name="usage" />
           <field name="product_qty"/>
-          <field name="move_value_cost" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant" sum="Sum Cost Value" select="2"/>
-          <field name="cost_price" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant" select="2"/>
-          <field name="move_value_sale" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant" sum="Sum Sale Value" select="2"/>
-          <field name="sale_price" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant" select="2"/>
+          <field name="move_value_cost" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant" sum="Sum Cost Value" />
+          <field name="cost_price" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant" />
+          <field name="move_value_sale" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant" sum="Sum Sale Value" />
+          <field name="sale_price" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant" />
         </tree>
       </field>
     </record>
@@ -300,14 +300,14 @@
       <field name="arch" type="xml">
         <tree string="Location Moves Columns" colors="grey:state=='cancel';blue:state not in ('cancel','done') ">
           <field name="company_id"/>
-          <field name="categ_id" select="1"/>
-          <field name="product_id" select="1"/>
-          <field name="location_id" select="1"/>
-          <field name="picking_id" select="1"/>
-          <field name="prodlot_id" select="1"/>
-          <field name="period_id" select="1"/>
-          <field name="date" select="1"/>
-          <field name="date2" select="1"/>
+          <field name="categ_id" />
+          <field name="product_id" />
+          <field name="location_id" />
+          <field name="picking_id" />
+          <field name="prodlot_id" />
+          <field name="period_id" />
+          <field name="date" />
+          <field name="date2" />
           <field name="product_qty" sum="Quantity"/>
           <field name="qty_plus" sum="Qty Plus"/>
           <field name="qty_minus" sum="Qty Minus"/>

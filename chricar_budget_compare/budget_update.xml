@@ -37,15 +37,15 @@ Budget compare period
       <field name="type">form</field>
       <field name="arch" type="xml">
         <form string="Budget Compare Period">
-          <field name="period_id" select="1"/>
-          <field name="parent_id" select="1"/>
-          <field name="item_id" select="1"/>
-          <field name="budget_current" select="2"/>
-          <field name="budget_last" select="2"/>
-          <field name="real_current" select="2"/>
-          <field name="real_last" select="2"/>
-          <field name="type" select="2"/>
-          <field name="company_id" select="1"/>
+          <field name="period_id" />
+          <field name="parent_id" />
+          <field name="item_id" />
+          <field name="budget_current" />
+          <field name="budget_last" />
+          <field name="real_current" />
+          <field name="real_last" />
+          <field name="type" />
+          <field name="company_id" />
         </form>
       </field>
     </record>
@@ -112,15 +112,15 @@ Budget compare year
       <field name="type">form</field>
       <field name="arch" type="xml">
         <form string="Budget Compare Year">
-          <field name="fiscalyear_id" select="1"/>
-          <field name="parent_id" select="1"/>
-          <field name="item_id" select="1"/>
-          <field name="budget_current" select="2"/>
-          <field name="budget_last" select="2"/>
-          <field name="real_current" select="2"/>
-          <field name="real_last" select="2"/>
-          <field name="type" select="2"/>
-          <field name="company_id" select="1"/>
+          <field name="fiscalyear_id" />
+          <field name="parent_id" />
+          <field name="item_id" />
+          <field name="budget_current" />
+          <field name="budget_last" />
+          <field name="real_current" />
+          <field name="real_last" />
+          <field name="type" />
+          <field name="company_id" />
         </form>
       </field>
     </record>

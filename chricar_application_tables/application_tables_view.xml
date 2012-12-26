@@ -15,28 +15,28 @@ generated 2009-03-27 16:17:42+01
       <field name="arch" type="xml">
         <form string="Application Tables">
           <field name="application_id"/>
-          <field name="name" select="1"/>
-          <field name="table_name" select="1"/>
-          <field name="table_name_source" select="2"/>
+          <field name="name" />
+          <field name="table_name" />
+          <field name="table_name_source" />
           <notebook colspan="4">
             <page string="Application Tables">
               <field name="author"/>
-              <field name="category" select="2"/>
+              <field name="category" />
               <field name="depends"/>
               <field name="description"/>
               <field name="version"/>
               <field name="website"/>
-              <field name="prefix" select="1"/>
-              <field name="migrate" select="1"/>
-              <field name="installable" select="1"/>
-              <field name="import_data" select="2"/>
-              <field name="main_menu" select="2"/>
-              <field name="menu" select="1"/>
+              <field name="prefix" />
+              <field name="migrate" />
+              <field name="installable" />
+              <field name="import_data" />
+              <field name="main_menu" />
+              <field name="menu" />
               <field name="menu_seq"/>
               <field name="tree_editable"/>
-              <field name="inherit_method" select="2"/>
+              <field name="inherit_method" />
               <field name="inherit_module_name"/>
-              <field name="inherit_table" select="1"/>
+              <field name="inherit_table" />
               <field name="state"/>
               <field name="init_xml"/>
               <field name="update_xml"/>
@@ -55,25 +55,25 @@ generated 2009-03-27 16:17:42+01
         <tree string="Application Tables" editable="top">
           <field name="application_id"/>
           <field name="author"/>
-          <field name="category" select="2"/>
+          <field name="category" />
           <field name="depends"/>
           <field name="description"/>
           <field name="version"/>
           <field name="website"/>
-          <field name="name" select="1"/>
-          <field name="prefix" select="1"/>
-          <field name="table_name" select="1"/>
-          <field name="table_name_source" select="2"/>
-          <field name="migrate" select="1"/>
-          <field name="installable" select="1"/>
-          <field name="import_data" select="2"/>
-          <field name="main_menu" select="2"/>
-          <field name="menu" select="1"/>
+          <field name="name" />
+          <field name="prefix" />
+          <field name="table_name" />
+          <field name="table_name_source" />
+          <field name="migrate" />
+          <field name="installable" />
+          <field name="import_data" />
+          <field name="main_menu" />
+          <field name="menu" />
           <field name="menu_seq"/>
           <field name="tree_editable"/>
-          <field name="inherit_method" select="2"/>
+          <field name="inherit_method" />
           <field name="inherit_module_name"/>
-          <field name="inherit_table" select="1"/>
+          <field name="inherit_table" />
           <field name="state"/>
           <field name="init_xml"/>
           <field name="update_xml"/>
@@ -121,25 +121,25 @@ Modification of Parents (only for matching table prefixes)
             <field name="application_tables_ids" widget="one2many_list" colspan="4" nolabel="1">
               <tree string="Application Tables" editable="top">
                 <field name="author"/>
-                <field name="category" select="2"/>
+                <field name="category" />
                 <field name="depends"/>
                 <field name="description"/>
                 <field name="version"/>
                 <field name="website"/>
-                <field name="name" select="1"/>
-                <field name="prefix" select="1"/>
-                <field name="table_name" select="1"/>
-                <field name="table_name_source" select="2"/>
-                <field name="migrate" select="1"/>
-                <field name="installable" select="1"/>
-                <field name="import_data" select="2"/>
-                <field name="main_menu" select="2"/>
-                <field name="menu" select="1"/>
+                <field name="name" />
+                <field name="prefix" />
+                <field name="table_name" />
+                <field name="table_name_source" />
+                <field name="migrate" />
+                <field name="installable" />
+                <field name="import_data" />
+                <field name="main_menu" />
+                <field name="menu" />
                 <field name="menu_seq"/>
                 <field name="tree_editable"/>
-                <field name="inherit_method" select="2"/>
+                <field name="inherit_method" />
                 <field name="inherit_module_name"/>
-                <field name="inherit_table" select="1"/>
+                <field name="inherit_table" />
                 <field name="state"/>
                 <field name="init_xml"/>
                 <field name="update_xml"/>

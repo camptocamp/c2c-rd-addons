@@ -14,10 +14,10 @@ generated 2009-08-01
       <field name="type">form</field>
       <field name="arch" type="xml">
         <form string="Partner Product Moves">
-          <field name="type" invisible="1" select="1"/>
-          <field name="partner_id" select="1"/>
-          <field name="product_id" select="1"/>
-          <field name="period_id" select="1"/>
+          <field name="type" invisible="1" />
+          <field name="partner_id" />
+          <field name="product_id" />
+          <field name="period_id" />
           <field name="product_qty"/>
           <field name="move_value_cost" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant" sum="Total at Cost"/>
           <field name="avg_price" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant" />
@@ -140,7 +140,7 @@ add fields to stock move
       <field name="inherit_id" ref="stock.view_move_form"/>
       <field name="arch" type="xml">
         <field name="product_id" position="before">
-          <field name="partner_name" select="1" colspan="4"/>
+          <field name="partner_name"  colspan="4"/>
         </field>
       </field>
     </record>
@@ -150,8 +150,8 @@ add fields to stock move
       <field name="inherit_id" ref="stock.view_move_tree"/>
       <field name="arch" type="xml">
         <field name="product_id" position="before">
-          <field name="partner_id" select="1" invisible="1"/>
-          <field name="partner_name" select="1"/>
+          <field name="partner_id"  invisible="1"/>
+          <field name="partner_name" />
         </field>
       </field>
     </record>

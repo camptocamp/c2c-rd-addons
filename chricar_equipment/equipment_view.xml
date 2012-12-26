@@ -15,23 +15,23 @@ generated 2009-07-11 14:41:58+02
       <field name="arch" type="xml">
         <form string="Equipment">
           <group string="General" colspan="2" col="2">
-            <field name="name" select="2"/>
-            <field name="date_from" select="1"/>
-            <field name="date_to" select="1"/>
-            <field name="room_id" select="2"/>
-            <field name="lease" select="1"/>
+            <field name="name" />
+            <field name="date_from" />
+            <field name="date_to" />
+            <field name="room_id" />
+            <field name="lease" />
           </group>
           <group string="Service" colspan="2" col="2">
-            <field name="contract" select="2"/>
-            <field name="date_contract" select="2"/>
-            <field name="date_service_last" select="2"/>
-            <field name="date_service_next" select="2"/>
-            <field name="partner_id" select="2"/>
-            <field name="notice_period" select="1"/>
+            <field name="contract" />
+            <field name="date_contract" />
+            <field name="date_service_last" />
+            <field name="date_service_next" />
+            <field name="partner_id" />
+            <field name="notice_period" />
           </group>
           <notebook colspan="4">
             <page string="Equipment">
-              <field name="note" select="2" colspan="4"/>
+              <field name="note"  colspan="4"/>
             </page>
           </notebook>
         </form>
@@ -44,19 +44,19 @@ generated 2009-07-11 14:41:58+02
       <field name="type">tree</field>
       <field name="arch" type="xml">
         <tree string="Equipment" editable="top">
-          <field name="name" select="2"/>
-          <field name="date_from" select="1"/>
-          <field name="date_to" select="1"/>
-          <field name="contract" select="2"/>
-          <field name="date_contract" select="2"/>
-          <field name="date_service_last" select="2"/>
-          <field name="date_service_next" select="2"/>
-          <field name="partner_id" select="2"/>
-          <field name="room_id" select="2"/>
-          <field name="top_id" select="2"/>
-          <field name="lease" select="1"/>
-          <field name="notice_period" select="1"/>
-          <field name="note" select="2"/>
+          <field name="name" />
+          <field name="date_from" />
+          <field name="date_to" />
+          <field name="contract" />
+          <field name="date_contract" />
+          <field name="date_service_last" />
+          <field name="date_service_next" />
+          <field name="partner_id" />
+          <field name="room_id" />
+          <field name="top_id" />
+          <field name="lease" />
+          <field name="notice_period" />
+          <field name="note" />
         </tree>
       </field>
     </record>
@@ -99,37 +99,37 @@ Modification of Parents (only for matching table prefixes)
           <page string="Equipment">
             <field name="equipment_ids" widget="one2many_list" colspan="4" nolabel="1">
               <tree string="Equipment" editable="top">
-                <field name="name" select="2"/>
-                <field name="date_from" select="1"/>
-                <field name="date_to" select="1"/>
-                <field name="contract" select="2"/>
-                <field name="date_contract" select="2"/>
-                <field name="date_service_last" select="2"/>
-                <field name="date_service_next" select="2"/>
-                <field name="partner_id" select="2"/>
-                <field name="top_id" select="2"/>
-                <field name="lease" select="1"/>
-                <field name="notice_period" select="1"/>
-                <field name="note" select="2"/>
+                <field name="name" />
+                <field name="date_from" />
+                <field name="date_to" />
+                <field name="contract" />
+                <field name="date_contract" />
+                <field name="date_service_last" />
+                <field name="date_service_next" />
+                <field name="partner_id" />
+                <field name="top_id" />
+                <field name="lease" />
+                <field name="notice_period" />
+                <field name="note" />
               </tree>
               <form string="Equipment">
                 <group string="General" colspan="2" col="2">
-                  <field name="name" select="2"/>
-                  <field name="date_from" select="1"/>
-                  <field name="date_to" select="1"/>
-                  <field name="room_id" select="2"/>
-                  <field name="lease" select="1"/>
+                  <field name="name" />
+                  <field name="date_from" />
+                  <field name="date_to" />
+                  <field name="room_id" />
+                  <field name="lease" />
                 </group>
                 <group string="Service" colspan="2" col="2">
-                  <field name="contract" select="2"/>
-                  <field name="date_contract" select="2"/>
-                  <field name="date_service_last" select="2"/>
-                  <field name="date_service_next" select="2"/>
-                  <field name="partner_id" select="2"/>
-                  <field name="notice_period" select="1"/>
+                  <field name="contract" />
+                  <field name="date_contract" />
+                  <field name="date_service_last" />
+                  <field name="date_service_next" />
+                  <field name="partner_id" />
+                  <field name="notice_period" />
                 </group>
                 <separator string="Notes" colspan="4"/>
-                <field name="note" select="2" colspan="4" nolabel="1"/>
+                <field name="note"  colspan="4" nolabel="1"/>
               </form>
             </field>
           </page>
@@ -146,37 +146,37 @@ Modification of Parents (only for matching table prefixes)
           <page string="Equipment">
             <field name="equipment_ids" widget="one2many_list" colspan="4" nolabel="1">
               <tree string="Equipment" editable="top">
-                <field name="name" select="2"/>
-                <field name="date_from" select="1"/>
-                <field name="date_to" select="1"/>
-                <field name="date_service_last" select="2"/>
-                <field name="date_service_next" select="2"/>
-                <field name="contract" select="2"/>
-                <field name="date_contract" select="2"/>
-                <field name="partner_id" select="2"/>
-                <field name="room_id" select="2" domain="[('top_id','=',parent.id)]"/>
-                <field name="notice_period" select="1"/>
-                <field name="lease" select="1"/>
-                <field name="note" select="2"/>
+                <field name="name" />
+                <field name="date_from" />
+                <field name="date_to" />
+                <field name="date_service_last" />
+                <field name="date_service_next" />
+                <field name="contract" />
+                <field name="date_contract" />
+                <field name="partner_id" />
+                <field name="room_id"  domain="[('top_id','=',parent.id)]"/>
+                <field name="notice_period" />
+                <field name="lease" />
+                <field name="note" />
               </tree>
               <form string="Equipment">
                 <group string="General" colspan="2" col="2">
-                  <field name="name" select="2"/>
-                  <field name="date_from" select="1"/>
-                  <field name="date_to" select="1"/>
-                <field name="room_id" select="2" domain="[('top_id','=',parent.id)]"/>
-                  <field name="lease" select="1"/>
+                  <field name="name" />
+                  <field name="date_from" />
+                  <field name="date_to" />
+                <field name="room_id"  domain="[('top_id','=',parent.id)]"/>
+                  <field name="lease" />
                 </group>
                 <group string="Service" colspan="2" col="2">
-                  <field name="contract" select="2"/>
-                  <field name="date_contract" select="2"/>
-                  <field name="date_service_last" select="2"/>
-                  <field name="date_service_next" select="2"/>
-                  <field name="partner_id" select="2"/>
-                  <field name="notice_period" select="1"/>
+                  <field name="contract" />
+                  <field name="date_contract" />
+                  <field name="date_service_last" />
+                  <field name="date_service_next" />
+                  <field name="partner_id" />
+                  <field name="notice_period" />
                 </group>
                 <separator string="Notes" colspan="4"/>
-                <field name="note" select="2" colspan="4" nolabel="1"/>
+                <field name="note"  colspan="4" nolabel="1"/>
               </form>
             </field>
           </page>

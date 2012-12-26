@@ -71,7 +71,7 @@
               groups="base.group_extended"
               name="routing_id"
               on_change="onchange_routing_id(routing_id)"
-              select="2"/>
+              />
             <field name="cost_routing" groups="base.group_extended"/>
           </group>
           <group string="BoM Calc" colspan="2" col="2">

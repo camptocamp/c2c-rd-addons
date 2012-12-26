@@ -14,23 +14,23 @@ generated 2009-07-09 18:08:09+02
       <field name="type">form</field>
       <field name="arch" type="xml">
         <form string="Tenant">
-          <field name="location_id" select="1"/>
-          <field name="top_id" select="1"/>
-          <field name="surface" select="1"/>
-          <field name="partner_id" select="1"/>
-          <field name="name" select="1"/>
-          <field name="to_date" select="1"/>
+          <field name="location_id" />
+          <field name="top_id" />
+          <field name="surface" />
+          <field name="partner_id" />
+          <field name="name" />
+          <field name="to_date" />
           <field name="state"/>
-          <field name="contract" select="2"/>
-          <field name="date_contract" select="2"/>
-          <field name="lease" select="2"/>
+          <field name="contract" />
+          <field name="date_contract" />
+          <field name="lease" />
           <field name="price"/>
-          <field name="limited" select="1"/>
+          <field name="limited" />
           <field name="lease_free"/>
           <field name="waiver_of_termination"/>
           <field name="termination_date"/>
           <field name="notice_period"/>
-          <field name="note" select="2" colspan="4"/>
+          <field name="note"  colspan="4"/>
           <field name="ref_top"/>
           <notebook colspan="4">
             <page string="invisible" />
@@ -47,7 +47,7 @@ generated 2009-07-09 18:08:09+02
         <tree string="Tenant" editable="top" colors="grey:state=='past';blue:state=='future'">
           <field name="location_id"/>
           <field name="top_id"/>
-          <field name="surface" select="1"/>
+          <field name="surface" />
           <field name="sort"/>
           <field name="partner_id"/>
           <field name="name"/>
@@ -177,7 +177,7 @@ Modification of Parents (only for matching table prefixes)
                 <field name="notice_period"/>
                 <field name="waiver_of_termination"/>
                 <newline/>
-                <field name="note" select="2" colspan="4"/>
+                <field name="note"  colspan="4"/>
               </tree>
               <form string="Tenant">
                 <field name="partner_id" colspan="4"/>
@@ -220,7 +220,7 @@ Modification of Parents (only for matching table prefixes)
           <field name="lease_current_m2"/>
           <field name="lease_current" sum="Sum Current"/>
           <field name="lease_potential" sum="Sum Potential"/>
-          <field name="tenant_id" select="1"/>
+          <field name="tenant_id" />
           <field name="unpaid_rate"/>
         </field>
       </field>
@@ -236,7 +236,7 @@ Modification of Parents (only for matching table prefixes)
           <field name="lease_potential" sum="Sum Potential"/>
           <field name="unpaid_rate"/>
           <!--
-                    <field name="tenant_id" select="1"/>
+                    <field name="tenant_id" />
 -->
         </field>
       </field>

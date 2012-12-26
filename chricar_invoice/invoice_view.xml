@@ -14,17 +14,17 @@ generated 2009-07-11 14:55:52+02
       <field name="type">form</field>
       <field name="arch" type="xml">
         <form string="Invoice">
-          <field name="name" select="1"/>
-          <field name="amount" select="2"/>
-          <field name="date_document" select="2"/>
-          <field name="amount_quote" select="2"/>
-          <field name="partner_id" select="1"/>
-          <field name="ref" select="1"/>
-          <field name="top_id" select="1"/>
-          <field name="room_id" select="1"/>
+          <field name="name" />
+          <field name="amount" />
+          <field name="date_document" />
+          <field name="amount_quote" />
+          <field name="partner_id" />
+          <field name="ref" />
+          <field name="top_id" />
+          <field name="room_id" />
           <notebook colspan="4">
             <page string="Invoice">
-              <field name="note" select="2"/>
+              <field name="note" />
             </page>
           </notebook>
         </form>
@@ -88,27 +88,27 @@ Modification of Parents (only for matching table prefixes)
           <page string="Invoice">
             <field name="invoice_ids" widget="one2many_list" colspan="4" nolabel="1">
               <tree string="Invoice" editable="top">
-                <field name="date_document" select="2"/>
-                <field name="name" select="2"/>
-                <field name="amount" select="2" sum="Amount"/>
-                <field name="amount_quote" select="2" sum="Amount Quote"/>
-                <field name="top_id" select="1"/>
-                <field name="partner_id" select="1"/>
-                <field name="ref" select="1"/>
-                <field name="note" select="2"/>
+                <field name="date_document" />
+                <field name="name" />
+                <field name="amount"  sum="Amount"/>
+                <field name="amount_quote"  sum="Amount Quote"/>
+                <field name="top_id" />
+                <field name="partner_id" />
+                <field name="ref" />
+                <field name="note" />
               </tree>
               <form string="Invoice">
-                <field name="name" select="2"/>
-                <field name="amount" select="2"/>
-                <field name="date_document" select="2"/>
-                <field name="amount_quote" select="2"/>
-                <field name="partner_id" select="1"/>
-                <field name="ref" select="1"/>
-                <field name="top_id" select="1"/>
-                <field name="top_id" select="1"/>
+                <field name="name" />
+                <field name="amount" />
+                <field name="date_document" />
+                <field name="amount_quote" />
+                <field name="partner_id" />
+                <field name="ref" />
+                <field name="top_id" />
+                <field name="top_id" />
                 <notebook colspan="4">
                   <page string="Invoice">
-                    <field name="note" select="2"/>
+                    <field name="note" />
                   </page>
                 </notebook>
               </form>
@@ -137,13 +137,13 @@ Modification of Parents (only for matching table prefixes)
                 <field name="note"/>
               </tree>
               <form string="Invoice">
-                <field name="name" select="2"/>
-                <field name="amount" select="2"/>
-                <field name="date_document" select="2"/>
-                <field name="amount_quote" select="2"/>
-                <field name="partner_id" select="1"/>
-                <field name="ref" select="1"/>
-                <field name="room_id" select="1"/>
+                <field name="name" />
+                <field name="amount" />
+                <field name="date_document" />
+                <field name="amount_quote" />
+                <field name="partner_id" />
+                <field name="ref" />
+                <field name="room_id" />
                 <notebook colspan="4">
                   <page string="Invoice">
                     <field name="note"/>

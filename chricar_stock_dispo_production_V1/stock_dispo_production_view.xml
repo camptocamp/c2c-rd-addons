@@ -50,35 +50,35 @@ generated 2010-04-02 15:01:02+02
           <field
             attrs="{ 'readonly': [('state','!=','draft')]} "
             name="product_id"
-            select="1"/>
+            />
           <field
             attrs="{ 'readonly': [('state','!=','draft')]} "
             name="date_expected"
-            select="1"/>
+            />
           <field
             attrs="{ 'readonly': [('state','!=','draft')]} "
             name="category"
-            select="1"/>
+            />
           <field
             attrs="{ 'readonly': [('state','!=','draft')]} "
             name="name"
             string="Assorted"
-            select="1"/>
+            />
           <field
             attrs="{ 'readonly': [('state','!=','draft')]} "
             name="product_id"
-            select="1"/>
+            />
           <field
             attrs="{ 'readonly': [('state','!=','draft')]} "
             name="product_qty"/>
           <field
             attrs="{ 'readonly': [('state','!=','draft')]} "
             name="location_id"
-            select="1"/>
+            />
           <field
             attrs="{ 'readonly': [('state','!=','draft')]} "
             name="location_dest_id"
-            select="1"/>
+            />
           <field
             attrs="{ 'readonly': [('state','!=','draft')]} "
             context="{'location_id':location_id, 'product_id':product_id}"
@@ -107,31 +107,31 @@ Dispo Production
           <field
             attrs="{ 'readonly': [('state','!=','draft')]} "
             name="date_expected"
-            select="1"/>
+            />
           <field
             attrs="{ 'readonly': [('state','!=','draft')]} "
             name="product_id"
-            select="1"/>
+            />
           <field
             attrs="{ 'readonly': [('state','!=','draft')]} "
             name="name"
             string="Assorted"
-            select="1"/>
+            />
           <field
             attrs="{ 'readonly': [('state','!=','draft')]} "
             name="product_qty"/>
           <field
             attrs="{ 'readonly': [('state','!=','draft')]} "
             name="category"
-            select="1"/>
+            />
           <field
             attrs="{ 'readonly': [('state','!=','draft')]} "
             name="location_id"
-            select="1"/>
+            />
           <field
             attrs="{ 'readonly': [('state','!=','draft')]} "
             name="location_dest_id"
-            select="1"/>
+            />
           <field
             attrs="{ 'readonly': [('state','!=','draft')]} "
             name="sequence"/>
@@ -247,15 +247,15 @@ Modification of Parents (only for matching table prefixes)
       <field name="arch" type="xml">
         <form string="Sales order">
           <group colspan="4" col="6">
-            <field name="name" select="1"/>
-            <field name="client_order_ref" select="2"/>
-            <field name="shipped" select="2"/>
+            <field name="name" />
+            <field name="client_order_ref" />
+            <field name="shipped" />
             <field
               name="shop_id"
               on_change="onchange_shop_id(shop_id)"
-              select="2"/>
-            <field name="date_order" select="1"/>
-            <field name="invoiced" select="2"/>
+              />
+            <field name="date_order" />
+            <field name="invoiced" />
             <field name="fiscal_position" groups="base.group_extended"/>
             <field
               domain="[('type','=','sale')]"
@@ -266,7 +266,7 @@ Modification of Parents (only for matching table prefixes)
             name="partner_id"
             on_change="onchange_partner_id(partner_id)"
             required="1"
-            select="1"/>
+            />
           <field
             domain="[('partner_id','=',partner_id)]"
             groups="base.group_extended"
@@ -298,12 +298,12 @@ Modification of Parents (only for matching table prefixes)
                 name="product_id"
                 on_change="product_id_change(parent.pricelist_id,price_unit_id,product_id,product_uom_qty,product_uom,product_uos_qty,product_uos,name,parent.partner_id, False, True, parent.date_order, product_packaging, parent.fiscal_position)"
                 required="1"
-                select="1"/>
+                />
               <field
                 context="{'partner_id':parent.partner_id,'product_qty':product_uom_qty,'pricelist':parent.pricelist_id,'shop':parent.shop_id,'uom':product_uom}"
                 name="product_uom_qty"
                 on_change="product_id_change(parent.pricelist_id,price_unit_id,product_id,product_uom_qty,product_uom,product_uos_qty,product_uos,name,parent.partner_id, False, False, parent.date_order, product_packaging, parent.fiscal_position, True)"
-                select="1"/>
+                />
               <field
                 name="product_uom"
                 on_change="product_uom_change(parent.pricelist_id,price_unit_id,product_id,product_uom_qty,product_uom,product_uos_qty,product_uos,name,parent.partner_id, False, False, parent.date_order)"/>
@@ -452,12 +452,12 @@ Modification of Parents (only for matching table prefixes)
                             <field
                               attrs="{ 'readonly': [('state','!=','draft')]} "
                               name="name"
-                              select="1"
+                              
                               string="Assortment"/>
                             <field
                               attrs="{ 'readonly': [('state','!=','draft')]} "
                               name="date_expected"
-                              select="1"/>
+                              />
                           </group>
                           <newline/>
                           <group string="Info" groups="base.group_extended">
@@ -467,7 +467,7 @@ Modification of Parents (only for matching table prefixes)
                             <field
                               attrs="{ 'readonly': [('state','!=','draft')]} "
                               name="category"
-                              select="1"/>
+                              />
                             <field
                               attrs="{ 'readonly': [('state','!=','draft')]} "
                               context="{'location_id':location_id, 'product_id':product_id}"
@@ -479,14 +479,14 @@ Modification of Parents (only for matching table prefixes)
                               colspan="4"
                               domain="[('usage', '=', 'internal')]"
                               name="location_id"
-                              select="1"/>
+                              />
                             <newline/>
                             <field
                               attrs="{ 'readonly': [('state','!=','draft')]} "
                               colspan="4"
                               domain="[('usage', 'in', ['internal','customer'])]"
                               name="location_dest_id"
-                              select="1"/>
+                              />
                             <newline/>
                             <field
                               attrs="{ 'readonly': [('state','!=','draft')]} "
@@ -583,14 +583,14 @@ Modification of Parents (only for matching table prefixes)
                           <field
                             attrs="{ 'readonly': [('state','!=','draft')]} "
                             name="date_expected"
-                            select="1"/>
+                            />
                           <field
                             attrs="{ 'readonly': [('state','!=','draft')]} "
                             name="sequence"/>
                           <field
                             attrs="{ 'readonly': [('state','!=','draft')]} "
                             name="name"
-                            select="1"/>
+                            />
                           <field
                             attrs="{ 'readonly': [('state','!=','draft')]} "
                             name="product_qty"
@@ -598,7 +598,7 @@ Modification of Parents (only for matching table prefixes)
                           <field
                             attrs="{ 'readonly': [('state','!=','draft')]} "
                             name="category"
-                            select="1"/>
+                            />
                           <field
                             attrs="{ 'readonly': [('state','!=','draft')]} "
                             context="{'location_id':location_id, 'product_id':product_id}"
@@ -610,14 +610,14 @@ Modification of Parents (only for matching table prefixes)
                             colspan="4"
                             domain="[('usage', '=', 'internal')]"
                             name="location_id"
-                            select="1"/>
+                            />
                           <newline/>
                           <field
                             attrs="{ 'readonly': [('state','!=','draft')]} "
                             colspan="4"
                             domain="[('usage', '=', 'internal')]"
                             name="location_dest_id"
-                            select="1"/>
+                            />
                           <newline/>
                           <field
                             attrs="{ 'readonly': [('state','!=','draft')]} "
@@ -714,14 +714,14 @@ Modification of Parents (only for matching table prefixes)
                           <field
                             attrs="{ 'readonly': [('state','!=','draft')]} "
                             name="date_expected"
-                            select="1"/>
+                            />
                           <field
                             attrs="{ 'readonly': [('state','!=','draft')]} "
                             name="sequence"/>
                           <field
                             attrs="{ 'readonly': [('state','!=','draft')]} "
                             name="name"
-                            select="1"/>
+                            />
                           <field
                             attrs="{ 'readonly': [('state','!=','draft')]} "
                             name="product_qty"
@@ -729,7 +729,7 @@ Modification of Parents (only for matching table prefixes)
                           <field
                             attrs="{ 'readonly': [('state','!=','draft')]} "
                             name="category"
-                            select="1"/>
+                            />
                           <field
                             attrs="{ 'readonly': [('state','!=','draft')]} "
                             context="{'location_id':location_id, 'product_id':product_id}"
@@ -741,14 +741,14 @@ Modification of Parents (only for matching table prefixes)
                             colspan="4"
                             domain="[('usage', '=', 'internal')]"
                             name="location_id"
-                            select="1"/>
+                            />
                           <newline/>
                           <field
                             attrs="{ 'readonly': [('state','!=','draft')]} "
                             colspan="4"
                             domain="[('usage', '=', 'internal')]"
                             name="location_dest_id"
-                            select="1"/>
+                            />
                           <newline/>
                           <field
                             attrs="{ 'readonly': [('state','!=','draft')]} "
@@ -847,14 +847,14 @@ Modification of Parents (only for matching table prefixes)
                           <field
                             attrs="{ 'readonly': [('state','!=','draft')]} "
                             name="date_expected"
-                            select="1"/>
+                            />
                           <field
                             attrs="{ 'readonly': [('state','!=','draft')]} "
                             name="sequence"/>
                           <field
                             attrs="{ 'readonly': [('state','!=','draft')]} "
                             name="name"
-                            select="1"/>
+                            />
                           <field
                             attrs="{ 'readonly': [('state','!=','draft')]} "
                             name="product_qty"
@@ -862,7 +862,7 @@ Modification of Parents (only for matching table prefixes)
                           <field
                             attrs="{ 'readonly': [('state','!=','draft')]} "
                             name="category"
-                            select="1"/>
+                            />
                           <field
                             attrs="{ 'readonly': [('state','!=','draft')]} "
                             context="{'location_id':location_id, 'product_id':product_id}"
@@ -874,14 +874,14 @@ Modification of Parents (only for matching table prefixes)
                             colspan="4"
                             domain="[('usage', '=', 'internal')]"
                             name="location_id"
-                            select="1"/>
+                            />
                           <newline/>
                           <field
                             attrs="{ 'readonly': [('state','!=','draft')]} "
                             colspan="4"
                             domain="[('usage', '=', 'internal')]"
                             name="location_dest_id"
-                            select="1"/>
+                            />
                           <newline/>
                           <field
                             attrs="{ 'readonly': [('state','!=','draft')]} "
@@ -978,14 +978,14 @@ Modification of Parents (only for matching table prefixes)
                           <field
                             attrs="{ 'readonly': [('state','!=','draft')]} "
                             name="date_expected"
-                            select="1"/>
+                            />
                           <field
                             attrs="{ 'readonly': [('state','!=','draft')]} "
                             name="sequence"/>
                           <field
                             attrs="{ 'readonly': [('state','!=','draft')]} "
                             name="name"
-                            select="1"/>
+                            />
                           <field
                             attrs="{ 'readonly': [('state','!=','draft')]} "
                             name="product_qty"
@@ -993,7 +993,7 @@ Modification of Parents (only for matching table prefixes)
                           <field
                             attrs="{ 'readonly': [('state','!=','draft')]} "
                             name="category"
-                            select="1"/>
+                            />
                           <field
                             attrs="{ 'readonly': [('state','!=','draft')]} "
                             context="{'location_id':location_id, 'product_id':product_id}"
@@ -1005,14 +1005,14 @@ Modification of Parents (only for matching table prefixes)
                             colspan="4"
                             domain="[('usage', '=', 'internal')]"
                             name="location_id"
-                            select="1"/>
+                            />
                           <newline/>
                           <field
                             attrs="{ 'readonly': [('state','!=','draft')]} "
                             colspan="4"
                             domain="[('usage', '=', 'inventory')]"
                             name="location_dest_id"
-                            select="1"/>
+                            />
                           <newline/>
                           <field
                             attrs="{ 'readonly': [('state','!=','draft')]} "
@@ -1050,12 +1050,12 @@ Modification of Parents (only for matching table prefixes)
                       <field
                         attrs="{ 'readonly': [('state','!=','draft')]} "
                         name="date_expected"
-                        select="1"
+                        
                         string="Production Date"/>
                       <field
                         attrs="{ 'readonly': [('state','!=','draft')]} "
                         name="name"
-                        select="1"
+                        
                         string="Assortment"/>
                       <field
                         attrs="{ 'readonly': [('state','!=','draft')]} "
@@ -1109,7 +1109,7 @@ Modification of Parents (only for matching table prefixes)
                           attrs="{ 'readonly': [('state','!=','draft')]} "
                           name="category"
                           on_change="on_change_dispo_product_qty(category,name,parent.quality, parent.location_id,parent.location_dest_id,parent.location_big_id,parent.location_small_id, parent.location_faulty_id, parent.location_waste_id, parent.prodlot_id,parent.product_packaging_id, parent.product_id, parent.product_uom, parent.price_unit_id, product_qty)"
-                          select="1"/>
+                          />
                         <newline/>
                         <field
                           attrs="{ 'readonly': [('state','!=','draft')]} "
@@ -1122,12 +1122,12 @@ Modification of Parents (only for matching table prefixes)
                         <field
                           attrs="{ 'readonly': [('state','!=','draft')]} "
                           name="name"
-                          select="1"
+                          
                           string="Assortment"/>
                         <field
                           attrs="{ 'readonly': [('state','!=','draft')]} "
                           name="date_expected"
-                          select="1"/>
+                          />
                       </group>
                       <newline/>
                       <group string="Info" groups="base.group_extended">
@@ -1145,14 +1145,14 @@ Modification of Parents (only for matching table prefixes)
                           colspan="4"
                           domain="[('usage', '=', 'internal')]"
                           name="location_id"
-                          select="1"/>
+                          />
                         <newline/>
                         <field
                           attrs="{ 'readonly': [('state','!=','draft')]} "
                           colspan="4"
                           domain="[('usage', 'in', ['internal','customer'])]"
                           name="location_dest_id"
-                          select="1"/>
+                          />
                         <newline/>
                         <field
                           attrs="{ 'readonly': [('state','!=','draft')]} "
@@ -1262,9 +1262,9 @@ Modification of Parents (only for matching table prefixes)
       <field name="type">form</field>
       <field name="arch" type="xml">
         <form string="Sales Order Lines">
-          <field name="order_id" select="1" readonly="1"/>
-          <field name="product_id" string="Reference" select="1" readonly="1"/>
-          <field name="move_state" select="1" readonly="1"/>
+          <field name="order_id"  readonly="1"/>
+          <field name="product_id" string="Reference"  readonly="1"/>
+          <field name="move_state"  readonly="1"/>
           <button
             attrs="{'invisible':[('move_state','=',False)]}"
             colspan="2"

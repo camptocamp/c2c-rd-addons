@@ -14,14 +14,14 @@ generated 2009-08-14 15:55:18+02
       <field name="type">form</field>
       <field name="arch" type="xml">
         <form string="Liquidity">
-          <field name="partner_comp_id" select="1"/>
-          <field name="date_planning" select="1"/>
-          <field name="amount" select="1"/>
-          <field name="amount_cum" select="1"/>
-          <field name="partner_comp_accumulated" select="1"/>
-          <field name="name" select="1"/>
-          <field name="category_id" select="1"/>
-          <field name="partner_id" select="1"/>
+          <field name="partner_comp_id" />
+          <field name="date_planning" />
+          <field name="amount" />
+          <field name="amount_cum" />
+          <field name="partner_comp_accumulated" />
+          <field name="name" />
+          <field name="category_id" />
+          <field name="partner_id" />
           <notebook colspan="4">
             <page string="invisible" invisible="1"/>
           </notebook>
@@ -35,14 +35,14 @@ generated 2009-08-14 15:55:18+02
       <field name="type">tree</field>
       <field name="arch" type="xml">
         <tree string="Liquidity" editable="bottom">
-          <field name="amount" select="2" sum="Sum Amount"/>
-          <field name="date_planning" select="1"/>
+          <field name="amount"  sum="Sum Amount"/>
+          <field name="date_planning" />
           <field name="amount_cum"/>
-          <field name="partner_comp_id" select="1"/>
+          <field name="partner_comp_id" />
           <field name="partner_comp_accumulated"/>
-          <field name="category_id" select="1"/>
-          <field name="name" select="1"/>
-          <field name="partner_id" select="2"/>
+          <field name="category_id" />
+          <field name="name" />
+          <field name="partner_id" />
         </tree>
       </field>
     </record>

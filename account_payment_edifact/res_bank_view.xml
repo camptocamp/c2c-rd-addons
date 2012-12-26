@@ -9,7 +9,7 @@
       <field name="type">form</field>
       <field name="arch" type="xml">
         <field name="country" position="replace">
-          <field name="country" select="2" required="1"/>
+          <field name="country"  required="1"/>
         </field>
       </field>
     </record>

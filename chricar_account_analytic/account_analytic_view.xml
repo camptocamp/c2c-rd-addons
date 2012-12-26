@@ -16,11 +16,11 @@ Modification of Account
 
           <group col="2" colspan="2">
             <separator string="Analytic" colspan="2"/>
-            <field name="account_analytic_usage" select="2"/>
+            <field name="account_analytic_usage" />
             <field
               domain="[('type','&lt;&gt;','view')]"
               name="analytic_account_id"
-              select="2"/>
+              />
           </group>
         </xpath>
       </field>

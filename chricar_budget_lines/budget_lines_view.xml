@@ -18,7 +18,7 @@ Production
       <field name="arch" type="xml">
         <form string="Budget Products Production">
           <group colspan="4" col="6">
-            <field name="budget_id" select="1" colspan="6"/>
+            <field name="budget_id"  colspan="6"/>
             <group colspan="4" col="4">
               <separator string="Dates" colspan="4"/>
               <field
@@ -26,57 +26,57 @@ Production
                 name="date_planning"
                 on_change="on_change_date(parent.budget_version_id,date_planning,payment_term_id)"
                 required="1"
-                select="1"/>
-              <field name="payment_term_id" select="1"/>
-              <field name="date_due" select="1" required="1"/>
+                />
+              <field name="payment_term_id" />
+              <field name="date_due"  required="1"/>
               <separator string="Values" colspan="4"/>
-              <field name="product_id" select="1" colspan="4"/>
-              <field name="name" select="1" colspan="4"/>
+              <field name="product_id"  colspan="4"/>
+              <field name="name"  colspan="4"/>
               <field
                 name="quantity_base"
                 on_change="on_change_quantity_base(quantity_base, parent.surface, parent.product_qty, price_unit,price_unit_id,price_factor,amount_bom)"
-                select="1"/>
+                />
               <field
                 name="quantity"
                 on_change="on_change_quantity(quantity,price_unit,price_unit_id,price_factor,amount_bom)"
-                select="1"/>
+                />
               <field
                 name="price_unit"
                 on_change="on_change_quantity(quantity,price_unit,price_unit_id,price_factor,amount_bom)"/>
               <field
                 name="price_unit_id"
                 on_change="on_change_quantity(quantity,price_unit,price_unit_id,price_factor,amount_bom)"/>
-              <field name="amount_production" select="1"/>
-              <field name="state" select="2"/>
-              <field name="bom_id" select="1" colspan="4"/>
+              <field name="amount_production" />
+              <field name="state" />
+              <field name="bom_id"  colspan="4"/>
               <field
                 name="amount_bom"
                 on_change="on_change_bom(amount_production,price_factor,amount_bom)"
-                select="1"/>
+                />
               <field
                 name="price_factor"
                 on_change="on_change_bom(amount_production,price_factor,amount_bom)"
-                select="1"/>
-              <field name="amount_cost" select="1"/>
-              <field name="currency_id" select="2"/>
+                />
+              <field name="amount_cost" />
+              <field name="currency_id" />
             </group>
             <group colspan="2" col="2">
               <separator string="Other Info" colspan="2"/>
               <field
                 domain="[('usage','=','production')]"
                 name="location_id"
-                select="1"/>
-              <field name="partner_id" select="1"/>
+                />
+              <field name="partner_id" />
               <field
                 domain="[('type','=','normal')]"
                 name="budget_item_id"
-                select="1"/>
-              <field name="budget_version_id" select="1"/>
+                />
+              <field name="budget_version_id" />
             </group>
           </group>
           <notebook colspan="4">
             <page string="Notes">
-              <field name="notes" select="1"/>
+              <field name="notes" />
             </page>
           </notebook>
         </form>
@@ -89,37 +89,37 @@ Production
       <field name="type">tree</field>
       <field name="arch" type="xml">
         <tree string="Budget Products Production">
-          <field name="budget_id" select="1"/>
-          <field name="date_planning" select="1"/>
-          <field name="date_due" select="1"/>
-          <field name="name" select="1"/>
+          <field name="budget_id" />
+          <field name="date_planning" />
+          <field name="date_due" />
+          <field name="name" />
           <field
             name="quantity_base"
             on_change="on_change_quantity_base(quantity_base,price_unit,price_unit_id,price_factor,amount_bom)"
-            select="1"/>
-          <field name="product_id" select="1"/>
+            />
+          <field name="product_id" />
           <field
             name="quantity"
             on_change="on_change_quantity(quantity,price_unit,price_unit_id,price_factor,amount_bom)"
-            select="1"/>
+            />
           <field
             name="price_unit"
             on_change="on_change_quantity(quantity,price_unit,price_unit_id,price_factor,amount_bom)"/>
           <field name="price_unit_id"/>
-          <field name="amount_production" select="1" sum="Cost"/>
-          <field name="bom_id" select="1"/>
+          <field name="amount_production"  sum="Cost"/>
+          <field name="bom_id" />
           <field
             name="price_factor"
             on_change="on_change_bom(amount_production,price_factor,amount_bom)"
-            select="1"/>
+            />
           <field
             name="amount_bom"
             on_change="on_change_bom(amount_production,price_factor,amount_bom)"
-            select="1"/>
-          <field name="amount_cost" select="1" sum="Subtotal"/>
-          <field name="location_id" select="1"/>
-          <field name="partner_id" select="1"/>
-          <field name="state" select="1"/>
+            />
+          <field name="amount_cost"  sum="Subtotal"/>
+          <field name="location_id" />
+          <field name="partner_id" />
+          <field name="state" />
         </tree>
       </field>
     </record>
@@ -157,57 +157,57 @@ Sales
       <field name="type">form</field>
       <field name="arch" type="xml">
         <form string="Budget Products Production">
-          <field name="budget_id" select="1" colspan="4"/>
+          <field name="budget_id"  colspan="4"/>
           <group colspan="2" col="4">
             <separator string="Dates" colspan="4"/>
             <field
               colspan="4"
               name="date_planning"
               on_change="on_change_date(parent.budget_version_id,parent.product_id,parent.price_unit_id,date_planning,payment_term_id)"
-              select="1"/>
-            <field name="payment_term_id" select="1" colspan="4"/>
-            <field name="date_due" select="1" colspan="4"/>
+              />
+            <field name="payment_term_id"  colspan="4"/>
+            <field name="date_due"  colspan="4"/>
             <separator string="Values" colspan="4"/>
-            <field name="name" select="1"/>
+            <field name="name" />
             <field
               colspan="4"
               name="quantity"
               on_change="on_change_quantity(quantity,price_unit,price_unit_id, amount_bom)"
-              select="1"/>
+              />
             <field
               name="price_unit"
               on_change="on_change_quantity(quantity,price_unit,price_unit_id, amount_bom)"/>
             <field
               name="price_unit_id"
               on_change="on_change_quantity(quantity,price_unit,price_unit_id, amount_bom)"/>
-            <field name="amount_sales" select="1"/>
-            <field name="state" select="2"/>
+            <field name="amount_sales" />
+            <field name="state" />
             <field
               name="amount_bom"
               on_change="on_change_bom(amount_sales, amount_bom)"
-              select="1"/>
-            <field name="bom_id" select="1"/>
-            <field name="amount" select="1"/>
+              />
+            <field name="bom_id" />
+            <field name="amount" />
           </group>
           <group colspan="2" col="2">
             <separator string="Other Info" colspan="2"/>
             <!--
-            <field name="location_id" select="1"/>
+            <field name="location_id" />
             -->
-            <field name="partner_id" select="1"/>
+            <field name="partner_id" />
             <!-- FIXME
-                             <field name="product_id" select="1" />
+                             <field name="product_id"  />
                              -->
-            <field name="analytic_account_id" select="1"/>
-            <field name="budget_version_id" select="1"/>
+            <field name="analytic_account_id" />
+            <field name="budget_version_id" />
             <field
               domain="[('type','=','normal')]"
               name="budget_item_id"
-              select="1"/>
+              />
           </group>
           <notebook colspan="4">
             <page string="Notes">
-              <field name="notes" select="1"/>
+              <field name="notes" />
             </page>
           </notebook>
         </form>
@@ -223,29 +223,29 @@ Sales
           <field
             name="date_planning"
             on_change="on_change_date(parent.budget_version_id,date_planning,payment_term_id)"
-            select="1"/>
-          <field name="date_due" select="1"/>
-          <field name="partner_id" select="1"/>
+            />
+          <field name="date_due" />
+          <field name="partner_id" />
           <field
             colspan="4"
             name="quantity"
             on_change="on_change_quantity(quantity,price_unit,price_unit_id, amount_bom)"
-            select="1"/>
+            />
           <field
             name="price_unit"
             on_change="on_change_quantity(quantity,price_unit,price_unit_id, amount_bom)"/>
           <field
             name="price_unit_id"
             on_change="on_change_quantity(quantity,price_unit,price_unit_id, amount_bom)"/>
-          <field name="amount_sales" select="1" sum="Amount Sales"/>
-          <field name="bom_id" select="1"/>
+          <field name="amount_sales"  sum="Amount Sales"/>
+          <field name="bom_id" />
           <field
             name="amount_bom"
             on_change="on_change_bom(amount_sales, amount_bom)"
-            select="1"/>
-          <field name="amount" select="1" sum="Amount"/>
-          <field name="name" select="1"/>
-          <field name="state" select="2"/>
+            />
+          <field name="amount"  sum="Amount"/>
+          <field name="name" />
+          <field name="state" />
         </tree>
       </field>
     </record>
@@ -290,29 +290,29 @@ Modification of Parents (only for matching table prefixes)
                 <field
                   name="date_planning"
                   on_change="on_change_date(parent.budget_version_id,parent.product_id,parent.price_unit_id,date_planning,payment_term_id)"
-                  select="1"/>
-                <field name="date_due" select="1"/>
-                <field name="partner_id" select="1"/>
+                  />
+                <field name="date_due" />
+                <field name="partner_id" />
                 <field
                   colspan="4"
                   name="quantity"
                   on_change="on_change_quantity(quantity,price_unit,price_unit_id, amount_bom)"
-                  select="1"/>
+                  />
                 <field
                   name="price_unit"
                   on_change="on_change_quantity(quantity,price_unit,price_unit_id, amount_bom)"/>
                 <field
                   name="price_unit_id"
                   on_change="on_change_quantity(quantity,price_unit,price_unit_id, amount_bom)"/>
-                <field name="amount_sales" select="1" sum="Sum Amount Sales"/>
-                <field name="bom_id" select="1"/>
+                <field name="amount_sales"  sum="Sum Amount Sales"/>
+                <field name="bom_id" />
                 <field
                   name="amount_bom"
                   on_change="on_change_bom(amount_sales, amount_bom)"
-                  select="1"/>
-                <field name="amount" select="1" sum="Sum Amount"/>
-                <field name="name" select="1"/>
-                <field name="state" select="1"/>
+                  />
+                <field name="amount"  sum="Sum Amount"/>
+                <field name="name" />
+                <field name="state" />
               </tree>
               <form string="Sales">
                 <group colspan="2" col="4">
@@ -321,16 +321,16 @@ Modification of Parents (only for matching table prefixes)
                     name="date_planning"
                     on_change="on_change_date(parent.budget_version_id,parent.product_id,parent.price_unit_id,date_planning,payment_term_id)"
                     required="1"
-                    select="1"/>
-                  <field name="period_id" select="1" required="1"/>
-                  <field name="date_due" select="1" required="1"/>
-                  <field name="payment_term_id" select="1"/>
+                    />
+                  <field name="period_id"  required="1"/>
+                  <field name="date_due"  required="1"/>
+                  <field name="payment_term_id" />
                   <separator string="Values" colspan="4"/>
-                  <field name="name" select="1" colspan="4"/>
+                  <field name="name"  colspan="4"/>
                   <field
                     name="quantity"
                     on_change="on_change_quantity(quantity,price_unit,price_unit_id, amount_bom)"
-                    select="1"/>
+                    />
                   <newline/>
                   <field
                     name="price_unit"
@@ -338,27 +338,27 @@ Modification of Parents (only for matching table prefixes)
                   <field
                     name="price_unit_id"
                     on_change="on_change_quantity(quantity,price_unit,price_unit_id, amount_bom)"/>
-                  <field name="amount_sales" select="1"/>
-                  <field name="state" select="2"/>
+                  <field name="amount_sales" />
+                  <field name="state" />
                   <newline/>
                   <field
                     name="amount_bom"
                     on_change="on_change_bom(amount_sales, amount_bom)"
-                    select="1"/>
-                  <field name="bom_id" select="1"/>
-                  <field name="amount" select="1"/>
-                  <field name="currency_id" select="1"/>
+                    />
+                  <field name="bom_id" />
+                  <field name="amount" />
+                  <field name="currency_id" />
                 </group>
                 <group colspan="2" col="2">
-                  <field name="partner_id" select="1"/>
-                  <field name="analytic_account_id" select="1"/>
-                  <field name="budget_version_id" select="1"/>
+                  <field name="partner_id" />
+                  <field name="analytic_account_id" />
+                  <field name="budget_version_id" />
                   <field
                     domain="[('type','=','normal')]"
                     name="budget_item_id"
-                    select="1"/>
+                    />
                   <separator string="Notes" colspan="2"/>
-                  <field name="notes" select="2" nolabel="1" colspan="2"/>
+                  <field name="notes"  nolabel="1" colspan="2"/>
                 </group>
               </form>
             </field>
@@ -370,38 +370,38 @@ Modification of Parents (only for matching table prefixes)
                   name="date_planning"
                   on_change="on_change_date(parent.budget_version_id,date_planning,payment_term_id)"
                   required="1"
-                  select="1"/>
-                <field name="date_due" select="1" required="1"/>
-                <field name="name" select="1"/>
+                  />
+                <field name="date_due"  required="1"/>
+                <field name="name" />
                 <field
                   name="quantity_base"
                   on_change="on_change_quantity_base(quantity_base, parent.surface, parent.product_qty, price_unit,price_unit_id,price_factor,amount_bom)"
-                  select="1"/>
+                  />
                 <field name="product_id"/>
                 <field
                   name="quantity"
                   on_change="on_change_quantity(quantity,price_unit,price_unit_id,price_factor,amount_bom)"
-                  select="1"/>
+                  />
                 <field
                   name="price_unit"
                   on_change="on_change_quantity(quantity,price_unit,price_unit_id,price_factor,amount_bom)"/>
                 <field
                   name="price_unit_id"
                   on_change="on_change_quantity(quantity,price_unit,price_unit_id,price_factor,amount_bom)"/>
-                <field name="amount_production" select="1" sum="Amount Production"/>
-                <field name="bom_id" select="1"/>
+                <field name="amount_production"  sum="Amount Production"/>
+                <field name="bom_id" />
                 <field
                   name="price_factor"
                   on_change="on_change_bom(amount_production,price_factor,amount_bom)"
-                  select="1"/>
+                  />
                 <field
                   name="amount_bom"
                   on_change="on_change_bom(amount_production,price_factor,amount_bom)"
-                  select="1"/>
-                <field name="amount_cost" select="1" sum="Amount Cost"/>
-                <field name="location_id" select="1"/>
-                <field name="partner_id" select="1"/>
-                <field name="state" select="2"/>
+                  />
+                <field name="amount_cost"  sum="Amount Cost"/>
+                <field name="location_id" />
+                <field name="partner_id" />
+                <field name="state" />
               </tree>
               <form string="Production Costs">
                 <group colspan="2" col="4">
@@ -409,52 +409,52 @@ Modification of Parents (only for matching table prefixes)
                   <field
                     name="date_planning"
                     on_change="on_change_date(parent.budget_version_id,date_planning,payment_term_id)"
-                    select="1"/>
-                  <field name="period_id" select="1"/>
-                  <field name="date_due" select="1"/>
-                  <field name="payment_term_id" select="1"/>
+                    />
+                  <field name="period_id" />
+                  <field name="date_due" />
+                  <field name="payment_term_id" />
                   <separator string="Values" colspan="4"/>
-                  <field name="product_id" select="1" colspan="4"/>
-                  <field name="name" select="1" colspan="4"/>
+                  <field name="product_id"  colspan="4"/>
+                  <field name="name"  colspan="4"/>
                   <field
                     name="quantity"
                     on_change="on_change_quantity(quantity,price_unit,price_unit_id,price_factor,amount_bom)"
-                    select="1"/>
+                    />
                   <field
                     name="quantity_base"
                     on_change="on_change_quantity_base(quantity_base, parent.surface, parent.product_qty, price_unit,price_unit_id,price_factor,amount_bom)"
-                    select="1"/>
+                    />
                   <field
                     name="price_unit"
                     on_change="on_change_quantity(quantity,price_unit,price_unit_id,price_factor,amount_bom)"/>
                   <field name="price_unit_id"/>
-                  <field name="amount_production" select="1"/>
-                  <field name="state" select="1"/>
+                  <field name="amount_production" />
+                  <field name="state" />
                   <newline/>
-                  <field name="bom_id" select="1" colspan="4"/>
+                  <field name="bom_id"  colspan="4"/>
                   <field
                     name="amount_bom"
                     on_change="on_change_bom(amount_production,price_factor,amount_bom)"
-                    select="1"/>
+                    />
                   <field
                     name="price_factor"
                     on_change="on_change_bom(amount_production,price_factor,amount_bom)"
-                    select="1"/>
-                  <field name="amount_cost" select="1"/>
-                  <field name="currency_id" select="1"/>
+                    />
+                  <field name="amount_cost" />
+                  <field name="currency_id" />
                   <field name="amount" invisible="1"/>
                 </group>
                 <group colspan="2" col="2">
-                  <field name="location_id" select="1"/>
-                  <field name="partner_id" select="1"/>
-                  <field name="analytic_account_id" select="1"/>
-                  <field name="budget_version_id" select="1"/>
+                  <field name="location_id" />
+                  <field name="partner_id" />
+                  <field name="analytic_account_id" />
+                  <field name="budget_version_id" />
                   <field
                     domain="[('type','=','normal')]"
                     name="budget_item_id"
-                    select="1"/>
+                    />
                   <separator string="Notes" colspan="2"/>
-                  <field name="notes" select="2" nolabel="1" colspan="2"/>
+                  <field name="notes"  nolabel="1" colspan="2"/>
                 </group>
               </form>
             </field>
@@ -558,7 +558,7 @@ Modification of c2c_budget lines
           <field
             name="date_planning"
             on_change="on_change_date( date_planning)"/>
-          <field name="date_due" select="1"/>
+          <field name="date_due" />
           <field name="state"/>
         </field>
       </field>
@@ -572,7 +572,7 @@ Modification of c2c_budget lines
           <field name="amount_cash" sum="Total Cash"/>
           <field name="amount_cash_cum"/>
           <field name="amount_p_l" sum="Total PL"/>
-          <field name="is_current" select="1"/>
+          <field name="is_current" />
         </field>
       </field>
     </record>
@@ -587,7 +587,7 @@ Modification of c2c_budget lines
             name="date_planning"
             on_change="on_change_date( date_planning)"/>
           <field name="date_due"/>
-          <field name="state" select="2"/>
+          <field name="state" />
         </field>
       </field>
     </record>
@@ -657,7 +657,7 @@ chricar_budget lines_share
       <field name="type">tree</field>
       <field name="arch" type="xml">
         <tree string="Budget Lines Owner Share">
-          <field name="cal_year" select="1"/>
+          <field name="cal_year" />
           <field name="budget_version_id"/>
           <field name="budget_item_id"/>
           <field name="analytic_account_id"/>
@@ -692,31 +692,31 @@ chricar_budget lines_share
       <field name="type">form</field>
       <field name="arch" type="xml">
         <form string="Budget Lines Owner Share">
-          <field name="cal_year" select="1"/>
-          <field name="budget_version_id" select="1"/>
-          <field name="budget_item_id" select="1"/>
-          <field name="analytic_account_id" select="1"/>
-          <field name="period_id" select="1"/>
-          <field name="date_planning" select="1"/>
-          <field name="date_due" select="1"/>
-          <field name="partner_id" select="1"/>
-          <field name="partner_parent_id" select="1"/>
-          <field name="level" select="2"/>
-          <field name="amount_orig" select="2"/>
-          <field name="percentage" select="2"/>
-          <field name="valid_from" select="2"/>
-          <field name="valid_until" select="2"/>
-          <field name="cash_quote" select="2"/>
-          <field name="cash_quote_future" select="2"/>
-          <field name="pl_quote" select="2"/>
-          <field name="name" select="1"/>
-          <field name="state" select="1"/>
-          <field name="consolidation" select="2"/>
-          <field name="partner_parent2_id" select="2"/>
-          <field name="consolidation2" select="2"/>
-          <field name="partner_parent3_id" select="2"/>
-          <field name="consolidation3" select="2"/>
-          <field name="consolidation_only" select="1"/>
+          <field name="cal_year" />
+          <field name="budget_version_id" />
+          <field name="budget_item_id" />
+          <field name="analytic_account_id" />
+          <field name="period_id" />
+          <field name="date_planning" />
+          <field name="date_due" />
+          <field name="partner_id" />
+          <field name="partner_parent_id" />
+          <field name="level" />
+          <field name="amount_orig" />
+          <field name="percentage" />
+          <field name="valid_from" />
+          <field name="valid_until" />
+          <field name="cash_quote" />
+          <field name="cash_quote_future" />
+          <field name="pl_quote" />
+          <field name="name" />
+          <field name="state" />
+          <field name="consolidation" />
+          <field name="partner_parent2_id" />
+          <field name="consolidation2" />
+          <field name="partner_parent3_id" />
+          <field name="consolidation3" />
+          <field name="consolidation_only" />
         </form>
       </field>
     </record>

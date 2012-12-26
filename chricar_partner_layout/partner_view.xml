@@ -15,7 +15,7 @@ Partner Layout
       <field name="inherit_id" ref="base.view_partner_form"/>
       <field name="arch" type="xml">
         <field name="name" position="replace">
-          <field name="name" select="1" colspan="6"/>
+          <field name="name"  colspan="6"/>
         </field>
       </field>
     </record>

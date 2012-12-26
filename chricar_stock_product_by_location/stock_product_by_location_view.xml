@@ -14,19 +14,19 @@ generated 2009-09-19 23:51:03+02
       <field name="type">form</field>
       <field name="arch" type="xml">
         <form string="Product Moves by Location">
-          <field name="categ_id" select="1"/>
-          <field name="date" select="1"/>
-          <field name="picking_id" select="1"/>
-          <field name="production_id" select="1"/>
-          <field name="order_id" select="1"/>
-          <field name="sale_line_id" select="1"/>
-          <field name="prodlot_id" select="1"/>
-          <field name="product_id" select="1"/>
-          <field name="uom_id" select="1"/>
-          <field name="location_id" select="1"/>
-          <field name="name" select="1"/>
-          <field name="product_qty_pending" select="1"/>
-          <field name="move_value_cost" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant" select="1"/>
+          <field name="categ_id" />
+          <field name="date" />
+          <field name="picking_id" />
+          <field name="production_id" />
+          <field name="order_id" />
+          <field name="sale_line_id" />
+          <field name="prodlot_id" />
+          <field name="product_id" />
+          <field name="uom_id" />
+          <field name="location_id" />
+          <field name="name" />
+          <field name="product_qty_pending" />
+          <field name="move_value_cost" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant" />
           <field name="average_price" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant"/>
           <notebook colspan="4">
             <page string="invisible" invisible="1"/>
@@ -41,18 +41,18 @@ generated 2009-09-19 23:51:03+02
       <field name="type">tree</field>
       <field name="arch" type="xml">
         <tree string="Product Moves by Location" editable="bottom">
-          <field name="categ_id" select="1"/>
-          <field name="date" select="1"/>
-          <field name="product_id" select="1"/>
-          <field name="uom_id" select="1"/>
-          <field name="name" select="1" sum="Product Qty"/>
-          <field name="product_qty_pending" select="1" sum="Product Qty Pending"/>
-          <field name="picking_id" select="1"/>
-          <field name="production_id" select="1"/>
-          <field name="order_id" select="1"/>
-          <field name="prodlot_id" select="1"/>
-          <field name="location_id" select="1"/>
-          <field name="move_value_cost" select="1" sum="Sum Amount" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant"/>
+          <field name="categ_id" />
+          <field name="date" />
+          <field name="product_id" />
+          <field name="uom_id" />
+          <field name="name"  sum="Product Qty"/>
+          <field name="product_qty_pending"  sum="Product Qty Pending"/>
+          <field name="picking_id" />
+          <field name="production_id" />
+          <field name="order_id" />
+          <field name="prodlot_id" />
+          <field name="location_id" />
+          <field name="move_value_cost"  sum="Sum Amount" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant"/>
           <field name="average_price" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant"/>
         </tree>
       </field>
@@ -94,12 +94,12 @@ generated 2009-09-19 23:51:03+02
       <field name="type">form</field>
       <field name="arch" type="xml">
         <form string="Product by Stock ">
-          <field name="categ_id" select="1"/>
-          <field name="product_id" select="1"/>
-          <field name="location_id" select="1"/>
-          <field name="name" select="1"/>
-          <field name="product_qty_pending" select="1"/>
-          <field name="amount" groups="base.group_extended" select="1"/>
+          <field name="categ_id" />
+          <field name="product_id" />
+          <field name="location_id" />
+          <field name="name" />
+          <field name="product_qty_pending" />
+          <field name="amount" groups="base.group_extended" />
           <field name="average_price" groups="base.group_extended"/>
           <notebook colspan="4">
             <page string="invisible" invisible="1"/>
@@ -114,13 +114,13 @@ generated 2009-09-19 23:51:03+02
       <field name="type">tree</field>
       <field name="arch" type="xml">
         <tree string="Product by Stock (cost)" editable="bottom">
-          <field name="categ_id" select="1"/>
-          <field name="product_id" select="1"/>
-          <field name="uom_id" select="1"/>
-          <field name="location_id" select="1"/>
-          <field name="name" select="1" sum="Product Qty"/>
-          <field name="product_qty_pending" select="1" sum="Product Qty Pending"/>
-          <field name="amount" select="1" sum="Sum Amount" groups="base.group_extended"/>
+          <field name="categ_id" />
+          <field name="product_id" />
+          <field name="uom_id" />
+          <field name="location_id" />
+          <field name="name"  sum="Product Qty"/>
+          <field name="product_qty_pending"  sum="Product Qty Pending"/>
+          <field name="amount"  sum="Sum Amount" groups="base.group_extended"/>
           <field name="average_price" groups="base.group_extended"/>
           <field name="cost_method" groups="base.group_extended"/>
         </tree>
@@ -169,13 +169,13 @@ generated 2009-09-19 23:51:03+02
       <field name="type">form</field>
       <field name="arch" type="xml">
         <form string="Product by Stock ">
-          <field name="categ_id" select="1"/>
-          <field name="product_id" select="1"/>
-          <field name="location_id" select="1"/>
-          <field name="prodlot_id" select="1"/>
-          <field name="name" select="1"/>
-          <field name="product_qty_pending" select="1"/>
-          <field name="amount" select="1" groups="base.group_extended"/>
+          <field name="categ_id" />
+          <field name="product_id" />
+          <field name="location_id" />
+          <field name="prodlot_id" />
+          <field name="name" />
+          <field name="product_qty_pending" />
+          <field name="amount"  groups="base.group_extended"/>
           <field name="average_price" groups="base.group_extended"/>
           <notebook colspan="4">
             <page string="invisible" invisible="1"/>
@@ -190,14 +190,14 @@ generated 2009-09-19 23:51:03+02
       <field name="type">tree</field>
       <field name="arch" type="xml">
         <tree string="Product by Stock " editable="bottom">
-          <field name="categ_id" select="1"/>
-          <field name="product_id" select="1"/>
-          <field name="uom_id" select="1"/>
-          <field name="location_id" select="1"/>
-          <field name="prodlot_id" select="1"/>
-          <field name="name" select="1" sum="Product Qty"/>
-          <field name="product_qty_pending" select="1" sum="Product Qty Pending"/>
-          <field name="amount" select="1" sum="Sum Amount" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant"/>
+          <field name="categ_id" />
+          <field name="product_id" />
+          <field name="uom_id" />
+          <field name="location_id" />
+          <field name="prodlot_id" />
+          <field name="name"  sum="Product Qty"/>
+          <field name="product_qty_pending"  sum="Product Qty Pending"/>
+          <field name="amount"  sum="Sum Amount" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant"/>
           <field name="average_price" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant"/>
           <field name="cost_method" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant"/>
         </tree>
@@ -235,20 +235,20 @@ generated 2009-09-19 23:51:03+02
       <field name="type">form</field>
       <field name="arch" type="xml">
         <form string="Stock Moves DBA">
-          <field name="picking_id" select="1"/>
-          <field name="date" select="1"/>
-          <field name="product_id" select="1"/>
-          <field name="location_id" select="1"/>
-          <field name="location_dest_id" select="1"/>
-          <field name="prodlot_id" select="1"/>
-          <field name="product_qty" select="1"/>
-          <field name="move_value_cost" select="1" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant"/>
-          <field name="move_value_sale" select="1" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant"/>
+          <field name="picking_id" />
+          <field name="date" />
+          <field name="product_id" />
+          <field name="location_id" />
+          <field name="location_dest_id" />
+          <field name="prodlot_id" />
+          <field name="product_qty" />
+          <field name="move_value_cost"  groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant"/>
+          <field name="move_value_sale"  groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant"/>
           <!--
-          <field name="price_unit_id" select="1"/>
-          <field name="price_unit_sale_id" select="1"/>
+          <field name="price_unit_id" />
+          <field name="price_unit_sale_id" />
           -->
-          <field name="name" select="1"/>
+          <field name="name" />
           <field name="state" invisible="1"/>
         </form>
       </field>
@@ -260,22 +260,22 @@ generated 2009-09-19 23:51:03+02
       <field name="type">tree</field>
       <field name="arch" type="xml">
         <tree string="Stock Moves DBA" editable="bottom" colors="grey:state=='cancel';blue:state=='draft'">
-          <field name="picking_id" select="1"/>
-          <field name="date" select="1"/>
-          <field name="product_id" select="1"/>
-          <field name="location_id" select="1"/>
-          <field name="location_dest_id" select="1"/>
-          <field name="prodlot_id" select="1"/>
-          <field name="product_qty" select="1" sum="Product Qty"/>
-          <field name="move_value_cost" select="1" sum="Value Cost" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant"/>
-          <field name="avg_price_calc" select="1" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant"/>
-          <field name="move_value_sale" select="1" sum="Value Sale" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant"/>
+          <field name="picking_id" />
+          <field name="date" />
+          <field name="product_id" />
+          <field name="location_id" />
+          <field name="location_dest_id" />
+          <field name="prodlot_id" />
+          <field name="product_qty"  sum="Product Qty"/>
+          <field name="move_value_cost"  sum="Value Cost" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant"/>
+          <field name="avg_price_calc"  groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant"/>
+          <field name="move_value_sale"  sum="Value Sale" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant"/>
           <!--
-          <field name="price_unit_id" select="1"/>
-          <field name="price_unit_sale_id" select="1"/>
+          <field name="price_unit_id" />
+          <field name="price_unit_sale_id" />
 -->
-          <field name="name" select="1"/>
-          <field name="state" select="1"/>
+          <field name="name" />
+          <field name="state" />
         </tree>
       </field>
     </record>

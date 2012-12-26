@@ -10,9 +10,9 @@
             <field name="type">form</field>
             <field name="arch" type="xml">
                 <form string="Activity">
-                    <field name="name" select="1"/>
-                    <field name="code" select="1"/>
-                    <field name="parent_id" select="1"/>
+                    <field name="name" />
+                    <field name="code" />
+                    <field name="parent_id" />
                     <!-- <field name="type" /> -->
                     <field name="project_ids" colspan="4"/>
                 </form>
@@ -115,8 +115,8 @@
             <field name="inherit_id" ref="account.view_account_analytic_line_form" />
             <field name="type">form</field>
             <field name="arch" type="xml">
-                <field name="unit_amount" select="2" position="after">
-                    <field name="activity" select="2"/>
+                <field name="unit_amount"  position="after">
+                    <field name="activity" />
                 </field>
             </field>
         </record>
@@ -127,7 +127,7 @@
             <field name="type">tree</field>
             <field name="arch" type="xml">
                 <field name="unit_amount" sum="Total quantity" on_change="on_change_unit_amount(product_id, unit_amount, product_uom_id)" position="after">
-                    <field name="activity" select="2"/>
+                    <field name="activity" />
                 </field>
             </field>
         </record>

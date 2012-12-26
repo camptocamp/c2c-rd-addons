@@ -14,22 +14,22 @@ generated 2009-07-11 12:22:10+02
       <field name="type">form</field>
       <field name="arch" type="xml">
         <form string="Room">
-          <field name="name" select="2"/>
-          <field name="top_id" select="2"/>
-          <field name="sequence" select="2"/>
-          <field name="size" select="2"/>
-          <field name="height" select="1"/>
-          <field name="tv_cable" select="2"/>
-          <field name="tv_sat" select="2"/>
-          <field name="telephon" select="2"/>
-          <field name="windows" select="1"/>
-          <field name="balcony" select="1"/>
-          <field name="terrace" select="1"/>
-          <field name="garden_access" select="1"/>
-          <field name="floor" select="1"/>
+          <field name="name" />
+          <field name="top_id" />
+          <field name="sequence" />
+          <field name="size" />
+          <field name="height" />
+          <field name="tv_cable" />
+          <field name="tv_sat" />
+          <field name="telephon" />
+          <field name="windows" />
+          <field name="balcony" />
+          <field name="terrace" />
+          <field name="garden_access" />
+          <field name="floor" />
           <notebook colspan="4">
             <page string="Notes">
-              <field name="note" select="2"/>
+              <field name="note" />
             </page>
           </notebook>
         </form>
@@ -42,19 +42,19 @@ generated 2009-07-11 12:22:10+02
       <field name="type">tree</field>
       <field name="arch" type="xml">
         <tree string="Room" editable="bottom">
-          <field name="top_id" select="1"/>
+          <field name="top_id" />
           <field name="sequence"/>
-          <field name="name" select="2" colspan="4"/>
-          <field name="size" select="2"/>
-          <field name="height" select="2"/>
-          <field name="tv_cable" select="1"/>
-          <field name="tv_sat" select="1"/>
-          <field name="telephon" select="1"/>
-          <field name="windows" select="2"/>
-          <field name="balcony" select="2"/>
-          <field name="terrace" select="2"/>
-          <field name="garden_access" select="2"/>
-          <field name="floor" select="2"/>
+          <field name="name"  colspan="4"/>
+          <field name="size" />
+          <field name="height" />
+          <field name="tv_cable" />
+          <field name="tv_sat" />
+          <field name="telephon" />
+          <field name="windows" />
+          <field name="balcony" />
+          <field name="terrace" />
+          <field name="garden_access" />
+          <field name="floor" />
         </tree>
       </field>
     </record>
@@ -98,34 +98,34 @@ Modification of Parents (only for matching table prefixes)
             <field name="room_ids" widget="one2many_list" colspan="4" nolabel="1">
               <tree string="Rooms" editable="bottom">
                 <field name="sequence"/>
-                <field name="name" select="2" colspan="4"/>
-                <field name="size" select="2"/>
-                <field name="height" select="2"/>
-                <field name="tv_cable" select="1"/>
-                <field name="tv_sat" select="1"/>
-                <field name="telephon" select="1"/>
-                <field name="windows" select="2"/>
-                <field name="balcony" select="2"/>
-                <field name="terrace" select="2"/>
-                <field name="garden_access" select="2"/>
-                <field name="floor" select="2"/>
+                <field name="name"  colspan="4"/>
+                <field name="size" />
+                <field name="height" />
+                <field name="tv_cable" />
+                <field name="tv_sat" />
+                <field name="telephon" />
+                <field name="windows" />
+                <field name="balcony" />
+                <field name="terrace" />
+                <field name="garden_access" />
+                <field name="floor" />
               </tree>
               <form string="Room">
-                <field name="name" select="2"/>
-                <field name="sequence" select="2"/>
-                <field name="size" select="2"/>
-                <field name="height" select="1"/>
-                <field name="tv_cable" select="2"/>
-                <field name="tv_sat" select="2"/>
-                <field name="telephon" select="2"/>
-                <field name="windows" select="1"/>
-                <field name="balcony" select="1"/>
-                <field name="terrace" select="1"/>
-                <field name="garden_access" select="1"/>
-                <field name="floor" select="1"/>
+                <field name="name" />
+                <field name="sequence" />
+                <field name="size" />
+                <field name="height" />
+                <field name="tv_cable" />
+                <field name="tv_sat" />
+                <field name="telephon" />
+                <field name="windows" />
+                <field name="balcony" />
+                <field name="terrace" />
+                <field name="garden_access" />
+                <field name="floor" />
                 <notebook colspan="4">
                   <page string="Notes">
-                    <field name="note" select="2"/>
+                    <field name="note" />
                   </page>
                 </notebook>
               </form>

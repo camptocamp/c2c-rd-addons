@@ -13,10 +13,10 @@ Deloitte tax codes
       <field name="type">form</field>
       <field name="arch" type="xml">
         <form string="Account Moves Import Deny">
-          <field name="name" select="1"/>
-          <field name="code" select="1"/>
-          <field name="percent" select="1"/>
-          <field name="account_id" select="1"/>
+          <field name="name" />
+          <field name="code" />
+          <field name="percent" />
+          <field name="account_id" />
           <notebook colspan="4">
             <page string="invisible" invisible="1"/>
           </notebook>
@@ -30,10 +30,10 @@ Deloitte tax codes
       <field name="type">tree</field>
       <field name="arch" type="xml">
         <tree string="Account Moves Import Deny" editable="top">
-          <field name="code" select="1"/>
-          <field name="name" select="1"/>
-          <field name="percent" select="1"/>
-          <field name="account_id" select="1"/>
+          <field name="code" />
+          <field name="name" />
+          <field name="percent" />
+          <field name="account_id" />
         </tree>
       </field>
     </record>
@@ -78,10 +78,10 @@ Account Moves symbol import deny
       <field name="type">form</field>
       <field name="arch" type="xml">
         <form string="Account Moves Import Deny">
-          <field name="name" select="1"/>
-          <field name="code" select="1"/>
-          <field name="date_start" select="1"/>
-          <field name="date_stop" select="1"/>
+          <field name="name" />
+          <field name="code" />
+          <field name="date_start" />
+          <field name="date_stop" />
           <notebook colspan="4">
             <page string="invisible" invisible="1"/>
           </notebook>
@@ -95,10 +95,10 @@ Account Moves symbol import deny
       <field name="type">tree</field>
       <field name="arch" type="xml">
         <tree string="Account Moves Import Deny">
-          <field name="code" select="1"/>
-          <field name="name" select="1"/>
-          <field name="date_start" select="1"/>
-          <field name="date_stop" select="1"/>
+          <field name="code" />
+          <field name="name" />
+          <field name="date_start" />
+          <field name="date_stop" />
         </tree>
       </field>
     </record>
@@ -138,10 +138,10 @@ Deloitte Opening Balance + Accounts
       <field name="type">form</field>
       <field name="arch" type="xml">
         <form string="Account Opening Balance">
-          <field name="amount" select="1"/>
-          <field name="account" select="1"/>
-          <field name="name" select="1"/>
-          <field name="date" select="1"/>
+          <field name="amount" />
+          <field name="account" />
+          <field name="name" />
+          <field name="date" />
           <notebook colspan="4">
             <page string="invisible" invisible="1"/>
           </notebook>
@@ -155,10 +155,10 @@ Deloitte Opening Balance + Accounts
       <field name="type">tree</field>
       <field name="arch" type="xml">
         <tree string="Account Opening Balance" editable="top">
-          <field name="amount" select="1" sum="Sum Amount"/>
-          <field name="account" select="1"/>
-          <field name="name" select="1"/>
-          <field name="date" select="1"/>
+          <field name="amount"  sum="Sum Amount"/>
+          <field name="account" />
+          <field name="name" />
+          <field name="date" />
         </tree>
       </field>
     </record>
@@ -230,22 +230,22 @@ generated 2009-10-17 12:10:57+02
       <field name="type">form</field>
       <field name="arch" type="xml">
         <form string="Account Moves Deloitte">
-          <field name="fiscalyear_id" select="1"/>
-          <field name="period_id" select="1"/>
-          <field name="account" select="1"/>
-          <field name="account_id" select="1"/>
+          <field name="fiscalyear_id" />
+          <field name="period_id" />
+          <field name="account" />
+          <field name="account_id" />
           <field name="account_type_name"/>
-          <field name="date" select="1"/>
-          <field name="symbol" select="1"/>
-          <field name="name" select="1"/>
+          <field name="date" />
+          <field name="symbol" />
+          <field name="name" />
           <field name="fnr"/>
-          <field name="analytic_account" select="1"/>
-          <field name="analytic_account_id" select="1"/>
-          <field name="counter_account" select="1"/>
-          <field name="counter_account_id" select="1"/>
-          <field name="amount" select="1"/>
-          <field name="tax_code" select="1"/>
-          <field name="description" select="1"/>
+          <field name="analytic_account" />
+          <field name="analytic_account_id" />
+          <field name="counter_account" />
+          <field name="counter_account_id" />
+          <field name="amount" />
+          <field name="tax_code" />
+          <field name="description" />
           <field name="lc"/>
           <field name="bc"/>
           <field name="fix"/>
@@ -263,22 +263,22 @@ generated 2009-10-17 12:10:57+02
       <field name="type">tree</field>
       <field name="arch" type="xml">
         <tree string="Account Moves Deloitte">
-          <field name="fiscalyear_id" select="1"/>
-          <field name="period_id" select="1"/>
-          <field name="account" select="1"/>
-          <field name="account_id" select="1"/>
+          <field name="fiscalyear_id" />
+          <field name="period_id" />
+          <field name="account" />
+          <field name="account_id" />
           <field name="account_type_name"/>
-          <field name="date" select="1"/>
-          <field name="symbol" select="1"/>
-          <field name="name" select="1"/>
+          <field name="date" />
+          <field name="symbol" />
+          <field name="name" />
           <field name="fnr"/>
-          <field name="analytic_account" select="1"/>
-          <field name="analytic_account_id" select="1"/>
-          <field name="counter_account" select="1"/>
-          <field name="counter_account_id" select="1"/>
-          <field name="amount" select="1" sum="Sum Amount"/>
-          <field name="tax_code" select="1"/>
-          <field name="description" select="1"/>
+          <field name="analytic_account" />
+          <field name="analytic_account_id" />
+          <field name="counter_account" />
+          <field name="counter_account_id" />
+          <field name="amount"  sum="Sum Amount"/>
+          <field name="tax_code" />
+          <field name="description" />
           <field name="state"/>
           <field name="lc"/>
           <field name="bc"/>

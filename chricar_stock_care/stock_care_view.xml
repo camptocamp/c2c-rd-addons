@@ -42,14 +42,14 @@ generated 2010-04-03 21:47:30+02
       <field name="arch" type="xml">
         <tree colors="red:state=='cancel'" string="Stock Care">
           <field name="name"/>
-          <field name="type" select="1" required="1"/>
+          <field name="type"  required="1"/>
           <field name="origin" groups="base.group_extended"/>
-          <field name="partner_id" select="1" groups="base.group_extended"/>
+          <field name="partner_id"  groups="base.group_extended"/>
           <field
             attrs="{'readonly':[('state','!=','draft')]}"
             groups="base.group_extended"
             name="address_id"
-            select="2"/>
+            />
           <field name="date"/>
           <field name="min_date" groups="base.group_extended"/>
           <field name="state"/>
@@ -69,10 +69,10 @@ generated 2010-04-03 21:47:30+02
               domain="('type', 'in', ['internal','production'])"
               name="type"/>
             <field name="name" readonly="1"/>
-            <field name="partner_id" select="1" colspan="6"/>
-            <field name="address_id" select="2" colspan="6"/>
-            <field name="date" select="1"/>
-            <field name="min_date" select="2" groups="base.group_extended"/>
+            <field name="partner_id"  colspan="6"/>
+            <field name="address_id"  colspan="6"/>
+            <field name="date" />
+            <field name="min_date"  groups="base.group_extended"/>
           </group>
           <field
             attrs="{'readonly':[('state','!=','draft')]}"
@@ -83,17 +83,17 @@ generated 2010-04-03 21:47:30+02
 
 <form string="Stock Care">
 <group>
-<field name="activity" select="1" required="1"/>
-<field name="date" select="1"/>
+<field name="activity"  required="1"/>
+<field name="date" />
 <newline/>
-<field name="product_id" select="1" on_change="onchange_product_id_activity(product_id,activity)"/>
+<field name="product_id"  on_change="onchange_product_id_activity(product_id,activity)"/>
 <newline/>
 <field name="product_qty" on_change="onchange_factor(product_qty,factor,price_unit_coeff)"/>
 <field name="product_uom"/>
-<field name="location_id" select="1" domain="[('usage', '=', 'internal')]"/>
+<field name="location_id"  domain="[('usage', '=', 'internal')]"/>
 <field name="prodlot_id" domain="[('product_id', '=', product_id)]" on_change="onchange_lot_id_care(prodlot_id, product_qty, location_id)"/>
-<field name="location_dest_id" select="1" domain="[('usage', 'in', ['internal','inventory'])]"/>
-<field name="location_loss_id" select="1" domain="[('usage', 'in', ['inventory'])]"/>
+<field name="location_dest_id"  domain="[('usage', 'in', ['internal','inventory'])]"/>
+<field name="location_loss_id"  domain="[('usage', 'in', ['inventory'])]"/>
 <newline/>
 <field name="humidity"/>
 <field name="humidity_dest"/>
@@ -112,15 +112,15 @@ generated 2010-04-03 21:47:30+02
 </form>
 
 <tree string="Stock Care" editable="top">
-<field name="activity" select="1" required="1"/>
-<field name="date" select="1" groups="base.group_extended"/>
-<field name="product_id" select="1" on_change="onchange_product_id_activity(product_id,activity)"/>
+<field name="activity"  required="1"/>
+<field name="date"  groups="base.group_extended"/>
+<field name="product_id"  on_change="onchange_product_id_activity(product_id,activity)"/>
 <field name="product_qty" on_change="onchange_factor(product_qty,factor,price_unit_coeff)"/>
 <field name="product_uom"/>
-<field name="location_id" select="1" domain="[('usage', '=', 'internal')]"/>
+<field name="location_id"  domain="[('usage', '=', 'internal')]"/>
 <field name="prodlot_id" domain="[('product_id', '=', product_id)]" on_change="onchange_lot_id_care(prodlot_id, product_qty, location_id)"/>
-<field name="location_dest_id" select="1" domain="[('usage', 'in', ['internal','inventory'])]"/>
-<field name="location_loss_id" select="1" domain="[('usage', 'in', ['inventory'])]" groups="base.group_extended"/>
+<field name="location_dest_id"  domain="[('usage', 'in', ['internal','inventory'])]"/>
+<field name="location_loss_id"  domain="[('usage', 'in', ['inventory'])]" groups="base.group_extended"/>
 <field name="humidity"/>
 <field name="humidity_dest"/>
 <field name="factor" on_change="onchange_factor(product_qty,factor,price_unit_coeff)"/>
