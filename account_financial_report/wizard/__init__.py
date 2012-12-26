@@ -21,9 +21,9 @@
 #
 ##############################################################################
 
-import wizard_account_balance_report
-import wizard_account_chart
-import wizard_general_ledger_report
-import wizard_invoice_list_report
-import wizard_print_journal_entries
+#import wizard_account_balance_report
+#import wizard_account_chart
+#import wizard_general_ledger_report
+#import wizard_invoice_list_report
+#import wizard_print_journal_entries
 

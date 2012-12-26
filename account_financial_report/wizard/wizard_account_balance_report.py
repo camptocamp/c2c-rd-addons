@@ -22,7 +22,7 @@
 #
 ##############################################################################
 
-import wizard
+#import wizard
 import pooler
 import time
 from tools.translate import _

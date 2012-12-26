@@ -45,7 +45,7 @@ Some reports are based on previous work by Pexego and others on the *c2c_finance
 , "demo"     : []
 , "update_xml" : 
   [ "account_report_report.xml"
-  , "account_report_wizard.xml"
+#  , "account_report_wizard.xml"
   ]
 , "auto_install": False
 , "installable": True
