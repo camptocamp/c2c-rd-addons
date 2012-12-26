@@ -73,7 +73,7 @@ ToDo:
 * Price Lists
     """,
     'author': 'Camptocamp Austria',
-    'depends': ['product', 'purchase', 'sale_layout','hr_expense','account_anglo_saxon', 'c2c_stock_accounting' ],
+    'depends': ['product', 'purchase', 'hr_expense','account_anglo_saxon', 'c2c_stock_accounting' ],
     'update_xml': ['c2c_product.price_unit.xml',
                    'security/product_security.xml',
                    'security/ir.model.access.csv',
@@ -86,7 +86,7 @@ ToDo:
                  ],
     #'update_xml': ['product_view.xml'],
     'demo_xml': [],
-    'installable': False,
+    'installable': True,
     'active': False,
 }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
