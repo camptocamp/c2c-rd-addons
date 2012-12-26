@@ -35,9 +35,9 @@ This module installs everything we need for Austrian extra addons c2c_extension
 ,"c2c_sequence_fy"
 ,"c2c_process"
 ,"c2c_iban_formatter"
-,"c2c_account_line_change"
+#,"c2c_account_line_change"
 ,"c2c_account_interest"
-,"c2c_account_tax_rounding"
+#,"c2c_account_tax_rounding"
 ,"c2c_budget"
 ,"c2c_managment_board"
 ,"c2c_period_yyyymm"
@@ -51,21 +51,21 @@ This module installs everything we need for Austrian extra addons c2c_extension
 #,"account_asset"
 #,"account_reporting"
 #,"account_simulation"
-,"analytic_journal_billing_rate"
+#,"analytic_journal_billing_rate"
 ,"analytic_user_function"
 ,"account_financial_report"
 #,"account_payment_extension"
 #,"account_report"
 ,"audittrail"
-,"base_contact"
-,"document_ics"
+#,"base_contact"
+#,"document_ics"
 ,"pad"
-,"project_caldav"
+#,"project_caldav"
 ,"project_issue"
 ,"project_issue_sheet"
-,"project_mailgate"
-,"project_messages"
-,"project_planning"
+#,"project_mailgate"
+#,"project_messages"
+#,"project_planning"
 ,"project_timesheet"
 #,"project_contact"
 ,"chricar_account_analytic"
@@ -78,12 +78,12 @@ This module installs everything we need for Austrian extra addons c2c_extension
 ,"chricar_stock_location_product_limited"
 ,"chricar_stock_partner_stat"
 ,"stock_location"
-,"chricar_partner_layout"
+#,"chricar_partner_layout"
 ],
     'update_xml': [],
     #'update_xml': ['product_view.xml'],
     'demo_xml': [],
-    'installable': False,
+    'installable': True,
     'active': False,
 }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
