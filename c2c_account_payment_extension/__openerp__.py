@@ -37,7 +37,7 @@
 , "description"  : 
 """Allows to select partners and/or invoices according to their properties and certain strategies from automatic payment"""
 , "category"     : "Accounting & Finance"
-, "depends"      : ["account_payment"]
+, "depends"      : ["c2c_account_payment_extension"]
 , "init_xml"     : []
 , "demo"         : []
 , "update_xml"   : 
