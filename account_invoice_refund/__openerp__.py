@@ -35,7 +35,7 @@ allows to enter partner referenc data in customer invoices and refunds
     'init_xml': [],
     'update_xml': ['account_invoice_view.xml'],
     'demo_xml': [],
-    'installable': False,
+    'installable': True,
     'auto_install': False,
 }
 
