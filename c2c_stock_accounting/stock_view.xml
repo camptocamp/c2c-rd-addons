@@ -2,12 +2,13 @@
 <openerp>
   <data>
     <!-- move values internal Form-->
+<!--
     <record model="ir.ui.view" id="picking_values_view">
       <field name="name">view_picking_values.view</field>
       <field name="model">stock.picking</field>
       <field name="inherit_id" ref="stock.view_picking_form"/>
       <field name="arch" type="xml">
-        <xpath expr="/form/notebook/page[@string='Products']/field[@name='move_lines']/form[@string='Stock Moves']" position="inside">
+        <xpath expr="/form/sheet/notebook/page[@string='Products']/field[@name='move_lines']/form[@string='Stock Moves']" position="inside">
           <group colspan="2" col="2" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant">
             <separator string="Values" colspan="2"/>
             <field name="move_value_cost" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant"/>
@@ -17,13 +18,15 @@
         </xpath>
       </field>
     </record>
+-->
     <!-- move values Incoming-->
+<!--
     <record model="ir.ui.view" id="picking_in_values_view">
       <field name="name">view_picking_in_values.view</field>
       <field name="model">stock.picking</field>
       <field name="inherit_id" ref="stock.view_picking_in_form"/>
       <field name="arch" type="xml">
-        <xpath expr="/form/notebook/page[@string='General Information']/field[@name='move_lines']/form[@string='Stock Moves']" position="inside">
+        <xpath expr="/form/sheet/notebook/page[@string='General Information']/field[@name='move_lines']/form[@string='Stock Moves']" position="inside">
           <group colspan="2" col="2" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant">
             <separator string="Values" colspan="2"/>
             <field name="move_value_cost" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant"/>
@@ -33,13 +36,15 @@
         </xpath>
       </field>
     </record>
+-->
     <!-- move values Outgoing -->
+<!--
     <record model="ir.ui.view" id="picking_out_values_view">
       <field name="name">view_picking_out_values.view</field>
       <field name="model">stock.picking</field>
       <field name="inherit_id" ref="stock.view_picking_out_form"/>
       <field name="arch" type="xml">
-        <xpath expr="/form/notebook/page[@string='Products']/field[@name='move_lines']/form[@string='Stock Moves']" position="inside">
+        <xpath expr="/form/sheet/notebook/page[@string='Products']/field[@name='move_lines']/form[@string='Stock Moves']" position="inside">
           <group colspan="2" col="2" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant">
             <separator string="Values" colspan="2"/>
             <field name="move_value_cost" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant"/>
@@ -50,6 +55,7 @@
         </xpath>
       </field>
     </record>
+-->
     <!-- move  list  -->
     <record model="ir.ui.view" id="view_move_tree_values">
       <field name="name">move_tree_view_values.view</field>
@@ -96,7 +102,7 @@
       <field name="model">stock.move</field>
       <field name="inherit_id" ref="stock.view_move_form"/>
       <field name="arch" type="xml">
-        <xpath expr="/form[@string='Stock Moves']" position="inside">
+        <xpath expr="/form/sheet/group/group[@string='Traceability']" position="after">
           <group colspan="2" col="2" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant">
             <separator string="Values" colspan="2"/>
             <field name="move_value_cost" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant"/>
@@ -122,16 +128,18 @@
 
 
     <!-- product form -->
-    <record model="ir.ui.view" id="product_normal_form_rigths_view">
+<!--
+    <record model="ir.ui.view" id="product_normal_form_rights_view">
       <field name="name">product.normal.rights.form</field>
       <field name="model">product.product</field>
       <field name="inherit_id" ref="product.product_normal_form_view"/>
       <field name="arch" type="xml">
-              <xpath expr="/form/notebook/page[@string='Information']/group[2]" position="attributes">
+              <xpath expr="/form/sheet/notebook/page[@string='Information']/group/group[0]/field[@name='list_price']" position="attributes">
                  <attribute name="groups">c2c_stock_accounting.group_c2c_stock_accounting_accountant</attribute>
               </xpath>                
         </field>
     </record>
+-->
 
     <!-- product search-->
     <record id="product_search_form_account_view" model="ir.ui.view">
@@ -168,7 +176,7 @@
                         
 
     <!-- product moves IN/OUT - make refrenece mandatory -->
-    <record model="ir.ui.view" id="view_move_tree_reception_referenc_picking">
+    <record model="ir.ui.view" id="view_move_tree_reception_reference_picking">
         <field name="name">stock.move.tree.ref.picking</field>
         <field name="model">stock.move</field>
         <field name="inherit_id" ref="stock.view_move_tree_reception_picking"/>
@@ -178,6 +186,7 @@
             </field>
         </field>
     </record>
+<!--
     <record model="ir.ui.view" id="view_move_view_move_form_reference_picking">
         <field name="name">stock.move.form.ref.picking</field>
         <field name="model">stock.move</field>
@@ -188,7 +197,8 @@
             </field>
         </field>
     </record>
-    view_move_form_reception_picking
+-->
+<!--
         <record model="ir.ui.view" id="view_move_form_reception_picking_reference_picking">
             <field name="name">stock.move.form.in.ref.picking</field>
             <field name="model">stock.move</field>
@@ -199,7 +209,7 @@
                 </field>
             </field>
         </record>
-    
+   --> 
 
    <!-- value correction -->
    <record id="view_move_value_correction_search" model="ir.ui.view">
@@ -325,10 +335,10 @@
        <field name="act_window_id" ref="action_value_correction_move"/>
    </record>
    
-   <menuitem action="action_value_correction_move" id="menu_action_value_correction" parent="stock.menu_stock_products_moves" sequence="2" groups="base.group_extended"/>
+   <menuitem action="action_value_correction_move" id="menu_action_value_correction" parent="stock.menu_stock_products_moves" sequence="2" />
    
    <!-- search Product Moves -->
-
+<!--
    <record id="view_move_search_extended_reception_incoming_picking" model="ir.ui.view">
        <field name="name">stock.move.incoming.extended.search2</field>
        <field name="model">stock.move</field>
@@ -340,6 +350,8 @@
            </field>
        </field>
    </record>
+-->
+<!--
    <record id="view_move_search_extended_reception_outcoming_picking" model="ir.ui.view">
        <field name="name">stock.move.outcoming.extended.search2</field>
        <field name="model">stock.move</field>
@@ -351,7 +363,7 @@
            </field>
        </field>
    </record>
-
+-->
    <!-- Valuation acount -->
         <record id="view_normal_property_acc_stock_form" model="ir.ui.view">
             <field name="name">product.normal.stock.acc.stock.property.formt</field>
@@ -360,37 +372,37 @@
             <field name="inherit_id" ref="stock.view_normal_property_acc_form"/>
             <field name="priority">26</field>
             <field name="arch" type="xml">
-                    <xpath expr="/form/notebook/page[@string='Accounting']/group/group/field[@name='valuation']" position="after">
+                    <xpath expr="/form/sheet/notebook/page[@string='Accounting']/group/group/field[@name='valuation']" position="after">
                             <field name="stock_account_id" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant"/>
                             <field name="expense_account_id" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant"/>
                     </xpath>
            </field>
        </record>
 
-   <!-- display indicator for lot reuqirement -->
+   <!-- display indicator for lot requirement -->
         <record id="stock_inventory_line_lot_tree" model="ir.ui.view">
             <field name="name">stock.inventory.line.lot.tree</field>
             <field name="model">stock.inventory.line</field>
             <field name="inherit_id" ref="stock.stock_inventory_line_tree"/>
             <field name="arch" type="xml">
                 <field name="prod_lot_id" position = "before" >
-                    <field name="check_lot" groups="base.group_extended"/>
+                    <field name="check_lot" />
                 </field>
             </field>
         </record>
-
+<!--
         <record id="view_inventory_lot_form" model="ir.ui.view">
             <field name="name">stock.inventory.lot.form</field>
             <field name="model">stock.inventory.line.</field>
             <field name="inherit_id" ref="stock.view_inventory_form"/>
             
             <field name="arch" type="xml">
-                <field name="prod_lot_id" position = "before" >
-                    <field name="check_lot" groups="base.group_extended"/>
-                </field>
+                <xpath expr="/form/sheet/notebook/page[@string='General Information']/field[@name='inventory_line_id']/tree/field[@name='state']" position="before">
+                    <field name="check_lot" />
+                </xpath>
             </field>
         </record>
-
+-->
 
    <!-- display selected location  -->
         <record id="stock_inventory_loc_form" model="ir.ui.view">
