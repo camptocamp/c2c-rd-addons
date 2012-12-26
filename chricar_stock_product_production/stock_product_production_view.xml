@@ -10,7 +10,6 @@ Product by Production Location
       <field name="name">chricar.product_by_production_location.form</field>
       <field name="model">chricar.product_by_production_location</field>
       <field name="priority">1</field>
-      <field name="type">form</field>
       <field name="arch" type="xml">
         <form string="Product by Production Location">
           <field name="used" />
@@ -20,11 +19,8 @@ Product by Production Location
           <field name="capacity" />
           <field name="yield" />
           <field name="name" />
-          <field name="amount"  groups="base.group_extended"/>
-          <field name="average_price" groups="base.group_extended"/>
-          <notebook colspan="4">
-            <page string="invisible" invisible="1"/>
-          </notebook>
+          <field name="amount"  />
+          <field name="average_price" />
         </form>
       </field>
     </record>
@@ -32,7 +28,6 @@ Product by Production Location
       <field name="name">chricar.product_by_production_location.list</field>
       <field name="model">chricar.product_by_production_location</field>
       <field name="priority">1</field>
-      <field name="type">tree</field>
       <field name="arch" type="xml">
         <tree string="Product by Production Location">
           <field name="used" />
@@ -43,9 +38,9 @@ Product by Production Location
           <field name="yield" />
           <field name="name" />
           <field name="uom_id" />
-          <field name="amount"  sum="Sum Amount" groups="base.group_extended"/>
-          <field name="average_price" groups="base.group_extended"/>
-          <field name="cost_method" groups="base.group_extended"/>
+          <field name="amount"  sum="Sum Amount" />
+          <field name="average_price" />
+          <field name="cost_method" />
         </tree>
       </field>
     </record>
