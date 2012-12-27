@@ -59,7 +59,7 @@ class sale_advance_payment_inv(osv.osv_memory):
                         uom = False, partner_id = sale.partner_id.id, fposition_id = sale.fiscal_position.id)
                 self._logger.debug('advance val `%s`', val)
                 product = self.pool.get('product.product').browse(cr, uid, sale_adv_obj.product_id.id, context)
-                
+
                 line_id = obj_lines.create(cr, uid, {
                     'name': val['value']['name'],
                     'account_id': product.property_account_income.id or product.categ_id.property_account_income_categ.id,

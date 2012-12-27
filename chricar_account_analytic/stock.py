@@ -42,10 +42,9 @@ class stock_picking(osv.osv):
         inv_line = inv_line_obj.browse(cr,uid,invoice_line_id)
         if not inv_line.account_analytic_id and inv_line.account_id.analytic_account_id:
             analytic_id = inv_line.account_id.analytic_account_id.id
-            inv_line_obj.write(cr, uid, invoice_line_id, {'account_analytic_id' : analytic_id}) 
-        
+            inv_line_obj.write(cr, uid, invoice_line_id, {'account_analytic_id' : analytic_id})
+
         return  super(stock_picking, self)._invoice_line_hook(cr, uid, move_line, invoice_line_id)
 
- 
-stock_picking()
 
+stock_picking()
