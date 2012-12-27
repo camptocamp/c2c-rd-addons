@@ -34,6 +34,6 @@ class account_bank_statement(osv.osv):
         , states={'draft': [('readonly', False)]}
         , order  = 'name, id'
         )
-        
+
     }
 account_bank_statement()
