@@ -26,7 +26,7 @@
     'version': '0.7',
     'category': 'Warehouse Management',
     'description': """
-Requires production lot for internal moves 
+Requires production lot for internal moves
 """,
     'author': 'Camptocamp Austria',
     'depends': [ 'stock' ],
