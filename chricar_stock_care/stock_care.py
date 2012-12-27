@@ -35,38 +35,38 @@ import netsvc
 from tools.misc import UpdateableStr, UpdateableDict
 
 class stock_move(osv.osv):
-     _inherit = "stock.move"
+    _inherit = "stock.move"
 
-     _activity_values = [
-                              ('dehumidify','Dehumidify'),
-                              ('restore','Restore'),
-                              ('aspirate','Aspirate'),
-                              ('purify','Purify'),
-                              ('check','Check'),
-       ]
+    _activity_values = [
+                             ('dehumidify','Dehumidify'),
+                             ('restore','Restore'),
+                             ('aspirate','Aspirate'),
+                             ('purify','Purify'),
+                             ('check','Check'),
+      ]
 
-     #ACTIVITY_SELECTION = UpdateableDict()
-     ACTIVITY_SELECTION = {
-                              'dehumidify':'Dehumidify',
-                              'restore':'Restore',
-                              'ventilate':'Ventilate',
-                              'aspirate':'Aspirate',
-                              'purify':'Purify',
-                              'check':'Check',
-       }
-     #ACTIVITY_SELECTION.__init__(_ACTIVITY_SELECTION)
+    #ACTIVITY_SELECTION = UpdateableDict()
+    ACTIVITY_SELECTION = {
+                             'dehumidify':'Dehumidify',
+                             'restore':'Restore',
+                             'ventilate':'Ventilate',
+                             'aspirate':'Aspirate',
+                             'purify':'Purify',
+                             'check':'Check',
+      }
+    #ACTIVITY_SELECTION.__init__(_ACTIVITY_SELECTION)
 
-     _columns = {
+    _columns = {
 #       'activity'           : fields.selection(_activity_values,'Activity', size=16, required=True, translate=True ),
-       'activity'           : fields.selection([(k,v) for k,v in ACTIVITY_SELECTION.items()],'Activity', size=16,  translate=True ),
-       'humidity'           : fields.float   ('Humidity Source', help="If In and Out are measured and a factor exists the quantity will be reduced"),
-       'humidity_dest'      : fields.float   ('Humidity Destination', help="If In and Out are measured and a factor exists the quantity will be reduced"),
-       'factor'             : fields.float   ('Factor', help="If In and Out are measured and a factor exists the quantity will be reduced"),
-       'product_dest_qty'      : fields.float   ('Quantity Destination'),
-       'location_loss_id'   : fields.many2one('stock.location', 'Production Loss Location', help="This location will be used to move production loss from destination location"),
-     }
+      'activity'           : fields.selection([(k,v) for k,v in ACTIVITY_SELECTION.items()],'Activity', size=16,  translate=True ),
+      'humidity'           : fields.float   ('Humidity Source', help="If In and Out are measured and a factor exists the quantity will be reduced"),
+      'humidity_dest'      : fields.float   ('Humidity Destination', help="If In and Out are measured and a factor exists the quantity will be reduced"),
+      'factor'             : fields.float   ('Factor', help="If In and Out are measured and a factor exists the quantity will be reduced"),
+      'product_dest_qty'      : fields.float   ('Quantity Destination'),
+      'location_loss_id'   : fields.many2one('stock.location', 'Production Loss Location', help="This location will be used to move production loss from destination location"),
+    }
 
-     def onchange_product_id_activity(self, cr, uid, ids,product_id,activity):
+    def onchange_product_id_activity(self, cr, uid, ids,product_id,activity):
         if not product_id:
             return {}
         product = self.pool.get('product.product').browse(cr, uid, [product_id])[0]
@@ -85,19 +85,19 @@ class stock_move(osv.osv):
         }
         return {'value': result}
 
-     def onchange_factor(self, cr, uid, ids,product_qty,factor,price_unit_coeff):
+    def onchange_factor(self, cr, uid, ids,product_qty,factor,price_unit_coeff):
         result = {
                 'product_dest_qty' :  product_qty ,
           }
 
         if factor and product_qty:
-             result = {
-                'product_dest_qty' :  product_qty * (1 - factor / 100),
-             }
+            result = {
+               'product_dest_qty' :  product_qty * (1 - factor / 100),
+            }
         result['move_value_cost'] = product_qty * price_unit_coeff
         return {'value': result}
 
-     def onchange_lot_id_care(self, cr, uid, ids,prodlot_id=False, product_qty=False, location_id=False, context=None):
+    def onchange_lot_id_care(self, cr, uid, ids,prodlot_id=False, product_qty=False, location_id=False, context=None):
         #copied from stock.py
         if not prodlot_id or not location_id:
             return {}
@@ -128,30 +128,30 @@ class stock_picking(osv.osv):
         wf_service = netsvc.LocalService("workflow")
         for pick in self.browse(cr, uid, ids):
             if len(pick.move_lines):
-              for move in pick.move_lines:
-                if move.product_qty != move.product_dest_qty:
-                    move = self.pool.get('stock.move').create(cr, uid, {
-                        'name': move.name,
-                        'product_id': move.product_id.id,
-                        'product_qty': move.product_qty - move.product_dest_qty,
-#                        'product_uos_qty': move.product_qty,
-                        'product_uom': move.product_uom.id,
-#                        'product_uos': move.product_uom.id,
-                        'date_expected': move.date_expected,
-                        'location_id': move.location_dest_id.id,
-                        'location_dest_id': move.location_loss_id.id,
-                        'picking_id': move.picking_id.id,
-#                        'move_dest_id': move.move_dest_id.id,
-                        'state': 'draft',
-                        'date': move.date_expected,
-                        'price_unit' :move.price_unit,
-                        'price_unit_id' :move.price_unit_id.id,
-#                        'price_unit_coeff' : move.price_subtotal/move.product_qty,
-                        'move_value_cost':  ( move.product_qty - move.product_dest_qty ) * move.price_unit_coeff,
-                        'activity' : move.activity,
-                        'prodlot_id': move.prodlot_id.id,
-                    })
-                    #self.pool.get('stock.move').write(cr, uid, [move.move_dest_id.id], {'location_id':order.location_id.id})
+                for move in pick.move_lines:
+                    if move.product_qty != move.product_dest_qty:
+                        move = self.pool.get('stock.move').create(cr, uid, {
+                            'name': move.name,
+                            'product_id': move.product_id.id,
+                            'product_qty': move.product_qty - move.product_dest_qty,
+    #                        'product_uos_qty': move.product_qty,
+                            'product_uom': move.product_uom.id,
+    #                        'product_uos': move.product_uom.id,
+                            'date_expected': move.date_expected,
+                            'location_id': move.location_dest_id.id,
+                            'location_dest_id': move.location_loss_id.id,
+                            'picking_id': move.picking_id.id,
+    #                        'move_dest_id': move.move_dest_id.id,
+                            'state': 'draft',
+                            'date': move.date_expected,
+                            'price_unit' :move.price_unit,
+                            'price_unit_id' :move.price_unit_id.id,
+    #                        'price_unit_coeff' : move.price_subtotal/move.product_qty,
+                            'move_value_cost':  ( move.product_qty - move.product_dest_qty ) * move.price_unit_coeff,
+                            'activity' : move.activity,
+                            'prodlot_id': move.prodlot_id.id,
+                        })
+                        #self.pool.get('stock.move').write(cr, uid, [move.move_dest_id.id], {'location_id':order.location_id.id})
         # we have to reerad the moves because some may have created above
         for pick in self.browse(cr, uid, ids):
             self.draft_force_assign(cr, uid, ids)
