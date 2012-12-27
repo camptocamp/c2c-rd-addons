@@ -12,9 +12,8 @@ class report_webkit_html(report_sxw.rml_parse):
             'uid': uid,
             'locale': locale,
         })
-        
+
 report_sxw.report_sxw('report.res_partner.partner_participations',
                        'res.partner',
                        'chricar_partner_parent_companies/report/report_partner_participations.mako',
                        parser=report_webkit_html)
-
