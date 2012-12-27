@@ -72,7 +72,7 @@ class hr_timesheet_invoice_create(osv.osv_memory):
     # end def _lang_code
 
     def _ref(self, cr, dates, lang_code) :
-        _min = datetime.datetime.strptime(dates[0][0:10], '%Y-%m-%d') 
+        _min = datetime.datetime.strptime(dates[0][0:10], '%Y-%m-%d')
         _max = datetime.datetime.strptime(dates[-1][0:10], '%Y-%m-%d')
 
         context = {}
@@ -112,7 +112,7 @@ class hr_timesheet_invoice_create(osv.osv_memory):
 
         inv_ids = []
         for d in act_win.get('domain') :
-            if d[0] == 'id' : 
+            if d[0] == 'id' :
                 inv_ids = d[2]
 
         for inv in inv_obj.browse(cr, uid, inv_ids) :

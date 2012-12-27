@@ -25,7 +25,7 @@
 , 'description' : """
 This module will allow to spezify
  * invoice date, journal
- * automatic calculation of "Clearing period" and setting this as reference 
+ * automatic calculation of "Clearing period" and setting this as reference
  * prefix for analytic account name
  * remove the default date of today as prefix for analytic account name
 """
