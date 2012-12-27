@@ -26,11 +26,11 @@ class account_bank_statement_line(osv.osv):
     _inherit = "account.bank.statement.line"
 
     def _get_statement_date(self, cursor, user, ids,  context=None):
-        res = {}        
+        res = {}
         for line in self.browse(cursor, user, ids, context=context):
             if line and line.statement_id:
                 res[line.id] = line.statement_id.date or ''
-        return res    
+        return res
 
     _defaults = {
         #'date': lambda self, cr, uid, context: context.get('date', False),
