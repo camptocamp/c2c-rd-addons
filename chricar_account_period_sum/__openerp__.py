@@ -23,7 +23,7 @@
 #
 { "name" : "Account Period Sum"
 , "version" : "0.9.9"
-, "author"  : "ChriCar Beteiligungs- und Beratungs GmbH" 
+, "author"  : "ChriCar Beteiligungs- und Beratungs GmbH"
 , "website" : "http://www.chricar.at/ChriCar"
 , "description"  : """
 This module adds period sums for moves_lines of *account_moves* with state posted
@@ -44,7 +44,7 @@ This module adds period sums for moves_lines of *account_moves* with state poste
  * fast webkit report "account chart enhanced", showing
 
    - opening balance
-   - debit,credit, balance of current year / selected periods 
+   - debit,credit, balance of current year / selected periods
    - balance of previous year / selected periods
    - balance diff and diff %
    - word wrap of long account names
@@ -53,7 +53,7 @@ This module adds period sums for moves_lines of *account_moves* with state poste
 
    - remarks:
 
-     * this report will also work unchanged but slower if the used functions fields are not calculated 
+     * this report will also work unchanged but slower if the used functions fields are not calculated
        based on account_period_sum but on account_move_lines
      * using function fields based on account_move_lines will allow to have other selection options found
        in the original chart of accounts, but seems not to be essential for accounting
@@ -62,16 +62,16 @@ This module adds period sums for moves_lines of *account_moves* with state poste
 
 OpenERP needs Closing the fiscal year to show correct balances.
 
-This module introduces a special journal is_opening_balance. 
-All moves of this journal will not be added to the period sum 
-because there is a special period yyyy00 which is automatically and permanently 
+This module introduces a special journal is_opening_balance.
+All moves of this journal will not be added to the period sum
+because there is a special period yyyy00 which is automatically and permanently
 updated with the opening balance.
-If opening balance already exists, it is necessary to install this module, 
-mark the journal as "Is Opening Balance Journal" and update the module to get 
+If opening balance already exists, it is necessary to install this module,
+mark the journal as "Is Opening Balance Journal" and update the module to get
 correct period sums.
 """
 , "category" : "Generic Modules/Others"
-, "depends" : 
+, "depends" :
     [ "report_webkit"
     , "account"
     , "c2c_account_closing_remarks"
@@ -80,7 +80,7 @@ correct period sums.
     ]
 , "init_xml" : []
 , "demo"     : []
-, "update_xml" : 
+, "update_xml" :
     [ "chricar_account_period_sum_view.xml"
     , "wizard/chart.xml"
     , "security/rule.xml"

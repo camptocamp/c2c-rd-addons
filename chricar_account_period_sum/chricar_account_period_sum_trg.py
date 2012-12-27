@@ -95,7 +95,7 @@ BEGIN
   credit_p :=0;
   /* loop for all move_line of this move */
   FOR move_rec in
-    SELECT l.* 
+    SELECT l.*
       from account_move_line l, account_journal j
       where move_id = move_id_i
         and j.id = l.journal_id
@@ -111,7 +111,7 @@ BEGIN
     END if;
     update account_account_period_sum
       set debit = debit + debit_p, credit= credit + credit_p
-      where 
+      where
         account_id = move_rec.account_id
         and period_id  = move_rec.period_id
         and company_id = move_rec.company_id
@@ -119,11 +119,11 @@ BEGIN
     IF not found then
       INSERT into account_account_period_sum
         (company_id,account_id,period_id,debit,credit,name,sum_fy_period_id)
-        SELECT 
-          move_rec.company_id, 
-          move_rec.account_id, 
-          move_rec.period_id, 
-          debit_p, 
+        SELECT
+          move_rec.company_id,
+          move_rec.account_id,
+          move_rec.period_id,
+          debit_p,
           credit_p,
           to_char(date_start,'YYYYMM'),
           nextval('account_account_period_sum_id_seq'::regclass)
@@ -132,10 +132,10 @@ BEGIN
     END IF;
 /* set account_period_sum_id in move_lines */
     update account_move_line m
-      set account_period_sum_id = 
-        (SELECT id 
+      set account_period_sum_id =
+        (SELECT id
            from account_account_period_sum
-           where 
+           where
              account_id=m.account_id
              and period_id =m.period_id
              and company_id = move_rec.company_id
@@ -143,18 +143,18 @@ BEGIN
         )
       where move_id = move_id_i;
 /* balance carried forward */
-    SELECT 
+    SELECT
       into close_method_p t.close_method
       from account_account a, account_account_type t
       where t.id = a.user_type and a.id = move_rec.account_id;
     if close_method_p != 'none' then
       -- get period id of the first period next year
       for period_00_rec in
-        SELECT 
+        SELECT
             p00.id as period_id,
             to_char(yfollow.date_start,'YYYY')||'00' as code,
             yfollow.id as fiscalyear_id
-          from 
+          from
             account_period p00,
             account_period pcurr,
             account_fiscalyear yfollow
@@ -179,10 +179,10 @@ BEGIN
             (company_id,account_id,period_id,debit,credit,name,sum_fy_period_id)
             values
               (
-              move_rec.company_id, 
-              move_rec.account_id, 
-              period_00_rec.period_id, 
-              debit_p, 
+              move_rec.company_id,
+              move_rec.account_id,
+              period_00_rec.period_id,
+              debit_p,
               credit_p,period_00_rec.code,
               nextval('account_account_period_sum_id_seq'::regclass)
               );
@@ -211,9 +211,9 @@ $$
 DECLARE
   add_sub_p integer;
 BEGIN
- if    OLD.state !='posted' and   NEW.state  = 'posted' 
+ if    OLD.state !='posted' and   NEW.state  = 'posted'
    then add_sub_p := 1;
- elsif OLD.state = 'posted' and   NEW.state != 'posted' then 
+ elsif OLD.state = 'posted' and   NEW.state != 'posted' then
    add_sub_p := -1;
  end if;
  execute account_period_sum_update(OLD.id,add_sub_p);
@@ -268,38 +268,38 @@ DECLARE
 BEGIN
   -- id of the last year
   last_fiscalyear_id_p = 0;
-  SELECT 
+  SELECT
     into last_fiscalyear_id_p fy.id
     from account_fiscalyear fy
     where (company_id,date_stop) = (
       SELECT p.company_id,max(y.date_stop)
         from account_fiscalyear y,account_period p
-        where 
+        where
           p.id = period_id_i
-          and y.date_stop < p.date_start 
+          and y.date_stop < p.date_start
           and p.company_id = y.company_id
           group by p.company_id);
     if last_fiscalyear_id_p > 0 then
       --RAISE NOTICE 'account_account_period_sum_create FY % PERIOD % ',last_fiscalyear_id_p, period_id_i;
-      INSERT 
+      INSERT
         into account_account_period_sum
           (company_id, account_id, period_id, debit, credit, name, sum_fy_period_id)
         SELECT
             s.company_id,
-            a.id, 
+            a.id,
             period_id_i,
             case when sum(debit - credit) > 0 then   sum(debit - credit) else 0 end,
             case when sum(debit - credit) < 0 then  -sum(debit - credit) else 0 end,
             to_char(y.date_start,'YYYY')||'00',
             nextval('account_account_period_sum_id_seq'::regclass)
-          from 
+          from
             account_account a,
             account_account_period_sum s,
             account_period p,    --new
             account_fiscalyear y, --new
             account_period lp, -- last year periods
             account_account_type t
-          where 
+          where
             t.close_method != 'none'
             and t.id = a.user_type
             and p.id = period_id_i     -- current period
@@ -355,13 +355,13 @@ BEGIN
       (company_id, account_id,period_id,debit,credit,name,sum_fy_period_id)
       SELECT
         s.company_id,
-        a.id, 
-        p.id, 
-        sum(debit), 
-        sum(credit), 
+        a.id,
+        p.id,
+        sum(debit),
+        sum(credit),
         y.code||'00',
         nextval('account_account_period_sum_id_seq'::regclass)
-      from 
+      from
         account_account a,
         account_account_fy_period_sum s,
         account_period p,    --new
@@ -375,7 +375,7 @@ BEGIN
         group by s.company_id, a.id, p.id, y.id, y.code
         having sum(debit) !=0 or  sum(credit) !=0;
   else
-    delete 
+    delete
       from account_account_period_sum
       where account_id = account_id_i and name like '%00';
   END if;
@@ -392,11 +392,11 @@ DECLARE
  cm_new varchar;
 BEGIN
   -- close_method moved to account_account_type
-  SELECT 
+  SELECT
     into cm_old close_method
     from account_account_type
     where id = OLD.user_type;
-  SELECT 
+  SELECT
     into cm_new close_method
     from account_account_type
     where id = NEW.user_type;
@@ -429,7 +429,7 @@ create trigger trg_account_close_method_update
         cr.commit()
 # Periodensummen erzeugen
         cr.execute("""
-INSERT 
+INSERT
   into account_account_period_sum(name,sum_fy_period_id,period_id,company_id,account_id,credit,debit)
   SELECT
       p.name,
@@ -458,9 +458,9 @@ INSERT
         cr.execute("""
 update account_move_line m
   set account_period_sum_id = (
-    SELECT id 
+    SELECT id
       from account_account_period_sum
-      where 
+      where
         company_id = m.company_id
         and account_id = m.account_id
         and period_id  = m.period_id);
@@ -475,7 +475,7 @@ DECLARE
 BEGIN
   for first_period_id_rec in
     SELECT p.id
-      from 
+      from
         account_period p,
         account_fiscalyear f
       where p.date_start=f.date_start
