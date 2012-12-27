@@ -21,7 +21,7 @@
 ##############################################################################
 
 # FIXME remove logger lines or change to debug
- 
+
 from osv import fields, osv
 
 
@@ -31,7 +31,5 @@ class account_journal(osv.osv):
     _columns = {
        'reopen_posted':  fields.boolean('Allow Update of Posted Entries', help="Allows to reopen posted invoices, sets the move state to unposted"),
         }
-    
-account_journal()
 
-    
+account_journal()
