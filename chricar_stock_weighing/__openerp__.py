@@ -18,7 +18,7 @@ Extension to Production
 , "depends"      : ["stock", "mrp", "delivery", "mrp_reopen","chricar_stock_care"]
 , "init_xml"     : []
 , "demo"         : []
-, "update_xml"   : 
+, "update_xml"   :
     [ "stock_weighing_view.xml"
     , "mrp_view.xml"
     , "mrp_workflow.xml"

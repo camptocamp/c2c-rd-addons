@@ -84,14 +84,14 @@ class stock_picking(osv.osv):
         result['total_net'] = tractor_net + trailer_net
         result['total_gross'] = tractor_gross + trailer_gross
         if tractor_gross + trailer_gross > 0.0:
-           result['date_weighing'] = time.strftime('%Y-%m-%d %H:%M:%S')
-           if not number_weighing:
-           # FIXME - non blocking solution !
-               result['number_weighing'] = self.pool.get('ir.sequence').get(cr, uid, 'number.weighing')
-           else:
-               result['number_weighing'] = number_weighing
+            result['date_weighing'] = time.strftime('%Y-%m-%d %H:%M:%S')
+            if not number_weighing:
+            # FIXME - non blocking solution !
+                result['number_weighing'] = self.pool.get('ir.sequence').get(cr, uid, 'number.weighing')
+            else:
+                result['number_weighing'] = number_weighing
         else:
-           result['date_weighing'] = ''
+            result['date_weighing'] = ''
 
 
         return {'value':result}

@@ -5,4 +5,3 @@
 ##############################################
 import stock_weighing
 import mrp
-
