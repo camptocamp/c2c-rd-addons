@@ -28,7 +28,7 @@
     'description': """
     usefull to select product, stock location or lot with product qty information
     if quantity available and virtual quantity are different both values are indicated
-    
+
 """,
     'author': 'Camptocamp Austria',
     'depends': [ 'stock','sale'],
