@@ -40,7 +40,7 @@ This module adds stock accounting features
 ToDo
 * stock reports
 ** partly DONE report/report_stock_move.py - need in/out values for internal locations too
-* generate analytic lines       
+* generate analytic lines
 * Recalculate move_value_cost of out moves if value correction or in move is prior of out moves
 ** correct real time accounting
 * automatic handling of value roundings if qty_available is 0 after posting
