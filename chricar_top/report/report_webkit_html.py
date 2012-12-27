@@ -12,9 +12,8 @@ class report_webkit_html(report_sxw.rml_parse):
             'uid': uid,
             'locale': locale,
         })
-        
+
 report_sxw.report_sxw('report.chricar.real.estate.sale.folder',
-                       'chricar.top', 
+                       'chricar.top',
                        'addons/chricar_top/report/report_top_sales_folder.mako',
                        parser=report_webkit_html)
-
