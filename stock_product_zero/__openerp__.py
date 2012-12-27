@@ -27,7 +27,7 @@
     'category': 'Warehouse Management',
     'description': """
 This module will not print/display products with zero quantity values in many reports and tree lists.
-Especially important if the company has a lot of locations with a very limited number of products 
+Especially important if the company has a lot of locations with a very limited number of products
 like consignations locations at supplieres or customers
 Adds a nice inventory report based on webkit
 
