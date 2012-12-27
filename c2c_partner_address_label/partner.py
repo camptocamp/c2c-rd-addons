@@ -42,7 +42,7 @@ import logging
 #    }
 #
 #    def init(self, cr):
-#        # set reasonable values 
+#        # set reasonable values
 #        cr.execute("""update res_country
 #                         set zip_position = 'after'
 #                       where code in ('US')
@@ -102,8 +102,8 @@ class res_partner(osv.osv):
 #                if t:
 #                    l = l + lf + t
 
-          
-           
+
+
             if a.parent_id:
                 l = a.parent_id.name + lf + a.name
             else:
@@ -120,5 +120,5 @@ class res_partner(osv.osv):
     _columns = {
         'address_label': fields.function(_address_label, type='text', method = True, string="Address Label"),
     }
-    
+
 res_partner()
