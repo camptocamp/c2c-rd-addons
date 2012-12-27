@@ -34,7 +34,7 @@ This module allows to define price units
     * price per 1000
     * price in cents ...
 Example: gasoline is quoted 1 liter i= 115,5 cents or 1,115 €
-         diodes 4.99€/1000 Units 
+         diodes 4.99€/1000 Units
 
 The module hides the original price fields and fills these with converted values.
 Advantage - no change of the underlying logic of the base model for computation.
@@ -48,12 +48,12 @@ ToDo:
 * all onchange on product_id must return default price_unit_id (done for SO/PO,INV)
 * all wizards must transfer price_unit_id and unit_price_pu (many do not work now)
 * all "create" must transfer price_unit_id and unit_price_pu
-* defaults for 
-** price_unit_id 
-** price_unit_pu (from price_unit) 
+* defaults for
+** price_unit_id
+** price_unit_pu (from price_unit)
 * functions using price_unit must probably use price_unit_pu
-* c2c_product.price_unit.xml must be loaded in product.py 
-  before running the update statements 
+* c2c_product.price_unit.xml must be loaded in product.py
+  before running the update statements
   currenty the module must be updated immediately to fill price_unit_id
 * Product
 ** Button Udate standard price (average costing)

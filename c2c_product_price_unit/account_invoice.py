@@ -32,13 +32,13 @@ class account_invoice_line(osv.osv):
     _logger = logging.getLogger(__name__)
 
     def _get_default_id(self, cr, uid, price_unit_id, context=None):
-       self._logger.debug('invoice pi_id `%s`', price_unit_id)
-       pu = self.pool.get('c2c_product.price.unit')
-       if not pu: return
-       res =  pu.get_default_id(cr, uid, price_unit_id, context) 
-       self._logger.debug('invoice default price_unit_id `%s`', res)
-       return res
-        
+        self._logger.debug('invoice pi_id `%s`', price_unit_id)
+        pu = self.pool.get('c2c_product.price.unit')
+        if not pu: return
+        res =  pu.get_default_id(cr, uid, price_unit_id, context)
+        self._logger.debug('invoice default price_unit_id `%s`', res)
+        return res
+
     _columns = {
         'price_unit_id'    : fields.many2one('c2c_product.price_unit','Price Unit' ),
         'price_unit_pu'    : fields.float(string='Unit Price',digits_compute=dp.get_precision('Sale Price'),  \
@@ -51,45 +51,45 @@ class account_invoice_line(osv.osv):
     }
 
     def init(self, cr):
-      cr.execute("""
-          update account_invoice_line set price_unit_pu = price_unit  where price_unit_pu is null;
-      """)
-      cr.execute("""
-          update account_invoice_line set price_unit_id = (select min(id) from c2c_product_price_unit where coefficient=1) where price_unit_id is null;
-      """)
-      
+        cr.execute("""
+            update account_invoice_line set price_unit_pu = price_unit  where price_unit_pu is null;
+        """)
+        cr.execute("""
+            update account_invoice_line set price_unit_id = (select min(id) from c2c_product_price_unit where coefficient=1) where price_unit_id is null;
+        """)
+
     def product_id_change_c2c_pu(self, cr, uid, ids, product, uom, qty=0, name='',
-           type=False, partner_id=False, fposition_id=False, price_unit_pu=False, 
+           type=False, partner_id=False, fposition_id=False, price_unit_pu=False,
            address_invoice_id=False, currency_id=False, company_id=None,price_unit_id=None):
-       res = {}
-       self._logger.debug('invoice `%s` `%s`', price_unit_id, price_unit_pu)
+        res = {}
+        self._logger.debug('invoice `%s` `%s`', price_unit_id, price_unit_pu)
 
-       if product :
-           context ={}
-           res['value'] = super(account_invoice_line, self).product_id_change( cr, uid, ids, product, uom, qty, name,
-               type, partner_id, fposition_id, price_unit_pu, address_invoice_id, currency_id, context)['value']
-           prod = self.pool.get('product.product').browse(cr, uid, product)
-           if type in ['out_invoice','out_refund']:
-               price_unit_id = prod.list_price_unit_id.id
-           if not price_unit_id:
-               price_unit_id = prod.price_unit_id.id
-        
-           coeff = self.pool.get('c2c_product.price_unit').get_coeff(cr, uid, price_unit_id)
-           price_unit_pu = res['value']['price_unit'] *coeff
-           self._logger.debug('invoice res `%s`', res['value'])
+        if product :
+            context ={}
+            res['value'] = super(account_invoice_line, self).product_id_change( cr, uid, ids, product, uom, qty, name,
+                type, partner_id, fposition_id, price_unit_pu, address_invoice_id, currency_id, context)['value']
+            prod = self.pool.get('product.product').browse(cr, uid, product)
+            if type in ['out_invoice','out_refund']:
+                price_unit_id = prod.list_price_unit_id.id
+            if not price_unit_id:
+                price_unit_id = prod.price_unit_id.id
 
-           res['value']['price_unit_id'] = price_unit_id
-           res['value']['price_unit_pu'] = price_unit_pu
+            coeff = self.pool.get('c2c_product.price_unit').get_coeff(cr, uid, price_unit_id)
+            price_unit_pu = res['value']['price_unit'] *coeff
+            self._logger.debug('invoice res `%s`', res['value'])
 
-       return res
+            res['value']['price_unit_id'] = price_unit_id
+            res['value']['price_unit_pu'] = price_unit_pu
+
+        return res
 
     def onchange_price_unit(self, cr, uid, ids, field_name, qty, price_pu, price_unit_id):
         res = {}
         if  price_pu and  price_unit_id and qty:
-           coeff = self.pool.get('c2c_product.price_unit').get_coeff(cr, uid, price_unit_id)
-           price = price_pu / float(coeff) 
-           self._logger.debug('invoice res q `%s` `%s` `%s` `%s` `%s`', field_name,qty,price_pu,price_unit_id,price)
-           return {'value': {field_name : price}}
+            coeff = self.pool.get('c2c_product.price_unit').get_coeff(cr, uid, price_unit_id)
+            price = price_pu / float(coeff)
+            self._logger.debug('invoice res q `%s` `%s` `%s` `%s` `%s`', field_name,qty,price_pu,price_unit_id,price)
+            return {'value': {field_name : price}}
         return res
 
 account_invoice_line()
@@ -100,13 +100,13 @@ class account_invoice(osv.osv):
 
     def _refund_cleanup_lines(self, cr, uid, lines):
         for line in lines:
-          if line.get('price_unit_id'):
+            if line.get('price_unit_id'):
                 line['price_unit_id'] = line['price_unit_id'][0]
         res = super(account_invoice, self)._refund_cleanup_lines(cr, uid, lines)
         if res:
-          resd = res[0][2]
-          resd['price_unit_id'] =  line['price_unit_id']
-          res = [(res[0][0], res[0][1], resd)]
+            resd = res[0][2]
+            resd['price_unit_id'] =  line['price_unit_id']
+            res = [(res[0][0], res[0][1], resd)]
         return res
 
 

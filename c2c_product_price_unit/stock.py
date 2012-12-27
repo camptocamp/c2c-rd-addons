@@ -34,12 +34,12 @@ class stock_move(osv.osv):
         if context is None:
             context = {}
         if not context.get('product_id', False):
-            return False 
+            return False
         pu_id = self.pool.get('product.product').browse(cr, uid, context['product_id']).price_unit_id.id
         return pu_id or False
 
 
-    _columns = { 
+    _columns = {
         'price_unit_id'    : fields.many2one('c2c_product.price_unit','Price Unit'),
         'price_unit_pu'    : fields.float(string='Unit Price',digits_compute=dp.get_precision('Sale Price'),  \
                             help='Price using "Price Units"') ,
@@ -60,20 +60,20 @@ class stock_move(osv.osv):
     }
 
     def init(self, cr):
-      cr.execute("""
-          update stock_move set price_unit_pu = price_unit  where price_unit_pu is null;
-      """)
-      cr.execute("""
-          update stock_move set price_unit_id = (select min(id) from c2c_product_price_unit where coefficient=1) where price_unit_id is null;
-      """)
+        cr.execute("""
+            update stock_move set price_unit_pu = price_unit  where price_unit_pu is null;
+        """)
+        cr.execute("""
+            update stock_move set price_unit_id = (select min(id) from c2c_product_price_unit where coefficient=1) where price_unit_id is null;
+        """)
 
     def onchange_price_unit(self, cr, uid, ids, field_name,price_pu, price_unit_id):
         if  price_pu and  price_unit_id:
-           pu = self.pool.get('c2c_product.price_unit').browse(cr, uid, price_unit_id)
-           price = price_pu / float(pu.coefficient)
-           return {'value': {field_name : price}}
+            pu = self.pool.get('c2c_product.price_unit').browse(cr, uid, price_unit_id)
+            price = price_pu / float(pu.coefficient)
+            return {'value': {field_name : price}}
         return {}
-        
+
     def onchange_product_id(self, cr, uid, ids, prod_id=False, loc_id=False,
                             loc_dest_id=False, address_id=False):
         context = {}
@@ -85,7 +85,7 @@ class stock_move(osv.osv):
             standard_price_pu = prod_obj.standard_price_pu
             res['value'].update({'price_unit_id':pu_id, 'price_unit_pu':standard_price_pu})
         return res
-      
+
 
 stock_move()
 
@@ -120,7 +120,7 @@ class stock_picking(osv.osv):
                 price_unit = move_line.price_unit_sale or ''
                 price_unit_pu = move_line.price_unit_sale * coeff or ''
                 price_unit_id = move_line.price_unit_sale_id.id or ''
-          
+
         inv_line_obj = self.pool.get('account.invoice.line')
         inv_line_obj.write(cr, uid, invoice_line_id, {'price_unit_id': price_unit_id, 'price_unit_pu': price_unit_pu})
 

@@ -28,11 +28,11 @@ import logging
 class purchase_line_invoice(osv.osv_memory):
     _inherit = 'purchase.order.line_invoice'
     _logger = logging.getLogger(__name__)
-    
+
     def makeInvoices(self, cr, uid, ids, context=None):
         res = super(purchase.order.line_invoice,self).makeInvoices(cr, uid, ids, context=None)
         self._logger.debug('makeInvoices FGF: %s  `%s`', res)
-#FIXME 
+#FIXME
         return res
 
 purchase_line_invoice()
@@ -44,7 +44,7 @@ class purchase_line_invoic_copy(osv.osv_memory):
     _inherit = 'purchase.order.line_invoice'
     _description = 'Purchase Order Line Make Invoice c2c'
     _logger = logging.getLogger(__name__)
-    
+
     def makeInvoices(self, cr, uid, ids, context=None):
         self._logger.debug('invoice modified')
         """
@@ -182,4 +182,3 @@ class purchase_line_invoic_copy(osv.osv_memory):
 purchase_line_invoic_copy()
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
-

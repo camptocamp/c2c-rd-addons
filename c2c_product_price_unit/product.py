@@ -40,24 +40,24 @@ class c2c_product_price_unit(osv.osv):
     #def get_coeff(self, cr, uid, price_unit_id):
         if not context:
             context = {}
-        
+
         coeff = 1.0
         if price_unit_id:
-           cr.execute('select coefficient from c2c_product_price_unit where id=%s' , (price_unit_id,))
+            cr.execute('select coefficient from c2c_product_price_unit where id=%s' , (price_unit_id,))
         #res = cr.fetchone()[0] or 1.0
-           coeff = cr.fetchone()[0]
+            coeff = cr.fetchone()[0]
         return coeff
-    
+
     def get_default_id(self, cr, uid, price_unit_id, context=None):
         if context is None:
             context = {}
-        
+
         if not price_unit_id:
-           cr.execute('select min(id) from c2c_product_price_unit where coefficient=1' )
+            cr.execute('select min(id) from c2c_product_price_unit where coefficient=1' )
         #res = cr.fetchone()[0] or 1.0
-           price_unit_id = cr.fetchone()[0] or ''
+            price_unit_id = cr.fetchone()[0] or ''
         return price_unit_id
-     
+
 
 c2c_product_price_unit()
 
@@ -70,9 +70,9 @@ class product_template(osv.osv):
 
 
     def _get_default_id(self, cr, uid, price_unit_id, context=None):
-       pu = self.pool.get('c2c_product.price.unit')
-       if not pu: return
-       return pu.get_default_id(cr, uid, price_unit_id, context)
+        pu = self.pool.get('c2c_product.price.unit')
+        if not pu: return
+        return pu.get_default_id(cr, uid, price_unit_id, context)
 
     _columns = {
         'price_unit_id'    :fields.many2one('c2c_product.price_unit','Price Unit'),
@@ -86,18 +86,18 @@ class product_template(osv.osv):
 
     }
     def init(self, cr):
-      cr.execute("""
-update product_template set standard_price_pu=standard_price  where standard_price_pu is null;
-      """)
-      cr.execute("""
-update product_template set price_unit_id = (select min(id) from c2c_product_price_unit where coefficient=1) where price_unit_id is null;
-      """)
-      cr.execute("""
-update product_template set list_price_pu=list_price  where list_price_pu is null;
-      """)
-      cr.execute("""
-update product_template set list_price_unit_id = (select min(id) from c2c_product_price_unit where coefficient=1) where list_price_unit_id is null;
-      """)
+        cr.execute("""
+  update product_template set standard_price_pu=standard_price  where standard_price_pu is null;
+        """)
+        cr.execute("""
+  update product_template set price_unit_id = (select min(id) from c2c_product_price_unit where coefficient=1) where price_unit_id is null;
+        """)
+        cr.execute("""
+  update product_template set list_price_pu=list_price  where list_price_pu is null;
+        """)
+        cr.execute("""
+  update product_template set list_price_unit_id = (select min(id) from c2c_product_price_unit where coefficient=1) where list_price_unit_id is null;
+        """)
 
     _columns = {
         'price_unit_id'    :fields.many2one('c2c_product.price_unit','Price Unit', required=True),
@@ -116,22 +116,22 @@ update product_template set list_price_unit_id = (select min(id) from c2c_produc
         'list_price_unit_id'   : _get_default_id,
         'list_price_pu': 0.0,
         'standard_price': 0.0,
- 
 
-    } 
+
+    }
     def init(self, cr):
-      cr.execute("""
-update product_template set standard_price_pu=standard_price  where standard_price_pu is null;
-      """)
+        cr.execute("""
+  update product_template set standard_price_pu=standard_price  where standard_price_pu is null;
+        """)
 product_template()
 
 class product_product(osv.osv):
     _inherit = "product.product"
     def onchange_price_unit(self, cr, uid, ids, field_name,price_pu, price_unit_id):
         if  price_pu and  price_unit_id:
-           pu = self.pool.get('c2c_product.price_unit').browse(cr, uid, price_unit_id)
-           price = price_pu / float(pu.coefficient)
-           return {'value': {field_name : price}}
+            pu = self.pool.get('c2c_product.price_unit').browse(cr, uid, price_unit_id)
+            price = price_pu / float(pu.coefficient)
+            return {'value': {field_name : price}}
         return False
 
 product_product()
