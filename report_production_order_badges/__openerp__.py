@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
 #
-# Copyright (c) 2010 Camptocamp SA (http://www.camptocamp.com) 
+# Copyright (c) 2010 Camptocamp SA (http://www.camptocamp.com)
 # All Right Reserved
 #
 # Author : Ferdinand Gassauer (Camptocamp Austria)
@@ -30,7 +30,7 @@
 ##############################################################################
 { "name"         : "production order badges"
 , "description"  : """
-This module provides a report to print sale order badges for every 
+This module provides a report to print sale order badges for every
 Production Order Line
 """
 , "version"      : "0.9"

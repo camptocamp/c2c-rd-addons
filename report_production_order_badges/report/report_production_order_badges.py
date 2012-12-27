@@ -10,8 +10,8 @@ class report_webkit_html(report_sxw.rml_parse):
             'cr':cr,
             'uid': uid,
         })
-        
+
 report_sxw.report_sxw('report.production_order_badges',
-                       'sale.order', 
+                       'sale.order',
                        'addons/report_production_order_badges/report/report_production_order_badges.mako',
                        parser=report_webkit_html)
