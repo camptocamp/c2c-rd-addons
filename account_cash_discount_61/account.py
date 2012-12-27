@@ -30,7 +30,7 @@ from tools import float_round, float_is_zero, float_compare
 class account_voucher(osv.osv):
     _inherit = 'account.voucher'
     _logger = logging.getLogger(__name__)
- 
+
 
     def writeoff_move_line_get(self, cr, uid, voucher_id, line_total, move_id, name, company_currency, current_currency, context=None):
         res = super(account_voucher,self).writeoff_move_line_get(cr, uid, voucher_id, line_total, move_id, name, company_currency, current_currency, context=None)
@@ -48,8 +48,8 @@ class account_voucher(osv.osv):
         for voucher in self.browse(cr, uid, ids):
             lines = move_line_obj.search(cr, uid, [('move_id','=', voucher.move_id.id)])
             move_line_obj.reconcile_cash_discount(cr, uid, ids, voucher.move_id.id, lines, None, context)
-        return res        
-    
+        return res
+
 account_voucher()
 
 
@@ -58,7 +58,7 @@ class account_move_line(osv.osv):
     _logger = logging.getLogger(__name__)
 
     _columns = {
-         'is_write_off' : fields.boolean('Is Write Off move line'), 
+         'is_write_off' : fields.boolean('Is Write Off move line'),
     }
 
     def _update_check(self, cr, uid, ids, context=None):
@@ -70,7 +70,7 @@ class account_move_line(osv.osv):
 
     def reconcile_cash_discount(self, cr, uid, ids, move_ids, lines, write_off_ids=None, context=None):
         if not context:
-           context = {}
+            context = {}
         self._logger.debug('reconcile - action_move_line_create  voucher ids, context %s,%s' % (ids, context))
         move_obj = self.pool.get('account.move')
         move_line_obj = self.pool.get('account.move.line')
@@ -90,20 +90,20 @@ class account_move_line(osv.osv):
         # collect necessary data
         for line in move_line_obj.browse(cr, uid, lines):
             self._logger.debug('reconcile voucher reconcile_id, acc_id, partner_id %s,%s %s %s' % (line.reconcile_id.id, line.account_id.id, line.partner_id.id, line.name))
-                
+
             # search move_ids which are reconciled
-              
+
             if line.reconcile_id and line.reconcile_id.id not in reconcile_ids:
                 reconcile_ids.append(line.reconcile_id.id)
                 if not partner_id and line.partner_id:
                     partner_id = line.partner_id.id
-                if not reconcile_base_id: 
+                if not reconcile_base_id:
                     reconcile_base_id = line.reconcile_id.id
-                    
+
             if line.is_write_off:
                 write_off_debit += line.debit
                 write_off_credit += line.credit
-                write_off_id = line.id        
+                write_off_id = line.id
         if not reconcile_ids:
             return True
         self._logger.debug('reconcile - partner_id, line_ids, reconcile_ids: %s %s %s' % (partner_id,lines, reconcile_ids))
@@ -126,7 +126,7 @@ class account_move_line(osv.osv):
         invoice_ids = invoice_obj.search(cr, uid, [('move_id','in', reconciled_move_ids)])
         if not isinstance(invoice_ids, list):
             invoice_ids = [invoice_ids]
-        invoice_discount_ids = []    
+        invoice_discount_ids = []
         invoice_total = 0.0
         invoice_discount_total = 0.0
         invoice_discount_net = 0.0
@@ -149,7 +149,7 @@ class account_move_line(osv.osv):
             #for tax in invoice_tax_obj.browse(cr, uid, invoice_tax_ids):
             #    tax_base_total += tax.base_amount
             #    tax_total += tax.tax_amount
-            factor = 0 
+            factor = 0
             if write_off_debit > 0:
                 factor = write_off_debit / invoice_total
             elif write_off_credit > 0:
@@ -159,15 +159,15 @@ class account_move_line(osv.osv):
             factor = factor * (tax_base_total / invoice_discount_net)
             self._logger.debug('reconcile - recalculate factor %s' % factor)
             self._logger.debug('reconcile - invoice_discount_ids: %s invoice_discount_total= %s, factor: %s' % (invoice_discount_ids, invoice_discount_total, factor))
-            
+
             invoice_discount_ids2 = ','.join([str(id) for id in invoice_discount_ids])
-            # group 
+            # group
             cr.execute("""
                       select tax_code_id, payment_term,
                        split_part(pi.value_reference,',',2)::int as discount_income_account_id,
                        split_part(pe.value_reference,',',2)::int as discount_expense_account_id,
                        t.account_id,
-                       t.tax_code_id, t.base_code_id, 
+                       t.tax_code_id, t.base_code_id,
                        sum(base_amount) as base_amount, sum(tax_amount) as tax_amount,
                        sum(tax_amount) * %s as tax_discount_amount,
                        sum(base_amount) * %s as base_discount_amount
@@ -194,73 +194,73 @@ class account_move_line(osv.osv):
             # get interesting data from write off record, which later will be deleted
             #tax_cum_amount=0.0
             if write_off_id:
-              for r_line in move_line_obj.browse(cr, uid, [write_off_id]):
-                ml = {
-                   'move_id' : r_line.move_id.id,
-                   'journal_id' : r_line.journal_id.id,
-                   'period_id' : r_line.period_id.id,
-                   'date' : r_line.date ,
-                   'name' : r_line.name,
-                   'debit' : 0.0,
-                   'credit' : 0.0,
-                   'company_id' : r_line.company_id.id,
-                   'name' : _('Discount'),
-                }
-
-              for tax_move in tax_moves:
-                # FIXME code can be simplified / condensed
-                #base
-                mlt = dict(ml)
-                if write_off_debit > 0.0:
-                    mlt.update({
-                       'debit' : tax_move['base_discount_amount'],
-                       'credit':0.0,
-                       'account_id' : tax_move['discount_expense_account_id'],
-                       'tax_code_id' : tax_move['base_code_id'],
-                       'tax_amount' : tax_move['base_discount_amount'],
-                    })
-                    write_off_debit -= tax_move['base_discount_amount']
-                elif write_off_credit > 0.0:
-                    mlt.update({
+                for r_line in move_line_obj.browse(cr, uid, [write_off_id]):
+                    ml = {
+                       'move_id' : r_line.move_id.id,
+                       'journal_id' : r_line.journal_id.id,
+                       'period_id' : r_line.period_id.id,
+                       'date' : r_line.date ,
+                       'name' : r_line.name,
                        'debit' : 0.0,
-                       'credit' : tax_move['base_discount_amount'],
-                       'account_id' : tax_move['discount_income_account_id'],
-                       'tax_code_id' : tax_move['base_code_id'],
-                       'tax_amount' : tax_move['base_discount_amount'],
-                    })
-                    write_off_credit -= tax_move['base_discount_amount']
-                self._logger.debug('reconcile - base credit: %s' % mlt)
-                move_line_obj.create(cr, uid, mlt)
-                # tax
-                mlt = dict(ml)
-                if write_off_debit > 0.0:
-                    mlt.update({
-                       'debit' : tax_move['tax_discount_amount'],
-                       'credit':0.0,
-                       'account_id' : tax_move['account_id'],
-                       'analytic_account_id' : False,
-                       'tax_code_id' : tax_move['tax_code_id'],
-                       'tax_amount' : tax_move['tax_discount_amount'],
-                    })
-                    write_off_debit -= tax_move['tax_discount_amount']
-                else:
-                    mlt.update({
-                       'debit' : 0.0,
-                       'credit' : tax_move['tax_discount_amount'],
-                       'account_id' : tax_move['account_id'],
-                       'analytic_account_id' : False,
-                       'tax_code_id' : tax_move['tax_code_id'],
-                       'tax_amount' : tax_move['tax_discount_amount'],
-                    })
-                    write_off_credit -= tax_move['tax_discount_amount']
-                move_line_obj.create(cr, uid, mlt)
+                       'credit' : 0.0,
+                       'company_id' : r_line.company_id.id,
+                       'name' : _('Discount'),
+                    }
 
-            # create move lines for remaining not discountable amount 
+                for tax_move in tax_moves:
+                    # FIXME code can be simplified / condensed
+                    #base
+                    mlt = dict(ml)
+                    if write_off_debit > 0.0:
+                        mlt.update({
+                           'debit' : tax_move['base_discount_amount'],
+                           'credit':0.0,
+                           'account_id' : tax_move['discount_expense_account_id'],
+                           'tax_code_id' : tax_move['base_code_id'],
+                           'tax_amount' : tax_move['base_discount_amount'],
+                        })
+                        write_off_debit -= tax_move['base_discount_amount']
+                    elif write_off_credit > 0.0:
+                        mlt.update({
+                           'debit' : 0.0,
+                           'credit' : tax_move['base_discount_amount'],
+                           'account_id' : tax_move['discount_income_account_id'],
+                           'tax_code_id' : tax_move['base_code_id'],
+                           'tax_amount' : tax_move['base_discount_amount'],
+                        })
+                        write_off_credit -= tax_move['base_discount_amount']
+                    self._logger.debug('reconcile - base credit: %s' % mlt)
+                    move_line_obj.create(cr, uid, mlt)
+                    # tax
+                    mlt = dict(ml)
+                    if write_off_debit > 0.0:
+                        mlt.update({
+                           'debit' : tax_move['tax_discount_amount'],
+                           'credit':0.0,
+                           'account_id' : tax_move['account_id'],
+                           'analytic_account_id' : False,
+                           'tax_code_id' : tax_move['tax_code_id'],
+                           'tax_amount' : tax_move['tax_discount_amount'],
+                        })
+                        write_off_debit -= tax_move['tax_discount_amount']
+                    else:
+                        mlt.update({
+                           'debit' : 0.0,
+                           'credit' : tax_move['tax_discount_amount'],
+                           'account_id' : tax_move['account_id'],
+                           'analytic_account_id' : False,
+                           'tax_code_id' : tax_move['tax_code_id'],
+                           'tax_amount' : tax_move['tax_discount_amount'],
+                        })
+                        write_off_credit -= tax_move['tax_discount_amount']
+                    move_line_obj.create(cr, uid, mlt)
+
+            # create move lines for remaining not discountable amount
             self._logger.debug('reconcile - writeoff deb/cred remaining: %s/%s ' % (write_off_debit,write_off_credit))
             if not float_is_zero(write_off_debit, prec):
                 self._logger.debug('reconcile - write_off_debit: %s' % write_off_debit)
                 if not context.get('writeoff_acc_id',False):
-                     raise osv.except_osv (_('Error !'), _('No write off account defined.'))
+                    raise osv.except_osv (_('Error !'), _('No write off account defined.'))
                 mlt = dict(ml)
                 mlt.update({
                        'debit' : write_off_debit,
@@ -270,10 +270,10 @@ class account_move_line(osv.osv):
                        'tax_amount' : False,
                     })
                 move_line_obj.create(cr, uid, mlt)
-            if not float_is_zero(write_off_credit, prec): 
+            if not float_is_zero(write_off_credit, prec):
                 self._logger.debug('reconcile - write_off_credit: %s' % write_off_credit)
                 if not context.get('writeoff_acc_id',False):
-                     raise osv.except_osv (_('Error !'), _('No write off account defined.'))
+                    raise osv.except_osv (_('Error !'), _('No write off account defined.'))
                 mlt = dict(ml)
                 mlt.update({
                        'credit' : write_off_credit,
@@ -283,23 +283,23 @@ class account_move_line(osv.osv):
                        'tax_amount' : False,
                     })
                 move_line_obj.create(cr, uid, mlt)
-            
+
             # delete originial move
             if write_off_id:
                 move_line_obj.unlink(cr, uid,  [write_off_id], context)
             # set only ONE reconcile_id (instead of 2 or more)
             reconcile_lines_to_update = move_line_obj.search(cr, uid, [('reconcile_id','in',reconcile_ids),('reconcile_id','!=',reconcile_base_id)])
-            move_line_obj.write(cr, uid, reconcile_lines_to_update,{'reconcile_id':reconcile_base_id}, context)    
+            move_line_obj.write(cr, uid, reconcile_lines_to_update,{'reconcile_id':reconcile_base_id}, context)
             # delete unused recocile lines
-            reconcile_ids_to_delete = [] 
+            reconcile_ids_to_delete = []
             for r_id in reconcile_ids:
                 if r_id != reconcile_base_id:
                     reconcile_ids_to_delete.append(r_id)
             move_reconcile_obj.unlink(cr, uid, reconcile_ids_to_delete)
-                
-        return True 
-        
-    
+
+        return True
+
+
     def reconcile(self, cr, uid, ids, type='auto', writeoff_acc_id=False, writeoff_period_id=False, writeoff_journal_id=False, context=None):
         if not context :
             context = {}
@@ -313,7 +313,7 @@ class account_move_line(osv.osv):
 
         res = super(account_move_line, self).reconcile(cr, uid, ids, type, writeoff_acc_id, writeoff_period_id, writeoff_journal_id, context)
         if not lines_selected:
-            return res 
+            return res
         lines_ids_returned = list(context.get('active_ids'))
         self._logger.debug('FGF reconcile  lines_selected %s, lines_ids_returned %s' % (lines_selected, lines_ids_returned))
 
@@ -328,7 +328,7 @@ class account_move_line(osv.osv):
             move_ids.append(move_line.move_id.id)
         lines = move_line_obj.search(cr, uid, [('move_id','in', move_ids)])
         lines_up = move_line_obj.search(cr, uid, [('move_id','in', move_ids),('id','not in',write_off_line_ids)])
-        
+
         context['is_discount'] = True # to avoid _check_update which prohibits altering reconciled lines - of this transaction
         move_line_obj.write(cr, uid, lines_up, {'is_write_off' : True});
         move_line_obj.reconcile_cash_discount(cr, uid, ids, move_ids, lines, write_off_line_ids, context)
@@ -338,4 +338,3 @@ class account_move_line(osv.osv):
 
 
 account_move_line()
-    
