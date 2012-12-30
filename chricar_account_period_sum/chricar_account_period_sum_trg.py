@@ -59,6 +59,8 @@ class account_move(osv.osv):
                     """ % ( ','.join(map(str,per_ids)), account_id)
                     cr.execute(sql)
                     balance = cr.fetchone()[0]
+                    if not balance:
+                        balance = 0.0
                     #_logger.debug('FGF sql balance`%s`', balance)
                     debit = 0.0
                     credit = 0.0

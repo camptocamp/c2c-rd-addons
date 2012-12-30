@@ -81,13 +81,30 @@ class account_period_sum(osv.osv):
         cr.execute('SELECT indexname FROM pg_indexes WHERE indexname = \'account_account_period_sum_index\'')
         if not cr.fetchone():
             cr.execute('CREATE INDEX account_account_period_sum_index ON account_account_period_sum ( account_id, period_id)')
-            
+
     def init(self, cr):
+
+        cr.execute("""drop function if exists account_period_sum_update(integer,integer);""")
+        cr.execute("""drop function if exists account_period_sum_create(integer);""")
+        cr.execute("""drop function if exists account_close_method_update(integer, varchar);""")
+
+        cr.execute("""drop trigger if exists account_move_sum_delete on account_move;""")
+        cr.execute("""drop trigger if exists account_move_sum_insert on account_move;""")
+        cr.execute("""drop trigger if exists account_move_sum_update on account_move;""")
+        cr.execute("""drop trigger if exists account_close_method_update_f on account_move;""")
+        cr.execute("""drop trigger if exists account_period_sum_insert on account_move;""")
+
         cr.execute('SELECT indexname FROM pg_indexes WHERE indexname = \'account_account_period_sum_index\'')
         if not cr.fetchone():
             cr.execute('CREATE INDEX account_account_period_sum_index ON account_account_period_sum ( account_id, period_id)')
-  
+
         cr.execute("delete from account_account_period_sum;")
+        self.init_sum(cr, 1)
+
+    def init_sum(self, cr, uid, account_ids=None):
+        where = ''
+        if account_ids:
+            where = ' and account_id in ( %s )' % (','.join(map(str, account_ids)))
         sql="""
 INSERT
   into account_account_period_sum(create_uid, create_date, name,sum_fy_period_id,period_id,company_id,account_id,credit,debit)
@@ -112,32 +129,44 @@ INSERT
       and m.state = 'posted'
       and m.id = l.move_id
       and p.company_id = l.company_id
-      and j.company_id = l.company_id
+      and j.company_id = l.company_id %s
     group by p.name,l.period_id, l.company_id, account_id ,fiscalyear_id ;
-"""
+""" % (where)
         cr.execute(sql)
-        sql1="""
-select distinct l.account_id, p.fiscalyear_id, f.date_start
-    from account_move_line l,
-        account_period p,
-        account_fiscalyear f
-    where l.state = 'valid'
-    and p.id = l.period_id
-    and f.id = p.fiscalyear_id
-    order by l.account_id, f.date_start ;
-            """
-        cr.execute(sql1)
-        fy_sum = cr.fetchall()
+        
         account_obj = self.pool.get('account.account')
-        move_obj = self.pool.get('account.move')
-        for fy_val in fy_sum:
-            account_id   = fy_val[0]
-            fiscalyear_id= fy_val[1]
-            for account in account_obj.browse(cr, 1, [account_id]):
-                if account.user_type.close_method != 'none':
-                    move_obj._compute_opening_blance(cr, 1, account_id, fiscalyear_id)
+        if account_ids:
+            all_ids = account_ids
+        else:
+            all_ids = account_obj.search(cr, uid, [])
+        
+        account_ids = []
+        for account in account_obj.browse(cr, uid, all_ids):
+            if account.user_type.close_method != 'none':
+                account_ids.append(account.id)
 
-    
+        if account_ids:
+            sql1="""
+    select distinct l.account_id, p.fiscalyear_id, f.date_start
+        from account_move_line l,
+            account_period p,
+            account_fiscalyear f
+        where l.state = 'valid'
+        and p.id = l.period_id
+        and f.id = p.fiscalyear_id
+        and l.account_id in (%s)
+        order by l.account_id, f.date_start ;
+                """ % ( ','.join(map(str, account_ids)))
+
+            cr.execute(sql1)
+            fy_sum = cr.fetchall()
+            move_obj = self.pool.get('account.move')
+            for fy_val in fy_sum:
+                account_id   = fy_val[0]
+                fiscalyear_id= fy_val[1]
+                move_obj._compute_opening_blance(cr, uid, account_id, fiscalyear_id)
+
+
 account_period_sum()
 
 class account_fy_period_sum(osv.osv):

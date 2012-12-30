@@ -247,4 +247,16 @@ class account_account(osv.osv):
         'balance_prev_sum': fields.function(__compute_prev_sum, digits_compute=dp.get_precision('Account'), method=True, string='Balance Prev Year', multi='balance_prev_sum'),
         }
 
+    def write(self, cr, uid, ids, vals, context=None):
+        if context is None:
+            context = {}
+        account_period_sum_obj = self.pool.get('account.account_period_sum')
+
+        res = super(account_account, self).write(cr, uid, ids, vals, context)
+        for account in self.browse(cr, uid, ids):
+            cr.execute("""delete from account_account_period_sum where account_id = %s""" %(account.id))
+            account_period_sum_obj.init_sum(cr, uid, [account.id])
+
+        return res
+
 account_account()
