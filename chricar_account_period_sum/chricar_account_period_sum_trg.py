@@ -102,10 +102,12 @@ class account_move(osv.osv):
         sql1="""
             select l.company_id, l.account_id, l.period_id, p.date_start, p.fiscalyear_id, sum(debit) as debit, sum(credit), p.name as credit
               from account_move_line l,
-                   account_period p
+                   account_period p,
+                   account_journal j
              where move_id in (%s)
                and l.state = 'valid'
                and p.id = l.period_id
+               and j.is_opening_balance,False) is False
              group by l.company_id, l.account_id, p.date_start, l.period_id, p.fiscalyear_id, p.name
              order by l.company_id, l.account_id, p.date_start, l.period_id ;
             """ %  (','.join(map(str,move_ids))) 
