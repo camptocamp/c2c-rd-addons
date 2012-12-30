@@ -111,7 +111,7 @@ class account_move(osv.osv):
              where move_id in (%s)
                and l.state = 'valid'
                and p.id = l.period_id
-               and j.is_opening_balance,False) is False
+               and coalesce(j.is_opening_balance,False) is False
              group by l.company_id, l.account_id, p.date_start, l.period_id, p.fiscalyear_id, p.name
              order by l.company_id, l.account_id, p.date_start, l.period_id ;
             """ %  (','.join(map(str,move_ids)))
