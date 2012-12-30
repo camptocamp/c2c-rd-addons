@@ -128,6 +128,7 @@ INSERT
       and coalesce(j.is_opening_balance,False) is False
       and m.state = 'posted'
       and m.id = l.move_id
+      and p.special != True
       and p.company_id = l.company_id
       and j.company_id = l.company_id %s
     group by p.name,l.period_id, l.company_id, account_id ,fiscalyear_id ;

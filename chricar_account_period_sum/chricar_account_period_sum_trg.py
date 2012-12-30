@@ -40,17 +40,19 @@ class account_move(osv.osv):
             sql = """
         select id
           from account_fiscalyear
-         where date_start = (select min(date_start)
+         where company_id = %s
+           and date_start = (select min(date_start)
                                from account_fiscalyear
-                              where date_start > to_date('%s','YYYY-MM-DD'))
-        """ % (fy.date_start)
+                              where company_id = %s
+                                and date_start > to_date('%s','YYYY-MM-DD'))
+        """ % (fy.company_id.id, fy.company_id.id, fy.date_start)
             #_logger.debug('FGF sql fyid`%s`', sql)
             cr.execute(sql)
             future_fy_id = cr.fetchone()
             if future_fy_id:
                 future_fy_id = future_fy_id[0]
                 for future_fy in fy_obj.browse(cr, uid, [future_fy_id]):
-                    per_ids = per_obj.search(cr, uid, [('fiscalyear_id','=',fiscalyear_id)])
+                    per_ids = per_obj.search(cr, uid, [('fiscalyear_id','=',fiscalyear_id),('company_id','=',fy.company_id.id)])
                     sql="""
                     select sum(debit-credit)
                       from account_account_period_sum
@@ -73,11 +75,11 @@ class account_move(osv.osv):
                         'credit' : credit
                         }
 
-                    per_ob_id = per_sum_obj.search(cr, uid, [('account_id','=', account_id), ('name','=', future_fy.code+'00') ])
+                    per_ob_id = per_sum_obj.search(cr, uid, [('account_id','=', account_id), ('name','=', future_fy.code+'00'),('company_id','=',fy.company_id.id) ])
                     if per_ob_id:
                         per_sum_obj.write(cr, uid, per_ob_id, vals)
                     elif balance != 0:
-                        period_id = per_obj.search(cr, uid, [('fiscalyear_id','=',future_fy.id),('date_start','=',future_fy.date_start)])[0]
+                        period_id = per_obj.search(cr, uid, [('fiscalyear_id','=',future_fy.id),('date_start','=',future_fy.date_start),('special','!=', True)])[0]
                         vals['company_id'] = fy.company_id.id
                         vals['account_id'] = account_id
                         vals['name']       = future_fy.code+'00'
