@@ -81,6 +81,63 @@ class account_period_sum(osv.osv):
         cr.execute('SELECT indexname FROM pg_indexes WHERE indexname = \'account_account_period_sum_index\'')
         if not cr.fetchone():
             cr.execute('CREATE INDEX account_account_period_sum_index ON account_account_period_sum ( account_id, period_id)')
+            
+    def init(self, cr):
+        cr.execute('SELECT indexname FROM pg_indexes WHERE indexname = \'account_account_period_sum_index\'')
+        if not cr.fetchone():
+            cr.execute('CREATE INDEX account_account_period_sum_index ON account_account_period_sum ( account_id, period_id)')
+  
+        cr.execute("delete from account_account_period_sum;")
+        sql="""
+INSERT
+  into account_account_period_sum(create_uid, create_date, name,sum_fy_period_id,period_id,company_id,account_id,credit,debit)
+  SELECT
+      1 as create_uid,
+      now() at time zone 'UTC',
+      p.name,
+      nextval('account_account_period_sum_id_seq'::regclass),
+      l.period_id,
+      l.company_id,
+      account_id,
+      sum(coalesce(credit,0)),sum(coalesce(debit,0))
+    from
+      account_move_line l,
+      account_period p,
+      account_journal j,
+      account_move m
+    where
+      p.id=l.period_id
+      and j.id = l.journal_id
+      and coalesce(j.is_opening_balance,False) is False
+      and m.state = 'posted'
+      and m.id = l.move_id
+      and p.company_id = l.company_id
+      and j.company_id = l.company_id
+    group by p.name,l.period_id, l.company_id, account_id ,fiscalyear_id ;
+"""
+        cr.execute(sql)
+        sql1="""
+select distinct l.account_id, p.fiscalyear_id, f.date_start
+    from account_move_line l,
+        account_period p,
+        account_fiscalyear f
+    where l.state = 'valid'
+    and p.id = l.period_id
+    and f.id = p.fiscalyear_id
+    order by l.account_id, f.date_start ;
+            """
+        cr.execute(sql1)
+        fy_sum = cr.fetchall()
+        account_obj = self.pool.get('account.account')
+        move_obj = self.pool.get('account.move')
+        for fy_val in fy_sum:
+            account_id   = fy_val[0]
+            fiscalyear_id= fy_val[1]
+            for account in account_obj.browse(cr, 1, [account_id]):
+                if account.user_type.close_method != 'none':
+                    move_obj._compute_opening_blance(cr, 1, account_id, fiscalyear_id)
+
+    
 account_period_sum()
 
 class account_fy_period_sum(osv.osv):
