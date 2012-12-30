@@ -28,8 +28,6 @@
 , "description"  : """
 This module adds period sums for moves_lines of *account_moves* with state posted
 
- * on update from draft to posted
-   hence: account_move_lines must NOT be added to account_moves with state posted.
  * balance carried forward is calculated for all subsequent fiscal years
    no account_move_lines are generated for these sums
    these sums always represent the balance of the preceding fiscal year.
@@ -74,8 +72,9 @@ correct period sums.
 , "depends" :
     [ "report_webkit"
     , "account"
+    , "account_accountant"
     , "c2c_account_closing_remarks"
-    , "chricar_view_id"
+    #, "chricar_view_id"
     #,"report_webkit_chapter_server"
     ]
 , "init_xml" : []
