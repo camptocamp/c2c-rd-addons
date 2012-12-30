@@ -28,18 +28,6 @@ import logging
 class account_move(osv.osv):
     _inherit = "account.move"
 
-    def init(self, cr):
-        cr.execute("""drop function if exists account_period_sum_update(integer,integer);""")
-        cr.execute("""drop function if exists account_period_sum_create(integer);""")
-        cr.execute("""drop function if exists account_close_method_update(integer, varchar);""")
-
-        cr.execute("""drop trigger if exists account_move_sum_delete on account_move;""")
-        cr.execute("""drop trigger if exists account_move_sum_insert on account_move;""")
-        cr.execute("""drop trigger if exists account_move_sum_update on account_move;""")
-        cr.execute("""drop trigger if exists account_close_method_update_f on account_move;""")
-        cr.execute("""drop trigger if exists account_period_sum_insert on account_move;""")
-
-
     def _compute_opening_blance(self, cr, uid, account_id, fiscalyear_id):
         _logger = logging.getLogger(__name__)
         fy_obj = self.pool.get('account.fiscalyear')
