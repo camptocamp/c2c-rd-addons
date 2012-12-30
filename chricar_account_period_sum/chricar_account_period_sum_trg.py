@@ -48,34 +48,54 @@ class account_move(osv.osv):
             cr.execute(sql)
             future_fy_id = cr.fetchone()
             if future_fy_id:
-                
+              for future_fy in fy_obj.browse(cr, uid, [future_fy_id[0]]):
                 per_ids = per_obj.search(cr, uid, [('fiscalyear_id','=',fiscalyear_id)])
                 sql="""
                 select sum(debit-credit)
-                  from account_period_sum
-                 where period_id in %s  
-                """ , tuple(per_ids)
+                  from account_account_period_sum
+                 where period_id in (%s)
+                   and account_id = %s
+                """ % ( ','.join(map(str,per_ids)), account_id)
                 cr.execute(sql)
-                balance = cr.fetchone()
-                debit, credit = 0
-                if balance > 0:
+                balance = cr.fetchone()[0]
+                _logger.debug('FGF sql balance`%s`', balance)
+                debit = 0.0
+                credit = 0.0
+                if balance > 0.0:
                     debit = balance
-                if balance < 0:
+                if balance < 0.0:
                     credit = -balance
                 vals = {
                     'debit' : debit,
                     'credit' : credit
                     }
                 
-                per_ob_id = per_sum_obj.serch(cr, uid, [('account_id','=', account_id), ('name','=', fy.code+'00') ])
+                per_ob_id = per_sum_obj.search(cr, uid, [('account_id','=', account_id), ('name','=', fy.code+'00') ])
                 if per_ob_id:
+                    for per_sum in per_sum_obj.browse(cr, uid, per_ob_id):
+                        balance += per_sum.debit - per_sum.credit
+                        debit = 0.0
+                        credit = 0.0
+                        if balance > 0.0:
+                            debit = balance
+                        if balance < 0.0:
+                            credit = -balance
+                        vals = {
+                            'debit' : debit,
+                            'credit' : credit
+                            }
+                        vals['debit'] += per_sum.debit
+                        vals['credit'] += per_sum.credit
                     per_sum_obj.write(cr, uid, per_ob_id, vals)
                 elif balance != 0:
-                    vals['company_id'] = fy.company_id,
-                    vals['account_id'] = account_id,
-                    vals['name'] =  fy.code+'00'
+                    period_id = per_obj.search(cr, uid, [('fiscalyear_id','=',future_fy.id),('date_start','=',future_fy.date_start)])[0]
+                    vals['company_id'] = fy.company_id.id
+                    vals['account_id'] = account_id
+                    vals['name']       = future_fy.code+'00'
+                    vals['period_id']  = period_id
+                    vals['sum_fy_period_id'] = future_fy_id[0]
                     per_sum_obj.create(cr, uid, vals)
-                self._compute_opening_blance(cr, uid, account.id, future_fy_id)
+                self._compute_opening_blance(cr, uid, account_id, future_fy_id[0])
         
     def post(self, cr, uid, ids, context=None):
         if context is None:
@@ -93,13 +113,13 @@ class account_move(osv.osv):
             return res
             
         sql1="""
-            select l.company_id, l.account_id, l.period_id, p.date_start, p.fiscalyear_id, sum(debit) as debit, sum(credit) as credit
+            select l.company_id, l.account_id, l.period_id, p.date_start, p.fiscalyear_id, sum(debit) as debit, sum(credit), p.name as credit
               from account_move_line l,
                    account_period p
              where move_id in (%s)
                and l.state = 'valid'
                and p.id = l.period_id
-             group by l.company_id, l.account_id, p.date_start, l.period_id, p.fiscalyear_id
+             group by l.company_id, l.account_id, p.date_start, l.period_id, p.fiscalyear_id, p.name
              order by l.company_id, l.account_id, p.date_start, l.period_id ;
             """ %  (','.join(map(str,move_ids))) 
 
@@ -131,6 +151,7 @@ class account_move(osv.osv):
             else:    
                 vals['company_id'] = per_val[0]
                 vals['sum_fy_period_id'] = fiscalyear_id
+                vals['name'] = per_val[7]
                 per_sum_obj.create(cr,uid, vals)
             
             # compute opening balance 
