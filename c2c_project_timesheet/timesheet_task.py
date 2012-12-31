@@ -59,6 +59,15 @@ class project_work(osv.osv):
 ),
     }
 
+    def onchange_task_id(self, cr, uid, ids, task_id, context=None):
+        result = {}
+        if task_id:
+            task_obj = self.pool.get('project.task')
+            for task in task_obj.browse(cr, uid, [task_id]): 
+                if task.project_id and task.project_id.to_invoice:
+	            return {'value':{'to_invoice': task.project_id.to_invoice.id,}}
+        return {'value':{}}
+
 
     def write(self, cr, uid, ids, vals, context=None):
         obj_timesheet = self.pool.get('hr.analytic.timesheet')
