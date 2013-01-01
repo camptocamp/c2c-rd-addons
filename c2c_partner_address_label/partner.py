@@ -60,7 +60,7 @@ import logging
 class res_company(osv.osv):
     _inherit = 'res.company'
     _columns = {
-        'company_address_id':fields.many2one('res.partner', 'Address for Report Header', domain="[('partner_id', '=', partner_id)]"),
+        'company_address_id':fields.many2one('res.partner', 'Address for Report Header'),
         'address_label_position' : fields.selection([('left','Left'),('right','Right')], string="Address Window Position", help="Position of address window on standard company enevlops. Many reports do not use this yet"),
     }
     _defaults = {
