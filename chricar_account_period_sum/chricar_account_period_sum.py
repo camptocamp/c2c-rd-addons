@@ -88,9 +88,9 @@ class account_period_sum(osv.osv):
         cr.execute("""drop function if exists account_period_sum_create(integer);""")
         cr.execute("""drop function if exists account_close_method_update(integer, varchar);""")
 
-        cr.execute("""drop trigger if exists account_move_sum_delete on account_move;""")
-        cr.execute("""drop trigger if exists account_move_sum_insert on account_move;""")
-        cr.execute("""drop trigger if exists account_move_sum_update on account_move;""")
+        cr.execute("""drop trigger if exists trg_account_move_sum_delete on account_move;""")
+        cr.execute("""drop trigger if exists trg_account_move_sum_insert on account_move;""")
+        cr.execute("""drop trigger if exists trg_account_move_sum_update on account_move;""")
         cr.execute("""drop trigger if exists account_close_method_update_f on account_move;""")
         cr.execute("""drop trigger if exists account_period_sum_insert on account_move;""")
 
