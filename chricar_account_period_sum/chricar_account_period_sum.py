@@ -32,8 +32,19 @@ import decimal_precision as dp
 import logging
 
 
-# name should hold the period name + special names
 
+class account_journal(osv.osv):
+    _inherit = "account.journal"
+    _columns = \
+        { 'is_opening_balance'  : fields.boolean
+            ( 'Is Opening Balance Journal'
+            ,  help="check this and use this journal for closing fiscal year, the opening balance moves will not be added to chricar periods sum as opening balance is a special period 00"
+            )
+        }
+    _defaults = {'is_opening_balance' : lambda *a: False}
+account_journal()
+
+# name should hold the period name + special names:
 class account_period(osv.osv):
     _inherit = "account.period"
 
@@ -411,16 +422,7 @@ class account_move_line(osv.osv):
         { 'account_period_sum_id': fields.many2one('account.account_period_sum', 'Period Sum', select=1)}
 account_move_line()
 
-class account_journal(osv.osv):
-    _inherit = "account.journal"
-    _columns = \
-        { 'is_opening_balance'  : fields.boolean
-            ( 'Is Opening Balance Journal'
-            ,  help="check this and use this journal for closing fiscal year, the opening balance moves will not be added to chricar periods sum as opening balance is a special period 00"
-            )
-        }
-    _defaults = {'is_opening_balance' : lambda *a: False}
-account_journal()
+
 
 class account_account_period_sum_cur_prev(osv.osv):
     _name        = "account.account.period.sum.cur.prev"
