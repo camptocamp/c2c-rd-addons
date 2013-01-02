@@ -1,5 +1,5 @@
 "id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
-"access_account_account_period_sum","account.account_period_sum","model_account_account_period_sum","account.group_account_user",1,0,0,0
+"access_account_account_period_sum","account.account_period_sum","model_account_account_period_sum","account.group_account_user",1,1,1,0
 "access_account_account_fy_period_sum","account.account_fy_period_sum","model_account_account_fy_period_sum","account.group_account_user",1,0,0,0
 "access_account_account_fiscalyear_sum","account.account_fiscalyear_sum","model_account_account_fiscalyear_sum","account.group_account_user",1,0,0,0
 "access_account_account_with_postings","account.account_with_postings","model_account_account_with_postings","account.group_account_user",1,0,0,0
