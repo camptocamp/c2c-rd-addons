@@ -21,31 +21,31 @@
             attr-name2="n1:InvoiceCurrency" attr-eval2="invoice.company_id.currency_id.name"
             attr-name3="n1:DocumentType" attr-eval3="'SubsequentDebit'" 
             attr-name4="n1:Language" attr-eval4="'ger'">
-          <InvoiceNumber text_eval="invoice.number"/>
-          <InvoiceDate text_eval="invoice.date_invoice"/>
+          <InvoiceNumber text-eval="invoice.number"/>
+          <InvoiceDate text-eval="invoice.date_invoice"/>
           <Biller>
-            <VATIdentificationNumber text_eval="'ATU...'"/>
+            <VATIdentificationNumber text-eval="'ATU...'"/>
             <Address>
-              <Name text_eval="invoice.company_id.name"/>
-              <Street text_eval="invoice.company_id.street or ''"/>
-              <Town text_eval="invoice.company_id.city or''"/>
-              <ZIP text_eval="invoice.company_id.zip or ''"/>
+              <Name text-eval="invoice.company_id.name"/>
+              <Street text-eval="invoice.company_id.street or ''"/>
+              <Town text-eval="invoice.company_id.city or''"/>
+              <ZIP text-eval="invoice.company_id.zip or ''"/>
               <Country 
                   attr-name="n1:CountryCode" 
                   attr-eval="invoice.company_id.country_id.code"/>
-              <Phone text_eval="invoice.company_id.phone or ''"/>
-              <Email text_eval="invoice.company_id.email or ''"/>
-              <Contact text_eval="invoice.company_id.partner_id.name"/>
+              <Phone text-eval="invoice.company_id.phone or ''"/>
+              <Email text-eval="invoice.company_id.email or ''"/>
+              <Contact text-eval="invoice.company_id.partner_id.name"/>
             </Address>
           </Biller>
           <InvoiceRecipient>
-            <VATIdentificationNumber text_eval="'ATU...' invoice.partner_id.is_company else : '00000000'"/>
-            <BillersInvoiceRecipientID text_eval="invoice.partner_id.ref"/>
+            <VATIdentificationNumber text-eval="'ATU...' if invoice.partner_id.is_company else '00000000'"/>
+            <BillersInvoiceRecipientID text-eval="invoice.partner_id.ref"/>
             <Address>
-              <Name text_eval="invoice.partner_id.name"/>
-              <Street text_eval="invoice.address_invoice_id.street or ''"/>
-              <Town text_eval="invoice.address_invoice_id.city or''"/>
-              <ZIP text_eval="invoice.address_invoice_id.zip or ''"/>
+              <Name text-eval="invoice.partner_id.name"/>
+              <Street text-eval="invoice.address_invoice_id.street or ''"/>
+              <Town text-eval="invoice.address_invoice_id.city or''"/>
+              <ZIP text-eval="invoice.address_invoice_id.zip or ''"/>
               <Country 
                   attr-name="n1:CountryCode" 
                   attr-eval="invoice.address_invoice_id.country_id.code"/>
@@ -54,27 +54,27 @@
           <Details>
             <ItemList loop-eval="sorted(invoice.invoice_line, key=lambda x: x.name)" var="l">
               <ListLineItem>
-                <Description text_eval="l.name"/>
-                <Quantity n1:Unit="l.product_id.uom_id.name" text_eval="l.quantity"/>
-                <UnitPrice text_eval="l.price_unit"/>
+                <Description text-eval="l.name"/>
+                <Quantity n1:Unit="l.product_id.uom_id.name" text-eval="l.quantity"/>
+                <UnitPrice text-eval="l.price_unit"/>
                 <TaxRate>0</TaxRate>
-                <LineItemAmount text_eval="l.price_subtotal"/>
+                <LineItemAmount text-eval="l.price_subtotal"/>
               </ListLineItem>
             </ItemList>
           </Details>
           <Tax>
             <VAT loop-eval="[1] if not invoice.tax_line else []" var="tax">
-              <TaxExemption text_eval="'§19 UStG'"/>
+              <TaxExemption text-eval="'§19 UStG'"/>
             </VAT>
             <VAT loop-eval="invoice.tax_line if invoice.tax_line else []" var="tax">
               <Item>
-                <TaxedAmount text_eval="invoice.amount_untaxed"/>
-                <TaxRate TaxCode="tax.code" text_eval="int(tax.amount * 100)"/>
-                <Amount text_eval="invoice.amount_tax"/>
+                <TaxedAmount text-eval="invoice.amount_untaxed"/>
+                <TaxRate TaxCode="tax.code" text-eval="int(tax.amount * 100)"/>
+                <Amount text-eval="invoice.amount_tax"/>
               </Item>
             </VAT>
           </Tax>
-          <TotalGrossAmount text_eval="invoice.amount_total"/>
+          <TotalGrossAmount text-eval="invoice.amount_total"/>
         </Invoice>      </field>
     </record>
   </data>
