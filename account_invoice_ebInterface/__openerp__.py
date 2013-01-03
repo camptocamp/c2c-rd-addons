@@ -46,7 +46,7 @@ This module generates a XML-file per invoice and attaches it to the invoice.
     [ "account"
     , "xml_template"
     ]
-, "init_xml"    : ["eBInterfaceV4.0.xml"]
+, "init_xml"    : ["ebInterfaceV4.0.xml"]
 , "demo_xml"    : []
 , "update_xml"  : ["installer_view.xml"]
 , "test"        : []
