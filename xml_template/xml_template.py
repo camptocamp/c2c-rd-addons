@@ -70,7 +70,7 @@ class xml_template(osv.osv):
                 else :
                     raise osv.except_osv \
                         ( _("Data Error !")
-                        , _("Unknown schema type: %s" % obj.schmea)
+                        , _("Unknown schema type: %s" % obj.schema)
                         )
                 transform   = etree.XSLT(xslt_root)
                 template    = transform(schema_root)
@@ -114,7 +114,7 @@ class xml_template(osv.osv):
             else :
                 raise osv.except_osv \
                     ( _("Data Error !")
-                    , _("Unknown schema type: %s" % obj.schmea)
+                    , _("Unknown schema type: %s" % obj.schema)
                     )
             return schema.validate(xml)
         raise osv.except_osv \

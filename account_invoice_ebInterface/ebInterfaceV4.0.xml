@@ -3,7 +3,7 @@
   <data noupdate="1">
     <record model="xml.template" id="xml_template_ebInterfaceV4_0" forcecreate="True">
       <field name="name">ebInterface V4.0</field>
-      <field name="schema">http.//www.ebinterface.at/schema/4p0/</field>
+      <field name="schema">http://www.ebinterface.at/schema/4p0/</field>
       <field name="content" type="xml">
         <!-- Language Codes according to ISO 639-2 -->
         <Invoice 
@@ -27,14 +27,14 @@
             <VATIdentificationNumber text_eval="'ATU...'"/>
             <Address>
               <Name text_eval="invoice.company_id.name"/>
-              <Street text_eval="invoice.company_id.partner_id.address.street or ''"/>
-              <Town text_eval="invoice.company_id.partner_id.address.city or''"/>
-              <ZIP text_eval="invoice.company_id.partner_id.address.zip or ''"/>
+              <Street text_eval="invoice.company_id.street or ''"/>
+              <Town text_eval="invoice.company_id.city or''"/>
+              <ZIP text_eval="invoice.company_id.zip or ''"/>
               <Country 
                   attr-name="n1:CountryCode" 
-                  attr-eval="invoice.company_id.partner_id.address.country_id.name.upper()"/>
-              <Phone text_eval="invoice.company_id.partner_id.address.zip or ''"/>
-              <Email text_eval="invoice.company_id.partner_id.address.zip or ''"/>
+                  attr-eval="invoice.company_id.country_id.code"/>
+              <Phone text_eval="invoice.company_id.phone or ''"/>
+              <Email text_eval="invoice.company_id.email or ''"/>
               <Contact text_eval="invoice.company_id.partner_id.name"/>
             </Address>
           </Biller>
