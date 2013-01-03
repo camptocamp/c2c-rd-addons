@@ -2,7 +2,7 @@
   <data>
     <record id="account_invoice_ebInterface_installer_form" model="ir.ui.view">
       <field name="name">account.invoice.ebInterface.installer.form</field>
-      <field name="model">account.invoice.ebInterface.installer</field>
+      <field name="model">account.invoice.ebinterface.installer</field>
       <field name="type">form</field>
       <field name="inherit_id" ref="base.res_config_installer"/>
       <field name="arch" type="xml">
@@ -19,7 +19,7 @@
     <record id="action_account_invoice_ebInterface_installer" model="ir.actions.act_window">
       <field name="name">Add ebInterface to Invoice</field>
       <field name="type">ir.actions.act_window</field>
-      <field name="res_model">account.invoice.ebInterface.installer</field>
+      <field name="res_model">account.invoice.ebinterface.installer</field>
       <field name="view_id" ref="account_invoice_ebInterface_installer_form"/>
       <field name="view_type">form</field>
       <field name="view_mode">form</field>

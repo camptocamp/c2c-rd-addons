@@ -33,7 +33,7 @@
 from osv import fields, osv
 
 class invoice_ebInterface_installer(osv.osv_memory):
-    _name    = 'account.invoice.ebInterface.installer'
+    _name    = 'account.invoice.ebinterface.installer'
     _inherit = 'res.config.installer'
 
     def execute(self, cr, uid, ids, context=None):
