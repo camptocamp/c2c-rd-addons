@@ -7,20 +7,20 @@
       <field name="content" type="xml">
         <!-- Language Codes according to ISO 639-2 -->
         <Invoice 
-            n1:ManualProcessing="true" 
-            attr-name1="n1:DocumentTitle" attr-eval1="invoice.name" 
-            n1:Language="ger" 
-            n1:DocumentType="SubsequentDebit" 
-            attr-name2="n1:InvoiceCurrency" attr-eval2="invoice.company_id.currency_id.name" 
-            n1:GeneratingSystem="OpenERP" 
-            xsi:schemaLocation="http://www.ebinterface.at/schema/4p0/ http://www.ebinterface.at/schema/4p0/" 
             xmlns="http://www.ebinterface.at/schema/4p0/" 
-            xmlns:n2="http://www.altova.com/samplexml/other-namespace" 
             xmlns:n1="http://www.ebinterface.at/schema/4p0/" 
+            xmlns:n2="http://www.altova.com/samplexml/other-namespace" 
             xmlns:ext="http://www.ebinterface.at/schema/4p0/extensions/ext" 
             xmlns:sv="http://www.ebinterface.at/schema/4p0/extensions/sv" 
             xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" 
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            n1:ManualProcessing="true" 
+            n1:GeneratingSystem="OpenERP" 
+            xsi:schemaLocation="http://www.ebinterface.at/schema/4p0/ http://www.ebinterface.at/schema/4p0/"
+            attr-name1="n1:DocumentTitle" attr-eval1="invoice.name" 
+            attr-name2="n1:InvoiceCurrency" attr-eval2="invoice.company_id.currency_id.name"
+            attr-name3="n1:DocumentType" attr-eval3="'SubsequentDebit'" 
+            attr-name4="n1:Language" attr-eval4="'ger'">
           <InvoiceNumber text_eval="invoice.number"/>
           <InvoiceDate text_eval="invoice.date_invoice"/>
           <Biller>
