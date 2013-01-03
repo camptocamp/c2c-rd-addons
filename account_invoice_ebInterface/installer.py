@@ -44,7 +44,7 @@ class invoice_ebInterface_installer(osv.osv_memory):
     def execute_simple(self, cr, uid, ids, context=None) :
         inv_obj = self.pool.get('account.invoice')
         inv_ids = inv_obj.search(cr, uid, [("state", "in", ("open", "paid"))])
-        inv_obj.generate_ebInterface(self, cr , uid, inv_ids, context=context)
+        inv_obj.generate_ebInterface(cr , uid, inv_ids, context=context)
     # end def execute_simple
 # end class invoice_ebInterface_installer
 invoice_ebInterface_installer()
