@@ -152,7 +152,7 @@ class chricar_top(osv.osv):
                  price = lease.price
              potential = 0.0
              if p.lease_target and p.surface:
-                 potential = p.surface * (p.lease_target - price)
+                 potential = max(p.surface * (p.lease_target - price),0)
              if not p.surface and p.lease_target:
                  potential = round(p.lease_target - p.lease_current,0)
              result[p.id] = potential
