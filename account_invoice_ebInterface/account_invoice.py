@@ -63,7 +63,7 @@ class account_invoice(osv.osv) :
                 , xml         = xml
                 , name        = invoice.number + "_ebInterface"
                 , fname       = invoice.number + "_ebInterface" + ".xml"
-                , description = "ebInterface " + protocol
+                , description = "ebInterface for invoice"
                 , context     = None
                 )
     # end def generate_ebInterface
