@@ -48,7 +48,7 @@
               <ZIP text_eval="invoice.address_invoice_id.zip or ''"/>
               <Country 
                   attr-name="n1:CountryCode" 
-                  attr-eval="invoice.address_invoice_id.country_id.name.upper()"/>
+                  attr-eval="invoice.address_invoice_id.country_id.code"/>
             </Address>
           </InvoiceRecipient>
           <Details>

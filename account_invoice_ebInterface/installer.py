@@ -38,7 +38,7 @@ class invoice_ebInterface_installer(osv.osv_memory):
 
     def execute(self, cr, uid, ids, context=None):
         self.execute_simple(cr, uid, ids, context)
-        super(fileserver_installer, self).execute(cr, uid, ids, context=context)
+        super(invoice_ebInterface_installer, self).execute(cr, uid, ids, context=context)
     # end def execute
 
     def execute_simple(self, cr, uid, ids, context=None) :
