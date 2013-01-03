@@ -38,7 +38,7 @@ class account_invoice(osv.osv) :
 
     def invoice_validate(self, cr, uid, ids, context=None):
         self.generate_ebInterface(cr , uid, ids, context=context)
-        return super(account_invoice,self).invoice_validate(cr, uid, ids, context=context):
+        return super(account_invoice,self).invoice_validate(cr, uid, ids, context=context)
 #   def invoice_validate
 
     def generate_ebInterface(self, cr , uid, ids, context=None):
