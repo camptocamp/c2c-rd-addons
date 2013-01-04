@@ -472,11 +472,11 @@ class account_analytic_line(osv.osv):
         for line in self.browse(cr, uid, ids):
             period_id = ''
             if line.move_id:
-                period_id = line.move_id.period_id.id
+                result[line.id] = line.move_id.period_id.id
             else:
                 period_ids= self.pool.get('account.period').search(cr,uid,[('company_id','=',line.company_id.id),('date_start','<=',line.date),('date_stop','>=',line.date ),('special','!=',True)])
-            if len(period_ids):
-                result[line.id] = period_ids[0]
+                if len(period_ids):
+                    result[line.id] = period_ids[0]
 
         return result
 
