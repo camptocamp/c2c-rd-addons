@@ -63,8 +63,6 @@ Circular dependencies are (obviously) not allowed.
 During server startup, those jobs have to be executed prior to any other job - this may take a long time.
 Use those features judiciously.
 
-"Notification by Mail" - for technical reasons - results in a successful job execution. The error can only be seen in the generated mail.
-
 Depending on the log_level of the server, information (elapsed time / CPU time) about the executed jobs are written to the server log.
 
 The specified 'Function' must be known to the 'Object'.

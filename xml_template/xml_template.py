@@ -70,7 +70,7 @@ class xml_template(osv.osv):
                 else :
                     raise osv.except_osv \
                         ( _("Data Error !")
-                        , _("Unknown schema type: %s" % obj.schmea)
+                        , _("Unknown schema type: %s" % obj.schema)
                         )
                 transform   = etree.XSLT(xslt_root)
                 template    = transform(schema_root)
@@ -114,7 +114,7 @@ class xml_template(osv.osv):
             else :
                 raise osv.except_osv \
                     ( _("Data Error !")
-                    , _("Unknown schema type: %s" % obj.schmea)
+                    , _("Unknown schema type: %s" % obj.schema)
                     )
             return schema.validate(xml)
         raise osv.except_osv \
@@ -138,7 +138,7 @@ class xml_template(osv.osv):
             attachment_obj.unlink(cr, uid, att_ids, context=context)
     # end def _remove_attachments
 
-    def attach_xml(self, cr, uid, id, attach_to, xml, name, fname, description=False, context=None) :
+    def attach_xml(self, cr, uid, id, attach_to, xml, name, fname, description=False, pretty_print=False, context=None) :
         """ Creates an attachment and returns its ID
         
         Note that attachments with identical name/filename/description will be replaced
@@ -148,6 +148,8 @@ class xml_template(osv.osv):
         :param name: name of the attachment
         :param fname: filename of the attachment (without extension .xml)
         :param description: description of the attachment
+        :param pretty_print: True/False
+        :param context: dictionary or None
         :return: ID of new attachment object 
         """
         obj = self.browse(cr, uid, id)
@@ -161,7 +163,7 @@ class xml_template(osv.osv):
         self._remove_attachments(cr, uid, attach_to, name, fname, description, context=context)
         vals  = \
             { 'name'         : name
-            , 'datas'        : base64.encodestring(etree.tostring(xml, pretty_print=False))
+            , 'datas'        : base64.encodestring(etree.tostring(xml, pretty_print=pretty_print))
             , 'datas_fname'  : "%s.xml" % fname
             , 'res_model'    : attach_to._table_name
             , 'res_id'       : attach_to.id
@@ -177,14 +179,15 @@ class xml_template(osv.osv):
         return res
     # end def attach_xml
 
-    def write_file(self, cr, uid, id, xml, filename) :
+    def write_file(self, cr, uid, id, xml, filename, pretty_print=True) :
         """Writes the XML to the specified filename
         
         :param xml: root of XML-structure to be written
         :param filename: full file name
+        :param pretty_print: True/False
         """
         f = open(filename, "w")
-        f.write(etree.tostring(xml, pretty_print=True))
+        f.write(etree.tostring(xml, pretty_print=pretty_print))
         f.close()
     # end def write_file
 # end class xml_template
