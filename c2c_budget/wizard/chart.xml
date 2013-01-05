@@ -4,7 +4,6 @@
     <record id="view_budget_item_chart" model="ir.ui.view">
       <field name="name">account.analytic.chart.sum.form</field>
       <field name="model">account.analytic.chart.sum</field>
-      <field name="type">form</field>
       <field name="arch" type="xml">
         <form string="Budget Item Charts">
           <group colspan="4">
