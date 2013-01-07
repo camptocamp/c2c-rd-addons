@@ -82,4 +82,5 @@ Note that it works on translated term, not only the text stored in the DB !
 , "test"         : []
 , "auto_install" : False
 , "installable"  : True
+, 'application'  : False
 }

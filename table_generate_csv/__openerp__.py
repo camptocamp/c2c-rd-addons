@@ -50,4 +50,5 @@ FIXME ToDo remove wizard
 , "test"         : []
 , "auto_install" : False
 , "installable"  : False
+, 'application'  : False
 }

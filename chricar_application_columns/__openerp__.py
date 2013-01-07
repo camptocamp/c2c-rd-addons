@@ -11,5 +11,6 @@ generated 2009-03-27 16:28:26+01"""
 , "update_xml"   : ["application_columns_view.xml"]
 , "auto_install" : False
 , "installable"  : True
+, 'application'  : False
 }
 

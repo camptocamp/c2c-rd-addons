@@ -20,4 +20,5 @@ generated 2009-08-21 15:12:07+02"""
 , "update_xml"   : ["budget_lines_view.xml"]
 , "auto_install" : False
 , "installable"  : True
+, 'application'  : False
 }

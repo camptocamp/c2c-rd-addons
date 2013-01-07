@@ -31,6 +31,7 @@ for timesheet tasks invoicing)
 , 'update_xml'  : ['analytic_user_function_view.xml']
 , 'demo_xml'    : []
 , 'installable' : True
+, 'application'  : False 
 , 'active'      : False
 }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

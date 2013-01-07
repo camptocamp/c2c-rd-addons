@@ -19,4 +19,5 @@ generated 2009-08-18 23:44:30+02"""
 , "update_xml"   : ["budget_view.xml","security/ir.model.access.csv"]
 , "auto_install" : False
 , "installable"  : True
+, 'application'  : False
 }

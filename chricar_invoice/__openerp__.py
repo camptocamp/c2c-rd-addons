@@ -12,4 +12,5 @@ generated 2009-07-11 14:55:52+02"""
 , "update_xml"   : ["invoice_view.xml", "security/ir.model.access.csv"]
 , "auto_install" : False
 , "installable"  : True
+, 'application'  : False
 }

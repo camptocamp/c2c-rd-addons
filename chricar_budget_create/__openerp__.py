@@ -19,4 +19,5 @@ periods may overlap (Example use month Oct 2010 to Sept 2011 as basis for 2012)
 , "update_xml"   : ["budget_view.xml","wizard/budget_create_view.xml"]
 , "auto_install" : False
 , "installable"  : True
+, 'application'  : False
 }

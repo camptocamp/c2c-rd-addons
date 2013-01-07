@@ -66,4 +66,5 @@ other - naming !!!
 , "update_xml"   : ["account_analytic_view.xml"]
 , "auto_install" : False
 , "installable"  : True
+, 'application'  : False
 }

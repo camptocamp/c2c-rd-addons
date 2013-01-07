@@ -48,4 +48,5 @@ CAUTION - please make sure that the payment module removes the spaces again
 , "update_xml"  : ["iban_view.xml"]
 , "auto_install": False
 , "installable" : True
+, 'application'  : False
 }

@@ -11,4 +11,5 @@ generated 2009-07-09 18:08:09+02"""
 , "update_xml"   : ["tenant_view.xml"]
 , "auto_install" : False
 , "installable"  : True
+, 'application'  : False
 }

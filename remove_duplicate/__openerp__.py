@@ -43,4 +43,5 @@
 , "test"         : []
 , "auto_install" : False
 , "installable"  : True
+, 'application'  : False
 }

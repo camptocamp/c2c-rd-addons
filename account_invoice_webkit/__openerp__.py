@@ -52,5 +52,6 @@ top margin of webkit header must be set to 35mm to get correctly positioned fold
 , "website"      : "http://www.camptocamp.com/"
 , "data"         : ["account_invoice_webkit_view.xml"]
 , "installable"  : True
+, 'application'  : False
 , "auto_install" : False
 }

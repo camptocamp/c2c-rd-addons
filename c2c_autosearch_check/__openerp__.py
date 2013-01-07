@@ -47,5 +47,6 @@ This check will run periodically and turn off autosearch for ir_act_window where
 , "update_xml"   : ["autosearch_view.xml"]
 , "auto_install" : False
 , "installable"  : True
+, 'application'  : False
 }
 

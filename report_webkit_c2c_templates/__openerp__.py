@@ -37,5 +37,6 @@
 , "website"      : "http://www.camptocamp.com/"
 , "data"         : ["bank_account_view.xml", "data.xml"]
 , "installable"  : True
+, 'application'  : False
 , "auto_install" : False
 }

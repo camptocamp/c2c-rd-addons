@@ -16,4 +16,5 @@ ToDo
  , "update_xml"   : ["budget_update.xml","security/ir.model.access.csv"]
  , "auto_install" : False
  , "installable"  : True
+, 'application'  : False
 }

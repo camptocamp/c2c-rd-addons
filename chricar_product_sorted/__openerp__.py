@@ -11,4 +11,5 @@
 , "update_xml"   : ["product_update.xml"]
 , "auto_install" : False
 , "installable"  : True
+, 'application'  : False
 }

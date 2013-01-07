@@ -11,4 +11,5 @@ generated 2009-08-14 15:55:18+02"""
 , "update_xml"   : ["liquidity_plan_view.xml"]
 , "auto_install" : False
 , "installable"  : True
+, 'application'  : False
 }

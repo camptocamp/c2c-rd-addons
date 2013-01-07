@@ -37,5 +37,6 @@
 , "website"      : "http://www.camptocamp.com/"
 , "data"         : ["account_cash_register_webkit_view.xml"]
 , "installable"  : True
+, 'application'  : False
 , "auto_install" : False
 }

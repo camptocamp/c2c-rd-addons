@@ -18,4 +18,5 @@ http://www.zbeanztech.com/
 , "update_xml"   : ['stock_wizard.xml']
 , "auto_install" : False
 , "installable"  : True
+, 'application'  : False
 }

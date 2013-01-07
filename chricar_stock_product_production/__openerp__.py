@@ -19,4 +19,5 @@
 , "update_xml"   : ["stock_product_production_view.xml"]
 , "auto_install" : False
 , "installable"  : True
+, 'application'  : False
 }

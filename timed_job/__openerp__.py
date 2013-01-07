@@ -90,5 +90,6 @@ Programmatic interface :
 , "init_xml"     : ["email_template_data.xml"]
 , 'demo_xml'     : ["timed_job_demo.xml"]
 , 'installable'  : True
+, 'application'  : False 
 , 'auto_install' : False
 }

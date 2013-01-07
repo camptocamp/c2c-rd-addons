@@ -37,5 +37,6 @@
 , "website"      : "http://www.camptocamp.com/"
 , "data"         : ["bank_statement_line_view.xml"]
 , "installable"  : True
+, 'application'  : False
 , "auto_install" : False
 }

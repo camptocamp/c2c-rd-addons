@@ -49,4 +49,5 @@ Some reports are based on previous work by Pexego and others on the *c2c_finance
   ]
 , "auto_install": False
 , "installable": True
+, 'application'  : False
 }

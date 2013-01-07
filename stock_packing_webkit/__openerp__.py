@@ -49,5 +49,6 @@ shows address in internal tree view"""
 , "website"      : "http://www.camptocamp.com/"
 , "data"         : ["stock_packing_webkit_view.xml", "stock_packing_view.xml"]
 , "installable"  : True
+, 'application'  : False
 , "auto_install" : False
 }

@@ -34,6 +34,7 @@ This module will allow to spezify
 , 'update_xml'  : ['wizard/hr_timesheet_invoice_create_view.xml']
 , 'demo_xml'    : []
 , 'installable' : True
+, 'application'  : False 
 , 'active'      : False
 }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

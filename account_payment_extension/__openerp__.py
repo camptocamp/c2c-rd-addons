@@ -55,5 +55,6 @@ Based on previous work of Pablo Rocandio & Zikzakmedia (version for 4.2).
     ]
 , "auto_install": False
 , "installable": False
+, 'application'  : False
 }
 

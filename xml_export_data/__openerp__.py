@@ -46,4 +46,5 @@ FIXME remove module import
 , "test"         : []
 , "auto_install" : False
 , "installable"  : False
+, 'application'  : False
 }
