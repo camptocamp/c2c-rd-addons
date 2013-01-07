@@ -49,4 +49,5 @@ This reference is used by EDIFACT or SEPA.
 , "test"        : []
 , "auto_install": False
 , "installable" : True
+, 'application'  : False
 }

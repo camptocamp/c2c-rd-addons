@@ -88,4 +88,5 @@ correct period sums.
     ]
 , "auto_install": False
 , "installable": True
+, 'application'  : False
 }

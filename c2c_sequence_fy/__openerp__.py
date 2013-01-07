@@ -70,6 +70,7 @@ using '(fy)' instead of hard coding.
     ]
 , 'demo_xml'    : []
 , 'installable' : True
+, 'application'  : False 
 , 'active'      : False
 }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

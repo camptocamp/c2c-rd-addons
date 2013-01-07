@@ -48,4 +48,5 @@
 , "update_xml"  : ["base_view.xml"]
 , "auto_install": False
 , "installable" : True
+, 'application'  : False
 }

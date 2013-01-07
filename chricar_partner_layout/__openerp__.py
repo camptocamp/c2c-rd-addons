@@ -11,4 +11,5 @@
 , "update_xml"   : ["partner_view.xml"]
 , "auto_install" : False
 , "installable"  : False
+, 'application'  : False
 }

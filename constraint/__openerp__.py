@@ -60,4 +60,5 @@ Requires "Constraint Manager" privilege-group.
 , "test"         : []
 , "auto_install" : True
 , "installable"  : True
+, 'application'  : False
 }

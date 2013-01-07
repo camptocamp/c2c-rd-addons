@@ -26,4 +26,5 @@ Extension to Production
     ]
 , "auto_install" : False
 , "installable"  : True
+, 'application'  : False
 }

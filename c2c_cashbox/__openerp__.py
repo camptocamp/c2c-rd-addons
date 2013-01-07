@@ -13,5 +13,6 @@
  , "update_xml"   : ["cashbox_view.xml"]
  , "auto_install" : False
  , "installable"  : False
+, 'application'  : False
 }
 

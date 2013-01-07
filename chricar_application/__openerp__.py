@@ -11,5 +11,6 @@ generated 2009-03-27 16:34:25+01"""
 , "update_xml"   : ["application_view.xml"]
 , "auto_install" : False
 , "installable"  : True
+, 'application'  : False
 }
 

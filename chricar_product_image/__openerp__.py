@@ -12,4 +12,5 @@ sorts the products by code"""
 , "update_xml"   : ["chricar_product_image_view.xml"]
 , "auto_install" : False
 , "installable"  : True
+, 'application'  : False
 }

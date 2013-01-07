@@ -37,4 +37,5 @@ Does not support:
 , "update_xml"   : ["bank_account_vat_view.xml"]
 , "auto_install" : False
 , "installable"  : True
+, 'application'  : False
 }

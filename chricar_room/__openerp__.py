@@ -11,4 +11,5 @@ generated 2009-07-11 12:22:10+02"""
 , "update_xml"   : ["room_view.xml", "security/ir.model.access.csv"]
 , "auto_install" : False
 , "installable"  : True
+, 'application'  : False
 }

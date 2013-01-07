@@ -40,5 +40,6 @@ Production Order Line
 , "website"      : "http://www.camptocamp.at/"
 , "data"         : ["report_production_order_badges_view.xml"]
 , "installable"  : True
+, 'application'  : False
 , "auto_install" : False
 }

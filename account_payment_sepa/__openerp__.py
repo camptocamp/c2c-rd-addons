@@ -62,4 +62,5 @@ The "payment day" is, if unspecified or in the past, the file-creation-date.
 , "test"        : []
 , "auto_install": False
 , "installable" : True
+, 'application'  : False
 }

@@ -22,4 +22,5 @@ Added Participation tab to partners to show Parent and Participations"""
     ]
 , "auto_install" : False
 , "installable"  : True
+, 'application'  : False
 }

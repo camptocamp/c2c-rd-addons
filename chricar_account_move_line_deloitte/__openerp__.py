@@ -17,4 +17,5 @@ generated 2009-10-17 12:10:57+02"""
     ]
 , "auto_install" : False
 , "installable"  : True
+, 'application'  : False
 }

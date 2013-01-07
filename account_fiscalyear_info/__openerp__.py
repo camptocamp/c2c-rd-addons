@@ -47,5 +47,6 @@ Allows to store additional data (dates) per fiscal year
 , "website"      : "http://www.camptocamp.com/"
 , "data"         : ["fiscalyear_view.xml"]
 , "installable"  : True
+, 'application'  : False
 , "auto_install" : False
 }
