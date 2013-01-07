@@ -19,26 +19,29 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+from osv import fields, osv
+import netsvc
+import logging
 
 
-{
-    'name': 'Sale order internal picking',
-    'version': '0.9',
-    'category': 'Sales Management',
-    'description': """
-    This module adds an extra internal picking to sale order on request
-    Purpose
-    SO
-    -> internal: shiping products to company location at customer site
-    -> out: from company location at customer site to customer
-""",
-    'author': 'Camptocamp Austria',
-    'depends': [ 'base','sale','stock' ],
-    'update_xml': ['sale_view.xml','wizard/make_ship_internal.xml',
-       ],
-    #'update_xml': ['product_view.xml'],
-    'demo_xml': [],
-    'installable': True,
-    'active': False,
-}
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+
+class account_invoice(osv.osv):
+    _inherit = "account.invoice"
+
+    def button_validate(self, cr , uid, ids, context=None):
+        """FIXME
+        workaround because of limited multi company support
+        """
+        _logger = logging.getLogger(__name__)
+        if not context:
+            context = {}
+        for invoice in self.browse(cr, uid, ids, context):
+            _logger.debug('FGF validate partner %s ' %(invoice.partner_id.id)   )
+            if invoice.partner_id.company_id and invoice.partner_id.company_id.id != invoice.company_id.id:
+               _logger.debug('FGF update partner %s ' %(invoice.partner_id.id)   )
+               self.pool.get('res.partner').write(cr, 1, [invoice.partner_id.id], {'company_id':''})
+
+        res= self.button_validate(cr , uid, ids, context)
+        return res
+
+account_invoice()

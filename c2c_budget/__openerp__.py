@@ -43,7 +43,7 @@ This module is for real advanced budget use, otherwise prefer to use the Tiny on
     [ "account"
     , "c2c_reporting_tools"
     , "chricar_account_period_sum"
-    , "report_webkit_chapter_server"
+#    , "report_webkit_chapter_server"
     ]
 , "init_xml" : []
 , "update_xml" : 
@@ -51,7 +51,7 @@ This module is for real advanced budget use, otherwise prefer to use the Tiny on
     , "c2c_budget_wizard.xml"
     , "security/ir.model.access.csv"
     , "report_chart.xml"
-    , "wizard/chart.xml"
+#    , "wizard/chart.xml"
     ]
 , "auto_install": False
 , "installable": True

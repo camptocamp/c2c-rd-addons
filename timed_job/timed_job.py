@@ -433,13 +433,13 @@ Depending on this interval unit the length of the interval can be specified:
                     , job['name'], job['model'], job['function'], job['args'], exc
                     , "\n".join(traceback.format_exception(*sys.exc_info()))
                     )
-                raise
         finally:
             cr.close()
             if job['id'] in self._running : self._running.remove(job['id'])
     # end def _process_job
 
     def _scheduler(self, dbname) :
+        if not datetime : return # during shutdown the time-feature may not exist anymore
         now = datetime.datetime.now()
         nextcall = now + self._max_scheduler_delta
         try :
@@ -490,8 +490,8 @@ Depending on this interval unit the length of the interval can be specified:
             values["subtype"] = "html"
             del values["attachments"]
             del values["attachment_ids"]
-            mail_mail = self.pool.get('mail.message')
-            msg_id = mail_mail.create(cr, uid, values)
+            msg_obj = self.pool.get('mail.message')
+            msg_obj.create(cr, uid, values)
         else  :
             self._logger.error("No Mail Template named '%s' defined", name)
     # end def _send_mail
@@ -512,8 +512,6 @@ Depending on this interval unit the length of the interval can be specified:
 
     def unlink(self, cr, uid, ids, context=None) :
         res = super(timed_job, self).unlink(cr, uid, ids, context=context)
-        cr.commit()
-        self._scheduler(cr.dbname)
         return res
     # end def unlink
 
@@ -543,7 +541,10 @@ Depending on this interval unit the length of the interval can be specified:
 
     def test(self, cr, uid, args=[]) :
         if len(args) < 2 :
-            raise
+            raise osv.except_osv \
+                ( _('Test error !')
+                , _('Function requires two arguments (e.g.: (2.0, "My two second duration test"))')
+                )
         self._logger.debug("test: %s [%0.2f sec]", args[1], args[0])
         time.sleep(args[0])
     # end def test

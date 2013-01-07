@@ -1,9 +1,8 @@
-# -*- coding: utf-8 -*-
+# -*- encoding: utf-8 -*-
 ##############################################################################
-#
+#    
 #    OpenERP, Open Source Management Solution
-#    Copyright (C) 2004-2010 Tiny SPRL (<http://tiny.be>).
-#    Copyright (C) 2010-2012 Camptocamp Austria (<http://www.camptocamp.at>)
+#    Copyright (C) camptocamp.com
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -16,29 +15,10 @@
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
 #
 ##############################################################################
 
+import wizard
 
-{
-    'name': 'Sale order internal picking',
-    'version': '0.9',
-    'category': 'Sales Management',
-    'description': """
-    This module adds an extra internal picking to sale order on request
-    Purpose
-    SO
-    -> internal: shiping products to company location at customer site
-    -> out: from company location at customer site to customer
-""",
-    'author': 'Camptocamp Austria',
-    'depends': [ 'base','sale','stock' ],
-    'update_xml': ['sale_view.xml','wizard/make_ship_internal.xml',
-       ],
-    #'update_xml': ['product_view.xml'],
-    'demo_xml': [],
-    'installable': True,
-    'active': False,
-}
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
