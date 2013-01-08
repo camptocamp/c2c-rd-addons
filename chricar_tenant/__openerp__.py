@@ -1,7 +1,7 @@
 { "name"         : "Tenant"
 , "version"      : "1.0"
-, "author"       : "ChriCar Beteiligungs- und Beratungs- GmbH"
-, "website"      : "http://www.chricar.at/ChriCar"
+, "author"       : "Camptocamp"
+, "website"      : "http://www.camptocamp.com"
 , "description"  : """defines the tenant
 generated 2009-07-09 18:08:09+02"""
 , "category"     : "Client Modules/Real Estate"

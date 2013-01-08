@@ -1,7 +1,7 @@
 { "name"         : "chricar_stock_location_product_limited"
 , "version"      : "0.1"
-, "author"       : "Z-Beanz Technologies"
-, "website"      : "http://www.chricar.at/ChriCar/index.html"
+, "author"       : "Camptocamp"
+, "website"      : "http://www.camptocamp.com"
 , "category"     : "Warehouse Management"
 , "description"  : """
 This module is funded by

@@ -23,8 +23,8 @@
 #
 { "name" : "Account Period Sum"
 , "version" : "0.9.9"
-, "author"  : "ChriCar Beteiligungs- und Beratungs GmbH" 
-, "website" : "http://www.chricar.at/ChriCar"
+, "author"  : "Camptocamp" 
+, "website" : "http://www.camptocamp.com"
 , "description"  : """
 This module adds period sums for moves_lines of *account_moves* with state posted
 

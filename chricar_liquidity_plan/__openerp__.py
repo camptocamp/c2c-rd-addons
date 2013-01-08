@@ -1,7 +1,7 @@
 { "name"         : "Liquidity"
 , "version"      : "1.0"
-, "author"       : "ChriCar Beteiligungs- und beratungs GmbH"
-, "website"      : "http://www.chricar.at/ChriCar"
+, "author"       : "Camptocamp"
+, "website"      : "http://www.camptocamp.com"
 , "description"  : """Allows to plan Liquidity and cash flow
 generated 2009-08-14 15:55:18+02"""
 , "category"     : "Accounting & Finance"

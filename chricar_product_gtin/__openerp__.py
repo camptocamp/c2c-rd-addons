@@ -1,7 +1,7 @@
 { "name"         : "Product GTIN EAN8 EAN13 UPC JPC Support"
 , "version"      : "1.1"
-, "author"       : "ChriCar Beteiligungs- und Beratungs- GmbH"
-, "website"      : "http://www.chricar.at/ChriCar"
+, "author"       : "Camptocamp"
+, "website"      : "http://www.camptocamp.com"
 , "category"     : "Generic Modules/Others"
 , "depends"      : ["product"]
 , "description"  : """

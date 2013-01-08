@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 { "name"         : "Account Moves Deloitte"
 , "version"      : "1.0"
-, "author"       : "ChriCar Beteiligungs- und Beratungs GmbH"
-, "website"      : "http://www.chricar.at"
+, "author"       : "Camptocamp"
+, "website"      : "http://www.camptocamp.com"
 , "description"  : """Import table for account move lines of Deloitte
 generated 2009-10-17 12:10:57+02"""
 , "category"     : "Client Modules/ChriCar Addons"

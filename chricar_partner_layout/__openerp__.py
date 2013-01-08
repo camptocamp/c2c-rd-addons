@@ -2,7 +2,7 @@
 { "name"         : "Partner: better layout for lang partner names"
 , "version"      : "1.0"
 , "author"       : "Camptocamp"
-, "website"      : "http://www.camptocamp.at"
+, "website"      : "http://www.camptocamp.com"
 , "description"  : """Layout modification for partner name"""
 , "category"     : "Generic Modules/Base"
 , "depends"      : ["base"]

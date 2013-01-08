@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 { "name"         : "Budget Products"
 , "version"      : "1.0"
-, "author"       : "ChriCar Beteiligungs- und beratungs GmbH"
-, "website"      : "http://www.chricar.at/ChriCar"
+, "author"       : "Camptocamp"
+, "website"      : "http://www.camptocamp.com"
 , "description"  : """Allows to plan production and sales quantities for products sales prices
 generated 2009-08-18 23:44:30+02"""
 , "category"     : "Client Modules/ChriCar Addons"
