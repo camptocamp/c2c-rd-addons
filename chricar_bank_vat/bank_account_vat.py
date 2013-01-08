@@ -40,7 +40,7 @@ class account_bank_statement(osv.osv):
 
         amount_move = st_line.amount
         amount_tax = 0.0
-        if st_line.tax_id:
+        if st_line.tax_id and st_line.amount_tax != 0.0:
             precision = self.pool.get('decimal.precision').precision_get(cr, uid, 'Account')
             if st_line.amount != round(st_line.amount_net + st_line.amount_tax, precision):
                           raise osv.except_osv(_('Error !'),
