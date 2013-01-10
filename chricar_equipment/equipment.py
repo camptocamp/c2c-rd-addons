@@ -49,7 +49,7 @@ class chricar_equipment(osv.osv):
        'note'               : fields.text    ('Notes'),
        'notice_period'      : fields.integer ('Notice Period', help="Notice period in days"),
        'partner_id'         : fields.many2one('res.partner','Partner', select=True ),
-       'room_id'            : fields.many2one('chricar.room','Room', select=True),
+       'room_id'            : fields.many2one('chricar.room','Room', select=True, domain="[('top_id','=',top_id)]"),
        'date_from'          : fields.date    ('From'),
        'date_to'            : fields.date    ('To'),
        'top_id'             : fields.many2one('chricar.top','Top', select=True, required=True),
