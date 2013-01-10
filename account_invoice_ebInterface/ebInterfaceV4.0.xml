@@ -9,17 +9,13 @@
         <Invoice 
             xmlns="http://www.ebinterface.at/schema/4p0/" 
             xmlns:n1="http://www.ebinterface.at/schema/4p0/" 
-            xmlns:n2="http://www.altova.com/samplexml/other-namespace" 
-            xmlns:ext="http://www.ebinterface.at/schema/4p0/extensions/ext" 
-            xmlns:sv="http://www.ebinterface.at/schema/4p0/extensions/sv" 
-            xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" 
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             n1:ManualProcessing="true" 
             n1:GeneratingSystem="OpenERP" 
             xsi:schemaLocation="http://www.ebinterface.at/schema/4p0/ http://www.ebinterface.at/schema/4p0/"
             attr-name1="n1:DocumentTitle" attr-eval1="invoice.name" 
             attr-name2="n1:InvoiceCurrency" attr-eval2="invoice.company_id.currency_id.name"
-            attr-name3="n1:DocumentType" attr-eval3="'SubsequentDebit'" 
+            attr-name3="n1:DocumentType" attr-eval3="'SubsequentDebit'"
             attr-name4="n1:Language" attr-eval4="'ger'">
           <InvoiceNumber text-eval="invoice.number"/>
           <InvoiceDate text-eval="invoice.date_invoice"/>
@@ -55,7 +51,7 @@
             <ItemList loop-eval="sorted(invoice.invoice_line, key=lambda x: x.name)" var="l">
               <ListLineItem>
                 <Description text-eval="l.name"/>
-                <Quantity n1:Unit="l.product_id.uom_id.name" text-eval="l.quantity"/>
+                <Quantity attr-name1="Unit" attr-eval1="l.product_id.uom_id.name" text-eval="l.quantity"/>
                 <UnitPrice text-eval="l.price_unit"/>
                 <TaxRate>0</TaxRate>
                 <LineItemAmount text-eval="l.price_subtotal"/>
@@ -64,12 +60,12 @@
           </Details>
           <Tax>
             <VAT loop-eval="[1] if not invoice.tax_line else []" var="tax">
-              <TaxExemption text-eval="'§19 UStG'"/>
+              <TaxExemption text-eval="'Par.19 UStG'"/>
             </VAT>
             <VAT loop-eval="invoice.tax_line if invoice.tax_line else []" var="tax">
               <Item>
                 <TaxedAmount text-eval="invoice.amount_untaxed"/>
-                <TaxRate TaxCode="tax.code" text-eval="int(tax.amount * 100)"/>
+                <TaxRate attr-name1="TaxCode" attr-eval1="tax.tax_code_id.code" text-eval="int(tax.amount * 100)"/>
                 <Amount text-eval="invoice.amount_tax"/>
               </Item>
             </VAT>

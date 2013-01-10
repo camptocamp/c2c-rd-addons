@@ -486,7 +486,7 @@ Depending on this interval unit the length of the interval can be specified:
             values["user_id"] = uid
             values["body_html"] = """<?xml version="1.0"?>\n<data>""" + ("</br>".join(traceback.format_exception(*sys.exc_info()))) + "</data>"
             values["mail_server_id"] = tpl.mail_server_id.id
-            values["partner_id"] = job.user_id.partner_id.id
+#            values["partner_id"] = job.user_id.partner_id.id
             values["subtype"] = "html"
             del values["attachments"]
             del values["attachment_ids"]
