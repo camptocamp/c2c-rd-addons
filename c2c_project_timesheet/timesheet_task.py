@@ -72,15 +72,16 @@ class project_work(osv.osv):
         product_id = ''
         for work in self.browse(cr, uid, [work_id] ):
             grid_obj = self.pool.get('analytic.user.funct.grid')
-
-            grid_ids = grid_obj.search(cr, uid, [('user_id','=', work.user_id.id),('account_id','=',work.task_id.project_id.analytic_account_id.id)])
-            for grid_line in grid_obj.browse(cr, uid, grid_ids):
-                product_id = grid_line.product_id.id
+            if grid_obj:
+                grid_ids = grid_obj.search(cr, uid, [('user_id','=', work.user_id.id),('account_id','=',work.task_id.project_id.analytic_account_id.id)])
+                for grid_line in grid_obj.browse(cr, uid, grid_ids):
+                    product_id = grid_line.product_id.id
 
             if not product_id:
-                product_ids = self.pool.get('hr.employee').browse(cr, uid, vals['employee_id']).product_id
-                if product_ids:
-                    product_id = product_id.id
+                employee_id = self.pool.get('hr.employee').search(cr, uid, [('user_id','=',work.user_id.id)])
+                for employee in self.pool.get('hr.employee').browse(cr, uid, employee_id):
+                    if employee.product_id:
+                        product_id = employee.product_id.id
                 
 
         return product_id
