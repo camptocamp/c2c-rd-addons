@@ -67,6 +67,7 @@ using '(fy)' instead of hard coding.
     , 'ir_sequence_type_view.xml'
     , 'ir_sequence_installer_view.xml'
     , 'account_view.xml'
+    , 'security/ir.model.access.csv'
     ]
 , 'demo_xml'    : []
 , 'installable' : True
