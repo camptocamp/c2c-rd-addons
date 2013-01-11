@@ -298,7 +298,11 @@ Depending on this interval unit the length of the interval can be specified:
                     insert(job_dict, job_dict[id])
     
             for job in self.job_startup_sequence :
-                self._process_job(cr.dbname, now, job)
+                if job['lastcall'] :
+                    last = datetime.datetime.strptime(job['lastcall'][0:19], '%Y-%m-%d %H:%M:%S')
+                else :
+                    last = None
+                self._process_job(cr.dbname, now, job, last)
     
             self._scheduler(cr.dbname)
         except Exception:
@@ -392,10 +396,9 @@ Depending on this interval unit the length of the interval can be specified:
             )
     # end def _call
 
-    def _process_job(self, dbname, now, job) :
+    def _process_job(self, dbname, now, job, last) :
         last = None
         if job['lastcall'] :
-            last = datetime.datetime.strptime(job['lastcall'][0:19], '%Y-%m-%d %H:%M:%S')
             next = self._next(last, job)
         else :
             next = now
@@ -467,7 +470,11 @@ Depending on this interval unit the length of the interval can be specified:
             total_seconds = delta.seconds + delta.days * 24 * 3600 # use "delta.total_seconds()" in Py2.7
             self._start_timer(float(total_seconds), self._scheduler, dbname)
             for t, job in sorted(jobs, key=lambda x: x[0]) :
-                self._thread(self._process_job, dbname, now, job)
+                if job['lastcall'] :
+                    last = datetime.datetime.strptime(job['lastcall'][0:19], '%Y-%m-%d %H:%M:%S')
+                else :
+                    last = None
+                self._thread(self._process_job, dbname, now, job, last)
         except Exception, ex :
             self._logger.error('Exception: %s', str(ex))
         finally :
