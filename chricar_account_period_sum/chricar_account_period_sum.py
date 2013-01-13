@@ -104,6 +104,8 @@ class account_period_sum(osv.osv):
         cr.execute("""drop trigger if exists trg_account_move_sum_update on account_move;""")
         cr.execute("""drop trigger if exists account_close_method_update_f on account_move;""")
         cr.execute("""drop trigger if exists account_period_sum_insert on account_move;""")
+        cr.execute("""drop trigger if exists trg_account_period_sum_insert on account_period;""") 
+
 
         cr.execute('SELECT indexname FROM pg_indexes WHERE indexname = \'account_account_period_sum_index\'')
         if not cr.fetchone():
@@ -176,7 +178,7 @@ INSERT
             for fy_val in fy_sum:
                 account_id   = fy_val[0]
                 fiscalyear_id= fy_val[1]
-                move_obj._compute_opening_blance(cr, uid, account_id, fiscalyear_id)
+                move_obj._compute_opening_balance(cr, uid, account_id, fiscalyear_id)
 
 
 account_period_sum()
