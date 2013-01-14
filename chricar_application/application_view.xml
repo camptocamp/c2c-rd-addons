@@ -14,11 +14,11 @@ generated 2009-03-27 16:34:25+01
       <field name="type">form</field>
       <field name="arch" type="xml">
         <form string="Application">
-          <field name="name" select="1"/>
-          <field name="partner_id" select="1"/>
-          <field name="prefix" select="2"/>
+          <field name="name" />
+          <field name="partner_id" />
+          <field name="prefix" />
           <field name="website"/>
-          <field name="author" select="2"/>
+          <field name="author" />
           <field name="state" readonly="1"/>
           <notebook colspan="4">
             <page string="invisible" invisible="1"/>
@@ -33,11 +33,11 @@ generated 2009-03-27 16:34:25+01
       <field name="type">tree</field>
       <field name="arch" type="xml">
         <tree string="Application">
-          <field name="name" select="1"/>
-          <field name="partner_id" select="1"/>
-          <field name="prefix" select="2"/>
+          <field name="name" />
+          <field name="partner_id" />
+          <field name="prefix" />
           <field name="website"/>
-          <field name="author" select="2"/>
+          <field name="author" />
           <field name="state" readonly="1"/>
         </tree>
       </field>

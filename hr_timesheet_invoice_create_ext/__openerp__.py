@@ -25,7 +25,7 @@
 , 'description' : """
 This module will allow to spezify
  * invoice date, journal
- * automatic calculation of "Clearing period" and setting this as reference 
+ * automatic calculation of "Clearing period" and setting this as reference
  * prefix for analytic account name
  * remove the default date of today as prefix for analytic account name
 """
@@ -34,6 +34,7 @@ This module will allow to spezify
 , 'update_xml'  : ['wizard/hr_timesheet_invoice_create_view.xml']
 , 'demo_xml'    : []
 , 'installable' : True
+, 'application'  : False 
 , 'active'      : False
 }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

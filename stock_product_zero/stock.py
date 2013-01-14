@@ -29,7 +29,7 @@ class stock_location_product(osv.osv_memory):
 
     def action_open_window_nok(self, cr, uid, ids, context=None):
         res = super(stock_location_product, self).action_open_window( cr, uid, ids, context=None)
-        self._logger.debug('FGF stock_location_product action_open_window pre %s', res) 
+        self._logger.debug('FGF stock_location_product action_open_window pre %s', res)
 
         location_products = self.read(cr, uid, ids, ['display_with_zero_qty'], context)
         # FIXME - I am not able to add display_with_zero_qty to context
@@ -37,7 +37,7 @@ class stock_location_product(osv.osv_memory):
 
         if location_products:
             res['context']['display_with_zero_qty'] = location_products['display_with_zero_qty']
-        #self._logger.debug('FGF stock_location_product action_open_window post %s', res) 
+        #self._logger.debug('FGF stock_location_product action_open_window post %s', res)
         return res
 
     def action_open_window(self, cr, uid, ids, context=None):
@@ -47,7 +47,7 @@ class stock_location_product(osv.osv_memory):
         location_products = self.read(cr, uid, ids, ['display_with_zero_qty'], context)
         res['context']['display_with_zero_qty'] = location_products[0]['display_with_zero_qty']
         return res
-        
+
     def action_open_window_nok2(self, cr, uid, ids, context=None):
         """ To open location wise product information specific to given duration
          @param self: The object pointer.
@@ -79,7 +79,7 @@ class product_product(osv.osv):
     _logger = logging.getLogger(__name__)
 
 
-    # FIXME this returns correct records, but group by catagory ignores this and uses all results for grouping 
+    # FIXME this returns correct records, but group by catagory ignores this and uses all results for grouping
     # opening a category crashes
     def read_test(self,cr, uid, ids, fields=None, context=None, load='_classic_read'):
         res_all = super(product_product, self).read(cr,uid, ids, fields, context, load='_classic_read')
@@ -91,12 +91,12 @@ class product_product(osv.osv):
                 qty = prod.get('qty_available')
                 vir = prod.get('virtual_available')
                 if qty != 0.0 or vir != 0.0:
-                    res.append(prod) 
-        else: 
-           self._logger.debug('FGF stock_location_product  all')
+                    res.append(prod)
+        else:
+            self._logger.debug('FGF stock_location_product  all')
         res = res_all
-        # FIXME - result should be sorted by name 
-        # http://wiki.python.org/moin/SortingListsOfDictionaries - returns (unicode?) error on name  
+        # FIXME - result should be sorted by name
+        # http://wiki.python.org/moin/SortingListsOfDictionaries - returns (unicode?) error on name
         return res
 
     def not_0(self, cr, uid, digits, context):
@@ -109,7 +109,7 @@ class product_product(osv.osv):
     def fields_to_check(self, cr, uid):
         fields = ['qty_available', 'virtual_available' ]
         return fields
-    
+
     def search_0(self, cr, uid, res, context):
         res2 = []
         digits = self.pool.get('decimal.precision').precision_get(cr, uid, 'Product UoM')
@@ -117,12 +117,12 @@ class product_product(osv.osv):
             to_check = []
             for v in self.fields_to_check(cr, uid):
                 v1 = eval('prod.'+v)
-                to_check.append(v1)  
+                to_check.append(v1)
             context['to_check'] = to_check
             if self.not_0(cr, uid, digits, context):
                 res2.append(prod.id)
         return res2
-        
+
     def search(self, cr, uid, args, offset=0, limit=None, order=None, context=None, count=False):
         if not context: context = {}
         res = []
@@ -132,7 +132,7 @@ class product_product(osv.osv):
             # FIXME how to handle offset and limit
             res_all = super(product_product, self).search(cr, uid, args, None, None, order, context, count)
             res = self.search_0(cr, uid, res_all, context)
- 
+
         return res
-      
+
 product_product()

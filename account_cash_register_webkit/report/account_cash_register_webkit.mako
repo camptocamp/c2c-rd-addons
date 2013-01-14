@@ -46,7 +46,11 @@ table {
             <td style="text-align:left;white-space:nowrap">${line.name or ''}</td>
             <td style="white-space:nowrap">${line.date}</td>
             <td>${line.partner_id.name or line.account_id.name}</td>
-            <td>${line.tax_id.name or ''}</td>
+            %if 'tax_id' in line._columns: 
+               <td>${line.tax_id.name or ''}</td>
+            %else:
+               <td/>
+            %endif
             <td style="text-align:right;white-space:nowrap">${line.amount}</td>
             </tr>
             </tbody>
@@ -66,4 +70,4 @@ table {
             </body>
             
             </html>
-            
+

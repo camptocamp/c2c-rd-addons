@@ -35,33 +35,33 @@ import logging
 
 #class chricar_stock_dispo_production(osv.osv):
 #     _name = "stock.move"
-class stock_move(osv.osv):     
-     _inherit = "stock.move"
-     _selection_type = \
-         [ ('sell','OK')
-         , ('big','Big')
-         , ('small','Small')
-         , ('faulty','Faulty')
-         , ('waste','Waste')
-         ]
-     _columns = \
-         { 'category'             : fields.selection(_selection_type,'Category', size=16, readonly=True, states={'draft': [('readonly', False)]})
-         , 'category_prod'        : fields.char('Category', size=16, readonly=True, states={'draft': [('readonly', False)]})
-         , 'order_line_id'        : fields.many2one('sale.order.line','Sale Order Line', select=True, readonly=True, ondelete='restrict',)
-         , 'sequence'             : fields.integer ('Sequence', size=16, )
-         , 'product_packaging_id' : fields.many2one('product.product', 'Packaging', help='Product wich is used to store the main product', ondelete='restrict') 
-         , 'packaging_qty'        : fields.integer ('Packaging Qty')
-         }
-     _defaults = {'sequence' : lambda *a: 0}
+class stock_move(osv.osv):
+    _inherit = "stock.move"
+    _selection_type = \
+        [ ('sell','OK')
+        , ('big','Big')
+        , ('small','Small')
+        , ('faulty','Faulty')
+        , ('waste','Waste')
+        ]
+    _columns = \
+        { 'category'             : fields.selection(_selection_type,'Category', size=16, readonly=True, states={'draft': [('readonly', False)]})
+        , 'category_prod'        : fields.char('Category', size=16, readonly=True, states={'draft': [('readonly', False)]})
+        , 'order_line_id'        : fields.many2one('sale.order.line','Sale Order Line', select=True, readonly=True, ondelete='restrict',)
+        , 'sequence'             : fields.integer ('Sequence', size=16, )
+        , 'product_packaging_id' : fields.many2one('product.product', 'Packaging', help='Product wich is used to store the main product', ondelete='restrict')
+        , 'packaging_qty'        : fields.integer ('Packaging Qty')
+        }
+    _defaults = {'sequence' : lambda *a: 0}
 
-     def on_change_dispo_product_qty \
-         ( self, cr, uid, ids
-         , category, name, quality, location_id=False, location_dest_id=False, location_big_id=False
-         , location_small_id=False, location_faulty_id=False, location_waste_id=False, prodlot_id=False
-         , product_packaging_id=False, product_id=False, product_uom=False, price_unit_id=False,product_qty=False):
+    def on_change_dispo_product_qty \
+        ( self, cr, uid, ids
+        , category, name, quality, location_id=False, location_dest_id=False, location_big_id=False
+        , location_small_id=False, location_faulty_id=False, location_waste_id=False, prodlot_id=False
+        , product_packaging_id=False, product_id=False, product_uom=False, price_unit_id=False,product_qty=False):
 
         result ={}
-        
+
         if quality and category == 'sell' and not name:
             name = quality
 
@@ -97,14 +97,14 @@ class stock_move(osv.osv):
             else:
                 location_dest_id = location_id
         # FIXME - must be calculated
-        
+
         if not product_id:
             move_value_cost = 0.0
         else:
             product = self.pool.get('product.product').browse(cr, uid, [product_id])[0]
             if product:
                 move_value_cost = round(product.standard_price * product_qty,2)
-  
+
         result['name'] = name
         result['category'] = category
         result['category_prod'] = category
@@ -132,21 +132,21 @@ class sale_order(osv.osv):
             products = ''
             for move in line.order_line:
                 if move.product_id.name:
-                  if  ( len(products)  + len(move.product_id.name) ) <= 253.0 :
-                    if len(products) == 0.0:
-                       products = move.product_id.name
-                    else:
-                       products = products + ', ' + move.product_id.name
+                    if  ( len(products)  + len(move.product_id.name) ) <= 253.0 :
+                        if len(products) == 0.0:
+                            products = move.product_id.name
+                        else:
+                            products = products + ', ' + move.product_id.name
             res[line.id] = products
         return res
-        
+
     _columns = \
         { 'order_line'    : fields.one2many
             ( 'sale.order.line'
             , 'order_id'
             , 'Order Lines'
             , readonly=True
-            , states={'draft': [('readonly', False)], 'progress': [('readonly', False)]} 
+            , states={'draft': [('readonly', False)], 'progress': [('readonly', False)]}
             )
         , 'product_names' : fields.function
             ( _product_names
@@ -167,7 +167,7 @@ sale_order()
 
 class sale_order_line(osv.osv):
     _inherit = "sale.order.line"
-    
+
     def _move_state(self, cr, uid, ids, names=None, arg=False, context=None):
         _logger = logging.getLogger(__name__)
         res = {}
@@ -176,13 +176,13 @@ class sale_order_line(osv.osv):
             res[line.id] = False
             for move in line.stock_dispo_production_ids:
                 _logger.debug('FGF move_state state %s' % (move.state))
-                if move.state == 'draft':            
+                if move.state == 'draft':
                     res[line.id]  = True
-        return res             
+        return res
 
     _states_mask = {'draft': [('readonly', False)], 'confirmed': [('readonly', False)]}
     _columns = \
-        { 'quality'                          : fields.char    
+        { 'quality'                          : fields.char
             ( 'Ordered Quality'
             , size=16
             , help="This will be copied to Quality for each sale line"
@@ -332,17 +332,17 @@ class sale_order_line(osv.osv):
             , 'Packaging'
             , help='Product wich is used to store the main product'
             , ondelete='restrict'
-            ) 
+            )
         , 'move_state'                       : fields.function
             ( _move_state
             , method=True
             , type='boolean'
             , string='Move State'
             , help="Returns true if some moves are not done"
-            , 
+            ,
             )
         }
-    
+
     def move_action_done(self, cr, uid, ids, context=None):
         move_obj = self.pool.get('stock.move')
         for line in self.browse(cr, uid, ids, context):
@@ -351,7 +351,7 @@ class sale_order_line(osv.osv):
                 if move.state !='done':
                     self._logger.debug('moves production to do `%s`', move.id)
                     move_obj.action_done(cr, uid, [move.id], context=context)
-    
+
 sale_order_line()
 
 class stock_production_lot(osv.osv):
@@ -365,8 +365,8 @@ tered (individual producers) in the GLOBALG.A.P database. This 13-digit number (
 4049929000000) is unique and remains valid and attached to the legal entity as long as it exists.
 It serves as search key on the GLOBALG.A.P website to validate certificates.
 Remark:
-We put it here, because 
-* it changes with every harvest and 
+We put it here, because
+* it changes with every harvest and
 * may overlap calendar years and harvests periods and
 * is only necessary/valid for certain products
 to avoid data entry for every Sales Order

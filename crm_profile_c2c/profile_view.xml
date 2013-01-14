@@ -35,11 +35,11 @@
           <field name="answers_ids" colspan="4" nolabel="1" >
             <tree string="Answers" editable="bottom">
               <field name="sequence"/>
-              <field name="name" select="1"/>
+              <field name="name" />
             </tree>
             <form string="Answers">
               <field name="sequence"/>
-              <field name="name" select="1"/>
+              <field name="name" />
             </form>
           </field>
         </field>
@@ -54,11 +54,11 @@
       <field name="arch" type="xml">
         <form string="Questionnaires" position="replace">
           <form string="Questionnaires">
-            <field name="name" select="1" colspan="2"/>
+            <field name="name"  colspan="2"/>
             <newline/>
             <separator string="Description" colspan="2"/>
             <separator string="Questions List" colspan="2"/>
-            <field name="description" colspan="2" select="1" nolabel="1"/>
+            <field name="description" colspan="2"  nolabel="1"/>
             <field name="questions_ids" colspan="2" nolabel="1"/>
           </form>
         </form>
@@ -71,14 +71,14 @@
       <field name="type">form</field>
       <field name="inherit_id" ref="crm_profiling.view_partner_form"/>
       <field name="arch" type="xml">
-        <xpath expr="/form/notebook/page[@string='Profiling']/field[@name='answers_ids']" position="replace">
+        <field name='answers_ids' position="replace">
           <field name="answers_ids" colspan="4" nolabel="1">
             <tree string="Answers">
               <field name="question_id"/>
               <field name="name"/>
             </tree>
           </field>
-        </xpath>
+        </field>
       </field>
     </record>
   </data>

@@ -25,19 +25,19 @@
 , 'version'     : '0.8'
 , 'category'    : 'Accounting & Finance'
 , 'description' : """
-This module adds 
+This module adds
 * monthly sequences for journals
 * "fy", "stn", "stc" and "jn" as placeholder for prefix and suffix.
 
 * creation rules for missing sequences in ir_sequence_type and account journal
    if a not existing sequence is requested it will be created on the fly.
-   * if no prefix pattern is defined in sequence-codes, a name will be created using 
+   * if no prefix pattern is defined in sequence-codes, a name will be created using
      the first characters of each word of then name of the sequence-code
      Example "Account Invoice In" will be "AAI-"
 
 * "fy" (fiscal year)
   This allows contiguous numbering per fiscal year.
-  This sequence code will be used to format the start date of the fiscal year 
+  This sequence code will be used to format the start date of the fiscal year
   for the placeholder 'fy' defined for sequences as prefix and suffix.
   Example a fiscal year starting on March 1st with a sequence code %Ya will generate 2011a.
   This allows to handle multiple fiscal years per calendar year and fiscal years not matching calendar years easily.
@@ -50,10 +50,10 @@ This module adds
 
 * "jn" (journal-name)
   This allows to use the (abbreviated) journal name as placeholder.
-  
-If no prefix/suffix is specified, the prefix/suffix of the sequence-code is used. 
 
-This module is a prerequisite to automatically generated new fiscal years, periods and associated sequences 
+If no prefix/suffix is specified, the prefix/suffix of the sequence-code is used.
+
+This module is a prerequisite to automatically generated new fiscal years, periods and associated sequences
 using '(fy)' instead of hard coding.
 
 * Configuration wizard:
@@ -61,7 +61,7 @@ using '(fy)' instead of hard coding.
 """
 , 'author'      : 'Camptocamp Austria'
 , 'depends'     : ['account']
-, 'update_xml'  : 
+, 'update_xml'  :
     [ 'ir_sequence_view.xml'
     , 'account_fiscalyear_view.xml'
     , 'ir_sequence_type_view.xml'
@@ -71,6 +71,7 @@ using '(fy)' instead of hard coding.
     ]
 , 'demo_xml'    : []
 , 'installable' : True
+, 'application'  : False 
 , 'active'      : False
 }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

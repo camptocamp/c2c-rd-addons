@@ -39,18 +39,18 @@ class product_product(osv.osv):
         """
         if context is None:
             context = {}
-        
+
         _logger.debug('FGF stock_location_product context %s',context)
         location_obj = self.pool.get('stock.location')
         warehouse_obj = self.pool.get('stock.warehouse')
         shop_obj = self.pool.get('sale.shop')
-        
+
         states = context.get('states',[])
         if not states:
-                states = ['done']
+            states = ['done']
         what = context.get('what',())
         if what == ():
-           what = ('in','out')
+            what = ('in','out')
         if not ids:
             ids = self.search(cr, uid, [])
         res = {}.fromkeys(ids, 0.0)
@@ -84,7 +84,7 @@ class product_product(osv.osv):
         if context.get('compute_child',True):
             child_location_ids = location_obj.search(cr, uid, [('location_id', 'child_of', location_ids)])
             location_ids = child_location_ids or location_ids
-        
+
         # this will be a dictionary of the UoM resources we need for conversion purposes, by UoM id
         uoms_o = {}
         # this will be a dictionary of the product UoM by product id
@@ -158,7 +158,7 @@ class product_product(osv.osv):
             results2 = cr.fetchall()
             #for i in results2:
             #   _logger.debug('FGF stock_location_product out  %s',i)
-            
+
         #TOCHECK: before change uom of product, stock move line are in old uom.
         context.update({'raise-exception': False})
         # Compute the incoming vlaues
@@ -175,7 +175,7 @@ class product_product(osv.osv):
         ctx['to_date'] = context.get('to_date1',False)
         res=super(product_product, self)._product_available(cr, uid, ids, field_name, arg, context=ctx)
         return res
-        
+
 
     def _get_product_valuation1(self, cr, uid, ids, field_name, arg, context=None):
         ctx1 = dict(context)
@@ -194,32 +194,32 @@ class product_product(osv.osv):
     def _get_valuation_diff(self, cr, uid, ids, field_name, arg, context=None):
         res = {}
         for product in self.browse(cr, uid, ids, context=context):
-                 res[product.id] = product.valuation1 - product.valuation2
+            res[product.id] = product.valuation1 - product.valuation2
         return res
 
 
     def _get_avg_price(self, cr, uid, ids, field_name, arg, context=None):
-         res = {}
-         for product in self.browse(cr, uid, ids, context=context):
-             if product.qty_available >0 and product.valuation1 >0 :
-                 res[product.id] = product.valuation1 / product.qty_available
-             else:
-                 res[product.id] = 0
-         return res
+        res = {}
+        for product in self.browse(cr, uid, ids, context=context):
+            if product.qty_available >0 and product.valuation1 >0 :
+                res[product.id] = product.valuation1 / product.qty_available
+            else:
+                res[product.id] = 0
+        return res
 
     def _get_expense_account(self, cr, uid, ids, field_name, arg, context=None):
-         res = {}
-         for product in self.browse(cr, uid, ids, context=context):
-             res[product.id] =  product.property_account_expense.id  or product.categ_id.property_account_expense_categ.id or None
-         return res
+        res = {}
+        for product in self.browse(cr, uid, ids, context=context):
+            res[product.id] =  product.property_account_expense.id  or product.categ_id.property_account_expense_categ.id or None
+        return res
 
     def _get_product_expense(self, cr, uid, ids, context=None):
-         _logger  = logging.getLogger(__name__)
-         _logger.debug('FGF _get_product_expense ids %s' % ids)
-         product_ids = []
-         product_ids = self.pool.get('product.product').search(cr, uid, [('categ_id','in', ids)])
-         _logger.debug('FGF _get_product_expense product_ids %s' % product_ids)
-         return product_ids
+        _logger  = logging.getLogger(__name__)
+        _logger.debug('FGF _get_product_expense ids %s' % ids)
+        product_ids = []
+        product_ids = self.pool.get('product.product').search(cr, uid, [('categ_id','in', ids)])
+        _logger.debug('FGF _get_product_expense product_ids %s' % product_ids)
+        return product_ids
 
 
     _columns = {
@@ -235,7 +235,7 @@ class product_product(osv.osv):
             #                }
                    ),
            }
-           
+
     def fields_to_check(self, cr, uid):
         fields = super(product_product, self).fields_to_check(cr, uid)
         if fields:
@@ -269,7 +269,7 @@ class stock_move(osv.osv):
             ids3.append(d[date])
         self._logger.debug('FGF ids3 `%s`', ids3)
         return self._compute_move_value_cost2(cr, uid, ids3, context)
-        
+
     def _compute_move_value_cost2(self, cr, uid, ids2,  context):
         res_curr_acc = self.pool.get('res.currency')
         self._logger.debug('sql sorted ids `%s`', ids2)
@@ -280,8 +280,8 @@ class stock_move(osv.osv):
         self._logger.debug('digits `%s`', digits)
         for move in self.browse(cr, uid, ids2):
             self._logger.debug('type cost `%s`', move.picking_id.type)
-            #if move.state in ['done','cancel']: 
-            if move.state in ['cancel']: 
+            #if move.state in ['done','cancel']:
+            if move.state in ['cancel']:
                 result[move.id] = 0
 
             if move.value_correction:
@@ -293,8 +293,8 @@ class stock_move(osv.osv):
                     result[move.id] = round(move.product_qty * move.price_unit,digits)
                 else:
                     rate = res_curr_acc._get_conversion_rate(cr, uid, move.purchase_line_id.order_id.pricelist_id.currency_id, move.company_id.currency_id, context=context)
-                    result[move.id] = round(move.purchase_line_id.price_subtotal / move.purchase_line_id.product_qty * move.product_qty * rate ,digits) 
-            elif move.location_id.usage == 'internal': 
+                    result[move.id] = round(move.purchase_line_id.price_subtotal / move.purchase_line_id.product_qty * move.product_qty * rate ,digits)
+            elif move.location_id.usage == 'internal':
                 loc_id = str(move.location_id.id)
                 self._logger.debug('loc_id `%s`', loc_id)
                 # compute avg price per stock location
@@ -308,18 +308,18 @@ class stock_move(osv.osv):
                   and (location_id = '+loc_id+' or location_dest_id = '+loc_id+') \
                   and date <= to_date(\''+ move.date + '\',\'YYYY-MM-DD HH24:MI:SS\') and id != '+ str(move.id)
                 if move.prodlot_id:
-                   sql = sql + ' and prodlot_id = ' + str(move.prodlot_id.id )
+                    sql = sql + ' and prodlot_id = ' + str(move.prodlot_id.id )
                 #self._logger.debug('sql move_value_cost`%s`', sql)
                 cr.execute(sql)
                 for r in cr.dictfetchall():
-                   sum_amount = r['sum_amount']
-                   sum_qty    = r['sum_qty']
-                   self._logger.debug('FGF sum product %s %s %s %s' % (move.product_id.id, move.date,sum_amount, sum_qty))
-                   if sum_qty and sum_qty > 0.0 and sum_amount > 0.0:
-                       avg_price = sum_amount / sum_qty 
-                       result[move.id] = round(move.product_qty * avg_price,digits)
-                   else :
-                       result[move.id] = round(move.product_qty * move.product_id.standard_price,digits)
+                    sum_amount = r['sum_amount']
+                    sum_qty    = r['sum_qty']
+                    self._logger.debug('FGF sum product %s %s %s %s' % (move.product_id.id, move.date,sum_amount, sum_qty))
+                    if sum_qty and sum_qty > 0.0 and sum_amount > 0.0:
+                        avg_price = sum_amount / sum_qty
+                        result[move.id] = round(move.product_qty * avg_price,digits)
+                    else :
+                        result[move.id] = round(move.product_qty * move.product_id.standard_price,digits)
             else:
                 if move.price_unit and move.price_unit != 0:
                     result[move.id] = round(move.product_qty * move.price_unit,digits)
@@ -330,7 +330,7 @@ class stock_move(osv.osv):
                 sql = 'update stock_move set move_value_cost = round(%s,%s) where id = %d' % (result[move.id],digits,move.id)
                 self._logger.debug('sql init sql %s' % (sql))
                 cr.execute(sql)
-                
+
         self._logger.debug('FGF result `%s`', result)
         return result
 
@@ -357,52 +357,52 @@ class stock_move(osv.osv):
             avg_price = 0.0
             if move.picking_id.type == 'out' and move.state != 'cancel' and move.product_qty and move.product_qty != 0:
                 self._logger.debug('type sale `%s`', move.picking_id.type)
-                avg_price = move.move_value_sale / move.product_qty 
+                avg_price = move.move_value_sale / move.product_qty
             result[move.id] = avg_price
             self._logger.debug('value_sale `%s`', result[move.id])
         return result
 
 
     def _period_id(self, cr, uid, ids, name, arg, context):
-         result = {}
-         for move in self.browse(cr, uid, ids):
-             #period_ids= self.pool.get('account.period').search(cr,uid,[('date_start','<=',move.date),('date_stop','>=',move.date ), ('special','=',False)])
-             #period_ids= self.pool.get('account.period').search(cr,uid,[('date_start','<=',move.date),('date_stop','>=',move.date ),('special','!=', True)])
-             period_ids= self.pool.get('account.period').search(cr,uid,[('date_start','<=',move.date_expected),('date_stop','>=',move.date_expected ),('special','!=', True)])
-             
-             if len(period_ids):
-                 result[move.id] = period_ids[0]
-             
-         return result
+        result = {}
+        for move in self.browse(cr, uid, ids):
+            #period_ids= self.pool.get('account.period').search(cr,uid,[('date_start','<=',move.date),('date_stop','>=',move.date ), ('special','=',False)])
+            #period_ids= self.pool.get('account.period').search(cr,uid,[('date_start','<=',move.date),('date_stop','>=',move.date ),('special','!=', True)])
+            period_ids= self.pool.get('account.period').search(cr,uid,[('date_start','<=',move.date_expected),('date_stop','>=',move.date_expected ),('special','!=', True)])
+
+            if len(period_ids):
+                result[move.id] = period_ids[0]
+
+        return result
 
     def _get_purchase_order_line(self, cr, uid, ids, context=None):
-         result = {}
-         for line in self.pool.get('purchase.order.line').browse(cr, uid, ids, context=context):
-             ids2 = self.search(cr, uid, [('purchase_line_id','=',int(line.id))])
-         return ids2
+        result = {}
+        for line in self.pool.get('purchase.order.line').browse(cr, uid, ids, context=context):
+            ids2 = self.search(cr, uid, [('purchase_line_id','=',int(line.id))])
+        return ids2
 
     def _get_sale_order_line(self, cr, uid, ids, context=None):
-         result = {}
-         for line in self.pool.get('sale.order.line').browse(cr, uid, ids, context=context):
-             ids2 = self.search(cr, uid, [('sale_line_id','=',line.id)])
-         return ids2
+        result = {}
+        for line in self.pool.get('sale.order.line').browse(cr, uid, ids, context=context):
+            ids2 = self.search(cr, uid, [('sale_line_id','=',line.id)])
+        return ids2
 
     def _get_stock_move(self, cr, uid, ids, context=None):
-         result = {}
-         for line in self.browse(cr, uid, ids, context=context):
-             ids2 = self.search(cr, uid, [('product_id','=',line.product_id.id),('date','>=', line.date)])
-         return ids2
-  
+        result = {}
+        for line in self.browse(cr, uid, ids, context=context):
+            ids2 = self.search(cr, uid, [('product_id','=',line.product_id.id),('date','>=', line.date)])
+        return ids2
 
-    _columns = { 
-        'move_value_cost'    : fields.function(_compute_move_value_cost, method=True, string='Amount', digits_compute=dp.get_precision('Account'),type='float' ,  
+
+    _columns = {
+        'move_value_cost'    : fields.function(_compute_move_value_cost, method=True, string='Amount', digits_compute=dp.get_precision('Account'),type='float' ,
            store={
                'stock.move': (lambda self, cr, uid, ids, c={}: ids, ['product_qty', 'price_unit','price_unit_pu','value_correction', 'state'], 20),
                #'stock.move': (_get_stock_move,  ['product_qty', 'price_unit', 'value_correction', 'state'], 20),
                #'purchase.order.line': (_get_purchase_order_line, ['product_qty', 'price_subtotal'], 20),
                  },
                             help="""Product's cost for accounting valuation.""") ,
-        'move_value_sale'    : fields.function(_compute_move_value_sale, method=True, string='Amount Sale', digits_compute=dp.get_precision('Account'),type='float' , 
+        'move_value_sale'    : fields.function(_compute_move_value_sale, method=True, string='Amount Sale', digits_compute=dp.get_precision('Account'),type='float' ,
            store={
                'stock.move': (lambda self, cr, uid, ids, c={}: ids, ['product_qty', 'state'], 20),
                #'sale.order.line': (_get_sale_order_line, ['product_qty', 'price_subtotal'], 20),
@@ -444,7 +444,7 @@ class stock_move(osv.osv):
         # find inventory location
 
         return res
-        
+
 #    def init(self, cr):
       # Purchase
 #      cr.execute("""
@@ -474,7 +474,7 @@ class stock_move(osv.osv):
         move_ids = []
         for move in self.browse(cr, uid, ids, context=context):
             if move.state in ['done','cancel']:
-                 continue
+                continue
             move_ids.append(move.id)
             date1 = move.date
         res = super(stock_move, self).action_done(cr, uid, move_ids, context)
@@ -496,43 +496,43 @@ class stock_location(osv.osv):
             self._logger.debug('FGF product_get standard %s', context )
             return super(stock_location, self)._product_get(cr, uid, id, product_ids, context, states)
         else:
-          # FIXME
-          # we shell use product_qty_calc definend in  /stock_product_zero/inventory.py instead recomputing
-          # recomputing always bears the risk that someone posts move in the meantime
+            # FIXME
+            # we shell use product_qty_calc definend in  /stock_product_zero/inventory.py instead recomputing
+            # recomputing always bears the risk that someone posts move in the meantime
 
-          move_obj = self.pool.get('stock.move')
-          uom_obj = self.pool.get('product.uom')
-          product_obj = self.pool.get('product.product')
-          res = {}
-
-          if not isinstance(product_ids,list):
-              product_ids = [ product_ids ]
-
-          for prod in product_obj.browse(cr, uid, product_ids, context):
             move_obj = self.pool.get('stock.move')
             uom_obj = self.pool.get('product.uom')
-            location = context['location']
-            prodlot_id = context['prodlot_id']
+            product_obj = self.pool.get('product.product')
+            res = {}
 
-            if prodlot_id:
-               move_ids = move_obj.search(cr, uid, [('location_dest_id','=',id),('product_id','=',prod.id),('prodlot_id','=',prodlot_id), ('state','=','done')], )
-               move_ids2 = move_obj.search(cr, uid, [('location_id','=',id),('product_id','=',prod.id),('prodlot_id','=',prodlot_id), ('state','=','done')], )
-            else:
-               move_ids = move_obj.search(cr, uid, [('location_dest_id','=',id),('product_id','=',prod.id),('prodlot_id','=',False), ('state','=','done')], )
-               move_ids2 = move_obj.search(cr, uid, [('location_id','=',id),('product_id','=',prod.id),('prodlot_id','=',False), ('state','=','done')], )
+            if not isinstance(product_ids,list):
+                product_ids = [ product_ids ]
 
-            qty = 0.0
-            for move in move_obj.browse(cr, uid, move_ids, context=context):
-                qty += uom_obj._compute_qty(cr, uid, move.product_uom.id,move.product_qty, move.product_id.uom_id.id)
-            for move in move_obj.browse(cr, uid, move_ids2, context=context):
-                qty -= uom_obj._compute_qty(cr, uid, move.product_uom.id,move.product_qty, move.product_id.uom_id.id)
+            for prod in product_obj.browse(cr, uid, product_ids, context):
+                move_obj = self.pool.get('stock.move')
+                uom_obj = self.pool.get('product.uom')
+                location = context['location']
+                prodlot_id = context['prodlot_id']
+
+                if prodlot_id:
+                    move_ids = move_obj.search(cr, uid, [('location_dest_id','=',id),('product_id','=',prod.id),('prodlot_id','=',prodlot_id), ('state','=','done')], )
+                    move_ids2 = move_obj.search(cr, uid, [('location_id','=',id),('product_id','=',prod.id),('prodlot_id','=',prodlot_id), ('state','=','done')], )
+                else:
+                    move_ids = move_obj.search(cr, uid, [('location_dest_id','=',id),('product_id','=',prod.id),('prodlot_id','=',False), ('state','=','done')], )
+                    move_ids2 = move_obj.search(cr, uid, [('location_id','=',id),('product_id','=',prod.id),('prodlot_id','=',False), ('state','=','done')], )
+
+                qty = 0.0
+                for move in move_obj.browse(cr, uid, move_ids, context=context):
+                    qty += uom_obj._compute_qty(cr, uid, move.product_uom.id,move.product_qty, move.product_id.uom_id.id)
+                for move in move_obj.browse(cr, uid, move_ids2, context=context):
+                    qty -= uom_obj._compute_qty(cr, uid, move.product_uom.id,move.product_qty, move.product_id.uom_id.id)
 
 
-            res[prod.id] = qty
-            self._logger.debug('FGF product_get inventur %s %s %s' % ( qty, prod.name, context) )
-          return res
- 
-       
+                res[prod.id] = qty
+                self._logger.debug('FGF product_get inventur %s %s %s' % ( qty, prod.name, context) )
+            return res
+
+
 
 stock_location()
 
@@ -555,7 +555,7 @@ class stock_inventory(osv.osv):
         self._logger.debug('FGF inv line hook %s %s' % ( line, value)  )
         change = line.product_qty - line.product_qty_calc
         location_id = line.product_id.product_tmpl_id.property_stock_inventory.id
-        
+
         if change > 0:
             value.update( {
                 'product_qty': change,
@@ -570,7 +570,7 @@ class stock_inventory(osv.osv):
             })
         self._logger.debug('FGF inv line hook after %s %s %s' % (change, line, value)  )
         return super(stock_inventory, self)._inventory_line_hook(cr, uid, line, value)
-        
+
     def action_confirm(self, cr, uid, ids, context=None):
         """ Confirm the inventory and writes its finished date
         computes difference between data entry and computed values for the inventory
@@ -588,11 +588,11 @@ class stock_inventory(osv.osv):
             move_ids = []
             for line in inv.inventory_line_id:
                 pid = line.product_id.id
-                
+
                 #product_context.update(uom=line.product_uom.id, to_date=inv.date, date=inv.date, prodlot_id=line.prod_lot_id.id)
                 #amount = location_obj._product_get(cr, uid, line.location_id.id, [pid], product_context)[pid]
 
-                change = line.product_qty - line.product_qty_calc 
+                change = line.product_qty - line.product_qty_calc
                 lot_id = line.prod_lot_id.id
                 if change:
                     location_id = line.product_id.product_tmpl_id.property_stock_inventory.id
@@ -618,7 +618,7 @@ class stock_inventory(osv.osv):
                             'location_dest_id': location_id,
                         })
                         move_ids.append(self._inventory_line_hook(cr, uid, line, value))
-            if move_ids:            
+            if move_ids:
                 message = _("Inventory '%s' is done.") %(inv.name)
                 self.log(cr, uid, inv.id, message)
                 self.write(cr, uid, [inv.id], {'state': 'confirm', 'move_ids': [(6, 0, move_ids)]})
@@ -635,13 +635,13 @@ class stock_inventory(osv.osv):
         """
         res = super(stock_inventory, self).action_done(cr, uid, ids, context)
 
-        move_obj = self.pool.get('stock.move') 
+        move_obj = self.pool.get('stock.move')
         move_ids = []
         for inv in self.browse(cr, uid, ids):
             for m in inv.move_ids:
                 move_ids.append(m.id)
         move_obj.write(cr, uid, move_ids, {'date':  inv.date,'date_expected': inv.date})
-        
+
         return True
 
 stock_inventory()

@@ -11,9 +11,10 @@
  , "category"     : "Generic Modules/Human Resources"
  , "depends"      : ["base","project_timesheet"]
  , "init_xml"     : []
- , "demo_xml"     : []
+ , "demo"         : []
  , "update_xml"   : ["timesheet_task_view.xml"]
  , "auto_install" : False
  , "installable"  : True
+, 'application'  : False
 }
 

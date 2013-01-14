@@ -8,13 +8,13 @@
       <field name="arch" type="xml">
         <form string="check_ones">
           <group colspan="4">
-            <field name="name" select="1" colspan="4"/>
+            <field name="name"  colspan="4"/>
             <field name="condition" colspan="4"/>
-            <field name="table" select="1"/>
+            <field name="table" />
             <field name="object"/>
-            <field name="filter" select="1" colspan="4"/>
-            <field name="enable" select="1"/>
-            <field name="company_id" select="1" groups="base.group_multi_company"/>
+            <field name="filter"  colspan="4"/>
+            <field name="enable" />
+            <field name="company_id"  groups="base.group_multi_company"/>
             <button
               colspan="4"
               name="button_test"
@@ -40,13 +40,13 @@
       <field name="type">tree</field>
       <field name="arch" type="xml">
         <tree string="check_ones" editable="top">
-          <field name="table" select="1"/>
-          <field name="name" select="1"/>
+          <field name="table" />
+          <field name="name" />
           <field name="object"/>
           <field name="condition"/>
-          <field name="filter" select="1"/>
-          <field name="enable" select="1"/>
-          <field name="company_id" select="1" groups="base.group_multi_company"/>
+          <field name="filter" />
+          <field name="enable" />
+          <field name="company_id"  groups="base.group_multi_company"/>
         </tree>
       </field>
     </record>
@@ -76,15 +76,15 @@
       <field name="arch" type="xml">
         <form string="check_for_alls">
           <group colspan="4">
-            <field name="name" select="1" colspan="4"/>
+            <field name="name"  colspan="4"/>
             <field name="condition" colspan="4"/>
-            <field name="table" select="1"/>
+            <field name="table" />
             <field name="object"/>
             <field name="sequence"/>
             <field name="var"/>
-            <field name="filter" select="1" colspan="4"/>
-            <field name="enable" select="1"/>
-            <field name="company_id" select="1" groups="base.group_multi_company"/>
+            <field name="filter"  colspan="4"/>
+            <field name="enable" />
+            <field name="company_id"  groups="base.group_multi_company"/>
             <button
               colspan="4"
               name="button_test"
@@ -110,13 +110,13 @@
       <field name="type">tree</field>
       <field name="arch" type="xml">
         <tree string="check_for_alls" editable="top">
-          <field name="table" select="1"/>
-          <field name="name" select="1"/>
+          <field name="table" />
+          <field name="name" />
           <field name="object"/>
           <field name="condition"/>
-          <field name="filter" select="1"/>
-          <field name="enable" select="1"/>
-          <field name="company_id" select="1" groups="base.group_multi_company"/>
+          <field name="filter" />
+          <field name="enable" />
+          <field name="company_id"  groups="base.group_multi_company"/>
         </tree>
       </field>
     </record>

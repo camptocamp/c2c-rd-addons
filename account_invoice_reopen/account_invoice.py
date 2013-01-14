@@ -27,13 +27,13 @@ import logging
 
 class account_invoice(osv.osv):
     _inherit = "account.invoice"
- 
+
 #   def _get_state(self, cr, uid, ids, context=None):
 
 #       res = list(super(account_invoice, self)._columns['state'].selection)
 #       res.append(('draft_reset','Reset to draft'))
 
-#       return res 
+#       return res
 
 #   _columns ={
 # FIXME the _get_state raises error
@@ -76,7 +76,7 @@ class account_invoice(osv.osv):
         _logger.debug('FGF reopen invoices %s' % (invoices))
 
         wf_service = netsvc.LocalService("workflow")
-        
+
         move_ids = [] # ones that we will need to update
         now = ' ' + _('Invalid') + time.strftime(' [%Y%m%d %H%M%S]')
         for i in invoices:
@@ -86,7 +86,7 @@ class account_invoice(osv.osv):
                 for move in account_move_obj.browse(cr, uid, move_ids):
                     if not move.journal_id.reopen_posted:
                         raise osv.except_osv(_('Error !'), _('You can not reopen invoice of this journal [%s]! You need to need to set "Allow Update Posted Entries" first')%(move.journal_id.name))
-                    
+
             if i['payment_ids']:
                 pay_ids = account_move_line_obj.browse(cr, uid, i['payment_ids'])
                 for move_line in pay_ids:
@@ -102,22 +102,22 @@ class account_invoice(osv.osv):
         for inv in invoice_obj.browse(cr, uid, ids):
             report_ids = report_xml_obj.search(cr, uid, [('model','=', 'account.invoice'), ('attachment','!=', False)])
             for report in report_xml_obj.browse(cr, uid, report_ids):
-              if report.attachment:
-                aname = report.attachment.replace('object','inv')
-                if eval(aname):
-                  aname = eval(aname)+'.pdf'
-                  attachment_ids = attachment_obj.search(cr, uid, [('res_model','=','account.invoice'),('datas_fname', '=', aname),('res_id','=',inv.id)])
-                  for a in attachment_obj.browse(cr, uid, attachment_ids):
-                    vals = {
-                        'name': a.name.replace('.pdf', now+'.pdf'),
-                        'datas_fname': a.datas_fname.replace('.pdf.pdf', now+'.pdf.pdf')
-                           }
-                    attachment_obj.write(cr, uid, a.id, vals)
+                if report.attachment:
+                    aname = report.attachment.replace('object','inv')
+                    if eval(aname):
+                        aname = eval(aname)+'.pdf'
+                        attachment_ids = attachment_obj.search(cr, uid, [('res_model','=','account.invoice'),('datas_fname', '=', aname),('res_id','=',inv.id)])
+                        for a in attachment_obj.browse(cr, uid, attachment_ids):
+                            vals = {
+                                'name': a.name.replace('.pdf', now+'.pdf'),
+                                'datas_fname': a.datas_fname.replace('.pdf.pdf', now+'.pdf.pdf')
+                                   }
+                            attachment_obj.write(cr, uid, a.id, vals)
 
-        # unset set the invoices move_id 
+        # unset set the invoices move_id
         self.write(cr, uid, ids, {'move_id': False})
-        
-        
+
+
         if move_ids:
 
             for move in account_move_obj.browse(cr , uid, move_ids):
@@ -125,7 +125,7 @@ class account_invoice(osv.osv):
                 account_move_obj.write(cr, uid, [move.id], {'name':name})
                 _logger.debug('FGF reopen move_copy moveid %s' % (move.id) )
                 if move.journal_id.entry_posted:
-                     raise osv.except_osv(_('Error !'), _('You can not reopen an invoice if the journal is set to skip draft!'))
+                    raise osv.except_osv(_('Error !'), _('You can not reopen an invoice if the journal is set to skip draft!'))
                 move_copy_id = account_move_obj.copy(cr, uid, move.id)
                 _logger.debug('FGF reopen move_copy_id %s' % (move_copy_id))
                 name = name + '*'
@@ -136,7 +136,7 @@ class account_invoice(osv.osv):
                 _logger.debug('FGF reopen move_copy_id validate' )
                 account_move_obj.button_validate(cr, uid, [move_copy_id], context=None)
                 _logger.debug('FGF reopen move_copy_id validated' )
-                # reconcile 
+                # reconcile
                 r_id = self.pool.get('account.move.reconcile').create(cr, uid, {'type': 'auto'})
                 _logger.debug('FGF reopen reconcile_id %s' % (r_id))
                 line_ids = account_move_line_obj.search(cr, uid, [('move_id','in',[move_copy_id, move.id])])
@@ -144,9 +144,9 @@ class account_invoice(osv.osv):
                 lines_to_reconile = []
                 for ltr in account_move_line_obj.browse(cr, uid, line_ids):
                     if ltr.account_id.id in (ltr.partner_id.property_account_payable.id, ltr.partner_id.property_account_receivable.id):
-                         lines_to_reconile.append(ltr.id)
+                        lines_to_reconile.append(ltr.id)
                 account_move_line_obj.write(cr, uid, lines_to_reconile, {'reconcile_id':r_id})
-              
+
         self._log_event(cr, uid, ids, -1.0, 'Reopened Invoice')
 
         return True

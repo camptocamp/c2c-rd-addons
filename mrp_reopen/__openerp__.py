@@ -35,7 +35,7 @@ Allows reopening of confirmed production orders.
     'init_xml': [],
     'update_xml': ['mrp_view.xml','mrp_workflow.xml' ],
     'demo_xml': [],
-    'installable': False,
+    'installable': True,
     'auto_install': False,
 }
 

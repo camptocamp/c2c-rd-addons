@@ -141,12 +141,9 @@ class chricar_stock_product_partner(osv.osv):
         cr.execute("""
 create view chricar_stock_product_partner as
 select
-    get_id('chricar_stock_product_partner',
-      (case when s.type = 'in' then 1
-           when s.type = 'out' then 2
-       end)::int , a.partner_id, p.id ,product_id) as id,
+       0 as id,
     s.type as type,
-    a.partner_id, p.id as period_id ,product_id,
+    a.id as partner_id, p.id as period_id ,product_id,
     sum(product_qty) as product_qty,
     sum(move_value_cost) as move_value_cost,
     sum(move_value_sale) as move_value_sale,
@@ -161,19 +158,14 @@ select
   from 
     stock_move,
     account_period p,
-    res_partner_address a,
+    res_partner a,
     stock_picking s
-  where a.id= s.address_id
-    and s.id=picking_id
+  where s.id=picking_id
     and stock_move.date between date_start and date_stop
     and s.type in ('in','out')
     and stock_move.state != 'cancel'
     and s.state != 'cancel'
   group by
-    get_id('chricar_stock_product_partner',
-      (case when s.type = 'in' then 1
-            when s.type = 'out' then 2
-      end)::int , a.partner_id, p.id ,product_id),
-    s.type,a.partner_id, p.id ,product_id;
+    s.type,a.id,p.id ,product_id;
 """)
 chricar_stock_product_partner()

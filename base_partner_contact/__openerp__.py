@@ -30,7 +30,7 @@ This module allows to uses person as partners respecting first, middle, last nam
     """,
     "depends" : ["base"],
     "init_xml" : [ ],
-    "demo_xml" : [ ],
+    "demo"     : [ ],
     "update_xml" : [ "partner_view.xml", "security/ir.model.access.csv", ],
     "installable": True
 }

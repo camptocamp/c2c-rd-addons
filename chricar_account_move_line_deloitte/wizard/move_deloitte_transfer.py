@@ -35,7 +35,7 @@ import pooler
 
 class chricar_account_move_line_deloitte_transfer(osv.osv_memory):
     _name = "chricar.account.move.line.deloitte.transfer"
-    _description = "Transfer imported Igel Moves"
+    _description = "Transfer imported Deloitte Moves"
     _columns = {
         'dummy': fields.boolean('Dummy', help=''),
     }

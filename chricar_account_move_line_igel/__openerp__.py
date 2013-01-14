@@ -7,13 +7,13 @@
 , "category"     : "Client Modules/ChriCar Addons"
 , "depends"      : ["account"]
 , "init_xml"     : []
-, "demo_xml"     : []
-, "update_xml"   : 
+, "demo"         : []
+, "update_xml"   :
     [ "account_move_line_igel_view.xml"
     , "wizard/moves_igel_view.xml"
     , "security/rule.xml","security/ir.model.access.csv"
     ]
 , "auto_install" : False
 , "installable"  : True
+, 'application'  : False
 }
-

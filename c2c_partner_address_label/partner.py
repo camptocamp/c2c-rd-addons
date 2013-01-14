@@ -42,7 +42,7 @@ import logging
 #    }
 #
 #    def init(self, cr):
-#        # set reasonable values 
+#        # set reasonable values
 #        cr.execute("""update res_country
 #                         set zip_position = 'after'
 #                       where code in ('US')
@@ -60,7 +60,7 @@ import logging
 class res_company(osv.osv):
     _inherit = 'res.company'
     _columns = {
-        'company_address_id':fields.many2one('res.partner.address', 'Address for Report Header', domain="[('partner_id', '=', partner_id)]"),
+        'company_address_id':fields.many2one('res.partner', 'Address for Report Header'),
         'address_label_position' : fields.selection([('left','Left'),('right','Right')], string="Address Window Position", help="Position of address window on standard company enevlops. Many reports do not use this yet"),
     }
     _defaults = {
@@ -102,8 +102,8 @@ class res_partner(osv.osv):
 #                if t:
 #                    l = l + lf + t
 
-          
-           
+
+
             if a.parent_id:
                 l = a.parent_id.name + lf + a.name
             else:
@@ -120,5 +120,5 @@ class res_partner(osv.osv):
     _columns = {
         'address_label': fields.function(_address_label, type='text', method = True, string="Address Label"),
     }
-    
+
 res_partner()

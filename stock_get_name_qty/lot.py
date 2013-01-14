@@ -31,7 +31,7 @@ class stock_production_lot(osv.osv):
         _logger = logging.getLogger(__name__)
         res= super(stock_production_lot, self).name_get(cr, uid, ids, context)
         if not res:
-           return []
+            return []
         _logger.debug('FGF lot res %s' % (res))
         #_logger.debug('FGF lot context %s ' % (context))
         resd = dict(res)
@@ -39,23 +39,23 @@ class stock_production_lot(osv.osv):
         #_logger.debug('FGF lot d %s ' % (resd))
         res1 =[]
         if context.get('location_id'):
-          for lot in self.browse(cr, uid, ids, context):
-            qty = lot.stock_available
-            _logger.debug('FGF lot res %s %s' % (lot.id, qty))
-            name_new = resd[lot.id] + '  [' + str(round(qty,digits)) +' '+ lot.product_id.uom_id.name+']'
-            _logger.debug('FGF lot name %s' % (name_new))
-            if lot.product_id.packaging:
-                 pack_name = []
-                 for pack in lot.product_id.packaging:
-                     pack_name.append( '['+pack.ul.name + ' ' + _('á') + ' ' + str(pack.qty) +']' )
-                 packs = ','.join(pack_name)
-                 name_new += packs
-            l = (lot.id,name_new)
-            res1.append(l)
-            _logger.debug('FGF lot res1 %s' % (res1))
+            for lot in self.browse(cr, uid, ids, context):
+                qty = lot.stock_available
+                _logger.debug('FGF lot res %s %s' % (lot.id, qty))
+                name_new = resd[lot.id] + '  [' + str(round(qty,digits)) +' '+ lot.product_id.uom_id.name+']'
+                _logger.debug('FGF lot name %s' % (name_new))
+                if lot.product_id.packaging:
+                    pack_name = []
+                    for pack in lot.product_id.packaging:
+                        pack_name.append( '['+pack.ul.name + ' ' + _('á') + ' ' + str(pack.qty) +']' )
+                    packs = ','.join(pack_name)
+                    name_new += packs
+                l = (lot.id,name_new)
+                res1.append(l)
+                _logger.debug('FGF lot res1 %s' % (res1))
         else:
-           _logger.debug('FGF lot res else %s' % (res))
-           res1 = res
+            _logger.debug('FGF lot res else %s' % (res))
+            res1 = res
         return res1
-        
+
 stock_production_lot()

@@ -7,9 +7,10 @@ generated 2009-03-27 16:17:42+01"""
 , "category"     : "Client Modules/Application"
 , "depends"      : ["base","chricar_application"]
 , "init_xml"     : []
-, "demo_xml"     : []
+, "demo"         : []
 , "update_xml"   : ["application_tables_view.xml"]
 , "auto_install" : False
 , "installable"  : True
+, 'application'  : False
 }
 

@@ -6,9 +6,8 @@
       <field name="name">view_sale_order_shipped.view</field>
       <field name="model">sale.order</field>
       <field name="inherit_id" ref="sale.view_order_tree"/>
-      <field name="type">tree</field>
       <field name="arch" type="xml">
-        <field name="picked_rate" position="before">
+        <field name="state" position="before">
           <field name="shipped_rate" widget="progressbar"/>
         </field>
       </field>

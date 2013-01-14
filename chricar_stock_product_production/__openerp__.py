@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 { "name"         : "Product by Stock "
 , "version"      : "1.0"
-, "author"       : "ChriCar Beteiligungs- und Beratungs- GmbH"
-, "website"      : "http://www.chricar.at"
+, "author"       : "Camptocamp Austria"
+, "website"      : "http://www.camptocamp.com"
 , "description"  : """Shows quantity and amount of products per production location"""
 , "category"     : "Warehouse Management"
 , "depends"      : 
@@ -15,8 +15,9 @@
     , "chricar_stock_dispo_production_V1"
     ]
 , "init_xml"     : []
-, "demo_xml"     : []
+, "demo"         : []
 , "update_xml"   : ["stock_product_production_view.xml"]
 , "auto_install" : False
 , "installable"  : True
+, 'application'  : False
 }

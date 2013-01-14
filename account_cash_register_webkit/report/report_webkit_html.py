@@ -32,7 +32,7 @@ class report_webkit_html(report_sxw.rml_parse):
             'cr':cr,
             'uid': uid,
         })
-        
+
 report_sxw.report_sxw('report.account.cash.register.webkit',
                        'account.bank.statement',
                        'addons/account_cash_register_webkit/report/account_cash_register_webkit.mako',

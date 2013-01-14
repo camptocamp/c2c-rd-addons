@@ -22,7 +22,7 @@
             <field name="inherit_id" ref="account.view_payment_term_form"/>
             <field name="type">form</field>
             <field name="arch" type="xml">
-               <xpath expr="/form/field[@name='name']" position="after">
+               <xpath expr="/form/group/field[@name='name']" position="after">
                        <field name="is_discount"/>
                 </xpath>
             </field>

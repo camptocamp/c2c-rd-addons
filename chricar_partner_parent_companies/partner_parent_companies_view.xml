@@ -18,66 +18,66 @@ Modification of Partner - Adding Tab for Parent Companies
               <page string="Participations Current">
                 <field name="partner_current_ids" colspan="4" nolabel="1" widget="one2many_list" >
                   <tree string="Parent Companies" editable="top">
-                    <field name="name" select="1" sum="Sum Share"/>
-                    <field name="paid_in" select="1" sum="Sum Paid in"/>
-                    <field name="percentage" select="1" sum="Sum Percentage"/>
-                    <field name="agio" select="1" sum="Sum Agio"/>
-                    <field name="consolidation" select="1"/>
-                    <field name="partner_parent_id" select="1"/>
-                    <field name="valid_from" select="1"/>
-                    <field name="valid_until" select="1"/>
-                    <field name="valid_fiscal_from" select="1"/>
-                    <field name="valid_fiscal_until" select="1"/>
-                    <field name="contract_date" select="1"/>
-                    <field name="contract_number" select="1"/>
+                    <field name="name"  sum="Sum Share"/>
+                    <field name="paid_in"  sum="Sum Paid in"/>
+                    <field name="percentage"  sum="Sum Percentage"/>
+                    <field name="agio"  sum="Sum Agio"/>
+                    <field name="consolidation" />
+                    <field name="partner_parent_id" />
+                    <field name="valid_from" />
+                    <field name="valid_until" />
+                    <field name="valid_fiscal_from" />
+                    <field name="valid_fiscal_until" />
+                    <field name="contract_date" />
+                    <field name="contract_number" />
                     <field name="comment"/>
                   </tree>
                   <form string="Parent Companies">
-                    <field name="name" select="1"/>
-                    <field name="paid_in" select="1"/>
-                    <field name="percentage" select="1"/>
-                    <field name="agio" select="1"/>
-                    <field name="consolidation" select="1"/>
-                    <field name="partner_parent_id" select="1"/>
-                    <field name="valid_from" select="1"/>
-                    <field name="valid_until" select="1"/>
-                    <field name="valid_fiscal_from" select="1"/>
-                    <field name="valid_fiscal_until" select="1"/>
-                    <field name="contract_date" select="1"/>
-                    <field name="contract_number" select="1"/>
+                    <field name="name" />
+                    <field name="paid_in" />
+                    <field name="percentage" />
+                    <field name="agio" />
+                    <field name="consolidation" />
+                    <field name="partner_parent_id" />
+                    <field name="valid_from" />
+                    <field name="valid_until" />
+                    <field name="valid_fiscal_from" />
+                    <field name="valid_fiscal_until" />
+                    <field name="contract_date" />
+                    <field name="contract_number" />
                     <separator colspan="4" string="Notes"/>
                     <field name="comment" colspan="4" nolabel="1"/>
                   </form>
                 </field>
                 <field name="participation_current_ids" colspan="4" nolabel="1" widget="one2many_list" >
                   <tree string="Participations" editable="top">
-                    <field name="name" select="1"/>
-                    <field name="paid_in" select="1"/>
-                    <field name="percentage" select="1"/>
-                    <field name="agio" select="1"/>
-                    <field name="consolidation" select="1"/>
-                    <field name="partner_id" select="1"/>
-                    <field name="valid_from" select="1"/>
-                    <field name="valid_until" select="1"/>
-                    <field name="valid_fiscal_from" select="1"/>
-                    <field name="valid_fiscal_until" select="1"/>
-                    <field name="contract_date" select="1"/>
-                    <field name="contract_number" select="1"/>
+                    <field name="name" />
+                    <field name="paid_in" />
+                    <field name="percentage" />
+                    <field name="agio" />
+                    <field name="consolidation" />
+                    <field name="partner_id" />
+                    <field name="valid_from" />
+                    <field name="valid_until" />
+                    <field name="valid_fiscal_from" />
+                    <field name="valid_fiscal_until" />
+                    <field name="contract_date" />
+                    <field name="contract_number" />
                     <field name="comment"/>
                   </tree>
                   <form string="Participations">
-                    <field name="name" select="1"/>
-                    <field name="paid_in" select="1"/>
-                    <field name="percentage" select="1"/>
-                    <field name="agio" select="1"/>
-                    <field name="consolidation" select="1"/>
-                    <field name="partner_id" select="1"/>
-                    <field name="valid_from" select="1"/>
-                    <field name="valid_until" select="1"/>
-                    <field name="valid_fiscal_from" select="1"/>
-                    <field name="valid_fiscal_until" select="1"/>
-                    <field name="contract_date" select="1"/>
-                    <field name="contract_number" select="1"/>
+                    <field name="name" />
+                    <field name="paid_in" />
+                    <field name="percentage" />
+                    <field name="agio" />
+                    <field name="consolidation" />
+                    <field name="partner_id" />
+                    <field name="valid_from" />
+                    <field name="valid_until" />
+                    <field name="valid_fiscal_from" />
+                    <field name="valid_fiscal_until" />
+                    <field name="contract_date" />
+                    <field name="contract_number" />
                     <separator colspan="4" string="Notes"/>
                     <field name="comment" colspan="4" nolabel="1"/>
                   </form>
@@ -86,66 +86,66 @@ Modification of Partner - Adding Tab for Parent Companies
               <page string="Participations All">
                 <field name="partner_ids" colspan="4" nolabel="1" widget="one2many_list" >
                   <tree string="Parent Companies" editable="top">
-                    <field name="name" select="1" sum="Sum Share"/>
-                    <field name="paid_in" select="1" sum="Sum Paid in"/>
-                    <field name="percentage" select="1" sum="Sum Percentage"/>
-                    <field name="agio" select="1" sum="Sum Agio"/>
-                    <field name="consolidation" select="1"/>
-                    <field name="partner_parent_id" select="1"/>
-                    <field name="valid_from" select="1"/>
-                    <field name="valid_until" select="1"/>
-                    <field name="valid_fiscal_from" select="1"/>
-                    <field name="valid_fiscal_until" select="1"/>
-                    <field name="contract_date" select="1"/>
-                    <field name="contract_number" select="1"/>
+                    <field name="name"  sum="Sum Share"/>
+                    <field name="paid_in"  sum="Sum Paid in"/>
+                    <field name="percentage"  sum="Sum Percentage"/>
+                    <field name="agio"  sum="Sum Agio"/>
+                    <field name="consolidation" />
+                    <field name="partner_parent_id" />
+                    <field name="valid_from" />
+                    <field name="valid_until" />
+                    <field name="valid_fiscal_from" />
+                    <field name="valid_fiscal_until" />
+                    <field name="contract_date" />
+                    <field name="contract_number" />
                     <field name="comment"/>
                   </tree>
                   <form string="Parent Companies">
-                    <field name="name" select="1"/>
-                    <field name="paid_in" select="1"/>
-                    <field name="percentage" select="1"/>
-                    <field name="agio" select="1"/>
-                    <field name="consolidation" select="1"/>
-                    <field name="partner_parent_id" select="1"/>
-                    <field name="valid_from" select="1"/>
-                    <field name="valid_until" select="1"/>
-                    <field name="valid_fiscal_from" select="1"/>
-                    <field name="valid_fiscal_until" select="1"/>
-                    <field name="contract_date" select="1"/>
-                    <field name="contract_number" select="1"/>
+                    <field name="name" />
+                    <field name="paid_in" />
+                    <field name="percentage" />
+                    <field name="agio" />
+                    <field name="consolidation" />
+                    <field name="partner_parent_id" />
+                    <field name="valid_from" />
+                    <field name="valid_until" />
+                    <field name="valid_fiscal_from" />
+                    <field name="valid_fiscal_until" />
+                    <field name="contract_date" />
+                    <field name="contract_number" />
                     <separator colspan="4" string="Notes"/>
                     <field name="comment" colspan="4" nolabel="1"/>
                   </form>
                 </field>
                 <field name="participation_ids" colspan="4" nolabel="1" widget="one2many_list" >
                   <tree string="Participations" editable="top">
-                    <field name="name" select="1"/>
-                    <field name="paid_in" select="1"/>
-                    <field name="percentage" select="1"/>
-                    <field name="agio" select="1"/>
-                    <field name="consolidation" select="1"/>
-                    <field name="partner_id" select="1"/>
-                    <field name="valid_from" select="1"/>
-                    <field name="valid_until" select="1"/>
-                    <field name="valid_fiscal_from" select="1"/>
-                    <field name="valid_fiscal_until" select="1"/>
-                    <field name="contract_date" select="1"/>
-                    <field name="contract_number" select="1"/>
+                    <field name="name" />
+                    <field name="paid_in" />
+                    <field name="percentage" />
+                    <field name="agio" />
+                    <field name="consolidation" />
+                    <field name="partner_id" />
+                    <field name="valid_from" />
+                    <field name="valid_until" />
+                    <field name="valid_fiscal_from" />
+                    <field name="valid_fiscal_until" />
+                    <field name="contract_date" />
+                    <field name="contract_number" />
                     <field name="comment"/>
                   </tree>
                   <form string="Participations">
-                    <field name="name" select="1"/>
-                    <field name="paid_in" select="1"/>
-                    <field name="percentage" select="1"/>
+                    <field name="name" />
+                    <field name="paid_in" />
+                    <field name="percentage" />
                     <field name="agio"/>
-                    <field name="consolidation" select="1"/>
-                    <field name="partner_id" select="1"/>
-                    <field name="valid_from" select="1"/>
-                    <field name="valid_until" select="1"/>
-                    <field name="valid_fiscal_from" select="1"/>
-                    <field name="valid_fiscal_until" select="1"/>
-                    <field name="contract_date" select="1"/>
-                    <field name="contract_number" select="1"/>
+                    <field name="consolidation" />
+                    <field name="partner_id" />
+                    <field name="valid_from" />
+                    <field name="valid_until" />
+                    <field name="valid_fiscal_from" />
+                    <field name="valid_fiscal_until" />
+                    <field name="contract_date" />
+                    <field name="contract_number" />
                     <separator colspan="4" string="Notes"/>
                     <field name="comment" colspan="4" nolabel="1"/>
                   </form>
@@ -197,19 +197,19 @@ Definition of Parent Companies
       <field name="type">form</field>
       <field name="arch" type="xml">
         <form string="Parent Companies">
-          <field name="partner_id" select="1"/>
-          <field name="partner_parent_id" select="1"/>
-          <field name="name" select="1"/>
-          <field name="paid_in" select="1"/>
-          <field name="percentage" select="1"/>
-          <field name="agio" select="1"/>
-          <field name="consolidation" select="1"/>
-          <field name="valid_from" select="1"/>
-          <field name="valid_until" select="1"/>
-          <field name="valid_fiscal_from" select="1"/>
-          <field name="valid_fiscal_until" select="1"/>
-          <field name="contract_date" select="1"/>
-          <field name="contract_number" select="1"/>
+          <field name="partner_id" />
+          <field name="partner_parent_id" />
+          <field name="name" />
+          <field name="paid_in" />
+          <field name="percentage" />
+          <field name="agio" />
+          <field name="consolidation" />
+          <field name="valid_from" />
+          <field name="valid_until" />
+          <field name="valid_fiscal_from" />
+          <field name="valid_fiscal_until" />
+          <field name="contract_date" />
+          <field name="contract_number" />
           <separator colspan="4" string="Notes"/>
           <field name="comment" colspan="4" nolabel="1"/>
         </form>
@@ -221,20 +221,20 @@ Definition of Parent Companies
       <field name="type">tree</field>
       <field name="arch" type="xml">
         <tree string="Parent Companies" editable="top">
-          <field name="partner_id" select="1"/>
-          <field name="partner_parent_id" select="1"/>
-          <field name="name" select="1" sum="Sum Share"/>
-          <field name="paid_in" select="1" sum="Sum Paid in"/>
-          <field name="percentage" select="1" sum="Sum Percentage"/>
-          <field name="agio" select="1" sum="Sum Agio"/>
-          <field name="consolidation" select="1"/>
-          <field name="valid_from" select="1"/>
-          <field name="valid_until" select="1"/>
-          <field name="valid_fiscal_from" select="1"/>
-          <field name="valid_fiscal_until" select="1"/>
-          <field name="contract_date" select="1"/>
-          <field name="contract_number" select="1"/>
-          <field name="comment" select="1"/>
+          <field name="partner_id" />
+          <field name="partner_parent_id" />
+          <field name="name"  sum="Sum Share"/>
+          <field name="paid_in"  sum="Sum Paid in"/>
+          <field name="percentage"  sum="Sum Percentage"/>
+          <field name="agio"  sum="Sum Agio"/>
+          <field name="consolidation" />
+          <field name="valid_from" />
+          <field name="valid_until" />
+          <field name="valid_fiscal_from" />
+          <field name="valid_fiscal_until" />
+          <field name="contract_date" />
+          <field name="contract_number" />
+          <field name="comment" />
         </tree>
       </field>
     </record>
@@ -247,7 +247,7 @@ Definition of Parent Companies
     <menuitem
       action="action_partner_parent_companies_form"
       id="menu_partner_parent_companies_form"
-      parent="base.menu_address_book"/>
+      parent="base.menu_config_address_book"/>
     <!-- not working, because the structure must be in the resource not foreign
     <record id="view_partner_parent_companies_tree2" model="ir.ui.view">
       <field name="name">res.partner.parent_company.tree2</field>
@@ -256,18 +256,18 @@ Definition of Parent Companies
       <field name="field_parent">partner_id</field>
       <field name="arch" type="xml">
         <tree toolbar="1" string="Paticipation Strucutre">
-          <field name="partner_parent_id" select="1"/>
-          <field name="partner_id" string="Participation" select="1"/>
-          <field name="name" select="1"/>
-          <field name="percentage" select="1"/>
-          <field name="agio" select="1"/>
-          <field name="consolidation" select="1"/>
-          <field name="valid_from" select="1"/>
-          <field name="valid_until" select="1"/>
-          <field name="valid_fiscal_from" select="1"/>
-          <field name="valid_fiscal_until" select="1"/>
-          <field name="contract_date" select="1"/>
-          <field name="contract_number" select="1"/>
+          <field name="partner_parent_id" />
+          <field name="partner_id" string="Participation" />
+          <field name="name" />
+          <field name="percentage" />
+          <field name="agio" />
+          <field name="consolidation" />
+          <field name="valid_from" />
+          <field name="valid_until" />
+          <field name="valid_fiscal_from" />
+          <field name="valid_fiscal_until" />
+          <field name="contract_date" />
+          <field name="contract_number" />
         </tree>
       </field>
     </record>
@@ -338,8 +338,8 @@ Definition of Parent Companies
                         <filter string="Customers" name="customer" icon="terp-personal" domain="[('customer','=',1)]" help="Customer Partners"/>
                         <filter string="Suppliers" name="supplier" icon="terp-personal" domain="[('supplier','=',1)]" help="Supplier Partners"/>
                         <separator orientation="vertical"/>
-                        <field name="name" select="1"/>
-                        <field name="country" select="1"/>
+                        <field name="name" />
+                        <field name="country" />
                    </group>
                </search>
             </field>

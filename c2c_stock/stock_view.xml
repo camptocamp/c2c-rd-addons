@@ -2,11 +2,10 @@
 <openerp>
   <data>
     <!-- location -->
-    <record model="ir.ui.view" id="view_move_tree_values">
-      <field name="name">move_tree_view_values.view</field>
-      <field name="model">stock.move</field>
-      <field name="inherit_id" ref="stock.view_move_tree"/>
-      <field name="type">tree</field>
+    <record model="ir.ui.view" id="view_location_ext_form">
+      <field name="name">view.location.ext.form</field>
+      <field name="model">stock.location</field>
+      <field name="inherit_id" ref="stock.view_location_form"/>
       <field name="arch" type="xml">
         <field name="posz" position="after">
           <field name="capacity"/>
@@ -14,7 +13,7 @@
         </field>
       </field>
     </record>
-
+<!--
     <record model="ir.ui.view" id="view_warehouse_address">
       <field name="name">move_tree_warehouse_address.view</field>
       <field name="model">stock.warehouse</field>
@@ -26,6 +25,6 @@
         </field>
       </field>
     </record>
-
+-->
   </data>
 </openerp>

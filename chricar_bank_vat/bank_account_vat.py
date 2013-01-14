@@ -43,14 +43,14 @@ class account_bank_statement(osv.osv):
         if st_line.tax_id and st_line.amount_tax != 0.0:
             precision = self.pool.get('decimal.precision').precision_get(cr, uid, 'Account')
             if st_line.amount != round(st_line.amount_net + st_line.amount_tax, precision):
-                          raise osv.except_osv(_('Error !'),
-                              _('VAT and Amount Net do not match Amount in line "%s"') % st_line.name)
+                raise osv.except_osv(_('Error !'),
+                    _('VAT and Amount Net do not match Amount in line "%s"') % st_line.name)
             if st_line.partner_id:
-                          raise osv.except_osv(_('Error !'),
-                              _('Lines "%s" with VAT must not have partner account ') % st_line.name)
+                raise osv.except_osv(_('Error !'),
+                    _('Lines "%s" with VAT must not have partner account ') % st_line.name)
             amount_net = res_currency_obj.compute(cr, uid, company_currency_id,
                          st.currency.id, st_line.amount_net, context=context)
-                         
+
             amount_tax = amount_move - amount_net
 
             # update amount to amount_net
@@ -64,8 +64,8 @@ class account_bank_statement(osv.osv):
                 account_journal_obj.write(cr, uid, st_line.statement_id.journal_id.id, {'entry_posted':True})
                 entry_posted_reset = True
             if not len(move_ids) == 1 :
-                    raise osv.except_osv(_('Error !'),
-                    _('must only find one move line %s"') % st_line.name)
+                raise osv.except_osv(_('Error !'),
+                _('must only find one move line %s"') % st_line.name)
             if amount_tax>0:
                 account_move_line_obj.write(cr, uid, move_ids, {'credit':amount_net,'tax_amount': amount_net,'tax_code_id': st_line.tax_id.base_code_id.id})
             if amount_tax<0:
@@ -136,21 +136,21 @@ class account_bank_statement(osv.osv):
         if move.tax_id:
             precision = self.pool.get('decimal.precision').precision_get(cr, uid, 'Account')
             if move.amount != round(move.amount_net + move.amount_tax, precision):
-                          raise osv.except_osv(_('Error !'),
-                              _('VAT and Amount Net do not match Amount in line "%s"') % move.name)
+                raise osv.except_osv(_('Error !'),
+                    _('VAT and Amount Net do not match Amount in line "%s"') % move.name)
             if move.partner_id:
-                          raise osv.except_osv(_('Error !'),
-                              _('Lines "%s" with VAT must not have partner account ') % move.name)
+                raise osv.except_osv(_('Error !'),
+                    _('Lines "%s" with VAT must not have partner account ') % move.name)
             amount_net = res_currency_obj.compute(cr, uid, company_currency_id,
                          st.currency.id, move.amount_net, context=context)
-                         
+
             amount_tax = amount - amount_net
             amount = amount_net
-        
+
         #
         # move line
         #
-        
+
         val = {
             'name': st_line.name,
             'date': st_line.date,
@@ -179,37 +179,37 @@ class account_bank_statement(osv.osv):
             val['amount_currency'] = -amount_cur
 
         if amount_tax != 0.0 and move.tax_id:
-                    val['tax_amount']   = amount_net
-                    val['tax_code_id'] = move.tax_id.base_code_id.id
+            val['tax_amount']   = amount_net
+            val['tax_code_id'] = move.tax_id.base_code_id.id
 
         move_line_id = account_move_line_obj.create(cr, uid, val, context=context)
         torec.append(move_line_id)
 
 
 
-        # VAT Move line                 
+        # VAT Move line
         if amount_tax != 0.0 and move.tax_id:
-             account_move_line_obj.create(cr, uid, {
-                    'name': move.name,
-                    'date': move.date,
-                    'ref': move.ref,
-                    'move_id': move_id,
-                    'partner_id': ((move.partner_id) and move.partner_id.id) or False,
-                    'account_id':  move.tax_id.account_collected_id.id,
-                    'credit': ((amount_tax>0) and  amount_tax) or 0.0,
-                    'debit' : ((amount_tax<0) and -amount_tax) or 0.0,
-                    'statement_id': st.id,
-                    'journal_id': st.journal_id.id,
-                    'period_id': st.period_id.id,
-                    'currency_id': st.currency.id,
-                    'tax_amount': amount_tax,
-                    'tax_code_id': move.tax_id.tax_code_id.id,
-                    } , context=context)
+            account_move_line_obj.create(cr, uid, {
+                   'name': move.name,
+                   'date': move.date,
+                   'ref': move.ref,
+                   'move_id': move_id,
+                   'partner_id': ((move.partner_id) and move.partner_id.id) or False,
+                   'account_id':  move.tax_id.account_collected_id.id,
+                   'credit': ((amount_tax>0) and  amount_tax) or 0.0,
+                   'debit' : ((amount_tax<0) and -amount_tax) or 0.0,
+                   'statement_id': st.id,
+                   'journal_id': st.journal_id.id,
+                   'period_id': st.period_id.id,
+                   'currency_id': st.currency.id,
+                   'tax_amount': amount_tax,
+                   'tax_code_id': move.tax_id.tax_code_id.id,
+                   } , context=context)
 
 
             # Fill the secondary amount/currency
         # if currency is not the same than the company
-                        # Bank Move Line
+                       # Bank Move Line
         # reset amount to what is was before VAT calculation
         amount = amount_move
 
@@ -321,9 +321,9 @@ class account_bank_statement_line(osv.osv):
         value = {}
         if tax_id:
             result = self.onchange_tax(cr, uid, ids, tax_id, amount, partner_id)
-            value = result.get('value') 
+            value = result.get('value')
             self._logger.debug('r1 `%s` `%s`', result, value)
-        
+
         if not date:
             # FIXME not nice
             #v2 = { 'value' : {'date': date_statement}}
@@ -332,7 +332,7 @@ class account_bank_statement_line(osv.osv):
             value['date']  =  date_statement
         self._logger.debug('r2 `%s`', value)
         return {'value' : value }
-        
+
     def onchange_account(self, cr, uid, ids, account_id,tax_id, amount, partner_id):
         if not account_id: return {}
         result = {}
@@ -341,14 +341,14 @@ class account_bank_statement_line(osv.osv):
         if len(account_obj.tax_ids) == 1:
             self._logger.debug('tax_ids `%s`', account_obj.tax_ids)
             for tax_rec in account_obj.tax_ids:
-                tax_id = tax_rec.id                
+                tax_id = tax_rec.id
             result = {'value': {
                 'tax_id': tax_id,
             }
             }
             if tax_id:
-               result = self.onchange_tax(cr, uid, ids, tax_id, amount, partner_id)
-        
+                result = self.onchange_tax(cr, uid, ids, tax_id, amount, partner_id)
+
         return result
 
 
@@ -378,5 +378,5 @@ class account_bank_statement_line(osv.osv):
             }
         }
         return result
-        
+
 account_bank_statement_line()

@@ -69,26 +69,26 @@ class stock_move(osv.osv):
     def onchange_harvest_product_qty(self, cr, uid, ids, product_qty, product_id, product_uom, date_planned,prodlot_id,location_src_id,location_dest_id,product_packaging_id):
         res = {}
         if product_id and product_qty and product_qty > 0.0:
-           prod_obj    = self.pool.get('product.product').browse(cr, uid, product_id)
-           pu_id = prod_obj.price_unit_id.id
-           move_value = 0.0
-           res = {'value' : {
-            'product_id' : product_id,
-            'date_expected' : time.strftime('%Y-%m-%d %H:%M:%S'),
-            'date_planned' : date_planned,
-            'date'         : time.strftime('%Y-%m-%d %H:%M:%S'),
-            'product_uom' : product_uom,
-            'location_id' : location_src_id,
-            'location_dest_id' : location_dest_id,
-            'price_unit_id' : pu_id,
-            'price_unit' : prod_obj.standard_price * product_qty,
-            'name' : _('Harvest'),
-            'prodlot_id' : prodlot_id ,
-            'product_packaging_id' : product_packaging_id,
-              }
-           }
-           #raise osv.except_osv(_('Test Error 2'),
-           #             _('Trigger Qty = %s',) % (product_qty))
+            prod_obj    = self.pool.get('product.product').browse(cr, uid, product_id)
+            pu_id = prod_obj.price_unit_id.id
+            move_value = 0.0
+            res = {'value' : {
+             'product_id' : product_id,
+             'date_expected' : time.strftime('%Y-%m-%d %H:%M:%S'),
+             'date_planned' : date_planned,
+             'date'         : time.strftime('%Y-%m-%d %H:%M:%S'),
+             'product_uom' : product_uom,
+             'location_id' : location_src_id,
+             'location_dest_id' : location_dest_id,
+             'price_unit_id' : pu_id,
+             'price_unit' : prod_obj.standard_price * product_qty,
+             'name' : _('Harvest'),
+             'prodlot_id' : prodlot_id ,
+             'product_packaging_id' : product_packaging_id,
+               }
+            }
+            #raise osv.except_osv(_('Test Error 2'),
+            #             _('Trigger Qty = %s',) % (product_qty))
 
         return res
 
@@ -108,8 +108,8 @@ class mrp_production(osv.osv):
         for mrp in self.browse(cr, uid, ids):
             for move in mrp.move_created_ids:
                 self.pool.get('stock.move').action_done(cr, uid,  [move.id])
-                
-                 
-                
+
+
+
 
 mrp_production()

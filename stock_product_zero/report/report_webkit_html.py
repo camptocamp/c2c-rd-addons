@@ -32,7 +32,7 @@ class report_webkit_html(report_sxw.rml_parse):
             'cr':cr,
             'uid': uid,
         })
-        
+
 report_sxw.report_sxw('report.stock.inventory.webkit',
                        'stock.inventory',
                        'addons/stock_product_zero/report/stock_inventory.mako',

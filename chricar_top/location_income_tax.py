@@ -33,21 +33,21 @@ from osv import fields,osv
 import decimal_precision as dp
 
 class location_income_tax(osv.osv):
-     _name = "location.income.tax"
-     _description = "Holds data of yearly income statement"
-     _columns = {
-         'location_id'        : fields.many2one('stock.location','Location', select=True, required=True),
-         'fiscalyear_id'      : fields.many2one('account.fiscalyear', 'Fiscal Year', required=True),
-         'account_id'         : fields.many2one('account.account', 'Account', required=True, ondelete="cascade"),
-         'amount'             : fields.float('Amount', digits_compute=dp.get_precision('Account'),required=True),
-         'note'               : fields.text('Note'),
+    _name = "location.income.tax"
+    _description = "Holds data of yearly income statement"
+    _columns = {
+        'location_id'        : fields.many2one('stock.location','Location', select=True, required=True),
+        'fiscalyear_id'      : fields.many2one('account.fiscalyear', 'Fiscal Year', required=True),
+        'account_id'         : fields.many2one('account.account', 'Account', required=True, ondelete="cascade"),
+        'amount'             : fields.float('Amount', digits_compute=dp.get_precision('Account'),required=True),
+        'note'               : fields.text('Note'),
 }
 location_income_tax()
 
 class stock_location(osv.osv):
-     _inherit = "stock.location"
+    _inherit = "stock.location"
 
-     _columns = {
-       'income_tax_move_ids'  : fields.one2many('location.income.tax','location_id','Income Tax Statement'),
+    _columns = {
+      'income_tax_move_ids'  : fields.one2many('location.income.tax','location_id','Income Tax Statement'),
 }
 stock_location()

@@ -26,7 +26,7 @@
     'version': '0.7',
     'category': 'Warehouse Management',
     'description': """
-Requires production lot for internal moves 
+Requires production lot for internal moves
 """,
     'author': 'Camptocamp Austria',
     'depends': [ 'stock' ],
@@ -35,7 +35,7 @@ Requires production lot for internal moves
        ],
     #'update_xml': ['product_view.xml'],
     'demo_xml': [],
-    'installable': False,
+    'installable': True,
     'active': False,
 }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

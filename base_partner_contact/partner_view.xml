@@ -10,7 +10,6 @@
       <field name="arch" type="xml">
       <field name="name" position="replace">
           
-          <field name="is_company"/>
           <field name="salutation_id" attrs="{'invisible':[('is_company','=','1')]}" options='{"quick_create": false}'/>
           <field name="salutation_partner_id" attrs="{'invisible':[('is_company','=','1')]}" options='{"quick_create": false}'/>
           <field name="title_prefix_id" attrs="{'invisible':[('is_company','=','1')]}" domain="[('domain', '=', 'contact')]" options='{"quick_create": false}'/>

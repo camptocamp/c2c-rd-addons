@@ -55,9 +55,10 @@ Requires "Constraint Manager" privilege-group.
 , "category"     : "Client Modules"
 , "depends"      : ["base"]
 , "init_xml"     : ["constraint_data.xml"]
-, "demo_xml"     : []
+, "demo"         : []
 , "update_xml"   : ["security/constraint_security.xml", "security/ir.model.access.csv", "constraint_view.xml"]
 , "test"         : []
-, "auto_install" : True
+, "auto_install" : False
 , "installable"  : True
+, 'application'  : False
 }

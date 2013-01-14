@@ -16,8 +16,9 @@ generated 2009-08-21 15:12:07+02"""
     , "c2c_product_price_unit"
     ]
 , "init_xml"     : []
-, "demo_xml"     : []
+, "demo"         : []
 , "update_xml"   : ["budget_lines_view.xml"]
 , "auto_install" : False
 , "installable"  : True
+, 'application'  : False
 }

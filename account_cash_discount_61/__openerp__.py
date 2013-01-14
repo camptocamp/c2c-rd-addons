@@ -31,7 +31,7 @@ necessary in Austria (Germany?)
 
 Manual:
 * Define cash discount in Payment Terms
-** one line percent with discount - you should enter 2 for 2% 
+** one line percent with discount - you should enter 2 for 2%
 ** one line balance
 this will create  account moves as usual
 
@@ -43,7 +43,7 @@ this will create  account moves as usual
 
 ALWAYS choose "Reconcile with Write-Off"
 
-The reconciliation will 
+The reconciliation will
 * gnerate aliquot(!) move lines to correct tax base and tax amount (required)
 ** this may generate unexpected discount/write off amounts if one partner has invoices with and without cash discount
 ** the situation many be become very complex if many payments, invocies with and without discounts are reconciled
@@ -54,7 +54,7 @@ Not covered/ToDo:
 * pay invoice: automatically select all move_lines of an invoice if invoice payment term has is_discount flag set
 * invoice lines: allow to specify amount for discount if not total line amount is subject to cash discount
 * create analytic lines for discount - using the anlalytic accounts of the invoice
-* mapping for accounts (fiscal position) 
+* mapping for accounts (fiscal position)
 * automatic reconciliation
 * multi currency
 * reconcile invoice while entering bank statement line (IMHO does [again] not work as expected)
@@ -67,7 +67,7 @@ Not covered/ToDo:
            ],
     #'update_xml': ['product_view.xml'],
     'demo_xml': [],
-    'installable': False,
+    'installable': True,
     'active': False,
 }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

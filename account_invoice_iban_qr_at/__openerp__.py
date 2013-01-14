@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
 #
-# Copyright (c) 2010 Camptocamp SA (http://www.camptocamp.com) 
+# Copyright (c) 2010 Camptocamp SA (http://www.camptocamp.com)
 # All Right Reserved
 #
 # Author : Ferdinand GAssauer (Camptocamp Austria)
@@ -34,7 +34,7 @@ Adds an image datafeld to invoice with IBAN BIC Information according to
 http://www.stuzza.at/11250_DE.6858781c0841bfb08be3ce61a7d21fb40e0f0830
 """
 , "version"      : "0.9"
-, "depends"      : 
+, "depends"      :
     [ "account"
     ]
 , "category"     : "Accounting & Finance"
@@ -42,5 +42,6 @@ http://www.stuzza.at/11250_DE.6858781c0841bfb08be3ce61a7d21fb40e0f0830
 , "website"      : "http://www.camptocamp.com/"
 , "data"         : ["account_qrcode_view.xml"]
 , "installable"  : True
+, 'application'  : False
 , "auto_install" : False
 }

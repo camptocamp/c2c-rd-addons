@@ -39,7 +39,7 @@
 , "category"     : "Accounting & Finance"
 , "depends"      : ["account_payment"]
 , "init_xml"     : []
-, "demo_xml"     : []
+, "demo"         : []
 , "update_xml"   : 
     [ "payment_mode_view.xml"
     , "res_partner_view.xml"
@@ -49,4 +49,5 @@
 , "test"         : []
 , "auto_install" : False
 , "installable"  : True
+, 'application'  : False
 }

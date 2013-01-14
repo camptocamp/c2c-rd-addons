@@ -98,10 +98,10 @@
         <field name="type">form</field>
         <field name="arch" type="xml">
             <form string="Payment Type">
-                <field name="name" select="1"/>
-                <field name="code" select="1"/>
-                <field name="active" select="1"/>
-                <field name="company_id" select="1" widget='selection' groups="base.group_multi_company"/>
+                <field name="name" />
+                <field name="code" />
+                <field name="active" />
+                <field name="company_id"  widget='selection' groups="base.group_multi_company"/>
                 <separator string="Description" colspan="4"/>
                 <field name="note" nolabel="1" colspan="4"/>
                 <separator string="Suitable Bank Types" colspan="4"/>
@@ -199,7 +199,7 @@
             <separator string="Reconciliation" position="before">
                 <group col="2" colspan="2">
                     <separator colspan="2" string="Payment"/>
-                    <field name="payment_type" select="1" widget="selection"/>
+                    <field name="payment_type"  widget="selection"/>
                     <field name="partner_bank_id" domain="[('partner_id','=',partner_id)]"/>
                     <field name="received_check"/>
                 </group>
@@ -250,7 +250,7 @@
         <field name="arch" type="xml">
             <field name="move_line_id" position="replace">
             <group col="6" colspan="4">
-                <field name="move_line_id" on_change="onchange_move_line(move_line_id,parent.mode,parent.date_prefered,parent.date_scheduled,currency,company_currency,context)" select="1"/>
+                <field name="move_line_id" on_change="onchange_move_line(move_line_id,parent.mode,parent.date_prefered,parent.date_scheduled,currency,company_currency,context)" />
                 <field name="account_id"/>
                 <field name="payment_move_id"/>
             </group>
@@ -277,9 +277,9 @@
         <field name="inherit_id" ref="account_payment.view_payment_line_form"/>
         <field name="arch" type="xml">
             <field name="move_line_id" position="replace">
-                <!--<field name="move_line_id" on_change="onchange_move_line(move_line_id,parent.mode,parent.date_prefered,parent.date_scheduled,currency,company_currency,context)" select="1"/>-->
+                <!--<field name="move_line_id" on_change="onchange_move_line(move_line_id,parent.mode,parent.date_prefered,parent.date_scheduled,currency,company_currency,context)" />-->
             <group col="6" colspan="4">
-                <field name="move_line_id" on_change="onchange_move_line(move_line_id, False, currency, company_currency)" select="1"/>
+                <field name="move_line_id" on_change="onchange_move_line(move_line_id, False, currency, company_currency)" />
                 <field name="account_id"/>
                 <field name="payment_move_id"/>
             </group>

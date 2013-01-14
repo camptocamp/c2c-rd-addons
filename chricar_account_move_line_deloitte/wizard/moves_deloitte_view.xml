@@ -2,10 +2,11 @@
 <openerp>
   <data>
 
+
+
     <record id="chricar_account_move_deloitte_wizard" model="ir.ui.view">
-            <field name="name">Transfer to OpenERP</field>
-            <field name="model">chricar.account.move.deloitte.transfer</field>
-            <field name="type">form</field>
+            <field name="name">chricar.account.move.deloitte.wizard</field>
+            <field name="model">chricar.account.move.line.deloitte.transfer</field>
             <field name="arch" type="xml">
                 <form string="Deloitte Transfer">
                     <separator colspan="4" string="Do you really want to transfer Deloitte moves to OpenERP ?" />

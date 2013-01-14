@@ -23,11 +23,11 @@
 from osv import osv, fields
 #import decimal_precision as dp
 
-import re  
+import re
 from tools.translate import _
-        
 
-       
+
+
 #----------------------------------------------------------
 #  Product
 #----------------------------------------------------------

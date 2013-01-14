@@ -14,16 +14,16 @@ generated 2009-09-19 23:51:03+02
       <field name="type">form</field>
       <field name="arch" type="xml">
         <form string="Product Moves by Location">
-          <field name="categ_id" select="1"/>
-          <field name="date" select="1"/>
-          <field name="picking_id" select="1"/>
-          <field name="prodlot_id" select="1"/>
-          <field name="product_id" select="1"/>
-          <field name="uom_id" select="1"/>
-          <field name="location_id" select="1"/>
-          <field name="name" select="1"/>
-          <field name="product_qty_pending" select="1"/>
-          <field name="description" select="1"/>
+          <field name="categ_id" />
+          <field name="date" />
+          <field name="picking_id" />
+          <field name="prodlot_id" />
+          <field name="product_id" />
+          <field name="uom_id" />
+          <field name="location_id" />
+          <field name="name" />
+          <field name="product_qty_pending" />
+          <field name="description" />
           <notebook colspan="4">
             <page string="invisible" invisible="1"/>
           </notebook>
@@ -37,16 +37,16 @@ generated 2009-09-19 23:51:03+02
       <field name="type">tree</field>
       <field name="arch" type="xml">
         <tree string="Product Moves by Location" editable="bottom">
-          <field name="categ_id" select="1"/>
-          <field name="date" select="1"/>
-          <field name="product_id" select="1"/>
-          <field name="uom_id" select="1"/>
-          <field name="name" select="1" sum="Product Qty"/>
-          <field name="product_qty_pending" select="1" sum="Product Qty Pending"/>
-          <field name="picking_id" select="1"/>
-          <field name="prodlot_id" select="1"/>
-          <field name="location_id" select="1"/>
-          <field name="description" select="1"/>
+          <field name="categ_id" />
+          <field name="date" />
+          <field name="product_id" />
+          <field name="uom_id" />
+          <field name="name"  sum="Product Qty"/>
+          <field name="product_qty_pending"  sum="Product Qty Pending"/>
+          <field name="picking_id" />
+          <field name="prodlot_id" />
+          <field name="location_id" />
+          <field name="description" />
         </tree>
       </field>
     </record>
@@ -94,11 +94,11 @@ generated 2009-09-19 23:51:03+02
       <field name="type">form</field>
       <field name="arch" type="xml">
         <form string="Product by Stock ">
-          <field name="categ_id" select="1"/>
-          <field name="product_id" select="1"/>
-          <field name="location_id" select="1"/>
-          <field name="name" select="1"/>
-          <field name="product_qty_pending" select="1"/>
+          <field name="categ_id" />
+          <field name="product_id" />
+          <field name="location_id" />
+          <field name="name" />
+          <field name="product_qty_pending" />
           <notebook colspan="4">
             <page string="invisible" invisible="1"/>
           </notebook>
@@ -112,12 +112,12 @@ generated 2009-09-19 23:51:03+02
       <field name="type">tree</field>
       <field name="arch" type="xml">
         <tree string="Product by Stock " editable="bottom">
-          <field name="categ_id" select="1"/>
-          <field name="product_id" select="1"/>
-          <field name="uom_id" select="1"/>
-          <field name="location_id" select="1"/>
-          <field name="name" select="1" sum="Product Qty"/>
-          <field name="product_qty_pending" select="1" sum="Product Qty Pending"/>
+          <field name="categ_id" />
+          <field name="product_id" />
+          <field name="uom_id" />
+          <field name="location_id" />
+          <field name="name"  sum="Product Qty"/>
+          <field name="product_qty_pending"  sum="Product Qty Pending"/>
           <field name="cost_method" groups="base.group_extended"/>
         </tree>
       </field>
@@ -165,12 +165,12 @@ generated 2009-09-19 23:51:03+02
       <field name="type">form</field>
       <field name="arch" type="xml">
         <form string="Product by Stock ">
-          <field name="categ_id" select="1"/>
-          <field name="product_id" select="1"/>
-          <field name="location_id" select="1"/>
-          <field name="prodlot_id" select="1"/>
-          <field name="name" select="1"/>
-          <field name="product_qty_pending" select="1"/>
+          <field name="categ_id" />
+          <field name="product_id" />
+          <field name="location_id" />
+          <field name="prodlot_id" />
+          <field name="name" />
+          <field name="product_qty_pending" />
           <notebook colspan="4">
             <page string="invisible" invisible="1"/>
           </notebook>
@@ -184,13 +184,13 @@ generated 2009-09-19 23:51:03+02
       <field name="type">tree</field>
       <field name="arch" type="xml">
         <tree string="Product by Stock " editable="bottom">
-          <field name="categ_id" select="1"/>
-          <field name="product_id" select="1"/>
-          <field name="uom_id" select="1"/>
-          <field name="location_id" select="1"/>
-          <field name="prodlot_id" select="1"/>
-          <field name="name" select="1" sum="Product Qty"/>
-          <field name="product_qty_pending" select="1" sum="Product Qty Pending"/>
+          <field name="categ_id" />
+          <field name="product_id" />
+          <field name="uom_id" />
+          <field name="location_id" />
+          <field name="prodlot_id" />
+          <field name="name"  sum="Product Qty"/>
+          <field name="product_qty_pending"  sum="Product Qty Pending"/>
           <field name="cost_method" groups="base.group_extended"/>
         </tree>
       </field>
@@ -261,15 +261,15 @@ generated 2009-09-19 23:51:03+02
       <field name="type">tree</field>
       <field name="arch" type="xml">
         <tree string="Stock Moves DBA" colors="grey:state=='cancel';blue:state=='draft'">
-          <field name="picking_id" select="1"/>
-          <field name="date" select="1"/>
-          <field name="product_id" select="1"/>
-          <field name="location_id" select="1"/>
-          <field name="location_dest_id" select="1"/>
-          <field name="prodlot_id" select="1"/>
-          <field name="product_qty" select="1" sum="Product Qty"/>
-          <field name="name" select="1"/>
-          <field name="state" select="1"/>
+          <field name="picking_id" />
+          <field name="date" />
+          <field name="product_id" />
+          <field name="location_id" />
+          <field name="location_dest_id" />
+          <field name="prodlot_id" />
+          <field name="product_qty"  sum="Product Qty"/>
+          <field name="name" />
+          <field name="state" />
         </tree>
       </field>
     </record>

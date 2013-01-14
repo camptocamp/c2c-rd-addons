@@ -8,7 +8,7 @@
       <field name="type">tree</field>
       <field name="arch" type="xml">
         <field name="bank_id" position="after">
-          <field name="bank_account_type" select="2"/>
+          <field name="bank_account_type" />
         </field>
       </field>
     </record>
@@ -19,27 +19,28 @@
       <field name="type">form</field>
       <field name="arch" type="xml">
         <field name="bank_id" position="after">
-          <field name="bank_account_type" select="2"/>
+          <field name="bank_account_type" />
         </field>
       </field>
     </record>
+<!--
     <record model="ir.ui.view" id="view_payment_order_form2_bank_account_type">
       <field name="name">payment.order.form2.bank_account_type</field>
       <field name="model">payment.order</field>
       <field name="inherit_id" ref="account_payment.view_payment_order_form"/>
       <field name="type">form</field>
       <field name="arch" type="xml">
-        <xpath expr="/form/field/tree" position="replace">
+        <xpath expr="/form/sheet/field/tree" position="replace">
           <tree string="Payment Line" colors="blue:bank_account_type != 'iban'">
             <field name="ml_inv_ref"/>
-            <field name="partner_id" select="1"/>
+            <field name="partner_id" />
             <field
               domain="[('partner_id', '=', partner_id)]"
               name="bank_id"/>
             <field name="bank_account_type"/>
             <field name="ml_maturity_date"/>
             <field name="date"/>
-            <field name="amount_currency" select="2" string="Amount"/>
+            <field name="amount_currency"  string="Amount"/>
             <field name="currency"/>
             <field name="name"/>
             <field name="amount" sum="Total in Company Currency" invisible="1"/>
@@ -47,5 +48,6 @@
         </xpath>
       </field>
     </record>
+-->
   </data>
 </openerp>

@@ -7,7 +7,7 @@ generated 2009-02-11 16:03:53+01"""
 , "category"     : "Client Modules"
 , "depends"      : ["stock","chricar_top"]
 , "init_xml"     : []
-, "demo_xml"     : []
+, "demo"         : []
 , "update_xml"   : 
     [ "inventory_view.xml"
     , "security/group.xml"
@@ -15,4 +15,5 @@ generated 2009-02-11 16:03:53+01"""
     ]
 , "auto_install" : False
 , "installable"  : True
+, 'application'  : False
 }

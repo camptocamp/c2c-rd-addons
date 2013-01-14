@@ -49,5 +49,6 @@ suppress unused columns in purchase order lines."""
 , "website"      : "http://www.camptocamp.com/"
 , "data"         : ["purchase_view.xml","partner_view.xml","purchase_order_webkit_view.xml"]
 , "installable"  : True
+, 'application'  : False
 , "auto_install" : False
 }

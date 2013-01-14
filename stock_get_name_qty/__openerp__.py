@@ -28,13 +28,13 @@
     'description': """
     usefull to select product, stock location or lot with product qty information
     if quantity available and virtual quantity are different both values are indicated
-    
+
 """,
     'author': 'Camptocamp Austria',
     'depends': [ 'stock','sale'],
     'update_xml': ['stock_view.xml'],
     'demo_xml': [],
-    'installable': False,
+    'installable': True,
     'active': False,
 }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

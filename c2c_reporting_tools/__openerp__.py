@@ -51,4 +51,5 @@ This module follows multiple goals:
 , "update_xml" : []
 , "auto_install": False
 , "installable": True
+, 'application'  : False
 }

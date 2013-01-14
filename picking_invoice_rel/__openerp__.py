@@ -44,5 +44,6 @@
     , "security/ir.model.access.csv"
     ]
 , "installable"  : True
+, 'application'  : False
 , "auto_install" : False
 }

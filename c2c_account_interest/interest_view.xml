@@ -8,7 +8,7 @@
       <field name="type">tree</field>
       <field name="arch" type="xml">
         <tree string="Intrest Rates" editable="bottom">
-          <field name="name" select="1"/>
+          <field name="name" />
           <field name="company_id"/>
         </tree>
       </field>
@@ -20,20 +20,20 @@
       <field name="type">form</field>
       <field name="arch" type="xml">
         <form string="Interst Rates">
-          <field name="name" select="1"/>
+          <field name="name" />
           <field name="company_id"/>
-          <field name="interest_rate_ids" nolabel="1" select="1" colspan="4">
+          <field name="interest_rate_ids" nolabel="1"  colspan="4">
             <tree string="Interest Rates" editable="bottom">
-              <field name="date_from" select="1"/>
-              <field name="date_to" select="1"/>
-              <field name="interest_rate_debit" select="1"/>
-              <field name="interest_rate_credit" select="1"/>
+              <field name="date_from" />
+              <field name="date_to" />
+              <field name="interest_rate_debit" />
+              <field name="interest_rate_credit" />
             </tree>
             <form string="Interest Rates">
-              <field name="date_from" select="1"/>
-              <field name="date_to" select="1"/>
-              <field name="interest_rate_debit" select="1"/>
-              <field name="interest_rate_credit" select="1"/>
+              <field name="date_from" />
+              <field name="date_to" />
+              <field name="interest_rate_debit" />
+              <field name="interest_rate_credit" />
             </form>
           </field>
         </form>
@@ -58,8 +58,9 @@
       <field name="priority" eval="20"/>
       <field name="type">form</field>
       <field name="arch" type="xml">
-        <notebook>
-          <page string="Interest Rates">
+         <field name="note" position="after">
+       
+          <group string="Interest Rates">
             <separator colspan="4" string="General interest rates"/>
             <field colspan="4" name="account_interest_ids" nolabel="1"/>
             <separator colspan="4" string="Account specific interest rates"/>
@@ -80,8 +81,8 @@
                 <field name="company_id"/>
               </tree>
             </field>
-          </page>
-        </notebook>
+          </group>
+        </field>
       </field>
     </record>
   </data>

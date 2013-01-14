@@ -7,7 +7,7 @@
       <field name="model">account.closing.text</field>
       <field name="type">tree</field>
       <field name="arch" type="xml">
-        <tree>
+        <tree string="Closing Text">
           <field name="company_id"/>
           <field name="account_id"/>
           <field name="fiscalyear_id"/>
@@ -20,7 +20,7 @@
       <field name="model">account.closing.text</field>
       <field name="type">form</field>
       <field name="arch" type="xml">
-        <form>
+        <form string="Closing Text">
           <field name="account_id" colspan="4"/>
           <field name="fiscalyear_id"/>
           <field name="company_id"/>
@@ -82,8 +82,8 @@
       <field name="priority" eval="10"/>
       <field name="type">form</field>
       <field name="arch" type="xml">
-        <notebook>
-          <page string="Closing text">
+        <field name="note" position="after">
+          <group string="Closing text">
             <field colspan="4" name="account_closing_remark_ids" nolabel="1">
               <form>
                 <field name="company_id"/>
@@ -97,8 +97,8 @@
                 <field name="closing_text"/>
               </tree>
             </field>
-          </page>
-        </notebook>
+          </group>
+       </field>
       </field>
     </record>
   </data>

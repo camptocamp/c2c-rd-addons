@@ -82,15 +82,15 @@ class chricar_account_move_line_deloitte_delete(osv.osv_memory):
         move_obj = self.pool.get('account.move')
         journal_obj = self.pool.get('account.journal')
         deloitte_obj = self.pool.get('chricar.account_move_line_deloitte')
-        
+
         journal_ids = journal_obj.search(cr, uid, [('code','in',['DE','DEN'])]) # Deloitte Journals
 
         data = self.read(cr, uid, ids, [], context=context)[0]
-        period_from = data['period_from'][0] 
-        period_to = data['period_to'][0] 
+        period_from = data['period_from'][0]
+        period_to = data['period_to'][0]
         period_ids = period_obj.build_ctx_periods(cr, uid, period_from, period_to)
         if not isinstance(period_ids, list):
-           period_ids = [period_ids]
+            period_ids = [period_ids]
         move_ids = move_obj.search(cr, uid, [('period_id','in',period_ids),('journal_id','in',journal_ids)])
         move_obj.button_cancel(cr, uid, move_ids)
         move_obj.unlink(cr, uid, move_ids)

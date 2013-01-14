@@ -31,11 +31,11 @@ Harvest
             <field
               attrs="{ 'readonly': [('state','!=','draft')]} "
               name="name"
-              select="1"/>
+              />
             <field
               attrs="{ 'readonly': [('state','!=','draft')]} "
               name="date_planned"
-              select="1"/>
+              />
             <field name="hour_total"/>
             <newline/>
             <field
@@ -43,7 +43,7 @@ Harvest
               colspan="6"
               name="product_id"
               on_change="product_id_change(product_id)"
-              select="1"/>
+              />
             <field name="product_qty"/>
             <field name="product_uom"/>
             <field name="product_packaging_id"/>
@@ -51,7 +51,7 @@ Harvest
             <field
               domain="[('usage','=','production')]"
               name="location_src_id"
-              select="2"
+              
               string="Field"/>
             <field
               domain="[('usage','=','internal')]"
@@ -74,7 +74,7 @@ Harvest
            </page>
           </notebook>
           <group col="9" colspan="4">
-            <field name="state" select="2"/>
+            <field name="state" />
             <button
               name="button_start_harvest"
               states="draft"
@@ -152,7 +152,6 @@ Harvest
     <record id="chricar_harvest_tree_view" model="ir.ui.view">
       <field name="name">chricar.harvest.tree.view</field>
       <field name="model">stock.move</field>
-      <field name="type">tree</field>
       <field name="priority">26</field>
       <field name="arch" type="xml">
         <tree string="Harvest" editable="top">
@@ -171,8 +170,8 @@ Harvest
           <field name="protein" attrs="{'readonly':[('state', '!=','draft')]}"/>
           <field name="sample" attrs="{'readonly':[('state', '!=','draft')]}"/>
           <field name="aspirates" attrs="{'readonly':[('state', '!=','draft')]}"/>
-          <field name="location_id" select="2" string="From" attrs="{'readonly':[('state', '!=','draft')]}"  />
-          <field name="location_dest_id" select="2" string="Destination" attrs="{'readonly':[('state', '!=','draft')]}" />
+          <field name="location_id"  string="From" attrs="{'readonly':[('state', '!=','draft')]}"  />
+          <field name="location_dest_id"  string="Destination" attrs="{'readonly':[('state', '!=','draft')]}" />
           <field name="name" attrs="{'readonly':[('state', '!=','draft')]}"/>
           <field name="state" attrs="{'readonly':[('state', '!=','draft')]}"  invisible="1"/>
           <field name="price_unit_id" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant" attrs="{'readonly':[('state', '!=','draft')]}"  invisible="1"/>
@@ -184,7 +183,6 @@ Harvest
     <record id="chricar_harvest_form_view" model="ir.ui.view">
       <field name="name">chricar.harvest.form.view</field>
       <field name="model">stock.move</field>
-      <field name="type">tree</field>
       <field name="priority">26</field>
       <field name="arch" type="xml">
         <form string="Harvest" >
@@ -203,8 +201,8 @@ Harvest
           <field name="protein" attrs="{'readonly':[('state', '!=','draft')]}"/>
           <field name="sample" attrs="{'readonly':[('state', '!=','draft')]}"/>
           <field name="aspirates" attrs="{'readonly':[('state', '!=','draft')]}"/>
-          <field name="location_id" select="2" string="From" attrs="{'readonly':[('state', '!=','draft')]}"  />
-          <field name="location_dest_id" select="2" string="Destination" attrs="{'readonly':[('state', '!=','draft')]}" />
+          <field name="location_id"  string="From" attrs="{'readonly':[('state', '!=','draft')]}"  />
+          <field name="location_dest_id"  string="Destination" attrs="{'readonly':[('state', '!=','draft')]}" />
           <field name="name" attrs="{'readonly':[('state', '!=','draft')]}"/>
           <field name="state" attrs="{'readonly':[('state', '!=','draft')]}"  invisible="1"/>
           <field name="price_unit_id" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant" attrs="{'readonly':[('state', '!=','draft')]}"  invisible="1"/>
@@ -217,7 +215,6 @@ Harvest
     <record id="chricar_weighing_tree_view" model="ir.ui.view">
       <field name="name">chricar.weighing.tree.view</field>
       <field name="model">stock.move</field>
-      <field name="type">tree</field>
       <field name="priority">26</field>
       <field name="arch" type="xml">
         <tree string="Weighing" colors="blue:state=='draft'">
@@ -234,8 +231,8 @@ Harvest
           <field name="protein" readonly="1"/>
           <field name="sample" readonly="1"/>
           <field name="aspirates" readonly="1"/>
-          <field name="location_id" select="2" string="From" readonly="1"/>
-          <field name="location_dest_id" select="2" string="Destination" readonly="1"/>
+          <field name="location_id"  string="From" readonly="1"/>
+          <field name="location_dest_id"  string="Destination" readonly="1"/>
           <field name="name" readonly="1"/>
           <field name="state" readonly="1"/>
           <field name="price_unit_id" groups="c2c_stock_accounting.group_c2c_stock_accounting_accountant" readonly="1"/>
@@ -246,7 +243,6 @@ Harvest
     <record id="chricar_weighing_form_view" model="ir.ui.view">
       <field name="name">chricar.weighing.form.view</field>
       <field name="model">stock.move</field>
-      <field name="type">form</field>
       <field name="priority">26</field>
       <field name="arch" type="xml">
         <form string="Weighing">
@@ -265,7 +261,7 @@ Harvest
           <field name="sample" readonly="1"/>
           <field name="aspirates" readonly="1"/>
           <newline/>
-          <field name="location_id" select="2" string="From" readonly="1"/>
+          <field name="location_id"  string="From" readonly="1"/>
           <field name="location_dest_id" string="To" readonly="1"/>
           <field name="date_expected" readonly="1" string="Wiegedatum"/>
           <field name="name" readonly="1"/>

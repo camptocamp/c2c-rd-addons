@@ -12,16 +12,17 @@ Modification of Account
       <field name="model">account.account</field>
       <field name="type">form</field>
       <field name="arch" type="xml">
-        <separator string="Default Taxes" position="before">
+        <xpath expr="/form/group/group" position="after">
+
           <group col="2" colspan="2">
             <separator string="Analytic" colspan="2"/>
-            <field name="account_analytic_usage" select="2"/>
+            <field name="account_analytic_usage" />
             <field
               domain="[('type','&lt;&gt;','view')]"
               name="analytic_account_id"
-              select="2"/>
+              />
           </group>
-        </separator>
+        </xpath>
       </field>
     </record>
     <record model="ir.ui.view" id="account_analytic_tree">
@@ -64,7 +65,7 @@ Modification of Entries Encoding by Move
       <field name="model">account.move</field>
       <field name="type">form</field>
       <field name="arch" type="xml">
-        <xpath expr="/form/notebook/page[@string='Journal Items']/field/form/notebook/page[@string='Information']/group/field[@name='account_id']" position="replace">
+        <xpath expr="/form/sheet/notebook/page[@string='Journal Items']/field/form/notebook/page[@string='Information']/group/group[@string='Amount']/field[@name='account_id']" position="replace">
           <field
             domain="[('type','&lt;&gt;','view'),('type','&lt;&gt;','view'),('company_id','=',parent.company_id)]"
             name="account_id"
@@ -79,7 +80,7 @@ Modification of Entries Encoding by Move
       <field name="type">form</field>
       <field name="arch" type="xml">
         <!-- not nice, should be after partner_id but partner_id is defined twice-->
-        <xpath expr="/form/notebook/page[@string='Journal Items']/field/tree/field[@name='account_id']" position="replace">
+        <xpath expr="/form/sheet/notebook/page[@string='Journal Items']/field/tree/field[@name='account_id']" position="replace">
           <field
             domain="[('type','&lt;&gt;','view'),('type','&lt;&gt;','view'),('company_id','=',parent.company_id)]"
             name="account_id"
@@ -136,7 +137,7 @@ Modification of Bank statement - change trigger
       <field name="model">account.bank.statement</field>
       <field name="type">form</field>
       <field name="arch" type="xml">
-        <xpath expr="/form/notebook/page[@string='Transaction']/field/tree/field[@name='account_id']" position="replace">
+        <xpath expr="/form/sheet/notebook/page[@string='Transactions']/field/tree/field[@name='account_id']" position="replace">
           <field
             domain="[('journal_id','=',parent.journal_id), ('type', '&lt;&gt;', 'view')]"
             name="account_id"
@@ -150,7 +151,7 @@ Modification of Bank statement - change trigger
       <field name="model">account.bank.statement</field>
       <field name="type">form</field>
       <field name="arch" type="xml">
-        <xpath expr="/form/notebook/page[@string='Transaction']/field/form/field[@name='account_id']" position="replace">
+        <xpath expr="/form/sheet/notebook/page[@string='Transactions']/field/form/group/field[@name='account_id']" position="replace">
           <field
             domain="[('journal_id','=',parent.journal_id), ('type', '&lt;&gt;', 'view')]"
             name="account_id"
@@ -207,7 +208,7 @@ Modification of Bank statement - change trigger
             <field name="type">search</field>
             <field name="inherit_id" ref="account.view_account_analytic_line_filter"/>
             <field name="arch" type="xml">
-               <xpath expr="/search/group/field[@name='date']" position="after">
+               <xpath expr="/search/field[@name='date']" position="after">
                   <field name="period_id"/>
                   <field name="general_account_id"/>
                   <field name="journal_id"/>

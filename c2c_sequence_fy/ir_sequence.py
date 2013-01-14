@@ -49,21 +49,21 @@ class ir_sequence(osv.osv):
     _columns = {
     'period_ids': fields.one2many('account.sequence.period',
             'sequence_main_id', 'Sequences')
-    }        
-    
+    }
+
     def _abbrev(self, name, separator):
         return "".join(w[0] for w in _(name).split(separator))
     # end def _abbrev
-    
+
     def next_by_id(self, cr, uid, sequence_id, context=None):
         if not context: context = {}
         """ Draw an interpolated string using the specified sequence."""
         self._logger.debug('next_by_id `%s` `%s`', sequence_id, context)
-        self.check_read(cr, uid)
+        #self.check_read(cr, uid)
         company_ids = self.pool.get('res.company').search(cr, uid, [], order='company_id', context=context) + [False]
         seq_id = sequence_id
-        
-        create_sequence = ''    
+
+        create_sequence = ''
         per_seq = False
         if context.get('journal_id') and context['journal_id']:
             journal_obj = self.pool.get('account.journal')
@@ -74,7 +74,7 @@ class ir_sequence(osv.osv):
                     per_seq_ids = per_seq_obj.search(cr, uid,  [('sequence_main_id','=', sequence_id),('period_id','=',context['period_id'])])
                     if per_seq_ids:
                         for per_seq in per_seq_obj.browse(cr, uid, per_seq_ids):
-                           seq_id = per_seq.sequence_id.id
+                            seq_id = per_seq.sequence_id.id
                     else:
                         period_obj = self.pool.get('account.period')
                         for period in period_obj.browse(cr, uid, [context['period_id']]):
@@ -96,67 +96,67 @@ class ir_sequence(osv.osv):
                           }
                         per_seq_obj.create(cr, uid, vals2)
                         per_seq = True
-                        
+
         if context.get('fiscalyear_id') and context['fiscalyear_id'] and not per_seq:
-                    fy = context['fiscalyear_id'] 
-                    self._logger.debug('fy `%s`', fy)
-                    if fy:
-                      fy_seq_obj = self.pool.get('account.sequence.fiscalyear')
-                      fy_seq_ids = fy_seq_obj.search(cr, uid,  [('sequence_main_id','=', sequence_id),('fiscalyear_id','=',fy)])
-                      if fy_seq_ids:
-                          for fy_s in  fy_seq_obj.browse(cr, uid, fy_seq_ids):
-                              seq_id = fy_s.sequence_id.id
-                      else:
-                          fy_obj = self.pool.get('account.fiscalyear')
-                          for fy in fy_obj.browse(cr, uid, [fy]):
-                              fy_code = fy.code
-                              fy_name = fy.name
-                              prefix = journal.sequence_id.prefix or '' + fy.code +'-'
-                          sequence_code = journal.sequence_id.code
-                          vals = \
-                          { 'code'           : sequence_code
-                          , 'name'           : journal.sequence_id.name +' '+ fy_name
-                          , 'prefix'         : prefix
-                          , 'padding'        : journal.sequence_id.padding
-                          , 'implementation' : journal.sequence_id.implementation
-                          }
-                          seq_id = self.create(cr, uid, vals)
-                          vals2 = {
-                           'sequence_id'      : seq_id
-                          ,'sequence_main_id' : sequence_id
-                          ,'fiscalyear_id'    : context['fiscalyear_id']
-                          }
-                          fy_seq_obj.create(cr, uid, vals2)
-        
-        
-                          
+            fy = context['fiscalyear_id']
+            self._logger.debug('fy `%s`', fy)
+            if fy:
+                fy_seq_obj = self.pool.get('account.sequence.fiscalyear')
+                fy_seq_ids = fy_seq_obj.search(cr, uid,  [('sequence_main_id','=', sequence_id),('fiscalyear_id','=',fy)])
+                if fy_seq_ids:
+                    for fy_s in  fy_seq_obj.browse(cr, uid, fy_seq_ids):
+                        seq_id = fy_s.sequence_id.id
+                else:
+                    fy_obj = self.pool.get('account.fiscalyear')
+                    for fy in fy_obj.browse(cr, uid, [fy]):
+                        fy_code = fy.code
+                        fy_name = fy.name
+                        prefix = journal.sequence_id.prefix or '' + fy.code +'-'
+                    sequence_code = journal.sequence_id.code
+                    vals = \
+                    { 'code'           : sequence_code
+                    , 'name'           : journal.sequence_id.name +' '+ fy_name
+                    , 'prefix'         : prefix
+                    , 'padding'        : journal.sequence_id.padding
+                    , 'implementation' : journal.sequence_id.implementation
+                    }
+                    seq_id = self.create(cr, uid, vals)
+                    vals2 = {
+                     'sequence_id'      : seq_id
+                    ,'sequence_main_id' : sequence_id
+                    ,'fiscalyear_id'    : context['fiscalyear_id']
+                    }
+                    fy_seq_obj.create(cr, uid, vals2)
+
+
+
         self._logger.debug('next_by_id seq_id `%s`', seq_id)
-             
+
         #ids = self.search(cr, uid, ['&',('id','=', sequence_id),('company_id','in',company_ids)])
         return self._next(cr, uid, seq_id , context)
     # end def next_by_id
 
-    
+
     def _fy_code(self, cr, uid, context) :
-        if context and ('fiscalyear_id' in context) and context.get('fiscalyear_id', False): 
-          fy_id = context.get('fiscalyear_id', False)
-          if fy_id :
-            fiscalyear_obj = self.pool.get('account.fiscalyear')
-            fy = fiscalyear_obj.browse(cr, uid, fy_id)
-            return fy.sequence_code or fy.date_start[0:4]
+        if context and ('fiscalyear_id' in context) and context.get('fiscalyear_id', False):
+            fy_id = context.get('fiscalyear_id', False)
+            if fy_id :
+                fiscalyear_obj = self.pool.get('account.fiscalyear')
+                fy = fiscalyear_obj.browse(cr, uid, fy_id)
+                return fy.sequence_code or fy.date_start[0:4]
         else :
             return time.strftime('%Y')
     # end def _fy_code
-    
+
     def _month_code(self, cr, uid, context) :
-        if context and ('period_id' in context) and context.get('period_id', False): 
-          period_id = context.get('period_id', False)
-          if period_id :
-            period_obj = self.pool.get('account.period')
-            period = period_obj.browse(cr, uid, period_id)
-            # we assume that period code is YYYYMM
-            # if FY starts with april then this should return YYMM 
-            return period.code[2] 
+        if context and ('period_id' in context) and context.get('period_id', False):
+            period_id = context.get('period_id', False)
+            if period_id :
+                period_obj = self.pool.get('account.period')
+                period = period_obj.browse(cr, uid, period_id)
+                # we assume that period code is YYYYMM
+                # if FY starts with april then this should return YYMM
+                return period.code[2]
         else :
             return ''
     # end def _fy_code
@@ -169,7 +169,7 @@ class ir_sequence(osv.osv):
             name = record['name']
             if record['code']:
                 name = record['code'] + ' ' + name
-            
+
             fy_id = context.get('fiscalyear_id', False)
             if fy_id :
                 fy_seq_code = self._fy_code(cr, uid, context)
@@ -186,7 +186,7 @@ class ir_sequence(osv.osv):
         else :
             return False
     # end def _journal
-    
+
     def _journal_name(self, cr, uid, seq) :
         jou = self._journal(cr, uid, seq)
         if jou :
@@ -194,31 +194,31 @@ class ir_sequence(osv.osv):
         else :
             return ''
     # end def _journal_name
-    
+
     def _seq_type(self, cr, uid, seq):
         seq_type_obj = self.pool.get('ir.sequence.type')
         ids = seq_type_obj.search(cr, uid, [('code', '=', seq.code)])
         if ids :
-          return seq_type_obj.browse(cr, uid, ids[0])
+            return seq_type_obj.browse(cr, uid, ids[0])
         else :
             return False
     # end def _seq_type
-    
+
     def _seq_type_name(self, cr, uid, seq) :
         ty = self._seq_type(cr, uid, seq)
-        return self._abbrev(ty.name, ' ')       
+        return self._abbrev(ty.name, ' ')
     # end def _seq_type_name
-    
+
     def _seq_type_code(self, cr, uid, seq) :
         ty = self._seq_type(cr, uid, seq)
         return self._abbrev(ty.code, '.')
     # end def _seq_type_code
-    
+
     def _next_seq(self, cr, uid, id) :
         seq = self.browse(cr, uid, id)
-        if isinstance(seq,list): 
-           seq = self.browse(cr, uid, id)[0]
-        
+        if isinstance(seq,list):
+            seq = self.browse(cr, uid, id)[0]
+
         self._logger.debug('_next_seq `%s`', seq)
         if seq.implementation == 'standard' :
             cr.execute("SELECT nextval('%s_%03d')" % (self._table, seq.id))
@@ -229,7 +229,7 @@ class ir_sequence(osv.osv):
             cr.execute("UPDATE %s SET number_next=number_next+number_increment WHERE id=%s" % (self._table, seq.id))
         return seq
     # end def _next_seq
-    
+
     def _format(self, cr, uid, seq, context) :
         d = self._interpolation_dict()
         d['fy']  = self._fy_code(cr, uid, context)
@@ -245,7 +245,7 @@ class ir_sequence(osv.osv):
             _prefix = self._interpolate(ty.prefix_pattern or '', d)
         else :
             _prefix = ''
-        if seq.suffix : 
+        if seq.suffix :
             _suffix = self._interpolate(seq.suffix, d)
         elif ty and ty.suffix_pattern :
             _suffix = self._interpolate(ty.suffix_pattern or '', d)
@@ -278,7 +278,7 @@ class ir_sequence(osv.osv):
             if seq_type.create_sequence == 'none' :
                 raise osv.except_osv \
                     ( _('Integrity Error !')
-                    , _('Automatic creation not allowed for sequence-code %s with %s') 
+                    , _('Automatic creation not allowed for sequence-code %s with %s')
                         % (sequence_code, seq_type.create_sequence)
                     )
             values = \

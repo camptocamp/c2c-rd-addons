@@ -23,10 +23,10 @@
 from osv import osv, fields
 #import decimal_precision as dp
 
-import re  
+import re
 from tools.translate import _
-import logging        
-        
+import logging
+
 #----------------------------------------------------------
 #  Product Category
 #----------------------------------------------------------
@@ -36,10 +36,10 @@ class product_category(osv.osv):
     _columns = {
         'allow_negative_stock' : fields.boolean('Allow Negative Stock', help="Allows negative stock quantities per location / lot for this category - use with care !"),
     }
-     
+
 product_category()
 
-       
+
 #----------------------------------------------------------
 #  Product
 #----------------------------------------------------------
@@ -59,27 +59,27 @@ class stock_move(osv.osv):
     # FIXME - check does not raise error
     # allow_negative_stock is defined for product_template
     def _check_allow_negative_stock(self, cr, uid, ids, context=None):
-          
+
         for move in self.browse(cr, uid, ids):
             do_check = True
             if move.product_id.allow_negative_stock or move.product_id.categ_id.allow_negative_stock:
-               do_check = False
+                do_check = False
             if do_check:
-               # name field = product qty
-               cr.execute(
-               "select sum(name) \
-                  from chricar_stock_product_by_location_prodlot \
-                 where product_id = %d \
-                   and company_id = %d \
-                 group by product_id, location_id,prodlot_id \
-                having sum(name) < 0" % ( move.product_id.id, move.company_id.id )) 
+                # name field = product qty
+                cr.execute(
+                "select sum(name) \
+                   from chricar_stock_product_by_location_prodlot \
+                  where product_id = %d \
+                    and company_id = %d \
+                  group by product_id, location_id,prodlot_id \
+                 having sum(name) < 0" % ( move.product_id.id, move.company_id.id ))
             if cr.fetchone():
-                   return False
+                return False
         return True
-        
+
     _constraints = [ (_check_allow_negative_stock, 'Error: Negative quantities for location and/or lots are not allowed for this product or product category', ['name']), ]
 
-     
+
 stock_move()
 
 
@@ -100,11 +100,11 @@ class stock_production_lot(osv.osv):
                 for r in res:
                     _logger.debug('FGF lot res negative r %s,%s' % (r, res))
                     if r[0] in lots_to_show:
-                       res1.append(r)
-                       #_logger.debug('FGF lot res negative res 1%s' % (res1))
+                        res1.append(r)
+                        #_logger.debug('FGF lot res negative res 1%s' % (res1))
         else:
             res1 = res
-            
+
         return res1
 
 stock_production_lot()
@@ -130,13 +130,13 @@ class stock_location(osv.osv):
                 for r in res:
                     _logger.debug('FGF loc res negative r %s,%s' % (r, res))
                     if r[0] in loc_to_show:
-                       res1.append(r)
-            else: # FIXME workaround 
+                        res1.append(r)
+            else: # FIXME workaround
                 res1 = res
 
-                
+
         else:
-           res1 = res
-        return res1 
+            res1 = res
+        return res1
 
 stock_location()

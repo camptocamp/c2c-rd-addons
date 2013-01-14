@@ -95,8 +95,8 @@ class wizard_merge_duplicates_new(osv.osv_memory):
 wizard_merge_duplicates_new()
 
 
-import wizard
-import pooler
+#import wizard
+#import pooler
 
 class wizard_remove_duplicate(wizard.interface):
     _logger = logging.getLogger(__name__)

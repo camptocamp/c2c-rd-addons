@@ -9,11 +9,12 @@ generated 2009-09-19 23:51:03+02"""
     [ "c2c_stock_accounting"
     ]
 , "init_xml"     : []
-, "demo_xml"     : []
+, "demo"         : []
 , "update_xml"   : 
     [ "stock_product_by_location_view.xml"
     , "security/ir.model.access.csv"
     ]
 , "auto_install" : False
 , "installable"  : True
+, 'application'  : False
 }

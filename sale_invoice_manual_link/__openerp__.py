@@ -35,7 +35,7 @@ Allow to add (and remove) invoices to (from) Sale Order manually
     'init_xml': [],
     'update_xml': ['sale_view.xml'],
     'demo_xml': [],
-    'installable': False,
+    'installable': True,
     'auto_install': False,
 }
 

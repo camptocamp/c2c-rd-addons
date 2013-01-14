@@ -12,9 +12,8 @@ class report_webkit_html(report_sxw.rml_parse):
             'uid': uid,
             'locale': locale,
         })
-        
+
 report_sxw.report_sxw('report.account_account.tree_sum',
-                       'account.account', 
+                       'account.account',
                        'addons/chricar_account_period_sum/report/report_account_account_tree_sum.mako',
                        parser=report_webkit_html)
-

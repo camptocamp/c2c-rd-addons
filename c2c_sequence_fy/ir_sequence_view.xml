@@ -7,7 +7,7 @@
       <field name="inherit_id" ref="base.sequence_view"/>
       <field name="type">form</field>
       <field name="arch" type="xml">
-        <xpath expr="/form//separator[@string='Legend (for prefix, suffix)']" position="after">
+        <xpath expr="/form/sheet/notebook/page/group[@string='Legend (for prefix, suffix)']" position="after">
           <group colspan="4" col="1">
             <label colspan="1" string="Current Fiscal Year: %%(fy)s (see sequence code in fiscalyear)"/>
             <label colspan="1" string="Abbreviated name of the journal: %%(jn)s"/>
@@ -27,7 +27,7 @@
             <field name="inherit_id" ref="base.sequence_view"/>
             <field name="arch" type="xml">
                 <page position="after">
-                    <page string="Periods" groups="base.group_extended">
+                    <page string="Periods" >
                         <field name="period_ids" nolabel="1" colspan="4">
                             <tree string="Period Sequences" editable="bottom">
                                 <field name="period_id"/>

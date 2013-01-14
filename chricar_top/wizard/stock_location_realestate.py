@@ -24,7 +24,7 @@ from osv import fields, osv
 class stock_location_product(osv.osv_memory):
     _name = "stock.location.realestate"
     _description = "Real estate by Location"
-    _columns = { 
+    _columns = {
     }
 
     def action_open_window(self, cr, uid, ids, context=None):
@@ -32,21 +32,21 @@ class stock_location_product(osv.osv_memory):
          @param self: The object pointer.
          @param cr: A database cursor
          @param uid: ID of the user currently logged in
-         @param ids: An ID or list of IDs if we want more than one 
-         @param context: A standard dictionary 
+         @param ids: An ID or list of IDs if we want more than one
+         @param context: A standard dictionary
          @return: Invoice type
         """
         mod_obj = self.pool.get('ir.model.data')
         for location_obj in self.read(cr, uid, ids):
             return {
-                'name': False, 
-                'view_type': 'form', 
-                'view_mode': 'tree,form', 
-                'res_model': 'chricar.top', 
-                'type': 'ir.actions.act_window', 
-                'context': {'location_id': context['active_id'], 
-                       }, 
-                
+                'name': False,
+                'view_type': 'form',
+                'view_mode': 'tree,form',
+                'res_model': 'chricar.top',
+                'type': 'ir.actions.act_window',
+                'context': {'location_id': context['active_id'],
+                       },
+
             }
 
 stock_location_product()

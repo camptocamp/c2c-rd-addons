@@ -11,11 +11,10 @@ Modification of picking out
     <record id="view_picking_out_weighing_form" model="ir.ui.view">
       <field name="name">stock.picking.out.weighing.form</field>
       <field name="model">stock.picking</field>
-      <field name="type">form</field>
-      <field name="inherit_id" ref="stock.view_picking_out_form"/>
+      <field name="inherit_id" ref="stock.view_picking_form"/>
       <field name="priority" eval="10"/>
       <field name="arch" type="xml">
-        <notebook>
+         <xpath expr="/form/sheet/notebook/page[@string='Additional Info']" position="after">
           <page string="Weighing" attrs="{'readonly':[('state','=','done')]}">
             <field name="date_weighing"/>
             <field name="number_weighing"/>
@@ -47,7 +46,7 @@ Modification of picking out
             <field name="total_net"/>
             <field name="total_gross"/>
           </page>
-        </notebook>
+        </xpath>
       </field>
     </record>
     <!--
@@ -103,11 +102,10 @@ Modification of picking
     <record id="view_picking_weighing_carrier_form" model="ir.ui.view">
       <field name="name">stock.picking.weighing.carrier.form</field>
       <field name="model">stock.picking</field>
-      <field name="type">form</field>
       <field name="inherit_id" ref="stock.view_picking_form"/>
       <field name="priority" eval="10"/>
       <field name="arch" type="xml">
-          <field name="address_id" position="after">
+          <field name="partner_id" position="after">
               <field name="carrier_id"/>
               <field name="carrier_tracking_ref" groups="base.group_extended"/>
               <field name="number_of_packages" groups="base.group_extended"/>

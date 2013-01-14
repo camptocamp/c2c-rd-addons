@@ -31,7 +31,7 @@ class report_webkit_html(report_sxw.rml_parse):
             'cr':cr,
             'uid': uid,
         })
-        
+
 class account_chart_sum(osv.osv_memory):
     """
     For Chart of Accounts
@@ -63,7 +63,7 @@ class account_chart_sum(osv.osv_memory):
        'print_opening_dc': lambda *a: True,
         }
 
-    
+
     def onchange_fiscalyear(self, cr, uid, ids, fiscalyear_id=False, context=None):
         res = {}
         res['value'] = {}
@@ -96,8 +96,8 @@ class account_chart_sum(osv.osv_memory):
             cr.execute('''
                 SELECT * FROM (SELECT p.id
                                FROM account_period p,
-                                    account_fiscalyear f, 
-                                    account_fiscalyear pf 
+                                    account_fiscalyear f,
+                                    account_fiscalyear pf
                                WHERE f.id = %s
                                  AND pf.date_stop = f.date_start -1
                                  AND p.fiscalyear_id = pf.id
@@ -106,22 +106,22 @@ class account_chart_sum(osv.osv_memory):
                 UNION ALL
                 SELECT * FROM (SELECT p.id
                                FROM account_period p,
-                                    account_fiscalyear f, 
-                                    account_fiscalyear pf 
+                                    account_fiscalyear f,
+                                    account_fiscalyear pf
                                WHERE f.id = %s
                                  AND pf.date_stop = f.date_start -1
                                  AND p.fiscalyear_id = pf.id
-                               ORDER BY p.date_stop desc 
+                               ORDER BY p.date_stop desc
                                LIMIT 1) AS period_prev_start
                                ''', (fiscalyear_id, fiscalyear_id))
             periods_prev =  [i[0] for i in cr.fetchall()]
             if periods_prev and len(periods_prev) > 1:
                 start_prev_period = periods_prev[0]
                 end_prev_period = periods_prev[1]
-                res['value'] = {'period_from': start_period, 
+                res['value'] = {'period_from': start_period,
                                 'period_to'  : end_period,
-                                'period_prev_from': start_prev_period, 
-                                'period_prev_to'  : end_prev_period, 
+                                'period_prev_from': start_prev_period,
+                                'period_prev_to'  : end_prev_period,
                                }
         return res
 
@@ -152,7 +152,7 @@ class account_chart_sum(osv.osv_memory):
             result = mod_obj.get_object_reference(cr, uid, 'chricar_account_period_sum', 'report_account_account_tree_sum')
             id = result and result[1] or False
             result = rep_obj.read(cr, uid, [id], context=context)[0]
-            #FIXME 
+            #FIXME
             # does not open report
 
         result['periods'] = []
@@ -162,7 +162,7 @@ class account_chart_sum(osv.osv_memory):
         if data['period_prev_from'] and data['period_prev_to']:
             result['periods_prev'] = period_obj.build_ctx_periods(cr, uid, data['period_prev_from'][0], data['period_prev_to'][0])
             if result['periods_prev']:
-                result['context'] = str({'fiscalyear': data['fiscalyear'][0], 
+                result['context'] = str({'fiscalyear': data['fiscalyear'][0],
                                 'chart_account_id' : data['chart_account_id'][0],
                                 'periods': result['periods'], 'periods_prev' : result['periods_prev'] ,
                                 'print_all_zero'  : data['print_all_zero'],
@@ -174,20 +174,20 @@ class account_chart_sum(osv.osv_memory):
                                 })
 
         if data['fiscalyear']:
-            result['name'] += ':' + fy_obj.read(cr, uid, [data['fiscalyear'][0]], context=context)[0]['code'] 
+            result['name'] += ':' + fy_obj.read(cr, uid, [data['fiscalyear'][0]], context=context)[0]['code']
         if data['period_from']:
-            result['name'] += ' ' + period_obj.read(cr, uid, [data['period_from'][0]], context=context)[0]['code'] 
+            result['name'] += ' ' + period_obj.read(cr, uid, [data['period_from'][0]], context=context)[0]['code']
         if data['period_to']:
-            result['name'] += '-' + period_obj.read(cr, uid, [data['period_to'][0]], context=context)[0]['code'] 
+            result['name'] += '-' + period_obj.read(cr, uid, [data['period_to'][0]], context=context)[0]['code']
 
         if data['period_prev_from']:
-            result['name'] += ' ' + period_obj.read(cr, uid, [data['period_prev_from'][0]], context=context)[0]['code'] 
+            result['name'] += ' ' + period_obj.read(cr, uid, [data['period_prev_from'][0]], context=context)[0]['code']
         if data['period_prev_to']:
-            result['name'] += '-' + period_obj.read(cr, uid, [data['period_prev_to'][0]], context=context)[0]['code'] 
+            result['name'] += '-' + period_obj.read(cr, uid, [data['period_prev_to'][0]], context=context)[0]['code']
 
         return result
 
-     
+
     def account_chart_sum_open_window(self, cr, uid, ids, context=None):
         if context is None:
             context = {}
@@ -225,7 +225,7 @@ class account_chart_sum(osv.osv_memory):
              'form': data
         }
         self._logger.debug('report data `%s`', datas)
-       
+
             #'report_name': 'account_account.tree_sum',
             #'report_name': 'account.account.chart.report',
         return {
@@ -238,4 +238,3 @@ class account_chart_sum(osv.osv_memory):
 account_chart_sum()
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
-    

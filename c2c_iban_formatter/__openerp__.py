@@ -44,8 +44,9 @@ CAUTION - please make sure that the payment module removes the spaces again
 , "category"    : "Client Modules/Camptocamp"
 , "depends"     : ["base_iban"]
 , "init_xml"    : []
-, "demo_xml"    : []
+, "demo"        : []
 , "update_xml"  : ["iban_view.xml"]
 , "auto_install": False
 , "installable" : True
+, 'application'  : False
 }

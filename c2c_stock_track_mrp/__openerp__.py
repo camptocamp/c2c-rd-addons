@@ -26,7 +26,7 @@
     'version': '0.9',
     'category': 'Warehouse Management',
     'description': """
-adds prod lot to mrp produce 
+adds prod lot to mrp produce
 """,
     'author': 'Camptocamp Austria',
     'depends': [ 'mrp','c2c_stock_track_internal' ],

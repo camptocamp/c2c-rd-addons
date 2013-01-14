@@ -10,21 +10,17 @@ Product by Production Location
       <field name="name">chricar.product_by_production_location.form</field>
       <field name="model">chricar.product_by_production_location</field>
       <field name="priority">1</field>
-      <field name="type">form</field>
       <field name="arch" type="xml">
         <form string="Product by Production Location">
-          <field name="used" select="1"/>
-          <field name="product_id" select="1"/>
-          <field name="fiscalyear_id" select="1"/>
-          <field name="location_id" select="1"/>
-          <field name="capacity" select="1"/>
-          <field name="yield" select="1"/>
-          <field name="name" select="1"/>
-          <field name="amount" select="1" groups="base.group_extended"/>
-          <field name="average_price" groups="base.group_extended"/>
-          <notebook colspan="4">
-            <page string="invisible" invisible="1"/>
-          </notebook>
+          <field name="used" />
+          <field name="product_id" />
+          <field name="fiscalyear_id" />
+          <field name="location_id" />
+          <field name="capacity" />
+          <field name="yield" />
+          <field name="name" />
+          <field name="amount"  />
+          <field name="average_price" />
         </form>
       </field>
     </record>
@@ -32,20 +28,19 @@ Product by Production Location
       <field name="name">chricar.product_by_production_location.list</field>
       <field name="model">chricar.product_by_production_location</field>
       <field name="priority">1</field>
-      <field name="type">tree</field>
       <field name="arch" type="xml">
         <tree string="Product by Production Location">
-          <field name="used" select="1"/>
-          <field name="fiscalyear_id" select="1"/>
-          <field name="product_id" select="1"/>
-          <field name="location_id" select="1"/>
-          <field name="capacity" select="1"/>
-          <field name="yield" select="1"/>
-          <field name="name" select="1"/>
-          <field name="uom_id" select="1"/>
-          <field name="amount" select="1" sum="Sum Amount" groups="base.group_extended"/>
-          <field name="average_price" groups="base.group_extended"/>
-          <field name="cost_method" groups="base.group_extended"/>
+          <field name="used" />
+          <field name="fiscalyear_id" />
+          <field name="product_id" />
+          <field name="location_id" />
+          <field name="capacity" />
+          <field name="yield" />
+          <field name="name" />
+          <field name="uom_id" />
+          <field name="amount"  sum="Sum Amount" />
+          <field name="average_price" />
+          <field name="cost_method" />
         </tree>
       </field>
     </record>

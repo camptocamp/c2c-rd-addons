@@ -38,9 +38,10 @@
 , "category"     : "Tool"
 , "depends"      : ["base"]
 , "init_xml"     : []
-, "demo_xml"     : []
+, "demo"         : []
 , "update_xml"   : ["remove_duplicate_wizard.xml"]
 , "test"         : []
 , "auto_install" : False
 , "installable"  : True
+, 'application'  : False
 }

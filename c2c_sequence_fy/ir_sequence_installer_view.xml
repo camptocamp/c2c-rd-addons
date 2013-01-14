@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
   <data>
+<!--
     <record id="view_sequence_configuration_installer" model="ir.ui.view">
       <field name="name">ir.sequence.installer.form</field>
       <field name="model">ir.sequence.installer</field>
@@ -37,5 +38,6 @@
       <field name="category_id" ref="account.category_accounting_configuration"/>
       <field name="type">automatic</field>
     </record>
+-->
   </data>
 </openerp>

@@ -64,8 +64,8 @@
       <field name="type">tree</field>
       <field name="arch" type="xml">
         <form string="Fiscal Year Sums">
-          <field name="company_id" select="1"/>
-          <field name="fiscalyear_id" select="1"/>
+          <field name="company_id" />
+          <field name="fiscalyear_id" />
           <field name="account_id"/>
           <field name="opening_balance"/>
           <field name="debit"/>
@@ -107,10 +107,10 @@
       <field name="type">tree</field>
       <field name="arch" type="xml">
         <tree string="Chart of accounts">
-          <field name="company_id" select="1" readonly="1"/>
-          <field name="code" select="1" readonly="1"/>
-          <field name="name" select="1" readonly="1"/>
-          <field name="user_type" select="1" readonly="1"/>
+          <field name="company_id"  readonly="1"/>
+          <field name="code"  readonly="1"/>
+          <field name="name"  readonly="1"/>
+          <field name="user_type"  readonly="1"/>
         </tree>
       </field>
     </record>
@@ -121,10 +121,10 @@
       <field name="arch" type="xml">
         <form string="Chart of accounts">
           <group>
-            <field name="company_id" select="1" readonly="1" colspan="4"/>
-            <field name="name" select="1" readonly="1" colspan="4"/>
-            <field name="code" select="1" readonly="1"/>
-            <field name="user_type" select="1" readonly="1"/>
+            <field name="company_id"  readonly="1" colspan="4"/>
+            <field name="name"  readonly="1" colspan="4"/>
+            <field name="code"  readonly="1"/>
+            <field name="user_type"  readonly="1"/>
           </group>
           <newline/>
           <field name="sum_fiscalyear_ids" widget="one2many_list" colspan="4" nolabel="1" readonly="1">

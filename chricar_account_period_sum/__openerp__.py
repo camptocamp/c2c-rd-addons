@@ -75,7 +75,7 @@ correct period sums.
     , "account_accountant"
     , "c2c_account_closing_remarks"
     #, "chricar_view_id"
-    ,"report_webkit_chapter_server"
+    #,"report_webkit_chapter_server"
     ]
 , "init_xml" : []
 , "demo"     : []
@@ -88,4 +88,5 @@ correct period sums.
     ]
 , "auto_install": False
 , "installable": True
+, 'application'  : False
 }

@@ -72,7 +72,7 @@ A conversion to ASCII for all texts within the EDIFACT-file is attempted.
     , "account_payment_customer_data"
     ]
 , "init_xml"    : []
-, "demo_xml"    : []
+, "demo"        : []
 , "update_xml"  : 
     [ 'payment_iban.xml'
     , 'res_bank_view.xml'
@@ -81,4 +81,5 @@ A conversion to ASCII for all texts within the EDIFACT-file is attempted.
 , "test"        : []
 , "auto_install": False
 , "installable" : True
+, 'application'  : False
 }

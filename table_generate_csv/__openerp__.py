@@ -39,13 +39,16 @@
 See http://tools.ietf.org/html/rfc4180
 
 Furthermore, a header line may be generated, quotes, field delimiters, decimalpoint are selectable.
+
+FIXME ToDo remove wizard
 """
 , "category"     : "General Purpose"
 , "depends"      : ["base"]
 , "init_xml"     : []
-, "demo_xml"     : []
+, "demo"         : []
 , "update_xml"   : ['table_generate_csv_wizard.xml']
 , "test"         : []
 , "auto_install" : False
-, "installable"  : True
+, "installable"  : False
+, 'application'  : False
 }

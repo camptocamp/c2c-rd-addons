@@ -27,7 +27,7 @@
     'category': 'Warehouse Management',
     'description': """
 This module will not print/display products with zero quantity values in many reports and tree lists.
-Especially important if the company has a lot of locations with a very limited number of products 
+Especially important if the company has a lot of locations with a very limited number of products
 like consignations locations at supplieres or customers
 Adds a nice inventory report based on webkit
 
@@ -38,7 +38,7 @@ Adds a nice inventory report based on webkit
        ],
     #'update_xml': ['product_view.xml'],
     'demo_xml': [],
-    'installable': False,
+    'installable': True,
     'active': False,
 }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

@@ -40,9 +40,9 @@ class hr_expense_line(osv.osv):
 
     def _get_price_unit_id(self, cr, uid, context):
         self._logger.debug('%s', context)
-        return 
+        return
 
-    _columns = { 
+    _columns = {
         'price_unit_id'    : fields.many2one('c2c_product.price_unit','Price Unit'),
         'price_unit_pu'    : fields.float(string='Unit Price',digits_compute=dp.get_precision('Cost Price'),  \
                             help='Price using "Price Units"') ,
@@ -55,18 +55,18 @@ class hr_expense_line(osv.osv):
     }
 
     def init(self, cr):
-      cr.execute("""
-          update hr_expense_line set price_unit_pu = unit_amount  where price_unit_pu is null;
-      """)
-      cr.execute("""
-          update hr_expense_line set price_unit_id = (select min(id) from c2c_product_price_unit where coefficient=1) where price_unit_id is null;
-      """)
+        cr.execute("""
+            update hr_expense_line set price_unit_pu = unit_amount  where price_unit_pu is null;
+        """)
+        cr.execute("""
+            update hr_expense_line set price_unit_id = (select min(id) from c2c_product_price_unit where coefficient=1) where price_unit_id is null;
+        """)
 
     def onchange_price_unit(self, cr, uid, ids, field_name,price_pu, price_unit_id):
         if  price_pu and  price_unit_id:
-           pu = self.pool.get('c2c_product.price_unit').browse(cr, uid, price_unit_id)
-           price = price_pu / pu.coefficient
-           return {'value': {field_name : price}}
+            pu = self.pool.get('c2c_product.price_unit').browse(cr, uid, price_unit_id)
+            price = price_pu / pu.coefficient
+            return {'value': {field_name : price}}
         return {}
 
 hr_expense_line()

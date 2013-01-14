@@ -12,9 +12,8 @@ class report_webkit_html(report_sxw.rml_parse):
             'uid': uid,
             'locale': locale,
         })
-        
+
 report_sxw.report_sxw('report.res.partner.label.test',
                        'res.partner.address',
                        'addons/c2c_partner_address_label/report/report_label_test.mako',
                        parser=report_webkit_html)
-

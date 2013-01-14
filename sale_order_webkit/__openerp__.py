@@ -50,5 +50,6 @@ suppress unused columns in sale order lines."""
 , "website"      : "http://www.camptocamp.com/"
 , "data"         : ["sale_view.xml","sale_order_webkit_view.xml"]
 , "installable"  : True
+, 'application'  : False
 , "auto_install" : False
 }

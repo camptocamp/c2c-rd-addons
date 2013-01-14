@@ -39,13 +39,13 @@ class account_journal(osv.osv):
     }
 
     def create_sequence(self, cr, uid, vals, context=None):
-       res =  super(account_journal,self).create_sequence(cr, uid, vals, context)
-       seq_obj = self.pool.get('ir.sequence')
-       for seq in seq_obj.browse(cr, uid, [res],context) :
-           # FIXME - include the new parameters like fy,etc and uset the prefix_pattern
-           prefix = seq.prefix.replace('/%(year)s/','-%(fy)s-')
-           seq_obj.write(cr, uid, res,{'prefix' : prefix }) 
-       return res
+        res =  super(account_journal,self).create_sequence(cr, uid, vals, context)
+        seq_obj = self.pool.get('ir.sequence')
+        for seq in seq_obj.browse(cr, uid, [res],context) :
+            # FIXME - include the new parameters like fy,etc and uset the prefix_pattern
+            prefix = seq.prefix.replace('/%(year)s/','-%(fy)s-')
+            seq_obj.write(cr, uid, res,{'prefix' : prefix })
+        return res
 
 
 account_journal()

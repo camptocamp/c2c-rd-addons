@@ -6,7 +6,7 @@
             <field name="inherit_id" ref="sale.view_order_form"/>
             <field name="type">form</field>
             <field name="arch" type="xml">
-            <field name="invoiced" select="2" position="after" >
+            <field name="invoiced"  position="after" >
                 <button name="button_refresh_prices" 
                     string="Refresh line unit prices" 
                     states="draft" 

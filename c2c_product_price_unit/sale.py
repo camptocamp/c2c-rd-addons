@@ -32,18 +32,18 @@ class sale_order_line(osv.osv):
     _logger = logging.getLogger(__name__)
 
     def _get_default_id(self, cr, uid, price_unit_id, context=None):
-       pu = self.pool.get('c2c_product.price.unit')
-       if not pu: return 1.0
-       return pu.get_default_id(cr, uid, price_unit_id, context)
+        pu = self.pool.get('c2c_product.price.unit')
+        if not pu: return 1.0
+        return pu.get_default_id(cr, uid, price_unit_id, context)
 
     def _get_default_price_unit_pu(self, cr, uid, price_unit_id, context=None):
-       pu = self.browse(cr, uid, price_unit_id)
-       res  = 0.0
-       if not pu:
-           return res
-       for p in pu:
-           res = p.price_unit
-       return res
+        pu = self.browse(cr, uid, price_unit_id)
+        res  = 0.0
+        if not pu:
+            return res
+        for p in pu:
+            res = p.price_unit
+        return res
 
     _columns = {
         'price_unit_id'    : fields.many2one('c2c_product.price_unit','Price Unit', required=True),
@@ -60,36 +60,36 @@ class sale_order_line(osv.osv):
 
 
     def init(self, cr):
-      cr.execute("""
-          update sale_order_line set price_unit_pu = price_unit  where price_unit_pu is null;
-      """)
-      cr.execute("""
-          update sale_order_line set price_unit_id = (select min(id) from c2c_product_price_unit where coefficient=1) where price_unit_id is null;
-      """)
+        cr.execute("""
+            update sale_order_line set price_unit_pu = price_unit  where price_unit_pu is null;
+        """)
+        cr.execute("""
+            update sale_order_line set price_unit_id = (select min(id) from c2c_product_price_unit where coefficient=1) where price_unit_id is null;
+        """)
 
     #def product_id_change_c2c_pu(self, cr, uid, ids, pricelist, product, qty=0,
     def product_id_change(self, cr, uid, ids, pricelist, product, qty=0,
             uom=False, qty_uos=0, uos=False, name='', partner_id=False,
             lang=False, update_tax=True, date_order=False, packaging=False, fiscal_position=False, flag=False,context={}):
-       res = {}
-       self._logger.debug('sale a0 `%s` `%s` `%s` `%s`', qty, qty_uos, uos, uom)
-       res = super(sale_order_line, self).product_id_change( cr, uid, ids, pricelist, product, qty=qty, 
-                uom=uom, qty_uos=qty_uos, uos=uos, name=name,
-                partner_id=partner_id, lang=lang, update_tax=update_tax,
-                date_order=date_order)
-       self._logger.debug('sale a1 `%s`', res['value'] )
-       if product:
-           prod = self.pool.get('product.product').browse(cr, uid, product)
-           price_unit_id = prod.list_price_unit_id.id
-           self._logger.debug('sale pu `%s` `%s` `%s`', price_unit_id, product, 'prod.name')
-           res['value']['price_unit_id'] = price_unit_id
-           self._logger.debug('sale pu2 `%s`', res['value'])
-     
-           if res['value']['price_unit'] and qty:
-               coeff = self.pool.get('c2c_product.price_unit').get_coeff(cr, uid, price_unit_id)
-               res['value']['price_unit_pu'] = res['value']['price_unit'] * coeff 
-               self._logger.debug('sale 2 `%s` `%s` `%s`', coeff, res['value']['price_unit'], res['value'])
-       return res
+        res = {}
+        self._logger.debug('sale a0 `%s` `%s` `%s` `%s`', qty, qty_uos, uos, uom)
+        res = super(sale_order_line, self).product_id_change( cr, uid, ids, pricelist, product, qty=qty,
+                 uom=uom, qty_uos=qty_uos, uos=uos, name=name,
+                 partner_id=partner_id, lang=lang, update_tax=update_tax,
+                 date_order=date_order)
+        self._logger.debug('sale a1 `%s`', res['value'] )
+        if product:
+            prod = self.pool.get('product.product').browse(cr, uid, product)
+            price_unit_id = prod.list_price_unit_id.id
+            self._logger.debug('sale pu `%s` `%s` `%s`', price_unit_id, product, 'prod.name')
+            res['value']['price_unit_id'] = price_unit_id
+            self._logger.debug('sale pu2 `%s`', res['value'])
+
+            if res['value']['price_unit'] and qty:
+                coeff = self.pool.get('c2c_product.price_unit').get_coeff(cr, uid, price_unit_id)
+                res['value']['price_unit_pu'] = res['value']['price_unit'] * coeff
+                self._logger.debug('sale 2 `%s` `%s` `%s`', coeff, res['value']['price_unit'], res['value'])
+        return res
 
     def onchange_price_unit(self, cr, uid, ids, field_name,qty, price_pu, price_unit_id):
         if  price_pu and  price_unit_id and qty:
@@ -131,7 +131,3 @@ class sale_order(osv.osv):
         return res
 
 sale_order()
-
-
-
-
