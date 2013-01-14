@@ -155,7 +155,7 @@ ${inv.address_invoice_id.address_label|carriage_returns}
 <td style="border:none"></td>
 </tr>
 </table>
-<br>
+<br/>
     %if inv.state == 'cancel' :
     <h1 style="clear:both;">${inv.state}</h1> 
     <br/>
@@ -175,8 +175,8 @@ ${inv.address_invoice_id.address_label|carriage_returns}
             <td>${_("Reference")}</td>
           %endif
 
-            <td style="white-space:nowrap">${_("Payment Term")}</td>
-            <td style="white-space:nowrap">${_("Due Date")}</td>
+            <td >${_("Payment Term")}</td>
+            <td >${_("Due Date")}</td>
             <td>${_("Curr")}</td>
         </tr>
         <tr>
@@ -192,7 +192,7 @@ ${inv.address_invoice_id.address_label|carriage_returns}
             <td style="padding:0px;">
            <table style="border:none;">
           %for pick in inv.picking_ids:
-            <tr style="white-space:nowrap;border:none">
+            <tr style="border:none">
              <td style="border:none">${pick.name} / ${formatLang(pick.date, date=True)|entity}</td>
              %if pick.sale_id:
 	     <td style="border:none">${pick.sale_id.name} / ${formatLang(pick.sale_id.date_order, date=True)|entity}</td>

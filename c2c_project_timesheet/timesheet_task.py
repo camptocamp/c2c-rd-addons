@@ -46,9 +46,10 @@ class project_work(osv.osv):
         return task_work_ids
 
     _columns = {
-        'date': fields.datetime('Date', select="1"),
-        'task_id': fields.many2one('project.task', 'Task', ondelete='cascade', required=True, select="1"),
-        'user_id': fields.many2one('res.users', 'Done by', required=True, select="1"),
+        #'date': fields.datetime('Date', select="1"),
+        #'task_id': fields.many2one('project.task', 'Task', ondelete='cascade', required=True, select="1"),
+        #'user_id': fields.many2one('res.users', 'Done by', required=True, select="1"),
+        'to_invoice': fields.many2one('hr_timesheet_invoice.factor', 'Type of Invoicing', help="It allows to set the discount while making invoice"),
         'project_id' : fields.related('task_id', 'project_id', type='many2one', relation="project.project", string='Project',
         store = True
         # FIXME activation of this function causes project_id not be stored on normal entry 
@@ -58,12 +59,72 @@ class project_work(osv.osv):
 ),
     }
 
+    def onchange_task_id(self, cr, uid, ids, task_id, context=None):
+        result = {}
+        if task_id:
+            task_obj = self.pool.get('project.task')
+            for task in task_obj.browse(cr, uid, [task_id]): 
+                if task.project_id and task.project_id.to_invoice:
+	            return {'value':{'to_invoice': task.project_id.to_invoice.id,}}
+        return {'value':{}}
+
+    def _get_product(self, cr, uid, work_id):
+        product_id = ''
+        for work in self.browse(cr, uid, [work_id] ):
+            grid_obj = self.pool.get('analytic.user.funct.grid')
+            if grid_obj:
+                grid_ids = grid_obj.search(cr, uid, [('user_id','=', work.user_id.id),('account_id','=',work.task_id.project_id.analytic_account_id.id)])
+                for grid_line in grid_obj.browse(cr, uid, grid_ids):
+                    product_id = grid_line.product_id.id
+
+            if not product_id:
+                employee_id = self.pool.get('hr.employee').search(cr, uid, [('user_id','=',work.user_id.id)])
+                for employee in self.pool.get('hr.employee').browse(cr, uid, employee_id):
+                    if employee.product_id:
+                        product_id = employee.product_id.id
+                
+
+        return product_id
+
 
     def write(self, cr, uid, ids, vals, context=None):
+        obj_timesheet = self.pool.get('hr.analytic.timesheet')
+        obj_analytic_line= self.pool.get('account.analytic.line')
+        self._logger.debug('FGF vals `%s`',  vals)
         if 'user_id' not in vals:
-            for task in self.browse(cr, uid, ids, context=context):
-                vals['user_id'] = task.user_id.id
-        return super(project_work,self).write(cr, uid, ids, vals, context)
+                vals['user_id'] = uid
+        res= super(project_work,self).write(cr, uid, ids, vals, context)
+        for work in self.browse(cr, uid, ids, context=context):
+            if work.hr_analytic_timesheet_id and work.hr_analytic_timesheet_id.line_id:
+                val = {
+                   'to_invoice': work.to_invoice.id,
+                   'name' : work.task_id.name+': '+ work.name,
+                   'account_id' : work.task_id.project_id.analytic_account_id.id,
+                   }
+                product_id = self._get_product(cr, uid, work.id)
+                if product_id:
+                    val['product_id'] = product_id
+                self._logger.debug('FGF update analytic `%s` `%s`', work.hr_analytic_timesheet_id.line_id.id, val)
+                obj_analytic_line.write(cr, uid, [work.hr_analytic_timesheet_id.line_id.id], val)
+         
+                
+        return res
+
+    def create(self, cr, uid, vals, *args, **kwargs):
+        res = super(project_work,self).create(cr, uid, vals, *args, **kwargs)
+        timeline_id = vals.get('hr_analytic_timesheet_id') and vals['hr_analytic_timesheet_id'] or ''
+        if timeline_id:
+            obj_timesheet = self.pool.get('hr.analytic.timesheet')
+            for work in self.browse(cr, uid, [res] ):
+                vals = {}
+                if work.to_invoice:
+                    vals['to_invoice'] = work.to_invoice.id
+                product_id = self._get_product(cr, uid, work.id)
+                if product_id:
+                    vals['product_id'] = product_id
+                obj_timesheet.write(cr, uid, [timeline_id], vals)
+
+        return res
 
 project_work()
 

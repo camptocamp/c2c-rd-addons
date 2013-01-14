@@ -336,13 +336,16 @@ class stock_move(osv.osv):
 
     def _compute_move_value_sale(self, cr, uid, ids, name, args, context):
         self._logger.debug('value_sale')
+        res_curr_acc = self.pool.get('res.currency')
+        digits = self.pool.get('decimal.precision').precision_get(cr, uid, 'Account')
         if not ids: return {}
         result = {}
         for move in self.browse(cr, uid, ids):
             if move.state in ['done','cancel']: return {}
             self._logger.debug('type sale `%s`', move.picking_id.type)
             if move.sale_line_id:
-                result[move.id] = move.product_qty * move.sale_line_id.price_unit
+                rate = res_curr_acc._get_conversion_rate(cr, uid, move.sale_line_id.order_id.pricelist_id.currency_id, move.company_id.currency_id, context=context)
+                result[move.id] = round(move.product_qty * move.sale_line_id.price_unit * rate, digits)
                 self._logger.debug('value_sale `%s`', result[move.id])
         return result
 
@@ -364,7 +367,8 @@ class stock_move(osv.osv):
          result = {}
          for move in self.browse(cr, uid, ids):
              #period_ids= self.pool.get('account.period').search(cr,uid,[('date_start','<=',move.date),('date_stop','>=',move.date ), ('special','=',False)])
-             period_ids= self.pool.get('account.period').search(cr,uid,[('date_start','<=',move.date),('date_stop','>=',move.date ),('special','!=', True)])
+             #period_ids= self.pool.get('account.period').search(cr,uid,[('date_start','<=',move.date),('date_stop','>=',move.date ),('special','!=', True)])
+             period_ids= self.pool.get('account.period').search(cr,uid,[('date_start','<=',move.date_expected),('date_stop','>=',move.date_expected ),('special','!=', True)])
              
              if len(period_ids):
                  result[move.id] = period_ids[0]

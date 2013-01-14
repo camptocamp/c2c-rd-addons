@@ -66,21 +66,21 @@ class account_account(osv.osv):
             #if aml_query.strip():
             #    wheres.append(aml_query.strip())
             #filters = " AND ".join(wheres)
-            #filters = ' AND period_id in ( select id from account_period where fiscalyear_id in ( %s ) ) ' % context.get('fiscalyear', False) 
+            #filters = ' AND period_id in ( select id from account_period where fiscalyear_id in ( %s ) ) ' % context.get('fiscalyear', False)
             if context.get('periods', False):
                 periods = context.get('periods', False)
             else:
-               # default if startet without form
-               date = time.strftime('%Y-%m-%d')
-               fiscalyear_pool = self.pool.get('account.fiscalyear')
-               fy_id = fiscalyear_pool.search(cr, uid, [('date_start','<=',date), ('date_stop','>=',date)])
-               period_pool = self.pool.get('account.period')
-               periods = period_pool.search(cr, uid, [('fiscalyear_id','in',fy_id)])
-            
+                # default if startet without form
+                date = time.strftime('%Y-%m-%d')
+                fiscalyear_pool = self.pool.get('account.fiscalyear')
+                fy_id = fiscalyear_pool.search(cr, uid, [('date_start','<=',date), ('date_stop','>=',date)])
+                period_pool = self.pool.get('account.period')
+                periods = period_pool.search(cr, uid, [('fiscalyear_id','in',fy_id)])
+
             self._logger.debug('Periods: `%s`', periods)
             # FIXME - tuple must not return ',' if only one period is available - period_id in ( p,) should be period_id in ( p )
             filters = ''
-            if periods: 
+            if periods:
                 filters = ' AND period_id in (%s) ' % (','.join(map(str,periods)) )
             # IN might not work ideally in case there are too many
             # children_and_consolidated, in that case join on a
@@ -170,16 +170,16 @@ class account_account(osv.osv):
             if context.get('periods_prev', False):
                 periods_prev = context.get('periods_prev', False)
             else:
-               # default if startet without form
-               date = (datetime.today() + relativedelta(years=-1)).strftime('%Y-%m-%d')
-               fiscalyear_pool = self.pool.get('account.fiscalyear')
-               fy_id = fiscalyear_pool.search(cr, uid, [('date_start','<=',date), ('date_stop','>=',date)])
-               period_pool = self.pool.get('account.period')
-               periods_prev = period_pool.search(cr, uid, [('fiscalyear_id','in',fy_id),('date_start','<=',date)])
+                # default if startet without form
+                date = (datetime.today() + relativedelta(years=-1)).strftime('%Y-%m-%d')
+                fiscalyear_pool = self.pool.get('account.fiscalyear')
+                fy_id = fiscalyear_pool.search(cr, uid, [('date_start','<=',date), ('date_stop','>=',date)])
+                period_pool = self.pool.get('account.period')
+                periods_prev = period_pool.search(cr, uid, [('fiscalyear_id','in',fy_id),('date_start','<=',date)])
             if periods_prev and len(periods_prev) > 0:
-               filters = ' AND period_id in (%s) ' % (','.join(map(str,periods_prev)) )
+                filters = ' AND period_id in (%s) ' % (','.join(map(str,periods_prev)) )
             else:
-               filters = ' AND 1=2'
+                filters = ' AND 1=2'
             # IN might not work ideally in case there are too many
             # children_and_consolidated, in that case join on a
             # values() e.g.:
@@ -188,7 +188,7 @@ class account_account(osv.osv):
             # ON l.account_id = tmp.id
             # or make _get_children_and_consol return a query and join on that
             if not query_params:
-                 query_params = ''
+                query_params = ''
             params = (', '.join(map(str,children_and_consolidated)))
             request = ("SELECT l.account_id as id, " +\
                        ', '.join(map(mapping.__getitem__, field_names)) +
@@ -196,7 +196,7 @@ class account_account(osv.osv):
                        " WHERE l.account_id IN (%s) " \
                             + filters +
                        " GROUP BY l.account_id") % (params)
-            #params = (tuple(children_and_consolidated),) 
+            #params = (tuple(children_and_consolidated),)
             #params = (tuple(children_and_consolidated),) + query_params
             #params = (', '.join(map(str,children_and_consolidated)))
             self._logger.debug('Request: `%s`', request)
@@ -246,5 +246,17 @@ class account_account(osv.osv):
         'debit_sum': fields.function(__compute_sum, digits_compute=dp.get_precision('Account'), method=True, string='Debit', multi='balance_sum'),
         'balance_prev_sum': fields.function(__compute_prev_sum, digits_compute=dp.get_precision('Account'), method=True, string='Balance Prev Year', multi='balance_prev_sum'),
         }
+
+    def write(self, cr, uid, ids, vals, context=None):
+        if context is None:
+            context = {}
+        account_period_sum_obj = self.pool.get('account.account_period_sum')
+
+        res = super(account_account, self).write(cr, uid, ids, vals, context)
+        for account in self.browse(cr, uid, ids):
+            cr.execute("""delete from account_account_period_sum where account_id = %s""" %(account.id))
+            account_period_sum_obj.init_sum(cr, uid, [account.id])
+
+        return res
 
 account_account()

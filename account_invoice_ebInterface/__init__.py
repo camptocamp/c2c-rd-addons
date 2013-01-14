@@ -5,7 +5,7 @@
 # (<http://www.swing-system.com>)
 # Copyright (C) ChriCar Beteiligungs- und Beratungs- GmbH
 # all rights reserved
-#    01-APR-2011 (GK) created
+#    31-DEC-2012 (GK) created
 #
 # WARNING: This program as such is intended to be used by professional
 # programmers who take the whole responsibility of assessing all potential
@@ -27,39 +27,9 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, see <http://www.gnu.org/licenses/> or
 # write to the Free Software Foundation, Inc.,
-# 59 Temple Place - Suite 330, Boston, MA  02111-1.17, USA.
+# 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 ###############################################
-{ "name"        : "Electronic Banking via SEPA"
-, "version"     : "1.1"
-, "author"      : "Swing Entwicklung betrieblicher Informationssysteme GmbH"
-, "website"     : "http://www.swing-system.com"
-, "description" : 
-"""
-SEPA (Single European Payment Area) is a standardization of the ECBS (European Commitee for Banking Standards).
-It conforms to the ISO 20022 standard (Finmancial services - universal financial industry message scheme).
+import account_invoice
+import installer
 
-This module implements the credit transfer (ISO.pain.001.101).
-It generates an XML-file per payment-order and attaches it to the payment order at the time of payment_order.action_open.
-
-For each involved bank BIC/IBAN is required.
-"Steuerzahlung" is not implemented.
-The "payment day" is, if unspecified or in the past, the file-creation-date.
-"""
-, "category"    : "Payment module"
-, "depends"     : 
-    [ "account_payment"
-    , "base_iban"
-    , "xml_template"
-    , "account_payment_customer_data"
-    ]
-, "init_xml"    : 
-    [ "pain_001_001_03_austrian_001.xml"
-    , "pain_001_001_02_austrian_002.xml"
-    ]
-, "demo_xml"    : []
-, "update_xml"  : ["wizard/generate_sepa_view.xml"]
-, "test"        : []
-, "auto_install": False
-, "installable" : True
-}

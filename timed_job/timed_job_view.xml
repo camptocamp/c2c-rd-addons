@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data>
+    <record id="timed_job_view_tree" model="ir.ui.view">
+      <field name="name">timed.job.tree</field>
+      <field name="model">timed.job</field>
+      <field name="type">tree</field>
+      <field name="arch" type="xml">
+        <tree string="Timed Jobs">
+          <field name="name"/>
+          <field name="lastcall" readonly="1"/>
+          <field name="nextcall" readonly="1"/>
+          <field name="state"/>
+          <field name="model"/>
+          <field name="function"/>
+          <field name="numbercall"/>
+          <field name="repeat_missed"/>
+          <field name="notification_mail"/>
+          <field name="startup_predecessor"/>
+          <field name="user_id"/>
+        </tree>
+      </field>
+    </record>
+    <record id="timed_job_view_form" model="ir.ui.view">
+      <field name="name">timed.job.form</field>
+      <field name="model">timed.job</field>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <form string="Timed Jobs">
+          <field name="name"/>
+          <field name="active"/>
+          <field name="user_id"/>
+          <notebook colspan="4">
+            <page string="Information">
+              <field name="state"/>
+              <group attrs="{'invisible':[('state','in',['days_of_week','days_of_month'])]}">
+                <field name="interval_number"/>
+              </group>
+              <group attrs="{'invisible':[('state','in',['minutes','hours','days'])]}">
+                <field name="day_list"/>
+              </group>
+              <newline/>
+              <field name="day_time"/>
+              <field name="numbercall"/>
+              <newline/>
+              <field name="repeat_missed"/>
+              <field name="notification_mail"/>
+              <newline/>
+              <field name="lastcall" readonly="1"/>
+              <field name="nextcall" readonly="1"/>
+              <newline/>
+              <field name="startup_predecessor"/>
+            </page>
+            <page string="Technical Data" groups="base.group_extended">
+              <separator string="Function to Call" colspan="4"/>
+              <field name="model" groups="base.group_extended"/>
+              <field name="function"/>
+              <separator string="Arguments" colspan="4"/>
+              <field colspan="4" name="args" nolabel="1"/>
+            </page>
+          </notebook>
+        </form>
+      </field>
+    </record>
+    <record id="timed_job_view_search" model="ir.ui.view">
+      <field name="name">timed.job.search</field>
+      <field name="model">timed.job</field>
+      <field name="type">search</field>
+      <field name="arch" type="xml">
+        <search string="Timed Jobs">
+          <field name="name"/>
+          <field name="user_id" widget="selection"/>
+          <field name="lastcall"/>
+          <field name="active"/>
+          <newline/>
+          <group expand="0" string="Group By...">
+            <filter string="User" icon="terp-personal" domain="[]" context="{'group_by':'user_id'}"/>
+            <filter string="Execution" icon="terp-go-month" domain="[]" context="{'group_by':'lastcall'}"/>
+          </group>
+        </search>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="timed_job_view_calendar">
+      <field name="name">timed.job.calendar</field>
+      <field name="model">timed.job</field>
+      <field name="type">calendar</field>
+      <field name="arch" type="xml">
+        <calendar string="Last Executions" date_start="lastcall" color="user_id">
+          <field name="name"/>
+          <field name="user_id"/>
+        </calendar>
+      </field>
+    </record>
+    <record id="timed_job_act" model="ir.actions.act_window">
+      <field name="name">Timed Jobs</field>
+      <field name="res_model">timed.job</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form,calendar</field>
+      <field name="view_id" ref="timed_job_view_tree"/>
+    </record>
+    <menuitem 
+      action="timed_job_act" 
+      id="menu_timed_job_act" 
+      parent="base.menu_config"
+      groups="base.group_extended"/>
+  </data>
+</openerp>

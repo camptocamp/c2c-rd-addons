@@ -19,32 +19,29 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+from osv import fields, osv
+import netsvc
+import logging
 
 
-{
-    'name': 'Product Price Property',
-    'version': '1.0',
-    'category': 'Accounting & Finance',
-    'description': """
-Creates a poperty for list and standard price on product (not template).
-this allows different prices for variants and companies
 
-ATT - 6.1 has server bug - ir property can not defined on "_inherits" table
+class account_invoice(osv.osv):
+    _inherit = "account.invoice"
 
-Warning : 
+    def button_validate(self, cr , uid, ids, context=None):
+        """FIXME
+        workaround because of limited multi company support
+        """
+        _logger = logging.getLogger(__name__)
+        if not context:
+            context = {}
+        for invoice in self.browse(cr, uid, ids, context):
+            _logger.debug('FGF validate partner %s ' %(invoice.partner_id.id)   )
+            if invoice.partner_id.company_id and invoice.partner_id.company_id.id != invoice.company_id.id:
+               _logger.debug('FGF update partner %s ' %(invoice.partner_id.id)   )
+               self.pool.get('res.partner').write(cr, 1, [invoice.partner_id.id], {'company_id':''})
 
- - This methode will not work if prices are used through SQL queries in OpenERP. Like
-in report.analytic.line.to_invoice or in stock valuation report
- - May cause incompatibility in custom module because the data model change
+        res= self.button_validate(cr , uid, ids, context)
+        return res
 
-""",
-    'author': 'Camptocamp Austria',
-    'depends': [ 'product'],
-    'update_xml': [
-       ],
-    #'update_xml': ['product_view.xml'],
-    'demo_xml': [],
-    'installable': True,
-    'active': False,
-}
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+account_invoice()
