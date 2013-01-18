@@ -3,7 +3,6 @@
 #
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>). All Rights Reserved
-#    Copyright (C) 2010-2013 Camptocamp Austria (<http://www.camptocamp.at>)
 #    $Id$
 #
 #    This program is free software: you can redistribute it and/or modify
@@ -327,15 +326,16 @@ class survey_form_multi(report_rml):
                         colWidths = "cm,".join(map(tools.ustr, cols_widhts))
                         colWidths = tools.ustr(colWidths) + 'cm'
                         for ans in que.answer_choice_ids:
+                            a = ' - ' + ans.answer or '' 
                             rml += """<para style="P1"></para>
                             <blockTable colWidths=" """+ colWidths + """ " style="ans_tbl">
-                                <tr>
-                                <td><para style="answer">""" + to_xml(tools.ustr(ans.answer)) + """</para></td>
-                                    <td>
+                                
+                                <tr><td><para style="answer">""" + to_xml(tools.ustr(translate(cr, 'survey.answer,answer','model',survey.lang or 'en_EN',ans.answer) or ans.answer + a)) + """</para></td>
+                                <td>
                                     <illustration>
                                         <rect x="0.0cm" y="-0.5cm" width='""" + tools.ustr(str(cols_widhts[0] - 0.3) + "cm") + """' height="0.6cm" fill="no" stroke="yes"/>
                                     </illustration>
-                                    </td>
+                                </td>
                                 </tr>
                             </blockTable>"""
 
