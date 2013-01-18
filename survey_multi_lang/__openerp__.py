@@ -31,7 +31,7 @@ This module increases the length of text and makes it translatable
 """,
     'author': 'Camptocamp Austria',
     'depends': [ 'survey'],
-    'update_xml': [],
+    'update_xml': ['survey_view.xml','wizard/survey_print_multi.xml','report/survey_report.xml'],
     'demo_xml': [],
     'installable': True,
     'active': False,

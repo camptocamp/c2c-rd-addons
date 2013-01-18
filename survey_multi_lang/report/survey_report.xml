@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<openerp>
+    <data>
+
+        <report auto="False"
+                id="report_survey_multi_form"
+                model="survey"
+                name="survey.multi.form"
+                string="Survey Multi Lang"/>
+
+    </data>
+</openerp>

@@ -21,12 +21,21 @@
 ##############################################################################
 from osv import fields, osv
 
+def _lang_get(self, cr, uid, context=None):
+    lang_pool = self.pool.get('res.lang')
+    ids = lang_pool.search(cr, uid, [], context=context)
+    res = lang_pool.read(cr, uid, ids, ['code', 'name'], context)
+    return [(r['code'], r['name']) for r in res]
+    
 class survey(osv.osv):
     _inherit = 'survey'
-    
+
     _columns = {
        'title': fields.char('Survey Title', size=255, required=1,  translate=True),
        'note': fields.text('Description', translate=True), 
+       'lang': fields.selection(_lang_get, 'Language to print',
+            help="If the selected language is loaded in the system, the survey will be printed in this language."),
+
       }
       
 survey()
