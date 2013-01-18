@@ -76,7 +76,7 @@ class purchase_order(osv.osv):
 
 
     _columns = {
-                 'payment_term': fields.many2one('account.payment.term', 'Payment Term'),
+              'payment_term': fields.many2one('account.payment.term', 'Payment Term'),
               'incoterm': fields.many2one('stock.incoterms', 'Incoterm', help="Incoterm which stands for 'International Commercial terms' implies its a series of sales terms which are used in the commercial transaction."),
 
               'print_uom': fields.function(_print_uom, method=True, type='boolean', string='Print UoM if different from UoS',),
@@ -100,28 +100,28 @@ class purchase_order(osv.osv):
               
     }
 
-    def onchange_partner_id(self, cr, uid, ids, partner_id):
-        res = super(purchase_order, self).onchange_partner_id(cr, uid, ids, partner_id)
-        partner = self.pool.get('res.partner')
-        if partner_id :
-            supplier = partner.browse(cr, uid, partner_id)
-            payment_term_id = supplier.property_payment_term_supplier.id
-            if payment_term_id:
-               res['value']= {'payment_term': payment_term_id,}
-        return res
+#    def onchange_partner_id(self, cr, uid, ids, partner_id):
+#        res = super(purchase_order, self).onchange_partner_id(cr, uid, ids, partner_id)
+#        partner = self.pool.get('res.partner')
+#        if partner_id :
+#            supplier = partner.browse(cr, uid, partner_id)
+#            payment_term_id = supplier.property_payment_term_supplier.id
+#            if payment_term_id:
+#               res['value']= {'payment_term': payment_term_id,}
+#        return res
 
 purchase_order()
 
-class res_partner(osv.osv):
-    _inherit = 'res.partner'
-    _columns = {
-        'property_payment_term_supplier': fields.property(
-            'account.payment.term',
-            type='many2one',
-            relation='account.payment.term',
-            string ='Supplier Payment Term',
-            view_load=True,
-            help="This payment term will be used instead of the default one for the current partner as supplier"),
-      }
-
-res_partner()
+#class res_partner(osv.osv):
+#    _inherit = 'res.partner'
+#    _columns = {
+#        'property_payment_term_supplier': fields.property(
+#            'account.payment.term',
+#            type='many2one',
+#            relation='account.payment.term',
+#            string ='Supplier Payment Term',
+#            view_load=True,
+#            help="This payment term will be used instead of the default one for the current partner as supplier"),
+#      }
+#
+#res_partner()

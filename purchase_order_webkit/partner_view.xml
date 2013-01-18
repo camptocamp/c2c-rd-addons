@@ -1,6 +1,6 @@
 <openerp>
     <data>
-
+<!--
         <record id="view_partner_property_term_form" model="ir.ui.view">
         <field name="name">res.partner.property.term.form</field>
         <field name="model">res.partner</field>
@@ -12,7 +12,7 @@
                 </field>
     </field>
     </record>
-
+-->
 
     </data>
 </openerp>
