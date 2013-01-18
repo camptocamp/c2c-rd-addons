@@ -160,7 +160,7 @@ work per task
     <menuitem
       action="c2c_project_task_work"
       id="menu_c2c_project_task_work"
-      parent="base.menu_project_management_time_tracking"
+      parent="project.menu_project_management"
       sequence="150"/>
   </data>
 </openerp>
