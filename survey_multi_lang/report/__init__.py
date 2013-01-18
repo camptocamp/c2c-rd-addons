@@ -3,6 +3,7 @@
 #
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>). All Rights Reserved
+#    Copyright (C) 2010-2013 Camptocamp Austria (<http://www.camptocamp.at>)
 #    $Id$
 #
 #    This program is free software: you can redistribute it and/or modify
