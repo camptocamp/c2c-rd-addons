@@ -32,7 +32,7 @@ class mail_message(osv.osv):
                 vals['partner_id']= vals['res_id']
             else:
                 model_obj = self.pool.get(vals['model'])
-                if model_obj._columns['partner_id']:
+                if model_obj._columns.get('partner_id') and model_obj._columns['partner_id']:
                     for res in model_obj.browse(cr, uid, [vals['res_id']], context):
                         if res.partner_id:
                              vals['partner_id']= res.partner_id.id
