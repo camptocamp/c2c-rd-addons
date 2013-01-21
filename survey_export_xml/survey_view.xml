@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="survey_export_xml_form1">
+            <field name="name">survey_lang_form</field>
+            <field name="model">survey</field>
+            <field name="inherit_id" ref="survey_multi_lang.survey_lang_form"/>
+            <field name="arch" type="xml">
+                <field name="lang" position="after">
+                     <field name="template_id" />
+                </field>
+            </field>
+        </record>
+        
+        <record model="ir.ui.view" id="survey_export_xml_form2">
+            <field name="name">survey_lang_form</field>
+            <field name="model">survey</field>
+            <field name="inherit_id" ref="survey.survey_form"/>
+            <field name="arch" type="xml">
+                <button name="action_print_survey" position="after">
+                     <button name="survey_export_xml" type="object" string="Export XML"/>
+                </button>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="survey_export_xml_tree">
+            <field name="name">survey_lang_form</field>
+            <field name="model">survey</field>
+            <field name="inherit_id" ref="survey.survey_tree"/>
+            <field name="arch" type="xml">
+                <button name="action_print_survey" position="after">
+                     <button name="survey_export_xml" type="object"  string="Export XML"/>
+                </button>
+            </field>
+        </record>
+        
+    </data>
+</openerp>
+
