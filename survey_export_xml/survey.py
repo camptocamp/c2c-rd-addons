@@ -20,6 +20,7 @@
 #
 ##############################################################################
 from osv import fields, osv
+from tools.translate import _
 
 class survey(osv.osv):
     _inherit = 'survey'
@@ -47,3 +48,29 @@ class survey(osv.osv):
             xml_gen_obj.attach_xml(cr, uid, survey.id  , survey , xml, 'Survey XML '+survey.lang, 'survey_'+survey.lang, description=False, pretty_print=True, context=None)
              
 survey()
+
+class survey_question(osv.osv):
+    _inherit = 'survey.question'
+
+    def _get_type(self, cr, uid, ids, field_name, arg, context=None):
+        if len(ids) == 0:
+            return {}
+        res = {}
+        for que in self.browse(cr, uid, ids):
+            if len(que.answer_choice_ids) == 5:
+                typ = 'FIVE_OPTIONS_QUESTION'
+            elif len(que.answer_choice_ids) == 3:
+                typ = 'THREE_OPTIONS_QUESTION'
+            elif len(que.answer_choice_ids) == 2:
+                typ = 'YES_NO_QUESTION'
+            else:
+                typ = 'ToBeDefined '+str(len(que.answer_choice_ids))
+                #raise osv.except_osv(_('Error !'),'You can only define YES/NO, 3 and 5 rating questions')
+            res[que.id] = typ     
+        return res 
+
+    _columns = {
+        'type_sense'  : fields.function(_get_type, string="Sense Response Type"),
+      }
+
+survey_question()
