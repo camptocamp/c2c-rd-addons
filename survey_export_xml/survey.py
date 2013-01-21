@@ -45,7 +45,7 @@ class survey(osv.osv):
             xml_gen_obj = self.pool.get('xml.template')
             xml = xml_gen_obj.generate_xml(cr, uid, survey.template_id.id, survey = survey, lang = survey.lang)
             #xml = xml1.replace(xml,'<headers>','').replace('<questions>','').replace(xml,'</headers>','').replace('</questions>','') 
-            xml_gen_obj.attach_xml(cr, uid, survey.id  , survey , xml, 'Survey XML '+survey.lang, 'survey_'+survey.lang, description=False, pretty_print=True, context=None)
+            xml_gen_obj.attach_xml(cr, uid, survey.id  , survey , xml, 'questionaire_'+' '+survey.lang+'.xml', 'questionaire_'+survey.lang+'.xml', description=False, pretty_print=True, context=None)
              
 survey()
 
