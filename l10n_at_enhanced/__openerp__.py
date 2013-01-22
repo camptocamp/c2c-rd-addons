@@ -32,9 +32,10 @@ This module provides an enhanced standard Accounting Chart for Austria which is 
 Please keep in mind that you should review and adapt it with your Accountant, before using it in a live Environment.
 20130101 enhanced fiscal position configuration by Camptocamp
 The fiscal positions defined in l10n_at are set to inactive
+20130122 prepare for VAT XML
 """,
     'demo': [],
-    'data': ['account_tax.xml'],
+    'data': ['account_tax.xml','wizard/account_vat_view.xml'],
     'auto_install': False,
     'installable': True
 }

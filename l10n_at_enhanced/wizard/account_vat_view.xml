@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="account_tax_xml" model="ir.ui.view">
+            <field name="name">Account Vat XML Declaration</field>
+            <field name="model">account.vat.declaration</field>
+            <field name="inherit_id" ref="account.view_account_vat_declaration" />
+            <field name="arch" type="xml">
+              <xpath expr="/form/group/field[@name='display_detail']" position="after">
+                 <field name="template_id"/>
+              </xpath>
+              <xpath expr="/form/footer/button[@name='create_vat']" position="after">
+              
+                or
+                <button string="Create Tax XML atachment" name="create_tax_xml" type="object" class="oe_highlight"/>
+                or
+                
+              </xpath>
+            </field>
+          </record>
+          
+    </data>
+</openerp>

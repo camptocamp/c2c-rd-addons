@@ -20,5 +20,5 @@
 ##############################################################################
 
 import fiscal_position
-
+import account_vat
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
