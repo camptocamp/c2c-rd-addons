@@ -20,6 +20,7 @@
 #
 ##############################################################################
 from osv import fields, osv
+from tools.translate import _
 
 class survey(osv.osv):
     _inherit = 'survey'
@@ -42,7 +43,7 @@ class survey(osv.osv):
             context = {}
         for survey in self.browse(cr, uid, ids, context):
             xml_gen_obj = self.pool.get('xml.template')
-            xml = xml_gen_obj.generate_xml(cr, uid, survey.template_id.id, survey = survey)
+            xml = xml_gen_obj.generate_xml(cr, uid, survey.template_id.id, survey = survey, _ = _)
             xml_gen_obj.attach_xml(cr, uid, survey.id  , survey , xml, 'Survey XML '+survey.lang, 'survey_'+survey.lang, description=False, pretty_print=False, context=None)
             #attach_xml(self, cr, uid, id, attach_to, xml, name, fname, description=False, pretty_print=False, context=None)
 survey()
