@@ -42,35 +42,36 @@ class survey(osv.osv):
         if context is None:
             context = {}
         for survey in self.browse(cr, uid, ids, context):
+          if survey.template_id.id:
             xml_gen_obj = self.pool.get('xml.template')
-            xml = xml_gen_obj.generate_xml(cr, uid, survey.template_id.id, survey = survey, lang = survey.lang)
-            #xml = xml1.replace(xml,'<headers>','').replace('<questions>','').replace(xml,'</headers>','').replace('</questions>','') 
-            xml_gen_obj.attach_xml(cr, uid, survey.id  , survey , xml, 'questionaire_'+' '+survey.lang+'.xml', 'questionaire_'+survey.lang+'.xml', description=False, pretty_print=True, context=None)
-             
+            xml = xml_gen_obj.generate_xml(cr, uid, survey.template_id.id, survey = survey, _ = _)
+            user_obj = self.pool.get('res.users')
+            user_lang = user_obj.browse(cr, uid, uid, context=context).lang
+            xml_gen_obj.attach_xml(cr, uid, survey.id  , survey , xml, 'questionaire_' + user_lang + '.xml', 'questionaire_' + user_lang + '.xml', description=False, pretty_print=True, context=None)
 survey()
 
 class survey_question(osv.osv):
     _inherit = 'survey.question'
 
-    def _get_type(self, cr, uid, ids, field_name, arg, context=None):
-        if len(ids) == 0:
-            return {}
+   
+    def _get_type_sense(self, cr, uid, ids, field_name, arg, context=None):
         res = {}
         for que in self.browse(cr, uid, ids):
-            if len(que.answer_choice_ids) == 5:
-                typ = 'FIVE_OPTIONS_QUESTION'
-            elif len(que.answer_choice_ids) == 3:
-                typ = 'THREE_OPTIONS_QUESTION'
+            if len(que.answer_choice_ids) in (5,6):
+                txt = 'FIVE_OPTIONS_QUESTION'
+            elif len(que.answer_choice_ids) in (3,4):
+                txt = 'THREE_OPTIONS_QUESTION'
             elif len(que.answer_choice_ids) == 2:
-                typ = 'YES_NO_QUESTION'
+                txt = 'YES_NO_QUESTION'
             else:
-                typ = 'ToBeDefined '+str(len(que.answer_choice_ids))
-                #raise osv.except_osv(_('Error !'),'You can only define YES/NO, 3 and 5 rating questions')
-            res[que.id] = typ     
-        return res 
-
+                txt = '**ERROR**'
+            res[que.id] = txt   
+        return res
+               
+        
+ 
     _columns = {
-        'type_sense'  : fields.function(_get_type, string="Sense Response Type"),
+        'type_sense' : fields.function(_get_type_sense, method=True, string="Type Sense")
       }
 
 survey_question()
