@@ -39,7 +39,7 @@ class account_vat_declaration(osv.osv_memory):
                 datas['form'][field] = datas['form'][field][0]
         datas['form']['company_id'] = self.pool.get('account.tax.code').browse(cr, uid, [datas['form']['chart_tax_id']], context=context)[0].company_id.id
         if datas['form']['template_id']:
-            template_id = datas['form']['template_id']
+            template_id = datas['form'].get('template_id', False)
         else:
             template_id = ''
         period_ids = [] # FIXME
@@ -48,13 +48,17 @@ class account_vat_declaration(osv.osv_memory):
         xml_gen_obj = self.pool.get('xml.template')
         fiscalyear_obj = self.pool.get('account.fiscalyear')
         if template_id:
-            for fiscalyear in fiscalyear_obj.browse(cr, uid, datas['form']['fiscal_year']):
-                for tax in tax_code_obj(cr, uid, datas[ids], context):
-                    xml = xml_gen_obj.generate_xml(cr, uid, template_id, tax = tax, fiscal_year = datas['form']['fiscal_year'], periods = period_ids )
+            fiscalyear_id = datas['form'].get('fiscalyear_id', False)
+            for fiscalyear in fiscalyear_obj.browse(cr, uid, [fiscalyear_id]):
+                chart_id = datas['form']['chart_tax_id']
+                for tax in tax_code_obj.browse(cr, uid, [chart_id] , context):
+                    xml = xml_gen_obj.generate_xml(cr, uid, template_id, tax = tax, fiscalyear = fiscalyear )
+                    
                     file_name = 'tax_xml_'+fiscalyear.code
                     file_name += '' # FIXME period name missing
                     file_name += '.xml'
-                    xml_gen_obj.attach_xml(cr, uid, datas['form']['fiscal_year'], fiscalyear_obj , xml, file_name, file_name, description=False, pretty_print=True, context=None)
+                    file_name = file_name.replace(' ','').replace('/','-')
+                    xml_gen_obj.attach_xml(cr, uid, fiscalyear_id , fiscalyear , xml, file_name, file_name, description=False, pretty_print=True, context=None)
   
         return 
 

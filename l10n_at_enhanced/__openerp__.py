@@ -25,7 +25,7 @@
     'author': 'Camptocamp',
     'website': 'http://www.camptocamp.com',
     'category': 'Localization/Account Charts',
-    'depends': ['account_chart', 'base_vat', 'l10n_at'],
+    'depends': ['account_chart', 'base_vat', 'l10n_at','xml_template'],
     'description': """
 This module provides an enhanced standard Accounting Chart for Austria which is based on the Template from BMF.gv.at.
 =====================================================================================================================
