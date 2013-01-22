@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
-
         <record model="ir.ui.view" id="survey_export_xml_form1">
             <field name="name">survey_lang_form</field>
             <field name="model">survey</field>
-            <field name="inherit_id" ref="survey_multi_lang.survey_lang_form"/>
+            <field name="inherit_id" ref="survey.survey_form"/>
             <field name="arch" type="xml">
-                <field name="lang" position="after">
+                <field name="response_user" position="after">
                      <field name="template_id" />
                 </field>
             </field>

@@ -42,8 +42,36 @@ class survey(osv.osv):
         if context is None:
             context = {}
         for survey in self.browse(cr, uid, ids, context):
+          if survey.template_id.id:
             xml_gen_obj = self.pool.get('xml.template')
             xml = xml_gen_obj.generate_xml(cr, uid, survey.template_id.id, survey = survey, _ = _)
-            xml_gen_obj.attach_xml(cr, uid, survey.id  , survey , xml, 'Survey XML '+survey.lang, 'survey_'+survey.lang, description=False, pretty_print=False, context=None)
-            #attach_xml(self, cr, uid, id, attach_to, xml, name, fname, description=False, pretty_print=False, context=None)
+            user_obj = self.pool.get('res.users')
+            user_lang = user_obj.browse(cr, uid, uid, context=context).lang
+            xml_gen_obj.attach_xml(cr, uid, survey.id  , survey , xml, 'questionaire_' + user_lang + '.xml', 'questionaire_' + user_lang + '.xml', description=False, pretty_print=True, context=None)
 survey()
+
+class survey_question(osv.osv):
+    _inherit = 'survey.question'
+
+   
+    def _get_type_sense(self, cr, uid, ids, field_name, arg, context=None):
+        res = {}
+        for que in self.browse(cr, uid, ids):
+            if len(que.answer_choice_ids) in (5,6):
+                txt = 'FIVE_OPTIONS_QUESTION'
+            elif len(que.answer_choice_ids) in (3,4):
+                txt = 'THREE_OPTIONS_QUESTION'
+            elif len(que.answer_choice_ids) == 2:
+                txt = 'YES_NO_QUESTION'
+            else:
+                txt = '**ERROR**'
+            res[que.id] = txt   
+        return res
+               
+        
+ 
+    _columns = {
+        'type_sense' : fields.function(_get_type_sense, method=True, string="Type Sense")
+      }
+
+survey_question()
