@@ -105,6 +105,21 @@ class wizard_generate_xml(osv.osv_memory):
         return model, self.pool.get(model.model)
     # end def _table_obj
 
+    def manage_attachments(self, cr, uid, model, text, name, description, context=None):
+        pool = pooler.get_pool(cr.dbname)
+        attachment_obj = pool.get('ir.attachment')
+        title = name.lower().replace(" ", "_")
+        vals  = \
+            { 'name'         : title
+            , 'datas'        : text
+            , 'datas_fname'  : "%s.csv" % name
+            , 'res_model'    : model._table_name
+            , 'res_id'       : model.id
+            , 'description'  : "%s" % (description, )
+            }
+        attachment_obj.create(cr, uid, vals, context=context)
+    # end def manage_attachments
+
     def add_filter(self, cr, uid, ids, context) :
         data_obj = self.pool.get('ir.model.data')
         data_ids = data_obj.search \

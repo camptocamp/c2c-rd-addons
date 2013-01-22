@@ -384,6 +384,9 @@ Depending on this interval unit the length of the interval can be specified:
     # end def _next
 
     def _call(self, cr, uid, model_obj, func, args) :
+        if not model_obj :
+            self._logger.error("Model for %s%s not (yet) defined" % (func, args))
+            return
         f = getattr(model_obj, func)
         t0 = time.time()
         c0 = time.clock()
@@ -397,7 +400,6 @@ Depending on this interval unit the length of the interval can be specified:
     # end def _call
 
     def _process_job(self, dbname, now, job, last) :
-        last = None
         if job['lastcall'] :
             next = self._next(last, job)
         else :
