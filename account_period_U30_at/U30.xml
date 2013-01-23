@@ -1,0 +1,92 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<openerp>
+  <data noupdate="1">
+    <record model="xml.template" id="xml_template_U30" forcecreate="True">
+      <field name="name">U30 VAT declaration</field>
+      <field name="schema">https://www.bmf.gv.at/EGovernment/FINANZOnline/InformationenfrSoft_3165/Umsatzsteuervoranme_11373/ERKLAERUNGS_UEBERMITTLUNG_U30%282%29.xsd</field>
+      <field name="content" type="xml">
+        <!-- Umsatzsteuervoranmeldung ab 01/2009 - Stand: 11.01.2013-->
+        <ERKLAERUNGS_UEBERMITTLUNG>
+          <INFO_DATEN>
+            <ART_IDENTIFIKATIONSBEGRIFF>FASTNR</ART_IDENTIFIKATIONSBEGRIFF>
+            <IDENTIFIKATIONSBEGRIFF text-eval="steuernummer"/>
+            <PAKET_NR text-eval="paket_nr"/>
+            <DATUM_ERSTELLUNG type="datum" text-eval="datum"/>
+            <UHRZEIT_ERSTELLUNG type="uhrzeit" text-eval="uhrzeit"/>
+            <ANZAHL_ERKLAERUNGEN>1</ANZAHL_ERKLAERUNGEN>
+          </INFO_DATEN>
+          <ERKLAERUNG art="U30">
+            <SATZNR text-eval="paket_nr"/>
+            <ALLGEMEINE_DATEN>
+              <ANBRINGEN>U30</ANBRINGEN>
+              <ZRVON type="jahrmonat" text-eval="jahrmonat"/>
+              <ZRBIS type="jahrmonat" text-eval="jahrmonat"/>
+              <FASTNR text-eval="steuernummer"/>
+              <KUNDENINFO text-eval="period.company_id.name"/>
+            </ALLGEMEINE_DATEN>
+            <LIEFERUNGEN_LEISTUNGEN_EIGENVERBRAUCH>
+              <KZ000 type="kz" text-eval="kz('KZ000')"/>
+              <KZ001 type="kz" text-eval="kz('KZ001')"/>
+              <KZ021 type="kz" text-eval="kz('KZ021')"/>
+              <STEUERFREI>
+                <KZ011 type="kz" text-eval="kz('KZ011')"/>
+                <KZ012 type="kz" text-eval="kz('KZ012')"/>
+                <KZ015 type="kz" text-eval="kz('KZ015')"/>
+                <KZ017 type="kz" text-eval="kz('KZ017')"/>
+                <KZ018 type="kz" text-eval="kz('KZ018')"/>
+                <KZ019 type="kz" text-eval="kz('KZ019')"/>
+                <KZ016 type="kz" text-eval="kz('KZ016')"/>
+                <VST text-eval="vst"/>
+                <KZ020 type="kz" text-eval="kz('KZ020')"/>
+              </STEUERFREI>
+              <VERSTEUERT>
+                <KZ022 type="kz" text-eval="kz('KZ022')"/>
+                <KZ029 type="kz" text-eval="kz('KZ029')"/>
+                <KZ025 type="kz" text-eval="kz('KZ025')"/>
+                <KZ037 type="kz" text-eval="kz('KZ037')"/>
+                <KZ052 type="kz" text-eval="kz('KZ052')"/>
+                <KZ038 type="kz" text-eval="kz('KZ038')"/>
+                <KZ056 type="kz" text-eval="kz('KZ056')"/>
+                <KZ057 type="kz" text-eval="kz('KZ057')"/>
+                <KZ048 type="kz" text-eval="kz('KZ048')"/>
+                <KZ044 type="kz" text-eval="kz('KZ044')"/>
+                <KZ032 type="kz" text-eval="kz('KZ032')"/>
+              </VERSTEUERT>
+            </LIEFERUNGEN_LEISTUNGEN_EIGENVERBRAUCH>
+            <INNERGEMEINSCHAFTLICHE_ERWERBE>
+              <KZ070 type="kz" text-eval="kz('KZ070')"/>
+              <KZ071 type="kz" text-eval="kz('KZ071')"/>
+              <VERSTEUERT_IGE>
+                <KZ072 type="kz" text-eval="kz('KZ072')"/>
+                <KZ073 type="kz" text-eval="kz('KZ073')"/>
+                <KZ088 type="kz" text-eval="kz('KZ088')"/>
+                <KZ076 type="kz" text-eval="kz('KZ076')"/>
+                <KZ077 type="kz" text-eval="kz('KZ077')"/>
+              </VERSTEUERT_IGE>
+            </INNERGEMEINSCHAFTLICHE_ERWERBE>
+            <VORSTEUER>
+              <KZ060 type="kz" text-eval="kz('KZ060')"/>
+              <KZ061 type="kz" text-eval="kz('KZ061')"/>
+              <KZ083 type="kz" text-eval="kz('KZ083')"/>
+              <KZ065 type="kz" text-eval="kz('KZ065')"/>
+              <KZ066 type="kz" text-eval="kz('KZ066')"/>
+              <KZ082 type="kz" text-eval="kz('KZ082')"/>
+              <KZ087 type="kz" text-eval="kz('KZ087')"/>
+              <KZ089 type="kz" text-eval="kz('KZ089')"/>
+              <KZ064 type="kz" text-eval="kz('KZ064')"/>
+              <KZ062 type="kz" text-eval="kz('KZ062')"/>
+              <KZ063 type="kz" text-eval="kz('KZ063')"/>
+              <KZ067 type="kz" text-eval="kz('KZ067')"/>
+              <KZ027 type="kz" text-eval="kz('KZ027')"/>
+              <KZ028 type="kz" text-eval="kz('KZ028')"/>
+              <KZ090 type="kz" text-eval="kz('KZ090')"/>
+              <ARE text-eval="are"/>
+              <REPO text-eval="repo"/>
+            </VORSTEUER>
+          </ERKLAERUNG>
+        </ERKLAERUNGS_UEBERMITTLUNG>
+      </field>
+    </record>
+  </data>
+</openerp>
+
