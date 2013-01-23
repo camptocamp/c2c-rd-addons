@@ -55,7 +55,6 @@ class account_period(osv.osv) :
                 (cr, uid
                 , template_id
                 , period = period
-                , steuernummer="???"
                 , paket_nr=time.strftime("%y%m%d%H")
                 , datum=time.strftime("%Y-%m-%d")
                 , uhrzeit=time.strtime("%H:%M:%S")

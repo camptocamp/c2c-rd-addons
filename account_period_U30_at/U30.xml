@@ -21,7 +21,7 @@
               <ANBRINGEN>U30</ANBRINGEN>
               <ZRVON type="jahrmonat" text-eval="jahrmonat_begin"/>
               <ZRBIS type="jahrmonat" text-eval="jahrmonat_ende"/>
-              <FASTNR text-eval="steuernummer"/>
+              <FASTNR text-eval="period.company_id.partner_id.vat"/>
               <KUNDENINFO text-eval="period.company_id.name"/>
             </ALLGEMEINE_DATEN>
             <LIEFERUNGEN_LEISTUNGEN_EIGENVERBRAUCH>
