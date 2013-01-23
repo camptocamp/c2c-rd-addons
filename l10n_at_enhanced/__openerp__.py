@@ -33,6 +33,7 @@ Please keep in mind that you should review and adapt it with your Accountant, be
 20130101 enhanced fiscal position configuration by Camptocamp
 The fiscal positions defined in l10n_at are set to inactive
 20130122 prepare for VAT XML
+http://www.bmf.gv.at/EGovernment/FINANZOnline/InformationenfrSoft_3165/Umsatzsteuervoranme_11373/_start.htm
 """,
     'demo': [],
     'data': ['account_tax.xml','wizard/account_vat_view.xml'],
