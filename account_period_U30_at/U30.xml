@@ -19,8 +19,8 @@
             <SATZNR text-eval="paket_nr"/>
             <ALLGEMEINE_DATEN>
               <ANBRINGEN>U30</ANBRINGEN>
-              <ZRVON type="jahrmonat" text-eval="jahrmonat"/>
-              <ZRBIS type="jahrmonat" text-eval="jahrmonat"/>
+              <ZRVON type="jahrmonat" text-eval="jahrmonat_begin"/>
+              <ZRBIS type="jahrmonat" text-eval="jahrmonat_ende"/>
               <FASTNR text-eval="steuernummer"/>
               <KUNDENINFO text-eval="period.company_id.name"/>
             </ALLGEMEINE_DATEN>

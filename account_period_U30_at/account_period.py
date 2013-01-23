@@ -59,7 +59,8 @@ class account_period(osv.osv) :
                 , paket_nr=time.strftime("%y%m%d%H")
                 , datum=time.strftime("%Y-%m-%d")
                 , uhrzeit=time.strtime("%H:%M:%S")
-                , jahrmonat=period.date_start[0:7]
+                , jahrmonat_beginn=period.date_start[0:7]
+                , jahrmonat_ende=period.date_stop[0:7]
                 , vst="lab3"
                 , are="J"
                 , repo="J"
