@@ -7,11 +7,22 @@
         <field name="type">form</field>
         <field name="inherit_id" ref="sale.view_order_form"/>
         <field name="arch" type="xml">
-                <xpath expr="/form/sheet/notebook/page[@string='Order Lines']" position="after">
-            <page string="Sorted Lines">
-                    <field colspan="4" name="order_line_sorted" nolabel="1" widget="one2many_list" readonly="1"/>
-            </page>
-    </xpath>
+            <data>
+               <xpath expr="/form/sheet/notebook/page[@string='Order Lines']" position="after">
+                   <page string="Sorted Lines">
+                       <field colspan="4" name="order_line_sorted" nolabel="1" widget="one2many_list" readonly="1"/>
+                   </page>
+              </xpath>
+              <xpath expr="/form/sheet/notebook/page[@string='Other Information']" position="after">
+                  <page string="Notes">
+                       <field colspan="4" name="notes"/>
+                  </page>
+              </xpath>
+              <xpath expr="/form/sheet/notebook/page[@string='Order Lines']/field/form/field[@name='name']" position="after">
+                       <label for="notes"/> 
+                       <field name="notes"/>
+              </xpath>
+            </data>
     </field>
     </record>
     </data>

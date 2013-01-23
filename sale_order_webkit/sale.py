@@ -116,6 +116,7 @@ class sale_order(osv.osv):
 
 
     _columns = {
+              'notes': fields.text('Notes'),
               'print_uom': fields.function(_print_uom, method=True, type='boolean', string='Print UoM if different from UoS',),
               'print_uos': fields.function(_print_uos, method=True, type='boolean', string='Print UoS if exists',),
               'print_packing': fields.function(_print_packing, method=True, type='boolean', string='Print Packing Info if available',),
@@ -142,3 +143,12 @@ class sale_order(osv.osv):
 
 
 sale_order()
+
+
+class sale_order_line(osv.osv):
+    _inherit = "sale.order.line"
+    _columns = {
+              'notes': fields.text('Notes'),
+      }
+
+sale_order_line()

@@ -37,26 +37,26 @@ ${order.partner_shipping_id.address_label}
            <pre>
          </td>
          <td style="width:50%">
-         %if order.partner_order_id.address_label != order.partner_shipping_id.address_label:
+         %if order.partner_id.address_label != order.partner_shipping_id.address_label:
 <b>${_("Ordering Contact")}</b><br>
-${order.partner_order_id.address_label|carriage_returns}
+${order.partner_id.address_label|carriage_returns}
          %endif
-         %if order.partner_order_id.phone :
-${_("Phone")}: ${order.partner_order_id.phone|entity} <br>
+         %if order.partner_id.phone :
+${_("Phone")}: ${order.partner_id.phone|entity} <br>
         %endif
-        %if order.partner_order_id.fax :
-${_("Fax")}: ${order.partner_order_id.fax|entity} <br>
+        %if order.partner_id.fax :
+${_("Fax")}: ${order.partner_id.fax|entity} <br>
         %endif
-        %if order.partner_order_id.email :
-${_("Mail")}: ${order.partner_order_id.email|entity} <br>
+        %if order.partner_id.email :
+${_("Mail")}: ${order.partner_id.email|entity} <br>
         %endif
          %if order.partner_invoice_id.address_label != order.partner_shipping_id.address_label:
 <br>
 <b>${_("Invoice Address")}</b><br>
 ${order.partner_invoice_id.address_label|carriage_returns}
          %endif
-        %if order.partner_invoice_id.partner_id.vat :
-${_("VAT")}: ${order.partner_invoice_id.partner_id.vat|entity} <br>
+        %if order.partner_invoice_id.vat :
+${_("VAT")}: ${order.partner_invoice_id.vat|entity} <br>
         %endif
    
          </td>
@@ -67,18 +67,18 @@ ${_("VAT")}: ${order.partner_invoice_id.partner_id.vat|entity} <br>
         %if order.company_id.address_label_position == 'right' or not order.company_id.address_label_position:
          <tr>
          <td style="width:50%">
-         %if order.partner_order_id.address_label != order.partner_shipping_id.address_label:
+         %if order.partner_id.address_label != order.partner_shipping_id.address_label:
 <b>${_("Ordering Contact")}</b><br>
-${order.partner_order_id.address_label|carriage_returns}
+${order.partner_id.address_label|carriage_returns}
         %endif
-         %if order.partner_order_id.phone :
-${_("Tel")}: ${order.partner_order_id.phone|entity} <br>
+         %if order.partner_id.phone :
+${_("Tel")}: ${order.partner_id.phone|entity} <br>
         %endif
-        %if order.partner_order_id.fax :
-${_("Fax")}: ${order.partner_order_id.fax|entity} <br>
+        %if order.partner_id.fax :
+${_("Fax")}: ${order.partner_id.fax|entity} <br>
         %endif
-        %if order.partner_order_id.email :
-${_("E-mail")}: ${order.partner_order_id.email|entity} <br>
+        %if order.partner_id.email :
+${_("E-mail")}: ${order.partner_id.email|entity} <br>
         %endif
          %if order.partner_invoice_id.address_label != order.partner_shipping_id.address_label:
 <br>
