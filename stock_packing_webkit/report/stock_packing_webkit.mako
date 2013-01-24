@@ -25,31 +25,31 @@
 
     %for pick in objects :
 <br>
-    <%setLang(pick.address_id and pick.address_id.partner_id.lang) or pick.partner_id and setLang(pick.partner_id.lang) or setLang(pick.company_id.partner_id.lang)%>
+    <%setLang(pick.partner_id and pick.partner_id.lang) or pick.partner_id and setLang(pick.partner_id.lang) or setLang(pick.company_id.partner_id.lang)%>
     <table >
         %if pick.company_id.address_label_position == 'left':
          <tr style="min-hight:4cm">
          <td style="width:50% ;min-height:100px;">
 ${_("Shipping Address")}   
 <hr>
-${pick.address_id and pick.address_id.address_label|carriage_returns or ''}
+${pick.partner_id and pick.partner_id.address_label|carriage_returns or ''}
          </td>
          <td style="width:50%">
-         %if pick.address_id.phone :
-${_("Phone")}: ${pick.address_id.phone|entity} <br>
+         %if pick.partner_id.phone :
+${_("Phone")}: ${pick.partner_id.phone|entity} <br>
         %endif
-        %if pick.address_id.fax :
-${_("Fax")}: ${pick.address_id.fax|entity} <br>
+        %if pick.partner_id.fax :
+${_("Fax")}: ${pick.partner_id.fax|entity} <br>
         %endif
-        %if pick.address_id.email :
-${_("Mail")}: ${pick.address_id.email|entity} <br>
+        %if pick.partner_id.email :
+${_("Mail")}: ${pick.partner_id.email|entity} <br>
         %endif
-        %if (pick.address_id and pick.address_id.partner_id.vat) or (pick.partner_id and pick.partner_id.vat):
-${_("VAT")}: ${pick.partner_id and pick.partner_id.vat or pick.address_id.partner_id.vat|entity} <br>
+        %if (pick.partner_id and pick.partner_id.vat) or (pick.partner_id and pick.partner_id.vat):
+${_("VAT")}: ${pick.partner_id and pick.partner_id.vat or pick.partner_id.partner_id.vat|entity} <br>
         %endif
-%if pick.address_id and pick.sale_id and pick.sale_id.partner_order_id and pick.address_id.address_label != pick.sale_id.partner_order_id.address_label:
+%if pick.partner_id and pick.sale_id and pick.sale_id.partner_id and pick.partner_id.address_label != pick.sale_id.partner_id.address_label:
         <b>${_("Ordering Contact")}</b><br>
-        ${pick.sale_id.partner_order_id.address_label|carriage_returns or ''}
+        ${pick.sale_id.partner_id.address_label|carriage_returns or ''}
 %endif
 
          </td>
@@ -60,28 +60,28 @@ ${_("VAT")}: ${pick.partner_id and pick.partner_id.vat or pick.address_id.partne
         %if pick.company_id.address_label_position == 'right' or not pick.company_id.address_label_position:
          <tr style="min-hight:4cm">
          <td style="width:50%">
-         %if pick.address_id.phone :
-${_("Tel")}: ${pick.address_id.phone|entity} <br>
+         %if pick.partner_id.phone :
+${_("Tel")}: ${pick.partner_id.phone|entity} <br>
         %endif
-        %if pick.address_id.fax :
-${_("Fax")}: ${pick.address_id.fax|entity} <br>
+        %if pick.partner_id.fax :
+${_("Fax")}: ${pick.partner_id.fax|entity} <br>
         %endif
-        %if pick.address_id.email :
-${_("E-mail")}: ${pick.address_id.email|entity} <br>
+        %if pick.partner_id.email :
+${_("E-mail")}: ${pick.partner_id.email|entity} <br>
         %endif
-        %if (pick.address_id and pick.address_id.partner_id.vat) or (pick.partner_id and pick.partner_id.vat):
-${_("VAT")}: ${pick.partner_id and pick.partner_id.vat or pick.address_id.partner_id.vat|entity} <br>
+        %if (pick.partner_id and pick.partner_id.vat) or (pick.partner_id and pick.partner_id.vat):
+${_("VAT")}: ${pick.partner_id and pick.partner_id.vat or pick.partner_id.partner_id.vat|entity} <br>
         %endif
-%if pick.address_id and pick.sale_id and pick.sale_id.partner_order_id and pick.address_id.address_label != pick.sale_id.partner_order_id.address_label:
+%if pick.partner_id and pick.sale_id and pick.sale_id.partner_id and pick.partner_id.address_label != pick.sale_id.partner_id.address_label:
         <b>${_("Ordering Contact")}</b><br>
-        ${pick.sale_id.partner_order_id.address_label|carriage_returns or ''}
+        ${pick.sale_id.partner_id.address_label|carriage_returns or ''}
 %endif
 
          </td>
          <td style="width:50%">
 ${_("Shipping Address")}
 <hr>
-${pick.address_id and pick.address_id.address_label|carriage_returns or ''}
+${pick.partner_id and pick.partner_id.address_label|carriage_returns or ''}
          </td>
         </tr>
         %endif
