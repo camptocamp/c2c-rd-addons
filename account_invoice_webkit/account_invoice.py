@@ -92,6 +92,7 @@ class account_invoice(osv.osv):
 
 
     _columns = {
+        'note' : fields.text('Notes'),
         'amount_discount': fields.function(_amount_discount, method=True, digits_compute=dp.get_precision('Account'), string='Total Discount',),
         'print_price_unit_id': fields.function(_print_price_unit_id, method=True, type='boolean', string='Print column price unit id if not 1',),
         'print_ean': fields.function(_print_ean, method=True, type='boolean', string='Print EAN if available',),
@@ -107,3 +108,11 @@ class account_invoice(osv.osv):
         
     }
 account_invoice()
+
+class account_invoice_line(osv.osv):
+    _inherit = "account.invoice.line"
+    _columns = {
+        'note' : fields.text('Notes'),
+        }
+
+account_invoice_line()

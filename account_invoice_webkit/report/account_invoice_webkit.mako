@@ -38,23 +38,23 @@ left Address
 ${_("Supplier Address")}
 <hr>
 %endif
-${inv.address_invoice_id.address_label|carriage_returns}
+${inv.partner_id.address_label|carriage_returns}
          </td>
          <td style="width:max;padding:0px;font-size:100%;padding-left:5mm;padding-top:3mm">
 <table  style="padding:0px;" >
-         %if inv.address_invoice_id.phone :
+         %if inv.partner_id.phone :
 <tr>
-<td style="border:none"> ${_("Phone")}</td><td style="border:none"> ${inv.address_invoice_id.phone|entity} </td
+<td style="border:none"> ${_("Phone")}</td><td style="border:none"> ${inv.partner_id.phone|entity} </td
 </tr>
         %endif
-        %if inv.address_invoice_id.fax :
+        %if inv.partner_id.fax :
 <tr>
-<td style="border:none">${_("Fax")}</td><td style="border:none"> ${inv.address_invoice_id.fax|entity} </td>
+<td style="border:none">${_("Fax")}</td><td style="border:none"> ${inv.partner_id.fax|entity} </td>
 </tr>
         %endif
-        %if inv.address_invoice_id.email :
+        %if inv.partner_id.email :
 <tr>
-<td style="border:none">${_("Mail")}</td><td style="border:none">${inv.address_invoice_id.email|entity} </td>
+<td style="border:none">${_("Mail")}</td><td style="border:none">${inv.partner_id.email|entity} </td>
 </tr>
         %endif
         %if inv.partner_id.vat :
@@ -84,19 +84,19 @@ right Address
         %endif
          <td>
 <table {border:none} >
-         %if inv.address_invoice_id.phone :
+         %if inv.partner_id.phone :
 <tr>
-<td> ${_("Phone")}</td><td> ${inv.address_invoice_id.phone|entity} </td
+<td> ${_("Phone")}</td><td> ${inv.partner_id.phone|entity} </td
 </tr>
         %endif
-        %if inv.address_invoice_id.fax :
+        %if inv.partner_id.fax :
 <tr>
-<td>${_("Fax")}</td><td> ${inv.address_invoice_id.fax|entity} </td>
+<td>${_("Fax")}</td><td> ${inv.partner_id.fax|entity} </td>
 </tr>
         %endif
-        %if inv.address_invoice_id.email :
+        %if inv.partner_id.email :
 <tr>
-<td>${_("Mail")}</td><td>${inv.address_invoice_id.email|entity} </td>
+<td>${_("Mail")}</td><td>${inv.partner_id.email|entity} </td>
 </tr>
         %endif
         %if inv.partner_id.vat :
@@ -111,7 +111,7 @@ right Address
 ${_("Supplier Address")}
 <hr>
 %endif
-${inv.address_invoice_id.address_label|carriage_returns}
+${inv.partner_id.address_label|carriage_returns}
          </td>
         </tr>
         %endif
