@@ -69,6 +69,7 @@ class ir_sequence(osv.osv):
             journal_obj = self.pool.get('account.journal')
             for journal in journal_obj.browse(cr, uid, [context['journal_id']]):
                 create_sequence = journal.create_sequence
+                company_id = journal.company_id.id
                 if journal.create_sequence == 'create_period' and context.get('period_id') and context['period_id']:
                     per_seq_obj = self.pool.get('account.sequence.period')
                     per_seq_ids = per_seq_obj.search(cr, uid,  [('sequence_main_id','=', sequence_id),('period_id','=',context['period_id'])])
@@ -87,6 +88,7 @@ class ir_sequence(osv.osv):
                         , 'prefix'         : prefix
                         , 'padding'        : journal.sequence_id.padding
                         , 'implementation' : journal.sequence_id.implementation
+                        , 'company_id'     : company_id
                         }
                         seq_id = self.create(cr, uid, vals)
                         vals2 = {
@@ -113,12 +115,14 @@ class ir_sequence(osv.osv):
                         fy_name = fy.name
                         prefix = journal.sequence_id.prefix or '' + fy.code +'-'
                     sequence_code = journal.sequence_id.code
+                    company_id = journal.comapany_id.id
                     vals = \
                     { 'code'           : sequence_code
                     , 'name'           : journal.sequence_id.name +' '+ fy_name
                     , 'prefix'         : prefix
                     , 'padding'        : journal.sequence_id.padding
                     , 'implementation' : journal.sequence_id.implementation
+                    , 'company_id'     : company_id
                     }
                     seq_id = self.create(cr, uid, vals)
                     vals2 = {
@@ -287,6 +291,7 @@ class ir_sequence(osv.osv):
 #                , 'prefix'         :  # "%(stn)-"
                 , 'padding'        : 3
                 , 'implementation' : 'no_gap'
+                , 'company_id'     :  company_id
                 }
             # we have to set uid = 1, because creating a sequence is granted to the module not to a user group
             new_id = self.create(cr, 1, values)
