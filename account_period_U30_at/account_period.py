@@ -48,7 +48,7 @@ class account_period(osv.osv) :
             return "%f0.2" % sum(l.tax_amount for l in aml_obj.browse(cr, uid, aml_ids))
     # end def kz
 
-    def generate_U30(self, cr , uid, ids, context=None):
+    def generate_u30(self, cr , uid, ids, context=None):
         for period in self.browse(cr, uid, ids) :
             template_obj  = self.pool.get("xml.template")
             template_ids  = template_obj.search(cr, uid, [("name", "=", "U30 VAT declaration")])
@@ -64,15 +64,15 @@ class account_period(osv.osv) :
                 , period   = period
                 , paket_nr = time.strftime("%y%m%d%H")
                 , datum    = time.strftime("%Y-%m-%d")
-                , uhrzeit  = time.strtime("%H:%M:%S")
+                , uhrzeit  = time.strftime("%H:%M:%S")
                 , beginn   = period.date_start[0:7]
                 , ende     = period.date_stop[0:7]
                 , vst      = "lab3"
                 , are      = "J"
                 , repo     = "J"
                 , kz       = self.kz
-                , cr       = cr
-                , uid      = uid
+                #, cr       = cr
+                #, uid      = uid
                 )
             template_obj.attach_xml \
                 ( cr, uid
@@ -84,6 +84,6 @@ class account_period(osv.osv) :
                 , description = "U30 VAT declaration for period"
                 , context     = None
                 )
-    # end def generate_U30
+    # end def generate_u30
 # end class account_period
 account_period()
