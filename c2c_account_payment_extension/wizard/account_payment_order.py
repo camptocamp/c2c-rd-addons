@@ -54,7 +54,8 @@ class payment_order_create(osv.osv_memory):
         _logger.debug('FGF pay min_balance context %s' % (context))
         min_balance = 0
         order_obj = self.pool.get('payment.order')
-        for order in order_obj.browse(cr, uid, [ context['active_id'] ]):
+        if context.get('active_id') and context['active_id']:
+          for order in order_obj.browse(cr, uid, [ context['active_id'] ]):
             min_balance = order.mode.amount_partner_min
         return min_balance
 
