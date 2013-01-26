@@ -257,6 +257,7 @@ Depending on this interval unit the length of the interval can be specified:
         ]
 
     def __init__(self, pool, cr) :
+        self._logger.debug("Initialization") ##############
         res = super(timed_job, self).__init__(pool, cr)
         self._running = set()
         cr.execute("SELECT state FROM ir_module_module WHERE name='timed_job';")
@@ -321,6 +322,7 @@ Depending on this interval unit the length of the interval can be specified:
     # end def _start_timer
 
     def _thread(self, fn, *args, **kwargs) :
+        self._logger.debug("Thread started %s, %s, %s", fn, args, kwargs) ###################
         t = threading.Timer(0.0, fn, args, kwargs)
         t.setDaemon(True)
         t.start()
