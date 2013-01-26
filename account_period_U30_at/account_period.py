@@ -37,8 +37,15 @@ from tools.translate import _
 class account_period(osv.osv) :
     _inherit = "account.period"
 
-    def kz() :
-        return "0.00" ##################
+    def kz(self, cr, uid, period, code) :
+        aml_obj = self.pool.get("account.move.line")
+        atc_obj = self.pool.get("account.tax.code")
+        atc_ids = atc_obj.search(cr, uid, [("code", "=", code.replace("KZ", ""))])
+        aml_ids = aml_obj.search(cr, uid, [("period_id", "=", period.id), ("tax_code_id", "in", tuple(atc_ids))])  # vereinbarte entgelte, hängt von Firmenart ab, currency_id
+        if not aml_ids :
+            return "0.00"
+        else :
+            return "%f0.2" % sum(l.tax_amount for l in aml_obj.browse(cr, uid, aml_ids))
     # end def kz
 
     def generate_U30(self, cr , uid, ids, context=None):
@@ -54,16 +61,18 @@ class account_period(osv.osv) :
             xml = template_obj.generate_xml \
                 (cr, uid
                 , template_id
-                , period = period
-                , paket_nr=time.strftime("%y%m%d%H")
-                , datum=time.strftime("%Y-%m-%d")
-                , uhrzeit=time.strtime("%H:%M:%S")
-                , jahrmonat_beginn=period.date_start[0:7]
-                , jahrmonat_ende=period.date_stop[0:7]
-                , vst="lab3"
-                , are="J"
-                , repo="J"
-                , kz = kz
+                , period   = period
+                , paket_nr = time.strftime("%y%m%d%H")
+                , datum    = time.strftime("%Y-%m-%d")
+                , uhrzeit  = time.strtime("%H:%M:%S")
+                , beginn   = period.date_start[0:7]
+                , ende     = period.date_stop[0:7]
+                , vst      = "lab3"
+                , are      = "J"
+                , repo     = "J"
+                , kz       = self.kz
+                , cr       = cr
+                , uid      = uid
                 )
             template_obj.attach_xml \
                 ( cr, uid
