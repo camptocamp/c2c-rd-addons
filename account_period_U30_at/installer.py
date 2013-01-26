@@ -32,20 +32,20 @@
 ###############################################
 from osv import fields, osv
 
-class period_U30_installer(osv.osv_memory):
-    _name    = 'account.period.U30.installer'
+class period_u30_installer(osv.osv_memory):
+    _name    = 'account.period.u30.installer'
     _inherit = 'res.config.installer'
 
     def execute(self, cr, uid, ids, context=None):
         self.execute_simple(cr, uid, ids, context)
-        super(period_U30_installer, self).execute(cr, uid, ids, context=context)
+        super(period_u30_installer, self).execute(cr, uid, ids, context=context)
     # end def execute
 
     def execute_simple(self, cr, uid, ids, context=None) :
         period_obj = self.pool.get('account.period')
         period_ids = inv_obj.search(cr, uid, [])
-        period_obj.generate_U30(cr , uid, period_ids, context=context)
+        period_obj.generate_u30(cr , uid, period_ids, context=context)
     # end def execute_simple
-# end class period_U30_installer
-period_U30_installer()
+# end class period_u30_installer
+period_u30_installer()
 
