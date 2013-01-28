@@ -25,61 +25,61 @@
               <KUNDENINFO text-eval="period.company_id.name"/>
             </ALLGEMEINE_DATEN>
             <LIEFERUNGEN_LEISTUNGEN_EIGENVERBRAUCH>
-              <KZ000 type="kz" text-eval="kz(cr, uid, period, 'KZ000')"/>
-              <KZ001 type="kz" text-eval="kz(cr, uid, period, 'KZ001')"/>
-              <KZ021 type="kz" text-eval="kz(cr, uid, period, 'KZ021')"/>
+              <KZ000 type="kz" text-eval="kz(period, 'KZ000')"/>
+              <KZ001 type="kz" text-eval="kz(period, 'KZ001')"/>
+              <KZ021 type="kz" text-eval="kz(period, 'KZ021')"/>
               <STEUERFREI>
-                <KZ011 type="kz" text-eval="kz(cr, uid, period, 'KZ011')"/>
-                <KZ012 type="kz" text-eval="kz(cr, uid, period, 'KZ012')"/>
-                <KZ015 type="kz" text-eval="kz(cr, uid, period, 'KZ015')"/>
-                <KZ017 type="kz" text-eval="kz(cr, uid, period, 'KZ017')"/>
-                <KZ018 type="kz" text-eval="kz(cr, uid, period, 'KZ018')"/>
-                <KZ019 type="kz" text-eval="kz(cr, uid, period, 'KZ019')"/>
-                <KZ016 type="kz" text-eval="kz(cr, uid, period, 'KZ016')"/>
+                <KZ011 type="kz" text-eval="kz(period, 'KZ011')"/>
+                <KZ012 type="kz" text-eval="kz(period, 'KZ012')"/>
+                <KZ015 type="kz" text-eval="kz(period, 'KZ015')"/>
+                <KZ017 type="kz" text-eval="kz(period, 'KZ017')"/>
+                <KZ018 type="kz" text-eval="kz(period, 'KZ018')"/>
+                <KZ019 type="kz" text-eval="kz(period, 'KZ019')"/>
+                <KZ016 type="kz" text-eval="kz(period, 'KZ016')"/>
                 <VST text-eval="vst"/>
-                <KZ020 type="kz" text-eval="kz(cr, uid, period, 'KZ020')"/>
+                <KZ020 type="kz" text-eval="kz(period, 'KZ020')"/>
               </STEUERFREI>
               <VERSTEUERT>
-                <KZ022 type="kz" text-eval="kz(cr, uid, period, 'KZ022')"/>
-                <KZ029 type="kz" text-eval="kz(cr, uid, period, 'KZ029')"/>
-                <KZ025 type="kz" text-eval="kz(cr, uid, period, 'KZ025')"/>
-                <KZ037 type="kz" text-eval="kz(cr, uid, period, 'KZ037')"/>
-                <KZ052 type="kz" text-eval="kz(cr, uid, period, 'KZ052')"/>
-                <KZ038 type="kz" text-eval="kz(cr, uid, period, 'KZ038')"/>
-                <KZ056 type="kz" text-eval="kz(cr, uid, period, 'KZ056')"/>
-                <KZ057 type="kz" text-eval="kz(cr, uid, period, 'KZ057')"/>
-                <KZ048 type="kz" text-eval="kz(cr, uid, period, 'KZ048')"/>
-                <KZ044 type="kz" text-eval="kz(cr, uid, period, 'KZ044')"/>
-                <KZ032 type="kz" text-eval="kz(cr, uid, period, 'KZ032')"/>
+                <KZ022 type="kz" text-eval="kz(period, 'KZ022')"/>
+                <KZ029 type="kz" text-eval="kz(period, 'KZ029')"/>
+                <KZ025 type="kz" text-eval="kz(period, 'KZ025')"/>
+                <KZ037 type="kz" text-eval="kz(period, 'KZ037')"/>
+                <KZ052 type="kz" text-eval="kz(period, 'KZ052')"/>
+                <KZ038 type="kz" text-eval="kz(period, 'KZ038')"/>
+                <KZ056 type="kz" text-eval="kz(period, 'KZ056')"/>
+                <KZ057 type="kz" text-eval="kz(period, 'KZ057')"/>
+                <KZ048 type="kz" text-eval="kz(period, 'KZ048')"/>
+                <KZ044 type="kz" text-eval="kz(period, 'KZ044')"/>
+                <KZ032 type="kz" text-eval="kz(period, 'KZ032')"/>
               </VERSTEUERT>
             </LIEFERUNGEN_LEISTUNGEN_EIGENVERBRAUCH>
             <INNERGEMEINSCHAFTLICHE_ERWERBE>
-              <KZ070 type="kz" text-eval="kz(cr, uid, period, 'KZ070')"/>
-              <KZ071 type="kz" text-eval="kz(cr, uid, period, 'KZ071')"/>
+              <KZ070 type="kz" text-eval="kz(period, 'KZ070')"/>
+              <KZ071 type="kz" text-eval="kz(period, 'KZ071')"/>
               <VERSTEUERT_IGE>
-                <KZ072 type="kz" text-eval="kz(cr, uid, period, 'KZ072')"/>
-                <KZ073 type="kz" text-eval="kz(cr, uid, period, 'KZ073')"/>
-                <KZ088 type="kz" text-eval="kz(cr, uid, period, 'KZ088')"/>
-                <KZ076 type="kz" text-eval="kz(cr, uid, period, 'KZ076')"/>
-                <KZ077 type="kz" text-eval="kz(cr, uid, period, 'KZ077')"/>
+                <KZ072 type="kz" text-eval="kz(period, 'KZ072')"/>
+                <KZ073 type="kz" text-eval="kz(period, 'KZ073')"/>
+                <KZ088 type="kz" text-eval="kz(period, 'KZ088')"/>
+                <KZ076 type="kz" text-eval="kz(period, 'KZ076')"/>
+                <KZ077 type="kz" text-eval="kz(period, 'KZ077')"/>
               </VERSTEUERT_IGE>
             </INNERGEMEINSCHAFTLICHE_ERWERBE>
             <VORSTEUER>
-              <KZ060 type="kz" text-eval="kz(cr, uid, period, 'KZ060')"/>
-              <KZ061 type="kz" text-eval="kz(cr, uid, period, 'KZ061')"/>
-              <KZ083 type="kz" text-eval="kz(cr, uid, period, 'KZ083')"/>
-              <KZ065 type="kz" text-eval="kz(cr, uid, period, 'KZ065')"/>
-              <KZ066 type="kz" text-eval="kz(cr, uid, period, 'KZ066')"/>
-              <KZ082 type="kz" text-eval="kz(cr, uid, period, 'KZ082')"/>
-              <KZ087 type="kz" text-eval="kz(cr, uid, period, 'KZ087')"/>
-              <KZ089 type="kz" text-eval="kz(cr, uid, period, 'KZ089')"/>
-              <KZ064 type="kz" text-eval="kz(cr, uid, period, 'KZ064')"/>
-              <KZ062 type="kz" text-eval="kz(cr, uid, period, 'KZ062')"/>
-              <KZ063 type="kz" text-eval="kz(cr, uid, period, 'KZ063')"/>
-              <KZ067 type="kz" text-eval="kz(cr, uid, period, 'KZ067')"/>
-              <KZ027 type="kz" text-eval="kz(cr, uid, period, 'KZ027')"/>
-              <KZ028 type="kz" text-eval="kz(cr, uid, period, 'KZ028')"/>
-              <KZ090 type="kz" text-eval="kz(cr, uid, period, 'KZ090')"/>
+              <KZ060 type="kz" text-eval="kz(period, 'KZ060')"/>
+              <KZ061 type="kz" text-eval="kz(period, 'KZ061')"/>
+              <KZ083 type="kz" text-eval="kz(period, 'KZ083')"/>
+              <KZ065 type="kz" text-eval="kz(period, 'KZ065')"/>
+              <KZ066 type="kz" text-eval="kz(period, 'KZ066')"/>
+              <KZ082 type="kz" text-eval="kz(period, 'KZ082')"/>
+              <KZ087 type="kz" text-eval="kz(period, 'KZ087')"/>
+              <KZ089 type="kz" text-eval="kz(period, 'KZ089')"/>
+              <KZ064 type="kz" text-eval="kz(period, 'KZ064')"/>
+              <KZ062 type="kz" text-eval="kz(period, 'KZ062')"/>
+              <KZ063 type="kz" text-eval="kz(period, 'KZ063')"/>
+              <KZ067 type="kz" text-eval="kz(period, 'KZ067')"/>
+              <KZ027 type="kz" text-eval="kz(period, 'KZ027')"/>
+              <KZ028 type="kz" text-eval="kz(period, 'KZ028')"/>
+              <KZ090 type="kz" text-eval="kz(period, 'KZ090')"/>
               <ARE text-eval="are"/>
               <REPO text-eval="repo"/>
             </VORSTEUER>
