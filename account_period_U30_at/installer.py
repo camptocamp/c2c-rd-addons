@@ -44,7 +44,7 @@ class period_u30_installer(osv.osv_memory):
     def execute_simple(self, cr, uid, ids, context=None) :
         period_obj = self.pool.get('account.period')
         period_ids = period_obj.search(cr, uid, [])
-        period_obj.generate_u30(cr , uid, period_ids, context=context)
+        period_obj.generate_u30(cr, uid, period_ids, context=context)
     # end def execute_simple
 # end class period_u30_installer
 period_u30_installer()
