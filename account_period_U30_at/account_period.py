@@ -71,7 +71,7 @@ class account_period(osv.osv) :
                 , uhrzeit  = time.strftime("%H:%M:%S")
                 , beginn   = period.date_start[0:7]
                 , ende     = period.date_stop[0:7]
-                , vst      = "lab3"
+                , vst      = "000"
                 , are      = "J"
                 , repo     = "J"
                 , kz       = self.kz

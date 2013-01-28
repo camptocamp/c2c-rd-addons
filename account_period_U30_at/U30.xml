@@ -3,22 +3,22 @@
   <data noupdate="1">
     <record model="xml.template" id="xml_template_U30" forcecreate="True">
       <field name="name">U30 VAT declaration</field>
-      <field name="schema">https://www.bmf.gv.at/EGovernment/FINANZOnline/InformationenfrSoft_3165/Umsatzsteuervoranme_11373/ERKLAERUNGS_UEBERMITTLUNG_U30%282%29.xsd</field>
+      <field name="schema">https://www.bmf.gv.at/EGovernment/FINANZOnline/InformationenfrSoft_3165/Umsatzsteuervoranme_11373/ERKLAERUNGS_UEBERMITTLUNG_U30(2).xsd</field>
       <field name="content" type="xml">
         <!-- Umsatzsteuervoranmeldung ab 01/2009 - Stand: 11.01.2013-->
         <ERKLAERUNGS_UEBERMITTLUNG>
           <INFO_DATEN>
-            <ART_IDENTIFIKATIONSBEGRIFF>FASTNR</ART_IDENTIFIKATIONSBEGRIFF>
+            <ART_IDENTIFIKATIONSBEGRIFF text-eval="'FASTNR'"/>
             <IDENTIFIKATIONSBEGRIFF text-eval="period.company_id.partner_id.vat"/>
             <PAKET_NR text-eval="paket_nr"/>
             <DATUM_ERSTELLUNG type="datum" text-eval="datum"/>
             <UHRZEIT_ERSTELLUNG type="uhrzeit" text-eval="uhrzeit"/>
-            <ANZAHL_ERKLAERUNGEN>1</ANZAHL_ERKLAERUNGEN>
+            <ANZAHL_ERKLAERUNGEN text-eval="1"/>
           </INFO_DATEN>
           <ERKLAERUNG art="U30">
             <SATZNR text-eval="paket_nr"/>
             <ALLGEMEINE_DATEN>
-              <ANBRINGEN>U30</ANBRINGEN>
+              <ANBRINGEN text-eval="'U30'"/>
               <ZRVON type="jahrmonat" text-eval="beginn"/>
               <ZRBIS type="jahrmonat" text-eval="ende"/>
               <FASTNR text-eval="period.company_id.partner_id.vat"/>
