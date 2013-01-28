@@ -9,7 +9,7 @@
         <ERKLAERUNGS_UEBERMITTLUNG>
           <INFO_DATEN>
             <ART_IDENTIFIKATIONSBEGRIFF>FASTNR</ART_IDENTIFIKATIONSBEGRIFF>
-            <IDENTIFIKATIONSBEGRIFF text-eval="steuernummer"/>
+            <IDENTIFIKATIONSBEGRIFF text-eval="period.company_id.partner_id.vat"/>
             <PAKET_NR text-eval="paket_nr"/>
             <DATUM_ERSTELLUNG type="datum" text-eval="datum"/>
             <UHRZEIT_ERSTELLUNG type="uhrzeit" text-eval="uhrzeit"/>
