@@ -74,7 +74,7 @@ class account_period(osv.osv) :
                 , vst      = "lab3"
                 , are      = "J"
                 , repo     = "J"
-                , kz       = kz
+                , kz       = self.kz
                 )
             template_obj.attach_xml \
                 ( cr, uid
