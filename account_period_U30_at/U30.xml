@@ -9,7 +9,7 @@
         <ERKLAERUNGS_UEBERMITTLUNG>
           <INFO_DATEN>
             <ART_IDENTIFIKATIONSBEGRIFF text-eval="'FASTNR'"/>
-            <IDENTIFIKATIONSBEGRIFF text-eval="period.company_id.partner_id.vat"/>
+            <IDENTIFIKATIONSBEGRIFF text-eval="tax_nr"/>
             <PAKET_NR text-eval="paket_nr"/>
             <DATUM_ERSTELLUNG type="datum" text-eval="datum"/>
             <UHRZEIT_ERSTELLUNG type="uhrzeit" text-eval="uhrzeit"/>
@@ -21,7 +21,7 @@
               <ANBRINGEN text-eval="'U30'"/>
               <ZRVON type="jahrmonat" text-eval="beginn"/>
               <ZRBIS type="jahrmonat" text-eval="ende"/>
-              <FASTNR text-eval="period.company_id.partner_id.vat"/>
+              <FASTNR text-eval="tax_nr"/>
               <KUNDENINFO text-eval="period.company_id.name"/>
             </ALLGEMEINE_DATEN>
             <LIEFERUNGEN_LEISTUNGEN_EIGENVERBRAUCH>

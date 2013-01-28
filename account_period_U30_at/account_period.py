@@ -75,6 +75,7 @@ class account_period(osv.osv) :
                 , are      = "J"
                 , repo     = "J"
                 , kz       = self.kz
+                , tax_nr   = "123456789"
                 )
             template_obj.attach_xml \
                 ( cr, uid
