@@ -90,6 +90,7 @@ class project_work(osv.osv):
     def write(self, cr, uid, ids, vals, context=None):
         obj_timesheet = self.pool.get('hr.analytic.timesheet')
         obj_analytic_line= self.pool.get('account.analytic.line')
+        task_obj = self.pool.get('project.task')
         self._logger.debug('FGF vals `%s`',  vals)
         if 'user_id' not in vals:
                 vals['user_id'] = uid
@@ -106,12 +107,14 @@ class project_work(osv.osv):
                     val['product_id'] = product_id
                 self._logger.debug('FGF update analytic `%s` `%s`', work.hr_analytic_timesheet_id.line_id.id, val)
                 obj_analytic_line.write(cr, uid, [work.hr_analytic_timesheet_id.line_id.id], val)
+                task_obj.write(cr, uid, [work.task_id.id], {'remaining_hours' : work.task_id.remaining_hours})
          
                 
         return res
 
     def create(self, cr, uid, vals, *args, **kwargs):
         res = super(project_work,self).create(cr, uid, vals, *args, **kwargs)
+        task_obj = self.pool.get('project.task')
         timeline_id = vals.get('hr_analytic_timesheet_id') and vals['hr_analytic_timesheet_id'] or ''
         if timeline_id:
             obj_timesheet = self.pool.get('hr.analytic.timesheet')
@@ -123,7 +126,16 @@ class project_work(osv.osv):
                 if product_id:
                     vals['product_id'] = product_id
                 obj_timesheet.write(cr, uid, [timeline_id], vals)
+                task_obj.write(cr, uid, [work.task_id.id], {'remaining_hours' : work.task_id.remaining_hours})
 
+        return res
+
+    def unlink(self, cr, uid, ids, *args, **kwargs):
+        task_obj = self.pool.get('project.task')
+        for work in self.browse(cr, uid, ids ):
+            task_id = work.task_id.id
+        res = super(project_work, self).unlink(cr, uid, ids, *args, **kwargs)
+        task_obj.write(cr, uid, [task_id], {'remaining_hours' : work.task_id.remaining_hours})
         return res
 
 project_work()
