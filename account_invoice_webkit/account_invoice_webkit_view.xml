@@ -9,5 +9,25 @@
       name="account.invoice.webkit"
       report_type="webkit"
       string="WebKit Invoice"/>
-  </data>
+
+    <record id="invoice_note_form" model="ir.ui.view">
+            <field name="name">account.invoice.note.form</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="arch" type="xml">
+            <data>
+              <xpath expr="/form/sheet/notebook/page[@string='Other Info']" position="after">
+                  <page string="Notes">
+                       <field colspan="4" name="note"/>
+                  </page>
+              </xpath>
+              <xpath expr="/form/sheet/notebook/page[@string='Invoice Lines']" position="after">
+                       <label for="note"/>
+                       <field name="note"/>
+              </xpath>
+            </data>
+           </field>
+    </record>
+
+ </data>
 </openerp>
