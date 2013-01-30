@@ -20,7 +20,7 @@
           <InvoiceNumber text-eval="invoice.number"/>
           <InvoiceDate text-eval="invoice.date_invoice"/>
           <Biller>
-            <VATIdentificationNumber text-eval="'ATU...'"/>
+            <VATIdentificationNumber text-eval="invoice.company_id.partner_id.vat"/>
             <Address>
               <Name text-eval="invoice.company_id.name"/>
               <Street text-eval="invoice.company_id.street or ''"/>
@@ -35,7 +35,7 @@
             </Address>
           </Biller>
           <InvoiceRecipient>
-            <VATIdentificationNumber text-eval="'ATU...' if invoice.partner_id.is_company else '00000000'"/>
+            <VATIdentificationNumber text-eval="invoice.partner_id.vat if invoice.partner_id.vat else '00000000'"/>
             <BillersInvoiceRecipientID text-eval="invoice.partner_id.ref"/>
             <Address>
               <Name text-eval="invoice.partner_id.name"/>
