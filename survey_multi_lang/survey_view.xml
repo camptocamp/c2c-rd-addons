@@ -12,7 +12,18 @@
                 </field>
             </field>
         </record>
-
+<!--
+        <record model="ir.ui.view" id="survey_quid_form">
+            <field name="name">survey_quid_form</field>
+            <field name="model">survey</field>
+            <field name="inherit_id" ref="survey.survey_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="answer_choice_ids" position="before">
+                     <field name="question_answer_int" />
+                </xpath>
+            </field>
+        </record>
+-->
     </data>
 </openerp>
 

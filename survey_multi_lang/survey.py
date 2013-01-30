@@ -81,6 +81,7 @@ class survey_answer(osv.osv):
     _columns = {
         'answer': fields.char('Answer', size=255, required=1, translate=True),
         'menu_choice': fields.text('Menu Choices', translate=True),
+        'question_answer_int': fields.integer('Question Answer ID unique'),
         }
         
 survey_answer()
