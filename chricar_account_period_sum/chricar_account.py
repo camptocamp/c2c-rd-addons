@@ -201,7 +201,7 @@ class account_account(osv.osv):
             #params = (', '.join(map(str,children_and_consolidated)))
             self._logger.debug('Request: `%s`', request)
             self._logger.debug('Params: `%s`', params)
-            cr.execute(request, params)
+            cr.execute(request)
             self._logger.debug('Status: `%s`', cr.statusmessage)
 
             for res in cr.dictfetchall():
