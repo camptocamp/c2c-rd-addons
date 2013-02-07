@@ -37,7 +37,9 @@ from tools.translate import _
 class account_period(osv.osv) :
     _inherit = "account.period"
 
-    def kz(self, cr, uid, period, code) :
+    def kz(self, period, code) :
+        cr      = self.cr
+        uid     = self.uid
         aml_obj = self.pool.get("account.move.line")
         atc_obj = self.pool.get("account.tax.code")
         atc_ids = atc_obj.search(cr, uid, [("code", "=", code.replace("KZ", ""))])
@@ -49,6 +51,8 @@ class account_period(osv.osv) :
     # end def kz
 
     def generate_u30(self, cr , uid, ids, context=None):
+        self.cr  = cr
+        self.uid = uid
         for period in self.browse(cr, uid, ids) :
             template_obj  = self.pool.get("xml.template")
             template_ids  = template_obj.search(cr, uid, [("name", "=", "U30 VAT declaration")])
@@ -67,12 +71,11 @@ class account_period(osv.osv) :
                 , uhrzeit  = time.strftime("%H:%M:%S")
                 , beginn   = period.date_start[0:7]
                 , ende     = period.date_stop[0:7]
-                , vst      = "lab3"
+                , vst      = "000"
                 , are      = "J"
                 , repo     = "J"
                 , kz       = self.kz
-                #, cr       = cr
-                #, uid      = uid
+                , tax_nr   = "123456789"
                 )
             template_obj.attach_xml \
                 ( cr, uid
