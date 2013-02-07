@@ -23,19 +23,22 @@
 
 {
     'name': 'Landed Costs',
-    'version': '0.7',
+    'version': '0.8',
     'category': 'Warehouse Management',
     'description': """
-    This module add the possibility to iclude landed costs in the average price computation.
+    This module add the possibility to include landed costs in the average price computation.
     The landed costs can be defined for 
     * purchase orders
-    * purchase order lines
-    * pickings
-    * picking lines (stock moves)
+    * purchase order lines (disabled in v7 due to o2m restrictions)
     costs defined for purchase orders and pickings will be distributed according to the distribution type
     defined in landed cost category
     * value - example custom fees
     * quantity - example freight
+    for each landed cost position a draft invoice is created in validation of purchase order
+    the products used to define landed cost must be classified "Distribution Type" as 
+    ** "Value" (for customs) or 
+    ** "Quantity" (for freight)
+
     """,
     'author': 'Camptocamp Austria',
     'depends': ['purchase' ],
@@ -44,7 +47,7 @@
                    'stock_view.xml',
                    ],
     'demo_xml': [],
-    'installable': False,
+    'installable': True,
     'active': False,
 }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
