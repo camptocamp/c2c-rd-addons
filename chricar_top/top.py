@@ -161,6 +161,7 @@ class chricar_top(osv.osv):
        'sequence'           : fields.integer ('Sequence'),
 
        'sort'               : fields.integer ('Sort'),
+       'sequence'           : fields.integer ('Sequ.'),
 
        'top_cost_ids'       : fields.one2many('chricar.top.cost','top_id','Top Costs'),
 
