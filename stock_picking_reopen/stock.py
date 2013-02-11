@@ -99,6 +99,7 @@ class stock_picking(osv.osv):
         move_line_obj = self.pool.get('stock.move')
         account_move_line_obj = self.pool.get('account.move.line')
         account_move_obj = self.pool.get('account.move')
+        account_invoice_obj = self.pool.get('account.invoice')
         report_xml_obj = self.pool.get('ir.actions.report.xml')
         attachment_obj = self.pool.get('ir.attachment')
 
@@ -106,29 +107,46 @@ class stock_picking(osv.osv):
         for pick in self.browse(cr, uid, ids):
             _logger.debug('FGF picking action reopen pick %s ' %(pick.name)   )
             ml_ids = []
+            ml_real_time_ids = []
             for ml in pick.move_lines:
                 ml_ids.append(ml.id)
+                if ml.product_id.valuation == 'real_time':
+                    ml_real_time_ids.append(ml.id)    
             _logger.debug('FGF picking action reopen pick %s ' %(ml_ids)   )
             move_line_obj.write(cr, uid, ml_ids, {'state':'draft'})
             # we have to handle real time accounting stock moves
-            #FIXME - performance, should be an id - link to picking 
-            #aml_ids = account_move_line_obj.search(cr, uid, [('picking_id','=',pick.id)])
-            aml_ids = account_move_line_obj.search(cr, uid, [('ref','=',pick.name)])
-            _logger.debug('FGF picking action reopen move_lines %s ' %(aml_ids)   )
-            move_ids = []
-            for aml in account_move_line_obj.browse(cr, uid, aml_ids):
-                if aml.move_id.id not in move_ids:
-                    move_ids.append(aml.move_id.id)
+            if ml_real_time_ids:
+                #FIXME - performance, should be an id - link to picking 
+                #aml_ids = account_move_line_obj.search(cr, uid, [('picking_id','=',pick.id)])
+                move_all_ids = account_move_obj.search(cr, uid, [('ref','=',pick.name)])
+                # FIXME ugly hack
+                # picking should reference move (as invoice)
+                move_inv_ids = []
+                move_ids = []
+                invoice_ids = account_invoice_obj.search(cr, uid, [('move_id','in',move_all_ids)])
+                for inv in account_invoice_obj.browse(cr, uid, invoice_ids):
+                    move_inv_ids.append(inv.move_id)
+                for m in move_all_ids:
+                    if m not in move_inv_ids:
+                        move_ids.append(m)
+                #_logger.debug('FGF picking action reopen move_lines %s ' %(aml_ids)   )
+                #move_ids = []
+                #for aml in account_move_obj.browse(cr, uid, aml_ids):
+                #    if aml.move_id.id not in move_ids:
+                #        move_ids.append(aml.move_id.id)
                 _logger.debug('FGF picking action reopen move %s ' %(move_ids)   )
-                account_move_line_obj.write(cr, uid, [aml.id], {'ref': aml.ref or '' + now})
-            for move in account_move_obj.browse(cr, uid, move_ids):
-                account_move_obj.write(cr, uid, [move.id], {'name': move.name + now})
-                move_copy_id = account_move_obj.copy(cr, uid, move.id,)
-                account_move_obj.write(cr, uid, [move_copy_id], {'name': move.name + now + '*' })
-                cr.execute("""update account_move_line
-                                 set debit=credit, credit=debit,
-                                 ref = ref||'*'
-                               where move_id = %s;""" % (move_copy_id)) 
+                #account_move_obj.write(cr, uid, [aml.id], {'ref': aml.ref or '' + now})
+                for move in account_move_obj.browse(cr, uid, move_ids):
+                    account_move_obj.write(cr, uid, [move.id], {'name': move.name + now})
+                    _logger.debug('FGF picking action pre copy %s ' %(move.id)   )
+                    move_copy_id = account_move_obj.copy(cr, uid, move.id,)
+                    _logger.debug('FGF picking action post copy %s ' %(move.id)   )
+                    account_move_obj.write(cr, uid, [move_copy_id], {'name': move.name + now + '*' })
+                    _logger.debug('FGF picking action post write %s ' %(move.id)   )
+                    cr.execute("""update account_move_line
+                                    set debit=credit, credit=debit,
+                                    ref = ref||'*'
+                                where move_id = %s;""" % (move_copy_id)) 
             # rename attachments (reports)
             # for some reason datas_fname has .pdf.pdf extension
             report_ids = report_xml_obj.search(cr, uid, [('model','=', 'stock.picking'), ('attachment','!=', False)])
