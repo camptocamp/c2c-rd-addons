@@ -130,7 +130,7 @@ class account_invoice(osv.osv):
                 _logger.debug('FGF reopen move_copy_id %s' % (move_copy_id))
                 name = name + '*'
                 cr.execute("""update account_move_line
-                                 set debit=credit, credit=debit
+                                 set debit=credit, credit=debit, tax_amount= -tax_amount
                                where move_id = %s;""" % (move_copy_id))
                 account_move_obj.write(cr, uid, [move_copy_id], {'name':name})
                 _logger.debug('FGF reopen move_copy_id validate' )
