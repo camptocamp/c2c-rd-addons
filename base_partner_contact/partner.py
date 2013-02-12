@@ -47,12 +47,14 @@ class res_partner(osv.osv):
         # this is for partner - alphabetical address book - sort
         res = {}
         for partner in self.browse(cr, uid, ids, context):
+            if partner.name and not partner.last_name:
+                l_name = partner_name
             if partner.is_company:
-                name = partner.last_name
+                name = partner.last_name or l_name
             else:    
                 first_name = partner.first_name or '' + ' '
                 middle_name = partner.middle_name and ' ' + partner.middle_name  + ' ' or ''
-                last_name = partner.last_name+', '
+                last_name = partner.last_name or l_name +', '
                 title_prefix = ' '+ self._get_title_name(cr,uid, partner.title_prefix_id) + ' '
                 title_postfix = ' ' + self._get_title_name(cr,uid, partner.title_postfix_id)
 
