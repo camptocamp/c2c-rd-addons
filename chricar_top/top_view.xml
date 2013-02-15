@@ -23,7 +23,7 @@ generated 2009-07-09 16:17:22+02
         <form string="Real Estate Top">
           <group colspan="2" col="4">
             <field name="location_id"  colspan="4"/>
-            <field name="sort"/>
+            <field name="sequence"/>
             <field name="active"/>
           </group>
           <group colspan="2" col="2">
@@ -159,7 +159,7 @@ generated 2009-07-09 16:17:22+02
       <field name="arch" type="xml">
         <tree string="Real Estate Top" >
           <field name="location_id"/>
-          <field name="sort"/>
+          <field name="sequence"/>
           <field name="name"/>
           <field name="partner_id"/>
           <field name="usage"/>
@@ -249,7 +249,7 @@ generated 2009-07-09 16:17:22+02
       <field name="arch" type="xml">
         <tree string="Real Estate Top" >
           <field name="location_id"/>
-          <field name="sort"/>
+          <field name="sequence"/>
           <field name="name"/>
           <field name="partner_id"/>
           <field name="usage"/>

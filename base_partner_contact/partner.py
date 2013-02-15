@@ -47,28 +47,35 @@ class res_partner(osv.osv):
         # this is for partner - alphabetical address book - sort
         res = {}
         for partner in self.browse(cr, uid, ids, context):
+            if partner.name and not partner.last_name:
+                l_name = partner.name
             if partner.is_company:
-                name = partner.last_name
+                name = partner.last_name or l_name
             else:    
                 first_name = partner.first_name or '' + ' '
                 middle_name = partner.middle_name and ' ' + partner.middle_name  + ' ' or ''
-                last_name = partner.last_name+', '
+                last_name = partner.last_name or l_name +', '
                 title_prefix = ' '+ self._get_title_name(cr,uid, partner.title_prefix_id) + ' '
                 title_postfix = ' ' + self._get_title_name(cr,uid, partner.title_postfix_id)
 
                 name = last_name + first_name + middle_name + title_prefix + title_postfix
                 if name == last_name:
                     name = replace(name, ', ', '')
-            
-            res[partner.id] = name.replace('  ',' ').rstrip(' ').lstrip(' ') # to avoid double spaces
+            if name:            
+                res[partner.id] = name.replace('  ',' ').rstrip(' ').lstrip(' ') # to avoid double spaces
+            else:
+                res[partner.id] = ''
+
         return res
 
     def _compose_full_name(self, cr, uid, ids, name, arg, context=None):
         # this is for Address
         res = {}
         for partner in self.browse(cr, uid, ids, context):
+            if partner.name and not partner.last_name:
+                l_name = partner.name
             if partner.is_company:
-                name = partner.last_name
+                name = partner.last_name or l_name
             else:    
                 salutation = partner.salutation_id and partner.salutation_id.name_address or ''
                 first_name = partner.first_name or ''
@@ -126,6 +133,13 @@ class res_partner(osv.osv):
         cr.execute("""update res_partner
                          set last_name = name
                        where last_name is null;""")
+
+    def create(self, cr, uid, vals, context=None):
+        if vals.get('name') and not vals.get('last_name') or ( vals.get('last_name') and not vals['last_name']):
+            vals['last_name'] = vals['name']
+        res = super(res_partner, self).create(cr, uid, vals, context)
+        return res
+
 
 #    def onchange_name(self, cr, uid, id, is_company = False, name='', first_name='', last_name='', middle_name='', title_prefix_id='', title_postfix_id='', context={}):
 #        vals = {}

@@ -344,6 +344,8 @@ Depending on this interval unit the length of the interval can be specified:
     # end def _days_of_month
     
     def _next(self, last, job) :
+      # FGF FIXME error during install - last = NULL
+      if last:
         _interval_times = \
             { 'minutes'       : lambda interval : datetime.timedelta(minutes=interval)
             , 'hours'         : lambda interval : datetime.timedelta(hours=interval)

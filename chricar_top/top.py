@@ -158,9 +158,8 @@ class chricar_top(osv.osv):
                                                ('flat','Flat'),
                                                ('parking','Parking')], 'Usage', required=True),
       'product_product_id' : fields.integer ('Product'),
-      'sequence'           : fields.integer ('Sequence'),
-
       'sort'               : fields.integer ('Sort'),
+       'sequence'           : fields.integer ('Sequ.'),
 
       'top_cost_ids'       : fields.one2many('chricar.top.cost','top_id','Top Costs'),
 
