@@ -1,5 +1,6 @@
 [Dolphin]
-AdditionalInfo=Details_Size,Details_Date,CustomizedDetails
 Sorting=2
-Timestamp=2013,1,1,10,48,49
+Timestamp=2013,1,9,20,25,48
+Version=3
 ViewMode=1
+VisibleRoles=Details_size,Details_date,CustomizedDetails
