@@ -10,7 +10,7 @@
         <xpath expr="/form/sheet/notebook/page[@string='Transactions']/field/tree/field[@name='amount']" position="replace">
           <field
             name="amount"
-            on_change="onchange_amount(tax_id,amount, partner_id, date, parent.date)"/>
+            on_change="onchange_amount_1(tax_id,amount, partner_id, date, parent.date)"/>
           <field
             name="tax_id"
             on_change="onchange_tax(tax_id,amount,partner_id)"/>
@@ -32,7 +32,7 @@
         <xpath expr="/form/sheet/notebook/page[@string='Transactions']/field/form/group/field[@name='amount']" position="replace">
           <field
             name="amount"
-            on_change="onchange_amount(tax_id,amount, partner_id, date, parent.date)"/>
+            on_change="onchange_amount_1(tax_id,amount, partner_id, date, parent.date)"/>
           <field
             name="tax_id"
             on_change="onchange_tax(tax_id,amount,partner_id)"/>
@@ -88,7 +88,7 @@ Modification of Cash statement - account - change trigger
         <xpath expr="/form/sheet/notebook/page[@string='Cash Transactions']/field/tree/field[@name='amount']" position="replace">
           <field
             name="amount"
-            on_change="onchange_amount(tax_id,amount, partner_id, date, parent.date)"/>
+            on_change="onchange_amount_1(tax_id,amount, partner_id, date, parent.date)"/>
           <field
             name="tax_id"
             on_change="onchange_tax(tax_id,amount,partner_id)"/>
@@ -110,7 +110,7 @@ Modification of Cash statement - account - change trigger
         <xpath expr="/form/sheet/notebook/page[@string='Cash Transactions']/field/form/group/field[@name='amount']" position="replace">
           <field
             name="amount"
-            on_change="onchange_amount(tax_id,amount, partner_id, date, parent.date)"/>
+            on_change="onchange_amount_1(tax_id,amount, partner_id, date, parent.date)"/>
           <field
             name="tax_id"
             on_change="onchange_tax(tax_id,amount,partner_id)"/>

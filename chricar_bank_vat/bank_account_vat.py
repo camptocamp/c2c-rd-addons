@@ -75,7 +75,7 @@ class account_bank_statement(osv.osv):
 
             # create tax line
             if amount_tax != 0:
-                account_move_line_obj.create(cr, uid, {
+                vals = {
                     'name': st_line.name,
                     'date': st_line.date,
                     'ref': st_line.ref,
@@ -87,10 +87,13 @@ class account_bank_statement(osv.osv):
                     'statement_id': st.id,
                     'journal_id': st.journal_id.id,
                     'period_id': st.period_id.id,
-                    'currency_id': st.currency.id,
                     'tax_amount': amount_tax,
                     'tax_code_id': st_line.tax_id.tax_code_id.id,
-                    } , context=context)
+                    } 
+                if st.currency.id != st.company_id.currency_id.id :
+                    vals['currency_id'] = st.currency.id
+                account_move_line_obj.create(cr, uid, vals,context=context)
+ 
 
         return res
 
@@ -163,7 +166,7 @@ class account_bank_statement_line(osv.osv):
         return {'value': {'amount': balance, 'account_id': account_id,'type': type,
                  'tax_id':'', 'amount_tax':'', 'amount_net':'' }}
 
-    def onchange_amount(self, cr, uid, ids, tax_id, amount, partner_id, date, date_statement):
+    def onchange_amount_1(self, cr, uid, ids, tax_id, amount, partner_id, date, date_statement):
         result = {}
         value = {}
         if tax_id:
