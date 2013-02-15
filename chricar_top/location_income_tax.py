@@ -38,7 +38,7 @@ class location_income_tax(osv.osv):
      _columns = {
          'location_id'        : fields.many2one('stock.location','Location', select=True, required=True),
          'fiscalyear_id'      : fields.many2one('account.fiscalyear', 'Fiscal Year', required=True),
-         'account_id'         : fields.many2one('account.account', 'Account', required=True, ondelete="cascade"),
+         'account_id'         : fields.many2one('account.account', 'Account', required=True, ondelete="cascade",domain="[('type', '!=', 'view')]"),
          'amount'             : fields.float('Amount', digits_compute=dp.get_precision('Account'),required=True),
          'note'               : fields.text('Note'),
 }

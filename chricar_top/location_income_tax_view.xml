@@ -15,7 +15,7 @@ Real Estate Income Tax Statement per location
         <tree string="Income Tax Details" editable="bottom">
           <field name="location_id" select="1"/>
           <field name="fiscalyear_id" select="1"/>
-          <field name="account_id" select="1"/>
+          <field name="account_id" select="1" domain="[('type', '!=', 'view')]" />
           <field name="amount" select="1" sum="Amount"/>
           <field name="note" select="1"/>
         </tree>
@@ -30,7 +30,7 @@ Real Estate Income Tax Statement per location
           <group>
             <field name="location_id"/>
             <field name="fiscalyear_id"/>
-            <field name="account_id"/>
+            <field name="account_id" domain="[('type', '!=', 'view')]"/>
             <field name="note"/>
           </group>
           <newline/>
