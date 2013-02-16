@@ -15,7 +15,7 @@
        font-size:10px;
            }
     
-     th { margin: 0px; padding: 3px; border: 1px solid #E3E3E3;  vertical-align: top; }
+     th { margin: 0px; padding: 3px; border: 1px solid Grey;  vertical-align: top; }
      pre {font-family:helvetica; font-size:13;}
     </style>
     <%

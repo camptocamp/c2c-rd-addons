@@ -16,7 +16,7 @@
        font-size:12px;
            }
 
-
+     th { margin: 0px; padding: 3px; border: 1px solid Grey;  vertical-align: top; }
      pre {font-family:helvetica; font-size:15;}
     </style>
     <%
@@ -187,21 +187,21 @@ ${inv.address_invoice_id.address_label|carriage_returns}
     <table >
         <tr>
           %if inv.name :
-            <td>${_("Customer Ref")}</td>
+            <th>${_("Customer Ref")}</th>
           %endif
           %if not inv.picking_ids and inv.origin:
-            <td>${_("Origin")}</td>
+            <th>${_("Origin")}</td>
           %endif
           %if inv.picking_ids:
-            <td>${_("Pickings/Order")}</td>
+            <th>${_("Pickings/Order")}</th>
           %endif
           %if inv.reference:
-            <td>${_("Reference")}</td>
+            <th>${_("Reference")}</th>
           %endif
 
-            <td >${_("Payment Term")}</td>
-            <td >${_("Due Date")}</td>
-            <td>${_("Curr")}</td>
+            <th >${_("Payment Term")}</th>
+            <th >${_("Due Date")}</th>
+            <th>${_("Curr")}</th>
         </tr>
         <tr>
           %if inv.name :
