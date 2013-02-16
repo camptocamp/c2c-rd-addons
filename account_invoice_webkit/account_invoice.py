@@ -98,7 +98,7 @@ class account_invoice(osv.osv):
         'print_code': fields.function(_print_code, method=True, type='boolean', string='Print code if available',),
         'cols': fields.function(_get_cols, method=True, type='integer', string='No of columns before totals',),
         'print_address_info': fields.related('company_id', 'print_address_info', type ='boolen', relation='res.company', string="Print Address Info", readonly = True),
-        'print_cell borders': fields.related('company_id', 'print_cell borders', type ='boolen', relation='res.company', string="Print Cell Borders", readonly = True),
+        'print_cell_borders': fields.related('company_id', 'print_cell_borders', type ='boolen', relation='res.company', string="Print Cell Borders", readonly = True),
         'document_label_position': fields.related('company_id', 'document_label_position', type ='boolen', relation='res.company', string="Document Label Position", readonly = True),
         'invoice_line_sorted' : one2many_sorted.one2many_sorted
         ( 'account.invoice.line'

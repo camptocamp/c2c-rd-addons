@@ -15,7 +15,8 @@
        cellspacing="0";
        font-size:12px;
            }
-     td { margin: 0px; padding: 3px; border: 1px solid #E0E0E0;  vertical-align: top; }
+
+
      pre {font-family:helvetica; font-size:15;}
     </style>
     <%
@@ -24,6 +25,15 @@
     %>
 
     %for inv in objects :
+    
+    <style  type="text/css">
+    %if inv.print_cell_borders:
+       td { margin: 0px; padding: 3px; border: 1px solid Grey;  vertical-align: top; }
+    %else:
+       td { margin: 0px; padding: 3px; border: 1px solid White;  vertical-align: top; }
+    %endif    
+    </style>
+    
     <% setLang(inv.partner_id.lang) %>
 <br>
     <table  >
@@ -140,8 +150,11 @@ ${inv.address_invoice_id.address_label|carriage_returns}
     %endif
 
 %if inv.document_label_position == 'right':
+   <table style="width:auto;float:right;font-weight:bold;font-size:140%">
+%else:
+   <table style="width:auto;float:left;font-weight:bold;font-size:140%">
+%endif
 
-<table style="width:auto;float:right;font-weight:bold;font-size:140%">
 <tr>
   <td style='text-align:right'>
     %if inv.type == 'out_invoice' :
@@ -164,34 +177,6 @@ ${inv.address_invoice_id.address_label|carriage_returns}
 <td style="border:none"></td>
 </tr>
 </table>
-
-%else:
-
-<table style="width:auto;float:left;font-weight:bold;font-size:140%">
-<tr>
-  <td style='text-align:left'>
-    %if inv.type == 'out_invoice' :
-      ${_("Customer Invoice")} 
-    %elif inv.type == 'in_invoice' :
-      ${_("Supplier Invoice")} 
-    %elif inv.type == 'out_refund' :
-      ${_("Customer Refund")} 
-    %elif inv.type == 'in_refund' :
-      ${_("Supplier Refund")} 
-    %endif
-   </td>
-   <td  style="text-align:left;">${inv.number or ''|entity}
-   </td>
-</tr>
-<tr>
-    <td style="text-align:left;">${_("Datum")} </td><td  style="text-align:left;"> ${formatLang(inv.date_invoice, date=True)|entity}</td>
-</tr>
-<tr>
-<td style="border:none"></td>
-</tr>
-</table>
-
-%endif
 
 
 <br/>
@@ -315,7 +300,7 @@ note {font-size:75%};
         </tr>
         <tr>
            <td colspan="${inv.cols}" style="border-style:none"/>
-           <td style="border-style:none;border:1px solid #E0E0E0"><b>${_("Taxes")}:</b></td>
+           <td ><b>${_("Taxes")}:</b></td>
            <td style="text-align:right">${formatLang(inv.amount_tax)}</td></tr>
         <tr> 
            <td colspan="${inv.cols}" style="border-style:none"/>
@@ -335,10 +320,11 @@ note {font-size:75%};
        </thead>
        <tbody style=" border-width:0px; border-style:none;">
         %for t in inv.tax_line :
-        <tr>
-            <td style="border:1px solid #E0E0E0">${ t.name|entity } </td>
-            <td style="text-align:right;border:1px solid #E0E0E0;white-space:nowrap">${ formatLang(t.base)}</td>
-            <td style="text-align:right;border:1px solid #E0E0E0;white-space:nowrap">${ formatLang(t.amount) }</td>
+
+          
+            <td>${ t.name|entity } </td>
+            <td style="text-align:right;white-space:nowrap">${ formatLang(t.base)}</td>
+            <td style="text-align:right;white-space:nowrap">${ formatLang(t.amount) }</td>
         </tr>
         %endfor
           <tr style=" border-width:0px; border-style:none;">
