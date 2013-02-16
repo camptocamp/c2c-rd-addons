@@ -15,7 +15,7 @@
        cellspacing="0";
        font-size:12px;
            }
-     td { margin: 0px; padding: 3px; border: 1px solid lightgrey;  vertical-align: top; }
+     td { margin: 0px; padding: 3px; border: 1px solid #E0E0E0;  vertical-align: top; }
      pre {font-family:helvetica; font-size:15;}
     </style>
     <%
@@ -276,7 +276,7 @@ note {font-size:75%};
         </tr>
         <tr>
            <td colspan="${inv.cols}" style="border-style:none"/>
-           <td style="border-style:none"><b>${_("Taxes")}:</b></td>
+           <td style="border-style:none;border:1px solid #E0E0E0"><b>${_("Taxes")}:</b></td>
            <td style="text-align:right">${formatLang(inv.amount_tax)}</td></tr>
         <tr> 
            <td colspan="${inv.cols}" style="border-style:none"/>
@@ -286,21 +286,29 @@ note {font-size:75%};
     </table>
 <br>
        %if inv.tax_line :
-    <table class="list_table" style="width:40%;border:1px solid grey">
-        <tr><th>${_("Tax")}</th><th style="text-align:left;">${_("Base")}</th><th style="text-align:left;">${_("Amount")}</th></tr>
+    <table style="width:40%;border:1px solid">
+       <thead>
+          <tr style=" border-width:1px; border-style:solid;">
+        <th style="text-align:center;border-width:1px; border-style:solid;">${_("Tax")}</th>
+        <th style="text-align:center;border-width:1px; border-style:solid;">${_("Base")}</th>
+        <th style="text-align:center;border-width:1px; border-style:solid;">${_("Amount")}</th>
+        </tr>
+       </thead>
+       <tbody style=" border-width:0px; border-style:none;">
         %for t in inv.tax_line :
         <tr>
-            <td style="border:1px solid grey">${ t.name|entity } </td>
-            <td style="text-align:right;border:1px solid grey;white-space:nowrap">${ formatLang(t.base)}</td>
-            <td style="text-align:right;border:1px solid grey;white-space:nowrap">${ formatLang(t.amount) }</td>
+            <td style="border:1px solid #E0E0E0">${ t.name|entity } </td>
+            <td style="text-align:right;border:1px solid #E0E0E0;white-space:nowrap">${ formatLang(t.base)}</td>
+            <td style="text-align:right;border:1px solid #E0E0E0;white-space:nowrap">${ formatLang(t.amount) }</td>
         </tr>
         %endfor
-        <tr>
-            <td style="border-style:none"/>
-            <td style="border-top:0px solid;text-align:right;white-space:nowrap"><b>${_("Total Tax:")}</b></td>
-            <td style="border-top:0px solid;text-align:right;white-space:nowrap">${ formatLang(inv.amount_tax) }</td>
+          <tr style=" border-width:0px; border-style:none;">
+            <td style="border:1px solid White"/>
+            <td style="border:2px solid;text-align:right;white-space:nowrap"><b>${_("Total Tax:")}</b></td>
+            <td style="border:2px solid;text-align:right;white-space:nowrap">${ formatLang(inv.amount_tax) }</td>
         </tr>
         %endif
+       </tbody>
     </table>        
     %if inv.comment:
      <br>  ${inv.comment|carriage_returns}
