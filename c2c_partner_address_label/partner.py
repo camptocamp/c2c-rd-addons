@@ -65,7 +65,7 @@ class res_company(osv.osv):
         'print_code': fields.boolean('Print Product Code',help="Print product code on invoice, picking, sale order"),
         'print_address_info': fields.boolean('Print Address Info',help="Print additional address information next ot address field"),
         'print_cell_borders': fields.boolean('Print Cell Borders',help="Print fine cell borders"),
-        'document_label_position': fields.selection([('left','Left'),('right','Right')], string="Address Label Position", help="Position of address number and date left or right"),
+        'document_label_position': fields.selection([('left','Left'),('right','Right')], string="Document Label Position", help="Position of address number and date left or right"),
     }
     _defaults = {
         'address_label_position': lambda *a: 'right',

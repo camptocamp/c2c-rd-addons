@@ -44,8 +44,8 @@
       <field name="inherit_id" ref="base.view_company_form"/>
       <field name="type">form</field>
       <field name="arch" type="xml">
-        <page string="Configuration" position="inside">
-          <group colspan="2" col="4">
+        <xpath expr="//page[@string='Configuration']" position="inside">
+
             <separator string="Address Window Position" colspan="4"/>
             <field name="company_address_id"  colspan="4"/>
             <field name="address_label_position"/>
@@ -54,8 +54,7 @@
             <field name="print_address_info"/>
             <field name="print_cell_borders"/>
             <field name="document_label_position"/>
-          </group>
-        </page>
+        </xpath>
       </field>
     </record>
   </data>
