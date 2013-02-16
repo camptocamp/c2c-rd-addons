@@ -28,7 +28,7 @@
     
     <style  type="text/css">
     %if inv.print_cell_borders:
-       td { margin: 0px; padding: 3px; border: 1px solid Grey;  vertical-align: top; }
+       td { margin: 0px; padding: 3px; border: 1px solid #E3E3E3;  vertical-align: top; }
     %else:
        td { margin: 0px; padding: 3px; border: 1px solid White;  vertical-align: top; }
     %endif    
