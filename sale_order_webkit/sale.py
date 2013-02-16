@@ -86,7 +86,7 @@ class sale_order(osv.osv):
         res = {}
         for order in self.browse(cr, uid, ids, context=context):
             print_code = False
-            if order.order_line:
+            if order.order_line and order.company_id.print_code:
                 for line in order.order_line:
                     if line.product_id.default_code:
                         print_code = True

@@ -24,6 +24,15 @@
     %>
 
     %for order in objects :
+    
+    <style  type="text/css">
+    %if order.company_id.print_cell_borders:
+       td { margin: 0px; padding: 3px; border: 1px solid #E3E3E3;  vertical-align: top; }
+    %else:
+       td { margin: 0px; padding: 3px; border: 1px solid White;  vertical-align: top; }
+    %endif    
+    </style>
+    
 <br>
     <% setLang(order.partner_id.lang) %>
     <table >
@@ -41,6 +50,7 @@ ${order.partner_shipping_id.address_label}
 <b>${_("Ordering Contact")}</b><br>
 ${order.partner_order_id.address_label|carriage_returns}
          %endif
+         %if order.company_id.print_address_info:
          %if order.partner_order_id.phone :
 ${_("Phone")}: ${order.partner_order_id.phone|entity} <br>
         %endif
@@ -49,6 +59,7 @@ ${_("Fax")}: ${order.partner_order_id.fax|entity} <br>
         %endif
         %if order.partner_order_id.email :
 ${_("Mail")}: ${order.partner_order_id.email|entity} <br>
+        %endif
         %endif
          %if order.partner_invoice_id.address_label != order.partner_shipping_id.address_label:
 <br>
@@ -71,6 +82,7 @@ ${_("VAT")}: ${order.partner_invoice_id.partner_id.vat|entity} <br>
 <b>${_("Ordering Contact")}</b><br>
 ${order.partner_order_id.address_label|carriage_returns}
         %endif
+        %if order.company_id.print_address_info:
          %if order.partner_order_id.phone :
 ${_("Tel")}: ${order.partner_order_id.phone|entity} <br>
         %endif
@@ -79,6 +91,7 @@ ${_("Fax")}: ${order.partner_order_id.fax|entity} <br>
         %endif
         %if order.partner_order_id.email :
 ${_("E-mail")}: ${order.partner_order_id.email|entity} <br>
+        %endif
         %endif
          %if order.partner_invoice_id.address_label != order.partner_shipping_id.address_label:
 <br>
