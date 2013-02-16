@@ -40,8 +40,10 @@ ${_("Supplier Address")}
 %endif
 ${inv.address_invoice_id.address_label|carriage_returns}
          </td>
+
          <td style="width:max;padding:0px;font-size:100%;padding-left:5mm;padding-top:3mm">
-<table  style="padding:0px;" >
+         %if inv.print_address_info:
+         <table  style="padding:0px;" >
          %if inv.address_invoice_id.phone :
 <tr>
 <td style="border:none"> ${_("Phone")}</td><td style="border:none"> ${inv.address_invoice_id.phone|entity} </td
@@ -63,7 +65,10 @@ ${inv.address_invoice_id.address_label|carriage_returns}
 </tr>
         %endif
 </table>
+        %endif
          </td>
+         
+         
          %if 'iban_qr_code' in inv._columns and inv.iban_qr_code:
          <td  style="width:150px">
             ${helper.embed_image('png',inv.iban_qr_code, width=150)}
@@ -83,10 +88,12 @@ right Address
          </td>
         %endif
          <td>
+         %if inv.print_address_info:
 <table {border:none} >
+         
          %if inv.address_invoice_id.phone :
 <tr>
-<td> ${_("Phone")}</td><td> ${inv.address_invoice_id.phone|entity} </td
+<td> ${_("Phone")}</td><td> ${inv.address_invoice_id.phone|entity} </td>
 </tr>
         %endif
         %if inv.address_invoice_id.fax :
@@ -103,6 +110,7 @@ right Address
 <tr>
 <td>${_("VAT")}</td><td> ${inv.partner_id.vat|entity} </td>
 </tr>
+        %endif
         %endif
 </table>
          </td>
@@ -131,9 +139,11 @@ ${inv.address_invoice_id.address_label|carriage_returns}
     <h1 style="clear:both;">${_("ProForma")}</h1> 
     %endif
 
+%if inv.document_label_position == 'right':
+
 <table style="width:auto;float:right;font-weight:bold;font-size:140%">
 <tr>
-  <td style="text-align:right">
+  <td style='text-align:right'>
     %if inv.type == 'out_invoice' :
       ${_("Customer Invoice")} 
     %elif inv.type == 'in_invoice' :
@@ -146,7 +156,6 @@ ${inv.address_invoice_id.address_label|carriage_returns}
    </td>
    <td  style="text-align:right;">${inv.number or ''|entity}
    </td>
-   
 </tr>
 <tr>
     <td style="text-align:right;">${_("Datum")} </td><td  style="text-align:right;"> ${formatLang(inv.date_invoice, date=True)|entity}</td>
@@ -155,6 +164,36 @@ ${inv.address_invoice_id.address_label|carriage_returns}
 <td style="border:none"></td>
 </tr>
 </table>
+
+%else:
+
+<table style="width:auto;float:left;font-weight:bold;font-size:140%">
+<tr>
+  <td style='text-align:left'>
+    %if inv.type == 'out_invoice' :
+      ${_("Customer Invoice")} 
+    %elif inv.type == 'in_invoice' :
+      ${_("Supplier Invoice")} 
+    %elif inv.type == 'out_refund' :
+      ${_("Customer Refund")} 
+    %elif inv.type == 'in_refund' :
+      ${_("Supplier Refund")} 
+    %endif
+   </td>
+   <td  style="text-align:left;">${inv.number or ''|entity}
+   </td>
+</tr>
+<tr>
+    <td style="text-align:left;">${_("Datum")} </td><td  style="text-align:left;"> ${formatLang(inv.date_invoice, date=True)|entity}</td>
+</tr>
+<tr>
+<td style="border:none"></td>
+</tr>
+</table>
+
+%endif
+
+
 <br/>
     %if inv.state == 'cancel' :
     <h1 style="clear:both;">${inv.state}</h1> 

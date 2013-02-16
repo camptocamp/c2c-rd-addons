@@ -49,6 +49,11 @@
             <separator string="Address Window Position" colspan="4"/>
             <field name="company_address_id"  colspan="4"/>
             <field name="address_label_position"/>
+            <separator string="Layout Config of partner related documents" colspan="4"/>
+            <field name="print_code"/>
+            <field name="print_address_info"/>
+            <field name="print_cell_borders"/>
+            <field name="document_label_position"/>
           </group>
         </page>
       </field>
