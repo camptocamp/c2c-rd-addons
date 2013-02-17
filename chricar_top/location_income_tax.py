@@ -103,7 +103,7 @@ class stock_location(osv.osv):
 
      _columns = {
        'income_tax_move_ids'  : fields.one2many('location.income.tax','location_id','Income Tax Statement'),
-       'tax_res'  : fields.function(_get_tax_res, method=True, type='dict', string='Tax Res Dict',),
+       'tax_res'  : fields.function(_get_tax_res, method=True, type='dict', string='Tax Result Dict',),
 
 }
 stock_location()
