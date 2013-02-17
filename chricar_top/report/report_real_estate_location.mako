@@ -71,7 +71,7 @@ val = loc.tax_res[2]
         
        <thead>
          <tr>
-         <th>${_("Code")}</th>
+         <th>${_("Code")[:4]}</th>
          <th>${_("Account")}</th>
          <th>${_("Company")}</th>
          %for fy in loc.tax_res[1] :
