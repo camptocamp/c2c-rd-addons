@@ -47,7 +47,63 @@ location_income_tax()
 class stock_location(osv.osv):
      _inherit = "stock.location"
 
+     def _get_tax_res(self, cr, uid, ids, name, args, context=None):
+        res = {}
+        data = {}
+        for loc in self.browse(cr, uid, ids, context=context):
+            values = {}
+
+            sql = """
+            select distinct a.code,a.name as account,company_id 
+              from location_income_tax l,
+                   account_account a
+             where location_id = %s
+               and a.id = l.account_id
+             order by a.code
+             """ % loc.id
+            cr.execute(sql)
+            accounts = cr.fetchall()
+            for ac in accounts:
+               values[ac[0]] = {}
+
+
+            sql = """
+            select distinct f.code as fy
+              from location_income_tax l,
+                   account_fiscalyear f
+             where location_id = %s
+               and f.id = l.fiscalyear_id
+             order by f.code
+             """ % loc.id
+            cr.execute(sql)
+            fiscal_years = cr.fetchall()
+            for fy in fiscal_years:
+                for ac in accounts:
+                    values[ac[0]][fy[0]]={}
+
+            sql = """
+            select a.code as account, f.code as year , sum(amount) as amount
+              from location_income_tax l,
+                   account_fiscalyear f,
+                   account_account a
+             where location_id = %s
+               and f.id = l.fiscalyear_id
+               and a.id = l.account_id
+             group by a.code, f.code 
+             order by a.code, f.code
+            """ % loc.id
+            cr.execute(sql)
+            vals = cr.fetchall()
+            for val in vals:
+                values[val[0]][val[1]] = val[2]
+   
+            res[loc.id] = (accounts, fiscal_years, values)
+        return res
+
+
      _columns = {
        'income_tax_move_ids'  : fields.one2many('location.income.tax','location_id','Income Tax Statement'),
+       'tax_res'  : fields.function(_get_tax_res, method=True, type='dict', string='Tax Res Dict',),
+
 }
 stock_location()
