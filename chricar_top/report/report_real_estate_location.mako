@@ -62,11 +62,16 @@
       </tbody>
     </table>
 <br/>
+
 ${_("Tax Resuts")}
 <%
 val = loc.tax_res[2]
 
 pl = ''
+sums = {}
+sums['Result'] = {}
+for fy1 in loc.tax_res[1] :
+    sums['Result'][fy1[0]] = 0
 %> 
      
      <table>
@@ -83,32 +88,47 @@ pl = ''
          %for ac in loc.tax_res[0]:
           %if pl and pl != ac[3]:
               <tr>
-                <td/><td> ${pl} </td>
+                <td/><td> ${pl} </td> <td/>
+                 %for fy1 in loc.tax_res[1] :
+                    <td style="text-align:right;"> ${formatLang(sums[pl][fy1[0]],0)} </td>
+                 %endfor
               </tr>
+          %endif
            <%
               pl = ac[3]
+              if not sums.get(pl) :
+                  sums[pl] = {}
+                  for fy1 in loc.tax_res[1]:
+                      sums[pl][fy1[0]] = 0
             %>
-          %endif
+         <!--<tr><td>${sums}</td></tr>
+         -->
          <tr>
           <td> ${ac[0]} </td> 
           <td> ${ac[1]} </td> 
           <td> ${ac[2]} </td> 
           %for fy1 in loc.tax_res[1] :
             <td style="text-align:right;"> ${formatLang(val[ac[0]][fy1[0]] or 0, 0)} </td>
-          %endfor
-          %if not pl:
             <%
-              pl = ac[3]
+            sums[pl][fy1[0]] += val[ac[0]][fy1[0]] or 0
+            sums['Result'][fy1[0]] += val[ac[0]][fy1[0]] or 0
             %>
-          %endif
+          %endfor
              
          </tr>
          %endfor
               <tr>
-                <td/><td> ${pl} </td>
+                <td/><td> ${pl} </td> <td/> 
+                 %for fy1 in loc.tax_res[1] :
+                    <td style="text-align:right;"> ${formatLang(sums[pl][fy1[0]],0)} </td>
+                 %endfor
               </tr>
               <tr style="font-weight:bold">
-                <td/><td> ${_("Result")} </td>
+                <td/><td> ${_("Result")} </td> <td/> 
+                 %for fy1 in loc.tax_res[1] :
+                    <td style="text-align:right;"> ${formatLang(sums['Result'][fy1[0]],0)} </td>
+                 %endfor
+
               </tr>
           
        </thead>
