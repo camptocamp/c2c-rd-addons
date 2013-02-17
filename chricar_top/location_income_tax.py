@@ -54,12 +54,14 @@ class stock_location(osv.osv):
             values = {}
 
             sql = """
-            select distinct a.code,a.name as account,company_id 
+            select distinct a.code,a.name as account,company_id ,t.name
               from location_income_tax l,
-                   account_account a
+                   account_account a,
+                   account_account_type t
              where location_id = %s
                and a.id = l.account_id
-             order by a.code
+               and t.id = user_type
+             order by t.name desc, a.code
              """ % loc.id
             cr.execute(sql)
             accounts = cr.fetchall()

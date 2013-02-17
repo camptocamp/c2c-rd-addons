@@ -65,6 +65,8 @@
 ${_("Tax Resuts")}
 <%
 val = loc.tax_res[2]
+
+pl = ''
 %> 
      
      <table>
@@ -73,12 +75,20 @@ val = loc.tax_res[2]
          <tr>
          <th>${_("Code")[:4]}</th>
          <th>${_("Account")}</th>
-         <th>${_("Company")}</th>
+         <th>${_("Comp")}</th>
          %for fy in loc.tax_res[1] :
          <th> ${fy[0]} </th>
          %endfor
          </tr>
          %for ac in loc.tax_res[0]:
+          %if pl and pl != ac[3]:
+              <tr>
+                <td/><td> ${pl} </td>
+              </tr>
+           <%
+              pl = ac[3]
+            %>
+          %endif
          <tr>
           <td> ${ac[0]} </td> 
           <td> ${ac[1]} </td> 
@@ -86,8 +96,20 @@ val = loc.tax_res[2]
           %for fy1 in loc.tax_res[1] :
             <td style="text-align:right;"> ${formatLang(val[ac[0]][fy1[0]] or 0, 0)} </td>
           %endfor
+          %if not pl:
+            <%
+              pl = ac[3]
+            %>
+          %endif
+             
          </tr>
          %endfor
+              <tr>
+                <td/><td> ${pl} </td>
+              </tr>
+              <tr style="font-weight:bold">
+                <td/><td> ${_("Result")} </td>
+              </tr>
           
        </thead>
 
