@@ -59,36 +59,36 @@
         </tr>
         %endif
 
-        %if 'rent_actual' in loc._columns and loc.rent_actual:         
+        %if ('rent_actual' in loc._columns and loc.rent_actual) or ('rent_plan' in loc._columns and loc.rent_plan):         
+      <table>
+        <thead>
+      <br/>
         <tr>
-        <td>${_("Lease Monthly Actual")}</td>
-        <td>${loc.rent_actual or ''|entity}</td>
+        <td/>
+        <td/>
+        <td style="text-align:right;">${_("Actual")}</td>
+        <td style="text-align:right;">${_("Plan")}</td>
+        </tr>    
+         </thead>
+         <tbody>
+        <tr>
+        <td>${_("Lease")}</td>
+        <td/>
+        <td style="text-align:right;">${loc.rent_actual or ''|entity}</td>
+        <td style="text-align:right;">${loc.rent_plan or ''|entity}</td>
+        </tr>    
+        %if ('discount' in loc._columns and loc.discount) or ( 'discount_value_actual' in loc._columns and loc.discount_value_actual) or ( 'discount_value_plan' in loc._columns and loc.discount_value_plan):         
+        <tr>
+        <td>${_("Rate / Valuation")}</td>
+        <td>${loc.discount or ''|entity}%</td>
+        <td style="text-align:right;">${loc.discount_value_actual or ''|entity}</td>
+        <td style="text-align:right;">${loc.discount_value_plan or ''|entity}</td>
         </tr>    
         %endif
-        %if 'rent_plan' in loc._columns and loc.rent_plan:         
-        <tr>
-        <td>${_("Lease Monthly Plan")}</td>
-        <td>${loc.rent_plan or ''|entity}</td>
-        </tr>    
+         <tbody>
+       </table>
         %endif
-        %if 'discount' in loc._columns and loc.discount:         
-        <tr>
-        <td>${_("Discount Rate")}</td>
-        <td>${loc.discount or ''|entity}</td>
-        </tr>    
-        %endif
-        %if 'discount_value_actual' in loc._columns and loc.discount_value_actual:         
-        <tr>
-        <td>${_("Valuation at Actual Rent")}</td>
-        <td>${loc.discount_value_actual or ''|entity}</td>
-        </tr>    
-        %endif
-        %if 'discount_value_plan' in loc._columns and loc.discount_value_plan:         
-        <tr>
-        <td>${_("Valuation at Planed Rent")}</td>
-        <td>${loc.discount_value_plan or ''|entity}</td>
-        </tr>    
-        %endif
+
       </tbody>
     </table>
 <br/>
