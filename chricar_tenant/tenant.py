@@ -210,3 +210,57 @@ class chricar_top(osv.osv):
      #'tenant_id'          : fields.function(_tenant_current, method=True, string='Tenant',type='char', size=128 ),
      }
 chricar_top()
+
+
+class stock_location(osv.osv):
+     _inherit = "stock.location"
+
+     def _rent_plan(self, cr, uid, ids, field_name, arg, context=None):
+         result = {}
+         rent = 0
+         for r in self.browse(cr, uid, ids, context):
+             for top in r.top_ids:
+                 if top.lease_target and top.surface:
+                     rent += top.lease_target * top.surface
+             result[r.id] = rent
+         return result
+
+     def _rent_actual(self, cr, uid, ids, field_name, arg, context=None):
+         result = {}
+         rent = 0
+         for r in self.browse(cr, uid, ids, context):
+             for top in r.top_ids:
+                 if top.lease_current:
+                     rent += top.lease_current
+             result[r.id] = rent
+         return result
+
+      
+     def _discount_value_plan(self, cr, uid, ids, field_name, arg, context=None):
+         result = {}
+         for r in self.browse(cr, uid, ids, context):
+             value = None
+             if r.discount and r.rent_plan:
+                 value = r.rent_plan *12 / (r.discount / 100)
+             result[r.id] = value
+         return result
+
+     def _discount_value_actual(self, cr, uid, ids, field_name, arg, context=None):
+         result = {}
+         for r in self.browse(cr, uid, ids, context):
+             value = None
+             if r.discount and r.rent_actual:
+                 value = r.rent_actual *12 / (r.discount / 100)
+             result[r.id] = value
+         return result
+
+     _columns = {
+           'discount' : fields.float('Discount Rate in %', digits=(8,2)),
+           'rent_plan'   : fields.function(_rent_plan, method=True, string="Rent Plan", type='float', digits=(16,0)),
+           'rent_actual' : fields.function(_rent_actual, method=True, string="Rent Actual", type='float', digits=(16,0)),
+           'discount_value_plan' : fields.function(_discount_value_plan, method=True, string="Discount Value Plan", type='float', digits=(16,0)),
+           'discount_value_actual' : fields.function(_discount_value_actual, method=True, string="Discount Value Actual", type='float', digits=(16,0)),
+         }
+
+stock_location()
+
