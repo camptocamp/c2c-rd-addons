@@ -256,8 +256,8 @@ class stock_location(osv.osv):
 
      _columns = {
            'discount' : fields.float('Discount Rate in %', digits=(8,2)),
-           'rent_plan'   : fields.function(_rent_plan, method=True, string="Rent Plan", type='float', digits=(16,0)),
-           'rent_actual' : fields.function(_rent_actual, method=True, string="Rent Actual", type='float', digits=(16,0)),
+           'rent_plan'   : fields.function(_rent_plan, method=True, string="Monthly Rent Plan", type='float', digits=(16,0)),
+           'rent_actual' : fields.function(_rent_actual, method=True, string="Monthly Rent Actual", type='float', digits=(16,0)),
            'discount_value_plan' : fields.function(_discount_value_plan, method=True, string="Discount Value Plan", type='float', digits=(16,0)),
            'discount_value_actual' : fields.function(_discount_value_actual, method=True, string="Discount Value Actual", type='float', digits=(16,0)),
          }
