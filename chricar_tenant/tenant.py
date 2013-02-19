@@ -215,10 +215,20 @@ chricar_top()
 class stock_location(osv.osv):
      _inherit = "stock.location"
 
+     def _surface(self, cr, uid, ids, field_name, arg, context=None):
+         result = {}
+         for r in self.browse(cr, uid, ids, context):
+             surface = 0
+             for top in r.top_ids:
+                 if top.surface:
+                     surface += top.surface
+             result[r.id] = surface
+         return result
+
      def _rent_plan(self, cr, uid, ids, field_name, arg, context=None):
          result = {}
-         rent = 0
          for r in self.browse(cr, uid, ids, context):
+             rent = 0
              for top in r.top_ids:
                  if top.lease_target and top.surface:
                      rent += top.lease_target * top.surface
@@ -227,12 +237,39 @@ class stock_location(osv.osv):
 
      def _rent_actual(self, cr, uid, ids, field_name, arg, context=None):
          result = {}
-         rent = 0
          for r in self.browse(cr, uid, ids, context):
+             rent = 0
              for top in r.top_ids:
                  if top.lease_current:
                      rent += top.lease_current
              result[r.id] = rent
+         return result
+
+     def _rent_surface_plan(self, cr, uid, ids, field_name, arg, context=None):
+         result = {}
+         for r in self.browse(cr, uid, ids, context):
+             if r.surface:
+                rent = 0
+                for top in r.top_ids:
+                    if top.lease_target and top.surface:
+                        rent += top.lease_target * top.surface
+                result[r.id] = rent / r.surface
+             else:
+                result[r.id] = None
+         return result
+
+     def _rent_surface_actual(self, cr, uid, ids, field_name, arg, context=None):
+         result = {}
+         for r in self.browse(cr, uid, ids, context):
+             if r.surface:
+                rent = 0
+                for top in r.top_ids:
+                    if top.lease_current:
+                        rent += top.lease_current
+                result[r.id] = rent / r.surface
+             else:
+                result[r.id] = None
+
          return result
 
       
@@ -256,8 +293,11 @@ class stock_location(osv.osv):
 
      _columns = {
            'discount' : fields.float('Discount Rate in %', digits=(8,2)),
+           'surface'   : fields.function(_surface, method=True, string="Surface", type='float', digits=(16,0)),
            'rent_plan'   : fields.function(_rent_plan, method=True, string="Monthly Rent Plan", type='float', digits=(16,0)),
            'rent_actual' : fields.function(_rent_actual, method=True, string="Monthly Rent Actual", type='float', digits=(16,0)),
+           'rent_plan_surface'   : fields.function(_rent_surface_plan, method=True, string="Rent Plan/Surface", type='float', digits=(16,2)),
+           'rent_actual_surface' : fields.function(_rent_surface_actual, method=True, string="Rent Actual/Surface", type='float', digits=(16,2)),
            'discount_value_plan' : fields.function(_discount_value_plan, method=True, string="Discount Value Plan", type='float', digits=(16,0)),
            'discount_value_actual' : fields.function(_discount_value_actual, method=True, string="Discount Value Actual", type='float', digits=(16,0)),
          }

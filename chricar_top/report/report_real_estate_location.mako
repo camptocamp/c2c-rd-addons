@@ -18,6 +18,14 @@
 
 %for loc in objects:
 
+<%
+owner = []
+for top in loc.top_ids:
+    if top.partner_id.name not in owner:
+         owner.append(top.partner_id.name)    
+owners = ','.join([id for id in owner])
+
+%>
 <h1>${_("Info Real Estate")}</h1>
 
 <table>
@@ -27,10 +35,12 @@
         <td>${loc.name or ''|entity}</td>
         </tr> 
 
+        %if owners:
         <tr>
         <td>${_("Owner")}</td>
-        <td>${loc.company_id.name or ''|entity}</td>
+        <td>${owners|entity}</td>
         </tr>
+        %endif
 
         %if 'surface' in loc._columns and loc.surface:         
         <tr>
@@ -76,6 +86,12 @@
         <td/>
         <td style="text-align:right;">${loc.rent_actual or ''|entity}</td>
         <td style="text-align:right;">${loc.rent_plan or ''|entity}</td>
+        </tr>    
+        <tr>
+        <td>${_("Lease/m²")}</td>
+        <td/>
+        <td style="text-align:right;">${formatLang(loc.rent_actual_surface,2) or ''|entity}</td>
+        <td style="text-align:right;">${formatLang(loc.rent_plan_surface,2) or ''|entity}</td>
         </tr>    
         %if ('discount' in loc._columns and loc.discount) or ( 'discount_value_actual' in loc._columns and loc.discount_value_actual) or ( 'discount_value_plan' in loc._columns and loc.discount_value_plan):         
         <tr>

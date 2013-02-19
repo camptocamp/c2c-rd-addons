@@ -272,6 +272,8 @@ links to helpdesk
           <field name="discount" />
           <field name="rent_actual" />
           <field name="rent_plan" />
+          <field name="rent_actual_surface" />
+          <field name="rent_plan_surface" />
           <field name="discount_value_actual" />
           <field name="discount_value_plan" />
 
