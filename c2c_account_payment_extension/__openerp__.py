@@ -42,6 +42,7 @@
 , "demo_xml"     : []
 , "update_xml"   : 
     [ "payment_mode_view.xml"
+    , "payment_view.xml"
     , "res_partner_view.xml"
     , "account_invoice_view.xml"
     , "wizard/account_payment_order_view.xml"
