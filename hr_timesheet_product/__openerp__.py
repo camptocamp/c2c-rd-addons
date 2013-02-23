@@ -27,7 +27,7 @@ This module displays the hidden field product_id
 
 """
 , 'author'      : 'Camptocamp Austria'
-, 'depends'     : ['hr_timesheet_task' ]
+, 'depends'     : ['hr_timesheet' ]
 , 'update_xml'  : ['hr_timesheet_product.xml']
 , 'demo_xml'    : []
 , 'installable' : True
