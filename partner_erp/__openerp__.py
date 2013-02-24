@@ -31,7 +31,7 @@ ERP Access Data for Clients
     'website': 'http://www.camptocamp.com',
     "depends" : ["base"],
     'init_xml': [],
-    'update_xml': ['partner_view.xml', 'security/group.xml', 'security/ir.model.access.csv'    ],
+    'update_xml': ['partner_view.xml', 'security/group.xml', 'security/ir.model.access.csv','security/partner_erp_security.xml'],
     'demo_xml': [],
     'installable': True,
     'auto_install': False,
