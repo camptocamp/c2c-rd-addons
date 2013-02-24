@@ -14,8 +14,8 @@
        cellspacing="0";
        font-size:10px;
            }
-     td { margin: 0px; padding: 3px; border: 1px solid lightgrey;  vertical-align: top; }
-     th { margin: 0px; padding: 3px; border: 1px solid lightgrey;  vertical-align: top; }
+    
+     th { margin: 0px; padding: 3px; border: 1px solid Grey;  vertical-align: top; }
      pre {font-family:helvetica; font-size:13;}
     </style>
     <%
@@ -24,9 +24,23 @@
     %>
 
     %for pick in objects :
+    
+    <style  type="text/css">
+    %if pick.company_id.print_cell_borders:
+       td { margin: 0px; padding: 3px; border: 1px solid #E3E3E3;  vertical-align: top; }
+    %else:
+       td { margin: 0px; padding: 3px; border: 1px solid White;  vertical-align: top; }
+    %endif    
+    </style>
+    
 <br>
     <%setLang(pick.partner_id and pick.partner_id.lang) or pick.partner_id and setLang(pick.partner_id.lang) or setLang(pick.company_id.partner_id.lang)%>
+
+    
     <table >
+    <!--
+    Left Address
+    -->
         %if pick.company_id.address_label_position == 'left':
          <tr style="min-hight:4cm">
          <td style="width:50% ;min-height:100px;">
@@ -35,7 +49,7 @@ ${_("Shipping Address")}
 ${pick.partner_id and pick.partner_id.address_label|carriage_returns or ''}
          </td>
          <td style="width:50%">
-         %if pick.partner_id.phone :
+%if pick.company_id.print_address_info:
 ${_("Phone")}: ${pick.partner_id.phone|entity} <br>
         %endif
         %if pick.partner_id.fax :
@@ -51,7 +65,7 @@ ${_("VAT")}: ${pick.partner_id and pick.partner_id.vat or pick.partner_id.partne
         <b>${_("Ordering Contact")}</b><br>
         ${pick.sale_id.partner_id.address_label|carriage_returns or ''}
 %endif
-
+%endif
          </td>
 
         </tr>
@@ -60,8 +74,8 @@ ${_("VAT")}: ${pick.partner_id and pick.partner_id.vat or pick.partner_id.partne
         %if pick.company_id.address_label_position == 'right' or not pick.company_id.address_label_position:
          <tr style="min-hight:4cm">
          <td style="width:50%">
-         %if pick.partner_id.phone :
-${_("Tel")}: ${pick.partner_id.phone|entity} <br>
+%if pick.company_id.print_address_info:
+
         %endif
         %if pick.partner_id.fax :
 ${_("Fax")}: ${pick.partner_id.fax|entity} <br>
@@ -75,6 +89,7 @@ ${_("VAT")}: ${pick.partner_id and pick.partner_id.vat or pick.partner_id.partne
 %if pick.partner_id and pick.sale_id and pick.sale_id.partner_id and pick.partner_id.address_label != pick.sale_id.partner_id.address_label:
         <b>${_("Ordering Contact")}</b><br>
         ${pick.sale_id.partner_id.address_label|carriage_returns or ''}
+%endif
 %endif
 
          </td>
@@ -107,7 +122,7 @@ ${pick.partner_id and pick.partner_id.address_label|carriage_returns or ''}
     <br/>
 
     <table  style="width:100%">
-      <thead style="border:1px solid lightgrey">
+      <thead style="border:1px solid #E3E3E3">
         <tr>
           %if pick.origin and pick.origin not in [ pick.sale_id.name,pick.purchase_id.name]  :
             <th>${_("Document")}</th>
@@ -193,7 +208,7 @@ ${pick.partner_id and pick.partner_id.address_label|carriage_returns or ''}
     </table>
     <h1> </h1>
     <table style="width:100%">
-    <thead style="border:1px solid lightgrey">
+    <thead style="border:1px solid #E3E3E3">
           <tr>
 %if pick.print_code:
             <th>${_("Code")}</th>

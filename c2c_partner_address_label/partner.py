@@ -62,9 +62,18 @@ class res_company(osv.osv):
     _columns = {
         'company_address_id':fields.many2one('res.partner', 'Address for Report Header'),
         'address_label_position' : fields.selection([('left','Left'),('right','Right')], string="Address Window Position", help="Position of address window on standard company enevlops. Many reports do not use this yet"),
+        'print_code': fields.boolean('Print Product Code',help="Print product code on invoice, picking, sale order"),
+        'print_address_info': fields.boolean('Print Address Info',help="Print additional address information next ot address field"),
+        'print_cell_borders': fields.boolean('Print Cell Borders',help="Print fine cell borders"),
+        'document_label_position': fields.selection([('left','Left'),('right','Right')], string="Document Label Position", help="Position of address number and date left or right"),
     }
     _defaults = {
         'address_label_position': lambda *a: 'right',
+        'document_label_position': lambda *a: 'right',
+        'print_code': lambda *a: True,
+        'print_address_info': lambda *a: True,
+        'print_cell_borders': lambda *a: True,
+        
     }
 
 res_company()

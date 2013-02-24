@@ -49,6 +49,7 @@ class project_work(osv.osv):
         #'date': fields.datetime('Date', select="1"),
         #'task_id': fields.many2one('project.task', 'Task', ondelete='cascade', required=True, select="1"),
         #'user_id': fields.many2one('res.users', 'Done by', required=True, select="1"),
+        'product_id': fields.many2one('product.product','Product' ),
         'to_invoice': fields.many2one('hr_timesheet_invoice.factor', 'Type of Invoicing', help="It allows to set the discount while making invoice"),
         'project_id' : fields.related('task_id', 'project_id', type='many2one', relation="project.project", string='Project',
         store = True
@@ -59,29 +60,46 @@ class project_work(osv.osv):
 ),
     }
 
+
+    def get_product(self, cr, uid, task):
+        
+        product_id = ''
+        grid_obj = self.pool.get('analytic.user.funct.grid')
+        if grid_obj:
+            grid_ids = grid_obj.search(cr, uid, [('user_id','=', uid),('account_id','=',task.project_id.analytic_account_id.id)])
+            for grid_line in grid_obj.browse(cr, uid, grid_ids):
+                product_id = grid_line.product_id.id
+
+        if not product_id:
+            employee_id = self.pool.get('hr.employee').search(cr, uid, [('user_id','=',uid)])
+            for employee in self.pool.get('hr.employee').browse(cr, uid, employee_id):
+                if employee.product_id:
+                    product_id = employee.product_id.id
+        return product_id
+
     def onchange_task_id(self, cr, uid, ids, task_id, context=None):
-        result = {}
+        value = {}
+        res = {} 
         if task_id:
             task_obj = self.pool.get('project.task')
             for task in task_obj.browse(cr, uid, [task_id]): 
                 if task.project_id and task.project_id.to_invoice:
-	            return {'value':{'to_invoice': task.project_id.to_invoice.id,}}
-        return {'value':{}}
+	                value['to_invoice'] = task.project_id.to_invoice.id
+                product_id = self.get_product(cr, uid, task)
+                if product_id:
+                    value['product_id']= product_id
+        res['value']=value
+        return res
+
+
 
     def _get_product(self, cr, uid, work_id):
         product_id = ''
         for work in self.browse(cr, uid, [work_id] ):
-            grid_obj = self.pool.get('analytic.user.funct.grid')
-            if grid_obj:
-                grid_ids = grid_obj.search(cr, uid, [('user_id','=', work.user_id.id),('account_id','=',work.task_id.project_id.analytic_account_id.id)])
-                for grid_line in grid_obj.browse(cr, uid, grid_ids):
-                    product_id = grid_line.product_id.id
-
+            if work.product_id:
+                product_id = work.product_id.id
             if not product_id:
-                employee_id = self.pool.get('hr.employee').search(cr, uid, [('user_id','=',work.user_id.id)])
-                for employee in self.pool.get('hr.employee').browse(cr, uid, employee_id):
-                    if employee.product_id:
-                        product_id = employee.product_id.id
+                self.get_product(cr, uid, work.task_id)
                 
 
         return product_id
@@ -93,7 +111,7 @@ class project_work(osv.osv):
         task_obj = self.pool.get('project.task')
         self._logger.debug('FGF vals `%s`',  vals)
         if 'user_id' not in vals:
-                vals['user_id'] = uid
+               vals['user_id'] = uid
         res= super(project_work,self).write(cr, uid, ids, vals, context)
         for work in self.browse(cr, uid, ids, context=context):
             if work.hr_analytic_timesheet_id and work.hr_analytic_timesheet_id.line_id:

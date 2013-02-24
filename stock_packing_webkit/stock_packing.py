@@ -104,7 +104,7 @@ class stock_picking(osv.osv):
         res = {}
         for picking in self.browse(cr, uid, ids, context=context):
           print_code = False
-          if picking.move_lines:
+          if picking.move_lines and picking.company_id.print_code:
             for line in picking.move_lines:
                 if line.product_id.default_code:
                    print_code = True

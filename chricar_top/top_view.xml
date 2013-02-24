@@ -346,15 +346,10 @@ Modification of Parents (only for matching table prefixes)
         </field>
       </field>
     </record>
-    <record id="view_location_form_blueprint3" model="ir.ui.view">
-      <field name="name">stock.location.form.blueprint3</field>
-      <field name="model">stock.location</field>
-      <field name="type">form</field>
-      <field name="inherit_id" ref="stock.view_location_form"/>
-      <field name="arch" type="xml">
-        <field name="icon" position="after">
+        <separator string="Additional Information" colspan="4" position="before">
+         <separator colspan="4" string="Real Estate"/>
           <field name="operating_cost"/>
-        </field>
+        </separator>
       </field>
     </record>
     <act_window

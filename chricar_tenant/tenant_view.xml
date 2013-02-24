@@ -260,5 +260,26 @@ links to helpdesk
       src_model="chricar.tenant"
       view_mode="tree,form"
       view_type="form"/>
+
+
+    <record id="view_location_form_re_value" model="ir.ui.view">
+      <field name="name">stock.location.form.re_value</field>
+      <field name="model">stock.location</field>
+      <field name="type">form</field>
+      <field name="inherit_id" ref="chricar_top.view_location_form_blueprint2"/>
+      <field name="arch" type="xml">
+          <field name="operating_cost" position="after">
+          <field name="discount" />
+          <field name="rent_actual" />
+          <field name="rent_plan" />
+          <field name="rent_actual_surface" />
+          <field name="rent_plan_surface" />
+          <field name="discount_value_actual" />
+          <field name="discount_value_plan" />
+
+        </field>
+      </field>
+    </record>
+
   </data>
 </openerp>

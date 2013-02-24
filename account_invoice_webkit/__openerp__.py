@@ -36,6 +36,8 @@ Address label with option to position address left, right
 using address label field with addressee's country specific zip position
 
 top margin of webkit header must be set to 35mm to get correctly positioned folding marks
+
+set "print code" in company to print internal product code on sale_order,icking and invoice
 """
 , "version"      : "0.9"
 , "depends"      : 

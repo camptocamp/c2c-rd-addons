@@ -14,7 +14,7 @@
        cellspacing="0";
        font-size:10px;
            }
-     td { margin: 0px; padding: 3px; border: 1px solid lightgrey;  vertical-align: top; }
+     th { margin: 0px; padding: 3px; border: 1px solid Grey;  vertical-align: top; }
      pre {font-family:helvetica; font-size:12;}
     </style>
 
@@ -24,6 +24,15 @@
     %>
 
     %for order in objects :
+    
+    <style  type="text/css">
+    %if order.company_id.print_cell_borders:
+       td { margin: 0px; padding: 3px; border: 1px solid #E3E3E3;  vertical-align: top; }
+    %else:
+       td { margin: 0px; padding: 3px; border: 1px solid White;  vertical-align: top; }
+    %endif    
+    </style>
+    
 <br>
     <% setLang(order.partner_id.lang) %>
     <table >
@@ -104,17 +113,17 @@ ${_("Mail")}: ${order.partner_address_id.email|entity} <br>
     <table  style="width:100%">
         <tr>
           %if order.partner_ref:
-             <td>${_("Reference")}</td>
+             <th>${_("Reference")}</td>
           %endif
-             <td style="white-space:nowrap">${_("Order Date")}</td>
+             <th style="white-space:nowrap">${_("Order Date")}</th>
           %if order.payment_term :
-             <td style="white-space:nowrap">${_("Payment Term")}</td>
+             <th style="white-space:nowrap">${_("Payment Term")}</th>
           %endif
           %if order.incoterm:
-             <td style="white-space:nowrap">${_("Incoterm")}</td>
+             <th style="white-space:nowrap">${_("Incoterm")}</th>
           %endif
 
-            <td style="white-space:nowrap">${_("Curr")}</td>
+            <th style="white-space:nowrap">${_("Curr")}</th>
         </tr>
         <tr>
             %if order.partner_ref:

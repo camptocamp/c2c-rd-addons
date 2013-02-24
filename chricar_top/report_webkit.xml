@@ -9,5 +9,14 @@
       name="report.chricar.real.estate.sale.folder"
       report_type="webkit"
       string="Sale Folder Webkit"/>
+
+    <report
+      auto="False"
+      file="chricar_top/report/report_real_estate_location.mako"
+      id="report_location_result"
+      model="stock.location"
+      name="report.location.result"
+      report_type="webkit"
+      string="Real Estate Result"/>
   </data>
 </openerp>

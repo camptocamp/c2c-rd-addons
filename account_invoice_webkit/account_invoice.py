@@ -26,7 +26,7 @@ import one2many_sorted
 
 class account_invoice(osv.osv):
     _inherit = "account.invoice"
-         
+
     def _amount_discount(self, cr, uid, ids, name, args, context=None):
         res = {}
         amount_discount = 0.0
@@ -66,7 +66,7 @@ class account_invoice(osv.osv):
         res = {}
         for inv in self.browse(cr, uid, ids, context=context):
           print_code = False
-          if inv.invoice_line:
+          if inv.invoice_line and inv.company_id.print_code:
             for line in inv.invoice_line:
                 if line.product_id.default_code:
                    print_code = True
@@ -98,6 +98,9 @@ class account_invoice(osv.osv):
         'print_ean': fields.function(_print_ean, method=True, type='boolean', string='Print EAN if available',),
         'print_code': fields.function(_print_code, method=True, type='boolean', string='Print code if available',),
         'cols': fields.function(_get_cols, method=True, type='integer', string='No of columns before totals',),
+        'print_address_info': fields.related('company_id', 'print_address_info', type ='boolen', relation='res.company', string="Print Address Info", readonly = True),
+        'print_cell_borders': fields.related('company_id', 'print_cell_borders', type ='boolen', relation='res.company', string="Print Cell Borders", readonly = True),
+        'document_label_position': fields.related('company_id', 'document_label_position', type ='boolen', relation='res.company', string="Document Label Position", readonly = True),
         'invoice_line_sorted' : one2many_sorted.one2many_sorted
         ( 'account.invoice.line'
         , 'invoice_id'

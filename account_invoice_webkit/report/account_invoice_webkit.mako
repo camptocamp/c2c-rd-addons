@@ -15,7 +15,8 @@
        cellspacing="0";
        font-size:12px;
            }
-     td { margin: 0px; padding: 3px; border: 1px solid lightgrey;  vertical-align: top; }
+
+     th { margin: 0px; padding: 3px; border: 1px solid Grey;  vertical-align: top; }
      pre {font-family:helvetica; font-size:15;}
     </style>
     <%
@@ -24,6 +25,15 @@
     %>
 
     %for inv in objects :
+    
+    <style  type="text/css">
+    %if inv.print_cell_borders:
+       td { margin: 0px; padding: 3px; border: 1px solid #E3E3E3;  vertical-align: top; }
+    %else:
+       td { margin: 0px; padding: 3px; border: 1px solid White;  vertical-align: top; }
+    %endif    
+    </style>
+    
     <% setLang(inv.partner_id.lang) %>
 <br>
     <table  >
@@ -40,8 +50,10 @@ ${_("Supplier Address")}
 %endif
 ${inv.partner_id.address_label|carriage_returns}
          </td>
+
          <td style="width:max;padding:0px;font-size:100%;padding-left:5mm;padding-top:3mm">
-<table  style="padding:0px;" >
+         %if inv.print_address_info:
+         <table  style="padding:0px;" >
          %if inv.partner_id.phone :
 <tr>
 <td style="border:none"> ${_("Phone")}</td><td style="border:none"> ${inv.partner_id.phone|entity} </td
@@ -63,7 +75,10 @@ ${inv.partner_id.address_label|carriage_returns}
 </tr>
         %endif
 </table>
+        %endif
          </td>
+         
+         
          %if 'iban_qr_code' in inv._columns and inv.iban_qr_code:
          <td  style="width:150px">
             ${helper.embed_image('png',inv.iban_qr_code, width=150)}
@@ -83,8 +98,9 @@ right Address
          </td>
         %endif
          <td>
+         %if inv.print_address_info:
 <table {border:none} >
-         %if inv.partner_id.phone :
+         
 <tr>
 <td> ${_("Phone")}</td><td> ${inv.partner_id.phone|entity} </td
 </tr>
@@ -103,6 +119,7 @@ right Address
 <tr>
 <td>${_("VAT")}</td><td> ${inv.partner_id.vat|entity} </td>
 </tr>
+        %endif
         %endif
 </table>
          </td>
@@ -131,9 +148,14 @@ ${inv.partner_id.address_label|carriage_returns}
     <h1 style="clear:both;">${_("ProForma")}</h1> 
     %endif
 
-<table style="width:auto;float:right;font-weight:bold;font-size:140%">
+%if inv.document_label_position == 'right':
+   <table style="width:auto;float:right;font-weight:bold;font-size:140%">
+%else:
+   <table style="width:auto;float:left;font-weight:bold;font-size:140%">
+%endif
+
 <tr>
-  <td style="text-align:right">
+  <td style='text-align:right'>
     %if inv.type == 'out_invoice' :
       ${_("Customer Invoice")} 
     %elif inv.type == 'in_invoice' :
@@ -146,7 +168,6 @@ ${inv.partner_id.address_label|carriage_returns}
    </td>
    <td  style="text-align:right;">${inv.number or ''|entity}
    </td>
-   
 </tr>
 <tr>
     <td style="text-align:right;">${_("Datum")} </td><td  style="text-align:right;"> ${formatLang(inv.date_invoice, date=True)|entity}</td>
@@ -155,6 +176,8 @@ ${inv.partner_id.address_label|carriage_returns}
 <td style="border:none"></td>
 </tr>
 </table>
+
+
 <br/>
     %if inv.state == 'cancel' :
     <h1 style="clear:both;">${inv.state}</h1> 
@@ -163,21 +186,21 @@ ${inv.partner_id.address_label|carriage_returns}
     <table >
         <tr>
           %if inv.name :
-            <td>${_("Customer Ref")}</td>
+            <th>${_("Customer Ref")}</th>
           %endif
           %if not inv.picking_ids and inv.origin:
-            <td>${_("Origin")}</td>
+            <th>${_("Origin")}</td>
           %endif
           %if inv.picking_ids:
-            <td>${_("Pickings/Order")}</td>
+            <th>${_("Pickings/Order")}</th>
           %endif
           %if inv.reference:
-            <td>${_("Reference")}</td>
+            <th>${_("Reference")}</th>
           %endif
 
-            <td >${_("Payment Term")}</td>
-            <td >${_("Due Date")}</td>
-            <td>${_("Curr")}</td>
+            <th >${_("Payment Term")}</th>
+            <th >${_("Due Date")}</th>
+            <th>${_("Curr")}</th>
         </tr>
         <tr>
           %if inv.name :
@@ -276,7 +299,7 @@ note {font-size:75%};
         </tr>
         <tr>
            <td colspan="${inv.cols}" style="border-style:none"/>
-           <td style="border-style:none"><b>${_("Taxes")}:</b></td>
+           <td ><b>${_("Taxes")}:</b></td>
            <td style="text-align:right">${formatLang(inv.amount_tax)}</td></tr>
         <tr> 
            <td colspan="${inv.cols}" style="border-style:none"/>
@@ -286,21 +309,30 @@ note {font-size:75%};
     </table>
 <br>
        %if inv.tax_line :
-    <table class="list_table" style="width:40%;border:1px solid grey">
-        <tr><th>${_("Tax")}</th><th style="text-align:left;">${_("Base")}</th><th style="text-align:left;">${_("Amount")}</th></tr>
+    <table style="width:40%;border:1px solid">
+       <thead>
+          <tr style=" border-width:1px; border-style:solid;">
+        <th style="text-align:center;border-width:1px; border-style:solid;">${_("Tax")}</th>
+        <th style="text-align:center;border-width:1px; border-style:solid;">${_("Base")}</th>
+        <th style="text-align:center;border-width:1px; border-style:solid;">${_("Amount")}</th>
+        </tr>
+       </thead>
+       <tbody style=" border-width:0px; border-style:none;">
         %for t in inv.tax_line :
-        <tr>
-            <td style="border:1px solid grey">${ t.name|entity } </td>
-            <td style="text-align:right;border:1px solid grey;white-space:nowrap">${ formatLang(t.base)}</td>
-            <td style="text-align:right;border:1px solid grey;white-space:nowrap">${ formatLang(t.amount) }</td>
+
+          
+            <td>${ t.name|entity } </td>
+            <td style="text-align:right;white-space:nowrap">${ formatLang(t.base)}</td>
+            <td style="text-align:right;white-space:nowrap">${ formatLang(t.amount) }</td>
         </tr>
         %endfor
-        <tr>
-            <td style="border-style:none"/>
-            <td style="border-top:0px solid;text-align:right;white-space:nowrap"><b>${_("Total Tax:")}</b></td>
-            <td style="border-top:0px solid;text-align:right;white-space:nowrap">${ formatLang(inv.amount_tax) }</td>
+          <tr style=" border-width:0px; border-style:none;">
+            <td style="border:1px solid White"/>
+            <td style="border:2px solid;text-align:right;white-space:nowrap"><b>${_("Total Tax:")}</b></td>
+            <td style="border:2px solid;text-align:right;white-space:nowrap">${ formatLang(inv.amount_tax) }</td>
         </tr>
         %endif
+       </tbody>
     </table>        
     %if inv.comment:
      <br>  ${inv.comment|carriage_returns}

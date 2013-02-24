@@ -41,11 +41,24 @@ import logging
 class chricar_account_move_line_igel(osv.osv):
     _name = "chricar.account.move.line.igel"
     _logger = logging.getLogger(__name__)
+
+
+
+     def _analytic_account_id(self, cr, uid, ids, name, arg, context):
+         result = {}
+         for move in self.browse(cr, uid, ids):
+             result[move.id] = False
+             if move.kst_nr and move.company_id:
+                 account_ids= self.pool.get('account.analytic.account').search(cr,uid,[('company_id','=',move.company_id.id),('code','=',move.kst_nr)])
+                 if len(account_ids):
+                     result[move.id] = account_ids[0]
+         return result
+
     _columns = {
       'company_id'         : fields.many2one('res.company', 'Company', required=True),
       'kanzlei'            : fields.integer ('Kanzlei'),
       'klient'             : fields.integer ('Klient'),
-      'fiscalyear_id'      : fields.many2one('account.fiscalyear','Geschaeftsjahr'),
+       'fiscalyear_id'      : fields.related ('period_id', 'fiscalyear_id', string='Fiscal Year', type='many2one', relation='account.fiscalyear', store=True),
       'kontoart'           : fields.integer ('Kontoart'),
       'account_id'         : fields.many2one('account.account', 'Kontonummer' ),
       'kontoname'          : fields.char    ('Kontoname', size=64),
@@ -59,7 +72,7 @@ class chricar_account_move_line_igel(osv.osv):
       'belegdatum'         : fields.char    ('Belegdatum',size=16),
       'gegenkonto'         : fields.char    ('Gegenkonto',size=16),
       'kst_nr'             : fields.char    ('KstNr',size=16),
-      'analytic_account_id': fields.many2one('account.analytic.account', 'Analytic Account'),
+       'analytic_account_id': fields.function(_analytic_account_id, method=True, string="Analytic Account",type='many2one', relation='account.analytic.account',  select="1", store=True ),
       'text'               : fields.char    ('Text',size=128),
       'betrag_soll'        : fields.float   ('Betrag (Soll)'),
       'betrag_haben'       : fields.float   ('Betrag (Haben)'),
