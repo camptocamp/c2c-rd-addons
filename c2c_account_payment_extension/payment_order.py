@@ -97,7 +97,7 @@ class payment_order(osv.osv):
         'create_account_moves': lambda *a: 'bank-statement',
         'period_id': _get_period,
     }
-        def cancel_from_done(self, cr, uid, ids, context=None):
+    def cancel_from_done(self, cr, uid, ids, context=None):
         if context is None:
             context = {}
 
