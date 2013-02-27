@@ -25,5 +25,18 @@
       name="stock.packing.webkit"
       report_type="webkit"
       string="WebKit Packing"/>
+
+    <report
+      auto="False"
+      file="stock_packing_webkit/report/stock_packing_webkit.mako"
+      id="stock_packing_out_webkit"
+      model="stock.picking.out"
+      name="stock.packing.out.webkit"
+      report_type="webkit"
+      string="WebKit Packing"/>
+
+
+
+
   </data>
 </openerp>

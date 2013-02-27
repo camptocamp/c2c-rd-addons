@@ -41,8 +41,8 @@ res_company()
 
 
 
-class stock_picking(osv.osv):
-    _inherit = "stock.picking"
+class stock_picking_out(osv.osv):
+    _inherit = "stock.picking.out"
 
     def _print_uom(self, cr, uid, ids, name, args, context=None):
         res = {}
@@ -104,7 +104,7 @@ class stock_picking(osv.osv):
         res = {}
         for picking in self.browse(cr, uid, ids, context=context):
           print_code = False
-          if picking.move_lines and picking.company_id.print_code:
+          if picking.move_lines and 'print_code' in picking.company_id._columns and picking.company_id.print_code:
             for line in picking.move_lines:
                 if line.product_id.default_code:
                    print_code = True
@@ -168,4 +168,4 @@ class stock_picking(osv.osv):
         default.update({'move_lines_sorted': []})
         return super(stock_picking, self).copy(cr, uid, id, default, context=context)
 
-stock_picking()
+stock_picking_out()

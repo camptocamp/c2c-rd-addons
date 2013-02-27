@@ -26,7 +26,7 @@
     %for pick in objects :
     
     <style  type="text/css">
-    %if pick.company_id.print_cell_borders:
+    %if 'print_cell_borders' in pick.company_id._columns and pick.company_id.print_cell_borders:
        td { margin: 0px; padding: 3px; border: 1px solid #E3E3E3;  vertical-align: top; }
     %else:
        td { margin: 0px; padding: 3px; border: 1px solid White;  vertical-align: top; }
@@ -49,7 +49,8 @@ ${_("Shipping Address")}
 ${pick.partner_id and pick.partner_id.address_label|carriage_returns or ''}
          </td>
          <td style="width:50%">
-%if pick.company_id.print_address_info:
+    %if 'print_address_info' in pick.company_id._columns and pick.company_id.print_address_info:
+        %if pick.partner_id.phone :
 ${_("Phone")}: ${pick.partner_id.phone|entity} <br>
         %endif
         %if pick.partner_id.fax :
@@ -61,11 +62,11 @@ ${_("Mail")}: ${pick.partner_id.email|entity} <br>
         %if (pick.partner_id and pick.partner_id.vat) or (pick.partner_id and pick.partner_id.vat):
 ${_("VAT")}: ${pick.partner_id and pick.partner_id.vat or pick.partner_id.partner_id.vat|entity} <br>
         %endif
-%if pick.partner_id and pick.sale_id and pick.sale_id.partner_id and pick.partner_id.address_label != pick.sale_id.partner_id.address_label:
+        %if pick.partner_id and pick.sale_id and pick.sale_id.partner_id and pick.partner_id.address_label != pick.sale_id.partner_id.address_label:
         <b>${_("Ordering Contact")}</b><br>
         ${pick.sale_id.partner_id.address_label|carriage_returns or ''}
-%endif
-%endif
+        %endif
+     %endif
          </td>
 
         </tr>
@@ -74,8 +75,9 @@ ${_("VAT")}: ${pick.partner_id and pick.partner_id.vat or pick.partner_id.partne
         %if pick.company_id.address_label_position == 'right' or not pick.company_id.address_label_position:
          <tr style="min-hight:4cm">
          <td style="width:50%">
-%if pick.company_id.print_address_info:
-
+%if 'print_address_info' in pick.company_id._columns and pick.company_id.print_address_info:
+        %if pick.partner_id.phone :
+${_("Phone")}: ${pick.partner_id.phone|entity} <br>
         %endif
         %if pick.partner_id.fax :
 ${_("Fax")}: ${pick.partner_id.fax|entity} <br>
@@ -124,7 +126,7 @@ ${pick.partner_id and pick.partner_id.address_label|carriage_returns or ''}
     <table  style="width:100%">
       <thead style="border:1px solid #E3E3E3">
         <tr>
-          %if pick.origin and pick.origin not in [ pick.sale_id.name,pick.purchase_id.name]  :
+          %if pick.origin and pick.origin not in [ pick.sale_id.name]  :
             <th>${_("Document")}</th>
           %endif
             <th style="white-space:nowrap">${_("Packing Date")}</th>
@@ -134,7 +136,7 @@ ${pick.partner_id and pick.partner_id.address_label|carriage_returns or ''}
           %if pick.carrier_tracking_ref:
             <th style="white-space:nowrap">${_("Carrier Ref")}</th>
           %endif
-          %if pick.sale_id or pick_purchase_id:
+          %if pick.sale_id :
             <th style="white-space:nowrap">${_("Reference")}</th>
           %endif
           %if pick.sale_id and pick.sale_id.client_order_ref :
@@ -162,7 +164,7 @@ ${pick.partner_id and pick.partner_id.address_label|carriage_returns or ''}
         </tr>
         </thead>
         <tr>
-            %if pick.origin and pick.origin not in [ pick.sale_id.name,pick.purchase_id.name]  :
+            %if pick.origin and pick.origin not in [ pick.sale_id.name]  :
             <td>
                ${pick.origin}
             </td>
@@ -181,8 +183,8 @@ ${pick.partner_id and pick.partner_id.address_label|carriage_returns or ''}
                ${pick.carrier_tracking_ref}
              </td>
            %endif
-           %if pick.sale_id or pick_purchase_id:
-             <td>${pick.sale_id.name or pick.purchase_id.name or ''}</td>
+           %if pick.sale_id :
+             <td>${pick.sale_id.name or ''}</td>
            %endif
           %if pick.sale_id and pick.sale_id.client_order_ref :
             <td style="white-space:nowrap">${pick.sale_id.client_order_ref}</td>
