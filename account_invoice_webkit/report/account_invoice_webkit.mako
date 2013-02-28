@@ -44,35 +44,40 @@ left Address
         %if inv.company_id.address_label_position == 'left':
          <tr>
          <td style="width:50%;height:35mm;font-size:130%;padding-left:5mm;padding-top:3mm">
-%if inv.type in ('in_invoice','in_refund'):
-${_("Supplier Address")}
-<hr>
-%endif
-${inv.partner_id.address_label|carriage_returns}
+            %if inv.type in ('in_invoice','in_refund'):
+            ${_("Supplier Address")}
+            <hr>
+            %endif
+            ${inv.partner_id.address_label|carriage_returns}
          </td>
 
          <td style="width:max;padding:0px;font-size:100%;padding-left:5mm;padding-top:3mm">
          %if inv.print_address_info:
-         <table  style="padding:0px;" >
-         %if inv.partner_id.phone :
-<tr>
-<td style="border:none"> ${_("Phone")}</td><td style="border:none"> ${inv.partner_id.phone|entity} </td
-</tr>
+         
+<table  style="padding:0px;" >
+         
+        %if inv.partner_id.phone :
+            <tr>
+            <td style="border:none"> ${_("Phone")}</td><td style="border:none"> ${inv.partner_id.phone|entity} </td>
+            </tr>
         %endif
+        
         %if inv.partner_id.fax :
-<tr>
-<td style="border:none">${_("Fax")}</td><td style="border:none"> ${inv.partner_id.fax|entity} </td>
-</tr>
+            <tr>
+            <td style="border:none">${_("Fax")}</td><td style="border:none"> ${inv.partner_id.fax|entity} </td>
+            </tr>
         %endif
+        
         %if inv.partner_id.email :
-<tr>
-<td style="border:none">${_("Mail")}</td><td style="border:none">${inv.partner_id.email|entity} </td>
-</tr>
+            <tr>
+            <td style="border:none">${_("Mail")}</td><td style="border:none">${inv.partner_id.email|entity} </td>
+            </tr>
         %endif
+        
         %if inv.partner_id.vat :
-<tr>
-<td style="border:none">${_("VAT")}</td><td style="border:none"> ${inv.partner_id.vat|entity} </td>
-</tr>
+            <tr>
+            <td style="border:none">${_("VAT")}</td><td style="border:none"> ${inv.partner_id.vat|entity} </td>
+            </tr>
         %endif
 </table>
         %endif
@@ -80,9 +85,9 @@ ${inv.partner_id.address_label|carriage_returns}
          
          
          %if 'iban_qr_code' in inv._columns and inv.iban_qr_code:
-         <td  style="width:150px">
-            ${helper.embed_image('png',inv.iban_qr_code, width=150)}
-         </td>
+            <td  style="width:150px">
+                ${helper.embed_image('png',inv.iban_qr_code, width=150)}
+            </td>
          %endif
         </tr>
         %endif
@@ -100,25 +105,26 @@ right Address
          <td>
          %if inv.print_address_info:
 <table {border:none} >
-         
-<tr>
-<td> ${_("Phone")}</td><td> ${inv.partner_id.phone|entity} </td
-</tr>
+         %if inv.partner_id.phone :
+            
+            <tr>
+            <td> ${_("Phone")}</td><td> ${inv.partner_id.phone|entity} </td>
+            </tr>
         %endif
         %if inv.partner_id.fax :
-<tr>
-<td>${_("Fax")}</td><td> ${inv.partner_id.fax|entity} </td>
-</tr>
+            <tr>
+            <td>${_("Fax")}</td><td> ${inv.partner_id.fax|entity} </td>
+            </tr>
         %endif
         %if inv.partner_id.email :
-<tr>
-<td>${_("Mail")}</td><td>${inv.partner_id.email|entity} </td>
-</tr>
+            <tr>
+            <td>${_("Mail")}</td><td>${inv.partner_id.email|entity} </td>
+            </tr>
         %endif
         %if inv.partner_id.vat :
-<tr>
-<td>${_("VAT")}</td><td> ${inv.partner_id.vat|entity} </td>
-</tr>
+            <tr>
+            <td>${_("VAT")}</td><td> ${inv.partner_id.vat|entity} </td>
+            </tr>
         %endif
         %endif
 </table>
