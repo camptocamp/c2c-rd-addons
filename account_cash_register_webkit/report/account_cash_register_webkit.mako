@@ -14,7 +14,8 @@ table {
     cellspacing="0";
     font-size:12px;
     }
-    td { margin: 0px; padding: 3px; border: 1px solid lightgrey;  vertical-align: top; }
+    tr { page-break-inside : avoid; vertical-align: top;}
+    td { margin: 0px; padding: 3px; border: 1px solid lightgrey; vertical-align: top; }
     pre {font-family:helvetica; font-size:15;}
     </style>
     
@@ -37,9 +38,12 @@ table {
         
         <th style="text-align:left;white-space:nowrap">${_("Partner Account")}</th>
         <th style="text-align:left;white-space:nowrap">${_("Tax")}</th>
-        <th style="text-align:right;white-space:normal">${voucher.balance_start}</th>
+        <th style="text-align:right;white-space:normal">${formatLang(voucher.balance_start)}</th>
         </tr>
         </thead>
+        <%
+        running_tot = 0
+         %>
         %for line in voucher.line_ids_sorted:
             <tbody>
             <tr>
@@ -52,6 +56,9 @@ table {
                <td/>
             %endif
             <td style="text-align:right;white-space:nowrap">${line.amount}</td>
+            <%
+             running_tot += line.amount
+             %>
             </tr>
             </tbody>
             %endfor
@@ -59,8 +66,13 @@ table {
             <tr>
             <th colspan="3"> </th>
             <th style="text-align:right">${_("Ending Balance")}</th>
-            <th style="text-align:right;white-space:nowrap">${voucher.balance_end_real}</th>
+            <th style="text-align:right;white-space:nowrap">${formatLang(voucher.balance_end_real)}</th>
             </tr>
+            %if running_tot != balance_end_real:
+            <th colspan="3"> </th>
+            <th style="text-align:right">${_("Computed Balance")}</th>
+            <th style="text-align:right;white-space:nowrap">${formatLang(running_tot)}</th>
+            %endif
             </tfoot>
             </table>
             
