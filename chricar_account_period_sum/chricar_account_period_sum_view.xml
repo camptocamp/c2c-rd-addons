@@ -121,10 +121,10 @@
       <field name="arch" type="xml">
         <form string="Chart of accounts">
           <group>
-            <field name="company_id"  readonly="1" colspan="4"/>
-            <field name="name"  readonly="1" colspan="4"/>
-            <field name="code"  readonly="1"/>
-            <field name="user_type"  readonly="1"/>
+            <field name="company_id" readonly="1" />
+            <field name="code" readonly="1" />
+            <field name="name" readonly="1" />
+            <field name="user_type" readonly="1"/>
           </group>
           <newline/>
           <field name="sum_fiscalyear_ids" widget="one2many_list" colspan="4" nolabel="1" readonly="1">
@@ -138,12 +138,14 @@
               <field name="date_stop"/>
             </tree>
             <form string="Fiscal Year Sums">
-              <group colspan="4" col="10">
-                <field name="name" width="100"/>
-                <field name="opening_balance" width="100"/>
-                <field name="debit" width="100"/>
-                <field name="credit" width="100"/>
-                <field name="balance" width="100"/>
+              <group colspan="4" col="4">
+                <field name="name" />
+                <group col="2" class="oe_subtotal_footer">>
+                <field name="opening_balance" />
+                <field name="debit" />
+                <field name="credit" />
+                <field name="balance" />
+              </group>
               </group>
               <newline/>
               <notebook colspan="4">
@@ -230,11 +232,11 @@
                     </tree>
                     <form string="Period Sums">
                       <group colspan="4" col="10">
-                        <field name="name" width="100"/>
-                        <label string="" colspan="2" width="100"/>
-                        <field name="debit" width="100"/>
-                        <field name="credit" width="100"/>
-                        <field name="balance" width="100"/>
+                        <field name="name"/>
+                        <label string="" colspan="2" />
+                        <field name="debit" />
+                        <field name="credit" />
+                        <field name="balance" />
                       </group>
                       <newline/>
                       <field name="move_line_ids" widget="one2many_list" colspan="4" nolabel="1" readonly="1">
@@ -277,43 +279,6 @@
               </notebook>
             </form>
           </field>
-          <!--
-          <newline/>
-          <field name="sum_fy_period_ids"   widget="one2many_list" colspan="4" nolabel="1"  >
-            <tree string="Period Sums">
-              <field name="name" />
-              <field name="debit"/>
-              <field name="credit"/>
-              <field name="balance"/>
-            </tree>
-            <form string="Period Sums">
-              <group colspan="4" col="8">
-                <field name="name" />
-                <field name="debit"/>
-                <field name="credit"/>
-                <field name="balance"/>
-              </group>
-            </form>
-          </field>
--->
-          <!-- for testing
-          <newline/>
-          <field name="sum_period_ids"   widget="one2many_list" colspan="4" nolabel="1" string="Period Sums">
-            <tree >
-              <field name="name" />
-              <field name="debit"/>
-              <field name="credit"/>
-
-            </tree>
-            <form >
-              <group colspan="4" col="8">
-                <field name="name" />
-                <field name="debit"/>
-                <field name="credit"/>
-              </group>
-            </form>
-          </field>
--->
         </form>
       </field>
     </record>
