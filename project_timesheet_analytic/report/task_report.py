@@ -42,7 +42,7 @@ class report_timesheet_task_user(osv.osv):
 
 
     _columns = {
-        'analytic_hrs': fields.function(_get_analytic_hours, string="Analyitc Hours"),
+        'analytic_hrs': fields.function(_get_analytic_hours, string="Analyitc Hours", help="including task hours"),
     }
 
 report_timesheet_task_user()
