@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+ <data>
+
+		<record id="view_report_timesheet_task_user_analytic_tree" model="ir.ui.view">
+            <field name="name">report.timesheet.task.user.analyitc.tree</field>
+            <field name="model">report.timesheet.task.user</field>
+            <field name="inherit_id" ref="project_timesheet.view_report_timesheet_task_user_tree"/>
+            <field name="type">tree</field>
+            <field name="sequence" eval="20"/>
+            <field name="arch" type="xml">
+                <field name="timesheet_hrs" position="after">
+                       <field name="analytic_hrs"  widget="float_time"/>
+                </field>
+            </field>
+        </record>
+
+    </data>
+</openerp>

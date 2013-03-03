@@ -1,0 +1,45 @@
+=== modified file 'project_timesheet/report/task_report.py'
+--- project_timesheet/report/task_report.py	2011-07-01 23:41:24 +0000
++++ project_timesheet/report/task_report.py	2013-03-02 20:00:13 +0000
+@@ -27,7 +27,7 @@
+ class report_timesheet_task_user(osv.osv):
+     _name = "report.timesheet.task.user"
+     _auto = False
+-    _order = "name"
++    _order = "name desc"
+ 
+     def _get_task_hours(self, cr, uid, ids, name,args,context):
+         result = {}
+@@ -68,9 +68,10 @@
+ 
+     def init(self, cr):
+         tools.drop_view_if_exists(cr, 'report_timesheet_task_user')
++         #((r.id*12)+to_number(months.m_id,'99'))::integer as id,
+         cr.execute(""" create or replace view report_timesheet_task_user as (
+         select
+-         ((r.id*12)+to_number(months.m_id,'99'))::integer as id,
++               (replace(months.name,'-','')||r.id::varchar)::integer as id,
+                months.name as name,
+                r.id as user_id,
+                to_char(to_date(months.name, 'YYYY/MM/DD'),'YYYY') as year,
+@@ -86,6 +87,7 @@
+                 from hr_timesheet_sheet_sheet_day h) as months
+ 
+             group by
++                (replace(months.name,'-','')||r.id::varchar)::integer, 
+                 r.id,months.m_id,months.name,
+                 to_char(to_date(months.name, 'YYYY/MM/DD'),'YYYY') ,
+                 to_char(to_date(months.name, 'YYYY/MM/DD'),'MM')
+
+=== modified file 'project_timesheet/report/task_report_view.xml'
+--- project_timesheet/report/task_report_view.xml	2011-11-11 15:15:06 +0000
++++ project_timesheet/report/task_report_view.xml	2013-03-02 18:02:35 +0000
+@@ -13,6 +13,7 @@
+             <field name="name">report.timesheet.task.user.tree</field>
+             <field name="model">report.timesheet.task.user</field>
+             <field name="type">tree</field>
++            <field name="sequence" eval="20"/>
+             <field name="arch" type="xml">
+                 <tree string="Timesheet/Task hours Report Per Month" >
+                     <field name="name" select="1"/>
+
