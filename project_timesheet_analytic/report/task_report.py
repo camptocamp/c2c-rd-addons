@@ -31,12 +31,12 @@ class report_timesheet_task_user(osv.osv):
         result = {}
         for record in self.browse(cr, uid, ids,context):
             last_date = datetime.strptime(record.name, '%Y-%m-%d') + relativedelta(months=1) - relativedelta(days=1)
-            rtl_obj = self.pool.get('report.timesheet.line')
+            rtl_obj = self.pool.get('hr.analytic.timesheet')
             rtl_ids = rtl_obj.search(cr, uid, [('user_id','=',record.user_id.id),('date','>=',record.name),('date','<=',last_date.strftime('%Y-%m-%d'))])
-            rtl_hrs = rtl_obj.read(cr, uid, rtl_ids, ['quantity','date','user_id'])
+            rtl_hrs = rtl_obj.read(cr, uid, rtl_ids, ['unit_amount','date','user_id'])
             total = 0.0
             for hrs in rtl_hrs:
-                total += hrs['quantity']
+                total += hrs['unit_amount']
             result[record.id] = total
         return result
 
