@@ -56,7 +56,7 @@ class partner_erp(osv.osv):
         , 'server_https'          : fields.function(_server_https, type='char', string='https command')
         }
 
-    _default = {
+    _defaults = {
      'protocol'             : lambda *a : 'https'
         }
 
