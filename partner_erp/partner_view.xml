@@ -13,6 +13,7 @@
                            <tree>                  
                 <field name="user_id"  />
                 <field name="name" />
+                <field name="protocol" />
                 <field name="port" />
                 <field name="path" />
                 <field name="db_name" />
@@ -34,6 +35,7 @@
                 <field name="user_id"/>
                 <newline/>
                 <field name="name"/>
+                <field name="protocol" />
                 <field name="port"/>
                 <field name="path"/>
                 <newline/>
