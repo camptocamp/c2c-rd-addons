@@ -285,6 +285,7 @@ generated 2009-07-09 16:17:22+02
       <field name="view_id" ref="chricar_top_form"/>
       <field name="act_window_id" ref="chricar_top_act1_web"/>
     </record>
+    
     <!--
     <menuitem
       action="chricar_top_act1_web"
@@ -324,6 +325,32 @@ generated 2009-07-09 16:17:22+02
         </notebook>
       </field>
     </record>
+
+        <record id="view_location_realstate_tree" model="ir.ui.view">
+            <field name="name">stock.location.realestate.tree</field>
+            <field name="model">stock.location</field>
+            <field name="type">tree</field>
+            <field name="priority" eval="2"/>
+            <field name="arch" type="xml">
+                <tree string="Stock Location" >
+                    <field name="complete_name"/>
+                    <field name="operating_cost"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_location_realestate_form" model="ir.actions.act_window">
+            <field name="name">Locations</field>
+            <field name="res_model">stock.location</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="view_location_realstate_tree"/>
+            <field name="search_view_id" ref="stock.view_location_search"/>
+            <field name="domain">[('top_ids', '!=', False)]</field>
+        </record>
+
+	<menuitem action="action_location_realestate_form" id="menu_action_location_realestate_form" parent="chricar_top.menu_chricar_real_estate"/>
+
     <!--
 ==============================================
 Modification of Parents (only for matching table prefixes)
@@ -337,14 +364,18 @@ Modification of Parents (only for matching table prefixes)
       <field name="inherit_id" ref="stock.view_location_form"/>
       <field name="arch" type="xml">
         <field colspan="4" name="comment" nolabel="1" position="replace">
-          <group colspan="4" col="5">
-            <separator colspan="2" string="Map"/>
-            <separator colspan="2" string="Image"/>
-            <separator colspan="1" string="Comment"/>
+          <notebook colspan="4">
+            <page string="Comment">
+               <field colspan="4" name="comment" nolabel="1"/>
+            </page>
+            <page string="Real Estate">
             <field colspan="2" name="blueprint" nolabel="1" img_width="550" img_height="550" width="550" height="550" widget="image"/>
             <field colspan="2" name="image" nolabel="1" img_width="550" img_height="550" width="550" height="550" widget="image"/>
-            <field colspan="1" name="comment" nolabel="1"/>
-          </group>
+            </page>
+            <page string="Tops">
+               <field colspan="4" name="top_ids" nolabel="1"/>
+            </page>
+          </notebook>
         </field>
       </field>
     </record>
