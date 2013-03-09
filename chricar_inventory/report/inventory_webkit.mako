@@ -71,7 +71,11 @@
           <td>${inv.name|carriage_returns}
             %if inv.partner_id:
               <br> 
-              inv.partner_id.name
+              ${inv.partner_id.name}
+            %endif
+            %if inv.value_ats:
+              <br> 
+              ATS: ${formatLang(inv.value_ats)}
             %endif
           </td>
           <td  style="text-align:right;">${formatLang(inv.value)} </td>
@@ -91,8 +95,15 @@
           %endfor
 
       </tbody>
-      <!--
+      
       <tfoot>
+           <tr style=font-weight:bold" >
+             <td/>
+             <td>${_("Summe")}</td>
+             <td style="text-align:right;">${formatLang(room_total)} </td>
+             <td/>
+           <tr>
+
             <tr  style="font-weight:bold">
              <td/>
              <td>${_("Gesamtsumme")}</td>
@@ -100,7 +111,7 @@
              <td/>
            <tr>
       </tfoot>
-      -->
+      
     <table>
 </body>
 </html>
