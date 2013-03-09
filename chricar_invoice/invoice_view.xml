@@ -72,7 +72,7 @@ generated 2009-07-11 14:55:52+02
       action="chricar_invoice_act1"
       id="menu_chricar_invoice_list"
       parent="chricar_top.menu_chricar_real_estate"
-      sequence="10"/>
+      sequence="40"/>
     <!--
 ==============================================
 Modification of Parents (only for matching table prefixes)
