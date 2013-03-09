@@ -16,7 +16,8 @@
        font-size:10px;
        page-break-inside:auto
            }
-     tr { page-break-inside:avoid; page-break-after:auto }
+     tr { page-break-inside:avoid; page-break-after:auto ;}
+     th {margin: 0px; padding: 3px; border: 1px solid grey;  vertical-align: top; }
      td {margin: 0px; padding: 3px; border: 1px solid lightgrey;  vertical-align: top; }
      
      
@@ -35,6 +36,14 @@
     %>
    
     <table>
+      <thead>
+           <tr style=font-weight:bold" >
+             <th>${_("Pos")}</th>
+             <th>${_("Description")}</th>
+             <th style="text-align:right;">${_("Value")} </th>
+             <th>${_("Image")} </th>
+           <tr>
+      </thead>
       <tbody>
         %for inv in sorted_objects :
         
@@ -95,7 +104,7 @@
           %endfor
 
       </tbody>
-      
+
       <tfoot>
            <tr style=font-weight:bold" >
              <td/>
