@@ -16,9 +16,9 @@
        font-size:10px;
        page-break-inside:auto
            }
-     tr { page-break-inside:avoid; page-break-after:auto ;}
-     th {margin: 0px; padding: 3px; border: 1px solid grey;  vertical-align: top; }
-     td {margin: 0px; padding: 3px; border: 1px solid lightgrey;  vertical-align: top; }
+     tr { page-break-inside:avoid; vertical-align: top;}
+     th {margin: 0px; padding: 3px; border: 1px solid grey;   }
+     td {margin: 0px; padding: 3px; border: 1px solid lightgrey; page-break-inside:avoid;}
      
      
     </style>
