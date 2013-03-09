@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <report
+      auto="False"
+      file="chricar_inventory/report/inventory_webkit.mako"
+      id="inventory_webkit"
+      model="chricar.inventory"
+      name="chricar.inventory.webkit"
+      report_type="webkit"
+      string="WebKit Inventory"/>
+  </data>
+</openerp>
