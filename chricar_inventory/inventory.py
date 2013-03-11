@@ -45,7 +45,7 @@ class chricar_inventory(osv.osv):
          , 'position_old' : fields.char    ('Position Old', size=8)
          , 'state'        : fields.char    ('State', size=16, readonly=True)
          , 'value'        : fields.float   ('Value', required=True, digits=(10,2))
-         , 'value_ats'    : fields.float   ('Value ATS', required=True, digits=(10,2))
+         , 'value_ats'    : fields.float   ('Value ATS', digits=(10,2))
          }
      _defaults = \
          { 'active' : lambda *a: True
