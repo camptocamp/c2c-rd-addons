@@ -41,8 +41,8 @@ res_company()
 
 
 
-class stock_picking_out(osv.osv):
-    _inherit = "stock.picking.out"
+class stock_picking(osv.osv):
+    _inherit = "stock.picking"
 
     def _print_uom(self, cr, uid, ids, name, args, context=None):
         res = {}
@@ -167,5 +167,10 @@ class stock_picking_out(osv.osv):
         default = default.copy()
         default.update({'move_lines_sorted': []})
         return super(stock_picking, self).copy(cr, uid, id, default, context=context)
+
+stock_picking()
+
+class stock_picking_out(osv.osv):
+    _inherit = "stock.picking"
 
 stock_picking_out()
