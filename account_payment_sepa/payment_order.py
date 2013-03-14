@@ -267,7 +267,7 @@ class payment_order(osv.osv) :
             protocol = template_ref.xml_template_id.name
             template_obj = self.pool.get("xml.template")
             namespaces = \
-                { None  : "urn:iso:std:iso:20022:tech:xsd:pain.001.001.02"
+                { None  : "APC:STUZZA:payments:ISO:pain:001:001:02:austrian:002"
                 , "xsi" : "http://www.w3.org/2001/XMLSchema-instance"
                 }
             xml = template_obj.generate_xml \

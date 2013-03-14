@@ -37,7 +37,7 @@
 , "description" : 
 """
 SEPA (Single European Payment Area) is a standardization of the ECBS (European Commitee for Banking Standards).
-It conforms to the ISO 20022 standard (Finmancial services - universal financial industry message scheme).
+It conforms to the ISO 20022 standard (Financial services - universal financial industry message scheme).
 
 This module implements the credit transfer (ISO.pain.001.101).
 It generates an XML-file per payment-order and attaches it to the payment order at the time of payment_order.action_open.

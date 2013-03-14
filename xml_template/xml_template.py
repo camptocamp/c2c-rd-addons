@@ -187,6 +187,7 @@ class xml_template(osv.osv):
         :param pretty_print: True/False
         """
         f = open(filename, "w")
+        f.write("<?xml version="1.0" encoding="UTF-8"?>\n")
         f.write(etree.tostring(xml, pretty_print=pretty_print))
         f.close()
     # end def write_file
