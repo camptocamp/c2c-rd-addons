@@ -58,7 +58,7 @@ work per task
               name="today"
               string="Today"/>
             <filter
-              domain="[('date','&lt;=',(datetime.date.today() + relativedelta(days=-1)).strftime('%%Y-%%m-%%d 23:59:59')),('date','&gt;=',(datetime.date.today() + relativedelta(days=-1)).strftime('%%Y-%%m-%%d 00:00:00'))]"
+              domain="[('date','&lt;=',(datetime.date.today() + datetime.timedelta(days=-1)).strftime('%%Y-%%m-%%d 23:59:59')),('date','&gt;=',(datetime.date.today() + datetime.timedelta(days=-1)).strftime('%%Y-%%m-%%d 00:00:00'))]"
               help="Yesterdays Work"
               icon="terp-go-today"
               string="Yesterday"/>

@@ -34,6 +34,7 @@
 ###############################################
 from osv import fields,osv
 import logging
+import datetime
 
 class project_work(osv.osv):
     _inherit = "project.task.work"

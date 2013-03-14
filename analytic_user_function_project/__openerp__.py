@@ -28,7 +28,7 @@ for timesheet tasks invoicing)
 """
 , 'author'      : 'Camptocamp Austria'
 , 'depends'     : [ 'analytic_user_function','project_timesheet' ]
-, 'update_xml'  : ['analytic_user_function_view.xml']
+, 'update_xml'  : ['analytic_user_function_view.xml','security/ir.model.access.csv']
 , 'demo_xml'    : []
 , 'installable' : True
 , 'application'  : False 

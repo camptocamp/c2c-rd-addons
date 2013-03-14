@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_analytic_user_funct_grid_all,analytic user funct grid,analytic_user_function.model_analytic_user_funct_grid,project.group_project_user,1,0,0,0
