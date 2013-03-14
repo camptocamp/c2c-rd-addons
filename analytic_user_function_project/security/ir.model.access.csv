@@ -1,2 +1,9 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_analytic_user_funct_grid_all,analytic user funct grid,analytic_user_function.model_analytic_user_funct_grid,project.group_project_user,1,0,0,0
+hr_employee_all,hr_employee_all,hr.model_hr_employee,project.group_project_user,1,0,0,0
+product_all,product_all,product.model_product_product,project.group_project_user,1,0,0,0
+product_templ_all,product_templ_all,product.model_product_template,project.group_project_user,1,0,0,0
+product_suppl_all,product_suppl_all,product.model_product_supplierinfo,project.group_project_user,1,0,0,0
+account_analytic_line_all,account_analytic_line_all,analytic.model_account_analytic_line,project.group_project_user,1,1,1,1
+hr_anlytic_timesheet_all,hr_anlytic_timesheet_all,hr_timesheet.model_hr_analytic_timesheet,project.group_project_user,1,1,1,1
+
