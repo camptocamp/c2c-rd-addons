@@ -69,5 +69,13 @@ Real Estate Income Tax Statement per location
       id="menu_action_location_income_tax"
       parent="chricar_top.menu_chricar_real_estate"
       sequence="18"/>
+      
+    <act_window
+      domain="[('location_id','=',active_id)]"
+      id="act_location_income_tax"
+      name="Tax Declarations"
+      res_model="location.income.tax"
+      src_model="stock.location"/>
+      
   </data>
 </openerp>
