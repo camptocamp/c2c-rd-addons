@@ -400,7 +400,7 @@ class chricar_insurance(osv.osv):
        'premium'            : fields.float   ('Premium'),
       }
 
-     _sql_constraints[
+     _sql_constraints = [
        ('top_or_location', "CHECK((top_id is not null or location_id is not null) and not (top_id is not null and location_id is not null))", "Either location or top must be defined" ) 
       ]
 
