@@ -44,7 +44,7 @@ class chricar_account_move_line_igel(osv.osv):
 
 
 
-     def _analytic_account_id(self, cr, uid, ids, name, arg, context):
+    def _analytic_account_id(self, cr, uid, ids, name, arg, context):
          result = {}
          for move in self.browse(cr, uid, ids):
              result[move.id] = False
