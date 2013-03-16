@@ -110,10 +110,11 @@ class project_work(osv.osv):
         obj_analytic_line= self.pool.get('account.analytic.line')
         task_obj = self.pool.get('project.task')
         self._logger.debug('FGF vals `%s`',  vals)
-        #if 'user_id' not in vals:
-        #       vals['user_id'] = uid
-        res= super(project_work,self).write(cr, uid, ids, vals, context)
+        res = []
         for work in self.browse(cr, uid, ids, context=context):
+            if 'user_id' not in vals:
+               vals['user_id'] = work.user_id.id
+            res.append( super(project_work,self).write(cr, uid, ids, vals, context))
             if work.hr_analytic_timesheet_id and work.hr_analytic_timesheet_id.line_id:
                 val = {
                    'to_invoice': work.to_invoice.id,
@@ -126,7 +127,6 @@ class project_work(osv.osv):
                 self._logger.debug('FGF update analytic `%s` `%s`', work.hr_analytic_timesheet_id.line_id.id, val)
                 obj_analytic_line.write(cr, uid, [work.hr_analytic_timesheet_id.line_id.id], val)
                 task_obj.write(cr, uid, [work.task_id.id], {'remaining_hours' : work.task_id.remaining_hours})
-         
                 
         return res
 
