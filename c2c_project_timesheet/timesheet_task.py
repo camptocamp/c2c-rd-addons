@@ -114,7 +114,7 @@ class project_work(osv.osv):
         for work in self.browse(cr, uid, ids, context=context):
             if 'user_id' not in vals:
                vals['user_id'] = work.user_id.id
-            res.append( super(project_work,self).write(cr, uid, ids, vals, context))
+            res.append( super(project_work,self).write(cr, uid, [work.id], vals, context))
             if work.hr_analytic_timesheet_id and work.hr_analytic_timesheet_id.line_id:
                 val = {
                    'to_invoice': work.to_invoice.id,
