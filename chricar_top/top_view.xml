@@ -369,6 +369,8 @@ Modification of Parents (only for matching table prefixes)
                <field colspan="4" name="comment" nolabel="1"/>
             </page>
             <page string="Real Estate">
+            <label string="Blueprint" colspan="2" />
+            <label string="Image" colspan="2" />
             <field colspan="2" name="blueprint" nolabel="1" img_width="550" img_height="550" width="550" height="550" widget="image"/>
             <field colspan="2" name="image" nolabel="1" img_width="550" img_height="550" width="550" height="550" widget="image"/>
             </page>
