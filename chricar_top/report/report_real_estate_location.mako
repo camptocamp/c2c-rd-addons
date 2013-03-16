@@ -99,7 +99,15 @@ owners = ','.join([id for id in owner])
         <td>${loc.discount or ''|entity}%</td>
         <td style="text-align:right;">${loc.discount_value_actual or ''|entity}</td>
         <td style="text-align:right;">${loc.discount_value_plan or ''|entity}</td>
-        </tr>    
+        </tr>
+        %if loc.surface > 0:
+        <tr>
+        <td>${_("Price / m²")}</td>
+        <td/>
+        <td style="text-align:right;">${formatLang(loc.discount_value_actual/loc.surface) or ''|entity}</td>
+        <td style="text-align:right;">${formatLang(loc.discount_value_plan/loc.surface) or ''|entity}</td>
+        </tr>
+        %endif
         %endif
          <tbody>
        </table>
