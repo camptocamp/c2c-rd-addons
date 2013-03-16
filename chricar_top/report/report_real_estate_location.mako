@@ -117,7 +117,7 @@ owners = ','.join([id for id in owner])
     </table>
 <br/>
 
-${_("Tax Resuts")}
+${_("Tax Results")}
 <%
 val = loc.tax_res[2]
 
