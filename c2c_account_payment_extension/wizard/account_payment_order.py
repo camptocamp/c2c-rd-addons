@@ -71,6 +71,7 @@ class payment_order_create(osv.osv_memory):
         order_obj = self.pool.get('payment.order')
         line_obj  = self.pool.get('account.move.line')
         invoice_obj  = self.pool.get('account.invoice')
+        payment_obj = self.pool.get('payment.line')
         mod_obj   = self.pool.get('ir.model.data')
         obj       = self.browse(cr, uid, ids, context=context)[0]
         payment   = order_obj.browse(cr, uid, context['active_id'], context=context)
@@ -151,20 +152,42 @@ class payment_order_create(osv.osv_memory):
             line_ids.append(line.id)
         _logger.debug('FGF line_ids %s' % (line_ids))
 # End search modification
+        t = None
+        line2bank = line_obj.line2bank(cr, uid, line_ids, t, context)
+## Finally populate the current payment with new lines:
+        for line in line_obj.browse(cr, uid, line_ids, context=context):
+            if payment.date_prefered == "now":
+                #no payment date => immediate payment
+                date_to_pay = False
+            elif payment.date_prefered == 'due':
+                date_to_pay = line.date_maturity
+            elif payment.date_prefered == 'fixed':
+                date_to_pay = payment.date_scheduled
+            payment_obj.create(cr, uid,{
+                    'move_line_id': line.id,
+                    'amount_currency': line.amount_to_pay,
+                    'bank_id': line2bank.get(line.id),
+                    'order_id': payment.id,
+                    'partner_id': line.partner_id and line.partner_id.id or False,
+                    'communication': line.ref or '/',
+                    'date': date_to_pay,
+                    'currency': line.invoice and line.invoice.currency_id.id or False,
+                }, context=context)
 
 # 
 
         context.update({'line_ids': line_ids})
         model_data_ids = mod_obj.search(cr, uid,[('model', '=', 'ir.ui.view'), ('name', '=', 'view_create_payment_order_lines')], context=context)
         resource_id = mod_obj.read(cr, uid, model_data_ids, fields=['res_id'], context=context)[0]['res_id']
-        return {'name': ('Entry Lines'),
-                'context': context,
-                'view_type': 'form',
-                'view_mode': 'form',
-                'res_model': 'payment.order.create',
-                'views': [(resource_id,'form')],
-                'type': 'ir.actions.act_window',
-                'target': 'new',
-        }
+#        return {'name': ('Entry Lines'),
+#                'context': context,
+#                'view_type': 'form',
+#                'view_mode': 'form',
+#                'res_model': 'payment.order.create',
+#                'views': [(resource_id,'form')],
+#                'type': 'ir.actions.act_window',
+#                'target': 'new',
+#        }
+        return {}
 
 payment_order_create()
