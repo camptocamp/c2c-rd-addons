@@ -115,7 +115,7 @@ class ir_sequence(osv.osv):
                         fy_name = fy.name
                         prefix = journal.sequence_id.prefix or '' + fy.code +'-'
                     sequence_code = journal.sequence_id.code
-                    company_id = journal.comapany_id.id
+                    company_id = journal.company_id.id
                     vals = \
                     { 'code'           : sequence_code
                     , 'name'           : journal.sequence_id.name +' '+ fy_name
