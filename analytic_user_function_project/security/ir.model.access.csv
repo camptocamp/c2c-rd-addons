@@ -4,6 +4,8 @@ hr_employee_all,hr_employee_all,hr.model_hr_employee,project.group_project_user,
 product_all,product_all,product.model_product_product,project.group_project_user,1,0,0,0
 product_templ_all,product_templ_all,product.model_product_template,project.group_project_user,1,0,0,0
 product_suppl_all,product_suppl_all,product.model_product_supplierinfo,project.group_project_user,1,0,0,0
+product_price_type_all,product_price_type_all,product.model_product_price_type,project.group_project_user,1,0,0,0
+product_product_uom_all,product_uom_all,product.model_product_uom,project.group_project_user,1,0,0,0
 account_analytic_line_all,account_analytic_line_all,analytic.model_account_analytic_line,project.group_project_user,1,1,1,1
 hr_anlytic_timesheet_all,hr_anlytic_timesheet_all,hr_timesheet.model_hr_analytic_timesheet,project.group_project_user,1,1,1,1
 
