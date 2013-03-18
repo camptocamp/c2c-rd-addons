@@ -32,8 +32,22 @@
 # 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 ###############################################
+# FIXME
+# to overcome bug 1155843 we have introdued a date_date field (without time)
+# this makes sense, because in accounting we use days - regardless in whch timezone users are
+# this way group by date will work for allmost all tz as we use 12AM as time which will be converted in almost ll tz to the correct period
+# this needs redesign from scratch
+###############################################
 from osv import fields,osv
+import time
+from datetime import date
+import datetime 
+from datetime import timedelta
+from dateutil import relativedelta
+from openerp import tools
 import logging
+
+datetime = __import__('datetime')
 
 class project_work(osv.osv):
     _inherit = "project.task.work"
@@ -46,7 +60,7 @@ class project_work(osv.osv):
         return task_work_ids
 
     _columns = {
-        #'date': fields.datetime('Date', select="1"),
+        'date_date': fields.date('Date w/o time', select="1",help="Date without time"),
         #'task_id': fields.many2one('project.task', 'Task', ondelete='cascade', required=True, select="1"),
         #'user_id': fields.many2one('res.users', 'Done by', required=True, select="1"),
         'product_id': fields.many2one('product.product','Product' ),
@@ -59,6 +73,41 @@ class project_work(osv.osv):
         #                    10)}
 ),
     }
+
+    _defaults = {
+        'date_date': lambda *a: time.strftime('%Y-%m-%d')
+        }
+
+    def init(self, cr):
+        
+        res_user_obj = self.pool.get('res.users')
+        if res_user_obj._columns.get('context_tz'):
+            # Version 6.1
+            cr.execute("""
+            update project_task_work w
+                set date_date = (select  date_trunc('day',w.date AT TIME ZONE 'UTC' at time zone context_tz)
+                                    from res_users
+                                    where id = w.user_id)
+                where date_date is null or date_date = current_date;
+            """)
+        else:
+            # Version 7
+            cr.execute("""
+                update project_task_work w
+                set date_date = (select date_trunc('day',w.date AT TIME ZONE 'UTC' at time zone tz)
+                                    from res_users u,
+                                        res_partner p
+                                where u.id = w.user_id
+                                    and p.id = u.partner_id)
+                where date_date is null or date_date = current_date;
+            """)
+
+        work_ids = self.search(cr, 1, [])
+        for work in self.browse(cr, 1, work_ids):
+            d = work.date_date+' 12:00:00'
+            if d != work.date:
+                self.write(cr, 1, [work.id], {'date': d})
+         
 
 
     def get_product(self, cr, uid, task):
@@ -113,7 +162,9 @@ class project_work(osv.osv):
         res = []
         for work in self.browse(cr, uid, ids, context=context):
             if 'user_id' not in vals:
-               vals['user_id'] = work.user_id.id
+                vals['user_id'] = work.user_id.id
+            if vals.get('date_date', None):
+                vals['date'] = vals['date_date']+' 12:00:00'
             res.append( super(project_work,self).write(cr, uid, [work.id], vals, context))
             if work.hr_analytic_timesheet_id and work.hr_analytic_timesheet_id.line_id:
                 val = {
@@ -131,6 +182,8 @@ class project_work(osv.osv):
         return res
 
     def create(self, cr, uid, vals, *args, **kwargs):
+        if vals.get('date_date', None):
+             vals['date'] = vals['date_date']+' 12:00:00'
         res = super(project_work,self).create(cr, uid, vals, *args, **kwargs)
         task_obj = self.pool.get('project.task')
         timeline_id = vals.get('hr_analytic_timesheet_id') and vals['hr_analytic_timesheet_id'] or ''
