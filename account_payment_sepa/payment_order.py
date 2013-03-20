@@ -285,7 +285,7 @@ class payment_order(osv.osv) :
                 , template_ref.xml_template_id.id
                 , attach_to   = order
                 , xml         = xml
-                , name        = order.reference + " " + protocol
+                , name        = "SEPA_" + order.reference
                 , fname       = self._sepa_strip(order.reference).upper()
                 , description = "SEPA credit transfer " + protocol
                 , context     = None
