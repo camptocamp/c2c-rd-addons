@@ -59,7 +59,7 @@ ${_("Fax")}: ${order.partner_id.fax|entity} <br>
         %if order.partner_id.email :
 ${_("Mail")}: ${order.partner_id.email|entity} <br>
         %endif
-        %endif
+        
          %if order.partner_invoice_id.address_label != order.partner_shipping_id.address_label:
 <br>
 <b>${_("Invoice Address")}</b><br>
@@ -89,7 +89,7 @@ ${_("Fax")}: ${order.partner_id.fax|entity} <br>
         %endif
         %if order.partner_id.email :
 ${_("E-mail")}: ${order.partner_id.email|entity} <br>
-        %endif
+       
         %endif
          %if order.partner_invoice_id.address_label != order.partner_shipping_id.address_label:
 <br>
