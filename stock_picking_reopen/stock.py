@@ -57,6 +57,8 @@ class stock_picking(osv.osv):
             _logger.debug('FGF picking allow open  %s %s' %(pick.stock_journal_id,pick.stock_journal_id.reopen_posted)   )
             if pick.stock_journal_id and not pick.stock_journal_id.reopen_posted:
                 raise osv.except_osv(_('Error'), _('You cannot reset to draft pickings of this journal ! Please check "Allow Update of Posted Pickings" in Warehous Configuration / Stock Journals %s') % pick.stock_journal_id.name )
+            if pick.type=='out' and pick.state=='done':
+                raise osv.except_osv(_('Error'), _('Deliver pickings %s is on state done, you cannot reset to draft ! '  %(pick.name)) )
             if pick._columns.get('invoice_ids'):
                 _logger.debug('FGF picking allow open inv_ids '   )
                 ids2 = []
@@ -169,9 +171,10 @@ class stock_picking(osv.osv):
             wf_service.trg_delete(uid, 'stock.picking', pick.id, cr)
             wf_service.trg_create(uid, 'stock.picking', pick.id, cr)
 
-            self.log_picking(cr, uid, ids, context=context)  
+            #self.log_picking(cr, uid, ids, context=context)  
             
         return True
+    
 
 
 #    def button_reopen(self, cr, uid, ids, context=None):
