@@ -170,8 +170,7 @@ class stock_picking(osv.osv):
 
             wf_service.trg_delete(uid, 'stock.picking', pick.id, cr)
             wf_service.trg_create(uid, 'stock.picking', pick.id, cr)
-
-            #self.log_picking(cr, uid, ids, context=context)  
+  
             
         return True
     
