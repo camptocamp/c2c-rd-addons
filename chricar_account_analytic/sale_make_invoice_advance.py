@@ -62,7 +62,7 @@ class sale_advance_payment_inv(osv.osv_memory):
                 product = self.pool.get('product.product').browse(cr, uid, sale_adv_obj.product_id.id, context)
 
                 line_id = obj_lines.create(cr, uid, {
-                    'name': val['value']['name'],
+                    'name': val['value']['name'] or product.name ,
                     'account_id': product.property_account_income.id or product.categ_id.property_account_income_categ.id,
                     'price_unit': sale_adv_obj.amount,
                     'quantity': sale_adv_obj.qtty,
