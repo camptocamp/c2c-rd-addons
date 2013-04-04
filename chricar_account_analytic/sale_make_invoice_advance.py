@@ -56,7 +56,8 @@ class sale_advance_payment_inv(osv.osv_memory):
                         _("You cannot make an advance on a sales order \
                              that is defined as 'Automatic Invoice after delivery'."))
                 val = obj_lines.product_id_change(cr, uid, [], sale_adv_obj.product_id.id,
-                        uom = False, partner_id = sale.partner_id.id, fposition_id = sale.fiscal_position.id)
+                        uom_id = False, partner_id = sale.partner_id.id, fposition_id = sale.fiscal_position.id)
+
                 self._logger.debug('advance val `%s`', val)
                 product = self.pool.get('product.product').browse(cr, uid, sale_adv_obj.product_id.id, context)
 
