@@ -238,6 +238,9 @@ class payment_order(osv.osv) :
                                 )
                             )
             result[date] = lls
+
+        _logger.info(result)
+
         return result
     # end def sepa_payments
 
