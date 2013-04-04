@@ -21,7 +21,7 @@
         </Id>
       </InitgPty>
     </GrpHdr>
-    <PmtInf var="date,p_banks" seq-eval="sepa_payments(order,company).iteritems()">
+    <PmtInf var="date" seq-eval="sepa_payments(order,company)">
       <PmtInfId text-eval="date.replace('-', '')"/>
       <PmtMtd text-eval="'TRF'"/>
       <PmtTpInf>
@@ -44,7 +44,7 @@
           <BIC text-eval="order.mode.bank_id.bank.bic.replace(' ','').upper()"/>
         </FinInstnId>
       </DbtrAgt>
-      <CdtTrfTxInf var="line" seq-eval="p_banks">
+      <CdtTrfTxInf var="line" seq-eval="p_sepa_payments(order,company)[date]">
         <PmtId>
           <EndToEndId text-eval="line.customer_data[0:35]"/>
         </PmtId>
