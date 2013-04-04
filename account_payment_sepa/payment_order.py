@@ -80,6 +80,9 @@ class _Record (object) :
         self.__dict__ ["_kw"] = kw.copy ()
     # end def __init__
     
+    def __repr__(self):
+        return self.__dict__ ["_kw"]
+
     def copy (self, **kw):
         result = self.__class__ (** self._kw)
         result._kw.update (kw)

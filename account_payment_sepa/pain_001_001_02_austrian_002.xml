@@ -22,7 +22,7 @@
       </InitgPty>
     </GrpHdr>
     <PmtInf var="date,p_banks" seq-eval="sepa_payments(order,company).iteritems()">
-      <PmtInfId text-eval="time1"/>
+      <PmtInfId text-eval="date.replace('-', '')"/>
       <PmtMtd text-eval="'TRF'"/>
       <PmtTpInf>
         <SvcLvl>
