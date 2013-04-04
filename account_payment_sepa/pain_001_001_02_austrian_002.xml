@@ -21,7 +21,7 @@
         </Id>
       </InitgPty>
     </GrpHdr>
-    <PmtInf var="date,p_banks" loop-eval="sepa_payments(order,company).iteritems()">
+    <PmtInf var="date,p_banks" seq-eval="sepa_payments(order,company).iteritems()">
       <PmtInfId text-eval="time1"/>
       <PmtMtd text-eval="'TRF'"/>
       <PmtTpInf>

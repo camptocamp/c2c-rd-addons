@@ -168,6 +168,7 @@ class payment_order(osv.osv) :
                 dates[date].add(P_Bank(p_bank, line))
             else :
                 dates[date].append(p_bank, line)
+        print dates #################
 
         for date, p_banks in dates.iteritems() :
             for p_bank, lines in p_banks.iteritems() :
