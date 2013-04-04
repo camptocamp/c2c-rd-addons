@@ -171,7 +171,7 @@ class payment_order(osv.osv) :
 
         import logging
         _logger = logging.getLogger(__name__)
-        _logger.info(dates)
+#        _logger.info(dates)
 
         for date, p_banks in dates.iteritems() :
             for p_bank, lines in p_banks.iteritems() :
@@ -239,7 +239,9 @@ class payment_order(osv.osv) :
                             )
             result[date] = lls
 
-        _logger.info(result)
+        for date, p_banks in result.iteritems() :
+            _logger.info(date)
+            _logger.info(p_banks)
 
         return result
     # end def sepa_payments
