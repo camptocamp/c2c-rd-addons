@@ -77,11 +77,11 @@ class Date(object):
 
 class _Record (object) :
     def __init__ (self, **kw):
-        self.__dict__ ["_kw"] = kw.copy ()
+        self.__dict__["_kw"] = kw.copy()
     # end def __init__
     
     def __repr__(self):
-        return self.__dict__ ["_kw"]
+        return str(self.__dict__["_kw"])
 
     def copy (self, **kw):
         result = self.__class__ (** self._kw)
