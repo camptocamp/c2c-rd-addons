@@ -244,7 +244,8 @@ class payment_order(osv.osv) :
 
         for date, p_banks in result.iteritems() :
             _logger.info(date)
-            _logger.info(p_banks)
+            for p_bank in p_banks :
+                _logger.info(p_bank)
 
         return result
     # end def sepa_payments
