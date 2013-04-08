@@ -25,8 +25,10 @@ class sale_advance_payment_inv(osv.osv_memory):
     _inherit = "sale.advance.payment.inv"
     _logger = logging.getLogger(__name__)
 
-    def create_invoices(self, cr, uid, ids, context=None):
+    def create_invoices_wrong(self, cr, uid, ids, context=None):
         """
+             NOT COMPATIBLE WITH V7
+
              To create invoices.
 
              @param self: The object pointer.
@@ -56,7 +58,7 @@ class sale_advance_payment_inv(osv.osv_memory):
                         _("You cannot make an advance on a sales order \
                              that is defined as 'Automatic Invoice after delivery'."))
                 val = obj_lines.product_id_change(cr, uid, [], sale_adv_obj.product_id.id,
-                        uom_id = False, partner_id = sale.partner_id.id, fposition_id = sale.fiscal_position.id)
+                        uom = False, partner_id = sale.partner_id.id, fposition_id = sale.fiscal_position.id)
 
                 self._logger.debug('advance val `%s`', val)
                 product = self.pool.get('product.product').browse(cr, uid, sale_adv_obj.product_id.id, context)
@@ -121,14 +123,28 @@ class sale_advance_payment_inv(osv.osv_memory):
 
         context.update({'invoice_id':list_inv})
 
+#        return {
+#            'name': 'Open Invoice',
+#            'view_type': 'form',
+#            'view_mode': 'form',
+#            'res_model': 'account.invoice',
+#            'type': 'ir.actions.act_window',
+#            'target': 'new',
+#            'context': context
+#        }
+
         return {
-            'name': 'Open Invoice',
+            'name': _('Advance Invoice'),
             'view_type': 'form',
-            'view_mode': 'form',
-            'res_model': 'sale.open.invoice',
+            'view_mode': 'form,tree',
+            'res_model': 'account.invoice',
+            'res_id': invoice_ids[0],
+            'view_id': False,
+            'views': [(form_id, 'form'), (tree_id, 'tree')],
+            'context': "{'type': 'out_invoice'}",
             'type': 'ir.actions.act_window',
-            'target': 'new',
-            'context': context
         }
+
+
 
 sale_advance_payment_inv()
