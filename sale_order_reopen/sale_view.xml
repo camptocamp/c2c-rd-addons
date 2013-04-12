@@ -9,7 +9,7 @@
             <field name="inherit_id" ref="sale.view_order_form"/>
             <field name="arch" type="xml">
                 <button name="action_cancel" position="after">
-                    <button name="action_reopen" type="object" states="manual,progress" string="Reset To Quotation" icon="gtk-convert" groups="base.group_extended" />
+                    <button name="action_reopen" type="object" states="manual,progress" string="Reset To Quotation" icon="gtk-convert"  groups="base.group_sale_salesman,base.group_sale_manager"/>
                 </button>
             </field>
         </record>

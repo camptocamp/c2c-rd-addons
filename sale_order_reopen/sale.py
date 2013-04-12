@@ -106,17 +106,18 @@ class sale_order(osv.osv):
             # for some reason datas_fname has .pdf.pdf extension
             report_ids = report_xml_obj.search(cr, uid, [('model','=', 'sale.order'), ('attachment','!=', False)])
             for report in report_xml_obj.browse(cr, uid, report_ids):
-              if report.attachment:
-                aname = report.attachment.replace('object','order')
-                if eval(aname):
-                  aname = eval(aname)+'.pdf'
-                  attachment_ids = attachment_obj.search(cr, uid, [('res_model','=','sale.order'),('datas_fname', '=', aname),('res_id','=',order.id)])
-                  for a in attachment_obj.browse(cr, uid, attachment_ids):
-                    vals = {
-                        'name': a.name.replace('.pdf', now+'.pdf'),
-                        'datas_fname': a.datas_fname.replace('.pdf.pdf', now+'.pdf.pdf')
-                           }
-                    attachment_obj.write(cr, uid, a.id, vals)
+                if report.attachment:
+                    aname = report.attachment.replace('object','order')
+                    if eval(aname):
+                        
+                        aname = eval(aname)+'.pdf'
+                        attachment_ids = attachment_obj.search(cr, uid, [('res_model','=','sale.order'),('datas_fname', '=', aname),('res_id','=',order.id)])
+                        for a in attachment_obj.browse(cr, uid, attachment_ids):
+                            vals = {
+                                'name': a.name.replace('.pdf', now+'.pdf'),
+                                'datas_fname': a.datas_fname.replace('.pdf.pdf', now+'.pdf.pdf')
+                                   }
+                            attachment_obj.write(cr, uid, a.id, vals)
 
             self.write(cr, uid, order.id, {'state':'draft'})
             line_ids = []

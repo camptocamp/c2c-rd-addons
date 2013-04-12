@@ -57,22 +57,24 @@ class stock_picking(osv.osv):
             _logger.debug('FGF picking allow open  %s %s' %(pick.stock_journal_id,pick.stock_journal_id.reopen_posted)   )
             if pick.stock_journal_id and not pick.stock_journal_id.reopen_posted:
                 raise osv.except_osv(_('Error'), _('You cannot reset to draft pickings of this journal ! Please check "Allow Update of Posted Pickings" in Warehous Configuration / Stock Journals %s') % pick.stock_journal_id.name )
+            if pick.type=='out' and pick.state=='done':
+                raise osv.except_osv(_('Error'), _('Deliver pickings %s is on state done, you cannot reset to draft ! '  %(pick.name)) )
             if pick._columns.get('invoice_ids'):
-                _logger.debug('FGF picking allow open inv_ids '   )
+                _logger.debug('FGF picking allow open inv_ids ')
                 ids2 = []
                 if pick.invoice_ids:
-                  for inv in pick.invoice_ids:
-                    if inv.state in ['cancel']:
-                       pass
-                    elif inv.state in ['draft']:
-                       ids2.append(inv.id) 
-                    else:
-                       raise osv.except_osv(_('Error'), _('You cannot reset a picking with an open invoice [%s] to draft ! You must reopen the invoice first (install modul account_invoice_reopen' % inv.number))
-                  #account_invoice_obj.unlink(cr, uid, ids2) 
-                  #account_invoice_obj.write(cr, uid, ids2, {'state':'cancel'})
-                  account_invoice_obj.action_cancel(cr, uid, ids2 )
-                  if ids2:
-                    self.write(cr, uid, [pick.id], {'invoice_state':'2binvoiced'})
+                    for inv in pick.invoice_ids:
+                        if inv.state in ['cancel']:
+                            pass
+                        elif inv.state in ['draft']:
+                            ids2.append(inv.id) 
+                        else:
+                            raise osv.except_osv(_('Error'), _('You cannot reset a picking with an open invoice [%s] to draft ! You must reopen the invoice first (install modul account_invoice_reopen' % inv.number))
+                    #account_invoice_obj.unlink(cr, uid, ids2) 
+                    #account_invoice_obj.write(cr, uid, ids2, {'state':'cancel'})
+                    account_invoice_obj.action_cancel(cr, uid, ids2 )
+                    if ids2:
+                        self.write(cr, uid, [pick.id], {'invoice_state':'2binvoiced'})
             elif pick.invoice_state == 'invoiced':
                 _logger.debug('FGF picking invoiced '   )
                 raise osv.except_osv(_('Error'), _('You cannot reset an invoiced picking to draft !'))
@@ -81,9 +83,9 @@ class stock_picking(osv.osv):
                     # FIXME - not sure if date or id has to be checked or both if average price is used
                     # FGF 20121130 date_expected 
                     if move.product_id.cost_method == 'average':
-                      later_ids = move_line_obj.search(cr, uid, [('product_id','=',move.product_id.id),('state','=','done'),('date_expected','>',move.date),('price_unit','!=',move.price_unit),('company_id','=',move.company_id.id)])
-                      if later_ids:
-                        later_prices = []
+                        later_ids = move_line_obj.search(cr, uid, [('product_id','=',move.product_id.id),('state','=','done'),('date_expected','>',move.date),('price_unit','!=',move.price_unit),('company_id','=',move.company_id.id)])
+                        if later_ids:
+                            later_prices = []
                         for later_move in move_line_obj.browse(cr, uid, later_ids):
                             later_prices.append(later_move.price_unit)
                             raise osv.except_osv(_('Error'), _('You cannot reopen this picking, because product "%s" of this picking has already later posted moves with different cost price(s) %s  then the current [%s] to be reopened! Recalculation of avarage price is not supported') % (move.product_id.name, later_prices, move.price_unit))
@@ -152,26 +154,26 @@ class stock_picking(osv.osv):
             report_ids = report_xml_obj.search(cr, uid, [('model','=', 'stock.picking'), ('attachment','!=', False)])
             for report in report_xml_obj.browse(cr, uid, report_ids):
                 if report.attachment: 
-                   aname = report.attachment.replace('object','pick')
-                   if eval(aname):
-                       aname = eval(aname)+'.pdf'
-                       attachment_ids = attachment_obj.search(cr, uid, [('res_model','=','stock.picking'),('datas_fname', '=', aname),('res_id','=',pick.id)])
-                       for a in attachment_obj.browse(cr, uid, attachment_ids):
-                          vals = {
-                        'name': a.name.replace('.pdf', now+'.pdf'),
-                        'datas_fname': a.datas_fname.replace('.pdf.pdf', now+'.pdf.pdf')
-                           }
-                          attachment_obj.write(cr, uid, a.id, vals)
+                    aname = report.attachment.replace('object','pick')
+                    if eval(aname):
+                        aname = eval(aname)+'.pdf'
+                        attachment_ids = attachment_obj.search(cr, uid, [('res_model','=','stock.picking'),('datas_fname', '=', aname),('res_id','=',pick.id)])
+                        for a in attachment_obj.browse(cr, uid, attachment_ids):
+                            vals = {
+                         'name': a.name.replace('.pdf', now+'.pdf'),
+                         'datas_fname': a.datas_fname.replace('.pdf.pdf', now+'.pdf.pdf')
+                            }
+                            attachment_obj.write(cr, uid, a.id, vals)
 
             self.write(cr, uid, pick.id, {'state':'draft'})
             wf_service = netsvc.LocalService("workflow")
 
             wf_service.trg_delete(uid, 'stock.picking', pick.id, cr)
             wf_service.trg_create(uid, 'stock.picking', pick.id, cr)
-
-            self.log_picking(cr, uid, ids, context=context)  
+  
             
         return True
+    
 
 
 #    def button_reopen(self, cr, uid, ids, context=None):
