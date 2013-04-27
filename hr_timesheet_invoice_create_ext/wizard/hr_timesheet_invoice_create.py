@@ -173,7 +173,10 @@ class hr_timesheet_invoice_create(osv.osv_memory):
                     project_name.append(line.account_analytic_id.name)
 
             if len(project_name) >1:
-                description = _('Collective Invoice')
+                description = _('Collective Invoice') 
+                for line in inv.invoice_line:
+                    name = line.account_analytic_id.name + ': ' + line.name
+                    inv_line_obj.write(cr, uid, [line.id], {'name':name})
             else:
                 description = project_name[0] or ''
             if data['description'] :
