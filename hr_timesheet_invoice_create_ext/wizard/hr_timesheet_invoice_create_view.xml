@@ -13,6 +13,7 @@
           <field name="description"/>
           <field name="reference"/>
           <field name="invoice_language"/>
+          <field name="group_partner"/>
         </field>
       </field>
     </record>
