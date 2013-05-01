@@ -29,7 +29,7 @@
 adapts the price difference (write down to use price units)
     """,
     'author': 'Camptocamp Austria',
-    'depends': ['account_anglo_saxon','c2c_product_price_unit' ],
+    'depends': ['account_anglo_saxon','c2c_product_price_unit','c2c_stock_accounting' ],
     'update_xml': [],
     #'update_xml': ['product_view.xml'],
     'demo_xml': [],
