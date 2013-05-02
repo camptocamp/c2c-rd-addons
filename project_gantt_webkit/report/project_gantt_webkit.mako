@@ -8,7 +8,9 @@
 
 <body>
 <%
-    objects_sorted = sorted(objects, key=lambda o : o.date_start )
+    
+    objects_sorted = sorted(objects, key=lambda o : o.project_id.name)
+    objects_sorted = sorted(objects_sorted, key=lambda o : o.date_start )
     
     task_ids = []
     project_ids = []
@@ -69,7 +71,7 @@
                 if (not t.date_end or t.date_end  > project_end) and t.id in task_ids:
                     project_end = t.date_end 
             
-            project_name = task.project_id.name
+            project_name = task.project_id.name.encode('ascii', 'replace')
             project_start =  date_convert(project_start) 
             project_end =   date_convert(project_end,1)
 
@@ -84,7 +86,7 @@
         else: 
             categ = on_time
         
-        gc.add_task(task.name, date_convert(task.date_start), date_convert(task.date_end,1) , category=categ)
+        gc.add_task(task.name.encode('ascii', 'replace'), date_convert(task.date_start), date_convert(task.date_end,1) , category=categ)
     
     file_name = '/tmp/t.png'
     

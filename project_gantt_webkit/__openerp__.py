@@ -27,6 +27,10 @@
     'complexity': "easy",
     "description": """
 Print Gantt 
+
+Attention:
+    * no UTF-8 support
+    * only a few tasks supported (API limit?)
     """,
     'website': 'http://www.camptocamp.com',
     "depends" : ["project"],
