@@ -11,6 +11,7 @@
 %for task in objects:
 
 <%
+    from googlegantt import GanttChart, GanttCategory
     chart_title = 'test'
     chart_width = 650
     chart_heigth = 200
