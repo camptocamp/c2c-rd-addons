@@ -7,55 +7,96 @@
 </head>
 
 <body>
-
-%for task in objects:
-
 <%
+    objects_sorted = sorted(objects, key=lambda o : o.date_start )
+    
+    task_ids = []
+    project_ids = []
+    for o in objects_sorted:
+        task_ids.append(o.id)
+        if o.project_id.id not in project_ids:
+            project_ids.append(o.project_id.id)
+
+    
+    import datetime
+    import time
     from googlegantt import GanttChart, GanttCategory
-    chart_title = 'test'
-    chart_width = 650
-    chart_heigth = 200
+    from tools.translate import _
+    import base64
+    
+
+   
+    chart_title = _('Gantt Chart')
+    chart_width = 950
+    chart_heigth = max((len(task_ids) + len(project_ids)) * 30,100)
     now = datetime.datetime.today()
-    chart_date = now.strftime('(%Y,%m,%d)')
-
-
-    gc = GanttChart(chart_title, chart_width, chart_height, progress=chart_date)
-
+    now_c = now.strftime('%Y-%m-%d  %H:%M:%S')
+    tomorrow = now +  datetime.timedelta(days=1)
+    tomorrow_d = tomorrow.date()
+    now_d = now.date()
+    
+    gc = GanttChart(chart_title,  width=chart_width,  height=chart_heigth, progress=now.date())
+    
+    
     on_time = GanttCategory(_('On Time'), '0c0')
     late = GanttCategory(_('Late'), 'c00')
+    undefined = GanttCategory(_('Undefined'), 'dd0')
     upcoming = GanttCategory(_('Upcoming'), '00c')
-    project = GanttCategory(_('Project'), '00c')
+    project = GanttCategory(_('Project'), 'ff0')
+   
+    def date_convert(d, delta=None):
+        try:
+            d_tuple = datetime.datetime.strptime(d, '%Y-%m-%d  %H:%M:%S').date() 
+        except:
+            if delta:
+               d_tuple = tomorrow_d
+            else:
+               d_tuple = now_d
+            
+        return d_tuple
 
-    objects_sorted = objects_sorted
-    # sort by project start, task start
-    
-    
     project_name = ''
-    
+
     for task in objects_sorted:
-        if task.project_id.project_name != project_name
-            project_name = task.project_id.project_name
-            project_start = 
-            project_end = 
-            gc.add_task(project_name, project_start,project_end, category=project)
-        if task.date_end > now:
-            categ = 'late'
-        elif task.date_start > now:
-            categ = 'upcoming'
-        else: 
-            categ = 'on_time'
-        gc.add_task(task.name, task.date_start,task.date_end, category=categ)
         
+        if task.project_id.name != project_name:
+            project_start = task.date_start
+            project_end = task.date_end
+            
+            for t in task.project_id.tasks:
+                if (not t.date_start or  t.date_start < project_start) and t.id in task_ids:
+                    project_start = t.date_start 
+                if (not t.date_end or t.date_end  > project_end) and t.id in task_ids:
+                    project_end = t.date_end 
+            
+            project_name = task.project_id.name
+            project_start =  date_convert(project_start) 
+            project_end =   date_convert(project_end,1)
 
-    #url = gc.get_url()
-    #print url
-    #webbrowser.open('%s' % url)
-    image = gc.get_image('tmp.png')
+            gc.add_task(project_name, project_start,project_end, category=project)
+            
+        if not task.date_start  or  not task.date_end :
+            categ = undefined    
+        elif task.date_end  > now_c:
+            categ = late
+        elif task.date_start  > now_c:
+            categ = upcoming
+        else: 
+            categ = on_time
+        
+        gc.add_task(task.name, date_convert(task.date_start), date_convert(task.date_end,1) , category=categ)
+    
+    file_name = '/tmp/t.png'
+    
+    image = gc.get_image(file_name)
+    
+    pic = base64.encodestring(file(file_name, 'rb').read())
+
 %>
+ 
+${helper.embed_image('png', pic )}
 
-${helper.embed_image('png', image, width=250)}
 
-%endfor
 
 
 </body>

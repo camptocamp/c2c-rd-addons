@@ -25,8 +25,8 @@ import time
 from report import report_sxw
 from osv import osv
 
-from googlegantt import GanttChart, GanttCategory
-import webbrowser
+#from googlegantt import GanttChart, GanttCategory
+#import webbrowser
 
 
 class report_webkit_html(report_sxw.rml_parse):
