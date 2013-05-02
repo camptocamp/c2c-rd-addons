@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data>
+    <report
+      auto="False"
+      file="project_gantt_webkit/report/project_gantt_webkit.mako"
+      id="project_gantt_webkit"
+      model="project.task"
+      name="task.gantt.webkit"
+      report_type="webkit"
+      string="WebKit Gantt"/>
+  </data>
+</openerp>

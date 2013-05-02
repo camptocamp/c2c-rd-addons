@@ -1,0 +1,50 @@
+<html>
+    <head>
+        <script>
+            function subst() {
+            var vars={};
+            var x=document.location.search.substring(1).split('&');
+            for(var i in x) {var z=x[i].split('=',2);vars[z[0]] = unescape(z[1]);}
+            var x=['frompage','topage','page','webpage','section','subsection','subsubsection'];
+            for(var i in x) {
+            var y = document.getElementsByClassName(x[i]);
+            for(var j=0; j<y.length; ++j) y[j].textContent = vars[x[i]];
+                }
+            }
+        </script>
+        <style type="text/css">
+            ${css}
+        </style>
+    </head>
+    <body style="border-collapse: collapse;border:0; margin: 0;" onload="subst()">
+        <table class="header" style="border-collapse: collapse;border-bottom: 0px solid black; width: 100% ;font-size:10;">
+            <tr>
+                <td style="border-bottom: 1px solid grey;">${helper.embed_logo_by_name('company_logo', height=50,width=50)}</td>
+                <td style="border-bottom: 1px solid grey;width:40%";>${company.partner_id.name |entity}<br>
+${company.partner_id.address and company.partner_id.address[0].street or ''|entity}<br>
+${company.partner_id.address and company.partner_id.address[0].zip or ''|entity}
+${company.partner_id.address and company.partner_id.address[0].city or ''|entity}<br>
+${company.partner_id.address and company.partner_id.address[0].country_id.name or ''|entity}</td>
+            </tr>
+            <tr style="border-bottom: 0px solid grey;">
+                <td style="border-bottom: 0px solid grey;"></td>
+                <td style="border-bottom: 0px solid grey;">
+
+<table class="header" style="border-collapse: collapse;border-bottom: 0px solid black; width: 100% ;font-size:10;">
+<tr>
+<td>
+Phone<br>
+Fax<br>
+Mail<br>
+</td>
+<td>${company.partner_id.address and company.partner_id.address[0].phone or ''|entity} <br>
+${company.partner_id.address and company.partner_id.address[0].fax or ''|entity}<br>
+${company.partner_id.address and company.partner_id.address[0].email or ''|entity}
+</td>
+</tr>
+</table>
+
+</td>
+   </tr>
+        </table> ${_debug or ''} </body>
+</html>
