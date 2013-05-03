@@ -25,10 +25,6 @@ import time
 from report import report_sxw
 from osv import osv
 
-#from googlegantt import GanttChart, GanttCategory
-#import webbrowser
-
-
 class report_webkit_html(report_sxw.rml_parse):
     def __init__(self, cr, uid, name, context):
         super(report_webkit_html, self).__init__(cr, uid, name, context=context)
