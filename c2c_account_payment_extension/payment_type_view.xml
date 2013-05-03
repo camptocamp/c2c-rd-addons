@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+
+
+
+<!--************************** PARTNERS - payment type **************************-->
+<record model="ir.ui.view" id="view_payment_type_res_partner_form1">
+<field name="name">res.partner.form.payment_type1</field>
+<field name="model">res.partner</field>
+<field name="type">form</field>
+<field name="inherit_id" ref="account.view_partner_property_form"/>
+<field name="priority" eval="20"/>
+<field name="arch" type="xml">
+    <field name="property_account_receivable" position="after">
+	<field name="payment_type_customer" widget="selection"/>
+    </field>
+</field>
+</record>
+
+<record model="ir.ui.view" id="view_payment_type_res_partner_form2">
+<field name="name">res.partner.form.payment_type2</field>
+<field name="model">res.partner</field>
+<field name="type">form</field>
+<field name="inherit_id" ref="account.view_partner_property_form"/>
+<field name="priority" eval="20"/>
+<field name="arch" type="xml">
+    <field name="property_account_payable" position="after">
+	<field name="payment_type_supplier" widget="selection"/>
+    </field>
+</field>
+</record>
+<!--****************************** PAYMENT TYPE ******************************-->
+<record model="ir.ui.view" id="view_payment_type_tree">
+<field name="name">payment.type.tree</field>
+<field name="model">payment.type</field>
+<field name="type">tree</field>
+<field name="arch" type="xml">
+    <tree string="Payment Type">
+	<field name="name"/>
+	<field name="code"/>
+	<field name="active"/>
+	<field name="company_id" groups="base.group_multi_company"/>
+    </tree>
+</field>
+</record>
+
+<record model="ir.ui.view" id="view_payment_type_form">
+<field name="name">payment.type.form</field>
+<field name="model">payment.type</field>
+<field name="type">form</field>
+<field name="arch" type="xml">
+    <form string="Payment Type">
+	<field name="name" select="1"/>
+	<field name="code" select="1"/>
+	<field name="active" select="1"/>
+	<field name="company_id" select="1" widget='selection' groups="base.group_multi_company"/>
+	<separator string="Description" colspan="4"/>
+	<field name="note" nolabel="1" colspan="4"/>
+	<separator string="Suitable Bank Types" colspan="4"/>
+	<field name="suitable_bank_types" nolabel="1" colspan="4"/>
+    </form>
+</field>
+</record>
+
+<record model="ir.actions.act_window" id="action_payment_type">
+<field name="name">Payment Type</field>
+<field name="res_model">payment.type</field>
+<field name="view_mode">tree,form</field>
+</record>
+
+<menuitem action="action_payment_type" id="menu_action_payment_type" parent="account.menu_configuration_misc"/>
+
+
+<!--****************************** PAYMENT MODE ******************************-->
+<record id="view_payment_mode_form_require_bank_account" model="ir.ui.view">
+<field name="name">payment.mode.form.require_bank_account</field>
+<field name="model">payment.mode</field>
+<field name="type">form</field>
+<field name="inherit_id" ref="account_payment.view_payment_mode_form"/>
+<field name="arch" type="xml">
+    <field name="bank_id" position="before">
+	<field name="type"/>
+    </field>
+</field>
+</record>
+
+</data>
+</openerp>
+

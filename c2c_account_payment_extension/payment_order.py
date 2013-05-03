@@ -31,21 +31,24 @@
 #
 ###############################################
 from osv import osv, fields
+from tools.translate import _
 
 class payment_order(osv.osv):
     _name = 'payment.order'
     _inherit = 'payment.order'
   
-    def _get_type(self, cr, uid, context=None):
-        if context is None:
-            context = {}
-        return context.get('type', 'payable')
+#    def _get_type(self, cr, uid, context=None):
+#        if context is None:
+#            context = {}
+#        return context.get('type', 'payable')
 
     def _get_reference(self, cr, uid, context=None):
         if context is None:
             context = {}
-        type = context.get('type', 'payable')
-        model = type == 'payable' and 'payment.order' or 'rec.payment.order'
+        #type = context.get('type', 'payable')
+        type = 'payable'
+        #model = type == 'payable' and 'payment.order' or 'rec.payment.order'
+        model = 'payment.order' 
         return self.pool.get('ir.sequence').get(cr, uid, model)
 
     def _get_period(self, cr, uid, context=None):
@@ -61,11 +64,11 @@ class payment_order(osv.osv):
         except Exception, e:
             return False
 
-    def _payment_type_name_get(self, cr, uid, ids, field_name, arg, context=None):
-        result = {}
-        for rec in self.browse(cr, uid, ids, context):
-            result[rec.id] = rec.mode and rec.mode.type.name or ""
-        return result
+#    def _payment_type_name_get(self, cr, uid, ids, field_name, arg, context=None):
+#        result = {}
+#        for rec in self.browse(cr, uid, ids, context):
+#            result[rec.id] = rec.mode and rec.mode.type.name or ""
+#        return result
 
     def _name_get(self, cr, uid, ids, field_name, arg, context=None):
         result = {}
@@ -81,7 +84,7 @@ class payment_order(osv.osv):
         # invisible field to filter payment order lines by payment type
         #'payment_type_name': fields.function(_payment_type_name_get, method=True, type="char", size=64, string="Payment type name"),
         # The field name is necessary to add attachement documents to payment orders
-        'name': fields.function(_name_get, method=True, type="char", size=64, string="Name"),
+#        'name': fields.function(_name_get, method=True, type="char", size=64, string="Name"),
         'create_account_moves': fields.selection([('bank-statement','Bank Statement'),('direct-payment','Direct Payment')],
                                                  'Create Account Moves',
                                                  required=True,
@@ -92,11 +95,12 @@ class payment_order(osv.osv):
         'period_id': fields.many2one('account.period', 'Period', states={'done':[('readonly',True)]}),
     }
     _defaults = {
-        'type': _get_type,
+#        'type': _get_type,
         'reference': _get_reference,
         'create_account_moves': lambda *a: 'bank-statement',
         'period_id': _get_period,
     }
+
     def cancel_from_done(self, cr, uid, ids, context=None):
         if context is None:
             context = {}
@@ -155,10 +159,10 @@ class payment_order(osv.osv):
 
                 currency_id = order.mode.journal.currency and order.mode.journal.currency.id or company_currency_id
 
-                if line.type == 'payable':
-                    line_amount = line.amount_currency or line.amount
-                else:
-                    line_amount = -line.amount_currency or -line.amount
+#                if line.type == 'payable':
+                line_amount = line.amount_currency or line.amount
+#                else:
+#                   line_amount = -line.amount_currency or -line.amount
                     
                 if line_amount >= 0:
                     account_id = order.mode.journal.default_credit_account_id.id
@@ -265,4 +269,46 @@ class payment_order(osv.osv):
 
 payment_order()
 
-    
+   
+class payment_line(osv.osv):
+    _name = 'payment.line'
+    _inherit = 'payment.line'
+
+    def _auto_init(self, cr, context=None):
+        cr.execute("SELECT column_name FROM information_schema.columns WHERE table_name = 'payment_line' and column_name='type'")
+        if cr.fetchone():
+            update_sign = False
+        else:
+            update_sign = True
+        result = super(payment_line, self)._auto_init(cr, context=context)
+
+        if update_sign:
+            # Ensure related store value of field 'type' is updated in the database.
+            # Note that by forcing the update here we also ensure everything is done in the same transaction.
+            # Because addons/__init__.py will execute a commit just after creating table fields.
+            result.sort()
+            for item in result:
+                item[1](cr, *item[2])
+            # Change sign of 'receivable' payment lines
+            cr.execute("UPDATE payment_line SET amount_currency = -amount_currency WHERE type='receivable'")
+        return result
+
+    _columns = {
+        'move_line_id': fields.many2one('account.move.line', 'Entry line', domain="[('reconcile_id','=', False), ('amount_to_pay','!=',0), ('account_id.type','=',parent.type),('payment_type','ilike',parent.payment_type_name or '%')]", help='This Entry Line will be referred for the information of the ordering customer.'),
+        'payment_move_id': fields.many2one('account.move', 'Payment Move', readonly=True, help='Account move that pays this debt.'),
+        'account_id': fields.many2one('account.account', 'Account'),
+        'type': fields.related('order_id','type', type='selection', selection=[('payable','Payable'),('receivable','Receivable')], readonly=True, store=True, string='Type'),
+    }
+
+    def onchange_move_line(self, cr, uid, ids, move_line_id, payment_type, date_prefered, date_scheduled, currency=False, company_currency=False, context=None):
+        # Adds account.move.line name to the payment line communication
+        res = super(payment_line, self).onchange_move_line(cr, uid, ids, move_line_id, payment_type, date_prefered, date_scheduled, currency, company_currency, context)
+        if move_line_id:
+            line = self.pool.get('account.move.line').browse(cr, uid, move_line_id)
+            if line.name != '/':
+                res['value']['communication'] = res['value']['communication'] + '. ' + line.name
+            res['value']['account_id'] = line.account_id.id
+        return res
+
+payment_line()
+ 

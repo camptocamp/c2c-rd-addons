@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+
+    <record id="view_payment_order_form_ext1" model="ir.ui.view">
+        <field name="name">payment.order.form.ext1</field>
+        <field name="model">payment.order</field>
+        <field name="type">form</field>
+        <field name="inherit_id" ref="account_payment.view_payment_order_form"/>
+        <field name="arch" type="xml">
+            <field name="mode" position="after">
+                <field name="create_account_moves" />
+                <group colspan="2" col="1" attrs="{'invisible': [('create_account_moves', '=', 'bank-statement')]}">
+                    <field name="period_id" attrs="{'required': [('create_account_moves', '!=', 'bank-statement')]}"/>
+                </group>
+            </field>
+        </field>
+    </record>
+</data>
+</openerp>
