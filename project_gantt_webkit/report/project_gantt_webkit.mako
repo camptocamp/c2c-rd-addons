@@ -93,7 +93,8 @@
     image = gc.get_image(file_name)
     
     pic = base64.encodestring(file(file_name, 'rb').read())
-
+    import os
+    os.remove(file_name)
 %>
  
 ${helper.embed_image('png', pic )}
