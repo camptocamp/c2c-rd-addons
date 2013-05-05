@@ -3,6 +3,7 @@
   <data noupdate="1">
     <record model="xml.template" id="xml_template_sepa_pain_001_001_02_austrian_002" forcecreate="True">
       <field name="name">pain_001_001_02_austrian_002</field>
+      <field name="schema">http://www.stuzza.at/schemata/ISO.pain.001.001.02.austrian.002.xsd</field>
       <field name="content" type="xml">
 <Document>
   <pain.001.001.02>
@@ -20,8 +21,8 @@
         </Id>
       </InitgPty>
     </GrpHdr>
-    <PmtInf var="date,p_banks" loop-eval="sepa_payments(order,company).iteritems()">
-      <PmtInfId text-eval="time1"/>
+    <PmtInf var="date" seq-eval="sepa_payments(order,company)">
+      <PmtInfId text-eval="date.replace('-', '')"/>
       <PmtMtd text-eval="'TRF'"/>
       <PmtTpInf>
         <SvcLvl>
@@ -43,7 +44,7 @@
           <BIC text-eval="order.mode.bank_id.bank.bic.replace(' ','').upper()"/>
         </FinInstnId>
       </DbtrAgt>
-      <CdtTrfTxInf var="line" seq-eval="p_banks">
+      <CdtTrfTxInf var="line" seq-eval="p_sepa_payments(order,company)[date]">
         <PmtId>
           <EndToEndId text-eval="line.customer_data[0:35]"/>
         </PmtId>

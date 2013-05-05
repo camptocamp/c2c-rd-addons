@@ -236,7 +236,7 @@ msgstr "Verkaufspreis"
 #: view:chricar.report.location.moves:0
 #: model:ir.actions.act_window,name:chricar_stocklocation_moves.act_chricar_location_stock_open
 msgid "Stock Moves by Location"
-msgstr "Lagerbuchungen je Lagerortn"
+msgstr "Lagerbuchungen je Lagerort"
 
 #. module: chricar_stocklocation_moves
 #: view:chricar.report.location.moves.sum:0

@@ -12,6 +12,7 @@ generated 2009-02-11 16:03:53+01"""
     [ "inventory_view.xml"
     , "security/group.xml"
     , "security/ir.model.access.csv"
+    , "inventory_webkit_view.xml"
     ]
 , "auto_install" : False
 , "installable"  : True

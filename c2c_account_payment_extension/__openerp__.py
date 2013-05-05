@@ -1,11 +1,13 @@
 # -*- coding: utf-8 -*-
 ##############################################
-#
+# based on work of
+# Copyright (c) 2008 Zikzakmedia S.L. (http://zikzakmedia.com) All Rights Reserved.
+# Jordi Esteve <jesteve@zikzakmedia.com>
 # Swing Entwicklung betrieblicher Informationssysteme GmbH
 # (<http://www.swing-system.com>)
 # Copyright (C) ChriCar Beteiligungs- und Beratungs- GmbH
 # all rights reserved
-#    08-JUN-2012 (GK) created
+#    05-May-2013  created
 #
 # WARNING: This program as such is intended to be used by professional
 # programmers who take the whole responsibility of assessing all potential
@@ -41,11 +43,13 @@
 , "init_xml"     : []
 , "demo"         : []
 , "update_xml"   : 
-    [ "payment_mode_view.xml"
-    , "payment_view.xml"
+    [ "payment_type_view.xml"
+    , "payment_mode_view.xml"
+    , "payment_order_view.xml"
     , "res_partner_view.xml"
     , "account_invoice_view.xml"
     , "wizard/account_payment_order_view.xml"
+    , "security/ir.model.access.csv"
     ]
 , "test"         : []
 , "auto_install" : False

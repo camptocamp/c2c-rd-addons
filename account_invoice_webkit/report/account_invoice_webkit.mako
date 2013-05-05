@@ -315,7 +315,7 @@ note {font-size:75%};
     </table>
 <br>
        %if inv.tax_line :
-    <table style="width:40%;border:1px solid">
+    <table style="width:40%;border:1px solid;page-break-inside:avoid;">
        <thead>
           <tr style=" border-width:1px; border-style:solid;">
         <th style="text-align:center;border-width:1px; border-style:solid;">${_("Tax")}</th>

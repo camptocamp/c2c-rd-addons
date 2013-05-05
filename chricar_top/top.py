@@ -195,7 +195,7 @@ class chricar_top(osv.osv):
 }
 
 #     _order = 'partner_id.name','location_id.name','sequence'
-    _order = 'location_id,sort'
+#     _order = 'location_id,sort'
 
 
     def name_get(self, cr, uid, ids, context=None):
@@ -331,6 +331,8 @@ class stock_location(osv.osv):
         'top_ids'        : fields.one2many('chricar.top','location_id','Real Estate Top'),
         'operating_cost' : fields.float   ('Monthly Operating Costs', digits=(10,2), help="""Operating Costs for Real Estate, will be calculated per m² for each Top"""),
     }
+      _order = 'complete_name'
+
 stock_location()
 
 #####################
@@ -377,3 +379,29 @@ class chricar_top_cost (osv.osv):
     _order = 'top_id, seq'
 
 chricar_top_cost()
+
+
+
+#####################
+# Insurance Info - Top and Location
+#####################
+class chricar_insurance(osv.osv):
+     _name = "chricar.insurance"
+
+     _columns = {
+       'top_id'             : fields.many2one('chricar.top','Top', select=True),
+       'location_id'        : fields.many2one('stock.location','Location', select=True),
+       'partner_id'         : fields.many2one('res.partner','Insurance', select=True),
+       'name'               : fields.char    ('Insurance Contract', size=64, required=True),
+       'insurance_from'     : fields.date    ('Insurance Date From'),
+       'insurance_to'       : fields.date    ('Insurance Date To'),
+       'term_of_notice'     : fields.date    ('Term of Notice'),
+       'coverage'           : fields.float   ('Coverage'),
+       'premium'            : fields.float   ('Premium'),
+      }
+
+     _sql_constraints = [
+       ('top_or_location', "CHECK((top_id is not null or location_id is not null) and not (top_id is not null and location_id is not null))", "Either location or top must be defined" ) 
+      ]
+
+chricar_insurance()

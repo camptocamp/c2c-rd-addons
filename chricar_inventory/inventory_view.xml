@@ -14,17 +14,23 @@ generated 2009-02-11 16:03:53+01
       <field name="type">form</field>
       <field name="arch" type="xml">
         <form string="Inventory">
-          <field name="location_id" />
+          <group colspan="2" col="2">
           <field name="location_old" />
-          <field name="position" />
+          <field name="location_old" select="2"/>
           <field name="name" />
-          <field name="value" />
           <field name="partner_id"/>
           <field name="partner_old" />
-          <field name="image" colspan="4" img_width="400" img_height="400" width="400" height="400" widget="image"/>
+          <field name="name" select="1"/>
+          <field name="value" select="1"/>
+          </group>
+          <group colspan="2" col="2">
+          <field name="image" img_width="400" img_height="400" width="400" height="400" widget="image" nolabel="1"/>
+          </group>
+<!--
           <notebook colspan="4">
             <page string="invisible" invisible="1"/>
           </notebook>
+-->
         </form>
       </field>
     </record>
@@ -68,7 +74,7 @@ generated 2009-02-11 16:03:53+01
       action="chricar_inventory_act1"
       id="menu_chricar_inventory_list"
       parent="chricar_top.menu_chricar_real_estate"
-      sequence="15"/>
+      sequence="50"/>
     <!--
 ==============================================
 Modification of Parents (only for matching table prefixes)

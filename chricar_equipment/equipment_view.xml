@@ -83,7 +83,7 @@ generated 2009-07-11 14:41:58+02
       action="chricar_equipment_act1"
       id="menu_chricar_equipment_list"
       parent="chricar_top.menu_chricar_real_estate"
-      sequence="10"/>
+      sequence="30"/>
     <!--
 ==============================================
 Modification of Parents (only for matching table prefixes)

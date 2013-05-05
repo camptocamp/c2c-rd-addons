@@ -27,9 +27,9 @@ class partner_erp(osv.osv):
     def _server_https(self, cr, uid, ids, name, args, context=None):
         res = {}
         for server in self.browse(cr, uid, ids, context=context):
-            https = 'https://'+server.name
+            https = server.protocol + '://' + server.name
             if server.port:
-                https += ':'+server.port
+                https += ':'+ str(server.port)
             if server.path:
                 https += '/'+server.path
             https +='#'
@@ -47,6 +47,7 @@ class partner_erp(osv.osv):
           'partner_id'            : fields.many2one('res.partner', "Partner", required=True )
         , 'user_id'               : fields.many2one('res.users', "User", help="Keep empty for admin user" )
         , 'name'                  : fields.char    ('Server Name', size=32, required=True )
+        , 'protocol'              : fields.selection([('http','http'),('https','https')],'Protocol', required=True )
         , 'port'                  : fields.integer ('Port' )
         , 'path'                  : fields.char    ('Path', size=32 )
         , 'db_name'               : fields.char    ('Database Name', size=32 ,required=True)
@@ -54,6 +55,11 @@ class partner_erp(osv.osv):
         , 'passwd'                : fields.char    ('DB-Password', size=16 )
         , 'server_https'          : fields.function(_server_https, type='char', string='https command')
         }
+
+    _defaults = {
+     'protocol'             : lambda *a : 'https'
+        }
+
 partner_erp()
 
 

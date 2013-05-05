@@ -163,7 +163,7 @@ class xml_template(osv.osv):
         self._remove_attachments(cr, uid, attach_to, name, fname, description, context=context)
         vals  = \
             { 'name'         : name
-            , 'datas'        : base64.encodestring(etree.tostring(xml, pretty_print=pretty_print))
+            , 'datas'        : base64.encodestring('<?xml version="1.0" encoding="UTF-8"?>\n' + etree.tostring(xml, pretty_print=pretty_print))
             , 'datas_fname'  : "%s.xml" % fname
             , 'res_model'    : attach_to._table_name
             , 'res_id'       : attach_to.id
@@ -187,6 +187,7 @@ class xml_template(osv.osv):
         :param pretty_print: True/False
         """
         f = open(filename, "w")
+        f.write('<?xml version="1.0" encoding="UTF-8"?>\n')
         f.write(etree.tostring(xml, pretty_print=pretty_print))
         f.close()
     # end def write_file

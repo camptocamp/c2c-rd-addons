@@ -151,7 +151,11 @@ class payment_order(osv.osv) :
         if l['customer_data'] and not interntl :
             s.append("RFF+AEF:%(customer_data)s'" % l)
 #        s.append("FII+BF+%(iban)s:%(name)s+%(bic)s:25:5'" % l)
-        s.append("FII+BF+%(iban)s:%(name)s'" % l)
+        if interntl :
+            s.append("FCA+14'")
+            s.append("FII+BF+%(iban)s:%(name)s:25:5'" % l)
+        else :
+            s.append("FII+BF+%(iban)s:%(name)s'" % l)
         s.append("NAD+BE+++%(name)s+%(street)s+%(city)s+%(zip)s+%(country)s'" % l) # sgr3
         s.append("PRC+11'")
         s.append("FTX+PMD+++%(reference)s'" % l)

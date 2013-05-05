@@ -54,3 +54,9 @@ class account_invoice(osv.osv):
 
 account_invoice()
 
+class account_fiscalyear(osv.osv):
+    _inherit = "account.fiscalyear"
+    _order = 'date_start desc, id desc'
+
+account_fiscalyear()
+

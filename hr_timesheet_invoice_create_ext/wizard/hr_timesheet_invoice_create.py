@@ -26,6 +26,9 @@ import locale
 #
 # TODO: check unit of measure !!!
 #
+
+
+
 class hr_timesheet_invoice_create(osv.osv_memory):
 
     _inherit = 'hr.timesheet.invoice.create'
@@ -55,10 +58,15 @@ class hr_timesheet_invoice_create(osv.osv_memory):
             , size=64
             , help='The reference on the invoice, usually the period of service'
             )
+        , 'group_partner' : fields.boolean
+            ( 'Group by Partner' 
+            , help='Create only ONE invoice for all projects of a partner'
+            ) 
         }
     _defaults = \
         { 'reference'        : lambda *a: 'automatic'
         , 'invoice_language' : lambda *a: 'user'
+        , 'group_partner'    : lambda *a: True
         }
 
     def _lang_code(self, cr, uid, inv, invoice_language) :
@@ -85,9 +93,10 @@ class hr_timesheet_invoice_create(osv.osv_memory):
 
         # FIXME - IMHO changes locale for the server process
         loc = locale.getlocale()
-        locale.setlocale(locale.LC_ALL, (lang_code,'UTF8') )
+        # FIXME - next line raises error 2013-04-27 - has already worked on production
+        #locale.setlocale(locale.LC_ALL, (lang_code,'UTF8') )
         month        =  datetime.datetime.strftime(_min, "%b") + ' '
-        locale.setlocale(locale.LC_ALL, loc )
+        #locale.setlocale(locale.LC_ALL, loc )
 
         if _min.year != _max.year :
             return clearing + dates[0] + ".." + dates[-1]
@@ -109,13 +118,43 @@ class hr_timesheet_invoice_create(osv.osv_memory):
         data = self.read(cr, uid, ids, [], context=context)[0]
         line_obj = self.pool.get('account.analytic.line')
         inv_obj  = self.pool.get('account.invoice')
+        inv_line_obj  = self.pool.get('account.invoice.line')
 
         inv_ids = []
         for d in act_win.get('domain') :
             if d[0] == 'id' :
                 inv_ids = d[2]
 
-        for inv in inv_obj.browse(cr, uid, inv_ids) :
+        grouped_invoice_ids = []
+        if inv_ids and data['group_partner']:
+            i_ids =  ','.join(map(str,inv_ids))
+            sql = """
+                select partner_id, min(id) as id
+                  from account_invoice
+                 where id in (%s)
+                 group by partner_id
+            """ % (i_ids)
+            cr.execute(sql)
+            grouped_invoice = dict(cr.fetchall() )
+            
+            for invoice in inv_obj.browse(cr, uid, inv_ids):
+                grouped_invoice_id = grouped_invoice[invoice.partner_id.id]
+                grouped_invoice_ids.append(grouped_invoice_id)
+                if invoice.id != grouped_invoice_id:
+                    line_ids = []
+                    for line in invoice.invoice_line:
+                        line_ids.append(line.id)
+                    inv_line_obj.write(cr, uid, line_ids, {'invoice_id' : grouped_invoice_id})
+                    #FIXME - invoice_id needs an index !??
+                    analytic_ids = line_obj.search(cr, uid,[('invoice_id','=',invoice.id)])
+                    line_obj.write(cr, uid, analytic_ids, {'invoice_id' : grouped_invoice_id})
+                    inv_obj.unlink(cr, uid, [invoice.id])
+        else:
+            grouped_invoice_ids = inv_ids
+
+
+
+        for inv in inv_obj.browse(cr, uid, grouped_invoice_ids) :
             if data['reference'] == 'automatic' :
                 analytic_ids = line_obj.search(cr, uid, [('invoice_id','=',inv.id)])
                 lines = line_obj.browse(cr, uid, analytic_ids)
@@ -127,10 +166,24 @@ class hr_timesheet_invoice_create(osv.osv_memory):
                 { 'date_invoice' : data['date_invoice'] or False
                 , 'reference'    : ref
                 }
-            if data['description'] :
-                values['name'] = data['description'] + ' - ' + inv.invoice_line[0].account_analytic_id.name
+
+            project_name = []
+            for line in inv.invoice_line:
+                if line.account_analytic_id and line.account_analytic_id.name not in project_name:
+                    project_name.append(line.account_analytic_id.name)
+
+            if len(project_name) >1:
+                description = _('Collective Invoice') 
+                for line in inv.invoice_line:
+                    name = line.account_analytic_id.name + ': ' + line.name
+                    inv_line_obj.write(cr, uid, [line.id], {'name':name})
             else:
-                values['name'] = inv.invoice_line[0].account_analytic_id.name
+                description = project_name[0] or ''
+            if data['description'] :
+                values['name'] = data['description'] + ' - ' + description
+            else:
+                values['name'] = description
+
             if data['journal_id'] :
                 values['journal_id'] =  data['journal_id'][0]
             inv_obj.write(cr, uid, [inv.id], values)

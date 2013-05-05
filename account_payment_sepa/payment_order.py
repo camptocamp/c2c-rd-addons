@@ -77,9 +77,12 @@ class Date(object):
 
 class _Record (object) :
     def __init__ (self, **kw):
-        self.__dict__ ["_kw"] = kw.copy ()
+        self.__dict__["_kw"] = kw.copy()
     # end def __init__
     
+    def __repr__(self):
+        return str(self.__dict__["_kw"])
+
     def copy (self, **kw):
         result = self.__class__ (** self._kw)
         result._kw.update (kw)
@@ -267,7 +270,7 @@ class payment_order(osv.osv) :
             protocol = template_ref.xml_template_id.name
             template_obj = self.pool.get("xml.template")
             namespaces = \
-                { None  : "urn:iso:std:iso:20022:tech:xsd:pain.001.001.02"
+                { None  : "APC:STUZZA:payments:ISO:pain:001:001:02:austrian:002"
                 , "xsi" : "http://www.w3.org/2001/XMLSchema-instance"
                 }
             xml = template_obj.generate_xml \
@@ -285,7 +288,7 @@ class payment_order(osv.osv) :
                 , template_ref.xml_template_id.id
                 , attach_to   = order
                 , xml         = xml
-                , name        = order.reference + " " + protocol
+                , name        = "SEPA_" + order.reference
                 , fname       = self._sepa_strip(order.reference).upper()
                 , description = "SEPA credit transfer " + protocol
                 , context     = None
