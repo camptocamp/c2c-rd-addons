@@ -67,14 +67,21 @@ class stock_move(osv.osv):
             if do_check:
                # name field = product qty
                cr.execute(
-               "select sum(name) \
+               "select product_id,location_id,prodlot_id,sum(name) as qty \
                   from chricar_stock_product_by_location_prodlot \
                  where product_id = %d \
                    and company_id = %d \
                  group by product_id, location_id,prodlot_id \
                 having sum(name) < 0" % ( move.product_id.id, move.company_id.id )) 
-            if cr.fetchone():
-                   return False
+               for check in  cr.fetchall():
+                    product= self.pool.get('product.product').browse(cr,uid,[check[0]], context)[0].name
+                    location = self.pool.get('stock.location').browse(cr,uid,[check[1]], context)[0].name
+                    if check[2]:
+                        lot = self.pool.get('stock.production.lot').browse(cr,uid,[check[2]], context)[0].name
+                    else:
+                        lot = ''
+                    raise osv.except_osv(_('Error !'), _('negative quantity %s not llowed for product: %s, location: %s, lot: %s  !') % (check[3],product,location, lot ) )
+
         return True
         
     _constraints = [ (_check_allow_negative_stock, 'Error: Negative quantities for location and/or lots are not allowed for this product or product category', ['name']), ]
