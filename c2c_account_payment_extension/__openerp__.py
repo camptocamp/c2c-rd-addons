@@ -1,11 +1,13 @@
 # -*- coding: utf-8 -*-
 ##############################################
-#
+# based on work of
+# Copyright (c) 2008 Zikzakmedia S.L. (http://zikzakmedia.com) All Rights Reserved.
+# Jordi Esteve <jesteve@zikzakmedia.com>
 # Swing Entwicklung betrieblicher Informationssysteme GmbH
 # (<http://www.swing-system.com>)
 # Copyright (C) ChriCar Beteiligungs- und Beratungs- GmbH
 # all rights reserved
-#    08-JUN-2012 (GK) created
+#    05-May-2013  created
 #
 # WARNING: This program as such is intended to be used by professional
 # programmers who take the whole responsibility of assessing all potential
