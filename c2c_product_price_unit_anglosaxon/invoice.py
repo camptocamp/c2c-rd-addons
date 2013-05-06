@@ -65,10 +65,12 @@ class account_invoice_line(osv.osv):
             self._logger.debug('FGF anglosaxon line data %s %s', i_line.quantity, i_line.price_subtotal)
             if not i_line.product_id or not stock_moves.get(i_line.product_id.id) :
                 self._logger.debug('FGF anglosaxon pass 1')
-                pass
+                res = res_orig
+               
             elif i_line.product_id.type != 'product':
                 self._logger.debug('FGF anglosaxon pass 2')
-                pass
+                res = res_orig
+                
 
             else:
                 # FIXME qty_diff not yet hadled
