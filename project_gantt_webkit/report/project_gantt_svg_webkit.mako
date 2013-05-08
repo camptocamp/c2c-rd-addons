@@ -31,7 +31,7 @@ def title(name) :
     if len(name) > 13 :
         result =  name[:13] + "..."
     else :
-        result = name.encode('ascii', 'replace')
+        result = name
     return result.encode('ascii', 'replace')
 # end def title
 
