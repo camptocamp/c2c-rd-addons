@@ -61,7 +61,7 @@ dx, dy, d, space = scale(timespan)
 %if timespan < 90 :
     <% month = 0 %>
     %for actual in [first + datetime.timedelta(days=i) for i in range(0, timespan, d)] :
-        <% x0 = (((actual-first).days) + space)*dx %>
+        <% x0 = ((actual-first).days + space)*dx %>
         %if actual.month != month :
             <text x="${x0}" y="${dy}">${months[actual.month-1]}'${actual.year % 100}</text>
             <% month = actual.month %>
@@ -69,11 +69,10 @@ dx, dy, d, space = scale(timespan)
         <rect x="${x0}" y="${dy}" width="${dx}" height="${(len(objects)+1)*dy}" fill="${workingday[actual.isoweekday()-1]}" style="opacity:0.2"/>
         <text x="${x0}" y="${int(dy+(dy*0.8))}">${actual.day}</text>
     %endfor
-%endif
-%if 90 <= timespan < 400 :
+%elif timespan < 400 :
     <% month = 0 %>
     %for actual in [first + datetime.timedelta(days=i) for i in range(0, timespan, d)] :
-        <% x0 = (((actual-first).days) + space)*dx %>
+        <% x0 = ((actual-first).days + space)*dx %>
         %if actual.month != month :
             <text x="${x0}" y="${dy}">${months[actual.month-1]}'${actual.year % 100}</text>"""
             <% month = actual.month %>
@@ -81,12 +80,11 @@ dx, dy, d, space = scale(timespan)
         <rect x="${x0}" y="${dy}" width="${d*dx}" height="${(len(objects)+1)*dy}" fill="${color[actual.isocalendar()[1] % 3]}" style="opacity:0.2"/>
         <text x="${x0}" y="${int(dy+(dy*0.8))}">${_('cw')}${actual.isocalendar()[1]+1}</text>
     %endfor
-%endif
-%if 400 <= timespan :
+%else :
     <% first = datetime.date(first.year, first.month, 1) %>
     <% year = 0 %>
     %for actual in [datetime.date(first.year + (first.month + i-1)/12, ((first.month + i - 1) % 12)+1, 1) for i in range(0, timespan/d)] :
-        <% x0 = (((actual-first).days) + space)*dx %>
+        <% x0 = ((actual-first).days + space)*dx %>
         %if actual.year != year :
             <text x="${x0}" y="${dy}">${actual.year}</text>
             <% year = actual.year %>
@@ -97,7 +95,7 @@ dx, dy, d, space = scale(timespan)
 
 %for i in range(0, len(objects), 3):
     <rect x="0" y="${(i+2)*dy+4}" width="${((last-first).days + space)*dx}" height="${dy}" fill="whitesmoke" style="opacity:0.4"/>
-#endfor
+%endfor
 
 %for i, task in enumerate(sorted(objects, key=lambda o: (datum(o.date_start, now), o.name))):
     <text x="0" y="${(i+3)*dy}">${title(task.name)}</text>
