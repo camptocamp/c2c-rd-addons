@@ -11,7 +11,8 @@
 import datetime
 from tools.translate import _
 
-def datum(date, now) :
+def datum(date) :
+    now = datetime.datetime.now().date()
     if date :
         return datetime.datetime.strptime(date, "%Y-%m-%d %H:%M:%S").date()
     else :
@@ -34,7 +35,7 @@ def title(name) :
 # en def title
 
 def duration(task, now) :
-    return (datum(task.date_end, now) -  datum(task.date_start, now)).days
+    return (datum(task.date_end) -  datum(task.date_start)).days
 # end def duration
 
 def scale(timespan) :
@@ -52,8 +53,8 @@ workingday = ["white", "white", "white", "white", "white", "silver", "silver"]
 color = ["white", "white", "silver"]
 now = datetime.datetime.now().date()
 tasks = [t for t in objects if t.date_start and t.date_end]
-first = min(datum(task.date_start, now) for task in tasks if task.date_start)
-last  = max(datum(task.date_end,   now) for task in tasks if task.date_end)
+first = min(datum(task.date_start) for task in tasks if task.date_start)
+last  = max(datum(task.date_end)   for task in tasks if task.date_end)
 timespan = (last-first).days
 dx, dy, d, space = scale(timespan) 
 %>
@@ -107,9 +108,9 @@ dx, dy, d, space = scale(timespan)
     <rect x="0" y="${(i+2)*dy+4}" width="${((last-first).days + space)*dx}" height="${dy}" fill="whitesmoke" style="opacity:0.4"/>
 %endfor
 
-%for i, task in enumerate(sorted(tasks, key=lambda o: (datum(o.date_start, now), o.name))):
+%for i, task in enumerate(sorted(tasks, key=lambda o: (datum(o.date_start), o.name))):
     <text x="0" y="${(i+3)*dy}">${title(task.name)}</text>
-    <rect x="${((datum(task.date_start, now) - first).days + space)*dx}" y="${(i+3)*dy-dy/2}" width="${max(dx, duration(task, now)*dx)}" height="${int(dy*0.5)}" fill="${category(task, now)}"/>
+    <rect x="${((datum(task.date_start) - first).days + space)*dx}" y="${(i+3)*dy-dy/2}" width="${max(dx, duration(task, now)*dx)}" height="${int(dy*0.5)}" fill="${category(task, now)}"/>
 %endfor
 <rect x="${((now - first).days + space)*dx}" y="${dy}" width="${max(1,int(dx*0.5))}" height="${(len(tasks)+1)*dy}" fill="blue" style="opacity:0.2"/>
 
