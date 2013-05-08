@@ -61,7 +61,7 @@ dx, dy, d, space = scale(timespan)
 %if timespan < 90 :
     <% month = 0 %>
     %for actual in [first + datetime.timedelta(days=i) for i in range(0, timespan, d)] :
-        <% x0 = ((actual-first).days)*dx + space*dx %>
+        <% x0 = (((actual-first).days) + space)*dx %>
         %if actual.month != month :
             <text x="${x0}" y="${dy}">${months[actual.month-1]}'${actual.year % 100}</text>
             <% month = actual.month %>
@@ -70,7 +70,7 @@ dx, dy, d, space = scale(timespan)
 %elif timespan < 400 :
     <% month = 0 %>
     %for actual in [first + datetime.timedelta(days=i) for i in range(0, timespan, d)] :
-        <% x0 = ((actual-first).days)*dx + space*dx %>
+        <% x0 = (((actual-first).days) + space)*dx %>
         %if actual.month != month :
             <text x="${x0}" y="${dy}">${months[actual.month-1]}'${actual.year % 100}</text>"""
             <% month = actual.month %>
@@ -80,18 +80,19 @@ dx, dy, d, space = scale(timespan)
     <% first = datetime.date(first.year, first.month, 1) %>
     <% year = 0 %>
     %for actual in [datetime.date(first.year + (first.month + i-1)/12, ((first.month + i - 1) % 12)+1, 1) for i in range(0, timespan/d)] :
-        <% x0 = ((actual-first).days)*dx + space*dx %>
+        <% x0 = (((actual-first).days) + space)*dx %>
         %if actual.year != year :
             <text x="${x0}" y="${dy}">${actual.year}</text>
             <% year = actual.year %>
         <rect x="${x0}" y="${dy}" width="${d*dx}" height="${(len(objects)+1)*dy}" fill="${color[actual.month % 3]}" style="opacity:0.2"/>
-        <text x="${x0}" y="${int(dy+(dy*0.8))}">${months[actual.month-1]}</text>"""
+        <text x="${x0}" y="${int(dy+(dy*0.8))}">${months[actual.month-1]}</text>
 %for i in range(0, len(objects), 3) :
     <rect x="0" y="${(i+2)*dy+4}" width="${((last-first).days + space)*dx}" height="${dy}" fill="whitesmoke" style="opacity:0.4"/>
 
 %for i, task in enumerate(sorted(objects, key=lambda o: (datum(o.date_start, now), o.name))) :
     <text x="0" y="${(i+3)*dy}">${title(task.name)}</text>
     <rect x="${((datum(task.date_start, now) - first).days + space)*dx}" y="${(i+3)*dy-dy/2}" width="${max(dx, duration(task, now)*dx)}" height="${int(dy*0.5)}" fill="${category(task, now)}"/>
+
 <rect x="${((now - first).days + space)*dx}" y="${dy}" width="${max(1,int(dx*0.5))}" height="${(len(objects)+1)*dy}" fill="blue" style="opacity:0.2"/>
 
   </svg>
