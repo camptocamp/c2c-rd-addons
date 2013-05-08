@@ -13,7 +13,7 @@ from tools.translate import _
 
 def datum(date) :
     now = datetime.datetime.now().date()
-    if date :
+    if date and not date == "False" :
         return datetime.datetime.strptime(date, "%Y-%m-%d %H:%M:%S").date()
     else :
         return now
