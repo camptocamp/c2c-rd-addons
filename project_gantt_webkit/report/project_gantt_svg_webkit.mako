@@ -1,11 +1,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <style type="text/css">
-        body {font-family:Helvetica,sans-serif;font-size:8pt;}
-    </style>
+    <style type="text/css"/>
   </head>
-
-  <body>
+  <body style="font-family:Helvetica,sans-serif;font-size:8pt;">
 <%
 import datetime
 from tools.translate import _
