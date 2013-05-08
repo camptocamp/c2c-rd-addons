@@ -2,7 +2,6 @@
   <head>
     <style type="text/css">
         body {font-family:Helvetica,sans-serif;font-size:8pt;}
-        ${css}
     </style>
   </head>
 
