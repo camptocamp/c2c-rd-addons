@@ -85,11 +85,12 @@ dx, dy, d, space = scale(timespan)
             <text x="${x0}" y="${dy}">${actual.year}</text>
             <% year = actual.year %>
         <rect x="${x0}" y="${dy}" width="${d*dx}" height="${(len(objects)+1)*dy}" fill="${color[actual.month % 3]}" style="opacity:0.2"/>
-        <text x="${x0}" y="${int(dy+(dy*0.8))}">${months[actual.month-1]}</text>
-%for i in range(0, len(objects), 3) :
+        <text x="${x0}" y="${int(dy+(dy*0.8))}">${months[actual.month-1]}</text>
+
+%for i in range(0, len(objects), 3):
     <rect x="0" y="${(i+2)*dy+4}" width="${((last-first).days + space)*dx}" height="${dy}" fill="whitesmoke" style="opacity:0.4"/>
 
-%for i, task in enumerate(sorted(objects, key=lambda o: (datum(o.date_start, now), o.name))) :
+%for i, task in enumerate(sorted(objects, key=lambda o: (datum(o.date_start, now), o.name))):
     <text x="0" y="${(i+3)*dy}">${title(task.name)}</text>
     <rect x="${((datum(task.date_start, now) - first).days + space)*dx}" y="${(i+3)*dy-dy/2}" width="${max(dx, duration(task, now)*dx)}" height="${int(dy*0.5)}" fill="${category(task, now)}"/>
 
