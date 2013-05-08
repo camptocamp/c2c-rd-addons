@@ -86,7 +86,6 @@ dx, dy, d, space = scale(timespan)
             <% year = actual.year %>
         <rect x="${x0}" y="${dy}" width="${d*dx}" height="${(len(objects)+1)*dy}" fill="${color[actual.month % 3]}" style="opacity:0.2"/>
         <text x="${x0}" y="${int(dy+(dy*0.8))}">${months[actual.month-1]}</text>
-
 %for i in range(0, len(objects), 3):
     <rect x="0" y="${(i+2)*dy+4}" width="${((last-first).days + space)*dx}" height="${dy}" fill="whitesmoke" style="opacity:0.4"/>
 
