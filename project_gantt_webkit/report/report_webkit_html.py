@@ -36,5 +36,5 @@ class report_webkit_html(report_sxw.rml_parse):
         
 report_sxw.report_sxw('report.task.gantt.webkit',
                        'project.task', 
-                       'project_gantt_webkit/report/project_gantt_webkit.mako',
+                       'project_gantt_webkit/report/project_gantt_svg_webkit.mako',
                        parser=report_webkit_html)
