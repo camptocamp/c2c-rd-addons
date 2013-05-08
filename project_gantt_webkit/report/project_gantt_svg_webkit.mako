@@ -69,7 +69,8 @@ dx, dy, d, space = scale(timespan)
         <rect x="${x0}" y="${dy}" width="${dx}" height="${(len(objects)+1)*dy}" fill="${workingday[actual.isoweekday()-1]}" style="opacity:0.2"/>
         <text x="${x0}" y="${int(dy+(dy*0.8))}">${actual.day}</text>
     %endfor
-%elif timespan < 400 :
+%endif
+%if 90 <= timespan < 400 :
     <% month = 0 %>
     %for actual in [first + datetime.timedelta(days=i) for i in range(0, timespan, d)] :
         <% x0 = (((actual-first).days) + space)*dx %>
@@ -80,7 +81,8 @@ dx, dy, d, space = scale(timespan)
         <rect x="${x0}" y="${dy}" width="${d*dx}" height="${(len(objects)+1)*dy}" fill="${color[actual.isocalendar()[1] % 3]}" style="opacity:0.2"/>
         <text x="${x0}" y="${int(dy+(dy*0.8))}">${_('cw')}${actual.isocalendar()[1]+1}</text>
     %endfor
-%else :
+%endif
+%if 400 <= timespan :
     <% first = datetime.date(first.year, first.month, 1) %>
     <% year = 0 %>
     %for actual in [datetime.date(first.year + (first.month + i-1)/12, ((first.month + i - 1) % 12)+1, 1) for i in range(0, timespan/d)] :
@@ -92,6 +94,7 @@ dx, dy, d, space = scale(timespan)
         <rect x="${x0}" y="${dy}" width="${d*dx}" height="${(len(objects)+1)*dy}" fill="${color[actual.month % 3]}" style="opacity:0.2"/>
         <text x="${x0}" y="${int(dy+(dy*0.8))}">${months[actual.month-1]}</text>    %endfor
 %endif
+
 %for i in range(0, len(objects), 3):
     <rect x="0" y="${(i+2)*dy+4}" width="${((last-first).days + space)*dx}" height="${dy}" fill="whitesmoke" style="opacity:0.4"/>
 #endfor
