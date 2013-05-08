@@ -29,10 +29,11 @@ def category(task, now) :
 
 def title(name) :
     if len(name) > 13 :
-        return name[:13] + "..."
+        result =  name[:13] + "..."
     else :
-        return name
-# en def title
+        result = name.encode('ascii', 'replace')
+    return result.encode('ascii', 'replace')
+# end def title
 
 def duration(task, now) :
     return (datum(task.date_end) -  datum(task.date_start)).days
