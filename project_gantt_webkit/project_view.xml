@@ -3,7 +3,7 @@
   <data>
     <report
       auto="False"
-      file="project_gantt_webkit/report/project_gantt_webkit.mako"
+      file="project_gantt_webkit/report/project_gantt_svg_webkit.mako"
       id="project_gantt_webkit"
       model="project.task"
       name="task.gantt.webkit"
