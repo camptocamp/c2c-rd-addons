@@ -77,8 +77,8 @@ dx, dy, d, space = scale(timespan)
         <rect x="${x0}" y="${dy}" width="${d*dx}" height="${(len(objects)+1)*dy}" fill="${color[actual.isocalendar()[1] % 3]}" style="opacity:0.2"/>
         <text x="${x0}" y="${int(dy+(dy*0.8))}">${_('cw')}${actual.isocalendar()[1]+1}</text>
 %else :
-    <% first = datetime.date(first.year, first.month, 1) 
-    year = 0 %>
+    <% first = datetime.date(first.year, first.month, 1) %>
+    <% year = 0 %>
     %for actual in [datetime.date(first.year + (first.month + i-1)/12, ((first.month + i - 1) % 12)+1, 1) for i in range(0, timespan/d)] :
         <% x0 = ((actual-first).days)*dx + space*dx %>
         %if actual.year != year :
