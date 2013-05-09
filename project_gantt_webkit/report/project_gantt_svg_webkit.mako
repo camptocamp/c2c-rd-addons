@@ -26,11 +26,29 @@ def category(task, now) :
 
 def title(name) :
     if len(name) > 26 :
-        result =  name[:26] + "..."
+        words = name.split(" ")
+        for i in range(len(words)) :
+            if len(words[i]) > 26 :
+                words[i] = words[i][0:26-3] + "..."
+        result = []
+        line = ""
+        i = 0
+        while i < len(words) :
+            while (i < len(words)) and (len(line) + len(words[i] + 1)) < 26
+                line = line + " " + words[i]
+                i += 1
+            result.append(escape(line))
+            line = words[i]
+            i += 1
+        result.append(escape(line))
     else :
-        result = name
-    return escape(unicode(result))
+        result = [escape(name)]
+    return result
 # end def title
+
+def lines(tasks) :
+    return sum(len(title(t.name)) for t in tasks)
+# end def lines
 
 def duration(task, now) :
     return (datum(task.date_end) -  datum(task.date_start)).days
@@ -57,7 +75,7 @@ last  = max(datum(task.date_end)   for task in tasks if task.date_end)
 timespan = (last-first).days
 dx, dy, d, space = scale(timespan) 
 %>
-  <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 ${(timespan + space)*dx} ${(len(tasks)+3)*dy}">
+  <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 ${(timespan + space)*dx} ${(lines(tasks)+3)*dy}">
 
 %if timespan < 90 :
     <% month = 0 %>
@@ -68,7 +86,7 @@ dx, dy, d, space = scale(timespan)
             <% month = actual.month %>
         %endif
 
-        <rect x="${x0}" y="${dy}" width="${dx}" height="${(len(tasks)+1)*dy}" fill="${workingday[actual.isoweekday()-1]}" style="opacity:0.2"/>
+        <rect x="${x0}" y="${dy}" width="${dx}" height="${(lines(tasks)+1)*dy}" fill="${workingday[actual.isoweekday()-1]}" style="opacity:0.2"/>
         <text x="${x0}" y="${int(dy+(dy*0.8))}">${actual.day}</text>
 
     %endfor
@@ -82,7 +100,7 @@ dx, dy, d, space = scale(timespan)
             <% month = actual.month %>
         %endif
 
-        <rect x="${x0}" y="${dy}" width="${d*dx}" height="${(len(tasks)+1)*dy}" fill="${color[actual.isocalendar()[1] % 3]}" style="opacity:0.2"/>
+        <rect x="${x0}" y="${dy}" width="${d*dx}" height="${(lines(tasks)+1)*dy}" fill="${color[actual.isocalendar()[1] % 3]}" style="opacity:0.2"/>
         <text x="${x0}" y="${int(dy+(dy*0.8))}">${_('cw')}${actual.isocalendar()[1]+1}</text>
 
     %endfor
@@ -97,22 +115,28 @@ dx, dy, d, space = scale(timespan)
             <% year = actual.year %>
         %endif
 
-        <rect x="${x0}" y="${dy}" width="${d*dx}" height="${(len(tasks)+1)*dy}" fill="${color[actual.month % 3]}" style="opacity:0.2"/>
+        <rect x="${x0}" y="${dy}" width="${d*dx}" height="${(lines(tasks)+1)*dy}" fill="${color[actual.month % 3]}" style="opacity:0.2"/>
         <text x="${x0}" y="${int(dy+(dy*0.8))}">${months[actual.month-1]}</text>
     %endfor
 
 %endif
 
-%for i in range(0, len(tasks), 3):
+%for i in range(0, lines(tasks), 3):
     <rect x="0" y="${(i+2)*dy+4}" width="${((last-first).days + space)*dx}" height="${dy}" fill="whitesmoke" style="opacity:0.4"/>
 %endfor
 
-%for i, task in enumerate(sorted(tasks, key=lambda o: (datum(o.date_start), o.name))):
-    <text x="0" y="${(i+3)*dy}">${title(task.name)}</text>
-    <rect x="${((datum(task.date_start) - first).days + space)*dx}" y="${(i+3)*dy-dy/2}" width="${max(dx, duration(task, now)*dx)}" height="${int(dy*0.5)}" fill="${category(task, now)}"/>
-%endfor
-<rect x="${((now - first).days + space)*dx}" y="${dy}" width="${max(1,int(dx*0.5))}" height="${(len(tasks)+1)*dy}" fill="blue" style="opacity:0.2"/>
+<% i = 0 %>
+%for task in sorted(tasks, key=lambda o: (datum(o.date_start), o.name)):
+    %for name in title(task.name) :
+        <text x="0" y="${(i+3)*dy}">${name}</text>
+        <% i += 1 %>
+    %endfor
 
+    <rect x="${((datum(task.date_start) - first).days + space)*dx}" y="${(i+3)*dy-dy/2}" width="${max(dx, duration(task, now)*dx)}" height="${int(dy*0.5)}" fill="${category(task, now)}"/>
+
+%endfor
+
+<rect x="${((now - first).days + space)*dx}" y="${dy}" width="${max(1,int(dx*0.5))}" height="${(lines(tasks)+1)*dy}" fill="blue" style="opacity:0.2"/>
   </svg>
   </body>
 </html>
