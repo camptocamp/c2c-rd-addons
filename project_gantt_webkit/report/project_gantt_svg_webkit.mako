@@ -35,7 +35,7 @@ def title(name) :
         line = ""
         i = 0
         while i < len(words) :
-            while (i < len(words)) and (len(line) + len(words[i] + 1)) < 26 :
+            while (i < len(words)) and (len(line) + len(words[i]) + 1) < 26 :
                 line = line + " " + words[i]
                 i += 1
             result.append(escape(line))
