@@ -3,14 +3,10 @@
     <title>Gantt Chart</title>
   </head>
   <body style="font-family:Helvetica,sans-serif;font-size:8pt;">
-
 <%
 import datetime
 from tool.translate import _
-
-def escape(text) :
-    return text
-# end def escape
+from xml.saxutils import escape
 
 def datum(date) :
     now = datetime.datetime.now().date()
