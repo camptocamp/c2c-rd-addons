@@ -6,7 +6,7 @@
 
 <%
 import datetime
-from tool.translate impot _
+from tool.translate import _
 
 def escape(text) :
     return text
