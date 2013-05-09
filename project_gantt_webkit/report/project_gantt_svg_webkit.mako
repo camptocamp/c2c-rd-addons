@@ -24,8 +24,8 @@ def category(task, now) :
 # end def category
 
 def title(name) :
-    if len(name) > 13 :
-        result =  name[:13] + "..."
+    if len(name) > 26 :
+        result =  name[:26] + "..."
     else :
         result = name
     return result.encode('ascii', 'replace')
@@ -37,11 +37,11 @@ def duration(task, now) :
 
 def scale(timespan) :
     if timespan < 90 :
-        return 15, 15, 1, 7
+        return 15, 15, 1, 13
     elif timespan < 400 :
-        return 5, 15, 7, 21
+        return 5, 15, 7, 44
     else :
-        return 1, 15, 30, 100    
+        return 1, 15, 30, 201
 # end def scale
 
 date_fmt = "%Y-%m-%d %H:%M:%S"
