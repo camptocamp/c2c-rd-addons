@@ -39,7 +39,10 @@ def title(name) :
                 line = line + " " + words[i]
                 i += 1
             result.append(escape(line))
-            line = words[i]
+            if i < len(words) :
+                line = words[i]
+            else :
+                line = ""
             i += 1
         result.append(escape(line))
     else :
