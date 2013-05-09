@@ -6,7 +6,9 @@
 <%
 
 import datetime
+
 from tool.translate import _
+
 from xml.saxutils import escape
 
 def datum(date) :
@@ -126,11 +128,10 @@ dx, dy, d, space = scale(timespan)
     <rect x="0" y="${(i+2)*dy+4}" width="${((last-first).days + space)*dx}" height="${dy}" fill="whitesmoke" style="opacity:0.4"/>
 %endfor
 
-<% i = 0 %>
-%for task in sorted(tasks, key=lambda o: (datum(o.date_start), o.name)):
-    %for name in title(task.name) :
-        <text x="0" y="${(i+3)*dy}">${name}</text>
-        <% i += 1 %>
+%for i, task in enumerate(sorted(tasks, key=lambda o: (datum(o.date_start), o.name))):
+
+    %for j, name in enumerate(title(task.name)) :
+        <text x="0" y="${(j+i+3)*dy}">${name}</text>
     %endfor
 
     <rect x="${((datum(task.date_start) - first).days + space)*dx}" y="${(i+3)*dy-dy/2}" width="${max(dx, duration(task, now)*dx)}" height="${int(dy*0.5)}" fill="${category(task, now)}"/>
