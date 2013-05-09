@@ -1,10 +1,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <style type="text/css"/>
+    <title>Gantt Chart</title>
   </head>
   <body style="font-family:Helvetica,sans-serif;font-size:8pt;">
 <%
 import datetime
+from xml.sax.saxutils import escape
 from tools.translate import _
 
 def datum(date) :
@@ -28,7 +29,7 @@ def title(name) :
         result =  name[:26] + "..."
     else :
         result = name
-    return result.encode('ascii', 'replace')
+    return escape(unicode(result))
 # end def title
 
 def duration(task, now) :
@@ -56,7 +57,7 @@ last  = max(datum(task.date_end)   for task in tasks if task.date_end)
 timespan = (last-first).days
 dx, dy, d, space = scale(timespan) 
 %>
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${(timespan + space)*dx} ${(len(tasks)+3)*dy}">
+  <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 ${(timespan + space)*dx} ${(len(tasks)+3)*dy}">
 
 %if timespan < 90 :
     <% month = 0 %>
@@ -69,7 +70,6 @@ dx, dy, d, space = scale(timespan)
 
         <rect x="${x0}" y="${dy}" width="${dx}" height="${(len(tasks)+1)*dy}" fill="${workingday[actual.isoweekday()-1]}" style="opacity:0.2"/>
         <text x="${x0}" y="${int(dy+(dy*0.8))}">${actual.day}</text>
-
     %endfor
 
 %elif timespan < 400 :
@@ -83,7 +83,6 @@ dx, dy, d, space = scale(timespan)
 
         <rect x="${x0}" y="${dy}" width="${d*dx}" height="${(len(tasks)+1)*dy}" fill="${color[actual.isocalendar()[1] % 3]}" style="opacity:0.2"/>
         <text x="${x0}" y="${int(dy+(dy*0.8))}">${_('cw')}${actual.isocalendar()[1]+1}</text>
-
     %endfor
 
 %else :
@@ -97,8 +96,7 @@ dx, dy, d, space = scale(timespan)
         %endif
 
         <rect x="${x0}" y="${dy}" width="${d*dx}" height="${(len(tasks)+1)*dy}" fill="${color[actual.month % 3]}" style="opacity:0.2"/>
-        <text x="${x0}" y="${int(dy+(dy*0.8))}">${months[actual.month-1]}</text>
-    %endfor
+        <text x="${x0}" y="${int(dy+(dy*0.8))}">${months[actual.month-1]}</text>    %endfor
 
 %endif
 
