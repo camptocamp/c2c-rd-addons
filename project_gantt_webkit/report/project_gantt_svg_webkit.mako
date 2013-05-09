@@ -7,7 +7,7 @@
 <%
 import datetime
 from tools.translate import _
-from xml.saxutils import escape
+from xml.sax.saxutils import escape
 
 def datum(date) :
     now = datetime.datetime.now().date()
