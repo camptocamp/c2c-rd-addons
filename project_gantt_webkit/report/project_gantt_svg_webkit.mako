@@ -3,7 +3,7 @@
     <title>Gantt Chart</title>
   </head>
 <body style="font-family:Helvetica,sans-serif;font-size:8pt;">
-<%
+<% 
 import datetime
 from tool.translate import _
 from xml.saxutils import escape
