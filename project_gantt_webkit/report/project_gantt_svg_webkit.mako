@@ -79,7 +79,7 @@ last  = max(datum(task.date_end)   for task in tasks if task.date_end)
 timespan = (last-first).days
 dx, dy, d, space = scale(timespan) 
 %>
-  <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 ${(timespan + space)*dx} ${(lines(tasks)+3)*dy}">
+  <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 ${(timespan + space)*dx} ${(lines(tasks)+3)*dy}" width="${(timespan + space)*dx}px" height="800px">
 
 %if timespan < 90 :
     <% month = 0 %>
