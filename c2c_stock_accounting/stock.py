@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+# -*: utf-8 -*-
 ##############################################################################
 #
 #    OpenERP, Open Source Management Solution
@@ -392,7 +392,8 @@ class stock_move(osv.osv):
          for line in self.browse(cr, uid, ids, context=context):
              ids2 = self.search(cr, uid, [('product_id','=',line.product_id.id),('date','>=', line.date)])
          return ids2
-  
+ 
+ 
 
     _columns = { 
         'move_value_cost'    : fields.function(_compute_move_value_cost, method=True, string='Amount', digits_compute=dp.get_precision('Account'),type='float' ,  
@@ -412,10 +413,33 @@ class stock_move(osv.osv):
         'price_unit_sale'    : fields.function(_compute_price_unit_sale, method=True, string='Sale Price',  digits_compute=dp.get_precision('Account') ),
         'analytic_account_id': fields.many2one('account.analytic.account', 'Analytic Account'),
         'value_correction'   : fields.float('Value correction', digits_compute=dp.get_precision('Account'),\
-                             help="This field allows to enter value correction of product stock per lot and location. positive to increase, negative to decrease value")
-
+                             help="This field allows to enter value correction of product stock per lot and location. positive to increase, negative to decrease value"),
+        #'date_move'          : fields.related('picking_id', 'date', type='datetime', string='move Date'),
     }
 
+
+    _defaults = {
+        'date': None,
+        }
+
+    def onchange_date(self, cr, uid, ids, date, date_expected, context=None):
+        return {'value': {}}
+
+    def onchange_date_move(self, cr, uid, ids, date, date_expected, move_date, context=None):
+        """ On change of Scheduled Date uses Move date.
+        @param date_expected: Scheduled Date
+        @param date: Move Date
+        @return: Move Date
+        """
+        #self._logger.debug('change ids %s context %s' % (ids,context))
+        
+        vals = {}
+        if move_date:
+            if not date:
+                vals['date'] = move_date 
+            #if not date_expected:
+                vals['date_expected'] = move_date 
+        return {'value': vals}
 
     def init(self, cr):
         ids2 = []
@@ -652,3 +676,13 @@ class stock_inventory_line(osv.osv):
           'check_lot' : fields.related('product_id','track_internal',type='boolean',string='Lot required',readonly=True,help="posting needs lot"),
         }
 stock_inventory_line()
+
+
+class stock_picking(osv.osv):
+    _inherit = "stock.picking"
+
+    _defaults = {
+     'date' : None,
+    }
+
+stock_picking()
