@@ -95,7 +95,7 @@ class payment_order(osv.osv):
                                                       'will mark all payment lines as payied once the order is done.'),
         'period_id': fields.many2one('account.period', 'Period', states={'done':[('readonly',True)]}),
         'line_ids': one2many_sorted.one2many_sorted('payment.line', 'order_id', 'Payment lines', states={'done': [('readonly', True)]}, \
-                 order = ' partner_id.name, ml_inv_ref'),
+                 order = ' partner_id.name, ml_inv_ref.number'),
     }
     _defaults = {
 #        'type': _get_type,
