@@ -23,6 +23,7 @@
 from osv import osv, fields
 import decimal_precision as dp
 from tools.translate import _
+import time
 import logging
 
 
@@ -415,6 +416,8 @@ class stock_move(osv.osv):
         'value_correction'   : fields.float('Value correction', digits_compute=dp.get_precision('Account'),\
                              help="This field allows to enter value correction of product stock per lot and location. positive to increase, negative to decrease value"),
         #'date_move'          : fields.related('picking_id', 'date', type='datetime', string='move Date'),
+        'date_done'          : fields.datetime('Date Done'),
+ 
     }
 
 
@@ -502,8 +505,30 @@ class stock_move(osv.osv):
             move_ids.append(move.id)
             date1 = move.date
         res = super(stock_move, self).action_done(cr, uid, move_ids, context)
-        self.write(cr, uid, move_ids, {'date': date1, 'date_expected' : date1}, context=context)
+        self.write(cr, uid, move_ids, {'date': date1, 'date_expected' : date1,'date_done': time.strftime('%Y-%m-%d %H:%M:%S')}, context=context)
         return res
+
+    def action_done(self, cr, uid, ids, context=None):
+        """to be able to post moves for past dates (mainly corrections) it is necessary to store the date_expected instead of the current date
+          the date field is used to select records in the location structure and others
+          for accounting purpose it is absolutely necessary to be able to do this.
+          * correct errors
+          * do valuation correction
+        """
+        move_ids = []
+        for move in self.browse(cr, uid, ids, context=context):
+            if move.state in ['done','cancel']:
+                 continue
+            move_ids.append(move.id)
+            date1 = move.date
+        res = super(stock_move, self).action_done(cr, uid, move_ids, context)
+          
+        self.write(cr, uid, move_ids, {'date': date1, 'date_expected' : date1, 'date_done': time.strftime('%Y-%m-%d %H:%M:%S')}, context=context)
+        return res
+
+
+
+
 
 stock_move()
 
