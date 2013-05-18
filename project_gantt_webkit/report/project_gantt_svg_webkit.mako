@@ -1,7 +1,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <% header = ${helper.report_id.webkit_header} %>
-    <title>${header.format} ${header.orientation}</title>
+    <title>${helper.report_id.webkit_header.format} ${helper.report_id.webkit_header.orientation}</title>
   </head>
 
   <body style="font-family:Helvetica,sans-serif;font-size:8pt;">
@@ -119,7 +118,12 @@ last  = max(datum(task.date_end)   for task in tasks if task.date_end)
 timespan = (last-first).days
 dx, dy, d, space = scale(timespan) 
 %>
-  <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 ${(timespan + space)*dx} ${(lines(tasks)+3)*dy}" width="${page_size(header.format, header.orientation)-10}mm" height="${page_size(header.format, header.orientation)-10}mm">
+  <svg 
+    xmlns="http://www.w3.org/2000/svg" 
+    version="1.1" 
+    viewBox="0 0 ${(timespan + space)*dx} ${(lines(tasks)+3)*dy}" 
+    width="${page_size(helper.report_id.webkit_header.format, helper.report_id.webkit_header.orientation)-10}mm" 
+    height="${page_size(helper.report_id.webkit_header.format, helper.report_id.webkit_header.orientation)-10}mm">
 
 %if timespan < 90 :
     <% month = 0 %>
