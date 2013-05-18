@@ -1,6 +1,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <title>Gantt Chart</title>
+    <% header = ${helper.report_id.webkit_header} %>
+    <title>${header.format} ${header.orientation}</title>
   </head>
 
   <body style="font-family:Helvetica,sans-serif;font-size:8pt;">
@@ -67,6 +68,45 @@ def scale(timespan) :
         return 1, 15, 30, 201
 # end def scale
 
+def page_size(fmt, orient) :
+    format = \
+    { 'A0' : (841, 1189)
+    , 'A1' : (594, 841)
+    , 'A2' : (420, 594)
+    , 'A3' : (297, 420)
+    , 'A4' : (210, 297)
+    , 'A5' : (148, 210)
+    , 'A6' : (105, 148)
+    , 'A7' : (74, 105)
+    , 'A8' : (52, 74)
+    , 'A9' : (37, 52)
+    , 'B0' : (1000, 1414)
+    , 'B1' : (707, 1000)
+    , 'B2' : (500, 707)
+    , 'B3' : (353, 500)
+    , 'B4' : (250, 353)
+    , 'B5' : (176, 250)
+    , 'B6' : (125, 176)
+    , 'B7' : (88, 125)
+    , 'B8' : (62, 88)
+    , 'B9' : (33, 62)
+    , 'B10': (31, 44)
+    , 'C5E': (163, 229)
+    , 'Comm10E'  : (105, 241)
+    , 'DLE'      : (110, 220)
+    , 'Executive': (190, 254)
+    , 'Folio'    : (210, 330)
+    , 'Ledger'   : (431, 279)
+    , 'Legal'    : (215, 355)
+    , 'Letter'   : (215, 279)
+    , 'Tabloid'  : (279, 431)
+    }
+    if orient == "Portrait" :
+        return (format[fmt][0], format[fmt][1])
+    else :
+        return (format[fmt][1], format[fmt][0])
+# end def page_size
+
 date_fmt = "%Y-%m-%d %H:%M:%S"
 months = [_("Jan"), _("Feb"), _("Mar"), _("Apr"), _("May"), _("Jun"), _("Jul"), _("Aug"), _("Sep"), _("Oct"), _("Nov"), _("Dec")]
 workingday = ["white", "white", "white", "white", "white", "silver", "silver"]
@@ -79,7 +119,7 @@ last  = max(datum(task.date_end)   for task in tasks if task.date_end)
 timespan = (last-first).days
 dx, dy, d, space = scale(timespan) 
 %>
-  <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 ${(timespan + space)*dx} ${(lines(tasks)+3)*dy}" width="${(timespan + space)*dx}px" height="800px">
+  <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 ${(timespan + space)*dx} ${(lines(tasks)+3)*dy}" width="${page_size(header.format, header.orientation)-10}mm" height="${page_size(header.format, header.orientation)-10}mm">
 
 %if timespan < 90 :
     <% month = 0 %>
