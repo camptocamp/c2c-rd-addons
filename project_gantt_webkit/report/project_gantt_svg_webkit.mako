@@ -122,8 +122,8 @@ dx, dy, d, space = scale(timespan)
       xmlns="http://www.w3.org/2000/svg" 
       version="1.1" 
       viewBox="0 0 ${(timespan + space)*dx} ${(lines(tasks)+3)*dy}" 
-      width="${page_size(webkit_header.format, webkit_header.orientation)-10}mm" 
-      height="${page_size(webkit_header.format, webkit_header.orientation)-10}mm">
+      width="${page_size(webkit_header.format, webkit_header.orientation)[0]-10}mm" 
+      height="${page_size(webkit_header.format, webkit_header.orientation)[1]-10}mm">
 
 %if timespan < 90 :
     <% month = 0 %>
