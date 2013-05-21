@@ -109,10 +109,11 @@ now = datetime.datetime.now().date()
 tasks = [t for t in sorted(objects, key=lambda o: (datum(o.date_start), o.name))]
 first = min(datum(task.date_start) for task in tasks if task.date_start)
 last  = max(datum(task.date_end)   for task in tasks if task.date_end)
+tomm = 4
 chunks = []
 chunk = []
 for task in tasks :
-    if lines(chunk + [task]) * 5 < page_size(webkit_header.format, webkit_header.orientation)[1]-10 :
+    if lines(chunk + [task]) * tomm < page_size(webkit_header.format, webkit_header.orientation)[1]-10 :
         chunk.append(task)
     else :
         chunks.append(chunk)
@@ -133,7 +134,7 @@ dx, dy, d, space = scale(timespan)
           version="1.1" 
           viewBox="0 0 ${(timespan + space)*dx} ${(lines(tasks)+3)*dy}" 
           width="${page_size(webkit_header.format, webkit_header.orientation)[0]-10}mm" 
-          height="${lines(tasks)*5}mm">
+          height="${lines(tasks)*tomm}mm">
 
     %if timespan < 90 :
         <% month = 0 %>
