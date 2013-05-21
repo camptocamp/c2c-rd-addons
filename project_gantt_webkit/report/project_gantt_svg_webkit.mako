@@ -106,86 +106,97 @@ workingday = ["white", "white", "white", "white", "white", "silver", "silver"]
 color = ["white", "white", "silver"]
 now = datetime.datetime.now().date()
 #tasks = [t for t in objects if t.date_start and t.date_end]
-tasks = [t for t in objects]
+tasks = [t for t in sorted(objects, key=lambda o: (datum(o.date_start), o.name))]
 first = min(datum(task.date_start) for task in tasks if task.date_start)
 last  = max(datum(task.date_end)   for task in tasks if task.date_end)
+chunks = []
+chunk = []
+for task in tasks :
+    if lines(chunk + [task]) * 5 < page_size(webkit_header.format, webkit_header.orientation)[1]-10 :
+        chunk.append(task)
+    else :
+        chunks.append(chunk)
+        chunk = [task]
+chunks.append(chunk)
 timespan = (last-first).days
 dx, dy, d, space = scale(timespan)
 %>
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <title>${webkit_header.format} ${webkit_header.orientation}</title>
+    <title>Gantt Chart ${webkit_header.format} ${webkit_header.orientation}</title>
   </head>
 
-  <body style="font-family:Helvetica,sans-serif;font-size:8pt;">
-    <svg 
-      xmlns="http://www.w3.org/2000/svg" 
-      version="1.1" 
-      viewBox="0 0 ${(timespan + space)*dx} ${(lines(tasks)+3)*dy}" 
-      width="${page_size(webkit_header.format, webkit_header.orientation)[0]-10}mm" 
-      height="${page_size(webkit_header.format, webkit_header.orientation)[1]-10}mm">
+%for tasks in chunks :
+      <body style="font-family:Helvetica,sans-serif;font-size:8pt;">
+        <svg 
+          xmlns="http://www.w3.org/2000/svg" 
+          version="1.1" 
+          viewBox="0 0 ${(timespan + space)*dx} ${(lines(tasks)+3)*dy}" 
+          width="${page_size(webkit_header.format, webkit_header.orientation)[0]-10}mm" 
+          height="${lines(tasks)}mm">
 
-%if timespan < 90 :
-    <% month = 0 %>
-    %for actual in [first + datetime.timedelta(days=i) for i in range(0, timespan, d)] :
-        <% x0 = ((actual-first).days + space)*dx %>
-        %if actual.month != month :
-            <text x="${x0}" y="${dy}">${months[actual.month-1]}'${actual.year % 100}</text>
-            <% month = actual.month %>
-        %endif
+    %if timespan < 90 :
+        <% month = 0 %>
+        %for actual in [first + datetime.timedelta(days=i) for i in range(0, timespan, d)] :
+            <% x0 = ((actual-first).days + space)*dx %>
+            %if actual.month != month :
+                <text x="${x0}" y="${dy}">${months[actual.month-1]}'${actual.year % 100}</text>
+                <% month = actual.month %>
+            %endif
 
-        <rect x="${x0}" y="${dy}" width="${dx}" height="${(lines(tasks)+1)*dy}" fill="${workingday[actual.isoweekday()-1]}" style="opacity:0.2"/>
-        <text x="${x0}" y="${int(dy+(dy*0.8))}">${actual.day}</text>
+            <rect x="${x0}" y="${dy}" width="${dx}" height="${(lines(tasks)+1)*dy}" fill="${workingday[actual.isoweekday()-1]}" style="opacity:0.2"/>
+            <text x="${x0}" y="${int(dy+(dy*0.8))}">${actual.day}</text>
+
+        %endfor
+
+    %elif timespan < 400 :
+        <% month = 0 %>
+        %for actual in [first + datetime.timedelta(days=i) for i in range(0, timespan, d)] :
+            <% x0 = ((actual-first).days + space)*dx %>
+            %if actual.month != month :
+                <text x="${x0}" y="${dy}">${months[actual.month-1]}'${actual.year % 100}</text>"""
+                <% month = actual.month %>
+            %endif
+
+            <rect x="${x0}" y="${dy}" width="${d*dx}" height="${(lines(tasks)+1)*dy}" fill="${color[actual.isocalendar()[1] % 3]}" style="opacity:0.2"/>
+            <text x="${x0}" y="${int(dy+(dy*0.8))}">${_('cw')}${actual.isocalendar()[1]+1}</text>
+
+        %endfor
+
+    %else :
+        <% first = datetime.date(first.year, first.month, 1) %>
+        <% year = 0 %>
+        %for actual in [datetime.date(first.year + (first.month + i-1)/12, ((first.month + i - 1) % 12)+1, 1) for i in range(0, timespan/d)] :
+            <% x0 = ((actual-first).days + space)*dx %>
+            %if actual.year != year :
+                <text x="${x0}" y="${dy}">${actual.year}</text>
+                <% year = actual.year %>
+            %endif
+
+            <rect x="${x0}" y="${dy}" width="${d*dx}" height="${(lines(tasks)+1)*dy}" fill="${color[actual.month % 3]}" style="opacity:0.2"/>
+            <text x="${x0}" y="${int(dy+(dy*0.8))}">${months[actual.month-1]}</text>
+        %endfor
+
+    %endif
+
+    %for i in range(0, lines(tasks), 3):
+        <rect x="0" y="${(i+2)*dy+4}" width="${((last-first).days + space)*dx}" height="${dy}" fill="whitesmoke" style="opacity:0.4"/>
+    %endfor
+
+    <% i = 0 %>
+    %for task in tasks :
+        %for name in title(task.name) :
+            <text x="0" y="${(i+3)*dy}">${name}</text>
+            <% i += 1 %>
+        %endfor
+
+        <rect x="${((datum(task.date_start) - first).days + space)*dx}" y="${(i+3)*dy-dy/2}" width="${max(dx, duration(task, now)*dx)}" height="${int(dy*0.5)}" fill="${category(task, now)}"/>
 
     %endfor
 
-%elif timespan < 400 :
-    <% month = 0 %>
-    %for actual in [first + datetime.timedelta(days=i) for i in range(0, timespan, d)] :
-        <% x0 = ((actual-first).days + space)*dx %>
-        %if actual.month != month :
-            <text x="${x0}" y="${dy}">${months[actual.month-1]}'${actual.year % 100}</text>"""
-            <% month = actual.month %>
-        %endif
-
-        <rect x="${x0}" y="${dy}" width="${d*dx}" height="${(lines(tasks)+1)*dy}" fill="${color[actual.isocalendar()[1] % 3]}" style="opacity:0.2"/>
-        <text x="${x0}" y="${int(dy+(dy*0.8))}">${_('cw')}${actual.isocalendar()[1]+1}</text>
-
-    %endfor
-
-%else :
-    <% first = datetime.date(first.year, first.month, 1) %>
-    <% year = 0 %>
-    %for actual in [datetime.date(first.year + (first.month + i-1)/12, ((first.month + i - 1) % 12)+1, 1) for i in range(0, timespan/d)] :
-        <% x0 = ((actual-first).days + space)*dx %>
-        %if actual.year != year :
-            <text x="${x0}" y="${dy}">${actual.year}</text>
-            <% year = actual.year %>
-        %endif
-
-        <rect x="${x0}" y="${dy}" width="${d*dx}" height="${(lines(tasks)+1)*dy}" fill="${color[actual.month % 3]}" style="opacity:0.2"/>
-        <text x="${x0}" y="${int(dy+(dy*0.8))}">${months[actual.month-1]}</text>
-    %endfor
-
-%endif
-
-%for i in range(0, lines(tasks), 3):
-    <rect x="0" y="${(i+2)*dy+4}" width="${((last-first).days + space)*dx}" height="${dy}" fill="whitesmoke" style="opacity:0.4"/>
+        <rect x="${((now - first).days + space)*dx}" y="${dy}" width="${max(1,int(dx*0.5))}" height="${(lines(tasks)+1)*dy}" fill="blue" style="opacity:0.2"/>
+      </svg>
 %endfor
-
-<% i = 0 %>
-%for task in sorted(tasks, key=lambda o: (datum(o.date_start), o.name)):
-    %for name in title(task.name) :
-        <text x="0" y="${(i+3)*dy}">${name}</text>
-        <% i += 1 %>
-    %endfor
-
-    <rect x="${((datum(task.date_start) - first).days + space)*dx}" y="${(i+3)*dy-dy/2}" width="${max(dx, duration(task, now)*dx)}" height="${int(dy*0.5)}" fill="${category(task, now)}"/>
-
-%endfor
-
-<rect x="${((now - first).days + space)*dx}" y="${dy}" width="${max(1,int(dx*0.5))}" height="${(lines(tasks)+1)*dy}" fill="blue" style="opacity:0.2"/>
-  </svg>
   </body>
 </html>
 
