@@ -133,7 +133,7 @@ dx, dy, d, space = scale(timespan)
           version="1.1" 
           viewBox="0 0 ${(timespan + space)*dx} ${(lines(tasks)+3)*dy}" 
           width="${page_size(webkit_header.format, webkit_header.orientation)[0]-10}mm" 
-          height="${lines(tasks)}mm">
+          height="${lines(tasks)*5}mm">
 
     %if timespan < 90 :
         <% month = 0 %>
