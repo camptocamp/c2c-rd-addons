@@ -88,7 +88,7 @@
         
         gc.add_task(task.name.encode('ascii', 'replace'), date_convert(task.date_start), date_convert(task.date_end,1) , category=categ)
     
-    file_name = '/tmp/t.png'
+    #file_name = '/tmp/t.png'
     
     image = gc.get_image(file_name)
     
