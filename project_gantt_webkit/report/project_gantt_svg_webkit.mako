@@ -109,7 +109,7 @@ now = datetime.datetime.now().date()
 tasks = [t for t in sorted(objects, key=lambda o: (datum(o.date_start), o.name))]
 first = min(datum(task.date_start) for task in tasks if task.date_start)
 last  = max(datum(task.date_end)   for task in tasks if task.date_end)
-tomm = 4
+tomm = 3
 chunks = []
 chunk = []
 for task in tasks :
@@ -197,6 +197,7 @@ dx, dy, d, space = scale(timespan)
 
         <rect x="${((now - first).days + space)*dx}" y="${dy}" width="${max(1,int(dx*0.5))}" height="${(lines(tasks)+1)*dy}" fill="blue" style="opacity:0.2"/>
       </svg>
+      <br/>
 %endfor
   </body>
 </html>
