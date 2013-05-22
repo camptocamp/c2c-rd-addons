@@ -97,9 +97,9 @@ def page_size(header) :
     , 'Tabloid'  : (279, 431)
     }
     if orient == "Portrait" :
-        return (format[fmt][0] - (header.margin_left + header.margin_right), format[fmt][1] - (header.margin_top + header.margin_bottom))
+        return (int(format[fmt][0] - (header.margin_left + header.margin_right)), int(format[fmt][1] - (header.margin_top + header.margin_bottom)))
     else :
-        return (format[fmt][1] - (header.margin_left + header.margin_right), format[fmt][0] - (header.margin_top + header.margin_bottom))
+        return (int(format[fmt][1] - (header.margin_left + header.margin_right)), int(format[fmt][0] - (header.margin_top + header.margin_bottom)))
 # end def page_size
 
 date_fmt = "%Y-%m-%d %H:%M:%S"
