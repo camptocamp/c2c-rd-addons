@@ -61,7 +61,9 @@ def scale(timespan) :
         return 1, 15, 30, 201
 # end def scale
 
-def page_size(fmt, orient) :
+def page_size(header) :
+    fmt = header.format
+    orient = header.orientation
     format = \
     { 'A0' : (841, 1189)
     , 'A1' : (594, 841)
@@ -95,9 +97,9 @@ def page_size(fmt, orient) :
     , 'Tabloid'  : (279, 431)
     }
     if orient == "Portrait" :
-        return (format[fmt][0], format[fmt][1])
+        return (format[fmt][0] - (header.margin_left + header.margin_right), format[fmt][1] - (header.margin_top + header.margin_bottom))
     else :
-        return (format[fmt][1], format[fmt][0])
+        return (format[fmt][1] - (header.margin_left + header.margin_right), format[fmt][0] - (header.margin_top + header.margin_bottom))
 # end def page_size
 
 date_fmt = "%Y-%m-%d %H:%M:%S"
@@ -113,7 +115,7 @@ tomm = 3
 chunks = []
 chunk = []
 for task in tasks :
-    if lines(chunk + [task]) * tomm < page_size(webkit_header.format, webkit_header.orientation)[1]-10 :
+    if lines(chunk + [task]) * tomm < page_size(webkit_header)[1] :
         chunk.append(task)
     else :
         chunks.append(chunk)
@@ -129,11 +131,12 @@ dx, dy, d, space = scale(timespan)
 
 %for tasks in chunks :
       <body style="font-family:Helvetica,sans-serif;font-size:8pt;">
+        <p style="page-break-inside:avoid">
         <svg 
           xmlns="http://www.w3.org/2000/svg" 
           version="1.1" 
           viewBox="0 0 ${(timespan + space)*dx} ${(lines(tasks)+3)*dy}" 
-          width="${page_size(webkit_header.format, webkit_header.orientation)[0]-10}mm" 
+          width="${page_size(webkit_header)[0]}mm" 
           height="${lines(tasks)*tomm}mm">
 
     %if timespan < 90 :
@@ -197,7 +200,7 @@ dx, dy, d, space = scale(timespan)
 
         <rect x="${((now - first).days + space)*dx}" y="${dy}" width="${max(1,int(dx*0.5))}" height="${(lines(tasks)+1)*dy}" fill="blue" style="opacity:0.2"/>
       </svg>
-      <br/>
+      </p>
 %endfor
   </body>
 </html>
