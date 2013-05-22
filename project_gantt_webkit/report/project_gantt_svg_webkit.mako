@@ -128,9 +128,8 @@ dx, dy, d, space = scale(timespan)
   <head>
     <title>Gantt Chart ${webkit_header.format} ${webkit_header.orientation}</title>
   </head>
-
-%for tasks in chunks :
       <body style="font-family:Helvetica,sans-serif;font-size:8pt;">
+%for tasks in chunks :
         <p style="page-break-inside:avoid">
         <svg 
           xmlns="http://www.w3.org/2000/svg" 
