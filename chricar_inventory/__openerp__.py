@@ -5,7 +5,7 @@
 , "description"  : """Easy first time import of office/home Inventory from Spreadsheet (CSV)
 generated 2009-02-11 16:03:53+01"""
 , "category"     : "Client Modules"
-, "depends"      : ["stock","chricar_top"]
+, "depends"      : ["stock"]
 , "init_xml"     : []
 , "demo_xml"     : []
 , "update_xml"   : 
