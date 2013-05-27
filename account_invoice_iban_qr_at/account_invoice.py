@@ -61,6 +61,8 @@ class account_invoice(osv.osv):
             lf ='\n'
             qr_string = lf.join([service,version,code,function,bic,partner,iban,currency,usage,ref,display])
             _logger.debug('FGF QR string %s', qr_string)
+            if len(qr_string) > 331:
+                raise osv.except_osv (_('Error'), _('QR string "%s" length %s exceeds 331 bytes') % (qr_string, len(qr_string)))
             #qr = qrencode.encode_scaled(qr_string,min_size,2)
             #f = tempfile.TemporaryFile(mode="r+")
             #qrCode = qr[2]
