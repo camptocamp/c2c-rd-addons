@@ -23,10 +23,14 @@ from osv import fields, osv, orm
 from tools.translate import _
 import tempfile
 import base64
+from PIL import Image
+import io, StringIO
+
+
 import logging
 
 try:
-    import qrencode
+    import qrcode
     qr_mod = True
 except:
     qr_mod = False   
@@ -57,14 +61,39 @@ class account_invoice(osv.osv):
             lf ='\n'
             qr_string = lf.join([service,version,code,function,bic,partner,iban,currency,usage,ref,display])
             _logger.debug('FGF QR string %s', qr_string)
-            qr = qrencode.encode_scaled(qr_string,min_size,2)
+            #qr = qrencode.encode_scaled(qr_string,min_size,2)
+            #f = tempfile.TemporaryFile(mode="r+")
+            #qrCode = qr[2]
+            #qrCode.save(f,'png')
+            #f.seek(0)
+            #qr_pic = base64.encodestring(f.read())            
+            qr = qrcode.QRCode(
+                version=1,
+                error_correction=qrcode.constants.ERROR_CORRECT_L,
+                box_size=5,
+                border=2,
+            )
+            qr.add_data(qr_string)
+            qr.make(fit=True)
+
+            qr_pic = qr.make_image()
+            _logger.debug('FGF QR pic %s', qr_pic)
             f = tempfile.TemporaryFile(mode="r+")
-            qrCode = qr[2]
-            qrCode.save(f,'png')
+            qr_pic.save(f,'png')
             f.seek(0)
-            qr_pic = base64.encodestring(f.read())            
+            qr_pic1 = base64.encodestring(f.read())            
             
-            res[inv.id] = qr_pic
+
+            #image_stream = io.BytesIO(qr_pic.decode('base64'))
+            #image_stream = qr_pic
+            #img = Image.open()
+            #img.thumbnail((120, 100), Image.ANTIALIAS)
+            #img_stream = StringIO.StringIO()
+            #img.save(img_stream, "JPEG")
+            #res[inv.id] = img_stream.getvalue().encode('base64')
+
+            
+            res[inv.id] = qr_pic1
           else:
             res[inv.id] = False
         return res
