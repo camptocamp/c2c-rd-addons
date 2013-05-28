@@ -111,7 +111,7 @@ now = datetime.datetime.now().date()
 tasks = [t for t in sorted(objects, key=lambda o: (datum(o.date_start), o.name))]
 first = min(datum(task.date_start) for task in tasks if task.date_start)
 last  = max(datum(task.date_end)   for task in tasks if task.date_end)
-tomm = 2.8
+tomm = 2.5
 chunks = []
 chunk = []
 for task in tasks :
