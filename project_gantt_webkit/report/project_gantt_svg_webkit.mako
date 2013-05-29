@@ -184,7 +184,7 @@ dx, dy, d, space = scale(timespan)
 
     %endif
 
-    %for i in range(0, lines(tasks), 3):
+    %for i in range(0, lines(tasks)+len(set([t.project_id.name for t in tasks])), 3):
         <rect x="0" y="${(i+2)*dy+4}" width="${((last-first).days + space)*dx}" height="${dy}" fill="whitesmoke" style="opacity:0.4"/>
     %endfor
 
