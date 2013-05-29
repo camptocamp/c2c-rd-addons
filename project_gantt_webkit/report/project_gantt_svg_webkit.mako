@@ -38,7 +38,8 @@ def title(name) :
             else :
                 line = ""
             i += 1
-        result.append(escape(line))
+        if line :
+            result.append(escape(line))
     else :
         result = [escape(name)]
     return result
@@ -193,7 +194,7 @@ dx, dy, d, space = scale(timespan)
             <% i += 1 %>
         %endfor
 
-        <rect x="${((datum(task.date_start) - first).days + space)*dx}" y="${(i+2)*dy-0*dy/2}" width="${max(dx, duration(task, now)*dx)}" height="${dy/2}" fill="${category(task, now)}"/>
+        <rect x="${((datum(task.date_start) - first).days + space)*dx}" y="${(i+2)*dy-dy/2}" width="${max(dx, duration(task, now)*dx)}" height="${dy/2}" fill="${category(task, now)}"/>
 
     %endfor
 
