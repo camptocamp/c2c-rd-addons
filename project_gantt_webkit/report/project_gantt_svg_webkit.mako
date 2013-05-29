@@ -109,7 +109,7 @@ workingday = ["white", "white", "white", "white", "white", "silver", "silver"]
 color = ["white", "white", "silver"]
 now = datetime.datetime.now().date()
 #tasks = [t for t in objects if t.date_start and t.date_end]
-tasks = [t for t in sorted(objects, key=lambda o: (datum(o.date_start), o.name))]
+tasks = [t for t in sorted(objects, key=lambda o: (o.project_id.name, datum(o.date_start), o.name))]
 first = min(datum(task.date_start) for task in tasks if task.date_start)
 last  = max(datum(task.date_end)   for task in tasks if task.date_end)
 tomm = 2.0
