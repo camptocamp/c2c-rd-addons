@@ -116,6 +116,7 @@ tomm = 2.0
 chunks = []
 chunk = []
 for task in tasks :
+    project_name = task.project_id.name
     if lines(chunk + [task]) * tomm < page_size(webkit_header)[1] :
         chunk.append(task)
     else :
@@ -137,7 +138,7 @@ dx, dy, d, space = scale(timespan)
           version="1.1" 
           viewBox="0 0 ${(timespan + space)*dx} ${(lines(tasks)+3)*dy}" 
           width="${page_size(webkit_header)[0]}mm"
-          height="${int((lines(tasks)+3)*dy/((timespan + space)*(dx*1.0)/page_size(webkit_header)[0]))}mm"
+          height="${int((lines(tasks)+3+len(set([t.project_id.name for t in tasks])))*dy/((timespan + space)*(dx*1.0)/page_size(webkit_header)[0]))}mm"
           preserveAspectRatio="xMinYMin meet">
 
     %if timespan < 90 :
@@ -189,6 +190,12 @@ dx, dy, d, space = scale(timespan)
 
     <% i = 0 %>
     %for task in tasks :
+        %if task.project_id.name != project_name :
+            <% project_name = task.project_id.name %>
+            <text x="0" y="${(i+3)*dy}" style="color:blue">${project_name}</text>
+            <% i += 1 %>
+        %endif
+
         %for name in title(task.name) :
             <text x="0" y="${(i+3)*dy}">${name}</text>
             <% i += 1 %>
