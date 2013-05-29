@@ -135,7 +135,8 @@ dx, dy, d, space = scale(timespan)
           xmlns="http://www.w3.org/2000/svg" 
           version="1.1" 
           viewBox="0 0 ${(timespan + space)*dx} ${(lines(tasks)+3)*dy}" 
-          width="${page_size(webkit_header)[0]}mm" 
+          width="${page_size(webkit_header)[0]}mm"
+          height="${int((lines(tasks)+3)/((timespan + space)*dx/page_size(webkit_header)[0]))}"
           preserveAspectRatio="xMinYMin meet">
 
     %if timespan < 90 :
