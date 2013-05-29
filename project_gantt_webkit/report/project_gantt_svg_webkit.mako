@@ -192,7 +192,7 @@ dx, dy, d, space = scale(timespan)
     %for task in tasks :
         %if task.project_id.name != project_name :
             <% project_name = task.project_id.name %>
-            <text x="0" y="${(i+3)*dy}" style="color:blue">${project_name}</text>
+            <text x="0" y="${(i+3)*dy}" style="fill:blue">${project_name}</text>
             <% i += 1 %>
         %endif
 
