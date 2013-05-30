@@ -34,28 +34,28 @@ class res_partner(osv.osv):
         }
 
     def check_vat(self, cr, uid, ids, context=None):
-         _logger.error("check_vat") ##############
-         """
-         """
-         res = super(res_partner, self).check_vat(cr, uid, ids, context=None)
-         self.check_vat_ext(cr, uid, ids, context=None)
-         return res
+        """
+        """
+        _logger.error("check_vat") ##############
+        res = super(res_partner, self).check_vat(cr, uid, ids, context=None)
+        self.check_vat_ext(cr, uid, ids, context=None)
+        return res
 
     def check_vat_ext(self, cr, uid, ids, context):
-         _logger.error("check_vat_ext") ##############
-         if not context:
-             context = {}
-         vat = ''
-         if context.get('vat'):
-             if context['vat'] != 'none':
-                 vat = context['vat']
-         else:
-             for partner in self.browse(cr, uid, ids, context):
-                 if partner.vat:
-                     vat = partner.vat 
-         method = 'none'
-         date_now = time.strftime('%Y-%m-%d %H:%M:%S')
-         if vat:
+        _logger.error("check_vat_ext") ##############
+        if not context:
+            context = {}
+        vat = ''
+        if context.get('vat'):
+            if context['vat'] != 'none':
+                vat = context['vat']
+        else:
+            for partner in self.browse(cr, uid, ids, context):
+                if partner.vat:
+                    vat = partner.vat 
+        method = 'none'
+        date_now = time.strftime('%Y-%m-%d %H:%M:%S')
+        if vat:
             vat = vat.replace(' ','')
             vat_mod = False
             user_company = self.pool.get('res.users').browse(cr, uid, uid).company_id
@@ -88,13 +88,12 @@ class res_partner(osv.osv):
                     method = 'simple'
                 else:
                     raise osv.except_osv(_('Error'), _('simple VAT check digit failed'))
-         vals = {'vat_method': method, 'vat_check_date': date_now}
-         self.write(cr, uid, ids, vals)
-         return vals
-         
+        vals = {'vat_method': method, 'vat_check_date': date_now}
+        self.write(cr, uid, ids, vals)
+        return vals
 
     def vat_change(self, cr, uid, ids, value, context=None):
-         _logger.error("vat_change") ##############
+        _logger.error("vat_change") ##############
         res = super(res_partner, self).vat_change(cr, uid, ids, value, context=None)   
 
         if not context:
@@ -103,6 +102,7 @@ class res_partner(osv.osv):
         vals = self.check_vat_ext(cr, uid, ids, context)  
         res['value'].update(vals)
         return res
-    
+
 res_partner()
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+
