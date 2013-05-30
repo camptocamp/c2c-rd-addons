@@ -74,7 +74,9 @@ class res_partner(osv.osv):
                     self._logger.error(str(check)) ##############
                     from suds.Client import Client
                     client = Client("http://ec.europa.eu/taxation_customs/vies/checkVatService.wsdl")
-                    res = client.service.checkVat(countryCode=vat[:2], vatNumber=vat[2:])
+                    code   = vat[:2]
+                    number = vat[2:]
+                    res = client.service.checkVat(countryCode=code, vatNumber=number)
                     check = bool(res["valid"])
                     self._logger.error(str(res)) ##############
                 except:
