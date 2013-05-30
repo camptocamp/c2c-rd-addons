@@ -10,9 +10,9 @@
           <field name="vat_method"/>
           <field name="vat_check_date"/>
           <newline/>
-          <field name="vat_check_name" colspan="3"/>
+          <field name="vat_check_name" colspan="4"/>
           <newline/>
-          <field name="vat_check_address" colspan="3"/>
+          <field name="vat_check_address" colspan="4"/>
         </field>
       </field>
     </record>
