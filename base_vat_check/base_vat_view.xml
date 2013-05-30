@@ -1,20 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
-    <data>
-
-        <record id="view_partner_vat_check_form" model="ir.ui.view">
-            <field name="name">res.partner.vat.check.inherit</field>
-            <field name="model">res.partner</field>
-            <field name="inherit_id" ref="base_vat.view_partner_form"/>
-            <field name="arch" type="xml">
-                <field name="vat_subjected" position="after">
-                    
-                        <field name="vat_method"/>
-                        <field name="vat_check_date" />
-                </field>
-            </field>
-        </record>
-
-    </data>
+  <data>
+    <record id="view_partner_vat_check_form" model="ir.ui.view">
+      <field name="name">res.partner.vat.check.inherit</field>
+      <field name="model">res.partner</field>
+      <field name="inherit_id" ref="base_vat.view_partner_form"/>
+      <field name="arch" type="xml">
+        <field name="vat_subjected" position="after">
+          <field name="vat_method"/>
+          <field name="vat_check_date" />
+        </field>
+      </field>
+    </record>
+  </data>
 </openerp>
 

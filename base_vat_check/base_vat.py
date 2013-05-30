@@ -18,32 +18,29 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-
 from osv import osv, fields
 from tools.translate import _
-
 import time
 import logging
 
 class res_partner(osv.osv):
+    _logger = logging.getLogger(__name__)
     _inherit = 'res.partner'
+    _sel = ('vies','VIES'),('simple','Simple'),('none','Not Checked')]
+    _columns = \
+        { 'vat_subjected' : fields.boolean('VAT Legal Statement', help="Check this box if the partner is subjected to the VAT. It will be used for the VAT legal statement.")
+        , 'vat_method'    : fields.selection([_sel, 'VAT Method', readonly=True, help="""'VIES' checks using http://ec.europa.eu/taxation_customs/vies, 'Simple' calculates checksum for specific countries""")
+        , 'vat_check_date': fields.datetime('VAT Check Date', readonly=True)
+        }
 
     def check_vat(self, cr, uid, ids, context=None):
          """
          """
-         
          res = super(res_partner, self).check_vat(cr, uid, ids, context=None)
          self.check_vat_ext(cr, uid, ids, context=None)
          return res
-          
-    _columns = {
-        'vat_subjected': fields.boolean('VAT Legal Statement', help="Check this box if the partner is subjected to the VAT. It will be used for the VAT legal statement."),
-        'vat_method':  fields.selection([('vies','VIES'),('simple','Simple'),('none','Not Checked')], 'VAT Method', readonly=True, help="""'VIES' checks using http://ec.europa.eu/taxation_customs/vies, 'Simple' calculates checksum for specific countries"""),
-        'vat_check_date': fields.datetime('VAT Check Date', readonly=True),
-    }
 
     def check_vat_ext(self, cr, uid, ids, context):
-         _logger = logging.getLogger(__name__)
          if not context:
              context = {}
          vat = ''
@@ -71,7 +68,12 @@ class res_partner(osv.osv):
             self._logger.debug('FGF vat ext %s %s' % (vat,vat_mod))
             if vat_mod:
                 try:
-                    check = vatnumber.check_vies(vat)
+#                    check = vatnumber.check_vies(vat)
+                    from suds.Client import Client
+                    client = Client("http://ec.europa.eu/taxation_customs/vies/checkVatService.wsdl")
+                    res = client.service.checkVat(countryCode=vat[:2], vatNumber=vat[2:])
+                    check = bool(res["valid"])
+                    _logger.error(str(res)) ##############
                 except:
                     raise osv.except_osv(_('Error'), _('General VIES Error - Syntax XX YYYYYY... XX=Country Code, YYYYY=VAT Number'))
                 if check:
