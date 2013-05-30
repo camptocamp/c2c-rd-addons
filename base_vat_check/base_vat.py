@@ -26,10 +26,10 @@ import logging
 class res_partner(osv.osv):
     _logger = logging.getLogger(__name__)
     _inherit = 'res.partner'
-    _sel = ('vies','VIES'),('simple','Simple'),('none','Not Checked')]
+    _sel = [('vies','VIES'),('simple','Simple'),('none','Not Checked')]
     _columns = \
         { 'vat_subjected' : fields.boolean('VAT Legal Statement', help="Check this box if the partner is subjected to the VAT. It will be used for the VAT legal statement.")
-        , 'vat_method'    : fields.selection([_sel, 'VAT Method', readonly=True, help="""'VIES' checks using http://ec.europa.eu/taxation_customs/vies, 'Simple' calculates checksum for specific countries""")
+        , 'vat_method'    : fields.selection(_sel, 'VAT Method', readonly=True, help="""'VIES' checks using http://ec.europa.eu/taxation_customs/vies, 'Simple' calculates checksum for specific countries""")
         , 'vat_check_date': fields.datetime('VAT Check Date', readonly=True)
         }
 
