@@ -28,21 +28,21 @@ class res_partner(osv.osv):
     _inherit = 'res.partner'
     _sel = [('vies','VIES'),('simple','Simple'),('none','Not Checked')]
     _columns = \
-        { 'vat_subjected' : fields.boolean('VAT Legal Statement', help="Check this box if the partner is subjected to the VAT. It will be used for the VAT legal statement.")
-        , 'vat_method'    : fields.selection(_sel, 'VAT Method', readonly=True, help="""'VIES' checks using http://ec.europa.eu/taxation_customs/vies, 'Simple' calculates checksum for specific countries""")
-        , 'vat_check_date': fields.datetime('VAT Check Date', readonly=True)
+        { 'vat_subjected'     : fields.boolean('VAT Legal Statement', help="Check this box if the partner is subjected to the VAT. It will be used for the VAT legal statement.")
+        , 'vat_method'        : fields.selection(_sel, 'VAT Method', readonly=True, help="""'VIES' checks using http://ec.europa.eu/taxation_customs/vies, 'Simple' calculates checksum for specific countries""")
+        , 'vat_check_date'    : fields.datetime('VAT Check Date', readonly=True)
+        , 'vat_check_name'    : fields.char('VAT Check Name', size=256, readonly=True)
+        , 'vat_check_address' : fields.text('VAT Check Address', readonly=True)
         }
 
     def check_vat(self, cr, uid, ids, context=None):
         """
         """
-        self._logger.error("check_vat") ##############
         res = super(res_partner, self).check_vat(cr, uid, ids, context=None)
         self.check_vat_ext(cr, uid, ids, context=None)
         return res
 
     def check_vat_ext(self, cr, uid, ids, context):
-        self._logger.error("check_vat_ext") ##############
         if not context:
             context = {}
         vat = ''
@@ -55,6 +55,8 @@ class res_partner(osv.osv):
                     vat = partner.vat 
         method = 'none'
         date_now = time.strftime('%Y-%m-%d %H:%M:%S')
+        name = ""
+        address = ""
         if vat:
             vat = vat.replace(' ','')
             vat_mod = False
@@ -67,18 +69,19 @@ class res_partner(osv.osv):
                     raise osv.except_osv(_('Error'), _('import module vatnumber failed - check VIES in res company needs this module'))
 
             check = False
-            self._logger.debug('FGF vat ext %s %s' % (vat,vat_mod))
             if vat_mod:
                 try:
-                    check = vatnumber.check_vies(vat)
-                    self._logger.error(str(check)) ##############
+#                    check = vatnumber.check_vies(vat)
                     from suds.client import Client
                     client = Client("http://ec.europa.eu/taxation_customs/vies/checkVatService.wsdl")
                     code   = vat[:2]
                     number = vat[2:]
                     res = client.service.checkVat(countryCode=code, vatNumber=number)
                     check = bool(res["valid"])
-                    self._logger.error(str(res)) ##############
+                    if check :
+                        date_now = res["requestDate"]
+                        name = res["name"]
+                        address = res["address"]
                 except:
                     raise osv.except_osv(_('Error'), _('General VIES Error - Syntax XX YYYYYY... XX=Country Code, YYYYY=VAT Number'))
                 if check:
@@ -91,12 +94,11 @@ class res_partner(osv.osv):
                     method = 'simple'
                 else:
                     raise osv.except_osv(_('Error'), _('simple VAT check digit failed'))
-        vals = {'vat_method': method, 'vat_check_date': date_now}
+        vals = {'vat_method': method, 'vat_check_date': date_now, 'vat_check_name' : name, 'vat_check_address' : address}
         self.write(cr, uid, ids, vals)
         return vals
 
     def vat_change(self, cr, uid, ids, value, context=None):
-        self._logger.error("vat_change") ##############
         res = super(res_partner, self).vat_change(cr, uid, ids, value, context=None)   
 
         if not context:
