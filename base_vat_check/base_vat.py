@@ -21,10 +21,8 @@
 from osv import osv, fields
 from tools.translate import _
 import time
-import logging
 
 class res_partner(osv.osv):
-    _logger = logging.getLogger(__name__)
     _inherit = 'res.partner'
     _sel = [('vies','VIES'),('simple','Simple'),('none','Not Checked')]
     _columns = \
@@ -36,8 +34,6 @@ class res_partner(osv.osv):
         }
 
     def check_vat(self, cr, uid, ids, context=None):
-        """
-        """
         res = super(res_partner, self).check_vat(cr, uid, ids, context=None)
         self.check_vat_ext(cr, uid, ids, context=None)
         return res

@@ -9,7 +9,9 @@
         <field name="vat_subjected" position="after">
           <field name="vat_method"/>
           <field name="vat_check_date" />
+          <newline/>
           <field name="vat_check_name" />
+          <newline/>
           <field name="vat_check_address" />
         </field>
       </field>
