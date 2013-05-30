@@ -34,6 +34,7 @@ class res_partner(osv.osv):
         }
 
     def check_vat(self, cr, uid, ids, context=None):
+         _logger.error("check_vat") ##############
          """
          """
          res = super(res_partner, self).check_vat(cr, uid, ids, context=None)
@@ -41,6 +42,7 @@ class res_partner(osv.osv):
          return res
 
     def check_vat_ext(self, cr, uid, ids, context):
+         _logger.error("check_vat_ext") ##############
          if not context:
              context = {}
          vat = ''
@@ -92,6 +94,7 @@ class res_partner(osv.osv):
          
 
     def vat_change(self, cr, uid, ids, value, context=None):
+         _logger.error("vat_change") ##############
         res = super(res_partner, self).vat_change(cr, uid, ids, value, context=None)   
 
         if not context:
