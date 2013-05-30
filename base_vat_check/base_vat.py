@@ -72,7 +72,7 @@ class res_partner(osv.osv):
                 try:
                     check = vatnumber.check_vies(vat)
                     self._logger.error(str(check)) ##############
-                    from suds.Client import Client
+                    from suds.client import Client
                     client = Client("http://ec.europa.eu/taxation_customs/vies/checkVatService.wsdl")
                     code   = vat[:2]
                     number = vat[2:]
