@@ -70,7 +70,8 @@ class res_partner(osv.osv):
             self._logger.debug('FGF vat ext %s %s' % (vat,vat_mod))
             if vat_mod:
                 try:
-#                    check = vatnumber.check_vies(vat)
+                    check = vatnumber.check_vies(vat)
+                    self._logger.error(str(check)) ##############
                     from suds.Client import Client
                     client = Client("http://ec.europa.eu/taxation_customs/vies/checkVatService.wsdl")
                     res = client.service.checkVat(countryCode=vat[:2], vatNumber=vat[2:])
