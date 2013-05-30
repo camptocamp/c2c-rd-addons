@@ -36,13 +36,13 @@ class res_partner(osv.osv):
     def check_vat(self, cr, uid, ids, context=None):
         """
         """
-        _logger.error("check_vat") ##############
+        self._logger.error("check_vat") ##############
         res = super(res_partner, self).check_vat(cr, uid, ids, context=None)
         self.check_vat_ext(cr, uid, ids, context=None)
         return res
 
     def check_vat_ext(self, cr, uid, ids, context):
-        _logger.error("check_vat_ext") ##############
+        self._logger.error("check_vat_ext") ##############
         if not context:
             context = {}
         vat = ''
@@ -75,7 +75,7 @@ class res_partner(osv.osv):
                     client = Client("http://ec.europa.eu/taxation_customs/vies/checkVatService.wsdl")
                     res = client.service.checkVat(countryCode=vat[:2], vatNumber=vat[2:])
                     check = bool(res["valid"])
-                    _logger.error(str(res)) ##############
+                    self._logger.error(str(res)) ##############
                 except:
                     raise osv.except_osv(_('Error'), _('General VIES Error - Syntax XX YYYYYY... XX=Country Code, YYYYY=VAT Number'))
                 if check:
@@ -93,7 +93,7 @@ class res_partner(osv.osv):
         return vals
 
     def vat_change(self, cr, uid, ids, value, context=None):
-        _logger.error("vat_change") ##############
+        self._logger.error("vat_change") ##############
         res = super(res_partner, self).vat_change(cr, uid, ids, value, context=None)   
 
         if not context:
