@@ -44,11 +44,11 @@ class res_partner(osv.osv):
         vat = ''
         if context.get('vat'):
             if context['vat'] != 'none':
-                vat = context['vat']
+                vat = context['vat'].replace(" ","")
         else:
             for partner in self.browse(cr, uid, ids, context):
                 if partner.vat:
-                    vat = partner.vat 
+                    vat = partner.vat.replace(" ","")
         method = 'none'
         date_now = time.strftime('%Y-%m-%d %H:%M:%S')
         name = ""
@@ -79,7 +79,7 @@ class res_partner(osv.osv):
                         name = res["name"]
                         address = res["address"]
                 except:
-                    raise osv.except_osv(_('Error'), _('General VIES Error - Syntax XX YYYYYY... XX=Country Code, YYYYY=VAT Number'))
+                    raise osv.except_osv(_('VIES Error'), _('General Error: either connection timeout or VAT-syntax error "%s"') % vat)
                 if check:
                     method = 'vies'
                 else:
@@ -90,7 +90,7 @@ class res_partner(osv.osv):
                     method = 'simple'
                 else:
                     raise osv.except_osv(_('Error'), _('simple VAT check digit failed'))
-        vals = {'vat_method': method, 'vat_check_date': date_now, 'vat_check_name' : name, 'vat_check_address' : address}
+        vals = {'vat_method': method, 'vat_check_date': date_now, 'vat_check_name' : name, 'vat_check_address' : address, 'vat' : vat}
         self.write(cr, uid, ids, vals)
         return vals
 
