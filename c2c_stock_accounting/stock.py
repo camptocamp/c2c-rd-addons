@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+# -*: utf-8 -*-
 ##############################################################################
 #
 #    OpenERP, Open Source Management Solution
@@ -23,6 +23,7 @@
 from osv import osv, fields
 import decimal_precision as dp
 from tools.translate import _
+import time
 import logging
 
 
@@ -392,7 +393,8 @@ class stock_move(osv.osv):
         for line in self.browse(cr, uid, ids, context=context):
             ids2 = self.search(cr, uid, [('product_id','=',line.product_id.id),('date','>=', line.date)])
         return ids2
-
+ 
+ 
 
     _columns = {
         'move_value_cost'    : fields.function(_compute_move_value_cost, method=True, string='Amount', digits_compute=dp.get_precision('Account'),type='float' ,
@@ -412,10 +414,35 @@ class stock_move(osv.osv):
         'price_unit_sale'    : fields.function(_compute_price_unit_sale, method=True, string='Sale Price',  digits_compute=dp.get_precision('Account') ),
         'analytic_account_id': fields.many2one('account.analytic.account', 'Analytic Account'),
         'value_correction'   : fields.float('Value correction', digits_compute=dp.get_precision('Account'),\
-                             help="This field allows to enter value correction of product stock per lot and location. positive to increase, negative to decrease value")
-
+                             help="This field allows to enter value correction of product stock per lot and location. positive to increase, negative to decrease value"),
+        #'date_move'          : fields.related('picking_id', 'date', type='datetime', string='move Date'),
+        'date_done'          : fields.datetime('Date Done'),
+ 
     }
 
+
+    _defaults = {
+        'date': None,
+        }
+
+    def onchange_date(self, cr, uid, ids, date, date_expected, context=None):
+        return {'value': {}}
+
+    def onchange_date_move(self, cr, uid, ids, date, date_expected, move_date, context=None):
+        """ On change of Scheduled Date uses Move date.
+        @param date_expected: Scheduled Date
+        @param date: Move Date
+        @return: Move Date
+        """
+        #self._logger.debug('change ids %s context %s' % (ids,context))
+        
+        vals = {}
+        if move_date:
+            if not date:
+                vals['date'] = move_date 
+            #if not date_expected:
+                vals['date_expected'] = move_date 
+        return {'value': vals}
 
     def init(self, cr):
         ids2 = []
@@ -478,8 +505,30 @@ class stock_move(osv.osv):
             move_ids.append(move.id)
             date1 = move.date
         res = super(stock_move, self).action_done(cr, uid, move_ids, context)
-        self.write(cr, uid, move_ids, {'date': date1, 'date_expected' : date1}, context=context)
+        self.write(cr, uid, move_ids, {'date': date1, 'date_expected' : date1,'date_done': time.strftime('%Y-%m-%d %H:%M:%S')}, context=context)
         return res
+
+    def action_done(self, cr, uid, ids, context=None):
+        """to be able to post moves for past dates (mainly corrections) it is necessary to store the date_expected instead of the current date
+          the date field is used to select records in the location structure and others
+          for accounting purpose it is absolutely necessary to be able to do this.
+          * correct errors
+          * do valuation correction
+        """
+        move_ids = []
+        for move in self.browse(cr, uid, ids, context=context):
+            if move.state in ['done','cancel']:
+                 continue
+            move_ids.append(move.id)
+            date1 = move.date
+        res = super(stock_move, self).action_done(cr, uid, move_ids, context)
+          
+        self.write(cr, uid, move_ids, {'date': date1, 'date_expected' : date1, 'date_done': time.strftime('%Y-%m-%d %H:%M:%S')}, context=context)
+        return res
+
+
+
+
 
 stock_move()
 
@@ -652,3 +701,13 @@ class stock_inventory_line(osv.osv):
           'check_lot' : fields.related('product_id','track_internal',type='boolean',string='Lot required',readonly=True,help="posting needs lot"),
         }
 stock_inventory_line()
+
+
+class stock_picking(osv.osv):
+    _inherit = "stock.picking"
+
+    _defaults = {
+     'date' : None,
+    }
+
+stock_picking()

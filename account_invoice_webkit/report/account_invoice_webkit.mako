@@ -86,7 +86,7 @@ left Address
          
          %if 'iban_qr_code' in inv._columns and inv.iban_qr_code:
             <td  style="width:150px">
-                ${helper.embed_image('png',inv.iban_qr_code, width=150)}
+            ${helper.embed_image('png',inv.iban_qr_code, width=100)}
             </td>
          %endif
         </tr>

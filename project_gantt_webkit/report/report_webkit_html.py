@@ -19,8 +19,6 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-
-import datetime
 import time
 from report import report_sxw
 from osv import osv
@@ -28,13 +26,15 @@ from osv import osv
 class report_webkit_html(report_sxw.rml_parse):
     def __init__(self, cr, uid, name, context):
         super(report_webkit_html, self).__init__(cr, uid, name, context=context)
-        self.localcontext.update({
-            'time': time,
-            'cr':cr,
-            'uid': uid,
-        })
-        
-report_sxw.report_sxw('report.task.gantt.webkit',
-                       'project.task', 
-                       'project_gantt_webkit/report/project_gantt_webkit.mako',
-                       parser=report_webkit_html)
+        self.localcontext.update \
+            ({ 'time': time
+             , 'cr'  :cr
+             , 'uid' : uid
+            })
+
+report_sxw.report_sxw \
+    ( 'report.task.gantt.webkit'
+    , 'project.task'
+    , 'addons/project_gantt_webkit/report/project_gantt_svg_webkit.mako'
+    , parser=report_webkit_html
+    )

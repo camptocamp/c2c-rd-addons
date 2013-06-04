@@ -415,6 +415,19 @@
                 </field>
             </field>
         </record>
+
+
+    <!-- stock move -->
+    <record model="ir.ui.view" id="view_picking_form_change">
+      <field name="name">stock.picking.change.form</field>
+      <field name="model">stock.picking</field>
+      <field name="inherit_id" ref="stock.view_picking_form"/>
+      <field name="arch" type="xml">
+              <xpath expr="/form/notebook/page[@string='Products']/field/form/group/field[@name='date_expected']" position="replace">
+                 <field name="date_expected" on_change="onchange_date_move(date,date_expected,parent.date)"/>
+              </xpath>                
+        </field>
+    </record>
    
   </data>
 </openerp>

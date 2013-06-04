@@ -84,7 +84,7 @@
                                                                                     <separator string="Dates" colspan="2" />
                                                                                     <field name="create_date" invisible="1"/>
                                                                                     <field name="date"/>
-                                                                                    <field name="date_expected" on_change="onchange_date(date,date_expected)"/>
+                                                                                    <field name="date_expected" on_change="onchange_date_move(date,date_expected,parent.date)"/>
                                                                                 </group>
                                                                                 
                                                                                 <group colspan="2" col="4" >

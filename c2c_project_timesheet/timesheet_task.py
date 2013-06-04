@@ -167,9 +167,12 @@ class project_work(osv.osv):
                 vals['date'] = vals['date_date']+' 12:00:00'
             res.append( super(project_work,self).write(cr, uid, [work.id], vals, context))
             if work.hr_analytic_timesheet_id and work.hr_analytic_timesheet_id.line_id:
+                name = work.task_id.name
+                if work.name:
+                    name  += ': ' + work.name
                 val = {
                    'to_invoice': work.to_invoice.id,
-                   'name' : work.task_id.name+': '+ work.name,
+                   'name' : name,
                    'account_id' : work.task_id.project_id.analytic_account_id.id,
                    }
                 product_id = self._get_product(cr, uid, work.id)

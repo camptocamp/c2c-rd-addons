@@ -23,25 +23,12 @@ from openerp.osv import fields, osv
 
 class project(osv.osv):
     _inherit = "project.project"
-
-
-   
-    _columns = {
-         'note' : fields.text('Notes'),
-      }
-
+    _columns = {'note' : fields.text('Notes')}
 project()
-
 
 class project_task(osv.osv):
     _inherit = "project.task"
-
-
-   
-    _columns = {
-         'note' : fields.text('Notes'),
-      }
-
+    _columns = {'note' : fields.text('Notes')}
 project_task()
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
 

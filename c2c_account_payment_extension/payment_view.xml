@@ -50,6 +50,7 @@
 
 
     <!--************************** PARTNERS - payment type **************************-->
+<!--
     <record model="ir.ui.view" id="view_payment_type_res_partner_form1">
         <field name="name">res.partner.form.payment_type1</field>
         <field name="model">res.partner</field>
@@ -75,7 +76,7 @@
             </field>
         </field>
     </record>
-
+-->
 
     <!--****************************** PAYMENT TYPE ******************************-->
         <record model="ir.ui.view" id="view_payment_type_tree">
