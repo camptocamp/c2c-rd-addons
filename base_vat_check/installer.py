@@ -50,10 +50,11 @@ class base_vat_installer(osv.osv_memory):
         partner_obj = self.pool.get('res.partner')
         import logging ######
         _logger = logging.getLogger(__name__) #####
-        proxy = \
-            { "http"  : os.environ.get("HTTP_PROXY")  or os.environ.get("http_proxy")
-            , "https" : os.environ.get("HTTPS_PROXY") or os.environ.get("https_proxy")
-            }
+        proxy = {}
+        http  = os.environ.get("HTTP_PROXY")  or os.environ.get("http_proxy")
+        https = os.environ.get("HTTPS_PROXY") or os.environ.get("https_proxy")
+        if http  : proxy["http"]  = http
+        if https : proxy["https"] = https
         _logger.info(str(proxy)) #####
         client = Client("http://ec.europa.eu/taxation_customs/vies/checkVatService.wsdl")
         _logger.info(str(client)) ##########
