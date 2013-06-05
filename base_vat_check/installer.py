@@ -48,13 +48,18 @@ class base_vat_installer(osv.osv_memory):
         if not self.pool.get('res.users').browse(cr, uid, uid).company_id.vat_check_vies :
             return
         partner_obj = self.pool.get('res.partner')
+        import logging ######
+        _logger = getLogger(__name__) #####
         proxy = \
             { "http"  : os.environ.get("HTTP_PROXY")  or os.environ.get("http_proxy")
             , "https" : os.environ.get("HTTPS_PROXY") or os.environ.get("https_proxy")
             }
+        logger.info(str(proxy)) #####
         client = Client("http://ec.europa.eu/taxation_customs/vies/checkVatService.wsdl", proxy=proxy)
+        _logger.info(str(client)) ##########
         for partner in partner_obj.browse(cr, uid, partner_obj.search(cr, uid, [("vat", "!=", None)])) :
             vat = partner.vat.replace(" ", "")
+            _logger.info(vat) ########
             code   = vat[:2]
             number = vat[2:]
             try:
@@ -68,7 +73,7 @@ class base_vat_installer(osv.osv_memory):
                         , 'vat_check_address' : res["address"]
                         , 'vat'               : vat
                         }
-                    partner_obj.write(cr, uid, ids, vals)
+                    partner_obj.write(cr, uid, [partner.id], vals)
             except:
                 raise osv.except_osv(_('VIES Error'), _('General Error: either connection timeout or VAT-syntax error "%s"') % vat)
     # end def execute_simple
