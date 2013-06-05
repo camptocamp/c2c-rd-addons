@@ -70,7 +70,10 @@ class res_partner(osv.osv):
                 try:
                     from suds.client import Client
                     proxy = os.environ.get('HTTP_PROXY') or os.environ.get('http_proxy')
-                    proxyOpts = dict(http = proxy)
+                    if proxy:
+                        proxyOpts = dict(http = proxy)
+                    else:
+                        proxyOpts = {}
                     client = Client("http://ec.europa.eu/taxation_customs/vies/checkVatService.wsdl",proxy=proxyOpts)
                     code   = vat[:2]
                     number = vat[2:]
