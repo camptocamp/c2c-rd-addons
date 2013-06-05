@@ -21,6 +21,7 @@
 from osv import osv, fields
 from tools.translate import _
 import time
+import os
 
 class res_partner(osv.osv):
     _inherit = 'res.partner'
@@ -66,12 +67,16 @@ class res_partner(osv.osv):
 
             check = False
             if vat_mod:
+                proxy = \
+                    { "http"  : os.environ.get("HTTP_PROXY")  or os.environ.get("http_proxy")
+                    , "https" : os.environ.get("HTTPS_PROXY") or os.environ.get("https_proxy")
+                    }
+                code   = vat[:2]
+                number = vat[2:]
                 try:
 #                    check = vatnumber.check_vies(vat)
                     from suds.client import Client
-                    client = Client("http://ec.europa.eu/taxation_customs/vies/checkVatService.wsdl")
-                    code   = vat[:2]
-                    number = vat[2:]
+                    client = Client("http://ec.europa.eu/taxation_customs/vies/checkVatService.wsdl", proxy=proxy)
                     res = client.service.checkVat(countryCode=code, vatNumber=number)
                     check = bool(res["valid"])
                     if check :

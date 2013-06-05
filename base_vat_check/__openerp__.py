@@ -33,7 +33,7 @@ ToDo -
 """
 , 'author'      : 'Camptocamp Austria'
 , 'depends'     : [ 'base_vat' ]
-, 'update_xml'  : ['base_vat_view.xml']
+, 'update_xml'  : ['base_vat_view.xml', 'installer_view.xml']
 , 'demo_xml'    : []
 , 'installable' : True
 , 'active'      : False
