@@ -49,7 +49,7 @@ class base_vat_installer(osv.osv_memory):
             return
         partner_obj = self.pool.get('res.partner')
         import logging ######
-        _logger = getLogger(__name__) #####
+        _logger = logging.getLogger(__name__) #####
         proxy = \
             { "http"  : os.environ.get("HTTP_PROXY")  or os.environ.get("http_proxy")
             , "https" : os.environ.get("HTTPS_PROXY") or os.environ.get("https_proxy")
