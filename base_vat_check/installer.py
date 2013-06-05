@@ -55,7 +55,7 @@ class base_vat_installer(osv.osv_memory):
             , "https" : os.environ.get("HTTPS_PROXY") or os.environ.get("https_proxy")
             }
         _logger.info(str(proxy)) #####
-        client = Client("http://ec.europa.eu/taxation_customs/vies/checkVatService.wsdl", proxy=proxy)
+        client = Client("http://ec.europa.eu/taxation_customs/vies/checkVatService.wsdl")
         _logger.info(str(client)) ##########
         for partner in partner_obj.browse(cr, uid, partner_obj.search(cr, uid, [("vat", "!=", None)])) :
             vat = partner.vat.replace(" ", "")
