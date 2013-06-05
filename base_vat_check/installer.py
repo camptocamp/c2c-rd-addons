@@ -56,11 +56,11 @@ class base_vat_installer(osv.osv_memory):
         if http  : proxy["http"]  = http
         if https : proxy["https"] = https
         _logger.info(str(proxy)) #####
-        client = Client("http://ec.europa.eu/taxation_customs/vies/checkVatService.wsdl")
+        client = Client("http://ec.europa.eu/taxation_customs/vies/checkVatService.wsdl", proxy=proxy)
         _logger.info(str(client)) ##########
         for partner in partner_obj.browse(cr, uid, partner_obj.search(cr, uid, [("vat", "!=", None)])) :
             vat = partner.vat.replace(" ", "")
-            _logger.info(vat) ########
+            _logger.info("Checking UID: %s" % vat) ########
             code   = vat[:2]
             number = vat[2:]
             try:

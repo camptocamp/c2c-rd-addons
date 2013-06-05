@@ -67,10 +67,11 @@ class res_partner(osv.osv):
 
             check = False
             if vat_mod:
-                proxy = \
-                    { "http"  : os.environ.get("HTTP_PROXY")  or os.environ.get("http_proxy")
-                    , "https" : os.environ.get("HTTPS_PROXY") or os.environ.get("https_proxy")
-                    }
+                proxy = {}
+                http  = os.environ.get("HTTP_PROXY")  or os.environ.get("http_proxy")
+                https = os.environ.get("HTTPS_PROXY") or os.environ.get("https_proxy")
+                if http  : proxy["http"]  = http
+                if https : proxy["https"] = https
                 code   = vat[:2]
                 number = vat[2:]
                 try:
