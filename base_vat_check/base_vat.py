@@ -81,7 +81,7 @@ class res_partner(osv.osv):
 
                     check = bool(res["valid"])
                     if check :
-                        date_now = res["requestDate"]
+                        #date_now = res["requestDate"]
                         name = res["name"]
                         address = res["address"]
                         method = 'vies'
