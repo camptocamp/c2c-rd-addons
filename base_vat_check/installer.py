@@ -52,36 +52,9 @@ class base_vat_installer(osv.osv_memory):
         if not self.pool.get('res.users').browse(cr, uid, uid).company_id.vat_check_vies :
             return
         partner_obj = self.pool.get('res.partner')
-        import logging ######
-        _logger = logging.getLogger(__name__) #####
-#        proxy = {}
-#        http  = os.environ.get("HTTP_PROXY")  or os.environ.get("http_proxy")
-#        https = os.environ.get("HTTPS_PROXY") or os.environ.get("https_proxy")
-#        if http  : proxy["http"]  = http
-#        if https : proxy["https"] = https
-#        _logger.info(str(proxy)) #####
-        client = Client("http://ec.europa.eu/taxation_customs/vies/checkVatService.wsdl", transport=WellBehavedHttpTransport())
-        _logger.info(str(client)) ##########
         for partner in partner_obj.browse(cr, uid, partner_obj.search(cr, uid, [("vat", "!=", None)])) :
-            vat = partner.vat.replace(" ", "")
-            _logger.info("Checking UID: %s" % vat) ########
-            code   = vat[:2]
-            number = vat[2:]
-            try:
-                res = client.service.checkVat(countryCode=code, vatNumber=number)
-                check = bool(res["valid"])
-                if check :
-                    vals = \
-                        { 'vat_method'        : 'vies'
-                        , 'vat_check_date'    : res["requestDate"]
-                        , 'vat_check_name'    : res["name"]
-                        , 'vat_check_address' : res["address"]
-                        , 'vat'               : vat
-                        }
-                    partner_obj.write(cr, uid, [partner.id], vals)
-            except:
-                raise osv.except_osv(_('VIES Error'), _('General Error: either connection timeout or VAT-syntax error "%s"') % vat)
+            partner_obj.check_vat_ext(cr, uid, [partner.id], context)
     # end def execute_simple
-# end class base_vat_installer
+
 base_vat_installer()
 
