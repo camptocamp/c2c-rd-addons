@@ -26,14 +26,13 @@
 This module enhances the VAT check to comply to accounting standards
 
 * save date and the method (vies/checksum) used for checking
+* automatically save the company name associated with the VAT-ID
+** at least some German VAT numbers return '---' as company name !!!
 
-ToDo - 
-
-* automatically check the current available methods do not check the company name associated with the VAT-ID
 """
 , 'author'      : 'Camptocamp Austria'
 , 'depends'     : [ 'base_vat' ]
-, 'update_xml'  : ['base_vat_view.xml']
+, 'update_xml'  : ['base_vat_view.xml', 'installer_view.xml']
 , 'demo_xml'    : []
 , 'installable' : True
 , 'active'      : False

@@ -21,6 +21,7 @@
 from osv import osv, fields
 from tools.translate import _
 import time
+import os
 
 class res_partner(osv.osv):
     _inherit = 'res.partner'
@@ -67,23 +68,28 @@ class res_partner(osv.osv):
             check = False
             if vat_mod:
                 try:
-#                    check = vatnumber.check_vies(vat)
                     from suds.client import Client
-                    client = Client("http://ec.europa.eu/taxation_customs/vies/checkVatService.wsdl")
+                    proxy = os.environ.get('HTTP_PROXY') or os.environ.get('http_proxy')
+                    if proxy:
+                        proxyOpts = dict(http = proxy)
+                    else:
+                        proxyOpts = {}
+                    client = Client("http://ec.europa.eu/taxation_customs/vies/checkVatService.wsdl",proxy=proxyOpts)
                     code   = vat[:2]
                     number = vat[2:]
                     res = client.service.checkVat(countryCode=code, vatNumber=number)
+
                     check = bool(res["valid"])
                     if check :
                         date_now = res["requestDate"]
                         name = res["name"]
                         address = res["address"]
+                        method = 'vies'
+                    else:
+                        raise osv.except_osv(_('VIES Error'), _('VIES check failed "%s"') % vat)
                 except:
-                    raise osv.except_osv(_('VIES Error'), _('General Error: either connection timeout or VAT-syntax error "%s"') % vat)
-                if check:
-                    method = 'vies'
-                else:
-                    raise osv.except_osv(_('Error'), _('VIES VAT check failed'))
+                    raise osv.except_osv(_('VIES Error'), _('General Error: connection timeout for "%s"') % vat)
+
             else:
                 vat_country, vat_number = self._split_vat(vat)
                 if self.simple_vat_check(cr, uid, vat_country, vat_number, context=context):
