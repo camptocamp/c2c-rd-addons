@@ -67,17 +67,22 @@ class res_partner(osv.osv):
 
             check = False
             if vat_mod:
-                proxy = {}
-                http  = os.environ.get("HTTP_PROXY")  or os.environ.get("http_proxy")
-                https = os.environ.get("HTTPS_PROXY") or os.environ.get("https_proxy")
-                if http  : proxy["http"]  = http
-                if https : proxy["https"] = https
+#                proxy = {}
+#                http  = os.environ.get("HTTP_PROXY")  or os.environ.get("http_proxy")
+#                https = os.environ.get("HTTPS_PROXY") or os.environ.get("https_proxy")
+#                if http  : proxy["http"]  = http
+#                if https : proxy["https"] = https
                 code   = vat[:2]
                 number = vat[2:]
                 try:
 #                    check = vatnumber.check_vies(vat)
                     from suds.client import Client
-                    client = Client("http://ec.europa.eu/taxation_customs/vies/checkVatService.wsdl", proxy=proxy)
+                    from suds.transport.http import HttpTransport as SudsHttpTransport
+
+                    class WellBehavedHttpTransport(SudsHttpTransport):
+                      def u2handlers(self): return []
+
+                    client = Client("http://ec.europa.eu/taxation_customs/vies/checkVatService.wsdl", transport=WellBehavedHttpTransport())
                     res = client.service.checkVat(countryCode=code, vatNumber=number)
                     check = bool(res["valid"])
                     if check :

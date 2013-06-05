@@ -34,6 +34,10 @@ from osv import fields, osv
 from tools.translate import _
 import os
 from suds.client import Client
+from suds.transport.http import HttpTransport as SudsHttpTransport
+
+class WellBehavedHttpTransport(SudsHttpTransport):
+    def u2handlers(self): return []
     
 class base_vat_installer(osv.osv_memory):
     _name    = 'res.partner.base_vat.installer'
@@ -50,13 +54,13 @@ class base_vat_installer(osv.osv_memory):
         partner_obj = self.pool.get('res.partner')
         import logging ######
         _logger = logging.getLogger(__name__) #####
-        proxy = {}
-        http  = os.environ.get("HTTP_PROXY")  or os.environ.get("http_proxy")
-        https = os.environ.get("HTTPS_PROXY") or os.environ.get("https_proxy")
-        if http  : proxy["http"]  = http
-        if https : proxy["https"] = https
-        _logger.info(str(proxy)) #####
-        client = Client("http://ec.europa.eu/taxation_customs/vies/checkVatService.wsdl", proxy=proxy)
+#        proxy = {}
+#        http  = os.environ.get("HTTP_PROXY")  or os.environ.get("http_proxy")
+#        https = os.environ.get("HTTPS_PROXY") or os.environ.get("https_proxy")
+#        if http  : proxy["http"]  = http
+#        if https : proxy["https"] = https
+#        _logger.info(str(proxy)) #####
+        client = Client("http://ec.europa.eu/taxation_customs/vies/checkVatService.wsdl", transport=WellBehavedHttpTransport())
         _logger.info(str(client)) ##########
         for partner in partner_obj.browse(cr, uid, partner_obj.search(cr, uid, [("vat", "!=", None)])) :
             vat = partner.vat.replace(" ", "")
