@@ -21,7 +21,7 @@
 from osv import osv, fields
 from tools.translate import _
 import time
-import os
+from urllib import getproxies
 
 class res_partner(osv.osv):
     _inherit = 'res.partner'
@@ -69,12 +69,7 @@ class res_partner(osv.osv):
             if vat_mod:
                 try:
                     from suds.client import Client
-                    proxy = os.environ.get('HTTP_PROXY') or os.environ.get('http_proxy')
-                    if proxy:
-                        proxyOpts = dict(http = proxy)
-                    else:
-                        proxyOpts = {}
-                    client = Client("http://ec.europa.eu/taxation_customs/vies/checkVatService.wsdl",proxy=proxyOpts)
+                    client = Client("http://ec.europa.eu/taxation_customs/vies/checkVatService.wsdl", proxy=getproxies())
                     code   = vat[:2]
                     number = vat[2:]
                     res = client.service.checkVat(countryCode=code, vatNumber=number)
