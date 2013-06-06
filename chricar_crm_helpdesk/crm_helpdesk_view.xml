@@ -59,7 +59,7 @@
       </field>
     </record>
     <!-- Helpdesk Support Search View  -->
-    <record id="view_crm_case_helpdesk_filter" model="ir.ui.view">
+    <record id="crm_helpdesk.view_crm_case_helpdesk_filter" model="ir.ui.view">
       <field name="name">CRM - Helpdesk Search</field>
       <field name="model">crm.helpdesk</field>
       <field name="type">search</field>
@@ -76,7 +76,7 @@
             help="Helpdesk requests during last 7 days"
             icon="terp-go-week"
             separator="1"
-            string="7 Days"/>
+            string="Past 7 Days"/>
           <filter
             domain="[('date_warning','&gt;', time.strftime('%%Y-%%m-%%d')), ('date_warning','&lt;=',(datetime.date.today()+datetime.timedelta(days=7)).strftime('%%Y-%%m-%%d'))]"
             help="Date Warning next 7 days"
