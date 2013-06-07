@@ -31,13 +31,6 @@
 #
 ###############################################
 from osv import fields, osv
-from tools.translate import _
-import os
-from suds.client import Client
-from suds.transport.http import HttpTransport as SudsHttpTransport
-
-class WellBehavedHttpTransport(SudsHttpTransport):
-    def u2handlers(self): return []
     
 class base_vat_installer(osv.osv_memory):
     _name    = 'res.partner.base_vat.installer'
@@ -49,12 +42,9 @@ class base_vat_installer(osv.osv_memory):
     # end def execute
 
     def execute_simple(self, cr, uid, ids, context=None) :
-        if not self.pool.get('res.users').browse(cr, uid, uid).company_id.vat_check_vies :
-            return
         partner_obj = self.pool.get('res.partner')
         for partner in partner_obj.browse(cr, uid, partner_obj.search(cr, uid, [("vat", "!=", None)])) :
             partner_obj.check_vat_ext(cr, uid, [partner.id], context)
     # end def execute_simple
-
 base_vat_installer()
 

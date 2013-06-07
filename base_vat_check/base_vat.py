@@ -60,19 +60,16 @@ class res_partner(osv.osv):
             user_company = self.pool.get('res.users').browse(cr, uid, uid).company_id
             if user_company.vat_check_vies:
                 try:
-                    import vatnumber
+                    from suds.client import Client
                     vat_mod = True
                 except:
-                    raise osv.except_osv(_('Error'), _('import module vatnumber failed - check VIES in res company needs this module'))
+                    raise osv.except_osv(_('Error'), _('import module "suds" failed - check VIES needs this module'))
 
             check = False
             if vat_mod:
                 try:
-                    from suds.client import Client
                     client = Client("http://ec.europa.eu/taxation_customs/vies/checkVatService.wsdl", proxy=getproxies())
-                    code   = vat[:2]
-                    number = vat[2:]
-                    res = client.service.checkVat(countryCode=code, vatNumber=number)
+                    res = client.service.checkVat(countryCode=vat[:2], vatNumber=vat[2:])
 
                     check = bool(res["valid"])
                     if check :
