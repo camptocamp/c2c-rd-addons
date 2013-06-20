@@ -109,19 +109,25 @@ class ir_sequence(osv.osv):
                     for fy_s in  fy_seq_obj.browse(cr, uid, fy_seq_ids):
                         seq_id = fy_s.sequence_id.id
                 else:
+                    for seq in selb.browse(cr, uid, sequence_id, context):
+                        sequence_code = seq.code
+                        sequence_name = seq.name
+                        sequence_padding = seq.padding
+                        sequence_implementation = seq.implementation
+                        prefix = seq.prefix or '' + fy.code +'-'
+                        company_id = seq.company_id.id
+                         
                     fy_obj = self.pool.get('account.fiscalyear')
                     for fy in fy_obj.browse(cr, uid, [fy]):
                         fy_code = fy.code
                         fy_name = fy.name
-                        prefix = journal.sequence_id.prefix or '' + fy.code +'-'
-                    sequence_code = journal.sequence_id.code
-                    company_id = journal.company_id.id
+
                     vals = \
                     { 'code'           : sequence_code
-                    , 'name'           : journal.sequence_id.name +' '+ fy_name
+                    , 'name'           : sequence_name +' '+ fy_name
                     , 'prefix'         : prefix
-                    , 'padding'        : journal.sequence_id.padding
-                    , 'implementation' : journal.sequence_id.implementation
+                    , 'padding'        : sequence_padding
+                    , 'implementation' : sequence_implementation
                     , 'company_id'     : company_id
                     }
                     seq_id = self.create(cr, uid, vals)
