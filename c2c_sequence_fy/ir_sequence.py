@@ -109,7 +109,7 @@ class ir_sequence(osv.osv):
                     for fy_s in  fy_seq_obj.browse(cr, uid, fy_seq_ids):
                         seq_id = fy_s.sequence_id.id
                 else:
-                    for seq in selb.browse(cr, uid, sequence_id, context):
+                    for seq in self.browse(cr, uid, sequence_id, context):
                         sequence_code = seq.code
                         sequence_name = seq.name
                         sequence_padding = seq.padding
