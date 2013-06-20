@@ -35,7 +35,8 @@ class res_partner(osv.osv):
         }
 
     def check_vat(self, cr, uid, ids, context=None):
-        res = super(res_partner, self).check_vat(cr, uid, ids, context=None)
+        #res = super(res_partner, self).check_vat(cr, uid, ids, context=None)
+        res = True
         self.check_vat_ext(cr, uid, ids, context=None)
         return res
 
