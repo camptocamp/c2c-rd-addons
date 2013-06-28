@@ -37,11 +37,30 @@ import logging
 
 class stock_location(osv.osv):
      _inherit = "stock.location"
+     
+     def _get_surface(self, cr, uid, ids, field_name, arg, context=None):
+         result = {}
+
+         for loc in self.browse(cr, uid, ids, context):
+             surface_tot = 0
+             if loc.top_ids:
+                #for s in  self.pool.get('chricar.top').browse(cr, uid, loc.top_ids):
+                for s in loc.top_ids:
+                    if s.surface:
+                        surface_tot += s.surface
+             result[loc.id] = surface_tot
+         return result
+          
 
      _columns = \
          { 'blueprint' : fields.binary  ('Blueprint')
          , 'image'     : fields.binary  ('Image')
+         , 'top_ids'        : fields.one2many('chricar.top','location_id','Real Estate Top')
+         , 'operating_cost' : fields.float   ('Monthly Operating Costs', digits=(10,2), help="""Operating Costs for Real Estate, will be calculated per m² for each Top""")
+         , 'surface'   : fields.function(_get_surface, method=True, string="Surface", type='float', digits=(16,0))
+
          }
+     _order = 'complete_name'
 
 stock_location()
 
@@ -82,17 +101,11 @@ class chricar_top(osv.osv):
          result = {}
 
          for p in self.browse(cr, uid, ids, context):
-             if p.location_id.operating_cost and  p.surface and  p.surface > 0.0:
-                 surface_tot = 0.0
-                 if p.location_id:
-                     top_ids = self.pool.get('chricar.top').search(cr, uid, [('location_id', '=', p.location_id.id)])
-                     for s in  self.pool.get('chricar.top').browse(cr, uid, top_ids):
-                         if s.surface:
-                             surface_tot += s.surface
-                     if surface_tot > 0.0 and p.surface and p.surface > 0.0 :
-                         operating_cost = p.location_id.operating_cost / surface_tot * p.surface
+             surface_tot = p.location_id.surface
+             if p.location_id.operating_cost and  p.surface and  p.surface > 0.0 and surface_tot >0:
+                 operating_cost = p.location_id.operating_cost / surface_tot * p.surface
              else:
-                  operating_cost = 0.0
+                 operating_cost = 0.0
              result[p.id] = operating_cost
          return result
 
@@ -325,15 +338,6 @@ class res_partner(osv.osv):
       }
 res_partner()
 
-class stock_location(osv.osv):
-      _inherit = "stock.location"
-      _columns = {
-          'top_ids'        : fields.one2many('chricar.top','location_id','Real Estate Top'),
-          'operating_cost' : fields.float   ('Monthly Operating Costs', digits=(10,2), help="""Operating Costs for Real Estate, will be calculated per m² for each Top"""),
-      }
-      _order = 'complete_name'
-
-stock_location()
 
 #####################
 # Costs for renting out
