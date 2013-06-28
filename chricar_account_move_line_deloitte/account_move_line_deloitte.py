@@ -382,6 +382,15 @@ class chricar_account_move_line_deloitte(osv.osv):
          journal_id = journal_obj.search(cr, uid, [('company_id','=',company_id),('code','=','DE')], context=context)
          if journal_id: 
                  journal_id = journal_id[0] 
+         else:
+            raise osv.except_osv(_('Error :'), _('Deloite journal with code DE missing') )
+
+         journaln_id = journal_obj.search(cr, uid, [('company_id','=',company_id),('code','=','DEN')], context=context)
+         if journaln_id: 
+                 journaln_id = journaln_id[0] 
+         else:
+            raise osv.except_osv(_('Error :'), _('Deloite neutral journal with code DEN missing') )
+
          _logger.debug('FGF journal_id  %s' % (journal_id))
          #if not journal_id:
          #    journal_id = journal_obj.create(cr, uid, {'company_id':company_id, 'code':'DE', 'name':'Deloitte', 'type','general'})
