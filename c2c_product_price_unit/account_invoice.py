@@ -92,6 +92,12 @@ class account_invoice_line(osv.osv):
            return {'value': {field_name : price}}
         return res
 
+    def create(self, cr, uid, vals, context=None, check=True):
+        if not vals.get('price_unit_pu') and vals.get('price_unit'):
+            vals['price_unit_pu'] = vals['price_unit']
+        return super(account_move_line, self).create(cr, uid, vals, context=context)
+
+
 account_invoice_line()
 
 
