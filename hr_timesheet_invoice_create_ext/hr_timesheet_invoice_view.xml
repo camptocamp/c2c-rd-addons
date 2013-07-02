@@ -23,7 +23,7 @@
             <field name="type">search</field>
             <field name="inherit_id" ref="account.view_account_analytic_line_filter"/>
             <field name="arch" type="xml">
-                <xpath expr="/search/group/field[@name='account_id']" position="before">
+                <xpath expr="/search/field[@name='account_id']" position="before">
                     <field name="partner_id" string="Partner"/>
                 </xpath>
             </field>
@@ -35,12 +35,11 @@
             <field name="type">search</field>
             <field name="inherit_id" ref="account.view_account_analytic_line_filter"/>
             <field name="arch" type="xml">
-                <xpath expr="/search/group[@string='Group By...']/filter[@string='Account']" position="before">
+                <xpath expr="/search/group[@string='Group By...']/filter[@string='Analytic Account']" position="before">
                     <filter name="group_partner" string="Partner" icon="terp-partner" context="{'group_by':'partner_id'}"/>
                 </xpath>
             </field>
         </record>
-
 
     </data>
 </openerp>
