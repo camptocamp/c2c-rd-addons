@@ -1,17 +1,18 @@
-
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
 
         <!-- Inherits for account analytic lines -->
-        <record id="view_account_analytic_line_search_partner_inherit" model="ir.ui.view">
-            <field name="name">account.analytic.line.search.partner</field>
+
+
+        <record id="view_account_analytic_line_tree_inherit" model="ir.ui.view">
+            <field name="name">account.analytic.line.tree.partner</field>
             <field name="model">account.analytic.line</field>
-            <field name="type">search</field>
-            <field name="inherit_id" ref="account.view_account_analytic_line_filter"/>
+            <field name="type">tree</field>
+            <field name="inherit_id" ref="account.view_account_analytic_line_tree"/>
             <field name="arch" type="xml">
                 <field name="account_id" position="before">
-                    <filter name="partner_id" string="Partner"  />
+                    <field name="partner_id" invisible="1"/>
                 </field>
             </field>
         </record>
@@ -22,11 +23,24 @@
             <field name="type">search</field>
             <field name="inherit_id" ref="account.view_account_analytic_line_filter"/>
             <field name="arch" type="xml">
+                <xpath expr="/search/group/field[@name='account_id']" position="before">
+                    <field name="partner_id" string="Partner"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_account_analytic_line_search_partner_group_inherit" model="ir.ui.view">
+            <field name="name">account.analytic.line.group.partner</field>
+            <field name="model">account.analytic.line</field>
+            <field name="type">search</field>
+            <field name="inherit_id" ref="account.view_account_analytic_line_filter"/>
+            <field name="arch" type="xml">
                 <xpath expr="/search/group[@string='Group By...']/filter[@string='Account']" position="before">
                     <filter name="group_partner" string="Partner" icon="terp-partner" context="{'group_by':'partner_id'}"/>
                 </xpath>
             </field>
         </record>
+
 
     </data>
 </openerp>
