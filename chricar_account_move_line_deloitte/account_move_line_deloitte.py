@@ -329,9 +329,10 @@ class chricar_account_move_line_deloitte(osv.osv):
                  if analytic_usage == 'none':
                      l['analytic_account_id'] = ''
                  #_logger.debug('FGF move_line = %s' % (l))
-                 move_line_id = move_line_obj.create(cr, uid, l, context)
+                 #move_line_id = move_line_obj.create(cr, uid, l, context)
                  #move_line_id = super(account_move_line, self).create(cr, uid, l, context)
-
+                 return (0,0,l)
+	         # FIXME - analytic line is created automatically
                  if l.get('analytic_account_id',False):
                     l['general_account_id'] = line['account_id']
                     l['account_id'] = line['analytic_account_id']
@@ -560,7 +561,7 @@ company_id, vals['period_id'], vals['name'], )
              for line in cr.dictfetchall():
                  # FIXME - performance 
                  v = dict(line)
-                 #_logger.debug('FGF create_move v %s' % (v))
+                 _logger.debug('FGF create_move v %s' % (v))
                  v.update(vals)
                  _logger.debug('FGF create_move v %s' % (v))
                  v.update(context)
@@ -572,7 +573,7 @@ company_id, vals['period_id'], vals['name'], )
                  #try:
                      #self.create_move(cr, uid, line, vals, context )
                  #self.create_move(cr, uid, line, v, context )
-                 self.create_move(cr, uid, line, v, context )
+                 moves.append(self.create_move(cr, uid, line, v, context ))
                  if vals['period_id'] not in period_ids:
                      period_ids.append(vals['period_id'])
                  #except:
@@ -581,6 +582,8 @@ company_id, vals['period_id'], vals['name'], )
 
              #_logger.debug('FGF create_move moves %s' % (moves))
              #self.create_move(cr, uid, moves)
+             _logger.debug('FGF create_moves %s' % (moves))
+             move_obj.write(cr, uid, [move_id], {'line_id': moves},  c )
         
          journal_id = journal_obj.search(cr, uid, [('company_id','=',company_id),('code','=','DEN')], context=context)
          if journal_id:
