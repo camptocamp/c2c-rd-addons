@@ -217,16 +217,22 @@ class chricar_budget(osv.osv):
             product       = line.product_id.id
             fy_date_start = line.budget_version_id.budget_id.start_date
             fy_date_stop  = line.budget_version_id.budget_id.end_date
+            prod_lot_id   = line.prod_lot_id.id
+            prod_lot_string = ' and 1=1 '
+            if prod_lot_id:
+		prod_lot_string = ' and s.prodlot_id = %s ' % prod_lot_id
+		
             cr.execute("""select coalesce(sum(product_qty),0) from stock_move s,
                                                        stock_location l,
                                                        stock_location d
                                  where state='done'
+                                   %s
                                    and l.usage = 'production'
                                    and l.id = s.location_id
                                    and d.usage != 'production'
                                    and d.id = s.location_dest_id
                                    and product_id = %d
-                                   and to_char(date,'YYYY-MM-DD') between '%s' and '%s'""" % (product,fy_date_start,fy_date_stop))
+                                   and to_char(date,'YYYY-MM-DD') between '%s' and '%s'""" % (prod_lot_string,product,fy_date_start,fy_date_stop))
             harvest = cr.fetchone()
             self._logger.debug('harvest `%s` `%s` `%s` `%s`', product, fy_date_start, fy_date_stop, harvest[0])
             harvest = harvest[0]
@@ -391,15 +397,20 @@ class chricar_budget_surface(osv.osv):
             location      = line.location_id.id
             fy_date_start = line.budget_id.budget_version_id.budget_id.start_date
             fy_date_stop  = line.budget_id.budget_version_id.budget_id.end_date
+            prod_lot_string = ' and 1=1 '
+            if prod_lot_id:
+		prod_lot_string = ' and s.prodlot_id = %s ' % prod_lot_id
+
             self._logger.debug('harvest detail `%s` `%s` `%s` `%s`', product, location, fy_date_start, fy_date_stop)
             cr.execute("""select coalesce(sum(product_qty),0)  from stock_move s,
                                                        stock_location l
                                  where state='done'
+                                   %s
                                    and l.usage = 'production'
                                    and l.id = s.location_id
                                    and s.product_id = %d
                                    and s.location_id = %d
-                                   and to_char(date_expected,'YYYY-MM-DD') between '%s' and '%s'""" % (product,location,fy_date_start,fy_date_stop))
+                                   and to_char(date_expected,'YYYY-MM-DD') between '%s' and '%s'""" % (prod_lot_string,product,location,fy_date_start,fy_date_stop))
             harvest = cr.fetchone()
             harvest = harvest[0]
             self._logger.debug('harvest detail 2 `%s` `%s` `%s` `%s` `%s`', product, location, fy_date_start, fy_date_stop, harvest)
