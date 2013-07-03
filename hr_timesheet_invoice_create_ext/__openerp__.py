@@ -24,14 +24,16 @@
 , 'category'    : 'Sales Management'
 , 'description' : """
 This module will allow to spezify
+ * search for partner
  * invoice date, journal
  * automatic calculation of "Clearing period" and setting this as reference 
  * prefix for analytic account name
  * remove the default date of today as prefix for analytic account name
+ * group all projects in ONE invoice per partner
 """
 , 'author'      : 'Camptocamp Austria'
 , 'depends'     : [ 'hr_timesheet_invoice' ]
-, 'update_xml'  : ['wizard/hr_timesheet_invoice_create_view.xml']
+, 'update_xml'  : ['hr_timesheet_invoice_view.xml', 'wizard/hr_timesheet_invoice_create_view.xml']
 , 'demo_xml'    : []
 , 'installable' : True
 , 'active'      : False
