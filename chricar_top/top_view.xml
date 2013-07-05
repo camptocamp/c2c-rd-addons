@@ -391,6 +391,8 @@ Modification of Parents (only for matching table prefixes)
       <field name="arch" type="xml">
         <separator string="Additional Information" colspan="4" position="before">
          <separator colspan="4" string="Real Estate"/>
+          <field name="assessed_value"/>
+          <field name="assessed_date"/>
           <field name="operating_cost"/>
         </separator>
       </field>
