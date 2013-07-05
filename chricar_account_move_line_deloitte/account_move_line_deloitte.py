@@ -183,7 +183,7 @@ class chricar_account_move_line_deloitte(osv.osv):
        'fnr'                : fields.char    ('FNR', size=8),
        'lc'                 : fields.char    ('LC', size=8),
        'name'               : fields.char    ('Voucher', size=16, required=True),
-       'symbol'             : fields.char    ('Symbol', size=8),
+       'symbol'             : fields.char    ('Symbol', size=8, select=True),
        'tax_code'           : fields.char    ('Tax Code', size=8),
        'state'              : fields.selection([('draft','Draft'), ('progress','Progress'), ('done','Done')], 'State', required=True,)
 }
