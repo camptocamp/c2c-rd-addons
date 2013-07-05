@@ -397,6 +397,7 @@ class chricar_budget_surface(osv.osv):
             location      = line.location_id.id
             fy_date_start = line.budget_id.budget_version_id.budget_id.start_date
             fy_date_stop  = line.budget_id.budget_version_id.budget_id.end_date
+            prod_lot_id   = line.budget_id.prod_lot_id.id
             prod_lot_string = ' and 1=1 '
             if prod_lot_id:
 		prod_lot_string = ' and s.prodlot_id = %s ' % prod_lot_id
@@ -405,7 +406,7 @@ class chricar_budget_surface(osv.osv):
             cr.execute("""select coalesce(sum(product_qty),0)  from stock_move s,
                                                        stock_location l
                                  where state='done'
-                                   %s
+                                   %s 
                                    and l.usage = 'production'
                                    and l.id = s.location_id
                                    and s.product_id = %d
