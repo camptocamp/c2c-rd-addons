@@ -335,6 +335,8 @@ generated 2009-07-09 16:17:22+02
                 <tree string="Stock Location" >
                     <field name="complete_name"/>
                     <field name="operating_cost"/>
+                    <field name="assessed_value"/>
+                    <field name="assessed_date"/>
                 </tree>
             </field>
         </record>
