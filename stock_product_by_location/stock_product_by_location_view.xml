@@ -7,6 +7,35 @@ Product by Stock  (stock_product_by_location > stock_product_by_location)
 generated 2009-09-19 23:51:03+02
 ==============================================
 -->
+
+        <record id="view_move_by_location_search" model="ir.ui.view">
+            <field name="name">stock_move_by_location.search</field>
+            <field name="model">stock_move_by_location</field>
+            <field name="type">search</field>
+            <field eval="3" name="priority"/>
+            <field name="arch" type="xml">
+                <search string="Stock Moves">
+                    <group>
+                        <field name="product_id"/>
+                        <field name="location_id" string="Location" filter_domain="['|',('location_id','ilike',self),('location_dest_id','ilike',self)]"/>
+                        <field name="date"/>
+                        <field name="prodlot_id"/>
+                    </group>
+                    <newline/>
+                    <group expand="0" string="Group By..." groups="base.group_extended">
+                        <filter string="Product" name="by_product" icon="terp-accessories-archiver" domain="[]"  context="{'group_by':'product_id'}"/>
+                        <filter string="Picking" name="groupby_picking_id" icon="terp-accessories-archiver" domain="[]"  context="{'group_by':'picking_id'}"/>
+                        <filter string="Lot" name="groupby_prodlot_id" icon="terp-accessories-archiver" domain="[]"  context="{'group_by':'prodlot_id'}"/>
+                        <separator orientation="vertical"/>
+                        <filter string="Location" name="groupby_location_id" icon="terp-gtk-jump-to-rtl" domain="[]" context="{'group_by':'location_id'}"/>
+                        <separator orientation="vertical"/>
+                        <filter string="Delivered" name="groupby_date" icon="terp-go-month" domain="[]" context="{'group_by':'date'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+
     <record model="ir.ui.view" id="stock_move_by_location_form">
       <field name="name">stock_move_by_location.form</field>
       <field name="model">stock_move_by_location</field>
