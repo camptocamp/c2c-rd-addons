@@ -69,10 +69,14 @@ owners = ','.join([id for id in owner])
         </tr>
         %endif
 
-        %if ('assessed_value' in loc._columns or 'assessed_date' in loc._columns)  and  (loc.assessed_value or lov.assessed_date):
+        %if ('assessed_value' in loc._columns or 'assessed_date' in loc._columns)  and  (loc.assessed_value or loc.assessed_date):
         <tr>
         <td>${_("Asessed Value")}</td>
         <td>${formatLang(round(loc.assessed_value,0)) or '' | entity}</td>
+        </tr>
+        <tr>
+        <td>${_("Asessed Value Increased")}</td>
+        <td>${formatLang(round(loc.assessed_value_increased,0)) or '' | entity}</td>
         </tr>
         <tr>
         <td>${_("Asessed Date")}</td>
