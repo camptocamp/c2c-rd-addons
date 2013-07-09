@@ -86,7 +86,7 @@ owners = ','.join([id for id in owner])
         %if ('assessed_value_increased' in loc._columns and loc.assessed_value_increased):
         <tr>
         <td>${_("Property Tax")}</td>
-        <td>${loc.loc.assessed_value_increased * 0.01 or '' | entity}</td>
+        <td>${loc.assessed_value_increased * 0.01 or '' | entity}</td>
         </tr>
         %endif
  
