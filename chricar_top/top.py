@@ -171,6 +171,7 @@ class chricar_top(osv.osv):
                                                 ('office','Office'),
                                                 ('shop','Shop'),
                                                 ('flat','Flat'),
+                                                ('rural','Rural Property'),
                                                 ('parking','Parking')], 'Usage', required=True),
        'product_product_id' : fields.integer ('Product'),
        'sort'               : fields.integer ('Sort'),
