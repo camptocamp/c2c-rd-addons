@@ -487,4 +487,22 @@ class account_analytic_line(osv.osv):
 
     }
 
+    def _check_no_view1(self, cr, uid, ids, context=None):
+        analytic_lines = self.browse(cr, uid, ids, context=context)
+        for line in analytic_lines:
+            if line.account_id.type == 'view':
+                raise osv.except_osv(_('Error'), _('You cannot post on view account %s %s')% (line.account_id.code,line.account_id.name))
+
+                return False
+        return True
+
+    def _check_no_view(self, cr, uid, ids, context=None):
+        return True
+
+    _constraints = [
+        (_check_no_view1, 'You can not create analytic line on view account.', ['account_id']),
+    ]
+
+
+
 account_analytic_line()
