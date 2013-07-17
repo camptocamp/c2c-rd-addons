@@ -152,6 +152,41 @@ class chricar_budget(osv.osv):
         return res
 
 
+     def _qty_stock_prod_lot(self, cr, uid, ids, name, args, context=None):
+         """
+         Compute quantity on stock of this lot
+         """        
+         _logger = logging.getLogger(__name__) 
+
+         location_ids = self._get_locations(cr, uid, context)
+         res = {} 
+         for line in self.browse(cr, uid, ids, context=context): 
+             qty = 0
+             if line.prod_lot_id:
+                sql = """select -sum(product_qty) 
+                            from stock_move
+                        where prodlot_id = %s
+                            and location_id in  %s""" % ( line.prod_lot_id.id, tuple(location_ids)) 
+                _logger.debug('FGF lot qty %s' % (sql))
+                cr.execute(sql)
+                q = cr.fetchone()
+                if q[0]:
+                    qty += q[0]
+                sql = """select sum(product_qty) 
+                            from stock_move
+                        where prodlot_id = %s
+                            and location_dest_id in  %s""" % ( line.prod_lot_id.id, tuple(location_ids)) 
+                cr.execute(sql)
+                q = cr.fetchone()
+                if q[0]:
+                    qty += q[0]
+            
+             res[line.id] = qty 
+             _logger.debug('FGF lot qty res %s' % (res))
+
+         return res
+
+
      def _amount_prod_lot(self, cr, uid, ids, name, args, context=None):
          aml = self.pool.get('account.invoice')
          ail = self.pool.get('account.invoice.line')
@@ -338,7 +373,8 @@ class chricar_budget(osv.osv):
        'harvest_done'       : fields.function(_harvest_done, method=True, string='Harvest Done' ,type='char', help="Harvested production order state", readonly=True),
        'prod_lot_id'        : fields.many2one('stock.production.lot', 'Production Lot', domain="[('product_id','=',product_id)]"),
        'amount_prod_lot'    : fields.function(_amount_prod_lot, method=True, string='Sales Prod Lot' ,digits_compute=dp.get_precision('Budget'),help="Invoiced production lots"),
-       'product_qty_stock'  : fields.related ('product_id', 'qty_available', type="float",  string="Unsold Stock", readonly = True ,help="Uninvoiced quantitiy of this product"),
+       'product_qty_stock'  : fields.function(_qty_stock_prod_lot, method=True, string='Unsold Stock Lot' ,digits_compute=dp.get_precision('Budget'),help="Uninvoiced quantity on stock of this lot"),
+       'product_qty_stock_tot'  : fields.related ('product_id', 'qty_available', type="float",  string="Unsold Stock", readonly = True ,help="Uninvoiced quantitiy of this product"),
        'product_qty_lot'    : fields.related ('prod_lot_id','stock_available', type="float",  string="Uninvoiced Lot", readonly = True ,help="Uninvoiced quantitiy of this production lot"),
        'amount_qty_stock'   : fields.function(_amount_qty_stock, method=True, string='Unsold Stock Value' ,digits_compute=dp.get_precision('Budget'),help="Stock Qty * Planned Sale Price"),
        'amount_qty_lot'     : fields.function(_amount_qty_lot, method=True, string='Uninvoiced Lot Value' ,digits_compute=dp.get_precision('Budget'),help="Uninvoiced Lot Qty * Planned Sale Price"),
