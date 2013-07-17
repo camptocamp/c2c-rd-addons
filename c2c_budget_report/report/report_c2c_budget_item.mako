@@ -31,8 +31,10 @@ Selection:
 %if context['data']['form']['print_budget_1000'] == 1:
             <td>budget year in 1000</td>
 %endif
+<% print_view_only = False %>
 %if form and context['data']['form']['print_views_only'] == 1:
             <td>print only views</td>
+<% print_view_only = True %>
 %endif
             </tr>
   </table>
@@ -69,7 +71,7 @@ Selection:
 
  %for account in objects :
      <tbody >
-        
+    %if (print_view_only == True and account.type == 'view') or print_view_only == False :        
         %if (account.balance_budget !=0 or account.balance_real ):
         <tr>
           <td>${account.level or ''|entity}  </td>
@@ -97,6 +99,7 @@ Selection:
  %endif
         </tr>
         %endif
+       %endif
       </tbody>
  %endfor
     </table>

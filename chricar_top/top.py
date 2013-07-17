@@ -58,7 +58,9 @@ class stock_location(osv.osv):
          , 'top_ids'        : fields.one2many('chricar.top','location_id','Real Estate Top')
          , 'operating_cost' : fields.float   ('Monthly Operating Costs', digits=(10,2), help="""Operating Costs for Real Estate, will be calculated per m² for each Top""")
          , 'surface'   : fields.function(_get_surface, method=True, string="Surface", type='float', digits=(16,0))
-
+         , 'assessed_value' : fields.float   ('Assessed Value', digits=(10,0), help="""Assessed value for Austrian tax turpose (Einheitswert)""")
+         , 'assessed_value_increased' : fields.float   ('Assessed Value Increased', digits=(10,0), help="""Assessed value for Austrian tax turpose (erhöhter Einheitswert)""")
+         , 'assessed_date' : fields.date   ('Assessed Value Date',  help="""Date of assessed value for Austrian tax turpose (Einheitswertstichtag)""")
          }
      _order = 'complete_name'
 
@@ -169,6 +171,7 @@ class chricar_top(osv.osv):
                                                 ('office','Office'),
                                                 ('shop','Shop'),
                                                 ('flat','Flat'),
+                                                ('rural','Rural Property'),
                                                 ('parking','Parking')], 'Usage', required=True),
        'product_product_id' : fields.integer ('Product'),
        'sort'               : fields.integer ('Sort'),
