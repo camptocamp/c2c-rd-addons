@@ -72,7 +72,7 @@ class hr_timesheet_invoice_create(osv.osv_memory):
     def _lang_code(self, cr, uid, inv, invoice_language) :
         user = self.pool.get('res.users').browse(cr, uid, uid)
         if   invoice_language == 'user' :
-            return user.context_lang
+            return user.lang
         elif invoice_language == 'company' :
             return user.company_id.partner_id.lang
         elif invoice_language == 'partner' :
