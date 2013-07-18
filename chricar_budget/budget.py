@@ -152,6 +152,41 @@ class chricar_budget(osv.osv):
         return res
 
 
+     def _qty_stock_prod_lot(self, cr, uid, ids, name, args, context=None):
+         """
+         Compute quantity on stock of this lot
+         """        
+         _logger = logging.getLogger(__name__) 
+
+         location_ids = self._get_locations(cr, uid, context)
+         res = {} 
+         for line in self.browse(cr, uid, ids, context=context): 
+             qty = 0
+             if line.prod_lot_id:
+                sql = """select -sum(product_qty) 
+                            from stock_move
+                        where prodlot_id = %s
+                            and location_id in  %s""" % ( line.prod_lot_id.id, tuple(location_ids)) 
+                _logger.debug('FGF lot qty %s' % (sql))
+                cr.execute(sql)
+                q = cr.fetchone()
+                if q[0]:
+                    qty += q[0]
+                sql = """select sum(product_qty) 
+                            from stock_move
+                        where prodlot_id = %s
+                            and location_dest_id in  %s""" % ( line.prod_lot_id.id, tuple(location_ids)) 
+                cr.execute(sql)
+                q = cr.fetchone()
+                if q[0]:
+                    qty += q[0]
+            
+             res[line.id] = qty 
+             _logger.debug('FGF lot qty res %s' % (res))
+
+         return res
+
+
      def _amount_prod_lot(self, cr, uid, ids, name, args, context=None):
          aml = self.pool.get('account.invoice')
          ail = self.pool.get('account.invoice.line')
@@ -217,16 +252,22 @@ class chricar_budget(osv.osv):
             product       = line.product_id.id
             fy_date_start = line.budget_version_id.budget_id.start_date
             fy_date_stop  = line.budget_version_id.budget_id.end_date
+            prod_lot_id   = line.prod_lot_id.id
+            prod_lot_string = ' and 1=1 '
+            if prod_lot_id:
+		prod_lot_string = ' and s.prodlot_id = %s ' % prod_lot_id
+		
             cr.execute("""select coalesce(sum(product_qty),0) from stock_move s,
                                                        stock_location l,
                                                        stock_location d
                                  where state='done'
+                                   %s
                                    and l.usage = 'production'
                                    and l.id = s.location_id
                                    and d.usage != 'production'
                                    and d.id = s.location_dest_id
                                    and product_id = %d
-                                   and to_char(date,'YYYY-MM-DD') between '%s' and '%s'""" % (product,fy_date_start,fy_date_stop))
+                                   and to_char(date,'YYYY-MM-DD') between '%s' and '%s'""" % (prod_lot_string,product,fy_date_start,fy_date_stop))
             harvest = cr.fetchone()
             self._logger.debug('harvest `%s` `%s` `%s` `%s`', product, fy_date_start, fy_date_stop, harvest[0])
             harvest = harvest[0]
@@ -332,7 +373,8 @@ class chricar_budget(osv.osv):
        'harvest_done'       : fields.function(_harvest_done, method=True, string='Harvest Done' ,type='char', help="Harvested production order state", readonly=True),
        'prod_lot_id'        : fields.many2one('stock.production.lot', 'Production Lot', domain="[('product_id','=',product_id)]"),
        'amount_prod_lot'    : fields.function(_amount_prod_lot, method=True, string='Sales Prod Lot' ,digits_compute=dp.get_precision('Budget'),help="Invoiced production lots"),
-       'product_qty_stock'  : fields.related ('product_id', 'qty_available', type="float",  string="Unsold Stock", readonly = True ,help="Uninvoiced quantitiy of this product"),
+       'product_qty_stock'  : fields.function(_qty_stock_prod_lot, method=True, string='Unsold Stock Lot' ,digits_compute=dp.get_precision('Budget'),help="Uninvoiced quantity on stock of this lot"),
+       'product_qty_stock_tot'  : fields.related ('product_id', 'qty_available', type="float",  string="Unsold Stock", readonly = True ,help="Uninvoiced quantitiy of this product"),
        'product_qty_lot'    : fields.related ('prod_lot_id','stock_available', type="float",  string="Uninvoiced Lot", readonly = True ,help="Uninvoiced quantitiy of this production lot"),
        'amount_qty_stock'   : fields.function(_amount_qty_stock, method=True, string='Unsold Stock Value' ,digits_compute=dp.get_precision('Budget'),help="Stock Qty * Planned Sale Price"),
        'amount_qty_lot'     : fields.function(_amount_qty_lot, method=True, string='Uninvoiced Lot Value' ,digits_compute=dp.get_precision('Budget'),help="Uninvoiced Lot Qty * Planned Sale Price"),
@@ -391,15 +433,21 @@ class chricar_budget_surface(osv.osv):
             location      = line.location_id.id
             fy_date_start = line.budget_id.budget_version_id.budget_id.start_date
             fy_date_stop  = line.budget_id.budget_version_id.budget_id.end_date
+            prod_lot_id   = line.budget_id.prod_lot_id.id
+            prod_lot_string = ' and 1=1 '
+            if prod_lot_id:
+		prod_lot_string = ' and s.prodlot_id = %s ' % prod_lot_id
+
             self._logger.debug('harvest detail `%s` `%s` `%s` `%s`', product, location, fy_date_start, fy_date_stop)
             cr.execute("""select coalesce(sum(product_qty),0)  from stock_move s,
                                                        stock_location l
                                  where state='done'
+                                   %s 
                                    and l.usage = 'production'
                                    and l.id = s.location_id
                                    and s.product_id = %d
                                    and s.location_id = %d
-                                   and to_char(date_expected,'YYYY-MM-DD') between '%s' and '%s'""" % (product,location,fy_date_start,fy_date_stop))
+                                   and to_char(date_expected,'YYYY-MM-DD') between '%s' and '%s'""" % (prod_lot_string,product,location,fy_date_start,fy_date_stop))
             harvest = cr.fetchone()
             harvest = harvest[0]
             self._logger.debug('harvest detail 2 `%s` `%s` `%s` `%s` `%s`', product, location, fy_date_start, fy_date_stop, harvest)
