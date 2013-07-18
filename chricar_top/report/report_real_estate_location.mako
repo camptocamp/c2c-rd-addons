@@ -69,7 +69,29 @@ owners = ','.join([id for id in owner])
         </tr>
         %endif
 
-        %if ('rent_actual' in loc._columns and loc.rent_actual) or ('rent_plan' in loc._columns and loc.rent_plan):         
+        %if ('assessed_value' in loc._columns or 'assessed_date' in loc._columns)  and  (loc.assessed_value or loc.assessed_date):
+        <tr>
+        <td>${_("Asessed Value")}</td>
+        <td>${formatLang(round(loc.assessed_value,0)) or '' | entity}</td>
+        </tr>
+        <tr>
+        <td>${_("Asessed Value Increased")}</td>
+        <td>${formatLang(round(loc.assessed_value_increased,0)) or '' | entity}</td>
+        </tr>
+        <tr>
+        <td>${_("Asessed Date")}</td>
+        <td>${loc.assessed_date or '' | entity}</td>
+        </tr>
+        %endif
+        %if ('assessed_value_increased' in loc._columns and loc.assessed_value_increased):
+        <tr>
+        <td>${_("Property Tax")}</td>
+        <td>${loc.assessed_value_increased * 0.01 or '' | entity}</td>
+        </tr>
+        %endif
+ 
+
+      %if ('rent_actual' in loc._columns and loc.rent_actual) or ('rent_plan' in loc._columns and loc.rent_plan):
       <table>
         <thead>
       <br/>

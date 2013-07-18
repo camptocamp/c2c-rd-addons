@@ -41,6 +41,9 @@ class stock_location(osv.osv):
     _columns = \
         { 'blueprint' : fields.binary  ('Blueprint')
         , 'image'     : fields.binary  ('Image')
+         , 'assessed_value' : fields.float   ('Assessed Value', digits=(10,0), help="""Assessed value for Austrian tax turpose (Einheitswert)""")
+         , 'assessed_value_increased' : fields.float   ('Assessed Value Increased', digits=(10,0), help="""Assessed value for Austrian tax turpose (erhöhter Einheitswert)""")
+         , 'assessed_date' : fields.date   ('Assessed Value Date',  help="""Date of assessed value for Austrian tax turpose (Einheitswertstichtag)""")
         }
 
 stock_location()
@@ -156,6 +159,7 @@ class chricar_top(osv.osv):
                                                ('office','Office'),
                                                ('shop','Shop'),
                                                ('flat','Flat'),
+                                                ('rural','Rural Property'),
                                                ('parking','Parking')], 'Usage', required=True),
       'product_product_id' : fields.integer ('Product'),
       'sort'               : fields.integer ('Sort'),

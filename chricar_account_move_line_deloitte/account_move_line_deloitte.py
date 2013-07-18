@@ -183,7 +183,7 @@ class chricar_account_move_line_deloitte(osv.osv):
       'fnr'                : fields.char    ('FNR', size=8),
       'lc'                 : fields.char    ('LC', size=8),
       'name'               : fields.char    ('Voucher', size=16, required=True),
-      'symbol'             : fields.char    ('Symbol', size=8),
+       'symbol'             : fields.char    ('Symbol', size=8, select=True),
       'tax_code'           : fields.char    ('Tax Code', size=8),
       'state'              : fields.selection([('draft','Draft'), ('progress','Progress'), ('done','Done')], 'State', required=True,)
 }
@@ -329,9 +329,10 @@ class chricar_account_move_line_deloitte(osv.osv):
             if analytic_usage == 'none':
                 l['analytic_account_id'] = ''
             #_logger.debug('FGF move_line = %s' % (l))
-            move_line_id = move_line_obj.create(cr, uid, l, context)
+                 #move_line_id = move_line_obj.create(cr, uid, l, context)
             #move_line_id = super(account_move_line, self).create(cr, uid, l, context)
-
+                 return (0,0,l)
+	         # FIXME - analytic line is created automatically
             if l.get('analytic_account_id',False):
                 l['general_account_id'] = line['account_id']
                 l['account_id'] = line['analytic_account_id']
@@ -551,7 +552,7 @@ company_id, vals['period_id'], vals['name'], )
             for line in cr.dictfetchall():
             # FIXME - performance
                 v = dict(line)
-                #_logger.debug('FGF create_move v %s' % (v))
+                 _logger.debug('FGF create_move v %s' % (v))
                 v.update(vals)
                 _logger.debug('FGF create_move v %s' % (v))
                 v.update(context)
@@ -563,7 +564,7 @@ company_id, vals['period_id'], vals['name'], )
                 #try:
                 #self.create_move(cr, uid, line, vals, context )
                 #self.create_move(cr, uid, line, v, context )
-                self.create_move(cr, uid, line, v, context )
+                 moves.append(self.create_move(cr, uid, line, v, context ))
                 if vals['period_id'] not in period_ids:
                     period_ids.append(vals['period_id'])
                 #except:
@@ -572,6 +573,8 @@ company_id, vals['period_id'], vals['name'], )
 
             #_logger.debug('FGF create_move moves %s' % (moves))
             #self.create_move(cr, uid, moves)
+             _logger.debug('FGF create_moves %s' % (moves))
+             move_obj.write(cr, uid, [move_id], {'line_id': moves},  c )
 
         journal_id = journal_obj.search(cr, uid, [('company_id','=',company_id),('code','=','DEN')], context=context)
         if journal_id:
@@ -615,7 +618,7 @@ where aj.id = am.journal_id
   and aml.state='valid'
   and am.company_id = %s
   and am.period_id = %s
-  --and am.state='posted'
+   and am.state='posted'
 group by account_id,analytic_account_id
 having sum(case when debit is null then 0 else debit end) != 0
 union all
@@ -632,21 +635,23 @@ where aj.id = am.journal_id
   and aml.state='valid'
   and am.company_id = %s
   and am.period_id = %s
-  --and am.state='posted'
+   and am.state='posted'
 group by account_id,analytic_account_id
 having sum(case when credit is null then 0 else credit end) != 0
 """ % (company_id,move['period_id'],
      company_id,move['period_id']))
-
+             moves = [] 
             for line in cr.dictfetchall():
                 #try:
                 line['name'] = 'neutral-'+ move['date'],
                 _logger.debug('FGF create_move neutral move line %s %s' % ( vals,context))
-                self.create_move(cr, uid, line, vals, context )
+                    #self.create_move(cr, uid, line, vals, context )
+                    moves.append(self.create_move(cr, uid, line, vals, context ))
                 #except:
                 #   raise osv.except_osv(_('Error :'), _('FGF Error neutralize %s %s') % (line, vals ))
+                   
 
-
+             move_obj.write(cr, uid, [move_id], {'line_id': moves},  c )  
         self.write(cr, uid, acc_deloitte_ids, {'state': 'done'} )
         # period_ids are stored incorrectly - no idea why
         cr.execute("""

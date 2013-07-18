@@ -200,7 +200,7 @@ Modification of Parents (only for matching table prefixes)
     </record>
     <record model="ir.ui.view" id="chricar_top_tenant_form2">
       <field name="name">chricar.top.form2</field>
-      <field name="model">chricar.top</field>
+      <field name="model">chrchricaricar.top</field>
       <field name="inherit_id" ref="chricar_top_tenant_form1"/>
       <field name="arch" type="xml">
         <field name="lease_target" position="after">
@@ -220,7 +220,7 @@ Modification of Parents (only for matching table prefixes)
           <field name="lease_current_m2"/>
           <field name="lease_current" sum="Sum Current"/>
           <field name="lease_potential" sum="Sum Potential"/>
-          <field name="tenant_id" />
+          <field name="tenant_id"/>
           <field name="unpaid_rate"/>
         </field>
       </field>
@@ -241,6 +241,30 @@ Modification of Parents (only for matching table prefixes)
         </field>
       </field>
     </record>
+    
+    <record id="chricar_top_filter" model="ir.ui.view">
+      <field name="name">chricar.top.list.filter</field>
+      <field name="model">chricar.top</field>  
+      <field name="inherit_id" ref="chricar_top.chricar_top_filter"/>
+      <field name="arch" type="xml">
+          <field name="usage" position="after">
+              <field name="tenant_id"/>
+        </field>
+      </field>
+    </record>
+              
+    <record id="chricar_top_filter2" model="ir.ui.view">
+      <field name="name">chricar.top.list.filter2</field>
+      <field name="model">chricar.top</field>  
+      <field name="inherit_id" ref="chricar_top.chricar_top_filter"/>
+      <field name="arch" type="xml">
+          <xpath expr="/search/group/filter[@string='Usage']" position="after">
+              <filter string="Tenant" domain="[]"  context="{'group_by':'tenant_id'}"/>
+        </xpath>
+      </field>
+    </record>
+          
+
     <!--
 links to helpdesk
    -->
