@@ -37,6 +37,7 @@ class c2c_budget_create(osv.osv_memory):
         'period_to': fields.many2one('account.period', 'End period', required=True),
         'create_items': fields.boolean('Create Missing Budget Items', help="This will create a budget item structure identical to account structure"),
         'replace_lines': fields.boolean('Replace Existing Budget Lines', help="Only lines created by this wizard will be removed for the selected matching periods"),
+        'exclude_product_plan' : fields.boolean('Exclude P&L accounts ', help="Excludes P&L accounts associated with product budget"),
     }
     _defaults = {
         'create_items' : lambda *a: True,
@@ -49,6 +50,10 @@ class c2c_budget_create(osv.osv_memory):
         delete_ids = budget_lines_obj.search(cr, uid, [('period_id','in', periods),('period_source_id','!=', False)],  )
         if delete_ids:
             budget_lines_obj.unlink(cr, uid, delete_ids);
+
+    def _product_account_ids(self, cr, uid, budget_id):
+        res = []
+        return res
         
     def c2c_budget_create(self, cr, uid, ids, context=None):
         if not context:
@@ -119,6 +124,8 @@ class c2c_budget_create(osv.osv_memory):
                    'name' : _('Sum Prev Period'),
                    }
             vals =[]
+            
+            account_ids = self._product_account_ids(cr, uid, budget_version_id)
 
             cr.execute("""
 select -sum(l.debit-l.credit) as amount, l.analytic_account_id, budget_item_id, l.period_id as period_source_id
@@ -129,7 +136,8 @@ where l.period_id in (%s)
   and r.account_id = l.account_id
   and r.budget_item_id = i.id
   and l.company_id = %s
-group by l.analytic_account_id, budget_item_id, l.period_id""" % (','.join(map(str,periods)), company_id))
+  and l.account_id not in %s
+group by l.analytic_account_id, budget_item_id, l.period_id""" % (','.join(map(str,periods)), company_id, tuple(account_ids)))
             
             for line in cr.dictfetchall():
                 _logger.debug('FGF line %s' % ( line))
