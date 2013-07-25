@@ -137,6 +137,8 @@ class res_partner(osv.osv):
     def create(self, cr, uid, vals, context=None):
         if vals.get('name') and not vals.get('last_name') or ( vals.get('last_name') and not vals['last_name']):
             vals['last_name'] = vals['name']
+        if vals.get('last_name') and not vals.get('name'):
+            vals['name'] = vals['last_name']
         res = super(res_partner, self).create(cr, uid, vals, context)
         return res
 
