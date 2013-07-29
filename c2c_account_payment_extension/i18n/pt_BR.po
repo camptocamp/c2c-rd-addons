@@ -1,0 +1,58 @@
+# Brazilian Portuguese translation for c2c-rd-addons
+# Copyright (c) 2013 Rosetta Contributors and Canonical Ltd 2013
+# This file is distributed under the same license as the c2c-rd-addons package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2013.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: c2c-rd-addons\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2012-01-23 22:03+0000\n"
+"PO-Revision-Date: 2013-07-28 14:18+0000\n"
+"Last-Translator: Claudio de Araujo Santos <claudioaraujosantos@gmail.com>\n"
+"Language-Team: Brazilian Portuguese <pt_BR@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2013-07-29 05:44+0000\n"
+"X-Generator: Launchpad (build 16700)\n"
+
+#. module: c2c_account_payment_extension
+#: sql_constraint:account.invoice:0
+msgid "Invoice Number must be unique per Company!"
+msgstr "Número da fatura deve ser exclusivo por Empresa!"
+
+#. module: c2c_account_payment_extension
+#: constraint:account.invoice:0
+msgid "You must not define an analytic account."
+msgstr "Você não deve definir uma conta analítica."
+
+#. module: c2c_account_payment_extension
+#: constraint:res.partner:0
+msgid "Error: Invalid EAN code"
+msgstr "Erro: código EAN inválido"
+
+#. module: c2c_account_payment_extension
+#: model:ir.model,name:c2c_account_payment_extension.model_payment_type
+msgid "Payment types"
+msgstr "Tipos de pagamento"
+
+#. module: c2c_account_payment_extension
+#: model:ir.model,name:c2c_account_payment_extension.model_account_invoice
+msgid "Invoice"
+msgstr "Invoice"
+
+#. module: c2c_account_payment_extension
+#: model:ir.model,name:c2c_account_payment_extension.model_res_partner
+msgid "Partner"
+msgstr "Parceiro"
+
+#. module: c2c_account_payment_extension
+#: constraint:account.invoice:0
+msgid "You must not alter a fixed analytic account."
+msgstr "Você não deve alterar a conta analítica fixa."
+
+#. module: c2c_account_payment_extension
+#: constraint:account.invoice:0
+msgid "You must assign an analytic account.(invoice)"
+msgstr "Você deve atribuir uma conta analítica. (Fatura)"

@@ -1,0 +1,82 @@
+# Brazilian Portuguese translation for c2c-rd-addons
+# Copyright (c) 2013 Rosetta Contributors and Canonical Ltd 2013
+# This file is distributed under the same license as the c2c-rd-addons package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2013.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: c2c-rd-addons\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2012-01-23 22:09+0000\n"
+"PO-Revision-Date: 2013-07-28 14:15+0000\n"
+"Last-Translator: Claudio de Araujo Santos <claudioaraujosantos@gmail.com>\n"
+"Language-Team: Brazilian Portuguese <pt_BR@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2013-07-29 05:44+0000\n"
+"X-Generator: Launchpad (build 16700)\n"
+
+#. module: report_webkit_c2c_templates
+#: model:ir.model,name:report_webkit_c2c_templates.model_ir_header_webkit
+msgid "ir.header_webkit"
+msgstr "ir.header_webkit"
+
+#. module: report_webkit_c2c_templates
+#: sql_constraint:res.company:0
+msgid "The company name must be unique !"
+msgstr "O nome da empresa deve ser exclusivo!"
+
+#. module: report_webkit_c2c_templates
+#: field:res.company,commercial_register:0
+msgid "Commercial Register"
+msgstr "Registo Comercial"
+
+#. module: report_webkit_c2c_templates
+#: field:res.company,registered_office:0
+msgid "Registered Office"
+msgstr "Sede"
+
+#. module: report_webkit_c2c_templates
+#: help:res.company,commercial_register:0
+msgid "Commerical Register to be printed on webkit invoice"
+msgstr "Registro Comercial a ser impresso na fatura webkit"
+
+#. module: report_webkit_c2c_templates
+#: constraint:res.company:0
+msgid "Error! You can not create recursive companies."
+msgstr "Erro! Você não pode criar empresas recursivas."
+
+#. module: report_webkit_c2c_templates
+#: help:res.company,company_bank_id:0
+msgid ""
+"Bank Account Number, default own company bank account to be printed with "
+"webkit"
+msgstr ""
+"Número de conta bancária, por conta própria default bancária da empresa a "
+"ser impresso com webkit"
+
+#. module: report_webkit_c2c_templates
+#: field:ir.header_webkit,report_company_bank_id:0
+#: field:res.company,company_bank_id:0
+msgid "Bank Account"
+msgstr "Conta bancária"
+
+#. module: report_webkit_c2c_templates
+#: model:ir.model,name:report_webkit_c2c_templates.model_res_company
+msgid "Companies"
+msgstr "Empresas"
+
+#. module: report_webkit_c2c_templates
+#: help:res.company,registered_office:0
+msgid "Register Office to be printed on webkit invoice"
+msgstr "Registre Office para ser impresso na fatura webkit"
+
+#. module: report_webkit_c2c_templates
+#: help:ir.header_webkit,report_company_bank_id:0
+msgid ""
+"Bank Account Number, company bank account to be printed with this webkit "
+"template"
+msgstr ""
+"Número de conta bancária, conta bancária da empresa a ser impresso com este "
+"modelo webkit"

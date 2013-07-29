@@ -1,0 +1,65 @@
+# Brazilian Portuguese translation for c2c-rd-addons
+# Copyright (c) 2013 Rosetta Contributors and Canonical Ltd 2013
+# This file is distributed under the same license as the c2c-rd-addons package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2013.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: c2c-rd-addons\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2012-01-23 22:04+0000\n"
+"PO-Revision-Date: 2013-07-28 14:19+0000\n"
+"Last-Translator: Claudio de Araujo Santos <claudioaraujosantos@gmail.com>\n"
+"Language-Team: Brazilian Portuguese <pt_BR@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2013-07-29 05:44+0000\n"
+"X-Generator: Launchpad (build 16700)\n"
+
+#. module: c2c_reporting_tools
+#: code:addons/c2c_reporting_tools/flowables/timebox_chart.py:102
+#, python-format
+msgid "Months"
+msgstr "Meses"
+
+#. module: c2c_reporting_tools
+#: code:addons/c2c_reporting_tools/flowables/timebox_chart.py:104
+#, python-format
+msgid "Days"
+msgstr "Dias"
+
+#. module: c2c_reporting_tools
+#: code:addons/c2c_reporting_tools/flowables/timebox_chart.py:101
+#, python-format
+msgid "Years"
+msgstr "Anos"
+
+#. module: c2c_reporting_tools
+#: code:addons/c2c_reporting_tools/flowables/simple_row_table.py:134
+#, python-format
+msgid "User"
+msgstr "Usuario"
+
+#. module: c2c_reporting_tools
+#: code:addons/c2c_reporting_tools/flowables/simple_row_table.py:138
+#, python-format
+msgid "Time"
+msgstr "Time"
+
+#. module: c2c_reporting_tools
+#: code:addons/c2c_reporting_tools/flowables/timebox_chart.py:103
+#, python-format
+msgid "Weeks"
+msgstr "Semanas"
+
+#. module: c2c_reporting_tools
+#: code:addons/c2c_reporting_tools/flowables/simple_row_table.py:137
+#, python-format
+msgid "Projects"
+msgstr "Projetos"
+
+#. module: c2c_reporting_tools
+#: model:ir.model,name:c2c_reporting_tools.model_c2c_helper
+msgid "c2c_helper"
+msgstr "c2c_helper"

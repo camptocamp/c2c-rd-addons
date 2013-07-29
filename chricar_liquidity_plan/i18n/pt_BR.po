@@ -1,0 +1,100 @@
+# Brazilian Portuguese translation for c2c-rd-addons
+# Copyright (c) 2013 Rosetta Contributors and Canonical Ltd 2013
+# This file is distributed under the same license as the c2c-rd-addons package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2013.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: c2c-rd-addons\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2012-01-23 22:06+0000\n"
+"PO-Revision-Date: 2013-07-28 14:33+0000\n"
+"Last-Translator: Claudio de Araujo Santos <claudioaraujosantos@gmail.com>\n"
+"Language-Team: Brazilian Portuguese <pt_BR@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2013-07-29 05:44+0000\n"
+"X-Generator: Launchpad (build 16700)\n"
+
+#. module: chricar_liquidity_plan
+#: field:chricar.liquidity.category,name:0
+#: field:chricar.liquidity_plan,category_id:0
+msgid "Category"
+msgstr "Categoria"
+
+#. module: chricar_liquidity_plan
+#: field:chricar.liquidity_plan,name:0
+msgid "Description"
+msgstr "Description"
+
+#. module: chricar_liquidity_plan
+#: model:ir.model,name:chricar_liquidity_plan.model_chricar_liquidity_category
+msgid "chricar.liquidity.category"
+msgstr "chricar.liquidity.category"
+
+#. module: chricar_liquidity_plan
+#: field:chricar.liquidity_plan,partner_comp_id:0
+msgid "Company"
+msgstr "Empresa"
+
+#. module: chricar_liquidity_plan
+#: help:chricar.liquidity.category,name:0
+msgid "Groups Entries"
+msgstr "Grupos de Entradas"
+
+#. module: chricar_liquidity_plan
+#: view:chricar.liquidity_plan:0
+msgid "Liquidity"
+msgstr "Liquidez"
+
+#. module: chricar_liquidity_plan
+#: view:chricar.liquidity_plan:0
+msgid "invisible"
+msgstr "invisível"
+
+#. module: chricar_liquidity_plan
+#: field:chricar.liquidity_plan,amount:0
+msgid "Amount"
+msgstr "Amount"
+
+#. module: chricar_liquidity_plan
+#: view:chricar.liquidity_plan:0
+msgid "Sum Amount"
+msgstr "Soma Valor"
+
+#. module: chricar_liquidity_plan
+#: field:chricar.liquidity_plan,amount_cum:0
+msgid "Amount Cum"
+msgstr "Quantidade Cum"
+
+#. module: chricar_liquidity_plan
+#: field:chricar.liquidity_plan,date_planning:0
+msgid "Date"
+msgstr "Date"
+
+#. module: chricar_liquidity_plan
+#: field:chricar.liquidity_plan,partner_id:0
+msgid "Partner"
+msgstr "Parceiro"
+
+#. module: chricar_liquidity_plan
+#: model:ir.actions.act_window,name:chricar_liquidity_plan.chricar_liquidity_plan_act1
+#: model:ir.ui.menu,name:chricar_liquidity_plan.menu_chricar_liquidity_plan_list
+msgid "Cash FLow Plan"
+msgstr "Plano de Fluxo de Caixa"
+
+#. module: chricar_liquidity_plan
+#: field:chricar.liquidity_plan,partner_comp_accumulated:0
+msgid "Amount Cum/Comp"
+msgstr "Quantidade Cum / Comp"
+
+#. module: chricar_liquidity_plan
+#: help:chricar.liquidity_plan,name:0
+msgid "Purpose of cash flow"
+msgstr "Finalidade do fluxo de caixa"
+
+#. module: chricar_liquidity_plan
+#: model:ir.model,name:chricar_liquidity_plan.model_chricar_liquidity_plan
+msgid "chricar.liquidity_plan"
+msgstr "chricar.liquidity_plan"

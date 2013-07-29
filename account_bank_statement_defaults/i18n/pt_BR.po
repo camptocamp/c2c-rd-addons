@@ -1,0 +1,46 @@
+# Brazilian Portuguese translation for c2c-rd-addons
+# Copyright (c) 2013 Rosetta Contributors and Canonical Ltd 2013
+# This file is distributed under the same license as the c2c-rd-addons package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2013.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: c2c-rd-addons\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2012-01-23 22:02+0000\n"
+"PO-Revision-Date: 2013-07-28 13:59+0000\n"
+"Last-Translator: Claudio de Araujo Santos <claudioaraujosantos@gmail.com>\n"
+"Language-Team: Brazilian Portuguese <pt_BR@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2013-07-29 05:44+0000\n"
+"X-Generator: Launchpad (build 16700)\n"
+
+#. module: account_bank_statement_defaults
+#: model:ir.model,name:account_bank_statement_defaults.model_account_bank_statement_line
+msgid "Bank Statement Line"
+msgstr "Banco Linha Declaração"
+
+#. module: account_bank_statement_defaults
+#: constraint:account.bank.statement.line:0
+msgid "You must not define an analytic account."
+msgstr "Você não deve definir uma conta analítica."
+
+#. module: account_bank_statement_defaults
+#: constraint:account.bank.statement.line:0
+msgid "You must not alter a fixed analytic account."
+msgstr "Você não deve alterar a conta analítica fixa."
+
+#. module: account_bank_statement_defaults
+#: constraint:account.bank.statement.line:0
+msgid ""
+"The amount of the voucher must be the same amount as the one on the "
+"statement line"
+msgstr ""
+"O valor do voucher deve ser o mesmo valor que o da linha de instrução"
+
+#. module: account_bank_statement_defaults
+#: constraint:account.bank.statement.line:0
+msgid "You must assign an analytic account.(bank)"
+msgstr "Você deve atribuir uma conta analítica. (Banco)"
