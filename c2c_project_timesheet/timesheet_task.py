@@ -115,20 +115,22 @@ class project_work(osv.osv):
             if 'user_id' not in vals:
                vals['user_id'] = work.user_id.id
             res.append( super(project_work,self).write(cr, uid, ids, vals, context))
+        for work in self.browse(cr, uid, ids, context=context):
             if work.hr_analytic_timesheet_id and work.hr_analytic_timesheet_id.line_id:
+                timeline_id = work.hr_analytic_timesheet_id.id
                 name = work.task_id.name
                 if work.name:
                     name  += ': ' + work.name
-                val = {
+                vals = {
                    'to_invoice': work.to_invoice.id,
                    'name' : name,
                    'account_id' : work.task_id.project_id.analytic_account_id.id,
                    }
                 product_id = self._get_product(cr, uid, work.id)
                 if product_id:
-                    val['product_id'] = product_id
-                self._logger.debug('FGF update analytic `%s` `%s`', work.hr_analytic_timesheet_id.line_id.id, val)
-                obj_analytic_line.write(cr, uid, [work.hr_analytic_timesheet_id.line_id.id], val)
+                    vals['product_id'] = product_id
+                self._logger.debug('FGF update analytic `%s` `%s`', work.hr_analytic_timesheet_id.line_id.id, vals)
+                obj_analytic_line.write(cr, uid, [work.hr_analytic_timesheet_id.line_id.id], vals)
                 task_obj.write(cr, uid, [work.task_id.id], {'remaining_hours' : work.task_id.remaining_hours})
                 
         return res
