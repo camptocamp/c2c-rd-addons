@@ -110,7 +110,7 @@ class chricar_budget(osv.osv):
      def _amount_qty_stock(self, cr, uid, ids, name, args, context=None):
         res = {}
         for line in self.browse(cr, uid, ids, context=context):
-            res[line.id] = max( ((line.product_qty_stock * (line.price_expected or line.price) / line.price_unit_id.coefficient) - line.amount_qty_lot), 0)
+            res[line.id] = max( ((line.product_qty_stock * (line.price_expected or line.price) / line.price_unit_id.coefficient) ), 0)
         return res
 
      def _get_locations(self, cr, uid, context):
@@ -172,6 +172,7 @@ class chricar_budget(osv.osv):
                 q = cr.fetchone()
                 if q[0]:
                     qty += q[0]
+
                 sql = """select sum(product_qty) 
                             from stock_move
                         where prodlot_id = %s
@@ -182,7 +183,6 @@ class chricar_budget(osv.osv):
                     qty += q[0]
             
              res[line.id] = qty 
-             _logger.debug('FGF lot qty res %s' % (res))
 
          return res
 

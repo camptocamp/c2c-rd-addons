@@ -168,11 +168,31 @@ class account_move(osv.osv):
         for post_id in move_post_post_ids:
             if post_id not in move_pre_post_ids:
                 move_ids.append(post_id)
+        if move_ids:
+            self._compute_sum(cr, uid, move_ids,'+')
+
         _logger.debug('FGF sql move_ids `%s`,`%s`, `%s`, `%s`' % (ids, move_pre_post_ids, move_post_post_ids,  move_ids))
-        if not move_ids:
-            return res
-        self._compute_sum(cr, uid, move_ids,'+')
         return res
+
+    def button_cancel(self, cr, uid, ids, context=None):
+        """
+        we must have this, because post uses a sql statment to update state to posted
+        """
+        if context is None:
+            context = {}
+        _logger = logging.getLogger(__name__)
+        move_pre_post_ids = self.search(cr, uid, [('id','in',ids),('state','=','posted')])
+        res = super(account_move, self).button_cancel(cr, uid, ids, context)
+        move_post_post_ids = self.search(cr, uid, [('id','in',ids),('state','=','posted')])
+        move_ids = []
+        for post_id in move_pre_post_ids:
+            if post_id not in move_post_post_ids:
+                move_ids.append(post_id)
+        if move_ids:
+            self._compute_sum(cr, uid, move_ids,'-')
+        _logger.debug('FGF sql move_ids `%s`,`%s`, `%s`, `%s`' % (ids, move_pre_post_ids, move_post_post_ids,  move_ids))
+        return res
+
 
     def _get_moves_state(self, cr, uid, ids, vals=None):
         moves_state  = {}

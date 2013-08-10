@@ -55,7 +55,7 @@ class stock_location(osv.osv):
             values = {}
 
             sql = """
-            select distinct a.code,a.name as account,company_id ,t.name
+            select distinct a.code,a.name as account,a.company_id ,t.name
               from location_income_tax l,
                    account_account a,
                    account_account_type t

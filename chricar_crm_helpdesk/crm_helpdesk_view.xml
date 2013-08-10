@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
   <data>
+<!--
+Replace default help context
+-->
+
+        <record model="ir.actions.act_window" id="crm_helpdesk.crm_case_helpdesk_act111">
+            <field name="name">Helpdesk Requests</field>
+            <field name="res_model">crm.helpdesk</field>
+            <field name="view_mode">tree,calendar,form</field>
+            <field name="view_id" ref="crm_helpdesk.crm_case_tree_view_helpdesk"/>
+            <field name="search_view_id" ref="crm_helpdesk.view_crm_case_helpdesk_filter"/>
+            <field name="context">{"search_default_state_unclosed":1}</field>
+            <field name="help">Helpdesk and Support allow you to track your interventions. Select a customer, add notes and categorize interventions with partners if necessary. You can also assign a priority level. Use the OpenERP Issues system to manage your support activities. Issues can be connected to the email gateway: new emails may create issues, each of them automatically gets the history of the conversation with the customer.</field>
+        </record>
+
     <record model="ir.ui.view" id="c2c_crm_case_form_view_helpdesk">
       <field name="name">c2c.crm.helpdesk</field>
       <field name="model">crm.helpdesk</field>
@@ -75,7 +89,7 @@
       <field name="arch" type="xml">
         <search string="Search Helpdesk">
           <filter
-            domain="[('date::date','=',time.strftime('%%Y-%%m-%%d'))]"
+            domain="[('date','&lt;=',(datetime.date.today()+datetime.timedelta(days=1)).strftime('%%Y-%%m-%%d')),('date','&gt;=',(datetime.date.today()-datetime.timedelta(days=1)).strftime('%%Y-%%m-%%d'))]"
             help="Todays's Helpdesk Requests"
             icon="terp-go-today"
             separator="1"
@@ -97,19 +111,19 @@
             domain="[('state','=','open')]"
             help="Open Cases"
             icon="terp-check"
-            name="state"
+            name="state_open"
             string="Open"/>
           <filter
             domain="[('state','=','draft')]"
             help="Draft Cases"
             icon="terp-check"
-            name="state"
+            name="state_draft"
             string="Draft"/>
           <filter
             domain="[('state','in',['open','draft','pending'])]"
             help="Unclosd Cases"
             icon="terp-check"
-            name="state"
+            name="state_unclosed"
             string="Unclosed"/>
           <separator orientation="vertical"/>
           <field name="name"  string="Query"/>

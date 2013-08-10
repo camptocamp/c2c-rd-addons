@@ -15,6 +15,7 @@
             <separator string="Controls" colspan="4"/>
             <field name="replace_lines"/>
             <field name="create_items"/>
+            <field name="exclude_product_plan"/>
           </group>
           <separator string="This will create missing budget items and budget lines based on account move lines of selected periods" colspan="4"/>
           <group colspan="4" col="6">
