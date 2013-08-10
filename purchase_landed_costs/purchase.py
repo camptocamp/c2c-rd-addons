@@ -80,16 +80,24 @@ class purchase_order_line(osv.osv):
     def _landing_cost_order(self, cr, uid, ids, name, args, context):
         if not ids : return {}
         result = {}
-        # landed costss for the line
+        # landed costs for the line
         for line in self.browse(cr, uid, ids):
             landed_costs = 0.0
-            # distrubution of landed costs of PO
+            # distribution of landed costs of PO
             if line.order_id.landed_cost_line_ids:
-               landed_costs += line.order_id.landed_cost_base_value / line.order_id.amount_total * line.price_subtotal + \
+                landed_costs += line.order_id.landed_cost_base_value / line.order_id.amount_total * line.price_subtotal + \
                         line.order_id.landed_cost_base_quantity / line.order_id.quantity_total * line.product_qty
             result[line.id] = landed_costs
 
         return result
+
+    def _landing_cost_factor(self, cr, uid, ids, name, args, context):
+        """
+        Calculates the percentage of landing costs that should be put on this order line
+        """
+        for line in self.browse(cr, uid, ids):
+            if line.landed_cost_line_ids:
+                pass
 
 
     def _landed_cost(self, cr, uid, ids, name, args, context):
@@ -124,7 +132,7 @@ class purchase_order(osv.osv):
         for line in self.browse(cr, uid, ids):
             if line.landed_cost_line_ids:
                 for costs in line.landed_cost_line_ids:
-                    if costs.product_id.landed_cost_type == 'value':
+                    if costs.price_type == 'value':
                         landed_costs_base_value += costs.amount
             result[line.id] = landed_costs_base_value
         return result
@@ -136,7 +144,7 @@ class purchase_order(osv.osv):
         for line in self.browse(cr, uid, ids):
             if line.landed_cost_line_ids:
                 for costs in line.landed_cost_line_ids:
-                    if costs.product_id.landed_cost_type == 'per_unit':
+                    if costs.price_type == 'per_unit':
                          landed_costs_base_quantity += costs.amount
             result[line.id] = landed_costs_base_quantity
         return result
@@ -198,6 +206,16 @@ class purchase_order(osv.osv):
 
         return res
 
+    def _get_product_account_expense_id(self, product):
+        """
+        Returns the product's account expense id if present
+        or it's parent categories account expense id otherwise
+        """
+        if product.property_account_expense.id:
+            return product.property_account_expense.id
+        return product.categ_id.property_account_expense_categ.id
+            
+
     def _create_pickings(self, cr, uid, order, order_lines, picking_id=False, context=None): 
         res =  super(purchase_order,self)._create_pickings(cr, uid, order, order_lines, picking_id, context)
         pick_id = int(res[0])
@@ -230,7 +248,7 @@ class purchase_order(osv.osv):
            #,'amount' : order_cost.amount
            #,'amount_currency' : order_cost.amount_currency
            #,'picking_id' : pick_id
-           ,'account_id' : order_cost.product_id.property_account_expense.id
+           ,'account_id' : self._get_product_account_expense_id(order_cost.product_id)
            ,'partner_id' : order_cost.partner_id.id
            ,'invoice_id' : inv_id
            ,'price_unit' : order_cost.amount
