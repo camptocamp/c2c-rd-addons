@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 { "name"         : "Budget Products"
 , "version"      : "1.0"
-, "author"       : "ChriCar Beteiligungs- und Beratungs GmbH"
+, "author"       : "ChriCar Beteiligungs- und Beratungs- GmbH"
 , "website"      : "http://www.chricar.at/ChriCar"
 , "description"  : """Allows to plan production and sales quantities for products sales prices
 generated 2009-08-18 23:44:30+02"""

@@ -2,7 +2,7 @@
 #
 # Copyright (c) 2007 TINY SPRL. (http://tiny.be) All Rights Reserved.
 #                    Fabien Pinckaers <fp@tiny.Be>
-# Copyright (c) 2007 ChriCar Beteiligungs- und Beratungs GmbH All Rights Reserved.
+# Copyright (c) 2007 ChriCar Beteiligungs- und Beratungs- GmbH All Rights Reserved.
 #                    for the module financial assets
 #                    Ferdinand Gassauer copyright@chricar.at
 #

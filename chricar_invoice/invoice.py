@@ -4,8 +4,8 @@
 # -*- coding: utf-8 -*-
 ##############################################
 #
-# ChriCar Beteiligungs- und Beratungs GmbH
-# Copyright (C) ChriCar Beteiligungs- und Beratungs GmbH
+# ChriCar Beteiligungs- und Beratungs- GmbH
+# Copyright (C) ChriCar Beteiligungs- und Beratungs- GmbH
 # all rights reserved
 # created 2009-07-11 14:55:52+02
 #

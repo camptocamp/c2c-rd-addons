@@ -21,7 +21,7 @@
 ##############################################################################
 { "name"         : "ChriCar Account Analytic"
 , "version"      : "1.0"
-, "author"       : "ChriCar Beteiligungs- und Beratungs GmbH"
+, "author"       : "ChriCar Beteiligungs- und Beratungs- GmbH"
 , "website"      : "http://www.chricar.at/ChriCar"
 , "description"  : """
 Allows to define analytic accounts and their usage for accounts.

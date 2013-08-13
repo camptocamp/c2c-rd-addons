@@ -3,8 +3,8 @@
 # -*- coding: utf-8 -*-
 ##############################################
 #
-# ChriCar Beteiligungs- und Beratungs GmbH
-# Copyright (C) ChriCar Beteiligungs- und Beratungs GmbH
+# ChriCar Beteiligungs- und Beratungs- GmbH
+# Copyright (C) ChriCar Beteiligungs- und Beratungs- GmbH
 # all rights reserved
 # created 2009-03-27 16:34:25+01
 #
@@ -50,7 +50,7 @@ class chricar_application(osv.osv):
      _defaults = {
 
        'active'            : lambda *a: True,
-       'author'            : lambda *a: 'ChriCar Beteiligungs- und Beratungs GmbH',
+       'author'            : lambda *a: 'ChriCar Beteiligungs- und Beratungs- GmbH',
        'state'             : lambda *a: 'draft',
        'website'           : lambda *a: 'http://www.chricar.at/ChriCar',
 }

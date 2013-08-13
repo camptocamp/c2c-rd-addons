@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
 #
-#    Chricar Beteiligungs- und Beratungs GmbH
-#    Copyright (C) 2004-2010 Chricar Beteiligungs- und Beratungs GmbH,
+#    Chricar Beteiligungs- und Beratungs- GmbH
+#    Copyright (C) 2004-2010 Chricar Beteiligungs- und Beratungs- GmbH,
 #    www.chricar.at
 #
 #    This program is free software: you can redistribute it and/or modify

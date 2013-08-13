@@ -1,6 +1,6 @@
 { "name"         : "Liquidity"
 , "version"      : "1.0"
-, "author"       : "ChriCar Beteiligungs- und Beratungs GmbH"
+, "author"       : "ChriCar Beteiligungs- und Beratungs- GmbH"
 , "website"      : "http://www.chricar.at/ChriCar"
 , "description"  : """Allows to plan Liquidity and cash flow
 generated 2009-08-14 15:55:18+02"""

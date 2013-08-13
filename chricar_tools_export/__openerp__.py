@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
 #
-#    Chricar Beteiligungs- und Beratungs GmbH
-#    Copyright (C) 2004-2010 Chricar Beteiligungs- und Beratungs GmbH,
+#    Chricar Beteiligungs- und Beratungs- GmbH
+#    Copyright (C) 2004-2010 Chricar Beteiligungs- und Beratungs- GmbH,
 #    www.chricar.at
 #
 #    This program is free software: you can redistribute it and/or modify
@@ -31,7 +31,7 @@ This module provides
   which can be reimproted using Form Import.
 * a default list for Form Export with all fields
     """,
-    'author': 'ChriCar Beteiligungs- und Beratungs GmbH',
+    'author': 'ChriCar Beteiligungs- und Beratungs- GmbH',
     'depends': ['base'],
     'website': 'http://www.chricar.at',
     'update_xml': ['tools_export_view.xml'],

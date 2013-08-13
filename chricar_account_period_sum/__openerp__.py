@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# ChriCar Beteiligungs- und Beratungs GmbH
+# ChriCar Beteiligungs- und Beratungs- GmbH
 # WARNING: This program as such is intended to be used by professional
 # programmers who take the whole responsability of assessing all potential
 # consequences resulting from its eventual inadequacies and bugs
@@ -23,7 +23,7 @@
 #
 { "name" : "Account Period Sum"
 , "version" : "0.9.9"
-, "author"  : "ChriCar Beteiligungs- und Beratungs GmbH"
+, "author"  : "ChriCar Beteiligungs- und Beratungs- GmbH"
 , "website" : "http://www.chricar.at/ChriCar"
 , "description"  : """
 This module adds period sums for moves_lines of *account_moves* with state posted

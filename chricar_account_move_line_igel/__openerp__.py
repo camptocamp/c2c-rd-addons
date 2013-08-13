@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 { "name"         : "Account Moves Igel"
 , "version"      : "1.0"
-, "author"       : "ChriCar Beteiligungs- und Beratungs GmbH"
+, "author"       : "ChriCar Beteiligungs- und Beratungs- GmbH"
 , "website"      : "http://www.chricar.at"
 , "description"  : """Import table for account move lines of Igel"""
 , "category"     : "Client Modules/ChriCar Addons"
