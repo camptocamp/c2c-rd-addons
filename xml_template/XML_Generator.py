@@ -3,7 +3,7 @@
 #
 # Swing Entwicklung betrieblicher Informationssysteme GmbH
 # (<http://www.swing-system.com>)
-# Copyright (C) ChriCar Beteiligungs- und Beratungs- GmbH
+# Copyright (C) ChriCar Beteiligungs- und Beratungs GmbH
 # all rights reserved
 #    24-JUN-2009 (GK) created
 #    02-AUG-2009 (GK) Interface changed from file to string

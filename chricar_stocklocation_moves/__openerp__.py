@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 { "name"         : "chricar_stocklocation_moves"
 , "version"      : "0.1"
-, "author"       : "ChriCar Beteiligungs- und Beratungs- GmbH"
+, "author"       : "ChriCar Beteiligungs- und Beratungs GmbH"
 , "category"     : "Warehouse Management"
 , "depends"      : ["c2c_stock_accounting"]
 , "init_xml"     : []

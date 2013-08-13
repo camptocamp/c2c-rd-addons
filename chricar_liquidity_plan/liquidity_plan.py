@@ -2,8 +2,8 @@
 # -*- coding: utf-8 -*-
 ##############################################
 #
-# ChriCar Beteiligungs- und Beratungs- GmbH
-# Copyright (C) ChriCar Beteiligungs- und Beratungs- GmbH
+# ChriCar Beteiligungs- und Beratungs GmbH
+# Copyright (C) ChriCar Beteiligungs- und Beratungs GmbH
 # all rights reserved
 # created 2009-08-14 15:55:18+02
 #    20-AUG-2009 (GK) partner_comp_accumulated added

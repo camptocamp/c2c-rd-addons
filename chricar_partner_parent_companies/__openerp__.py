@@ -1,6 +1,6 @@
 { "name"         : "Partner Participations"
 , "version"      : "0.7"
-, "author"       : "ChriCar Beteiligungs- und Beratungs- GmbH"
+, "author"       : "ChriCar Beteiligungs- und Beratungs GmbH"
 , "website"      : "http://www.chricar.at/ChriCar"
 , "description"  : """This module allows to define owners of a partner.
 The owner has to be defined in OpenERP as partner.

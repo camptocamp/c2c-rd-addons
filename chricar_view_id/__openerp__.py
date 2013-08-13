@@ -6,7 +6,7 @@
 , "description" : """
 This module is funded by
 
-| ChriCar Beteiligungs- und Beratungs- GmbH
+| ChriCar Beteiligungs- und Beratungs GmbH
 | http://www.chricar.at/ChriCar/index.html
 
 Developed by

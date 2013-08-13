@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# ChriCar Beteiligungs- und Beratungs- GmbH
+# ChriCar Beteiligungs- und Beratungs GmbH
 # Camptocamp Austria
 # WARNING: This program as such is intended to be used by professional
 # programmers who take the whole responsability of assessing all potential

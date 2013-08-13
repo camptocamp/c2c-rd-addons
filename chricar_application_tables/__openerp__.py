@@ -1,6 +1,6 @@
 { "name"         : "Application Tables"
 , "version"      : "1.0"
-, "author"       : "ChriCar Beteiligungs- und Beratungs- GmbH"
+, "author"       : "ChriCar Beteiligungs- und Beratungs GmbH"
 , "website"      : "http://www.chricar.at/ChriCar"
 , "description"  : """Defines the Terp Tabelle
 generated 2009-03-27 16:17:42+01"""

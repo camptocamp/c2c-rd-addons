@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 ##############################################
 #
-# Copyright (C) ChriCar Beteiligungs- und Beratungs- GmbH
+# Copyright (C) ChriCar Beteiligungs- und Beratungs GmbH
 # all rights reserved
 #    this work is based on
 #    Copyright (c) 2008 Zikzakmedia S.L. (http://zikzakmedia.com) All Rights Reserved.

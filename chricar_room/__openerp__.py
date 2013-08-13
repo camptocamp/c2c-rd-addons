@@ -1,6 +1,6 @@
 { "name"         : "Room"
 , "version"      : "1.0"
-, "author"       : "ChriCar Beteiligungs- und Beratungs- GmbH"
+, "author"       : "ChriCar Beteiligungs- und Beratungs GmbH"
 , "website"      : "http://www.chricar.at/ChriCar"
 , "description"  : """defines the rooms properties
 generated 2009-07-11 12:22:10+02"""
