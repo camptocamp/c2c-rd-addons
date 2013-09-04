@@ -42,7 +42,7 @@ This module installs everything we need for Austrian extra addons c2c_extension
 ,"c2c_managment_board"
 ,"c2c_period_yyyymm"
 ,"c2c_product_price_unit"
-,"c2c_reporting_tools"
+,"c2c_reporting_tools_chricar"
 ,"c2c_stock_accounting"
 ,"c2c_stock_negative"
 ,"c2c_stock_track_internal"

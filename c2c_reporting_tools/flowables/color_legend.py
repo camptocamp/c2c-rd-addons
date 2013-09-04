@@ -38,7 +38,7 @@ from reportlab.platypus import *
 from reportlab.lib.styles import ParagraphStyle
 from reportlab.pdfbase.pdfmetrics import stringWidth
 from reportlab.lib.enums import *
-from c2c_reporting_tools.c2c_helper import *
+from c2c_reporting_tools_chricar.c2c_helper import *
 
 
 class ColorLegendBuilder(object):

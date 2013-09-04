@@ -39,5 +39,5 @@
 
 # We will add this module in the pathes of Python
 #import sys, os
-#current_dir = os.path.abspath("./c2c_reporting_tools")
+#current_dir = os.path.abspath("./c2c_reporting_tools_chricar")
 #sys.path.append(current_dir)

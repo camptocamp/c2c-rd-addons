@@ -28,10 +28,10 @@
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 ##############################################################################
-from c2c_reporting_tools.reports.standard_report import *
-from c2c_reporting_tools.flowables.simple_row_table import *
-from c2c_reporting_tools.c2c_helper import *
-from c2c_reporting_tools.translation import _
+from c2c_reporting_tools_chricar.reports.standard_report import *
+from c2c_reporting_tools_chricar.flowables.simple_row_table import *
+from c2c_reporting_tools_chricar.c2c_helper import *
+from c2c_reporting_tools_chricar.translation import _
 from reportlab.platypus import *
 from c2c_budget.report.helper import *
 

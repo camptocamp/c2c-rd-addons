@@ -30,7 +30,7 @@
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 ##############################################################################
-from c2c_reporting_tools.reports.standard_report import StandardReport
+from c2c_reporting_tools_chricar.reports.standard_report import StandardReport
 from reportlab.platypus import Paragraph
 from reportlab.lib.styles import ParagraphStyle
 
@@ -42,4 +42,4 @@ class myReport(StandardReport):
         return [Paragraph("Hello World",ParagraphStyle("dummy"))]
 
     
-myReport('report.hello_world_c2c_reporting_tools', "Hello Word with c2c reporting tools", None, myReport.A4_PORTRAIT)        
+myReport('report.hello_world_c2c_reporting_tools_chricar', "Hello Word with c2c reporting tools", None, myReport.A4_PORTRAIT)        

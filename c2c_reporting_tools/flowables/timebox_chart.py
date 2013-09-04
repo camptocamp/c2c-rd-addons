@@ -49,9 +49,9 @@ from reportlab.pdfbase.pdfmetrics import stringWidth
 from reportlab.lib.enums import *
 
 import time
-from c2c_reporting_tools.c2c_helper import *
-from c2c_reporting_tools.flowables.color_legend import *
-from c2c_reporting_tools.translation import _
+from c2c_reporting_tools_chricar.c2c_helper import *
+from c2c_reporting_tools_chricar.flowables.color_legend import *
+from c2c_reporting_tools_chricar.translation import _
 
 class TimeBoxesChartBuilder(object):
     """ Tool to generate a graphical object to be displayed in rapports

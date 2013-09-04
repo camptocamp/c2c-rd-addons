@@ -39,7 +39,7 @@ from reportlab import platypus
 from reportlab.platypus import *
 from reportlab.lib.styles import ParagraphStyle
 from reportlab.lib import colors
-from c2c_reporting_tools.core.table_elements import *
+from c2c_reporting_tools_chricar.core.table_elements import *
 from tools.translate import _
 
 class SimpleRowsTableBuilder(object):

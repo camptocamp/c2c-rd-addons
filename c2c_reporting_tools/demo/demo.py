@@ -30,15 +30,15 @@
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 ##############################################################################
-from c2c_reporting_tools.reports.standard_report import StandardReport
-from c2c_reporting_tools.flowables.simple_row_table import *
+from c2c_reporting_tools_chricar.reports.standard_report import StandardReport
+from c2c_reporting_tools_chricar.flowables.simple_row_table import *
 
 from reportlab.platypus import Paragraph
 from reportlab.lib.styles import ParagraphStyle
 
 
-from c2c_reporting_tools.translation import _
-from c2c_reporting_tools.flowables.timebox_chart import  *
+from c2c_reporting_tools_chricar.translation import _
+from c2c_reporting_tools_chricar.flowables.timebox_chart import  *
 from datetime import datetime
 from  time import gmtime
 
@@ -108,4 +108,4 @@ class mySandbox(StandardReport):
     
     
     
-mySandbox('report.sandbox_c2c_reporting_tools', "Sandbox with c2c reporting tools", 'hr.holidays', StandardReport.A4_PORTRAIT)        
+mySandbox('report.sandbox_c2c_reporting_tools_chricar', "Sandbox with c2c reporting tools", 'hr.holidays', StandardReport.A4_PORTRAIT)        

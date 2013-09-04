@@ -79,7 +79,7 @@ This module installs everything for Blaustauden
 ,"c2c_product_price_unit"
 ,"c2c_project_timesheet"
 #,"c2c_real_estate"
-,"c2c_reporting_tools"
+,"c2c_reporting_tools_chricar"
 ,"c2c_sale_multi_partner"
 ,"c2c_sequence_fy"
 ,"c2c_stock"

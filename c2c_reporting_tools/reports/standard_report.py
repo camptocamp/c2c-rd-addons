@@ -4,7 +4,7 @@
 # Copyright (c) Camptocamp SA - http://www.camptocamp.com
 # Author: Arnaud WÃŒst
 #
-#    This file is part of the c2c_reporting_tools module
+#    This file is part of the c2c_reporting_tools_chricar module
 #    This file contain: 
 #    - PythonReport. The class to extend in order to create a new Python report
 #    - StandardReport. The class to extend in order to create an internal standard report
@@ -13,7 +13,7 @@
 #
 #            HELLO WORLD EXEMPLE: 
 #        
-#            from c2c_reporting_tools.reports.standard_report import StandardReport
+#            from c2c_reporting_tools_chricar.reports.standard_report import StandardReport
 #            from reportlab.platypus import Paragraph
 #            from reportlab.lib.styles import ParagraphStyle
 #            
@@ -48,10 +48,10 @@
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 from report.interface import report_int
 
-from c2c_reporting_tools import *
+from c2c_reporting_tools_chricar import *
 
-from c2c_reporting_tools.templates.standard_template import *
-from c2c_reporting_tools.translation import _
+from c2c_reporting_tools_chricar.templates.standard_template import *
+from c2c_reporting_tools_chricar.translation import _
 
 
 import pooler
@@ -129,7 +129,7 @@ class PythonReport(report_int):
     def _(self, source):
         """ 
             Handle translations. 
-            Because cr and context['lang'] are not available in local context (but in object properties) you can not use c2c_reporting_tools.translation._() in reports
+            Because cr and context['lang'] are not available in local context (but in object properties) you can not use c2c_reporting_tools_chricar.translation._() in reports
             Use self._() insead
         """
         frame = inspect.stack()[1][0]        

@@ -30,7 +30,7 @@
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 ##############################################################################
-from c2c_reporting_tools.translation import _
+from c2c_reporting_tools_chricar.translation import _
 
 from osv import fields, osv
 import time

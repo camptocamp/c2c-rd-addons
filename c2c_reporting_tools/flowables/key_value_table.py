@@ -38,8 +38,8 @@
 #from reportlab.platypus import *
 #from reportlab.lib.styles import ParagraphStyle
 #from reportlab.lib import colors
-from c2c_reporting_tools.flowables.simple_row_table import *
-from c2c_reporting_tools.core.table_elements import *
+from c2c_reporting_tools_chricar.flowables.simple_row_table import *
+from c2c_reporting_tools_chricar.core.table_elements import *
 #                    
 #    
 
