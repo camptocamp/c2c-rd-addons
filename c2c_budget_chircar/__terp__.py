@@ -2,9 +2,9 @@
 ##############################################################################
 #
 # Copyright (c) Camptocamp SA - http://www.camptocamp.com
-# Author: Arnaud WÃŒst
+# Author: Arnaud WÃŒst ported by nbessi
 #
-#    This file is part of the c2c_budget module
+#    This file is part of the c2c_budget_chricar module
 #
 # WARNING: This program as such is intended to be used by professional
 # programmers who take the whole responsability of assessing all potential
@@ -26,31 +26,32 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
-#
-##############################################################################
-from osv import fields, osv
-import time
-import pooler
+{
+    "name" : "Advanced Budget",
+    "version" : "5.0",
+    "author" : "Camptocamp SA (aw)",
+    "category" : "Generic Modules/Accounting",
+    "website" : "http://camptocamp.com",
+    "description": """
+    Budget Module:
+    * Create budget, budget items and budget versions.
+    * Base your budget on analytics accounts
+    * Budget versions are multi currencies and multi companies.
 
-
-class c2c_budget_report_abstraction(osv.osv):
-    """ This object define parts of reports that can be override. 
-        It is used to replace analytic_account by projects for some 
-        of ours customers """
-    
-    _name = "c2c_budget.report_abstraction"
-    _description = "Report Abstraction"
-    _columns = {}
-    _defaults = {}
-        
-        
-    def get_project_group_object(self, cr, uid, context={}):
-        """ return the object use to group by projects in reports 
-            this is an abstraction level use to allow this module 
-            to be overridden in order to use project as analytic accounts
-        """
-        return self.pool.get('account.analytic.account');
-        
-        
-    
-c2c_budget_report_abstraction()
+    This module is for real advanced budget use, otherwise prefer to use the Tiny one.
+    """,
+    "depends" : [
+                    "base",
+                    "account",
+                    "c2c_reporting_tools_chricar"
+                ],
+    "init_xml" : [],
+    "update_xml" : [
+                        "c2c_budget_chricar_view.xml",
+                        "c2c_budget_chricar_wizard.xml",
+                        "security/ir.model.access.csv",
+                        "report_chart.xml"
+                    ],
+    "active": False,
+    "installable": True
+}

@@ -4,7 +4,7 @@
 # Copyright (c) Camptocamp SA - http://www.camptocamp.com
 # Author: Arnaud WÃŒst ported by Nicolas Bessi
 #
-#    This file is part of the c2c_budget module
+#    This file is part of the c2c_budget_chricar module
 #
 # WARNING: This program as such is intended to be used by professional
 # programmers who take the whole responsability of assessing all potential

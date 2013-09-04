@@ -4,7 +4,7 @@
 # Copyright (c) Camptocamp SA - http://www.camptocamp.com
 # Author: Arnaud WÃŒst
 #
-#    This file is part of the c2c_budget module
+#    This file is part of the c2c_budget_chricar module
 #
 # WARNING: This program as such is intended to be used by professional
 # programmers who take the whole responsability of assessing all potential
@@ -48,7 +48,7 @@ _form_footer = """</form>"""
 
 _fields = {
     'periods': {'string':'Periods', 'type':'many2many', 'relation':'account.period'},
-    'items': {'string':'Budget Items', 'type':'many2many', 'relation':'c2c_budget.item'},
+    'items': {'string':'Budget Items', 'type':'many2many', 'relation':'c2c_budget_chricar.item'},
 }
 
 
@@ -57,9 +57,9 @@ class wiz_advanced_search(wizard.interface):
   
   
     def _build_form(self, cr, uid, data, context):
-        """complete the form with abstracted parts from  c2c_budget.wizard_abstraction """
+        """complete the form with abstracted parts from  c2c_budget_chricar.wizard_abstraction """
         
-        wiz_abstract_obj = pooler.get_pool(cr.dbname).get('c2c_budget.wizard_abstraction')
+        wiz_abstract_obj = pooler.get_pool(cr.dbname).get('c2c_budget_chricar.wizard_abstraction')
         
         #complete the form with the abstraction
         arch.string = _form_header + wiz_abstract_obj.advanced_search_get_form(cr, uid, data,context) + _form_footer
@@ -74,9 +74,9 @@ class wiz_advanced_search(wizard.interface):
     def _get_budget_lines(self, cr, uid, data, context):
         """ retrieve lines to work on """
         
-        line_obj = pooler.get_pool(cr.dbname).get('c2c_budget.line')
+        line_obj = pooler.get_pool(cr.dbname).get('c2c_budget_chricar.line')
         
-        item_obj = pooler.get_pool(cr.dbname).get('c2c_budget.item')
+        item_obj = pooler.get_pool(cr.dbname).get('c2c_budget_chricar.item')
         anal_account_obj = pooler.get_pool(cr.dbname).get('account.analytic.account')
         
         period_ids = data['form']['periods'][0][2]
@@ -135,7 +135,7 @@ class wiz_advanced_search(wizard.interface):
             'name': 'Selected Budget Lines',
             'view_type': 'form',
             'view_mode': 'tree,form',
-            'res_model': 'c2c_budget.line',
+            'res_model': 'c2c_budget_chricar.line',
             'view_id': False,
             'type': 'ir.actions.act_window',
             'res_id':line_ids,

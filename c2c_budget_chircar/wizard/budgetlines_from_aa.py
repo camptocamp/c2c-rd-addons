@@ -4,7 +4,7 @@
 # Copyright (c) Camptocamp SA - http://www.camptocamp.com
 # Author: Arnaud WÃŒst
 #
-#    This file is part of the c2c_budget module
+#    This file is part of the c2c_budget_chricar module
 #
 # WARNING: This program as such is intended to be used by professional
 # programmers who take the whole responsability of assessing all potential
@@ -93,7 +93,7 @@ class wiz_budgetlines_from_aa(wizard.interface):
         
         
         query = """SELECT bl.id, p.date_start, p.date_stop 
-                   FROM c2c_budget_line bl, account_period p
+                   FROM c2c_budget_chricar_line bl, account_period p
                    WHERE bl.period_id = p.id
                    %s %s %s %s
         """ %(filter_accounts, filter_versions, filter_from, filter_to)
@@ -141,7 +141,7 @@ class wiz_budgetlines_from_aa(wizard.interface):
             'name': 'Filtered Budgets Lines',
             'view_type': 'form',
             'view_mode': 'tree,form',
-            'res_model': 'c2c_budget.line',
+            'res_model': 'c2c_budget_chricar.line',
             'view_id': False,
             'type': 'ir.actions.act_window',
             'res_id':lines_ids,
@@ -161,7 +161,7 @@ class wiz_budgetlines_from_aa(wizard.interface):
     </form>"""
 
     _create_fields = {
-        'versions':    {'string':'Budgets Versions', 'type':'many2many', 'relation':'c2c_budget.version'},
+        'versions':    {'string':'Budgets Versions', 'type':'many2many', 'relation':'c2c_budget_chricar.version'},
         'period_start':{'string':'Start Period',     'type':'many2one',  'relation':'account.period' },
         'period_end':  {'string':'End Period',       'type':'many2one',  'relation':'account.period'},
     }

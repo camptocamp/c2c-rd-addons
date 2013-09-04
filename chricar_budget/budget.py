@@ -42,7 +42,7 @@ class chricar_budget_production(osv.osv):
      _columns = {
           'name'         : fields.char    ('Production Budget', size=64, required=True),
           'fiscalyear_id': fields.many2one('account.fiscalyear', 'Fiscal Year',required=True),
-          'budget_version_ids'   : fields.one2many('c2c_budget.version','budget_production_id','Budget Versions '),
+          'budget_version_ids'   : fields.one2many('c2c_budget_chricar.version','budget_production_id','Budget Versions '),
       }
 
      def copy(self, cr, uid, id, default=None, context=None):
@@ -345,7 +345,7 @@ class chricar_budget(osv.osv):
        'amount'             : fields.function(_amount_line, method=True, string='Total Sales Planned' ,digits_compute=dp.get_precision('Budget'),
                                     help="Planned Production Quantity * Price"),
        #'budget_version_id'  : fields.integer ('Budget version', required=True),
-       'budget_version_id'  : fields.many2one('c2c_budget.version','Budget Version', required=True),
+       'budget_version_id'  : fields.many2one('c2c_budget_chricar.version','Budget Version', required=True),
        'location_ids'       : fields.one2many('chricar.budget.surface','budget_id','Location Surface used'),
        'name'               : fields.text    ('Notes'),
        #'partner_id'         : fields.many2one('res.partner','Partner'),
@@ -514,10 +514,10 @@ product_product()
 #
 #res_partner()
 
-class c2c_budget_version(osv.osv):
-      _inherit = "c2c_budget.version"
+class c2c_budget_chricar_version(osv.osv):
+      _inherit = "c2c_budget_chricar.version"
       _columns = {
           'budget_ids': one2many_sorted.one2many_sorted('chricar.budget','budget_version_id','Budget Products', order='product_id.name'),
           'budget_production_id': fields.many2one('chricar.budget.production','Budget Produktion'),
       }
-c2c_budget_version()
+c2c_budget_chricar_version()

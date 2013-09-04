@@ -4,7 +4,7 @@
 # Copyright (c) Camptocamp SA - http://www.camptocamp.com
 # Author: Arnaud WÃŒst
 #
-#    This file is part of the c2c_budget module
+#    This file is part of the c2c_budget_chricar module
 #
 # WARNING: This program as such is intended to be used by professional
 # programmers who take the whole responsability of assessing all potential
@@ -50,7 +50,7 @@ _form_footer = """
 
 
 _fields = {
-    'compare_item': {'string':'Ref. For % Comparing: ', 'type':'many2one', 'relation':'c2c_budget.item'},
+    'compare_item': {'string':'Ref. For % Comparing: ', 'type':'many2one', 'relation':'c2c_budget_chricar.item'},
     'from_date': {'string':'Starting From:', 'type':'date', 'required':True },
     'periods_nbr': {'string':'Nb Periods', 'type':'selection', 'selection':[(i,str(i)) for i in range(0, 13)], 'default':lambda *a: 12},
     'display_previous': {'string':'Display Previous', 'type':'boolean', 'default':lambda *a:True},
@@ -66,9 +66,9 @@ class wiz_budget_by_period(wizard.interface):
 
 
     def _build_form(self, cr, uid, data, context):
-        """complete the form with abstracted parts from  c2c_budget.wizard_abstraction """
+        """complete the form with abstracted parts from  c2c_budget_chricar.wizard_abstraction """
         
-        wiz_abstract_obj = pooler.get_pool(cr.dbname).get('c2c_budget.wizard_abstraction')
+        wiz_abstract_obj = pooler.get_pool(cr.dbname).get('c2c_budget_chricar.wizard_abstraction')
         
         #complete the form with the abstraction
         arch.string = _form_header + wiz_abstract_obj.budget_by_period_get_form(cr, uid, data,context) + _form_footer
@@ -85,12 +85,12 @@ class wiz_budget_by_period(wizard.interface):
     def _init_fields(self, cr, uid, data, context={}):
         """ init the form's fields """
 
-        budget_obj = pooler.get_pool(cr.dbname).get('c2c_budget')
+        budget_obj = pooler.get_pool(cr.dbname).get('c2c_budget_chricar')
         
         res = {}
 
         #we come from budget
-        if data['model'] == 'c2c_budget':
+        if data['model'] == 'c2c_budget_chricar':
             
             #from_date must match budget's start_date
             budgets = budget_obj.browse(cr, uid, data['ids'], context=context)
@@ -100,10 +100,10 @@ class wiz_budget_by_period(wizard.interface):
                     res['from_date'] = b.start_date
 
         #we come from versions
-        elif data['model'] == 'c2c_budget.version':
+        elif data['model'] == 'c2c_budget_chricar.version':
             
             #from_date must match budget's start_date
-            version_obj = pooler.get_pool(cr.dbname).get('c2c_budget.version')            
+            version_obj = pooler.get_pool(cr.dbname).get('c2c_budget_chricar.version')            
             budgets_ids = [v.budget_id.id for v in version_obj.browse(cr, uid, data['ids'], context)]
             budgets = budget_obj.browse(cr, uid, budgets_ids, context=context)
             res['from_date'] = None
@@ -115,7 +115,7 @@ class wiz_budget_by_period(wizard.interface):
         else:
             
             #from_date must match lines' first period
-            line_obj = pooler.get_pool(cr.dbname).get('c2c_budget.line')
+            line_obj = pooler.get_pool(cr.dbname).get('c2c_budget_chricar.line')
             lines = line_obj.browse(cr, uid, data['ids'])
             
             
@@ -137,17 +137,17 @@ class wiz_budget_by_period(wizard.interface):
     def _get_budget_lines(self, cr, uid, data, context):
         """ retrieve lines to work on. This is done to limit the amount of data to treat in the report"""
         
-        line_obj = pooler.get_pool(cr.dbname).get('c2c_budget.line')
+        line_obj = pooler.get_pool(cr.dbname).get('c2c_budget_chricar.line')
         period_obj = pooler.get_pool(cr.dbname).get('account.period')
-        version_obj = pooler.get_pool(cr.dbname).get('c2c_budget.version')
+        version_obj = pooler.get_pool(cr.dbname).get('c2c_budget_chricar.version')
         
         #
         # retrive budget lines to work on
         #
         
         #we come from budget
-        if data['model'] == 'c2c_budget':
-            budget_obj = pooler.get_pool(cr.dbname).get('c2c_budget')
+        if data['model'] == 'c2c_budget_chricar':
+            budget_obj = pooler.get_pool(cr.dbname).get('c2c_budget_chricar')
             budgets = budget_obj.browse(cr, uid, data['ids'])
             lines = []
             for b in budgets:
@@ -157,7 +157,7 @@ class wiz_budget_by_period(wizard.interface):
         
         
         #we come from versions
-        elif data['model'] == 'c2c_budget.version':
+        elif data['model'] == 'c2c_budget_chricar.version':
             versions = version_obj.browse(cr, uid, data['ids'])
             lines = []
             for v in versions:

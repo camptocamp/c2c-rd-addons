@@ -4,7 +4,7 @@
 # Copyright (c) Camptocamp SA - http://www.camptocamp.com
 # Author: Arnaud WÃŒst
 #
-#    This file is part of the c2c_budget module
+#    This file is part of the c2c_budget_chricar module
 #
 # WARNING: This program as such is intended to be used by professional
 # programmers who take the whole responsability of assessing all potential
@@ -37,13 +37,13 @@ class wiz_budget_consolidation(wizard.interface):
     def _init_fields(self, cr, uid, data, context):
         """ init the form's fields """
 
-        budget_obj = pooler.get_pool(cr.dbname).get('c2c_budget')
-        version_obj = pooler.get_pool(cr.dbname).get('c2c_budget.version')            
+        budget_obj = pooler.get_pool(cr.dbname).get('c2c_budget_chricar')
+        version_obj = pooler.get_pool(cr.dbname).get('c2c_budget_chricar.version')            
         
         res = {}
 
         #we come from budget
-        if data['model'] == 'c2c_budget':
+        if data['model'] == 'c2c_budget_chricar':
             
             #init version and version 2 with the 2 first versions
             if len(data['ids']) == 1:
@@ -51,12 +51,12 @@ class wiz_budget_consolidation(wizard.interface):
                 res['versions'] = [x.id for x in budget.budget_version_ids][:10]
                 
         #we come from versions
-        elif data['model'] == 'c2c_budget.version':
+        elif data['model'] == 'c2c_budget_chricar.version':
             
             res['versions'] = data['ids'][:10]
 
         
-        version_obj = pooler.get_pool(cr.dbname).get('c2c_budget.version')            
+        version_obj = pooler.get_pool(cr.dbname).get('c2c_budget_chricar.version')            
         version = version_obj.browse(cr, uid, res['versions'][0])
         res['currency'] = version.currency_id.id
       
@@ -76,7 +76,7 @@ class wiz_budget_consolidation(wizard.interface):
 
                     
         #check all versions belong to the same budget
-        version_obj = pooler.get_pool(cr.dbname).get('c2c_budget.version')            
+        version_obj = pooler.get_pool(cr.dbname).get('c2c_budget_chricar.version')            
         versions = version_obj.browse(cr, uid, data['form']['versions'][0][2], context=context)
         budget_id = versions[0].budget_id.id
         for v in versions:
@@ -86,7 +86,7 @@ class wiz_budget_consolidation(wizard.interface):
             
                         
         #find lines to work on
-        line_obj = pooler.get_pool(cr.dbname).get('c2c_budget.line')
+        line_obj = pooler.get_pool(cr.dbname).get('c2c_budget_chricar.line')
         period_obj = pooler.get_pool(cr.dbname).get('account.period')
         
         criteria = [('budget_version_id', 'in', data['form']['versions'][0][2])]
@@ -113,7 +113,7 @@ class wiz_budget_consolidation(wizard.interface):
     </form>"""
 
     _fields = {
-        'versions': {'string':'Versions', 'type':'many2many', 'relation':'c2c_budget.version', 'required':True },
+        'versions': {'string':'Versions', 'type':'many2many', 'relation':'c2c_budget_chricar.version', 'required':True },
         'currency': {'string':'Currency', 'type':'many2one',  'relation':'res.currency',       'required':True },
         'periods':  {'string':'Periods',  'type':'many2many', 'relation': 'account.period'}, 
     }

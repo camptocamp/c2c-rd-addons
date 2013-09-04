@@ -4,7 +4,7 @@
 # Copyright (c) Camptocamp SA - http://www.camptocamp.com
 # Author: Arnaud WÃŒst
 #
-#    This file is part of the c2c_budget module
+#    This file is part of the c2c_budget_chricar module
 #
 # WARNING: This program as such is intended to be used by professional
 # programmers who take the whole responsability of assessing all potential
@@ -33,7 +33,7 @@ from c2c_reporting_tools_chricar.flowables.simple_row_table import *
 from c2c_reporting_tools_chricar.c2c_helper import *
 from c2c_reporting_tools_chricar.translation import _
 from reportlab.platypus import *
-from c2c_budget.report.helper import *
+from c2c_budget_chricar.report.helper import *
 
 class budget_by_period(StandardReport):  
     """ Report that display a budget. It can be split by period and compare to an item (in %) """
@@ -52,11 +52,11 @@ class budget_by_period(StandardReport):
         """ return the report story """
         story = []
 
-        budget_item_obj = self.pool.get('c2c_budget.item')
+        budget_item_obj = self.pool.get('c2c_budget_chricar.item')
         #period_obj = self.pool.get('account.period')
-        line_obj = self.pool.get('c2c_budget.line')
-        version_obj = self.pool.get('c2c_budget.version')
-        project_obj = self.pool.get('c2c_budget.report_abstraction').get_project_group_object(self.cr, self.uid, self.context)
+        line_obj = self.pool.get('c2c_budget_chricar.line')
+        version_obj = self.pool.get('c2c_budget_chricar.version')
+        project_obj = self.pool.get('c2c_budget_chricar.report_abstraction').get_project_group_object(self.cr, self.uid, self.context)
         
         
         display_previous = self.datas['form']['display_previous']
@@ -238,4 +238,4 @@ class budget_by_period(StandardReport):
     
 
            
-budget_by_period('report.budget_by_period', "Budget by Periods", 'c2c_budget.line', StandardReport.A4_LANDSCAPE)        
+budget_by_period('report.budget_by_period', "Budget by Periods", 'c2c_budget_chricar.line', StandardReport.A4_LANDSCAPE)        

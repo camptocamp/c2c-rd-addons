@@ -71,7 +71,7 @@ This module installs everything for Blaustauden
 ,"c2c_account_payment_extension"
 ,"c2c_account_tax_rounding"
 ,"c2c_austria_base"
-,"c2c_budget"
+,"c2c_budget_chricar"
 ,"c2c_iban_formatter"
 ,"c2c_managment_board"
 ,"c2c_partner_address_label"

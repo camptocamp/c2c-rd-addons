@@ -4,7 +4,7 @@
 # Copyright (c) Camptocamp SA - http://www.camptocamp.com
 # Author: Arnaud WÃŒst
 #
-#    This file is part of the c2c_budget module
+#    This file is part of the c2c_budget_chricar module
 #
 # WARNING: This program as such is intended to be used by professional
 # programmers who take the whole responsability of assessing all potential
@@ -57,8 +57,8 @@ class wiz_budget_vs_reality(wizard.interface):
 
 
     def _build_form(self, cr, uid, data, context):
-        """complete the form with abstracted parts from  c2c_budget.wizard_abstraction """
-        wiz_abstract_obj = pooler.get_pool(cr.dbname).get('c2c_budget.wizard_abstraction')
+        """complete the form with abstracted parts from  c2c_budget_chricar.wizard_abstraction """
+        wiz_abstract_obj = pooler.get_pool(cr.dbname).get('c2c_budget_chricar.wizard_abstraction')
         
         #complete the form with the abstraction
         arch.string = _form_header + wiz_abstract_obj.budget_vs_real_get_form(cr, uid, data,context) + _form_footer
@@ -78,17 +78,17 @@ class wiz_budget_vs_reality(wizard.interface):
         versions_ids = []
         
         #we come from budget
-        if data['model'] == 'c2c_budget':
+        if data['model'] == 'c2c_budget_chricar':
             
             #get all versions that belongs to these budgets           
-            budget_obj = pooler.get_pool(cr.dbname).get('c2c_budget')
+            budget_obj = pooler.get_pool(cr.dbname).get('c2c_budget_chricar')
             budget = budget_obj.browse(cr, uid, data['ids'])
             for b in budget:
                 
                 versions_ids += [v.id for v in b.budget_version_ids]
                 
         #we come from versions
-        elif data['model'] == 'c2c_budget.version':
+        elif data['model'] == 'c2c_budget_chricar.version':
             #get all selected versions
             versions_ids = data['ids']
         
@@ -98,7 +98,7 @@ class wiz_budget_vs_reality(wizard.interface):
         if len(data['form']['periods'][0][2]) > 0:
             criteria.append(('period_id', 'in', data['form']['periods'][0][2]))
         
-        line_obj = pooler.get_pool(cr.dbname).get('c2c_budget.line')
+        line_obj = pooler.get_pool(cr.dbname).get('c2c_budget_chricar.line')
         line_ids = line_obj.search(cr, uid, criteria, context=context)
         
                

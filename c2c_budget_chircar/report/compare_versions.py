@@ -4,7 +4,7 @@
 # Copyright (c) Camptocamp SA - http://www.camptocamp.com
 # Author: Arnaud WÃŒst
 #
-#    This file is part of the c2c_budget module
+#    This file is part of the c2c_budget_chricar module
 #
 # WARNING: This program as such is intended to be used by professional
 # programmers who take the whole responsability of assessing all potential
@@ -33,65 +33,61 @@ from c2c_reporting_tools_chricar.flowables.simple_row_table import *
 from c2c_reporting_tools_chricar.c2c_helper import *
 from c2c_reporting_tools_chricar.translation import _
 from reportlab.platypus import *
-from c2c_budget.report.helper import *
+from c2c_budget_chricar.report.helper import *
 
 
-class budget_consolidation(StandardReport):  
+class compare_versions(StandardReport):  
     """this report display two budget versions side by side and compute the difference"""
     
     def get_template_title(self, cr, context):
         """ return the title of the report """
         
-        return _("Budget Consolidation")
+        return _("Versions Comparing")
     
 
     def get_story(self):
         """ return the report story """
         
-        story = []        
-        
-        version_obj = self.pool.get('c2c_budget.version')
-        budget_item_obj = self.pool.get('c2c_budget.item')
+        story = []
+
+
+        version_obj = self.pool.get('c2c_budget_chricar.version')
+        budget_item_obj = self.pool.get('c2c_budget_chricar.item')
         currency_obj = self.pool.get('res.currency')
      
         #
         # build the report tables
         #
-        versions = version_obj.browse(self.cr, self.uid, self.datas['form']['versions'][0][2])
+        versions = version_obj.browse(self.cr, self.uid, [self.datas['form']['version_1'], self.datas['form']['version_2']])
         currency = currency_obj.browse(self.cr, self.uid, self.datas['form']['currency'])
 
-        table = SimpleRowsTableBuilder(versions[0].budget_id.name+" ["+currency.name+"]")
+        table = SimpleRowsTableBuilder(versions[0].budget_id.name+": "+versions[0].name+" "+self._('vs.')+" "+versions[1].name+" ["+currency.name+"]")
                
         #first column for structure
         table.add_text_column(self._('Structure'), 40*mm)
-        # a column per version
-        for v in versions:
-            table.add_num_column(v.name)
-        #tot
-        table.add_num_column(self._('Total'))
+        table.add_num_column(versions[0].name)
+        table.add_num_column(versions[1].name)
+        table.add_num_column(versions[0].name+" - "+versions[1].name)
         
         
         #
         # gather datas
         # 
-        versions_values = {}
-        for v in versions:
-            versions_values[v.id] = version_obj.get_budget_values(self.cr, self.uid, v, self.objects, context=self.context)
+        
+        v1_values = version_obj.get_budget_values(self.cr, self.uid, versions[0], self.objects, context=self.context)
+        v2_values = version_obj.get_budget_values(self.cr, self.uid, versions[1], self.objects, context=self.context)
 
-        #change from version currency to select currency and compute total
-        change_versions_values = {}
-        versions_total = {}
-        for version in versions:
-            change_versions_values[version.id] = {}
-            for item_id in versions_values[version.id]:
-                if item_id not in versions_total:
-                    versions_total[item_id] = 0
-                    
-                if versions_values[version.id][item_id] != 'error':
-                    change_versions_values[version.id][item_id] = c2c_helper.exchange_currency(self.cr, versions_values[version.id][item_id], version.currency_id.id, currency.id, time.strptime(version.create_date, '%Y-%m-%d %H:%M:%S'))
-                    versions_total[item_id] += change_versions_values[version.id][item_id]
-                else: 
-                    change_versions_values[version.id][item_id] = 'error'
+        #change from version currency to select currency
+        change_v1_values = {}
+        change_v2_values = {}        
+        versions_diff = {}
+        for id in v1_values:
+            change_v1_values[id] = c2c_helper.exchange_currency(self.cr, v1_values[id], versions[0].currency_id.id, currency.id, time.strptime(versions[0].create_date, '%Y-%m-%d %H:%M:%S'))
+            change_v2_values[id] = c2c_helper.exchange_currency(self.cr, v2_values[id], versions[1].currency_id.id, currency.id, time.strptime(versions[1].create_date, '%Y-%m-%d %H:%M:%S'))
+            if change_v1_values[id] == 'error' or change_v2_values[id] == 'error':
+                versions_diff[id] = 'error'
+            else:
+                versions_diff[id] = change_v1_values[id] - change_v2_values[id]
              
            
             
@@ -109,19 +105,23 @@ class budget_consolidation(StandardReport):
                 item_cell = ItemCell(i)
                 table.add_custom_cell(item_cell)
                 
-                for version in versions:
-                    cell = BudgetNumCell(change_versions_values[version.id][i.id], 0)
-                    cell.copy_style(item_cell)
-                    table.add_custom_cell(cell)
-
-                cell = BudgetNumCell(versions_total[i.id], 0)
+                cell = BudgetNumCell(change_v1_values[i.id], 0)
                 cell.copy_style(item_cell)
                 table.add_custom_cell(cell)
 
+                cell = BudgetNumCell(change_v2_values[i.id], 0)
+                cell.copy_style(item_cell)
+                table.add_custom_cell(cell)
+
+                cell = BudgetNumCell(versions_diff[i.id], 0)
+                cell.copy_style(item_cell)
+                table.add_custom_cell(cell)
+
+                                      
         story.append(table.get_table())         
 
         return story
     
 
            
-budget_consolidation('report.budget_consolidation', "Budget Consolidation", 'c2c_budget.line', StandardReport.A4_LANDSCAPE)        
+compare_versions('report.compare_versions', "Versions Comparing", 'c2c_budget_chricar.line', StandardReport.A4_PORTRAIT)        

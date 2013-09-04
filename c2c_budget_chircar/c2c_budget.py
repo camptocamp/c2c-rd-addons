@@ -4,7 +4,7 @@
 # Copyright (c) Camptocamp SA - http://www.camptocamp.com
 # Author: Arnaud WÃŒst ported by Nicolas Bessi
 #
-#    This file is part of the c2c_budget module
+#    This file is part of the c2c_budget_chricar module
 #
 # WARNING: This program as such is intended to be used by professional
 # programmers who take the whole responsability of assessing all potential
@@ -31,10 +31,10 @@ import time
 import pooler
 
 
-class c2c_budget(osv.osv):
+class c2c_budget_chricar(osv.osv):
     """ camptocamp budget. The module's main object.  """
     
-    _name = "c2c_budget"
+    _name = "c2c_budget_chricar"
     _description = "Budget"
     _columns = {
         'code' : fields.char('Code', size=50),
@@ -43,12 +43,12 @@ class c2c_budget(osv.osv):
         'start_date' : fields.date('Start Date', required=True),
         'end_date' : fields.date('End Date', required=True),
         'budget_item_id' : fields.many2one(
-                                            'c2c_budget.item', 
+                                            'c2c_budget_chricar.item', 
                                             'Budget Structure', 
                                             required=True
                                             ),
         'budget_version_ids' : fields.one2many(
-                                                'c2c_budget.version', 
+                                                'c2c_budget_chricar.version', 
                                                 'budget_id', 
                                                 'Budget Versions', 
                                                  readonly=True
@@ -185,7 +185,7 @@ class c2c_budget(osv.osv):
     def unlink(self, cr, uid, ids, context={}):
         """delete all budget versions when deleting a budget """
         
-        budget_version_obj = pooler.get_pool(cr.dbname).get('c2c_budget.version')
+        budget_version_obj = pooler.get_pool(cr.dbname).get('c2c_budget_chricar.version')
         lines_ids = budget_version_obj.search(
                                                 cr, 
                                                 uid, 
@@ -194,7 +194,7 @@ class c2c_budget(osv.osv):
                                             )
         
         budget_version_obj.unlink(cr, uid, lines_ids, context)
-        return super(c2c_budget, self).unlink(cr, uid, ids, context)
+        return super(c2c_budget_chricar, self).unlink(cr, uid, ids, context)
         
              
      
@@ -203,5 +203,5 @@ class c2c_budget(osv.osv):
         (_check_start_end_dates, 'Date Error: The end date is defined before the start date', ['start_date', 'end_date']),
     ]
     
-c2c_budget()
+c2c_budget_chricar()
 

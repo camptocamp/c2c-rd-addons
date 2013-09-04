@@ -4,7 +4,7 @@
 # Copyright (c) Camptocamp SA - http://www.camptocamp.com
 # Author: Arnaud WÃŒst
 #
-#    This file is part of the c2c_budget module
+#    This file is part of the c2c_budget_chricar module
 #
 # WARNING: This program as such is intended to be used by professional
 # programmers who take the whole responsability of assessing all potential
@@ -38,13 +38,13 @@ class wiz_compare_versions(wizard.interface):
     def _init_fields(self, cr, uid, data, context):
         """ init the form's fields """
 
-        budget_obj = pooler.get_pool(cr.dbname).get('c2c_budget')
+        budget_obj = pooler.get_pool(cr.dbname).get('c2c_budget_chricar')
         
         res = {}
 
         #we come from budget
-        if data['model'] == 'c2c_budget':
-            budget_obj = pooler.get_pool(cr.dbname).get('c2c_budget')
+        if data['model'] == 'c2c_budget_chricar':
+            budget_obj = pooler.get_pool(cr.dbname).get('c2c_budget_chricar')
             
             #init version and version 2 with the 2 first versions
             if len(data['ids']) >= 1:
@@ -57,8 +57,8 @@ class wiz_compare_versions(wizard.interface):
                 
 
         #we come from versions
-        elif data['model'] == 'c2c_budget.version':
-            version_obj = pooler.get_pool(cr.dbname).get('c2c_budget.version')            
+        elif data['model'] == 'c2c_budget_chricar.version':
+            version_obj = pooler.get_pool(cr.dbname).get('c2c_budget_chricar.version')            
 
             #init version and version 2 with the 2 first versions
             if len(data['ids']) >= 1:
@@ -75,13 +75,13 @@ class wiz_compare_versions(wizard.interface):
         """ retrieve lines to work on """
         
         #checkthe two versions belongs to the same budget
-        version_obj = pooler.get_pool(cr.dbname).get('c2c_budget.version')            
+        version_obj = pooler.get_pool(cr.dbname).get('c2c_budget_chricar.version')            
         versions = version_obj.browse(cr, uid, [data['form']['version_1'], data['form']['version_2']], context=context)
         if versions[0].budget_id.id != versions[1].budget_id.id:
             raise wizard.except_wizard('Incompatible Versions', "The two selected versions do not belong to the same budget. Select two versions of the same budget to run the report")
             
         #find lines to work on
-        line_obj = pooler.get_pool(cr.dbname).get('c2c_budget.line')
+        line_obj = pooler.get_pool(cr.dbname).get('c2c_budget_chricar.line')
         period_obj = pooler.get_pool(cr.dbname).get('account.period')
         
         criteria = [('budget_version_id', 'in', [data['form']['version_1'], data['form']['version_2']])]
@@ -109,8 +109,8 @@ class wiz_compare_versions(wizard.interface):
     </form>"""
 
     _fields = {
-        'version_1': {'string':'Version 1', 'type':'many2one', 'relation':'c2c_budget.version', 'required':True },
-        'version_2': {'string':'Version 2', 'type':'many2one', 'relation':'c2c_budget.version', 'required':True },
+        'version_1': {'string':'Version 1', 'type':'many2one', 'relation':'c2c_budget_chricar.version', 'required':True },
+        'version_2': {'string':'Version 2', 'type':'many2one', 'relation':'c2c_budget_chricar.version', 'required':True },
         'currency':  {'string':'Currency' , 'type':'many2one', 'relation':'res.currency', 'required':True },
         'periods':   {'string':'Periods'  , 'type':'many2many','relation':'account.period'}, 
     }

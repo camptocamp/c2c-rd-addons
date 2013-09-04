@@ -2,9 +2,9 @@
 ##############################################################################
 #
 # Copyright (c) Camptocamp SA - http://www.camptocamp.com
-# Author: Arnaud WÃŒst
+# Author: Arnaud WÃŒst ported by nbessi
 #
-#    This file is part of the c2c_budget module
+#    This file is part of the c2c_budget_chricar module
 #
 # WARNING: This program as such is intended to be used by professional
 # programmers who take the whole responsability of assessing all potential
@@ -26,9 +26,13 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
-#
-##############################################################################
-import budget_by_period
-import compare_versions
-import budget_consolidation
-import budget_vs_reality
+import account
+import analytic_account
+import c2c_budget_chricar_item
+import c2c_budget_chricar
+import c2c_budget_chricar_version
+import c2c_budget_chricar_line
+import c2c_budget_chricar_wizard_abstraction
+import c2c_budget_chricar_report_abstraction
+import wizard
+#import report

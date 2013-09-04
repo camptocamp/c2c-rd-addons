@@ -4,7 +4,7 @@
 # Copyright (c) Camptocamp SA - http://www.camptocamp.com
 # Author: Arnaud WÃŒst
 #
-#    This file is part of the c2c_budget module
+#    This file is part of the c2c_budget_chricar module
 #
 # WARNING: This program as such is intended to be used by professional
 # programmers who take the whole responsability of assessing all potential
@@ -33,13 +33,13 @@ import time
 import pooler
 
 
-class c2c_budget_wizard_abstraction(osv.osv):
+class c2c_budget_chricar_wizard_abstraction(osv.osv):
     """ This object define parts of wizards forms 
     and process that can be override. 
     It is used to replace analytic_account by 
     projects for some of ours customers """
     
-    _name = "c2c_budget.wizard_abstraction"
+    _name = "c2c_budget_chricar.wizard_abstraction"
     _description = "Wizard Abstraction"
     _columns = {}
     _defaults = {}
@@ -131,9 +131,9 @@ class c2c_budget_wizard_abstraction(osv.osv):
         fields['versions'] = {
                                 'string':'Versions', 
                                 'type':'many2many', 
-                                'relation':'c2c_budget.version'
+                                'relation':'c2c_budget_chricar.version'
                             }
         return fields
 
     
-c2c_budget_wizard_abstraction()
+c2c_budget_chricar_wizard_abstraction()

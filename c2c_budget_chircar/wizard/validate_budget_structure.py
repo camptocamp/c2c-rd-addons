@@ -4,7 +4,7 @@
 # Copyright (c) Camptocamp SA - http://www.camptocamp.com
 # Author: Arnaud WÃŒst
 #
-#    This file is part of the c2c_budget module
+#    This file is part of the c2c_budget_chricar module
 #
 # WARNING: This program as such is intended to be used by professional
 # programmers who take the whole responsability of assessing all potential
@@ -86,7 +86,7 @@ class wiz_validate_budget_structure(wizard.interface):
         root_id = data['ids'][0]
         
         pool = pooler.get_pool(cr.dbname)
-        budget_item_object = pool.get('c2c_budget.item')
+        budget_item_object = pool.get('c2c_budget_chricar.item')
         
         flat_items_ids = budget_item_object.get_sub_items(cr, [root_id])
         
@@ -282,7 +282,7 @@ class wiz_validate_budget_structure(wizard.interface):
                 
         # we get all accounts directly linked to items
         query = """SELECT aa.id
-                   FROM c2c_budget_item_account_rel bh, account_account aa
+                   FROM c2c_budget_chricar_item_account_rel bh, account_account aa
                    WHERE bh.account_id = aa.id
                        AND bh.budget_item_id IN (%s) 
                        AND aa.active
@@ -314,4 +314,4 @@ class wiz_validate_budget_structure(wizard.interface):
     }
     
     
-wiz_validate_budget_structure('c2c_budget.validate_budget_structure');    
+wiz_validate_budget_structure('c2c_budget_chricar.validate_budget_structure');    

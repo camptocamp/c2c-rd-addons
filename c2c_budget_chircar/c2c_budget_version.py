@@ -4,7 +4,7 @@
 # Copyright (c) Camptocamp SA - http://www.camptocamp.com
 # Author: Arnaud WÃŒst
 #
-#    This file is part of the c2c_budget module
+#    This file is part of the c2c_budget_chricar module
 #
 # WARNING: This program as such is intended to be used by professional
 # programmers who take the whole responsability of assessing all potential
@@ -33,22 +33,22 @@ import pooler
 import time
 
 
-class c2c_budget_version(osv.osv):
+class c2c_budget_chricar_version(osv.osv):
     """ camptocamp budget version. A budget version is a budget made at a given time for a given company. 
         It also can have its own currency """
     
     
-    _name = "c2c_budget.version"
+    _name = "c2c_budget_chricar.version"
     _description = "Budget versions"
     _columns = {
         'code' : fields.char('Code', size=50),
         'name' : fields.char('Version Name', size=200,  required=True ),
-        'budget_id' : fields.many2one('c2c_budget', 'Budget',  required=True),
+        'budget_id' : fields.many2one('c2c_budget_chricar', 'Budget',  required=True),
         'currency_id' : fields.many2one('res.currency', 'Currency', required=True),
         'company_id' : fields.many2one('res.company', 'Company',  required=True),
         'user_id' : fields.many2one('res.users', 'User In Charge'),
         'budget_line_ids' : fields.one2many(
-                                                'c2c_budget.line', 
+                                                'c2c_budget_chricar.line', 
                                                 'budget_version_id', 
                                                 'Budget Lines'
                                             ),
@@ -91,7 +91,7 @@ class c2c_budget_version(osv.osv):
         """return periods informations used by this version. 
         (the periods are those between start and end dates defined in budget)"""
         
-        budget_obj = self.pool.get('c2c_budget')        
+        budget_obj = self.pool.get('c2c_budget_chricar')        
         return budget_obj.get_periods(cr, uid, version.budget_id.id)
  
  
@@ -154,8 +154,8 @@ class c2c_budget_version(osv.osv):
         period_start and period_end included 
         version is a budget_version object
         lines is a list of budget_lines objects to work on
-        period_start is a c2c_budget.period object
-        period_end is a c2c_budget.period object
+        period_start is a c2c_budget_chricar.period object
+        period_end is a c2c_budget_chricar.period object
         return a dict: item_id => value
         """
         
@@ -168,7 +168,7 @@ class c2c_budget_version(osv.osv):
                 filtered_periods.append(p)
         
         #get lines related to this periods
-        budget_lines_obj = pooler.get_pool(cr.dbname).get('c2c_budget.line')        
+        budget_lines_obj = pooler.get_pool(cr.dbname).get('c2c_budget_chricar.line')        
         filtered_lines = budget_lines_obj.filter_by_period(
                                             cr, 
                                             uid, 
@@ -189,7 +189,7 @@ class c2c_budget_version(osv.osv):
         """
 
         
-        budget_item_obj = self.pool.get('c2c_budget.item')        
+        budget_item_obj = self.pool.get('c2c_budget_chricar.item')        
         items = budget_item_obj.get_sorted_list(
                                             cr, 
                                             uid, 
@@ -222,14 +222,14 @@ class c2c_budget_version(osv.osv):
         version, lines, context={}):
         """ return the values from the analytic accounts """
         
-        budget_item_obj = self.pool.get('c2c_budget.item')        
+        budget_item_obj = self.pool.get('c2c_budget_chricar.item')        
         items = budget_item_obj.get_sorted_list(cr, uid, \
             version.budget_id.budget_item_id.id)            
                 
         #init results with 0
         items_results = dict(map(lambda x:(x.id, 0), items))
         
-        budget_lines_obj = pooler.get_pool(cr.dbname).get('c2c_budget.line')
+        budget_lines_obj = pooler.get_pool(cr.dbname).get('c2c_budget_chricar.line')
         periods = self.get_periods(cr, uid, version, context)
         
         #foreach item in the structure
@@ -256,7 +256,7 @@ class c2c_budget_version(osv.osv):
     def get_real_values(self, cr, uid, version, lines, context={}):
         """ return the values from the general account """
         
-        budget_item_obj = self.pool.get('c2c_budget.item')        
+        budget_item_obj = self.pool.get('c2c_budget_chricar.item')        
         items = budget_item_obj.get_sorted_list(
                                         cr, 
                                         uid, 
@@ -267,7 +267,7 @@ class c2c_budget_version(osv.osv):
         #init results with 0
         items_results = dict(map(lambda x:(x.id, 0), items))
         
-        budget_lines_obj = pooler.get_pool(cr.dbname).get('c2c_budget.line')
+        budget_lines_obj = pooler.get_pool(cr.dbname).get('c2c_budget_chricar.line')
         periods = self.get_periods(cr, uid, version, context)
         
         #foreach item in the structure
@@ -347,7 +347,7 @@ class c2c_budget_version(osv.osv):
     def unlink(self, cr, uid, ids, context={}):
         """delete all budget lines when deleting a budget version """
         
-        budget_lines_obj = pooler.get_pool(cr.dbname).get('c2c_budget.line')
+        budget_lines_obj = pooler.get_pool(cr.dbname).get('c2c_budget_chricar.line')
         lines_ids = budget_lines_obj.search(
                                             cr, 
                                             uid, 
@@ -355,9 +355,9 @@ class c2c_budget_version(osv.osv):
                                             context=context
                                         )
         budget_lines_obj.unlink(cr, uid, lines_ids, context)
-        return super(c2c_budget_version, self).unlink(cr, uid, ids, context)
+        return super(c2c_budget_chricar_version, self).unlink(cr, uid, ids, context)
                 
         
         
     
-c2c_budget_version()
+c2c_budget_chricar_version()

@@ -4,7 +4,7 @@
 # Copyright (c) Camptocamp SA - http://www.camptocamp.com
 # Author: Arnaud WÃŒst
 #
-#    This file is part of the c2c_budget module
+#    This file is part of the c2c_budget_chricar module
 #
 # WARNING: This program as such is intended to be used by professional
 # programmers who take the whole responsability of assessing all potential
@@ -36,7 +36,7 @@ import time
 import logging
 
 
-class c2c_budget_line(osv.osv):
+class c2c_budget_chricar_line(osv.osv):
     """ camptocamp budget line. 
     A budget version line NOT linked to an analytic account """
     
@@ -92,7 +92,7 @@ class c2c_budget_line(osv.osv):
         that are linked to one of the given items """
         result = []
         
-        budget_items_obj = self.pool.get('c2c_budget.item')        
+        budget_items_obj = self.pool.get('c2c_budget_chricar.item')        
         all_items = budget_items_obj.get_sub_items(cr, items_ids)
 
         for l in lines:
@@ -240,7 +240,7 @@ class c2c_budget_line(osv.osv):
         return False
  
         
-    _name = "c2c_budget.line"
+    _name = "c2c_budget_chricar.line"
     _description = "Budget Lines"
     _logger = logging.getLogger(_name)
     _columns = {
@@ -250,7 +250,7 @@ class c2c_budget_line(osv.osv):
                                                 'Analytic Account'
                                             ), 
         'budget_item_id' : fields.many2one(
-                                            'c2c_budget.item',
+                                            'c2c_budget_chricar.item',
                                             'Budget Item', 
                                             required=True
                                         ),
@@ -269,7 +269,7 @@ class c2c_budget_line(osv.osv):
                                         ),
 
         'budget_version_id' : fields.many2one(
-                                                'c2c_budget.version', 
+                                                'c2c_budget_chricar.version', 
                                                 'Budget Version', 
                                                 required=True
                                             ),        
@@ -291,7 +291,7 @@ class c2c_budget_line(osv.osv):
         for l in lines:
                     
             #get list of budget items for this budget
-            budget_item_object = self.pool.get('c2c_budget.item')
+            budget_item_object = self.pool.get('c2c_budget_chricar.item')
             flat_items_ids = budget_item_object.get_sub_items(
                     cr, 
                     [l.budget_version_id.budget_id.budget_item_id.id]
@@ -326,7 +326,7 @@ class c2c_budget_line(osv.osv):
         order=None, context={}, count=False):
         """search through lines that belongs to accessible versions """
         
-        lines_ids =  super(c2c_budget_line, self).search(
+        lines_ids =  super(c2c_budget_chricar_line, self).search(
                                                             cr, 
                                                             user, 
                                                             args, 
@@ -339,7 +339,7 @@ class c2c_budget_line(osv.osv):
 
         #get versions the user can see, from versions, get periods then filter lines by those periods
         if lines_ids:
-            version_obj = self.pool.get('c2c_budget.version')
+            version_obj = self.pool.get('c2c_budget_chricar.version')
             versions_ids = version_obj.search(cr, user, [], context=context)
             versions = version_obj.browse(cr, user, versions_ids, context=context)
             
@@ -376,4 +376,4 @@ class c2c_budget_line(osv.osv):
         ]
     
     
-c2c_budget_line()
+c2c_budget_chricar_line()
