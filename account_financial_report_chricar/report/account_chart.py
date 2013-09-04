@@ -145,6 +145,6 @@ class account_chart(rml_parse.rml_parse):
             return 0
 
 
-report_sxw.report_sxw('report.account.account.chart.report', 'account.account','addons/account_financial_report/report/account_chart.rml', parser=account_chart, header=False)
+report_sxw.report_sxw('report.account.account.chart.report', 'account.account','addons/account_financial_report_chricar/report/account_chart.rml', parser=account_chart, header=False)
 
 

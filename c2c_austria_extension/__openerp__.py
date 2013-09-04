@@ -53,7 +53,7 @@ This module installs everything we need for Austrian extra addons c2c_extension
 #,"account_simulation"
 ,"analytic_journal_billing_rate"
 ,"analytic_user_function"
-,"account_financial_report"
+,"account_financial_report_chricar"
 #,"account_payment_extension_chricar"
 #,"account_report"
 ,"audittrail"

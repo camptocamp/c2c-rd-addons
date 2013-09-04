@@ -292,5 +292,5 @@ class account_balance(report_sxw.rml_parse):
 
         return result_acc
 
-report_sxw.report_sxw('report.account.balance.full', 'account.account', 'addons/account_financial_report/report/account_balance_full.rml', parser=account_balance, header=False)
+report_sxw.report_sxw('report.account.balance.full', 'account.account', 'addons/account_financial_report_chricar/report/account_balance_full.rml', parser=account_balance, header=False)
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

@@ -40,7 +40,7 @@ This module installs everything for Blaustauden
 ,"account_bank_statement_defaults"
 ,"account_chart"
 #,"account_coda"
-#,"account_financial_report"
+#,"account_financial_report_chricar"
 ,"account_followup"
 ,"account_invoice_layout"
 ,"account_invoice_webkit"
