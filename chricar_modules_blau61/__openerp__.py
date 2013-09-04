@@ -224,7 +224,7 @@ This module installs everything for Blaustauden
 ,"web_tests"
 ,"wiki"
 ,"wiki_faq"
-,"wiki_object"
+,"wiki_object_chricar"
 ,"wiki_quality_manual"
 ,"wiki_sale_faq"
 ,"xml_export_data"
