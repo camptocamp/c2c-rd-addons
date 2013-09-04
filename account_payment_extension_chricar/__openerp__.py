@@ -20,7 +20,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-{ "name" : "Account Payment Extension - DO NOT INSTALL along with c2c_account_payment_extension"
+{ "name" : "Account Payment Extension - DO NOT INSTALL along with c2c_account_payment_extension_chricar"
 , "version" : "1.1"
 , "author" : "Zikzakmedia SL"
 , "category" : "Generic Modules/Accounting"

@@ -54,7 +54,7 @@ This module installs everything we need for Austrian extra addons c2c_extension
 ,"analytic_journal_billing_rate"
 ,"analytic_user_function"
 ,"account_financial_report"
-#,"account_payment_extension"
+#,"account_payment_extension_chricar"
 #,"account_report"
 ,"audittrail"
 ,"base_contact"
