@@ -47,8 +47,8 @@
                 ],
     "init_xml" : [],
     "update_xml" : [
-                        "c2c_budget_view.xml",
-                        "c2c_budget_wizard.xml",
+                        "c2c_budget_chricar_view.xml",
+                        "c2c_budget_chricar_wizard.xml",
                         "security/ir.model.access.csv",
                         "report_chart.xml"
                     ],
