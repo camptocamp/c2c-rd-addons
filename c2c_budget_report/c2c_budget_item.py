@@ -4,7 +4,7 @@
 # Copyright (c) Camptocamp SA - http://www.camptocamp.com
 # Author: Arnaud WÃŒst ported by Nicolas Bessi
 #
-#    This file is part of the c2c_budget_chricar module
+#    This file is part of the c2c_budget module
 #
 # WARNING: This program as such is intended to be used by professional
 # programmers who take the whole responsability of assessing all potential
@@ -39,12 +39,12 @@ import decimal_precision as dp
 from tools.translate import _
 
 from copy import copy
-from c2c_reporting_tools_chricar.c2c_helper import *             
+from c2c_reporting_tools.c2c_helper import *             
 import decimal_precision as dp
         
         
 
-class c2c_budget_chricar_item(osv.osv):
+class c2c_budget_item(osv.osv):
     """ camptocamp budget item. This is a link between 
     budgets and financial accounts. """
 
@@ -61,7 +61,7 @@ class c2c_budget_chricar_item(osv.osv):
             res[account.id] = level
         return res
 
-    _inherit = "c2c_budget_chricar.item"
+    _inherit = "c2c_budget.item"
     _description = "Budget items"
     _logger=logging.getLogger(__name__)
 
@@ -139,8 +139,8 @@ class c2c_budget_chricar_item(osv.osv):
             request = ("SELECT i.id as id, " +\
                        ', '.join(map(mapping.__getitem__, field_names)) +
                        " FROM account_account_period_sum l," \
-                       "      c2c_budget_chricar_item i," \
-                       "      c2c_budget_chricar_item_account_rel r " \
+                       "      c2c_budget_item i," \
+                       "      c2c_budget_item_account_rel r " \
                        " WHERE l.account_id = r.account_id " \
                        "   AND i.id = r.budget_item_id " \
              #          "   AND i.id IN (%s) " \
@@ -261,7 +261,7 @@ class c2c_budget_chricar_item(osv.osv):
                 query_params = '%'
             request = ("SELECT l.budget_item_id as id, " +\
                        ', '.join(map(mapping.__getitem__, field_names)) +
-                       " FROM c2c_budget_chricar_line l" \
+                       " FROM c2c_budget_line l" \
                        " WHERE l.budget_item_id >0 " 
                             + filters +
                        " GROUP BY l.budget_item_id") 
@@ -330,7 +330,7 @@ class c2c_budget_chricar_item(osv.osv):
         this item (and all subitems)"""
                 
         # filter the budget lines to work on
-        budget_line_obj = self.pool.get('c2c_budget_chricar.line')         
+        budget_line_obj = self.pool.get('c2c_budget.line')         
         budget_lines = budget_line_obj.filter_by_items(
                                                             cr, 
                                                             uid, 
@@ -463,7 +463,7 @@ class c2c_budget_chricar_item(osv.osv):
         while len(parents_ids) > 0:
             #get all the sub items of this level
             query = """SELECT id 
-                       FROM c2c_budget_chricar_item 
+                       FROM c2c_budget_item 
                        WHERE parent_id IN ( %s ) 
                        AND active """ % ','.join(map(str,parents_ids))
             cr.execute(query)
@@ -630,7 +630,7 @@ it is used for recursive calls
         #we must init result with the root node
         if (level == 0):
             query = """SELECT id, code, name, sequence, type, style, %s as level
-                       FROM c2c_budget_chricar_item 
+                       FROM c2c_budget_item 
                        WHERE id = %s """ % (level, str(root_id))
                     
             cr.execute(query)            
@@ -640,7 +640,7 @@ it is used for recursive calls
 
         #get children's data
         query = """SELECT id, code, name, sequence, type, style, %s as level
-                   FROM c2c_budget_chricar_item 
+                   FROM c2c_budget_item 
                    WHERE parent_id = %s
                    AND active 
                    ORDER BY sequence """ % (level, str(root_id))
@@ -672,7 +672,7 @@ it is used for recursive calls
         if there is a recursion in the budget items structure """
 
         #use the parent check_recursion function defined in orm.py
-        return super(c2c_budget_chricar_item,self)._check_recursion(
+        return super(c2c_budget_item,self)._check_recursion(
                                                             cr,
                                                             uid,
                                                             ids,
@@ -733,12 +733,12 @@ it is used for recursive calls
         
         result = [] 
            
-        parent_result = super(c2c_budget_chricar_item, self).search(cr, user, args, offset, limit, order, context, count)    
+        parent_result = super(c2c_budget_item, self).search(cr, user, args, offset, limit, order, context, count)    
         #special search
         if context != None and 'budget_id' in context \
             and context['budget_id'] != False:
             
-            budget = self.pool.get('c2c_budget_chricar').browse(
+            budget = self.pool.get('c2c_budget').browse(
                                                         cr, 
                                                         user, 
                                                         context['budget_id'], 
@@ -771,7 +771,7 @@ it is used for recursive calls
                         
         #delete item and all subitems
         try: 
-            return super(c2c_budget_chricar_item, self).unlink(
+            return super(c2c_budget_item, self).unlink(
                                                         cr, 
                                                         uid, 
                                                         sub_ids, 
@@ -792,4 +792,4 @@ it is used for recursive calls
 
 
     
-c2c_budget_chricar_item()
+c2c_budget_item()

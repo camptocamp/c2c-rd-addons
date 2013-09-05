@@ -51,7 +51,7 @@ other - naming !!!
 
    * ./account_analytic_plans/account_analytic_plans.py
    * ./account_budget/crossovered_budget.py
-   * ./c2c_budget_chricar/c2c_budget_line.py
+   * ./c2c_budget/c2c_budget_line.py
    * ./report_timesheet/report_timesheet.py
  * account_analytic_id
 

@@ -42,7 +42,7 @@ class budget_item_chart(osv.osv_memory):
     _description = "Account Analytic chart"
     _logger = logging.getLogger(_name)
     _columns = {
-        'chart_account_id': fields.many2one('c2c_budget_chricar.item', \
+        'chart_account_id': fields.many2one('c2c_budget.item', \
                                     'Budget Top Item',  \
                                     domain = [('parent_id','=',False)] ,\
                                     required=True),
@@ -120,15 +120,15 @@ class budget_item_chart(osv.osv_memory):
         data = self.read(cr, uid, ids, [], context=context)[0]
         if data['calc_sequence']:
            cr.execute("""
-             select  c2c_budget_chricar_sequence();
+             select  c2c_budget_sequence();
            """)
         self._logger.debug('open `%s` `%s` `%s`', context.get('open'), data['period_from'][0],  data['period_to'][0])
         if context.get('open')  == 'view':
-            result = mod_obj.get_object_reference(cr, uid, 'c2c_budget_chricar', 'open_budget_items_tree')
+            result = mod_obj.get_object_reference(cr, uid, 'c2c_budget', 'open_budget_items_tree')
             id = result and result[1] or False
             result = act_obj.read(cr, uid, [id], context=context)[0]
         elif context.get('open') == 'report':
-            result = mod_obj.get_object_reference(cr, uid, 'c2c_budget_chricar_report', 'report_c2c_budget_item_chart')
+            result = mod_obj.get_object_reference(cr, uid, 'c2c_budget_report', 'report_c2c_budget_item_chart')
             id = result and result[1] or False
             result = rep_obj.read(cr, uid, [id], context=context)[0]
             #FIXME 
@@ -195,7 +195,7 @@ class budget_item_chart(osv.osv_memory):
             context.update({'periods_budget': periods_budget  })
 
         # get ids
-        item_obj = self.pool.get('c2c_budget_chricar.item')
+        item_obj = self.pool.get('c2c_budget.item')
         item_ids = item_obj._get_children_and_consol(cr, uid, [data['chart_account_id'][0]] , context)
         datas = {
              'ids': item_ids,
@@ -208,7 +208,7 @@ class budget_item_chart(osv.osv_memory):
             #'report_name': 'account.account.chart.report',
         return {
             'type': 'ir.actions.report.xml',
-            'report_name': 'report.c2c_budget_chricar.item.chart',
+            'report_name': 'report.c2c_budget.item.chart',
             'datas': datas,
             'context' : context
         }

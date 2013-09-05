@@ -24,15 +24,15 @@ from osv import fields, osv
 from tools.translate import _
 import logging
 
-class c2c_budget_chricar_create(osv.osv_memory):
+class c2c_budget_create(osv.osv_memory):
     """
     create budget items and lines from previous accounting periods
     """
-    _name = "c2c_budget_chricar.create"
+    _name = "c2c_budget.create"
     _description = "Create Budget Wizard"
     
     _columns = {
-        'budget_version_id'  : fields.many2one('c2c_budget_chricar.version','Budget Version', required=True),
+        'budget_version_id'  : fields.many2one('c2c_budget.version','Budget Version', required=True),
         'period_from': fields.many2one('account.period', 'Start period', required=True),
         'period_to': fields.many2one('account.period', 'End period', required=True),
         'create_items': fields.boolean('Create Missing Budget Items', help="This will create a budget item structure identical to account structure"),
@@ -46,7 +46,7 @@ class c2c_budget_chricar_create(osv.osv_memory):
     def replace_lines(self, cr, uid, ids, periods, context=None):
         if not context:
            context={}
-        budget_lines_obj = self.pool.get('c2c_budget_chricar.line')
+        budget_lines_obj = self.pool.get('c2c_budget.line')
         delete_ids = budget_lines_obj.search(cr, uid, [('period_id','in', periods),('period_source_id','!=', False)],  )
         if delete_ids:
             budget_lines_obj.unlink(cr, uid, delete_ids);
@@ -55,15 +55,15 @@ class c2c_budget_chricar_create(osv.osv_memory):
         res = []
         return res
         
-    def c2c_budget_chricar_create(self, cr, uid, ids, context=None):
+    def c2c_budget_create(self, cr, uid, ids, context=None):
         if not context:
            context = {}
         _logger = logging.getLogger(__name__)
         
         period_obj = self.pool.get('account.period')
-        budget_item_obj = self.pool.get('c2c_budget_chricar.item')
-        budget_version_obj = self.pool.get('c2c_budget_chricar.version')
-        budget_lines_obj = self.pool.get('c2c_budget_chricar.line')
+        budget_item_obj = self.pool.get('c2c_budget.item')
+        budget_version_obj = self.pool.get('c2c_budget.version')
+        budget_lines_obj = self.pool.get('c2c_budget.line')
         if context is None:
             context = {}
         if context.get('currency_id'):
@@ -130,8 +130,8 @@ class c2c_budget_chricar_create(osv.osv_memory):
             cr.execute("""
 select -sum(l.debit-l.credit) as amount, l.analytic_account_id, budget_item_id, l.period_id as period_source_id
   from account_move_line l,
-       c2c_budget_chricar_item_account_rel r,
-       c2c_budget_chricar_item i
+       c2c_budget_item_account_rel r,
+       c2c_budget_item i
 where l.period_id in (%s)
   and r.account_id = l.account_id
   and r.budget_item_id = i.id
@@ -151,5 +151,5 @@ group by l.analytic_account_id, budget_item_id, l.period_id""" % (','.join(map(s
             #    budget_lines_obj.create(cr, uid, vals)
         return True
                  
-c2c_budget_chricar_create()
+c2c_budget_create()
        

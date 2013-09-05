@@ -9,7 +9,7 @@ generated 2009-08-18 23:44:30+02"""
 , "depends"      : 
     [ "product"
     , "picking_invoice_rel"
-    , "c2c_budget_chricar"
+    , "c2c_budget"
     , "c2c_product_price_unit"
     , "one2many_sorted"
     , "chricar_stocklocation_moves"

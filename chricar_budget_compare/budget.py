@@ -36,8 +36,8 @@ class chricar_budget_compare(osv.osv):
      _name = "chricar.budget.compare"
      _auto = False
      _columns = \
-         { 'parent_id'    : fields.many2one('c2c_budget_chricar.item','Budget Parent Item')
-         , 'item_id'      : fields.many2one('c2c_budget_chricar.item','Budget Item')
+         { 'parent_id'    : fields.many2one('c2c_budget.item','Budget Parent Item')
+         , 'item_id'      : fields.many2one('c2c_budget.item','Budget Item')
          , 'sequence'     : fields.integer('Sequence')
          , 'type'         : fields.selection
              ([ ('view', 'View')
@@ -52,7 +52,7 @@ class chricar_budget_compare(osv.osv):
          , 'period_name_last'   : fields.char('Period Last', size=64)
          , 'badget_version_name': fields.char('Budget Version', size=64)
          , 'company_id'         : fields.many2one('res.company', 'Company')
-         , 'budget_version_id'  : fields.many2one('c2c_budget_chricar.version','Budget Version')
+         , 'budget_version_id'  : fields.many2one('c2c_budget.version','Budget Version')
          , 'budget_current' :fields.float('Budget Current',digits_compute=dp.get_precision('Account'))
          , 'budget_last'    :fields.float('Budget Last',digits_compute=dp.get_precision('Account'))
          , 'real_current'   :fields.float('Real Current', digits_compute=dp.get_precision('Account'))
@@ -78,10 +78,10 @@ select 2*l.id as id,
        0 as real_current,
        0 as real_last
   from 
-    c2c_budget_chricar_item i,
-    c2c_budget_chricar_item p,
-    c2c_budget_chricar_line l,
-    c2c_budget_chricar_version v,
+    c2c_budget_item i,
+    c2c_budget_item p,
+    c2c_budget_line l,
+    c2c_budget_version v,
     account_period pc,
     account_period pl
   where 
@@ -108,10 +108,10 @@ select 2*l.id -1 as id,
        0 as real_current,
        0 as real_last
   from 
-    c2c_budget_chricar_item i,
-    c2c_budget_chricar_item p,
-    c2c_budget_chricar_line l,
-    c2c_budget_chricar_version v,
+    c2c_budget_item i,
+    c2c_budget_item p,
+    c2c_budget_line l,
+    c2c_budget_version v,
     account_period pc,
     account_period pl
   where 
@@ -138,10 +138,10 @@ select -l.id*2 as id,
        l.credit - l.debit as real_current,
        0 as real_last
   from 
-    c2c_budget_chricar_item i,
-    c2c_budget_chricar_item p,
+    c2c_budget_item i,
+    c2c_budget_item p,
     account_account a,
-    c2c_budget_chricar_item_account_rel r,
+    c2c_budget_item_account_rel r,
     account_move_line l,
     account_period pc,
     account_period pl
@@ -170,10 +170,10 @@ select -l.id*2-1 as id,
        0 as real_current,
        l.credit - l.debit as real_last
   from 
-    c2c_budget_chricar_item i,
-    c2c_budget_chricar_item p,
+    c2c_budget_item i,
+    c2c_budget_item p,
     account_account a,
-    c2c_budget_chricar_item_account_rel r,
+    c2c_budget_item_account_rel r,
     account_move_line l,
     account_period pc,
     account_period pl
@@ -195,8 +195,8 @@ class chricar_budget_compare_period(osv.osv):
      _auto = False
      _order = "fiscalyear_id desc,sequence"
      _columns = \
-         { 'parent_id'    : fields.many2one('c2c_budget_chricar.item','Budget Parent Item')
-         , 'item_id'      : fields.many2one('c2c_budget_chricar.item','Budget Item')
+         { 'parent_id'    : fields.many2one('c2c_budget.item','Budget Parent Item')
+         , 'item_id'      : fields.many2one('c2c_budget.item','Budget Item')
          , 'sequence'     : fields.integer('Sequence')
          , 'type'         : fields.selection
              ([('view', 'View')
@@ -238,8 +238,8 @@ class chricar_budget_compare_year(osv.osv):
      _auto = False
      _order = "fiscalyear_id desc,sequence"
      _columns = \
-         { 'parent_id'    : fields.many2one('c2c_budget_chricar.item','Budget Parent Item')
-         , 'item_id'      : fields.many2one('c2c_budget_chricar.item','Budget Item')
+         { 'parent_id'    : fields.many2one('c2c_budget.item','Budget Parent Item')
+         , 'item_id'      : fields.many2one('c2c_budget.item','Budget Item')
          , 'sequence'     : fields.integer('Sequence')
          , 'type'         : fields.selection
              ([ ('view', 'View')

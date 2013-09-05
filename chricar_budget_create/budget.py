@@ -39,21 +39,21 @@ import pooler
 import decimal_precision as dp
 import logging
 
-class c2c_budget_chricar_line(osv.osv):
-    _inherit = "c2c_budget_chricar.line"
+class c2c_budget_line(osv.osv):
+    _inherit = "c2c_budget.line"
     _columns = {
         'period_source_id' : fields.many2one('account.period','Source Period', readonly=True ),
         }
 
-c2c_budget_chricar_line()
+c2c_budget_line()
 
-class c2c_budget_chricar_item(osv.osv):
-    _inherit = "c2c_budget_chricar.item"
+class c2c_budget_item(osv.osv):
+    _inherit = "c2c_budget.item"
 
     def budget_item_views_create(self, cr, uid, parent_ids, context={}):
         _logger = logging.getLogger(__name__)
         account_obj = self.pool.get('account.account')
-        budget_item_obj = self.pool.get('c2c_budget_chricar.item')
+        budget_item_obj = self.pool.get('c2c_budget.item')
         missing_parent_ids = list(parent_ids)
         _logger.debug('FGF missing parent %s' % (missing_parent_ids))
         for account in account_obj.browse(cr, uid, parent_ids, context=None):
@@ -80,7 +80,7 @@ class c2c_budget_chricar_item(osv.osv):
  
     def budget_item_parent_rel_create(self, cr, uid, parent_ids, context): 
         _logger = logging.getLogger(__name__)
-        budget_item_obj = self.pool.get('c2c_budget_chricar.item')
+        budget_item_obj = self.pool.get('c2c_budget.item')
         company_id = context['company_id']
         _logger.debug('FGF parent dict company_id %s' % (company_id))
         cr.execute("""select a.code, p.code
@@ -133,11 +133,11 @@ class c2c_budget_chricar_item(osv.osv):
         company_id = context['company_id']
         cr.execute(""" select a.id as account_id,b.id budget_item_id 
                          from account_account a,
-                              c2c_budget_chricar_item b
+                              c2c_budget_item b
                         where a.code = b.code
                           and b.type != 'view'
                           and a.company_id = %s
-                          and (a.id,b.id) not in (select account_id ,b.id as budget_item_id from c2c_budget_chricar_item_account_rel);"""  %(company_id))
+                          and (a.id,b.id) not in (select account_id ,b.id as budget_item_id from c2c_budget_item_account_rel);"""  %(company_id))
         for missing in cr.dictfetchall():
             _logger.debug('FGF missing rel %s' % (missing))
             self.write(cr, uid, [missing['budget_item_id']], {'account' : [(6,0, [missing['account_id']])]}, context )
@@ -146,7 +146,7 @@ class c2c_budget_chricar_item(osv.osv):
     
     def budget_item_create(self, cr, uid, context={}):
         _logger = logging.getLogger(__name__)
-        budget_item_obj = self.pool.get('c2c_budget_chricar.item')
+        budget_item_obj = self.pool.get('c2c_budget.item')
         budget_top_id = budget_item_obj.search(cr, uid, [('parent_id','=',False)])[0]
         context['budget_top_id'] = budget_top_id
         # will create missing budget items + structure as for accounts
@@ -160,7 +160,7 @@ class c2c_budget_chricar_item(osv.osv):
             where company_id = %s
               and type = 'other'
               and user_type in (%s)
-              and code not in (select code from c2c_budget_chricar_item )""" % (company_id, (','.join(map(str,user_type_ids)))))
+              and code not in (select code from c2c_budget_item )""" % (company_id, (','.join(map(str,user_type_ids)))))
         budget_items_missing = []
         parent_ids = []
         #item_dict = cr.dictfetchall()
@@ -187,15 +187,15 @@ class c2c_budget_chricar_item(osv.osv):
         return 
                 
 
-c2c_budget_chricar_item()
+c2c_budget_item()
 
 
-class c2c_budget_chricar_version(osv.osv):
-    _inherit = "c2c_budget_chricar.version"
+class c2c_budget_version(osv.osv):
+    _inherit = "c2c_budget.version"
 
     def budget_lines_create(self, cr, uid, version, date, context={}):
        return
 
 
 
-c2c_budget_chricar_version()
+c2c_budget_version()

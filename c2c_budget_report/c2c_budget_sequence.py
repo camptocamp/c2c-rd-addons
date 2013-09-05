@@ -31,10 +31,10 @@
 from osv import fields, osv
 
 
-class c2c_budget_chricar_item(osv.osv):
+class c2c_budget_item(osv.osv):
     """ camptocamp budget item. This is a link between 
     budgets and financial accounts. """
-    _inherit = "c2c_budget_chricar.item"
+    _inherit = "c2c_budget.item"
 
     def init(self, cr):
        # this is copied from a working solution
@@ -50,7 +50,7 @@ class c2c_budget_chricar_item(osv.osv):
 #          pass
 
        cr.execute("""
-create or replace function c2c_budget_chricar_sequence()
+create or replace function c2c_budget_sequence()
    RETURNS void AS $$
    DECLARE
       level_p integer;
@@ -60,19 +60,19 @@ create or replace function c2c_budget_chricar_sequence()
       r record;
       o record;
    BEGIN
-      update c2c_budget_chricar_item set sequence = 0;
-      select into start_pos_p id::varchar from c2c_budget_chricar_item where parent_id is null;
+      update c2c_budget_item set sequence = 0;
+      select into start_pos_p id::varchar from c2c_budget_item where parent_id is null;
 
 -- postgres tablefunc.sql must be loaded
 
-          create table c2c_budget_chricar_item_sequence as
-          SELECT * FROM connectby('c2c_budget_chricar_item','id','parent_id',        'code', start_pos_p , 0, '~')
+          create table c2c_budget_item_sequence as
+          SELECT * FROM connectby('c2c_budget_item','id','parent_id',        'code', start_pos_p , 0, '~')
                 AS t(keyid integer, parent_keyid integer, level int, branch text, pos int);
 
-          update c2c_budget_chricar_item i
-             set sequence = ( select pos from c2c_budget_chricar_item_sequence where keyid = i.id);
+          update c2c_budget_item i
+             set sequence = ( select pos from c2c_budget_item_sequence where keyid = i.id);
 
-          drop table c2c_budget_chricar_item_sequence;
+          drop table c2c_budget_item_sequence;
 
    RETURN ;
    END;
@@ -80,7 +80,7 @@ $$ LANGUAGE plpgsql;
           """)
 
        cr.execute("""
-          select  c2c_budget_chricar_sequence();
+          select  c2c_budget_sequence();
           """)
       
-c2c_budget_chricar_item()
+c2c_budget_item()

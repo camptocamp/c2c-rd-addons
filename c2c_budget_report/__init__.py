@@ -4,7 +4,7 @@
 # Copyright (c) Camptocamp SA - http://www.camptocamp.com
 # Author: Arnaud WÃŒst ported by nbessi
 #
-#    This file is part of the c2c_budget_chricar module
+#    This file is part of the c2c_budget module
 #
 # WARNING: This program as such is intended to be used by professional
 # programmers who take the whole responsability of assessing all potential
@@ -28,6 +28,6 @@
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 import wizard
-import c2c_budget_chricar_item
+import c2c_budget_item
 import report
-import c2c_budget_chricar_sequence
+import c2c_budget_sequence

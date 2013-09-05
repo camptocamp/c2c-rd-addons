@@ -37,10 +37,10 @@ import logging
 
 
 # ************************
-# c2c_budget_chricar-item
+# c2c_budget-item
 # ************************
-class c2c_budget_chricar_item(osv.osv):
-     _inherit = 'c2c_budget_chricar.item'
+class c2c_budget_item(osv.osv):
+     _inherit = 'c2c_budget.item'
      _columns = {
        'is_cash' :fields.boolean('Is Cash Flow', help="Check this if this budget item is cash flow relevant (not for P&L only like depreciation"),
        'is_p_l'  :fields.boolean('Is P&L', help="""Check this if this budget item is P&L relevant (not for CF only like Investments)"""),
@@ -49,26 +49,26 @@ class c2c_budget_chricar_item(osv.osv):
       'is_cash'     : lambda *a: True,
       'is_p_l'      : lambda *a: True,
 }
-c2c_budget_chricar_item()
+c2c_budget_item()
 
 # ************************
-# c2c_budget_chricar-version
+# c2c_budget-version
 # ************************
-class c2c_budget_chricar_version(osv.osv):
-     _inherit = 'c2c_budget_chricar.version'
+class c2c_budget_version(osv.osv):
+     _inherit = 'c2c_budget.version'
      _columns = {
-       'budget_version_next_id' : fields.many2one ('c2c_budget_chricar.version','Budget Version of Next Year', help="This version will be used if production or sales date planning concern already the next year"),
-       'budget_version_prev_id' : fields.many2one ('c2c_budget_chricar.version','Budget Version of Provious Year', help="This version will be used if production or sales date planning still concern the previous year"),
+       'budget_version_next_id' : fields.many2one ('c2c_budget.version','Budget Version of Next Year', help="This version will be used if production or sales date planning concern already the next year"),
+       'budget_version_prev_id' : fields.many2one ('c2c_budget.version','Budget Version of Provious Year', help="This version will be used if production or sales date planning still concern the previous year"),
        'is_current'             : fields.boolean  ('Is Current Budget'),
 }
 
-c2c_budget_chricar_version()
+c2c_budget_version()
 
 # ************************
-# c2c_budget_chricar-line
+# c2c_budget-line
 # ************************
-class c2c_budget_chricar_line(osv.osv):
-     _inherit = 'c2c_budget_chricar.line'
+class c2c_budget_line(osv.osv):
+     _inherit = 'c2c_budget.line'
 
      def on_change_date(self, cr, uid, ids, date_planning):
         period_ids= self.pool.get('account.period').search(cr,uid,[('date_start','<=',date_planning),('date_stop','>=',date_planning )])
@@ -97,8 +97,8 @@ class c2c_budget_chricar_line(osv.osv):
             if not date_due:
                 date_due = plan.period_id.date_stop
             cr.execute("""select sum(l.amount) 
-                            from c2c_budget_chricar_line l,
-                                 c2c_budget_chricar_item i,
+                            from c2c_budget_line l,
+                                 c2c_budget_item i,
                                  account_period p
                             where i.is_cash = True
                               and i.id = l.budget_item_id
@@ -132,8 +132,8 @@ class c2c_budget_chricar_line(osv.osv):
         
      def _is_current_version(self, cr, uid, ids, context=None):
         res = {}
-        f = self.pool.get('c2c_budget_chricar.line').search(cr, uid,[('budget_version_id','in',ids)])
-        for line in self.pool.get('c2c_budget_chricar.line').browse(cr,uid,f,context={}):
+        f = self.pool.get('c2c_budget.line').search(cr, uid,[('budget_version_id','in',ids)])
+        for line in self.pool.get('c2c_budget.line').browse(cr,uid,f,context={}):
             res[line.id] = False
             if line.budget_version_id.is_current and line.budget_item_id.is_cash:
                 res[line.id] = True
@@ -141,8 +141,8 @@ class c2c_budget_chricar_line(osv.osv):
 
      def _is_cash(self, cr, uid, ids, context=None):
         res = {}
-        f = self.pool.get('c2c_budget_chricar.line').search(cr, uid,[('budget_item_id','in',ids)])
-        for line in self.pool.get('c2c_budget_chricar.line').browse(cr,uid,f,context={}):
+        f = self.pool.get('c2c_budget.line').search(cr, uid,[('budget_item_id','in',ids)])
+        for line in self.pool.get('c2c_budget.line').browse(cr,uid,f,context={}):
             res[line.id] = False
             if line.budget_version_id.is_current and line.budget_item_id.is_cash:
                 res[line.id] = True
@@ -156,8 +156,8 @@ class c2c_budget_chricar_line(osv.osv):
        'date_planning'      : fields.date     ('Date Planning'),
        'is_current'         : fields.function (_is_current, method=True, type="boolean", string="Is Current",
                                 store = {
-                                  'c2c_budget_chricar.version': (_is_current_version,['is_current'], 10),
-                                  'c2c_budget_chricar.item': (_is_cash,['is_cash'], 10)}
+                                  'c2c_budget.version': (_is_current_version,['is_current'], 10),
+                                  'c2c_budget.item': (_is_cash,['is_cash'], 10)}
                                               ),
                                     
        'state'              : fields.selection([('draft','Draft'), ('planned','Planned'), ('product','Product'), ('done','Done'),('cancel','Canceled')], 'Status',
@@ -170,7 +170,7 @@ Done is set automatically or manualy if the line materialized."""),
      _defaults = {
       'state'     : lambda *a: 'planned',
 }
-c2c_budget_chricar_line()
+c2c_budget_line()
 
 # ************************
 # Production
@@ -178,7 +178,7 @@ c2c_budget_chricar_line()
 class chricar_budget_lines_production(osv.osv):
      _name = "chricar.budget_lines_production"
      _table = "chricar_budget_lines_production"
-     _inherits = {'c2c_budget_chricar.line': 'budget_line_id'}
+     _inherits = {'c2c_budget.line': 'budget_line_id'}
 
 
      def _get_price_unit_id(self, cr, uid, *args):
@@ -219,8 +219,8 @@ class chricar_budget_lines_production(osv.osv):
        'amount_cost'        : fields.function(_amount_total, method=True, string='Subtotal' , digits_compute=dp.get_precision('Budget'), store=True),
        'bom_id'             : fields.many2one('mrp.bom','BoM'),
        'budget_id'          : fields.many2one('chricar.budget','Product', required=True),
-       #'budget_item_id'     : fields.many2one('c2c_budget_chricar.item','Budget Item', required=True),
-       #'budget_line_id'     : fields.many2one('c2c_budget_chricar.line','Budget Line', required=True),
+       #'budget_item_id'     : fields.many2one('c2c_budget.item','Budget Item', required=True),
+       #'budget_line_id'     : fields.many2one('c2c_budget.line','Budget Line', required=True),
        #'date_due'           : fields.date    ('Date Due', required=True, help="This date will be used for cashflow planning"),
        #'date_planning'      : fields.date    ('Date Planning', required=True),
        'location_id'        : fields.many2one('stock.location','Location'),
@@ -252,9 +252,9 @@ class chricar_budget_lines_production(osv.osv):
            period_id=period_ids[0]
            result['period_id'] = period_id
         cr.execute("""select v.id
-                        from c2c_budget_chricar b,
-                             c2c_budget_chricar_version v,
-                             c2c_budget_chricar_version vc
+                        from c2c_budget b,
+                             c2c_budget_version v,
+                             c2c_budget_version vc
                        where to_date( '%s','YYYY-MM-DD') between b.start_date and b.end_date
                          and b.id = v.budget_id
                          and v.id in (vc.id,vc.budget_version_prev_id,vc.budget_version_next_id)
@@ -319,7 +319,7 @@ chricar_budget_lines_production()
 class chricar_budget_lines_sales(osv.osv):
      _name = "chricar.budget_lines_sales"
      _table = "chricar_budget_lines_sales"
-     _inherits = {'c2c_budget_chricar.line': 'budget_line_id'}
+     _inherits = {'c2c_budget.line': 'budget_line_id'}
 
      def _get_price_unit_id(self, cr, uid, *args):
         cr.execute('select id from c2c_product_price_unit where coefficient = 1')
@@ -348,8 +348,8 @@ class chricar_budget_lines_sales(osv.osv):
        #'amount'       : fields.function(_amount_total, method=True, string='Subtotal' , digits_compute=dp.get_precision('Budget') , store=True),
        'bom_id'             : fields.many2one('mrp.bom','BoM'),
        'budget_id'          : fields.many2one('chricar.budget','Budget', required=True),
-       #'budget_line_id'     : fields.many2one('c2c_budget_chricar.line','Budget Line', required=True),
-       #'budget_item_id'     : fields.many2one('c2c_budget_chricar.item','Budget Item',required=True),
+       #'budget_line_id'     : fields.many2one('c2c_budget.line','Budget Line', required=True),
+       #'budget_item_id'     : fields.many2one('c2c_budget.item','Budget Item',required=True),
        #'date_due'           : fields.date    ('Date Due', required=True, help="This date will be used for cashflow planning"),
        #'date_planning'      : fields.date    ('Date Planning', required=True),
        #'name'               : fields.char    ('Description',size=200),
@@ -376,9 +376,9 @@ class chricar_budget_lines_sales(osv.osv):
            period_id=period_ids[0]
            result['period_id'] = period_id
         cr.execute("""select v.id
-                        from c2c_budget_chricar b,
-                             c2c_budget_chricar_version v,
-                             c2c_budget_chricar_version vc
+                        from c2c_budget b,
+                             c2c_budget_version v,
+                             c2c_budget_version vc
                        where to_date( '%s','YYYY-MM-DD') between b.start_date and b.end_date
                          and b.id = v.budget_id
                          and v.id in (vc.id,vc.budget_version_prev_id,vc.budget_version_next_id)
@@ -435,7 +435,7 @@ class chricar_budget(osv.osv):
          for p in self.browse(cr, uid, ids, context):
              pid = p.id
              cr.execute("""select sum(amount_cost) from chricar_budget_lines_production p,
-                                                   c2c_budget_chricar_line l
+                                                   c2c_budget_line l
                                                    where l.id = p.budget_line_id
                                                      and p.budget_id = %d""" % pid)
              res = cr.fetchone()
@@ -449,7 +449,7 @@ class chricar_budget(osv.osv):
          for p in self.browse(cr, uid, ids, context):
              pid = p.id
              cr.execute("""select sum(amount) from chricar_budget_lines_sales s,
-                                                   c2c_budget_chricar_line l
+                                                   c2c_budget_line l
                                                    where l.id = s.budget_line_id
                                                      and (auto_type is null or auto_type = 'sales')
                                                      and s.budget_id = %d""" % pid)
@@ -464,7 +464,7 @@ class chricar_budget(osv.osv):
          for p in self.browse(cr, uid, ids, context):
              pid = p.id
              cr.execute("""select sum(amount) from chricar_budget_lines_sales s,
-                                                   c2c_budget_chricar_line l
+                                                   c2c_budget_line l
                                                    where l.id = s.budget_line_id
                                                      and (auto_type is null or auto_type = 'sales')
                                                      and s.budget_id = %d""" % pid)
@@ -479,7 +479,7 @@ class chricar_budget(osv.osv):
          for p in self.browse(cr, uid, ids, context):
              pid = p.id
              cr.execute("""select sum(quantity) from chricar_budget_lines_sales s,
-                                                   c2c_budget_chricar_line l
+                                                   c2c_budget_line l
                                                    where l.id = s.budget_line_id
                                                      and (auto_type is null or auto_type = 'sales')
                                                      and s.budget_id = %d""" % pid)
@@ -494,14 +494,14 @@ class chricar_budget(osv.osv):
          for p in self.browse(cr, uid, ids, context):
              pid = p.id
              cr.execute("""select sum(amount) from chricar_budget_lines_sales s,
-                                                   c2c_budget_chricar_line l
+                                                   c2c_budget_line l
                                                    where l.id = s.budget_line_id
                                                      and (auto_type is null or auto_type = 'sales')
                                                      and s.budget_id = %d""" % pid)
              res = cr.fetchone()
              sales = (res and res[0]) or False
              cr.execute("""select sum(amount_cost) from chricar_budget_lines_production p,
-                                                   c2c_budget_chricar_line l
+                                                   c2c_budget_line l
                                                    where l.id = p.budget_line_id
                                                      and p.budget_id = %d""" % pid)
              res = cr.fetchone()
@@ -516,7 +516,7 @@ class chricar_budget(osv.osv):
              pid = p.id
              sales = p.amount
              cr.execute("""select sum(amount_cost) from chricar_budget_lines_production p,
-                                                   c2c_budget_chricar_line l
+                                                   c2c_budget_line l
                                                    where l.id = p.budget_line_id
                                                      and p.budget_id = %d""" % pid)
              res = cr.fetchone()
@@ -564,7 +564,7 @@ class chricar_budget(osv.osv):
           self._logger.debug('lines deleted `%s`', line_ids)
           if toremove:
              self._logger.debug('lines c2c to deleted `%s`', toremove)
-             self.pool.get('c2c_budget_chricar.line').unlink(cr, uid, toremove )
+             self.pool.get('c2c_budget.line').unlink(cr, uid, toremove )
              self._logger.debug('lines c2c deleted `%s`', toremove)
        return True  
 
@@ -588,7 +588,7 @@ class chricar_budget(osv.osv):
           bls_obj.unlink(cr, uid, line_ids )
           self._logger.debug('lines deleted `%s`', line_ids)
           self._logger.debug('lines c2c to deleted `%s`', toremove)
-          self.pool.get('c2c_budget_chricar.line').unlink(cr, uid, toremove )
+          self.pool.get('c2c_budget.line').unlink(cr, uid, toremove )
           self._logger.debug('lines c2c deleted `%s`', toremove)
 
         amount_sales_open = prod_plan.amount_sales_open
@@ -614,7 +614,7 @@ class chricar_budget(osv.osv):
         
         budget_item_ids = []
         if account_sale_id:
-            budget_item_ids = self.pool.get('c2c_budget_chricar.item').search(cr, uid,[('account', '=', account_sale_id )])
+            budget_item_ids = self.pool.get('c2c_budget.item').search(cr, uid,[('account', '=', account_sale_id )])
         budget_item_id = 553 # FIXME if nothing is found later
         if budget_item_ids:
             self._logger.debug('budget_item_ids `%s`', budget_item_ids)
@@ -623,7 +623,7 @@ class chricar_budget(osv.osv):
                
         budget_item_cost_ids = []
         if account_cost_id:
-            budget_item_cost_ids = self.pool.get('c2c_budget_chricar.item').search(cr, uid,[('account', '=', account_cost_id )])
+            budget_item_cost_ids = self.pool.get('c2c_budget.item').search(cr, uid,[('account', '=', account_cost_id )])
         budget_item_cost_id = 553 # FIXME if nothing is found later
         if budget_item_cost_ids:
             self._logger.debug('budget_item_cost_ids `%s`', budget_item_cost_ids)
@@ -759,8 +759,8 @@ class chricar_budget_line_share(osv.osv):
     _columns = {
       'period_id'          : fields.many2one('account.period', 'Period', required=True),
       'cal_year'           : fields.char    ('Calendar Year',size=8       ,readonly='True'),
-      'budget_item_id'     : fields.many2one('c2c_budget_chricar.item','Budget Item',required=True),
-      'budget_version_id'  : fields.many2one('c2c_budget_chricar.version','Budget Version',required=True),
+      'budget_item_id'     : fields.many2one('c2c_budget.item','Budget Item',required=True),
+      'budget_version_id'  : fields.many2one('c2c_budget.version','Budget Version',required=True),
       'analytic_account_id': fields.many2one('account.analytic.account','Analytic Account'),
       'partner_id'         : fields.many2one('res.partner','Partner', required=True),
       'partner_parent_id'  : fields.many2one('res.partner','Owner', required=True),
@@ -808,9 +808,9 @@ create or replace view chricar_budget_line_share as
       null::boolean as consolidation3,
       null::integer as partner_parent2_id, null::integer as partner_parent3_id,
       True as consolidation_only
-    from c2c_budget_chricar_line l,
-      c2c_budget_chricar_version v,
-      c2c_budget_chricar_item i,
+    from c2c_budget_line l,
+      c2c_budget_version v,
+      c2c_budget_item i,
       res_partner p,
       res_company c
     where 
@@ -838,9 +838,9 @@ create or replace view chricar_budget_line_share as
       case when pc.consolidation = True then True end as consolidation_only 
     from 
       res_partner_parent_company pc,
-      c2c_budget_chricar_line l,
-      c2c_budget_chricar_version v,
-      c2c_budget_chricar_item i,
+      c2c_budget_line l,
+      c2c_budget_version v,
+      c2c_budget_item i,
       res_partner p,
       res_company c
     where 
@@ -869,9 +869,9 @@ create or replace view chricar_budget_line_share as
     from
       res_partner_parent_company pc,
       res_partner_parent_company pc2,
-      c2c_budget_chricar_line l,
-      c2c_budget_chricar_version v,
-      c2c_budget_chricar_item i,
+      c2c_budget_line l,
+      c2c_budget_version v,
+      c2c_budget_item i,
       res_partner p,
       res_company c
     where -- (pc2.consolidation=pc.consolidation or ( pc2.consolidation is null and pc.consolidation is null)) and
@@ -903,9 +903,9 @@ create or replace view chricar_budget_line_share as
       res_partner_parent_company pc,
       res_partner_parent_company pc2,
       res_partner_parent_company pc3,
-      c2c_budget_chricar_line l,
-      c2c_budget_chricar_version v,
-      c2c_budget_chricar_item i,
+      c2c_budget_line l,
+      c2c_budget_version v,
+      c2c_budget_item i,
       res_partner p,
       res_company c
     where --((pc2.consolidation=pc.consolidation and pc2.consolidation=pc3.consolidation) or (pc3.consolidation is null and pc2.consolidation is null and pc.consolidation is null)) and
