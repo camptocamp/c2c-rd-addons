@@ -43,7 +43,7 @@
     "depends" : [
                     "base",
                     "account",
-                    "c2c_reporting_tools"
+                    "c2c_reporting_tools_chricar"
                 ],
     "init_xml" : [],
     "update_xml" : [

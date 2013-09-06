@@ -29,7 +29,7 @@
 #
 ##############################################################################
 from osv import fields, osv
-from c2c_reporting_tools.c2c_helper import *   
+from c2c_reporting_tools_chricar.c2c_helper import *   
 from datetime import datetime
 from time import mktime
 import time

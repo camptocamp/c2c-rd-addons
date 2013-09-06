@@ -28,7 +28,7 @@
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 ##############################################################################
-from c2c_reporting_tools.core.table_elements import *
+from c2c_reporting_tools_chricar.core.table_elements import *
 
 
 class ItemCell(TextCellData):
