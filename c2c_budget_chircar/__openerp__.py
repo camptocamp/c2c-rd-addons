@@ -4,7 +4,7 @@
 # Copyright (c) Camptocamp SA - http://www.camptocamp.com
 # Author: Arnaud WÃŒst ported by nbessi
 #
-#    This file is part of the c2c_budget module
+#    This file is part of the c2c_budget_chricar module
 #
 # WARNING: This program as such is intended to be used by professional
 # programmers who take the whole responsability of assessing all potential
@@ -47,8 +47,8 @@ This module is for real advanced budget use, otherwise prefer to use the Tiny on
     ]
 , "init_xml" : []
 , "update_xml" : 
-    [ "c2c_budget_view.xml"
-    , "c2c_budget_wizard.xml"
+    [ "c2c_budget_chricar_view.xml"
+    , "c2c_budget_chricar_wizard.xml"
     , "security/ir.model.access.csv"
     , "report_chart.xml"
     , "wizard/chart.xml"

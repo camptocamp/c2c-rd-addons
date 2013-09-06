@@ -38,7 +38,7 @@ This module installs everything we need for Austrian extra addons c2c_extension
 ,"c2c_account_line_change"
 ,"c2c_account_interest"
 ,"c2c_account_tax_rounding"
-,"c2c_budget"
+,"c2c_budget_chricar"
 ,"c2c_managment_board"
 ,"c2c_period_yyyymm"
 ,"c2c_product_price_unit"

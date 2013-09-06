@@ -4,7 +4,7 @@
 # Copyright (c) Camptocamp SA - http://www.camptocamp.com
 # Author: Arnaud WÃŒst ported by nbessi
 #
-#    This file is part of the c2c_budget module
+#    This file is part of the c2c_budget_chricar module
 #
 # WARNING: This program as such is intended to be used by professional
 # programmers who take the whole responsability of assessing all potential
@@ -37,7 +37,7 @@ Budget Module:
 
 """
 , "depends" : 
-    [ "c2c_budget","chricar_account_period_sum",
+    [ "c2c_budget_chricar","chricar_account_period_sum",
     ]
 , "init_xml" : []
 , "update_xml" : 
