@@ -39,7 +39,7 @@ import decimal_precision as dp
 from tools.translate import _
 
 from copy import copy
-from c2c_reporting_tools.c2c_helper import *             
+from c2c_reporting_tools_chricar.c2c_helper import *             
 import decimal_precision as dp
         
         
