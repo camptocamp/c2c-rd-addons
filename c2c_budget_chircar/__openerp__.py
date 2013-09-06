@@ -41,7 +41,7 @@ This module is for real advanced budget use, otherwise prefer to use the Tiny on
 """
 , "depends" : 
     [ "account"
-    , "c2c_reporting_tools"
+    , "c2c_reporting_tools_chricar"
     , "chricar_account_period_sum"
     , "report_webkit_chapter_server"
     ]
