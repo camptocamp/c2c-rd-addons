@@ -35,5 +35,5 @@ class report_webkit_html(report_sxw.rml_parse):
         
 report_sxw.report_sxw('report.purchase.order.webkit',
                        'purchase.order',
-                       'addons/purchase_order_webkit/report/purchase_order.mako',
+                       'addons/purchase_order_webkit_chricar/report/purchase_order.mako',
                        parser=report_webkit_html)
