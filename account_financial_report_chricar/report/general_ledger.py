@@ -410,5 +410,5 @@ class general_ledger(rml_parse.rml_parse):
             return currency_total
 
 
-report_sxw.report_sxw('report.account.general.ledger.cumulative', 'account.account', 'addons/account_financial_report/report/general_ledger.rml', parser=general_ledger, header=False)
+report_sxw.report_sxw('report.account.general.ledger.cumulative', 'account.account', 'addons/account_financial_report_chricar/report/general_ledger.rml', parser=general_ledger, header=False)
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

@@ -54,8 +54,8 @@ class journal_print(report_sxw.rml_parse):
         super(journal_print, self).set_context(objects, data, ids, report_type)
 
 
-report_sxw.report_sxw('report.account.print.journal.entries', 'account.journal.period', 'addons/account_financial_report/report/account_move_line_record.rml', parser=journal_print, header=False)
-report_sxw.report_sxw('report.account.print.journal.entriesh', 'account.journal.period', 'addons/account_financial_report/report/account_move_line_record_h.rml', parser=journal_print, header=False)
+report_sxw.report_sxw('report.account.print.journal.entries', 'account.journal.period', 'addons/account_financial_report_chricar/report/account_move_line_record.rml', parser=journal_print, header=False)
+report_sxw.report_sxw('report.account.print.journal.entriesh', 'account.journal.period', 'addons/account_financial_report_chricar/report/account_move_line_record_h.rml', parser=journal_print, header=False)
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
 

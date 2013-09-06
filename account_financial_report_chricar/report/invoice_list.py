@@ -171,4 +171,4 @@ class print_invoice_list(rml_parse.rml_parse):
         del tmp
 
 
-report_sxw.report_sxw('report.account.invoice.list.report', 'account.invoice', 'addons/account_financial_report/report/invoice_list.rml', parser=print_invoice_list, header=False)
+report_sxw.report_sxw('report.account.invoice.list.report', 'account.invoice', 'addons/account_financial_report_chricar/report/invoice_list.rml', parser=print_invoice_list, header=False)
