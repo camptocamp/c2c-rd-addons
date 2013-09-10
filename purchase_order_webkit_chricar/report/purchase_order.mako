@@ -40,7 +40,7 @@
         %if order.company_id.address_label_position == 'left':
          <tr>
          <td style="width:50%"> 
-             ${order.partner_address_id.address_label |carriage_returns }
+             ${order.partner_id.address_label |carriage_returns }
          </td>
 
          <td style="width:50%">
@@ -53,14 +53,14 @@
 
 <b>${_("Ordering Contact")}</b><br>
          
-         %if order.partner_address_id.phone :
+         %if order.partner_id.phone :
 ${_("Phone")}: ${order.partner_id.phone|entity} <br>
         %endif
-        %if order.partner_address_id.fax :
-${_("Fax")}: ${order.partner_address_id.fax|entity} <br>
+        %if order.partner_id.fax :
+${_("Fax")}: ${order.partner_id.fax|entity} <br>
         %endif
-        %if order.partner_address_id.email :
-${_("Mail")}: ${order.partner_address_id.email|entity} <br>
+        %if order.partner_id.email :
+${_("Mail")}: ${order.partner_id.email|entity} <br>
         %endif
 
          </td>
@@ -78,20 +78,20 @@ ${_("Mail")}: ${order.partner_address_id.email|entity} <br>
 
 <b>${_("Ordering Contact")}</b><br>
 
-         %if order.partner_address_id.phone :
+         %if order.partner_id.phone :
 ${_("Phone")}: ${order.partner_id.phone|entity} <br>
         %endif
-        %if order.partner_address_id.fax :
-${_("Fax")}: ${order.partner_address_id.fax|entity} <br>
+        %if order.partner_id.fax :
+${_("Fax")}: ${order.partner_id.fax|entity} <br>
         %endif
-        %if order.partner_address_id.email :
-${_("Mail")}: ${order.partner_address_id.email|entity} <br>
+        %if order.partner_id.email :
+${_("Mail")}: ${order.partner_id.email|entity} <br>
         %endif
 
          </td>
 
          <td style="width:50%">
-             ${order.partner_address_id.address_label |carriage_returns }
+             ${order.partner_id.address_label |carriage_returns }
          </td>
 
         </tr>
@@ -169,14 +169,14 @@ ${_("Mail")}: ${order.partner_address_id.email|entity} <br>
             <td>${line.product_id.default_code or ''|entity}</td>
             <td>
 ${line.product_id.name or line.name|entity}
-        %if line.notes :
+        %if 'notes' in line._columns and  line.notes :
 <br>
         ${line.notes |carriage_returns}
         %endif
 </td>
 %else:
   <td>${line.name|entity}
-        %if line.notes :
+        %if 'notes' in line._columns and line.notes :
 <br>
         ${line.notes |carriage_returns}
         %endif
