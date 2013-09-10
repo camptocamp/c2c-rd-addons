@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <report
+      auto="False"
+      file="sale_order_webkit_chricar/report/sale_order.mako"
+      id="saler_order_webkit"
+      model="sale.order"
+      name="sale.order.webkit"
+      report_type="webkit"
+      string="WebKit Sale Order"/>
+  </data>
+</openerp>

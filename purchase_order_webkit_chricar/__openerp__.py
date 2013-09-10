@@ -1,10 +1,10 @@
-# -*- coding: utf-8 -*- 
+# -*- coding: utf-8 -*-
 ##############################################################################
 #
-# Copyright (c) Camptocamp SA - http://www.camptocamp.com
-# Author: Arnaud WÃŒst ported by nbessi
+# Copyright (c) 2010 Camptocamp SA (http://www.camptocamp.com) 
+# All Right Reserved
 #
-#    This file is part of the c2c_budget_chricar module
+# Author : Ferdinand GAssauer (Camptocamp Austria)
 #
 # WARNING: This program as such is intended to be used by professional
 # programmers who take the whole responsability of assessing all potential
@@ -26,26 +26,28 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
-{ "name" : "Advanced Budget Webkit Report"
-, "version" : "6.1"
-, "author" : "Camptocamp Austria"
-, "category" : "Generic Modules/Accounting"
-, "website" : "http://camptocamp.com"
-, "description": """
-Budget Module:
- * Webkit report compares real to budget
+#
+##############################################################################
+{ "name" : "Webkit Report Purchase Order Payment Term, Incoterm"
+, "description" : """
+Purchase Order using Webkit,
+adds fields for supplier payment term and incoterm
+Address label with option to position address left, right
+using address label field with addressee's country specific zip position
 
-"""
-, "depends" : 
-    [ "c2c_budget_chricar","chricar_account_period_sum",
+suppress unused columns in purchase order lines."""
+, "version"      : "0.9"
+, "depends"      : 
+    [ "purchase"
+    , "stock"
+    , "report_webkit"
+    , "c2c_partner_address_label"
+    , "one2many_sorted"
     ]
-, "init_xml" : []
-, "update_xml" : 
-    [ "security/ir.model.access.csv"
-    , "report_chart.xml"
-    , "wizard/chart.xml"
-    ]
-, "auto_install": False
-, "installable": True
-, 'application'  : False
+, "category"     : "PurchaseManagement"
+, "author"       : "Camptocamp SA - Ferdinand Gassauer"
+, "website"      : "http://www.camptocamp.com/"
+, "data"         : ["purchase_view.xml","partner_view.xml","purchase_order_webkit_view.xml"]
+, "installable"  : True
+, "auto_install" : False
 }

@@ -61,9 +61,10 @@ class c2c_budget_item(osv.osv):
             res[account.id] = level
         return res
 
-    _inherit = "c2c_budget.item"
+    _name = "c2c_budget.item"  
     _description = "Budget items"
-    _logger=logging.getLogger(__name__)
+    _logger = logging.getLogger(_name)
+
 
     def _get_children_and_consol(self, cr, uid, ids, context=None):
         #this function search for all the children and all consolidated children (recursively) of the given account ids
@@ -119,14 +120,12 @@ class c2c_budget_item(osv.osv):
                date2a = datetime.datetime.today() + relativedelta(months=+1)
                date2 = date2a.strftime('%Y-%m-%d')
                fiscalyear_pool = self.pool.get('account.fiscalyear')
-               fy_id = fiscalyear_pool.search(cr, uid, [('date_start','<=',date), ('date_stop','>=',date)],context=context)
+               fy_id = fiscalyear_pool.search(cr, uid, [('date_start','<=',date), ('date_stop','>=',date)])
                period_pool = self.pool.get('account.period')
                periods = period_pool.search(cr, uid, [('fiscalyear_id','in',fy_id), ('date_stop','<=',date2)])
 
             # FIXME - tuple must not return ',' if only one period is available - period_id in ( p,) should be period_id in ( p )
             filters = ' AND period_id in (%s) ' % (','.join(map(str,periods)) )
-            company_id = self.pool.get('res.users').browse(cr, uid, uid, context=context).company_id.id
-            filters += ' AND l.company_id = %s ' % ( company_id)
             # IN might not work ideally in case there are too many
             # children_and_consolidated, in that case join on a
             # values() e.g.:
@@ -177,22 +176,19 @@ class c2c_budget_item(osv.osv):
                 for fn in field_names:
                     sums.setdefault(current.id, {})[fn] = accounts.get(current.id, {}).get(fn, 0.0)
                     for child in current.children_ids:
-                        #if child.company_id.currency_id.id == current.company_id.currency_id.id:
+                        if child.company_id.currency_id.id == current.company_id.currency_id.id:
                             #FIXME Data error ?
-                            # sums include only lines with postings, where as current inćluds all accounts
-                           if sums.get(current.id) and sums.get(child.id):
-                           #try:
+                            try:
                                sums[current.id][fn] += sums[child.id][fn]
-                               #print 'OK sums[current.id][fn] += sums[child.id][fn] %s %s' % ( current.id , child.id)
-                           #except:
-                           #    print 'NOK sums[current.id][fn] += sums[child.id][fn] %s %s' % ( current.id , child.id)
-                        #else:
-                        #    sums[current.id][fn] += currency_obj.compute(cr, uid, child.company_id.currency_id.id, current.company_id.currency_id.id, sums[child.id][fn], context=context)
-        res = {}
-        null_result = dict((fn, 0.0) for fn in field_names)
-        for id in ids:
+                            except:
+                               print ' sums[current.id][fn] += sums[child.id][fn]'
+                        else:
+                            sums[current.id][fn] += currency_obj.compute(cr, uid, child.company_id.currency_id.id, current.company_id.currency_id.id, sums[child.id][fn], context=context)
+            res = {}
+            null_result = dict((fn, 0.0) for fn in field_names)
+            for id in ids:
                 res[id] = sums.get(id, null_result)
-        return res
+            return res
 
     def __compute_budget_sum(self, cr, uid, ids, field_names, arg=None, context=None,
                   query='', query_params=()):
@@ -229,8 +225,8 @@ class c2c_budget_item(osv.osv):
             #    wheres.append(aml_query.strip())
             #filters = " AND ".join(wheres)
             #filters = ' AND period_id in ( select id from account_period where fiscalyear_id = %s ) ' % context.get('fiscalyear', False)
-            if context.get('periods_budget', False):
-                periods = context['periods_budget']
+            if context.get('periods', False):
+                periods = context.get('periods', False)
             else:
                # default if startet without form
                date = time.strftime('%Y-%m-%d')
@@ -239,16 +235,12 @@ class c2c_budget_item(osv.osv):
                #date2 = (datetime.today() + relativedelta(months=+1)).strftime('%Y-%m-%d')
                #date2 = (datetime.today() + relativedelta(years=-1)).strftime('%Y-%m-%d')
                fiscalyear_pool = self.pool.get('account.fiscalyear')
-               fy_id = fiscalyear_pool.search(cr, uid, [('date_start','<=',date), ('date_stop','>=',date)],context=context)
+               fy_id = fiscalyear_pool.search(cr, uid, [('date_start','<=',date), ('date_stop','>=',date)])
                period_pool = self.pool.get('account.period')
                periods = period_pool.search(cr, uid, [('fiscalyear_id','in',fy_id),('date_stop','<=',date2)])
 
             # FIXME - tuple must not return ',' if only one period is available - period_id in ( p,) should be period_id in ( p )
-            filters = ' AND period_id in (%s) ' % (','.join(map(str,periods)))
-            # if no budget versions are defined we take all budget data of the matching periods
-            if context.get('budget_version_ids'):
-                budget_version_ids = context['budget_version_ids']
-                filters += ' AND budget_version_id n ( %s ) ' % ( budget_version_ids )
+            filters = ' AND period_id in (%s) ' % (','.join(map(str,periods)) )
             self._logger.error('periods FGF: %s %s', periods, tuple(periods))
             # IN might not work ideally in case there are too many
             # children_and_consolidated, in that case join on a
@@ -293,33 +285,70 @@ class c2c_budget_item(osv.osv):
                 for fn in field_names:
                     sums.setdefault(current.id, {})[fn] = accounts.get(current.id, {}).get(fn, 0.0)
                     for child in current.children_ids:
-                        #if child.company_id.currency_id.id == current.company_id.currency_id.id:
+                        if child.company_id.currency_id.id == current.company_id.currency_id.id:
                             #FIXME Data error ?
                             try:
                                sums[current.id][fn] += sums[child.id][fn]
                             except:
                                self._logger.debug('sums[current.id][fn] += sums[child.id][fn] `%s` `%s`', current.id, child.id)
-                        #else:
-                        #    sums[current.id][fn] += currency_obj.compute(cr, uid, child.company_id.currency_id.id, current.company_id.currency_id.id, sums[child.id][fn], context=context)
-        res = {}
-        null_result = dict((fn, 0.0) for fn in field_names)
-        for id in ids:
-            res[id] = sums.get(id, null_result)
-        return res
+                        else:
+                            sums[current.id][fn] += currency_obj.compute(cr, uid, child.company_id.currency_id.id, current.company_id.currency_id.id, sums[child.id][fn], context=context)
+            res = {}
+            null_result = dict((fn, 0.0) for fn in field_names)
+            for id in ids:
+                res[id] = sums.get(id, null_result)
+            return res
 
 
 
     _columns = {
+        'company_id': fields.many2one('res.company', 'Company'),
+        'code' : fields.char('Code', size=50, required=True),
+        'name' : fields.char('Name', size=200,  required=True),
+        'active' : fields.boolean('Active'),
+        'parent_id' : fields.many2one('c2c_budget.item', 'Parent Item'),
+        'level': fields.function(_get_level, string='Level', method=True, store=True, type='integer'),
+        'children_ids' : fields.one2many(
+                                            'c2c_budget.item', 
+                                            'parent_id', 
+                                            'Children Items'
+                                        ),
+        'account' : fields.many2many(
+                                        'account.account', 
+                                        'c2c_budget_item_account_rel', 
+                                        'budget_item_id', 
+                                        'account_id', 
+                                        'Financial Account'
+                                    ),
+        'note' : fields.text('Notes'),
+        'calculation' : fields.text('Calculation'),
+        'type' : fields.selection(
+                                    [
+                                        ('view', 'View'),
+                                        ('normal', 'Normal')
+                                    ], 
+                                    'Type',
+                                     required=True
+                                ),
+        'sequence' : fields.integer('Sequence'),
+        'style' : fields.selection(
+                                        [
+                                            ('normal', 'Normal'), 
+                                            ('bold', 'Bold'), (
+                                            'invisible', 'Invisible')
+                                        ], 
+                                        'Style', 
+                                        required=True
+                                    ),
         'balance_real': fields.function(__compute_real_sum, digits_compute=dp.get_precision('Account'), method=True, string='Balance REAL', multi='balance_sum'),
         'balance_budget': fields.function(__compute_budget_sum, digits_compute=dp.get_precision('Account'), method=True, string='Balance Budget', multi='balance_budget_sum'),
-        'level': fields.function(_get_level, string='Level', method=True, type='integer',
-                             store={
-                                 'c2c_bidget.item': (_get_children_and_consol, ['level', 'parent_id'], 10),
-                                  }),
             }
 
     _defaults = {
-            #'company_id': lambda s,cr,uid,c: s.pool.get('res.company')._company_default_get(cr, uid, 'account.account', context=c),
+            'company_id': lambda s,cr,uid,c: s.pool.get('res.company')._company_default_get(cr, uid, 'account.account', context=c),
+            'active'      : lambda *a: True, 
+            'type'        : lambda *a: 'normal',
+            'style'       : lambda *a: 'normal',
                  }
 
     _order = 'sequence,name'    

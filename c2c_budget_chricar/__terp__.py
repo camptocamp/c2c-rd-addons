@@ -4,7 +4,7 @@
 # Copyright (c) Camptocamp SA - http://www.camptocamp.com
 # Author: Arnaud WÃŒst ported by nbessi
 #
-#    This file is part of the c2c_budget_chricar module
+#    This file is part of the c2c_budget module
 #
 # WARNING: This program as such is intended to be used by professional
 # programmers who take the whole responsability of assessing all potential
@@ -26,26 +26,32 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
-{ "name" : "Advanced Budget Webkit Report"
-, "version" : "6.1"
-, "author" : "Camptocamp Austria"
-, "category" : "Generic Modules/Accounting"
-, "website" : "http://camptocamp.com"
-, "description": """
-Budget Module:
- * Webkit report compares real to budget
+{
+    "name" : "Advanced Budget",
+    "version" : "5.0",
+    "author" : "Camptocamp SA (aw)",
+    "category" : "Generic Modules/Accounting",
+    "website" : "http://camptocamp.com",
+    "description": """
+    Budget Module:
+    * Create budget, budget items and budget versions.
+    * Base your budget on analytics accounts
+    * Budget versions are multi currencies and multi companies.
 
-"""
-, "depends" : 
-    [ "c2c_budget_chricar","chricar_account_period_sum",
-    ]
-, "init_xml" : []
-, "update_xml" : 
-    [ "security/ir.model.access.csv"
-    , "report_chart.xml"
-    , "wizard/chart.xml"
-    ]
-, "auto_install": False
-, "installable": True
-, 'application'  : False
+    This module is for real advanced budget use, otherwise prefer to use the Tiny one.
+    """,
+    "depends" : [
+                    "base",
+                    "account",
+                    "c2c_reporting_tools_chricar"
+                ],
+    "init_xml" : [],
+    "update_xml" : [
+                        "c2c_budget_view.xml",
+                        "c2c_budget_wizard.xml",
+                        "security/ir.model.access.csv",
+                        "report_chart.xml"
+                    ],
+    "active": False,
+    "installable": True
 }

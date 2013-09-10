@@ -10,7 +10,7 @@ ToDo
  * make multicompany ready - budget items and/or budget lines need company_id
  """
  , "category"     : "Client Modules/ChriCar Addons"
- , "depends"      : ["product","chricar_view_id","c2c_budget"]
+ , "depends"      : ["product","chricar_view_id","c2c_budget_chricar"]
  , "init_xml"     : []
  , "demo"         : []
  , "update_xml"   : ["budget_update.xml","security/ir.model.access.csv"]
