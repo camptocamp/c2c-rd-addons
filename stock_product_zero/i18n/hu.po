@@ -1,0 +1,151 @@
+# Hungarian translation for c2c-rd-addons
+# Copyright (c) 2013 Rosetta Contributors and Canonical Ltd 2013
+# This file is distributed under the same license as the c2c-rd-addons package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2013.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: c2c-rd-addons\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2012-07-24 19:00+0000\n"
+"PO-Revision-Date: 2013-09-16 12:17+0000\n"
+"Last-Translator: krnkris <Unknown>\n"
+"Language-Team: Hungarian <hu@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2013-09-17 05:01+0000\n"
+"X-Generator: Launchpad (build 16765)\n"
+
+#. module: stock_product_zero
+#: constraint:product.product:0
+msgid "Error: Invalid EAN code"
+msgstr "Hiba: Nem létező EAN kód"
+
+#. module: stock_product_zero
+#: model:ir.model,name:stock_product_zero.model_stock_inventory
+msgid "Inventory"
+msgstr "Készlet"
+
+#. module: stock_product_zero
+#: report:addons/stock_product_zero/report/stock_inventory.mako:52
+msgid "Lot"
+msgstr "Résztétel / csomag"
+
+#. module: stock_product_zero
+#: model:ir.actions.report.xml,name:stock_product_zero.stock_inventory_webkit
+msgid "WebKit Inventory"
+msgstr "WebKit készlet"
+
+#. module: stock_product_zero
+#: model:ir.model,name:stock_product_zero.model_product_product
+msgid "Product"
+msgstr "Termék"
+
+#. module: stock_product_zero
+#: view:stock.inventory:0
+msgid "Order by Loction,Product"
+msgstr "Tárolóhelyenkénti, termékenkénti megrendelés"
+
+#. module: stock_product_zero
+#: view:stock.inventory:0
+msgid "Split inventory lines"
+msgstr "Leltárkészlet törzs szétválasztás"
+
+#. module: stock_product_zero
+#: field:stock.fill.inventory,display_with_zero_qty:0
+#: field:stock.location.product,display_with_zero_qty:0
+msgid "Display lines with zero"
+msgstr "A nulla értékkel rendelkező sorok listázása"
+
+#. module: stock_product_zero
+#: field:stock.inventory.line,product_qty_calc:0
+msgid "Quantity Calculated"
+msgstr "számolt mennyiség"
+
+#. module: stock_product_zero
+#: code:addons/stock_product_zero/stock.py:36
+#, python-format
+msgid "We check location_products:"
+msgstr "A termék tárolóhelyét vizsgáljuk"
+
+#. module: stock_product_zero
+#: report:addons/stock_product_zero/report/stock_inventory.mako:34
+msgid "Date"
+msgstr "Dátum"
+
+#. module: stock_product_zero
+#: view:stock.inventory:0
+msgid "Products "
+msgstr "Termékek "
+
+#. module: stock_product_zero
+#: model:ir.model,name:stock_product_zero.model_stock_fill_inventory
+msgid "Import Inventory"
+msgstr "Készletek importálása"
+
+#. module: stock_product_zero
+#: model:ir.model,name:stock_product_zero.model_stock_inventory_line
+msgid "Inventory Line"
+msgstr "Készlet sor"
+
+#. module: stock_product_zero
+#: report:addons/stock_product_zero/report/stock_inventory.mako:51
+msgid "Name"
+msgstr "Megnevezés"
+
+#. module: stock_product_zero
+#: report:addons/stock_product_zero/report/stock_inventory.mako:54
+msgid "Quantity computed"
+msgstr "Számított mennyiség"
+
+#. module: stock_product_zero
+#: model:ir.model,name:stock_product_zero.model_stock_location_product
+msgid "Products by Location"
+msgstr ""
+
+#. module: stock_product_zero
+#: report:addons/stock_product_zero/report/stock_inventory.mako:7
+msgid "Inventory List"
+msgstr "Raktártételek listája"
+
+#. module: stock_product_zero
+#: view:stock.inventory:0
+msgid "Products"
+msgstr "Termékek"
+
+#. module: stock_product_zero
+#: report:addons/stock_product_zero/report/stock_inventory.mako:53
+msgid "Quantity counted"
+msgstr "Megszámolt mennyiség"
+
+#. module: stock_product_zero
+#: report:addons/stock_product_zero/report/stock_inventory.mako:50
+msgid "Code"
+msgstr "FKód"
+
+#. module: stock_product_zero
+#: report:addons/stock_product_zero/report/stock_inventory.mako:33
+msgid "Number"
+msgstr "Sorszám"
+
+#. module: stock_product_zero
+#: code:addons/stock_product_zero/stock.py:36
+#, python-format
+msgid "FGF Warning !"
+msgstr "FGF figyelmeztetés !"
+
+#. module: stock_product_zero
+#: report:addons/stock_product_zero/report/stock_inventory.mako:55
+msgid "Diff"
+msgstr "Különbség"
+
+#. module: stock_product_zero
+#: field:stock.inventory,inventory_line_loc_id:0
+msgid "Inventories"
+msgstr "Készletek"
+
+#. module: stock_product_zero
+#: report:addons/stock_product_zero/report/stock_inventory.mako:56
+msgid "Unit"
+msgstr "Mértékegység"
