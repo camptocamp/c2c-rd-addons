@@ -169,8 +169,8 @@ class account_move_line(osv.osv):
                        t.account_id,
                        t.tax_code_id, t.base_code_id, 
                        sum(base_amount) as base_amount, sum(tax_amount) as tax_amount,
-                       sum(tax_amount) * %s as tax_discount_amount,
-                       sum(base_amount) * %s as base_discount_amount
+                       round(sum(tax_amount) * %s,%s) as tax_discount_amount,
+                       round(sum(base_amount) * %s,%s) as base_discount_amount
                       from account_invoice i,
                       account_invoice_tax t,
                       account_payment_term p,
@@ -184,7 +184,7 @@ class account_move_line(osv.osv):
                        and pl.discount > 0
                        and pi.res_id = 'account.payment.term.line,'||pl.id and pi.name ='discount_income_account_id'
                        and pe.res_id = 'account.payment.term.line,'||pl.id and pe.name ='discount_expense_account_id'
-                     group by 1,2,3,4,5,6,7""" % (factor, factor, invoice_discount_ids2))
+                     group by 1,2,3,4,5,6,7""" % (factor, prec, factor, prec, invoice_discount_ids2))
             tax_moves = cr.dictfetchall()
             #if not tax_moves:
             #    self._logger.debug('reconcile - no tax_lines: %s' % res)
@@ -257,6 +257,14 @@ class account_move_line(osv.osv):
 
             # create move lines for remaining not discountable amount 
             self._logger.debug('reconcile - writeoff deb/cred remaining: %s/%s ' % (write_off_debit,write_off_credit))
+            # check for negatiov write offs
+            if write_off_debit < 0:
+                write_off_credit += -write_off_debit
+                write_off_debit = 0
+            if write_off_credit < 0:
+                write_off_debit += -write_off_credit
+                write_off_credit= 0
+            
             if not float_is_zero(write_off_debit, prec):
                 self._logger.debug('reconcile - write_off_debit: %s' % write_off_debit)
                 if not context.get('writeoff_acc_id',False):
