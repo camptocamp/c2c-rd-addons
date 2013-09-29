@@ -41,7 +41,7 @@ This module installs everything for Blaustauden
 ,"account_cash_register_webkit"
 ,"account_chart"
 #,"account_coda"
-#,"account_financial_report_chricar"
+,"account_financial_report_chricar"
 ,"account_followup"
 ,"account_invoice_layout"
 ,"account_invoice_webkit"
