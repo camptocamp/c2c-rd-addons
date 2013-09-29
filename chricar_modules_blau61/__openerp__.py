@@ -206,7 +206,7 @@ This module installs everything for Blaustauden
 ,"stock"
 ,"stock_location"
 #,"stock_location_product_not_null"
-,"stock_picking_webkit_chricar"
+#,"stock_picking_webkit_chricar"
 ,"stock_product_zero"
 ,"survey"
 ,"table_generate_csv"

@@ -443,11 +443,11 @@
                 
             
                 <menuitem id="menu_budget_c2c"  name="Budget c2c" parent="account.menu_finance"/>
-                <menuitem id="menu_budget_list" name="Budgets" action="c2c_budget.open_budget_list" parent="c2c_budget.menu_budget_c2c"/>
-                <menuitem id="menu_budget_version_list" name="Budget Versions" action="c2c_budget.open_budget_version_list" parent="c2c_budget.menu_budget_c2c"/>
-                    <menuitem id="menu_budget_line_list" name="Budget Lines" action="c2c_budget.open_budget_lines_list" parent="c2c_budget.menu_budget_c2c"/>
-                <menuitem id="menu_budget_item_list" name="Budget Items" action="c2c_budget.open_budget_items_list" parent="c2c_budget.menu_budget_c2c"/>
-                       <menuitem id="menu_budget_item_tree" name="Budget Items Structures" action="c2c_budget.open_budget_items_tree" parent="c2c_budget.menu_budget_c2c"/>
+                <menuitem id="menu_budget_list" name="Budgets" action="c2c_budget_chricar.open_budget_list" parent="c2c_budget_chricar.menu_budget_c2c"/>
+                <menuitem id="menu_budget_version_list" name="Budget Versions" action="c2c_budget_chricar.open_budget_version_list" parent="c2c_budget_chricar.menu_budget_c2c"/>
+                    <menuitem id="menu_budget_line_list" name="Budget Lines" action="c2c_budget_chricar.open_budget_lines_list" parent="c2c_budget_chricar.menu_budget_c2c"/>
+                <menuitem id="menu_budget_item_list" name="Budget Items" action="c2c_budget_chricar.open_budget_items_list" parent="c2c_budget_chricar.menu_budget_c2c"/>
+                       <menuitem id="menu_budget_item_tree" name="Budget Items Structures" action="c2c_budget_chricar.open_budget_items_tree" parent="c2c_budget_chricar.menu_budget_c2c"/>
 
 
     </data>

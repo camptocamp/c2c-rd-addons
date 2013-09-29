@@ -46,7 +46,7 @@
         
         <!-- add a print item in budgets objects to print budget -->
         <wizard string="Budget By Periods" 
-                model="c2c_budget" 
+                model="c2c_budget_chricar" 
                 name="budget.by.periods" 
                 id="wizard_budget_by_period" 
                 keyword="client_print_multi"/>
@@ -72,7 +72,7 @@
                             menu="False"                
                 id="wizard_search_budget_lines" />
         <menuitem
-                        parent = "c2c_budget.menu_budget_c2c"
+                        parent = "c2c_budget_chricar.menu_budget_c2c"
                         id="menu_wizard_search_budget_lines"
                         action="wizard_search_budget_lines"
                         type="wizard" />
@@ -80,7 +80,7 @@
    
            <!-- add a print item in budgets objects to compare versions -->
         <wizard string="Versions Comparing" 
-                model="c2c_budget" 
+                model="c2c_budget_chricar" 
                 name="compare.budget.versions" 
                 id="wizard_compare_versions" 
                 keyword="client_print_multi"/>
@@ -95,7 +95,7 @@
 
            <!-- add a print item in budgets objects to consolidate a budget -->
         <wizard string="Budget Consolidation" 
-                model="c2c_budget" 
+                model="c2c_budget_chricar" 
                 name="budget.consolidation" 
                 id="wizard_budget_consolidation" 
                 keyword="client_print_multi"/>
@@ -110,7 +110,7 @@
 
            <!-- add a print item in budgets objects to compare it with reality -->
         <wizard string="Budget vs. Actual" 
-                model="c2c_budget" 
+                model="c2c_budget_chricar" 
                 name="budget.vs.reality" 
                 id="wizard_budget_vs_reality" 
                 keyword="client_print_multi"/>
