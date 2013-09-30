@@ -55,7 +55,7 @@ Budget Produktion
     <menuitem
       action="chricar_budget_production"
       id="menu_chricar_budget_production_list"
-      parent="c2c_budget.menu_budget_c2c"
+      parent="c2c_budget_chricar.menu_budget_c2c"
       sequence="150"/>
     <!--
 ==============================================
@@ -227,7 +227,7 @@ generated 2009-08-18 23:44:30+02
     <menuitem
       action="chricar_budget_act1"
       id="menu_chricar_budget_list"
-      parent="c2c_budget.menu_budget_c2c"
+      parent="c2c_budget_chricar.menu_budget_c2c"
       sequence="150"/>
 <!--
 ==============================================

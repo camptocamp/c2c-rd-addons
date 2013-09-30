@@ -71,7 +71,7 @@ Budget compare period
     <menuitem
       action="chricar_budget_compare_period_act1"
       id="menu_chricar_budget_compare_period_list"
-      parent="c2c_budget.menu_budget_c2c"
+      parent="c2c_budget_chricar.menu_budget_c2c"
       sequence="150"/>
     <act_window
       domain="[('budget_item_id', '=', item_id),('period_id','=',period_id)]"
@@ -146,7 +146,7 @@ Budget compare year
     <menuitem
       action="chricar_budget_compare_year_act1"
       id="menu_chricar_budget_compare_year_list"
-      parent="c2c_budget.menu_budget_c2c"
+      parent="c2c_budget_chricar.menu_budget_c2c"
       sequence="150"/>
     <act_window
       domain="[('fiscalyear_id', '=', fiscalyear_id),('item_id', '=', item_id),('company_id','=',company_id)]"

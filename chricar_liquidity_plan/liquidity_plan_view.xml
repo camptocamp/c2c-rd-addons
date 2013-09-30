@@ -68,7 +68,7 @@ generated 2009-08-14 15:55:18+02
     <menuitem
       action="chricar_liquidity_plan_act1"
       id="menu_chricar_liquidity_plan_list"
-      parent="c2c_budget.menu_budget_c2c"
+      parent="c2c_budget_chricar.menu_budget_c2c"
       sequence="90"/>
     <!--
 ==============================================

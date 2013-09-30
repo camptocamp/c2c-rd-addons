@@ -52,7 +52,7 @@ account_tax_template()
 #----------------------------------------------------------
 class account_tax(osv.osv):
     _inherit = 'account.tax'
-    def _compute(self, cr, uid, taxes, price_unit, quantity, address_id=None, product=None, partner=None):
+    def _compute(self, cr, uid, taxes, price_unit, quantity, address_id=None, product=None, partner=None, precision=None):
         """
         Compute tax values for given PRICE_UNIT, QUANTITY and a buyer/seller ADDRESS_ID.
 

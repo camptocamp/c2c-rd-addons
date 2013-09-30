@@ -33,7 +33,7 @@ class report_webkit_html(report_sxw.rml_parse):
             'uid': uid,
         })
         
-report_sxw.report_sxw('report.purchase.order.webkit',
+report_sxw.report_sxw('report.purchase.order.webkit.chricar',
                        'purchase.order',
                        'addons/purchase_order_webkit_chricar/report/purchase_order.mako',
                        parser=report_webkit_html)
