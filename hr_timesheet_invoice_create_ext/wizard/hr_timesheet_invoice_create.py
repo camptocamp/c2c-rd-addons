@@ -187,6 +187,7 @@ class hr_timesheet_invoice_create(osv.osv_memory):
             if data['journal_id'] :
                 values['journal_id'] =  data['journal_id'][0]
             inv_obj.write(cr, uid, [inv.id], values)
+            inv_obj.button_reset_taxes(cr, uid, [inv.id], context)
         return act_win
     # end def do_create
 hr_timesheet_invoice_create()
