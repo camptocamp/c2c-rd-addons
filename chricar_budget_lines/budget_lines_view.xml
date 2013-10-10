@@ -145,7 +145,7 @@ Production
     <menuitem
       action="chricar_budget_lines_production_act1"
       id="menu_chricar_budget_lines_production_list"
-      parent="c2c_budget.menu_budget_c2c"
+      parent="c2c_budget_chricar.menu_budget_c2c"
       sequence="150"/>
     <!--
 Sales
@@ -271,7 +271,7 @@ Sales
     <menuitem
       action="chricar_budget_lines_sales_act1"
       id="menu_chricar_budget_lines_sales_list"
-      parent="c2c_budget.menu_budget_c2c"
+      parent="c2c_budget_chricar.menu_budget_c2c"
       sequence="150"/>
     <!--
 ==============================================
@@ -742,7 +742,7 @@ chricar_budget lines_share
     <menuitem
       action="chricar_budget_line_share_act1"
       id="menu_chricar_budget_line_share_list"
-      parent="c2c_budget.menu_budget_c2c"
+      parent="c2c_budget_chricar.menu_budget_c2c"
       sequence="150"/>
     <!--
 ==============================================
