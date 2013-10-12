@@ -23,20 +23,22 @@
 
 {
     'name': 'Stock Product Location',
-    'version': '0.7',
+    'version': '0.8',
     'category': 'Warehouse Management',
     'description': """
 This module defines a default stock location for products and product groups.
 This will be used 
-* as destination location for purchases and production
+* as destination location for purchases, production, and stock update from
+  product.
 * as source location for sales and internal moves
 
 """,
     'author': 'Camptocamp Austria',
     'depends': [ 'product','stock','sale','purchase' ],
-    'update_xml': ['product_view.xml',
+    'data': ['product_view.xml',
        ],
-    'demo_xml': [],
+    'demo': [],
+    'contributors': ['Pedro M. Baeza (pedro.baeza@serviciosbaeza.com)'],
     'installable': True,
     'active': False,
 }

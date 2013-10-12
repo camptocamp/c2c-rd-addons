@@ -19,10 +19,10 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from osv import fields, osv
+from osv import orm
 import logging
 
-class purchase_order(osv.osv):
+class purchase_order(orm.Model):
     _inherit= "purchase.order"
     _logger = logging.getLogger(__name__)
 
@@ -33,5 +33,3 @@ class purchase_order(osv.osv):
         self._logger.debug('_prepare_order_line_move `%s`', location_dest_id)
         res.update({'location_dest_id':location_dest_id})
         return res
-
-purchase_order()

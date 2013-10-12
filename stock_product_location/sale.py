@@ -19,19 +19,18 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from osv import fields, osv
+from osv import orm
 import logging
 
-class sale_order(osv.osv):
+class sale_order(orm.Model):
     _inherit= "sale.order"
     _logger = logging.getLogger(__name__)
 
-    def _prepare_order_line_move(self, cr, uid, order, line, picking_id, date_planned, context=None):
-        res = super(sale_order,self)._prepare_order_line_move( cr, uid, order, line, picking_id, date_planned, context)
-        location_id = line.product_id.property_stock_location.id or  line.product_id.categ_id.property_stock_location.id or order.shop_id.warehouse_id.lot_stock_id.id
+    def _prepare_order_line_move(self, cr, uid, order, line, picking_id,
+                                    date_planned, context=None):
+        res = super(sale_order,self)._prepare_order_line_move(cr, uid, order, line, picking_id, date_planned, context)
+        location_id = line.product_id.property_stock_location.id or line.product_id.categ_id.property_stock_location.id or order.shop_id.warehouse_id.lot_stock_id.id
         self._logger.debug('_prepare_order_line_move `%s`', res)
         self._logger.debug('_prepare_order_line_move `%s`', location_id)
         res.update({'location_id':location_id})
         return res
-
-sale_order()

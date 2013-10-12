@@ -19,12 +19,9 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+from osv import fields, orm
 
-
-from osv import fields, osv
-
-
-class product_template(osv.osv):
+class product_template(orm.Model):
     _inherit = 'product.template'
     _columns = {
         'property_stock_location': fields.property('stock.location',
@@ -34,9 +31,8 @@ class product_template(osv.osv):
                  "Leave empty if you want to use the location of this product category"),
     }
 
-product_template()
 
-class product_category(osv.osv):
+class product_category(orm.Model):
     _inherit = 'product.category'
     _columns = {
         'property_stock_location': fields.property('stock.location',
@@ -44,5 +40,3 @@ class product_category(osv.osv):
             string='Stock Location', method=True, view_load=True,
             help="This location will be proposed as source (sale,internal) or target (purchase,production) location for stock moves of this category"),
                }
-product_category()
-

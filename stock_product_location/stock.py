@@ -19,9 +19,9 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from osv import fields, osv
+from osv import orm
 
-class stock_move(osv.osv):
+class stock_move(orm.Model):
     _inherit= "stock.move"
 
     def onchange_product_id(self, cr, uid, ids, prod_id=False, loc_id=False,
@@ -39,4 +39,3 @@ class stock_move(osv.osv):
                    res['value']['location_id'] = product_loc_id
             
         return res
-stock_move()
