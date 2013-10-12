@@ -23,6 +23,8 @@ import datetime
 from osv import osv, fields
 from tools.translate import _, translate
 import locale
+import logging
+
 #
 # TODO: check unit of measure !!!
 #
@@ -114,12 +116,23 @@ class hr_timesheet_invoice_create(osv.osv_memory):
     # end def _ref
 
     def do_create(self, cr, uid, ids, context=None) :
-        act_win = super(hr_timesheet_invoice_create, self).do_create(cr, uid, ids, context)
-        data = self.read(cr, uid, ids, [], context=context)[0]
         line_obj = self.pool.get('account.analytic.line')
         inv_obj  = self.pool.get('account.invoice')
         inv_line_obj  = self.pool.get('account.invoice.line')
+        _logger  = logging.getLogger(__name__)
+        _logger.debug('FGF do_create context %s', context)
+        data = self.read(cr, uid, ids, [], context=context)[0]
+        product_id = data['product'] or False
+        if product_id:
+            for line in line_obj.browse(cr, uid, context['active_ids'], context):
+                _logger.debug('FGF line %s %s' % (line.name, line.product_id.name))
+                if not line.product_id:
+                    _logger.debug('FGF line_obj %s', line.name)
+                    line_obj.write(cr, uid, [line.id], {'product_id' : product_id[0]})
+          
+        _logger.debug('FGF do_create data %s', data)
 
+        act_win = super(hr_timesheet_invoice_create, self).do_create(cr, uid, ids, context)
         inv_ids = []
         for d in act_win.get('domain') :
             if d[0] == 'id' : 
