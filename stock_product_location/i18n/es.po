@@ -49,7 +49,7 @@ msgstr "Plantilla de producto"
 #. module: stock_product_location
 #: help:product.category,property_stock_location:0
 msgid "This location will be proposed as source (sale,internal) or target (purchase,production) location for stock moves of this category"
-msgstr "Esta ubicación se propondrá como ubicación de origen (ventas o interna) o de destino (compras o producción) para los movimientos de existencias de este producto."
+msgstr "Esta ubicación se propondrá como ubicación de origen (ventas o interna) o de destino (compras o producción) para los movimientos de existencias de los productos de esta categoría."
 
 #. module: stock_product_location
 #: model:ir.model,name:stock_product_location.model_sale_order
