@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_project_real_estate_budget_tree" model="ir.ui.view">
+            <field name="name">project.real.estate.budget.tree</field>
+            <field name="model">project.project</field>
+            <field name="inherit_id" ref="project.view_project"/>
+            <field name="arch" type="xml">
+                <field name="planned_hours" position="after">
+                   <field name="amount_budget"/>
+                </field>
+            </field>
+        </record>
+        <record id="view_project_real_estate_budget_form" model="ir.ui.view">
+            <field name="name">project.real.estate.budget.form</field>
+            <field name="model">project.project</field>
+            <field name="inherit_id" ref="project.edit_project"/>
+            <field name="arch" type="xml">
+                <field name="resource_calendar_id" position="after">
+                   <field name="amount_budget"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_task_project_real_estate_budget_tree" model="ir.ui.view">
+            <field name="name">project.task.real.estate.budget.tree</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_tree2"/>
+            <field name="arch" type="xml">
+                <field name="date_deadline" position="after">
+                    <field name="amount_budget"/>
+                </field>
+            </field>
+        </record>
+        <record id="view_task_project_real_estate_budget_form" model="ir.ui.view">
+            <field name="name">project.task.real.estate.budget.form</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_form2"/>
+            <field name="arch" type="xml">
+                <page string="Information" position="after">
+                    <page string="Budget">
+                         <field name="amount_budget"/>
+                         <field name="payment_term_id"/>
+                         <field name="account_id"/>
+                         <field name="years"/>
+                         <field name="years_tax"/>
+                     </page>
+                </page>
+                
+            </field>
+        </record>
+
+    </data>
+</openerp>
