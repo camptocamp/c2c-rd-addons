@@ -24,7 +24,7 @@ from openerp.osv import orm
 class stock_change_product_qty(orm.TransientModel):
     _inherit = "stock.change.product.qty"
 
-    def default_get(self, cr, uid, fields, context):
+    def default_get(self, cr, uid, fields, context=None):
         """ Overriden method to set product or category default location.
          @param self: The object pointer.
          @param cr: A database cursor
@@ -40,7 +40,7 @@ class stock_change_product_qty(orm.TransientModel):
             res = {}
         if 'location_id' in fields and product_id:
             product_obj = self.pool.get('product.product')
-            product = product_obj.browse(cr, uid, product_id, context=False)
+            product = product_obj.browse(cr, uid, product_id, context=context)
             res['location_id'] = (product.property_stock_location.id or
                                   product.categ_id.property_stock_location.id or
                                   False)

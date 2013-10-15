@@ -19,7 +19,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from osv import fields, orm
+from openerp.osv import fields, orm
 
 class product_template(orm.Model):
     _inherit = 'product.template'

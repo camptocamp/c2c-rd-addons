@@ -19,7 +19,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from osv import orm
+from openerp.osv import orm
 import logging
 
 class sale_order(orm.Model):

@@ -19,7 +19,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from osv import orm
+from openerp.osv import orm
 
 class stock_move(orm.Model):
     _inherit= "stock.move"
