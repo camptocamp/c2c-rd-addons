@@ -33,7 +33,7 @@ class stock_change_product_qty(orm.TransientModel):
          @param context: A standard dictionary
          @return: A dictionary which of fields with values.
         """
-        product_id = context and context.get('active_id', False) or False
+        product_id = context and context.get('active_id') or False
         res = super(stock_change_product_qty, self).default_get(cr, uid,
                                         fields, context=context)
         if not res:
