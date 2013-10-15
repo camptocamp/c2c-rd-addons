@@ -44,8 +44,9 @@ Tasks get attributes to allow planning of
 ,"project_notes"
 ,"project_date"
 ,"project_gantt_webkit"
+,'chricar_partner_parent_companies'
       ],
-    'update_xml': ['project_view.xml'],
+    'update_xml': ['project_view.xml','project_real_estate_view.xml'],
     #'update_xml': ['product_view.xml'],
     'demo_xml': [],
     'installable': True,

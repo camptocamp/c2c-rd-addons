@@ -23,6 +23,16 @@ from openerp.osv import fields, osv
 
 import decimal_precision as dp
 
+
+class res_company(osv.osv):
+     _inherit  = "res.company"
+     
+     _columns = {
+         'company_project_ids' : fields.one2many('project.project', 'company_id', 'Projects', readonly=True)
+      }
+     
+res_company()
+
 class project(osv.osv):
     _inherit = "project.project"
 
