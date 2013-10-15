@@ -17,6 +17,20 @@ class res_partner_parent_company(osv.osv):
      _name  = "res.partner.parent_company"
      _order = "valid_from"
 
+     def _get_partner_company(self, cr, uid, ids, name, args, context):
+        company_obj = self.pool.get('res.company')
+        if not context:
+            context = {}
+        res = {}
+        for current in self.browse(cr, uid, ids):
+            partner_company_id = company_obj.search(cr, uid, [('partner_id','=',current.partner_id.id)])
+            if partner_company_id:
+               res[current.id] = partner_company_id[0]
+            else:
+               res[current.id] = ''
+        return res
+
+
      def _children_ids(self, cr, uid, ids, name, args, context=None):
         res = {}
         for line in self.browse(cr, uid, ids, context=context):
@@ -42,6 +56,7 @@ class res_partner_parent_company(osv.osv):
          , 'comment'            : fields.text    ('Notes')
          , 'active'             : fields.boolean ('Active')
          , 'state'              : fields.char    ('State', size=16)
+         , 'partner_company_id' : fields.function(_get_partner_company, type='many2one', relation="res.company" , string='Company', help="Set, if this partner is a company in OpenERP")
          #, 'children_ids'       : fields.function(_children_ids, method=True, string='Participations'),
          #, 'children_ids'       :fields.one2many('res.partner.parent_company', 'parent_id','Children Items'),
          }
