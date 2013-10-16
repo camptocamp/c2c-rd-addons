@@ -41,7 +41,7 @@
         if project.location_id: 
          all_tasks = []
          for task in project.tasks:
-           task_details = {'task_name': task.name, 'amount_budget': task.amount_budget, 'amount_budget_share': task.amount_budget*percentage, 'years':task.years, 'years_tax':task.years_tax}
+           task_details = {'task_name': task.name, 'amount_budget': task.amount_budget, 'amount_budget_share': task.amount_budget*percentage, 'years':task.years, 'years_tax':task.years_tax, 'date_start': task.date_start}
            all_tasks.append(task_details)
          all_proj.append({'proj_name':project.name, 'proj_amount_budget':project.amount_budget, 'proj_amount_budget_share':project.amount_budget*percentage ,'tasks':all_tasks})
 
@@ -59,9 +59,6 @@
                  projects = (company_projects(share.partner_company_id.company_project_ids, percentage_current/100))
                  comp['projects'] = projects
                  lines.append(comp)
-#                 lines.append( {'comp_name': share.partner_id.name, 'share': percentage_current, 'level':level, 'projects': projects})
-#             else:
-#                 lines.append( {'comp_name': share.partner_id.name, 'share': percentage_current, 'level':level, 'projects': [] })
              # find participations of the current company
              if share.partner_id.participation_current_ids:
                 partner_shares(share.partner_id, percentage_current, lines, level)
@@ -104,6 +101,9 @@
           <td>Share</td>
           <td>Budget</td>
           <td>Budget share</td>
+          <td>Year start</td>
+          <td>Year</td>
+          <td>Year Tax</td>
         </tr>
       </thead>
      <tbody >
@@ -151,6 +151,15 @@ ${formatLang(round((task['amount_budget'] ),0))}
      </td>
      <td style="text-align:right;">
 ${formatLang(round((task['amount_budget_share'] ),0))}
+     </td>
+     <td style="text-align:right;">
+${task['date_start']}
+     </td>
+     <td style="text-align:right;">
+${formatLang(round((task['years'] ),0))}
+     </td>
+     <td style="text-align:right;">
+${formatLang(round((task['years_tax'] ),0))}
      </td>
 
      </tr>
