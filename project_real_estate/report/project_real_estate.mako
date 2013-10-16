@@ -42,7 +42,7 @@
          for task in project.tasks:
            task_details = {'task_name': task.name, 'amount_budget': task.amount_budget, 'amount_budget_share': task.amount_budget*percentage, 'years':task.years, 'years_tax':task.years_tax}
            all_tasks.append(task_details)
-         all_proj.append({'proj_name':project.name, 'tasks':all_tasks})
+         all_proj.append({'proj_name':project.name, 'proj_amount_budget':project.amount_budget, 'proj_amount_budget_share':project.amount_budget*percentage ,'tasks':all_tasks})
 
        return all_proj
 %>
@@ -53,12 +53,14 @@
         for share in partner.participation_current_ids:
            percentage_current = percentage * share.percentage/100
            if share.partner_company_id:
-             
+             comp = {'comp_name': share.partner_id.name, 'share': percentage_current, 'level':level, 'projects': []  }
              if share.partner_company_id.company_project_ids:
-                 projects = (company_projects(share.partner_company_id.company_project_ids, share.percentage/100))
-                 lines.append( {'comp_name': share.partner_id.name, 'share': percentage_current, 'level':level, 'projects': projects})
-             else:
-                 lines.append( {'comp_name': share.partner_id.name, 'share': percentage_current, 'level':level, 'projects': [] })
+                 projects = (company_projects(share.partner_company_id.company_project_ids, percentage_current/100))
+                 comp['projects'] = projects
+                 lines.append(comp)
+#                 lines.append( {'comp_name': share.partner_id.name, 'share': percentage_current, 'level':level, 'projects': projects})
+#             else:
+#                 lines.append( {'comp_name': share.partner_id.name, 'share': percentage_current, 'level':level, 'projects': [] })
              # find participations of the current company
              if share.partner_id.participation_current_ids:
                 partner_shares(share.partner_id, percentage_current, lines, level)
@@ -92,7 +94,7 @@
           <td>Company/Project/Task</td>
           <td>Share</td>
           <td>Budget</td>
-          <td>BUdget share</td>
+          <td>Budget share</td>
         </tr>
       </thead>
      <tbody >
@@ -101,19 +103,24 @@
 <tr></tr>
 <tr>
 <td> L${comp['level']} ${comp['comp_name']} </td>
-<td> ${comp['share']} </td>
-
-<td> 
-
+<td style="text-align:right;"> ${comp['share']} </td>
+</tr>
 
 %for proj in sorted(comp['projects']):
 
-     <tr>
+<tr>
      <td>
        * Projekt: ${proj['proj_name']} 
      </td>
+     <td>     </td>
+     <td style="text-align:right;">
+${formatLang(round((proj['proj_amount_budget']),0))}
+     </td>
+     <td style="text-align:right;">
+${formatLang(round((proj['proj_amount_budget_share']),0))}
+     </td>
 
-<td>
+</tr>
 
 %for task in sorted(proj['tasks']):
      <tr>
@@ -121,30 +128,19 @@
       ** Task: ${task['task_name']} 
      </td>
      <td>     </td>
-     <td>
-      ${task['amount_budget']} 
+     <td style="text-align:right;">
+${formatLang(round((task['amount_budget'] ),0))}
      </td>
-     <td>
-      ${task['amount_budget_share']} 
+     <td style="text-align:right;">
+${formatLang(round((task['amount_budget_share'] ),0))}
      </td>
 
      </tr>
 %endfor
 
-</td>
-
-     </tr>
 
 %endfor
 
-
-</td>
-
-
-
-</dt>
-
-</tr>
 
 %endfor
      </tbody >
