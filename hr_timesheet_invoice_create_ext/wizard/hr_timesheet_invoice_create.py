@@ -65,8 +65,9 @@ class hr_timesheet_invoice_create(osv.osv_memory):
         }
     _defaults = \
         { 'reference'        : lambda *a: 'automatic'
-        , 'invoice_language' : lambda *a: 'user'
+        , 'invoice_language' : lambda *a: 'partner'
         , 'group_partner'    : lambda *a: True
+        , 'time'             : lambda *a: True
         }
 
     def _lang_code(self, cr, uid, inv, invoice_language) :
