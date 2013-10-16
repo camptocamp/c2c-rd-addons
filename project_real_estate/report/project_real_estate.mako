@@ -38,6 +38,7 @@
     def company_projects(projects, percentage):
        all_proj = []
        for project in projects:
+        if project.location_id: 
          all_tasks = []
          for task in project.tasks:
            task_details = {'task_name': task.name, 'amount_budget': task.amount_budget, 'amount_budget_share': task.amount_budget*percentage, 'years':task.years, 'years_tax':task.years_tax}
@@ -65,6 +66,12 @@
              if share.partner_id.participation_current_ids:
                 partner_shares(share.partner_id, percentage_current, lines, level)
         return lines
+%>
+
+
+<%
+    amount_budget_tot = 0.0
+    amount_budget_share_tot = 0.0
 %>
 
 % for partner in objects:
@@ -111,7 +118,10 @@ ${formatLang(round((comp['comp_amount_budget']),0))}
 ${formatLang(round((comp['comp_amount_budget_share']),0))}
      </td>
 </tr>
-
+<%
+    amount_budget_tot += round((comp['comp_amount_budget']),0)
+    amount_budget_share_tot += round((comp['comp_amount_budget_share']),0) 
+%>
 %for proj in sorted(comp['projects']):
 
 <tr>
@@ -149,6 +159,21 @@ ${formatLang(round((task['amount_budget_share'] ),0))}
 
 
 %endfor
+
+     <tr>
+     <td>
+     Total
+     </td>
+     <td>     </td>
+     <td style="text-align:right;">
+${formatLang(round((amount_budget_tot ),0))}
+     </td>
+     <td style="text-align:right;">
+${formatLang(round((amount_budget_share_tot ),0))}
+     </td>
+
+     </tr>
+
      </tbody >
 
 </table>
