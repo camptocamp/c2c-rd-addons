@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <report
+      auto="False"
+      file="project_real_estate/report/project_real_estate.mako"
+      id="project_real_estate"
+      model="res.partner"
+      name="res.partner.real.estate.webkit"
+      report_type="webkit"
+      string="Real Estate Projects"/>
+
+      <!--
+    <record id="invoice_button_form" model="ir.ui.view">
+            <field name="name">account.invoice.button.form</field>
+            <field name="model">account.invoice</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="arch" type="xml">
+              <xpath expr="/form/notebook/page[@string='Invoice']/group/group/button[@string='Print Invoice']" position="replace">
+                  <button name="%(project_real_estate)d" string="Print Invoice" type="action" icon="gtk-print" states="open,paid,proforma,sale,proforma2"/>
+              </xpath>
+        </field>
+    </record>
+    -->
+    
+  </data>
+</openerp>
