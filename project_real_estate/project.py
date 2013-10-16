@@ -25,10 +25,22 @@ import decimal_precision as dp
 
 
 class res_company(osv.osv):
-     _inherit  = "res.company"
+    _inherit  = "res.company"
+    
+    def _get_amount_budget(self, cr, uid, ids, field_name, arg, context=None):
+        result = {}
+
+        for comp in self.browse(cr, uid, ids, context):
+            amount_tot = 0
+            for proj in  comp.company_project_ids:
+                if proj.amount_budget:
+                    amount_tot += proj.amount_budget
+            result[comp.id] = amount_tot
+        return result
      
-     _columns = {
-         'company_project_ids' : fields.one2many('project.project', 'company_id', 'Projects', readonly=True)
+    _columns = {
+         'company_project_ids' : fields.one2many('project.project', 'company_id', 'Projects', readonly=True),
+         'amount_budget' : fields.function(_get_amount_budget, digits_compute=dp.get_precision('Account'), method=True, string="Amount Budget", type='float')
       }
      
 res_company()
@@ -48,7 +60,8 @@ class project(osv.osv):
          return result
    
     _columns = {
-         'amount_budget' : fields.function(_get_amount_budget, digits_compute=dp.get_precision('Account'), method=True, string="Amount Budget", type='float')
+         'amount_budget' : fields.function(_get_amount_budget, digits_compute=dp.get_precision('Account'), method=True, string="Amount Budget", type='float'),
+         'location_id'   : fields.many2one('stock.location','Object', select=True)
       }
 
 project()

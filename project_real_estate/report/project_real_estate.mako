@@ -53,7 +53,7 @@
         for share in partner.participation_current_ids:
            percentage_current = percentage * share.percentage/100
            if share.partner_company_id:
-             comp = {'comp_name': share.partner_id.name, 'share': percentage_current, 'level':level, 'projects': []  }
+             comp = {'comp_name': share.partner_id.name, 'share': percentage_current, 'level':level, 'comp_amount_budget':share.partner_company_id.amount_budget,'comp_amount_budget_share':share.partner_company_id.amount_budget*percentage_current/100, 'projects': []  }
              if share.partner_company_id.company_project_ids:
                  projects = (company_projects(share.partner_company_id.company_project_ids, percentage_current/100))
                  comp['projects'] = projects
@@ -104,6 +104,12 @@
 <tr>
 <td> L${comp['level']} ${comp['comp_name']} </td>
 <td style="text-align:right;"> ${comp['share']} </td>
+     <td style="text-align:right;">
+${formatLang(round((comp['comp_amount_budget']),0))}
+     </td>
+     <td style="text-align:right;">
+${formatLang(round((comp['comp_amount_budget_share']),0))}
+     </td>
 </tr>
 
 %for proj in sorted(comp['projects']):
