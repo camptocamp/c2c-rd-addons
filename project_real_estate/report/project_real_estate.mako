@@ -95,6 +95,8 @@
 -->
 
 
+<h4> Projects affecting: ${partner.name} </h4>
+
 <table>
      <thead >
         <tr>
