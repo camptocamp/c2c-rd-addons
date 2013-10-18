@@ -32,7 +32,7 @@ from dateutil.relativedelta import relativedelta
 from tools.translate import _
 
 class account_asset_category(osv.osv):
-    _name = 'account.asset.asset'
+    _inherit = 'account.asset.category'
 
     _columns = {
         'half_year_rule':fields.boolean('Half Year Depreciation', help='Computes full/half depreciation for usage in fist/second half year'),
@@ -44,7 +44,7 @@ account_asset_category()
 
 
 class account_asset_asset(osv.osv):
-    _name = 'account.asset.asset'
+    _inherit = 'account.asset.asset'
 
     _columns = {
         'half_year_rule':fields.boolean('Half Year Depreciation', help='Computes full/half depreciation for usage in fist/second half year'),

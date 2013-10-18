@@ -24,7 +24,7 @@
 {
     'name': 'Austraian "half year" depreciation rule',
     'version': '1.0',
-    'category': 'Others',
+    'category': 'Accounting & Finance',
     'description': """
     Computes full/half depreciation if asset usage starts in fists/second half year
 """,
