@@ -48,7 +48,7 @@ class account_asset_asset(osv.osv):
 
     _columns = {
         'half_year_rule':fields.boolean('Half Year Depreciation', help='Computes full/half depreciation for usage in fist/second half year'),
-        'activation_date': fields.date('Activation Date', readonly=True, states={'draft':[('readonly',False)]},  help='Is used instead of activation date if set'),
+        'activation_date': fields.date('Activation Date', readonly=True, states={'draft':[('readonly',False)]},  help='Is used instead of purchase date if set'),
         }
 
 
