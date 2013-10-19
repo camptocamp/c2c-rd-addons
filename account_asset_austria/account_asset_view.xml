@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    
+        <record model="ir.ui.view" id="view_account_asset_category_halfyear_form">
+        <field name="name">account.asset.category.halfyear.form</field>
+        <field name="model">account.asset.category</field>
+        <field name="type">form</field>
+        <field name="inherit_id" ref="account_asset.view_account_asset_category_form"/>
+        <field name="arch" type="xml">
+            <field name="prorata" position="after">
+                <field name="half_year_rule"/>
+            </field>
+        </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_account_asset_asset_halfyear_form">
+        <field name="name">account.asset.asset.austria.form</field>
+        <field name="model">account.asset.asset</field>
+        <field name="type">form</field>
+        <field name="inherit_id" ref="account_asset.view_account_asset_asset_form"/>
+        <field name="arch" type="xml">
+            <field name="prorata" position="after">
+                <field name="half_year_rule"/>
+                <field name="activation_date"/>
+            </field>
+        </field>
+        </record>
+        
+        </data>
+</openerp>

@@ -3,7 +3,7 @@
 #
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2010 Tiny SPRL (<http://tiny.be>).
-#    Copyright (C) 2010-2012 ChriCar Beteiligung und Beratung GmbH (<http://www.chricar.at>)
+#    Copyright (C) 2010-2012 Camptocamp Austria (<http://www.camptocamp.at>)
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -20,36 +20,20 @@
 #
 ##############################################################################
 
+import time
+from report import report_sxw
+from osv import osv
 
-{
-    'name': 'Real Estate Project',
-    'version': '1.0',
-    'category': 'Others',
-    'description': """
-This module allows to manage real estate projects
-Tasks get attributes to allow planning of
-* Investment -> depreciation
-* Expenses
-** commercial law
-** tax law (in Austria 
-""",
-    'author': 'ChriCar Beteiligung und Beratung GmbH',
-    'depends': [
-"chricar_top"
-,"chricar_tenant"
-,"chricar_invoice"
-,"chricar_room"
-,"chricar_equipment"
-,"chricar_budget_lines"
-,"project_notes"
-,"project_date"
-,"project_gantt_webkit"
-,'chricar_partner_parent_companies'
-      ],
-    'update_xml': ['project_view.xml','project_real_estate_view.xml'],
-    #'update_xml': ['product_view.xml'],
-    'demo_xml': [],
-    'installable': True,
-    'active': False,
-}
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+class report_webkit_html(report_sxw.rml_parse):
+    def __init__(self, cr, uid, name, context):
+        super(report_webkit_html, self).__init__(cr, uid, name, context=context)
+        self.localcontext.update({
+            'time': time,
+            'cr':cr,
+            'uid': uid,
+        })
+        
+report_sxw.report_sxw('report.project.real.estate',
+                       'account.invoice', 
+                       'addons/project_real_estate/report/project_real_estae.mako',
+                       parser=report_webkit_html)

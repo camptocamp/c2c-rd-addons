@@ -22,32 +22,16 @@
 
 
 {
-    'name': 'Real Estate Project',
+    'name': 'Invoice Change Date',
     'version': '1.0',
     'category': 'Others',
     'description': """
-This module allows to manage real estate projects
-Tasks get attributes to allow planning of
-* Investment -> depreciation
-* Expenses
-** commercial law
-** tax law (in Austria 
+    Change date and period of an open/paid invoice
+    possible as long as periods are open
 """,
     'author': 'ChriCar Beteiligung und Beratung GmbH',
-    'depends': [
-"chricar_top"
-,"chricar_tenant"
-,"chricar_invoice"
-,"chricar_room"
-,"chricar_equipment"
-,"chricar_budget_lines"
-,"project_notes"
-,"project_date"
-,"project_gantt_webkit"
-,'chricar_partner_parent_companies'
-      ],
-    'update_xml': ['project_view.xml','project_real_estate_view.xml'],
-    #'update_xml': ['product_view.xml'],
+    'depends': ["account","chricar_account_period_sum"],
+    'update_xml': ['account_invoice_view.xml'],
     'demo_xml': [],
     'installable': True,
     'active': False,

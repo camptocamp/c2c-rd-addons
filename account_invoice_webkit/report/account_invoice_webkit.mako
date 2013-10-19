@@ -166,9 +166,19 @@ ${inv.address_invoice_id.address_label|carriage_returns}
     %elif inv.type == 'in_refund' :
       ${_("Supplier Refund")} 
     %endif
+    %if inv.state == 'cancel' :
+      <br/> ${_("Cancelled")} 
+    %endif
    </td>
-   <td  style="text-align:right;">${inv.number or ''|entity}
+    %if inv.state == 'cancel' :
+   <td  style="text-align:right;text-decoration: line-through;}">
+     ${inv.internal_number} 
    </td>
+    %else:
+   <td  style="text-align:right;">
+     ${inv.number or ''|entity}
+   </td>
+    %endif
 </tr>
 <tr>
     <td style="text-align:right;">${_("Datum")} </td><td  style="text-align:right;"> ${formatLang(inv.date_invoice, date=True)|entity}</td>
@@ -180,10 +190,6 @@ ${inv.address_invoice_id.address_label|carriage_returns}
 
 
 <br/>
-    %if inv.state == 'cancel' :
-    <h1 style="clear:both;">${inv.state}</h1> 
-    <br/>
-    %endif
     <table >
         <tr>
           %if inv.name :
