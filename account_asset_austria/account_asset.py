@@ -38,7 +38,7 @@ class account_asset_category(osv.osv):
     _inherit = 'account.asset.category'
 
     _columns = {
-        'half_year_rule':fields.boolean('Half Year Depreciation', help='Computes full/half depreciation for usage in fist/second half year'),
+        'half_year_rule':fields.boolean('Half Year Depreciation', help='Computes full/half depreciation for activation/purchase in fist/second half year'),
         }
 
     #_defaults['half_year_rule'] : True
@@ -54,7 +54,11 @@ class account_asset_asset(osv.osv):
         'activation_date': fields.date('Activation Date', readonly=True, states={'draft':[('readonly',False)]},  help='Is used instead of purchase date if set'),
         'depreciation_start_date': fields.date('Depreciation Start Date', readonly=True, states={'draft':[('readonly',False)]},  help='compteted date'),
         }
-
+    
+    _defaults = {
+        'half_year_rule' : True
+        }
+    
     def copy(self, cr, uid, id, default=None, context=None):
         if default is None:
             default = {}
