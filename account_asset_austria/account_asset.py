@@ -88,12 +88,37 @@ class account_asset_asset(osv.osv):
         else:
             
             amount = super(account_asset_asset, self)._compute_board_amount(cr, uid, asset, i, residual_amount, amount_to_depr, undone_dotation_number, posted_depreciation_line_ids, total_days, depreciation_date, context=None)
-            _logger.debug('FGF half_year_rule missed %s ' %(i)   )
+            #_logger.debug('FGF half_year_rule missed %s ' %(i)   )
         return amount
              
-
-  
-              
+    def compute_depreciation_board(self, cr, uid, ids, context=None):
+        res = super(account_asset_asset, self).compute_depreciation_board(cr, uid, ids, context=None)
+        
+        for asset in self.browse(cr, uid, ids, context):
+            remaining_value = 0 
+            line_count = 0
+            for line in asset.depreciation_line_ids:
+                if line_count > 0 and line.remaining_value < remaining_value:
+                    last_line = line
+                    remaining_value = line.remaining_value
+                else:
+                    last_line = line
+                    remaining_value = line.remaining_value
+            if remaining_value > 0:
+                depreciation_lin_obj = self.pool.get('account.asset.depreciation.line')
+                vals = {
+                        'amount': remaining_value,
+                        'asset_id': last_line.asset_id.id,
+                        'sequence': last_line.sequence + 1,
+                        'name': str(asset.id) +'/' + str(last_line.sequence + 1),
+                        'remaining_value': 0,
+                        'depreciated_value': (asset.purchase_value - asset.salvage_value) - (last_line.remaining_value),
+                        'depreciation_date': (datetime.strptime(last_line.depreciation_date, '%Y-%m-%d') + relativedelta(years=1)).strftime('%Y-%m-%d') ,
+                    }
+                depreciation_lin_obj.create(cr, uid, vals, context=context)
+        
+        return res
+            
 account_asset_asset()
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
