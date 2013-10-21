@@ -55,5 +55,54 @@
                 </button>
             </field>
         </record>
+        
+        <record id="invoice_form_payment_term_date" model="ir.ui.view">
+            <field name="name">invoice.form.payment.term.date</field>
+            <field name="model">account.invoice</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="arch" type="xml">
+                <field name="date_invoice" position="replace">
+                    <field name="date_invoice" on_change="onchange_payment_term_date_invoice(payment_term, date_invoice)"/>
+                </field>
+            </field>
+        </record>
+        
+        <record id="invoice_form_payment_term" model="ir.ui.view">
+            <field name="name">invoice.form.payment.term</field>
+            <field name="model">account.invoice</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="arch" type="xml">
+                <field name="payment_term" position="replace">
+                    <field name="payment_term" on_change="onchange_payment_term_date_invoice(payment_term, date_invoice)"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="invoice_supplier_form_payment_term_date" model="ir.ui.view">
+            <field name="name">invoice.supplier.form.payment.term.date</field>
+            <field name="model">account.invoice</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="account.invoice_supplier_form"/>
+            <field name="arch" type="xml">
+                <field name="date_invoice" position="replace">
+                    <field name="date_invoice" on_change="onchange_payment_term_date_invoice(payment_term, date_invoice)"/>
+                </field>
+            </field>
+        </record>
+        
+        <record id="invoice_supplier_form_payment_term" model="ir.ui.view">
+            <field name="name">invoice.supplier.form.payment.term</field>
+            <field name="model">account.invoice</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="account.invoice_supplier_form"/>
+            <field name="arch" type="xml">
+                <field name="payment_term" position="replace">
+                    <field name="payment_term" on_change="onchange_payment_term_date_invoice(payment_term, date_invoice)"/>
+                </field>
+            </field>
+        </record>
+        
     </data>
 </openerp>

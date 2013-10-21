@@ -28,6 +28,8 @@
     'description': """
     Change date and period of an open/paid invoice
     possible as long as periods are open
+    
+    Recomputes due date if invoice date or payment term are changed
 """,
     'author': 'ChriCar Beteiligung und Beratung GmbH',
     'depends': ["account","chricar_account_period_sum"],
