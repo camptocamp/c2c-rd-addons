@@ -353,7 +353,7 @@ class sale_order_line(osv.osv):
                 if move.state !='done':
                     self._logger.debug('moves production to do `%s`', move.id)
                     move_obj.action_done(cr, uid, [move.id], context=context)
-            self.write(cr, uid, line.id, {'date_production' : ''})
+            self.write(cr, uid, line.id, {'date_production' : False})
     
 sale_order_line()
 
