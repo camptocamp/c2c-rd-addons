@@ -321,6 +321,7 @@ Modification of Parents (only for matching table prefixes)
                 name="product_packaging"
                 on_change="product_id_change(parent.pricelist_id,price_unit_id,product_id,product_uom_qty,product_uom,product_uos_qty,product_uos,name,parent.partner_id, False, False, parent.date_order, product_packaging, parent.fiscal_position)"/>
               <field name="state"/>
+              <field name="date_production" required="1"/>
               <field name="move_state" invisible="1"/>
               <button
                 attrs="{'invisible':[('move_state','=',False)]}"
@@ -380,7 +381,7 @@ Modification of Parents (only for matching table prefixes)
                           <field
                             attrs="{ 'readonly': [('state','!=','draft')]} "
                             name="product_qty"
-                            on_change="on_change_dispo_product_qty('sell',name,parent.quality, parent.location_id,parent.location_dest_id,parent.location_big_id,parent.location_small_id, parent.location_faulty_id, parent.location_waste_id, parent.prodlot_id,parent.product_packaging_id, parent.product_id, parent.product_uom, parent.price_unit_id, product_qty)"
+                            on_change="on_change_dispo_product_qty('sell',name,parent.quality, parent.location_id,parent.location_dest_id,parent.location_big_id,parent.location_small_id, parent.location_faulty_id, parent.location_waste_id, parent.prodlot_id,parent.product_packaging_id, parent.product_id, parent.product_uom, parent.price_unit_id, product_qty, parent.date_production)"
                             sum="Quantity"/>
                           <field
                             attrs="{ 'readonly': [('state','!=','draft')]} "
@@ -444,7 +445,7 @@ Modification of Parents (only for matching table prefixes)
                             <field
                               attrs="{ 'readonly': [('state','!=','draft')]} "
                               name="product_qty"
-                              on_change="on_change_dispo_product_qty('sell',name,parent.quality, parent.location_id,parent.location_dest_id,parent.location_big_id,parent.location_small_id, parent.location_faulty_id, parent.location_waste_id, parent.prodlot_id,parent.product_packaging_id, parent.product_id, parent.product_uom, parent.price_unit_id, product_qty)"/>
+                              on_change="on_change_dispo_product_qty('sell',name,parent.quality, parent.location_id,parent.location_dest_id,parent.location_big_id,parent.location_small_id, parent.location_faulty_id, parent.location_waste_id, parent.prodlot_id,parent.product_packaging_id, parent.product_id, parent.product_uom, parent.price_unit_id, product_qty, parent.date_production)"/>
                             <field
                               attrs="{ 'readonly': [('state','!=','draft')]} "
                               name="packaging_qty"
@@ -524,7 +525,7 @@ Modification of Parents (only for matching table prefixes)
                           <field
                             attrs="{ 'readonly': [('state','!=','draft')]} "
                             name="product_qty"
-                            on_change="on_change_dispo_product_qty('big',name,parent.quality, parent.location_id,parent.location_dest_id,parent.location_big_id,parent.location_small_id, parent.location_faulty_id, parent.location_waste_id, parent.prodlot_id,parent.product_packaging_id, parent.product_id, parent.product_uom, parent.price_unit_id, product_qty)"
+                            on_change="on_change_dispo_product_qty('big',name,parent.quality, parent.location_id,parent.location_dest_id,parent.location_big_id,parent.location_small_id, parent.location_faulty_id, parent.location_waste_id, parent.prodlot_id,parent.product_packaging_id, parent.product_id, parent.product_uom, parent.price_unit_id, product_qty, parent.date_production)"
                             sum="Quantity"/>
                           <field
                             attrs="{ 'readonly': [('state','!=','draft')]} "
@@ -594,7 +595,7 @@ Modification of Parents (only for matching table prefixes)
                           <field
                             attrs="{ 'readonly': [('state','!=','draft')]} "
                             name="product_qty"
-                            on_change="on_change_dispo_product_qty('big',name,parent.quality, parent.location_id,parent.location_dest_id,parent.location_big_id,parent.location_small_id, parent.location_faulty_id, parent.location_waste_id, parent.prodlot_id,parent.product_packaging_id,parent.product_id, parent.product_uom, parent.price_unit_id, product_qty)"/>
+                            on_change="on_change_dispo_product_qty('big',name,parent.quality, parent.location_id,parent.location_dest_id,parent.location_big_id,parent.location_small_id, parent.location_faulty_id, parent.location_waste_id, parent.prodlot_id,parent.product_packaging_id,parent.product_id, parent.product_uom, parent.price_unit_id, product_qty, parent.date_production)"/>
                           <field
                             attrs="{ 'readonly': [('state','!=','draft')]} "
                             name="category"
@@ -655,7 +656,7 @@ Modification of Parents (only for matching table prefixes)
                           <field
                             attrs="{ 'readonly': [('state','!=','draft')]} "
                             name="product_qty"
-                            on_change="on_change_dispo_product_qty('small',name,parent.quality, parent.location_id,parent.location_dest_id,parent.location_big_id,parent.location_small_id, parent.location_faulty_id, parent.location_waste_id, parent.prodlot_id,parent.product_packaging_id, parent.product_id, parent.product_uom, parent.price_unit_id, product_qty)"
+                            on_change="on_change_dispo_product_qty('small',name,parent.quality, parent.location_id,parent.location_dest_id,parent.location_big_id,parent.location_small_id, parent.location_faulty_id, parent.location_waste_id, parent.prodlot_id,parent.product_packaging_id, parent.product_id, parent.product_uom, parent.price_unit_id, product_qty, parent.date_production)"
                             sum="Quantity"/>
                           <field
                             attrs="{ 'readonly': [('state','!=','draft')]} "
@@ -725,7 +726,7 @@ Modification of Parents (only for matching table prefixes)
                           <field
                             attrs="{ 'readonly': [('state','!=','draft')]} "
                             name="product_qty"
-                            on_change="on_change_dispo_product_qty('small',name,parent.quality, parent.location_id,parent.location_dest_id,parent.location_big_id,parent.location_small_id, parent.location_faulty_id, parent.location_waste_id, parent.prodlot_id,parent.product_packaging_id, parent.product_id, parent.product_uom, parent.price_unit_id, product_qty)"/>
+                            on_change="on_change_dispo_product_qty('small',name,parent.quality, parent.location_id,parent.location_dest_id,parent.location_big_id,parent.location_small_id, parent.location_faulty_id, parent.location_waste_id, parent.prodlot_id,parent.product_packaging_id, parent.product_id, parent.product_uom, parent.price_unit_id, product_qty, parent.date_production)"/>
                           <field
                             attrs="{ 'readonly': [('state','!=','draft')]} "
                             name="category"
@@ -788,7 +789,7 @@ Modification of Parents (only for matching table prefixes)
                           <field
                             attrs="{ 'readonly': [('state','!=','draft')]} "
                             name="product_qty"
-                            on_change="on_change_dispo_product_qty('faulty',name,parent.quality, parent.location_id,parent.location_dest_id,parent.location_big_id,parent.location_small_id, parent.location_faulty_id, parent.location_waste_id, parent.prodlot_id,parent.product_packaging_id, parent.product_id, parent.product_uom, parent.price_unit_id, product_qty)"
+                            on_change="on_change_dispo_product_qty('faulty',name,parent.quality, parent.location_id,parent.location_dest_id,parent.location_big_id,parent.location_small_id, parent.location_faulty_id, parent.location_waste_id, parent.prodlot_id,parent.product_packaging_id, parent.product_id, parent.product_uom, parent.price_unit_id, product_qty, parent.date_production)"
                             sum="Quantity"/>
                           <field
                             attrs="{ 'readonly': [('state','!=','draft')]} "
@@ -858,7 +859,7 @@ Modification of Parents (only for matching table prefixes)
                           <field
                             attrs="{ 'readonly': [('state','!=','draft')]} "
                             name="product_qty"
-                            on_change="on_change_dispo_product_qty('faulty',name,parent.quality, parent.location_id,parent.location_dest_id,parent.location_big_id,parent.location_small_id, parent.location_faulty_id, parent.location_waste_id, parent.prodlot_id,parent.product_packaging_id, parent.product_id, parent.product_uom, parent.price_unit_id, product_qty)"/>
+                            on_change="on_change_dispo_product_qty('faulty',name,parent.quality, parent.location_id,parent.location_dest_id,parent.location_big_id,parent.location_small_id, parent.location_faulty_id, parent.location_waste_id, parent.prodlot_id,parent.product_packaging_id, parent.product_id, parent.product_uom, parent.price_unit_id, product_qty, parent.date_production)"/>
                           <field
                             attrs="{ 'readonly': [('state','!=','draft')]} "
                             name="category"
@@ -919,7 +920,7 @@ Modification of Parents (only for matching table prefixes)
                           <field
                             attrs="{ 'readonly': [('state','!=','draft')]} "
                             name="product_qty"
-                            on_change="on_change_dispo_product_qty('waste',name,parent.quality, parent.location_id,parent.location_dest_id,parent.location_big_id,parent.location_small_id, parent.location_faulty_id, parent.location_waste_id, parent.prodlot_id,parent.product_packaging_id, parent.product_id, parent.product_uom, parent.price_unit_id, product_qty)"
+                            on_change="on_change_dispo_product_qty('waste',name,parent.quality, parent.location_id,parent.location_dest_id,parent.location_big_id,parent.location_small_id, parent.location_faulty_id, parent.location_waste_id, parent.prodlot_id,parent.product_packaging_id, parent.product_id, parent.product_uom, parent.price_unit_id, product_qty, parent.date_production)"
                             sum="Quantity"/>
                           <field
                             attrs="{ 'readonly': [('state','!=','draft')]} "
@@ -989,7 +990,7 @@ Modification of Parents (only for matching table prefixes)
                           <field
                             attrs="{ 'readonly': [('state','!=','draft')]} "
                             name="product_qty"
-                            on_change="on_change_dispo_product_qty('waste',name,parent.quality, parent.location_id,parent.location_dest_id,parent.location_big_id,parent.location_small_id, parent.location_faulty_id, parent.location_waste_id, parent.prodlot_id,parent.product_packaging_id, parent.product_id, parent.product_uom, parent.price_unit_id, product_qty)"/>
+                            on_change="on_change_dispo_product_qty('waste',name,parent.quality, parent.location_id,parent.location_dest_id,parent.location_big_id,parent.location_small_id, parent.location_faulty_id, parent.location_waste_id, parent.prodlot_id,parent.product_packaging_id, parent.product_id, parent.product_uom, parent.price_unit_id, product_qty, parent.date_production)"/>
                           <field
                             attrs="{ 'readonly': [('state','!=','draft')]} "
                             name="category"
@@ -1060,12 +1061,12 @@ Modification of Parents (only for matching table prefixes)
                       <field
                         attrs="{ 'readonly': [('state','!=','draft')]} "
                         name="product_qty"
-                        on_change="on_change_dispo_product_qty(category,name,parent.quality, parent.location_id,parent.location_dest_id,parent.location_big_id,parent.location_small_id, parent.location_faulty_id, parent.location_waste_id, parent.prodlot_id,parent.product_packaging_id, parent.product_id, parent.product_uom, parent.price_unit_id, product_qty)"
+                        on_change="on_change_dispo_product_qty(category,name,parent.quality, parent.location_id,parent.location_dest_id,parent.location_big_id,parent.location_small_id, parent.location_faulty_id, parent.location_waste_id, parent.prodlot_id,parent.product_packaging_id, parent.product_id, parent.product_uom, parent.price_unit_id, product_qty, parent.date_production)"
                         sum="Quantity"/>
                       <field
                         attrs="{ 'readonly': [('state','!=','draft')]} "
                         name="category"
-                        on_change="on_change_dispo_product_qty(category,name,parent.quality, parent.location_id,parent.location_dest_id,parent.location_big_id,parent.location_small_id, parent.location_faulty_id, parent.location_waste_id, parent.prodlot_id,parent.product_packaging_id, parent.product_id, parent.product_uom, parent.price_unit_id, product_qty)"/>
+                        on_change="on_change_dispo_product_qty(category,name,parent.quality, parent.location_id,parent.location_dest_id,parent.location_big_id,parent.location_small_id, parent.location_faulty_id, parent.location_waste_id, parent.prodlot_id,parent.product_packaging_id, parent.product_id, parent.product_uom, parent.price_unit_id, product_qty, parent.date_production)"/>
                       <field
                         attrs="{ 'readonly': [('state','!=','draft')]} "
                         name="location_id"/>
@@ -1108,13 +1109,13 @@ Modification of Parents (only for matching table prefixes)
                         <field
                           attrs="{ 'readonly': [('state','!=','draft')]} "
                           name="category"
-                          on_change="on_change_dispo_product_qty(category,name,parent.quality, parent.location_id,parent.location_dest_id,parent.location_big_id,parent.location_small_id, parent.location_faulty_id, parent.location_waste_id, parent.prodlot_id,parent.product_packaging_id, parent.product_id, parent.product_uom, parent.price_unit_id, product_qty)"
+                          on_change="on_change_dispo_product_qty(category,name,parent.quality, parent.location_id,parent.location_dest_id,parent.location_big_id,parent.location_small_id, parent.location_faulty_id, parent.location_waste_id, parent.prodlot_id,parent.product_packaging_id, parent.product_id, parent.product_uom, parent.price_unit_id, product_qty, parent.date_production)"
                           select="1"/>
                         <newline/>
                         <field
                           attrs="{ 'readonly': [('state','!=','draft')]} "
                           name="product_qty"
-                          on_change="on_change_dispo_product_qty(category,name,parent.quality, parent.location_id,parent.location_dest_id,parent.location_big_id,parent.location_small_id, parent.location_faulty_id, parent.location_waste_id, parent.prodlot_id,parent.product_packaging_id, parent.product_id, parent.product_uom, parent.price_unit_id, product_qty)"/>
+                          on_change="on_change_dispo_product_qty(category,name,parent.quality, parent.location_id,parent.location_dest_id,parent.location_big_id,parent.location_small_id, parent.location_faulty_id, parent.location_waste_id, parent.prodlot_id,parent.product_packaging_id, parent.product_id, parent.product_uom, parent.price_unit_id, product_qty, parent.date_production)"/>
                         <field
                           attrs="{ 'readonly': [('state','!=','draft')]} "
                           name="packaging_qty"

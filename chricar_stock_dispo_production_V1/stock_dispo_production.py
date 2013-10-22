@@ -58,7 +58,7 @@ class stock_move(osv.osv):
          ( self, cr, uid, ids
          , category, name, quality, location_id=False, location_dest_id=False, location_big_id=False
          , location_small_id=False, location_faulty_id=False, location_waste_id=False, prodlot_id=False
-         , product_packaging_id=False, product_id=False, product_uom=False, price_unit_id=False,product_qty=False):
+         , product_packaging_id=False, product_id=False, product_uom=False, price_unit_id=False,product_qty=False, date_production=False):
 
         result ={}
         
@@ -114,6 +114,7 @@ class stock_move(osv.osv):
         result['product_packaging_id'] = product_packaging_id
         result['product_id'] = product_id
         result['product_uom'] = product_uom
+        result['date'] = date_production
 #        result['price_unit_id'] = price_unit_id
 #        result['move_value_cost'] = move_value_cost
         return {'value':result}
@@ -341,6 +342,7 @@ class sale_order_line(osv.osv):
             , help="Returns true if some moves are not done"
             , 
             )
+        , 'date_production' : fields.date("Production Date")
         }
     
     def move_action_done(self, cr, uid, ids, context=None):
