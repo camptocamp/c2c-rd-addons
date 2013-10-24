@@ -96,6 +96,11 @@ class account_asset_asset(osv.osv):
         return amount
              
     def compute_depreciation_board(self, cr, uid, ids, context=None):
+
+        for asset in self.browse(cr, uid, ids, context):
+            if asset.half_year_rule and (asset.prorata or asset.method != 'linear'):
+                self.write(cr, uid, [asset.id], {'prorata':False, 'method':'linear'})
+
         res = super(account_asset_asset, self).compute_depreciation_board(cr, uid, ids, context=None)
         
         for asset in self.browse(cr, uid, ids, context):
@@ -122,6 +127,13 @@ class account_asset_asset(osv.osv):
                 depreciation_lin_obj.create(cr, uid, vals, context=context)
         
         return res
+
+
+    def write(self, cr, uid, ids, vals, context=None):
+        result = super(account_asset_asset, self).write(cr, uid, ids, vals, context=context)
+        self.compute_depreciation_board(cr, uid, ids, context=context)
+        return result
+
             
 account_asset_asset()
 
