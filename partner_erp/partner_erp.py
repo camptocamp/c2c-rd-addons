@@ -51,8 +51,8 @@ class partner_erp(osv.osv):
         , 'port'                  : fields.integer ('Port' )
         , 'path'                  : fields.char    ('Path', size=32 )
         , 'db_name'               : fields.char    ('Database Name', size=32 ,required=True)
-        , 'user'                  : fields.char    ('DB-User', size=16 )
-        , 'passwd'                : fields.char    ('DB-Password', size=16 )
+        , 'user'                  : fields.char    ('DB-User', size=32 )
+        , 'passwd'                : fields.char    ('DB-Password', size=32 )
         , 'server_https'          : fields.function(_server_https, type='char', string='https command')
         }
 
