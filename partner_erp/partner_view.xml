@@ -45,6 +45,8 @@
                 <field name="passwd"/>
                 <newline/>
                 <field name="server_https" widget="url"/>
+                <newline/>
+                <field name="notes" colspan="4"/>
                 
               </form>
            </field>
