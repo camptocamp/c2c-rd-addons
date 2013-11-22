@@ -1,3 +1,4 @@
+## -*- coding: utf-8 -*-
 <html>
 <head>
                 <b>Label Test</b> requested by ${user.name}
