@@ -1,3 +1,4 @@
+## -*- coding: utf-8 -*-
 <html>
 %if context['data'] and context['data'].get('form'):
   <%form = True%>
