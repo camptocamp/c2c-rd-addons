@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
   <data>
+<!--
     <report
       auto="False"
       file="account_invoice_webkit/report/account_invoice_webkit.mako"
@@ -9,6 +10,20 @@
       name="account.invoice.webkit"
       report_type="webkit"
       string="WebKit Invoice"/>
+-->
+    <report
+            auto="False"
+            id="account.account_invoices"
+            model="account.invoice"
+            name="account.invoice"
+            file="account_invoice_webkit/report/account_invoice_webkit.mako"
+            report_type="webkit"
+            string="Invoices"
+            attachment="(object.state in ('open','paid')) and ('INV'+(object.number or '').replace('/','')+'.pdf')"
+            attachment_use="True"
+            usage="default"
+            />
+
 
     <record id="invoice_note_form" model="ir.ui.view">
             <field name="name">account.invoice.note.form</field>
