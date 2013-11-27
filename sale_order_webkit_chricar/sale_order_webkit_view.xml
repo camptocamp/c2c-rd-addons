@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
   <data>
+
+<!--
     <report
       auto="False"
       file="sale_order_webkit_chricar/report/sale_order.mako"
@@ -9,13 +11,15 @@
       name="sale.order.webkit"
       report_type="webkit"
       string="WebKit Sale Order"/>
+-->
 
     <report 
       auto="False" 
+      file="sale_order_webkit_chricar/report/sale_order.mako"
       id="sale.report_sale_order" 
       model="sale.order" 
-      name="sale.order.webkit"
-      file="sale_order_webkit_chricar/report/sale_order.mako"
+      name="sale.order"
+      report_type="webkit"
       string="Quotation / Order"
       usage="default"/>
 
