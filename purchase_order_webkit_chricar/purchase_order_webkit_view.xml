@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
   <data>
+<!--
     <report
       auto="False"
       file="purchase_order_webkit_chricar/report/purchase_order.mako"
@@ -9,5 +10,26 @@
       name="purchase.order.webkit"
       report_type="webkit"
       string="WebKit Purchase Order"/>
+-->
+   <report 
+     auto="False" 
+     id="purchase.report_purchase_quotation" 
+     model="purchase.order"
+     name="purchase.quotation" 
+     file="purchase_order_webkit_chricar/report/purchase_order.mako"
+     report_type="webkit"
+     string="Request for Quotation"/>
+
+
+   <report 
+     auto="False" 
+     id="purchase.report_purchase_order" 
+     model="purchase.order"
+     name="purchase.order" 
+     file="purchase_order_webkit_chricar/report/purchase_order.mako"
+     report_type="webkit"
+     usage="default" 
+     string="Purchase Order"/>
+
   </data>
 </openerp>
