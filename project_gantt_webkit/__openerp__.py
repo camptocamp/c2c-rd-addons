@@ -33,7 +33,7 @@ Attention:
     * only a few tasks supported (API limit?)
     """,
     'website': 'http://www.camptocamp.com',
-    "depends" : ["project"],
+    "depends" : ["project","report_webkit"],
     'init_xml': [],
     'update_xml': ['project_view.xml'],
     'demo_xml': [],
