@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
 #
-#    OpenERP, Open Source Management Solution
-#    Copyright (C) 2004-2010 Tiny SPRL (<http://tiny.be>).
+#    Copyright (C) 2013 Davide Corio
+#    (<http://www.davidecorio.com>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -19,26 +19,4 @@
 #
 ##############################################################################
 
-{
-    "name" : "Project Gantt Webkit",
-    "version" : "1.0",
-    "author" : "Camptocamp Austria",
-    "category": 'Project',
-    'complexity': "easy",
-    "description": """
-Print Gantt 
-
-Attention:
-    * no UTF-8 support
-    * only a few tasks supported (API limit?)
-    """,
-    'website': 'http://www.camptocamp.com',
-    "depends" : ["project","report_webkit"],
-    'init_xml': [],
-    'update_xml': ['project_view.xml'],
-    'demo_xml': [],
-    'installable': True,
-    'auto_install': False,
-}
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+from . import project

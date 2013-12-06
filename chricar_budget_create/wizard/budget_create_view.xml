@@ -45,6 +45,6 @@
       action="action_c2c_budget_create"
       icon="STOCK_INDENT"
       id="menu_action_c2c_budget_create"
-      parent="c2c_budget.menu_budget_c2c"/>
+      parent="c2c_budget_chricar.menu_budget_c2c"/>
   </data>
 </openerp>

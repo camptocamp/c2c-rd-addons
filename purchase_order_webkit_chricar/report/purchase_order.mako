@@ -1,3 +1,4 @@
+## -*- coding: utf-8 -*-
 <html>
 <head>
     <style type="text/css">
@@ -103,11 +104,11 @@ ${_("Mail")}: ${order.partner_id.email|entity} <br>
     <br />
 
     %if order.state == 'draft' :
-    <span class="title">${_("Quotation N°")} ${order.name or ''|entity}</span>
+    <span class="title">${_("Purchase Order Confirmation N°")} ${order.name or ''|entity}</span>
     %elif order.state == 'cancel' :
     <span class="title">${_("Sale Order Canceled")} ${order.name or ''|entity}</span>
     %else :
-    <span class="title">${_("Order N°")} ${order.name or ''|entity}</span>
+    <span class="title">${_("Request for Quotation N°")} ${order.name or ''|entity}</span>
     %endif
     <br/>
     <table  style="width:100%">
