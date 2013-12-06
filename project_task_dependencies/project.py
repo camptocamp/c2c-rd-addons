@@ -74,10 +74,11 @@ class project_task(osv.Model):
                 #_logger.debug('FGF task start %s' % (date_start)   )
                 for predecessor in task.predecessor_ids:
                     date_compare = predecessor.date_end or predecessor.date_deadline
-                    if (date_compare and date_compare <> date_start) or date_start == '':
-                        date_start = max(date_start,date_compare)
+                    #if (date_compare and date_compare <> date_start) or date_start == '':
+                    if date_compare:
+                        date_start = max(date_start or date_compare, date_compare)
                         _logger.debug('FGF task start new %s' % (date_start)   )
-                _logger.debug('FGF task write %s %s' % (task.id, date_start)   )
+                _logger.debug('FGF task write %s %s %s' % (task.id, date_start, task.name)   )
                 #self.write(cr, uid, task.id, {'date_start': date_start} )
                 res = date_start
             # for successors
@@ -85,9 +86,10 @@ class project_task(osv.Model):
                 _logger.debug('FGF successors %s' % (task.successor_ids)   )
                 for successor in task.successor_ids:
                     _logger.debug('FGF successor %s' % (successor.id)   )
-                    date_start = self.compute_earliest_start(cr, uid, successor.id, context)
-                    if date_start:
-                        self.write(cr, uid, [successor.id], {'date_start': date_start})
+                    if successor.state != 'done':
+                        date_start = self.compute_earliest_start(cr, uid, successor.id, context)
+                        if date_start:
+                            self.write(cr, uid, [successor.id], {'date_start': date_start})
                     
         return res
 
@@ -99,8 +101,11 @@ class project_task(osv.Model):
 
     def write(self, cr, uid, ids, vals, context=None) :
         _logger = logging.getLogger(__name__)
+        date_start = self.compute_earliest_start(cr, uid, ids, context=None)
+        if date_start:
+            vals['date_start'] = date_start
         res = super(project_task, self).write(cr, uid, ids, vals, context=context)
-        self.compute_earliest_start(cr, uid, ids, context=None)
+        
         
         return res
 
