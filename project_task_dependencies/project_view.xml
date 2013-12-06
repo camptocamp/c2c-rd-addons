@@ -22,16 +22,15 @@
             </field>
         </record>
 
-<!--
         <record id="view_task_form1_deps" model="ir.ui.view">
             <field name="name">project.task.form1.deps</field>
             <field name="model">project.task</field>
             <field name="inherit_id" ref="project.view_task_form2"/>
             <field name="arch" type="xml">
-                <xpath expr="//notebook/page[@string='Extra Info']/group[@string='Gantt View']" position="replace">
-                </xpath>
+                <group string="Gantt View" position="replace"/>
             </field>
         </record>
+
         <record id="view_task_form2_deps" model="ir.ui.view">
             <field name="name">project.task.form2.deps</field>
             <field name="model">project.task</field>
@@ -43,6 +42,6 @@
                 </field>
             </field>
         </record>
--->
+
     </data>
 </openerp>
