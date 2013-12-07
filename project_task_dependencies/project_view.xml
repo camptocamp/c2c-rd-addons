@@ -42,7 +42,8 @@
                     <group col="4" colspan="4">
                     <field name="duration_min" colspan="2"/>
                     <field name="duration_unit"  colspan="2" nolabel="1"/>
-                    <field name="duration" colspan="2" on_change="on_change_duration(date_start, duration)"/>
+                    <field name="duration" colspan="2" />
+                    <field name="duration_helper" colspan="2" on_change="on_change_duration(date_start, duration_helper)"/>
                     </group>
                 </field>
             </field>
