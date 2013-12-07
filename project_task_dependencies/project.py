@@ -32,6 +32,14 @@ class project_task(osv.Model):
 
     _inherit = 'project.task'
 
+
+    _duration_units= \
+        [ ('days',  _('Days'))
+        , ('month', _('Month'))
+        , ('hours', _('Hours'))
+        , ('Minutes', _('Minutes'))
+        ]
+
     _columns = {
         'predecessor_ids': one2many_sorted.many2many_sorted('project.task',
                                             'task_predecessors_rel',
@@ -43,11 +51,14 @@ class project_task(osv.Model):
                                             'predecessor_id','task_id',
                                             'Task Successor',
                                              order = 'date_start, name' ),
+        'duration_min': fields.float('Minimum Duration', digits=(16,2), help="Minimum duration in duration_unit. If not set it is computed automatically as difference between start and end date"),
+        'duration_unit': fields.selection(_duration_units, 'Duration Unit', required=True, help="Currently only days are supported"),
         'compute_dependency': fields.boolean('Compute earliest start date', help="If set we compute the earliest start date of this task and of all marked successors and based on date for start and end or deadline if end not set"),
     }
 
     _defaults = {
-    	'compute_dependency': lambda *a : True
+    	'compute_dependency': lambda *a : True,
+    	'duration_unit': lambda *a : 'days' 
     }
 
     def action_close(self, cr, uid, ids, context=None):
