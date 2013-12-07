@@ -23,7 +23,7 @@ from osv import fields, osv
 from openerp.tools.translate import _
 import one2many_sorted
 import time
-
+from datetime import datetime
 import logging
 
 
@@ -51,7 +51,8 @@ class project_task(osv.Model):
                                             'predecessor_id','task_id',
                                             'Task Successor',
                                              order = 'date_start, name' ),
-        'duration_min': fields.float('Minimum Duration', digits=(16,2), help="Minimum duration in duration_unit. If not set it is computed automatically as difference between start and end date"),
+        'duration': fields.integer('Duration',digits=(4)),
+        'duration_min': fields.integer('Minimum Duration', digits=(4), help="Minimum duration in duration_unit. If not set it is computed automatically as difference between start and end date"),
         'duration_unit': fields.selection(_duration_units, 'Duration Unit', required=True, help="Currently only days are supported"),
         'compute_dependency': fields.boolean('Compute earliest start date', help="If set we compute the earliest start date of this task and of all marked successors and based on date for start and end or deadline if end not set"),
     }
@@ -71,6 +72,30 @@ class project_task(osv.Model):
 
         return super(project_task, self).action_close(cr, uid, ids, context)
 
+    def on_change_date(self, cr, uid, ids, date_start, date_end):
+        res = {}
+        if date_start and date_end:
+            from_date = datetime.strptime(date_start,'%Y-%m-%d %H:%M:%S')
+            to_date = datetime.strptime(date_end,'%Y-%m-%d %H:%M:%S')
+            duration = (to_date - from_date).days
+        else:
+            duration = ''
+        return {'value': {'duration': duration }}
+        
+    
+    #def compute_duration(self, cr, uid, task_id, context=None):
+        #_logger = logging.getLogger(__name__)
+        #res = {}
+        #for task in self.browse(cr, uid, [task_id], context=context):
+            #if not task.duration and (task.date_start and task.date_end):
+                #from_date = datetime.strptime(task.date_start,'%Y-%m-%d %H:%M:%S')
+                #to_date = datetime.strptime(task.date_end,'%Y-%m-%d %H:%M:%S')
+                #diff = to_date - from_date
+                #_logger.debug('FGF date diff %s %s %s' % (from_date,to_date,diff.days)   )
+                #res = diff.days
+                ##self.write(cr, uid, task_id, res)
+        #return res 
+
     def compute_earliest_start(self, cr, uid, ids, context=None):
         _logger = logging.getLogger(__name__)
         res = ''
@@ -78,9 +103,11 @@ class project_task(osv.Model):
             ids = [ids]
         for task in self.browse(cr, uid, ids, context=context):
             _logger.debug('FGF task %s,%s' % (task.id, task.name)   )
+            
             # for this task
             if task.compute_dependency and task.predecessor_ids:
-                #date_start = task.date_start or time.strftime("%Y-%m-%d")
+                
+                
                 date_start = ''
                 #_logger.debug('FGF task start %s' % (date_start)   )
                 for predecessor in task.predecessor_ids:
@@ -89,9 +116,11 @@ class project_task(osv.Model):
                     if date_compare:
                         date_start = max(date_start or date_compare, date_compare)
                         _logger.debug('FGF task start new %s' % (date_start)   )
-                _logger.debug('FGF task write %s %s %s' % (task.id, date_start, task.name)   )
                 #self.write(cr, uid, task.id, {'date_start': date_start} )
-                res = date_start
+                date_end = date_start + task.duration
+                _logger.debug('FGF task write %s %s %s %s' % (task.id, date_start, date_end, task.name)   )
+                res = (date_start, date_end)
+                
             # for successors
             if task.successor_ids:
                 _logger.debug('FGF successors %s' % (task.successor_ids)   )
@@ -115,8 +144,8 @@ class project_task(osv.Model):
         date_start = self.compute_earliest_start(cr, uid, ids, context=None)
         if date_start:
             vals['date_start'] = date_start
-        res = super(project_task, self).write(cr, uid, ids, vals, context=context)
         
+        res = super(project_task, self).write(cr, uid, ids, vals, context=context)
         
         return res
 
