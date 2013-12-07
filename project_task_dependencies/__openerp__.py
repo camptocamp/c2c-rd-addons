@@ -28,6 +28,7 @@
     'description': """
     This module allows the user to set dependencies on project tasks.
     Tasks cannot be completed if they have open dependencies.
+    Needs python-networkx?
     """,
     'author': 'Davide Corio, Ferdinand Gassauer',
     'website': 'http://www.davidecorio.com, http://www.camptocamp.com',

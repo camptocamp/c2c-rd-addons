@@ -24,6 +24,8 @@ from openerp.tools.translate import _
 import one2many_sorted
 import time
 from datetime import datetime
+from datetime import timedelta
+import networkx 
 import logging
 
 
@@ -117,22 +119,43 @@ class project_task(osv.Model):
                         date_start = max(date_start or date_compare, date_compare)
                         _logger.debug('FGF task start new %s' % (date_start)   )
                 #self.write(cr, uid, task.id, {'date_start': date_start} )
-                date_end = date_start + task.duration
-                _logger.debug('FGF task write %s %s %s %s' % (task.id, date_start, date_end, task.name)   )
+                from_date = datetime.strptime(date_start,'%Y-%m-%d %H:%M:%S')
+                to_date = from_date + timedelta(days=task.duration or task.duration_min or 1)
+                date_end = datetime.strftime(to_date,'%Y-%m-%d %H:%M:%S')
+                #_logger.debug('FGF task write %s %s %s %s' % (task.id, date_start, date_end, task.name)   )
                 res = (date_start, date_end)
-                
-            # for successors
+        return res
+    
+    def compute_earliest_start_successors(self, cr, uid, ids, context=None):   
+        _logger = logging.getLogger(__name__)
+        res = ''
+        # for successors
+        for task in self.browse(cr, uid, ids, context=context):
             if task.successor_ids:
                 _logger.debug('FGF successors %s' % (task.successor_ids)   )
                 for successor in task.successor_ids:
                     _logger.debug('FGF successor %s' % (successor.id)   )
                     if successor.state != 'done':
-                        date_start = self.compute_earliest_start(cr, uid, successor.id, context)
-                        if date_start:
-                            self.write(cr, uid, [successor.id], {'date_start': date_start})
+                        dates = self.compute_earliest_start(cr, uid, successor.id, context)
+                        if dates:
+                            self.write(cr, uid, [successor.id], {'date_start': dates[0], 'date_end': dates[1]})
+                            cr.commit()
                     
         return res
 
+
+    def networkx_test(self, cr, uid, ids, vals, context=None):
+        _logger = logging.getLogger(__name__)
+        g = networkx.DiGraph()
+        #tasks = {Task(*task) for task in in csv.reader("path/to/file")}
+        #    
+        for task in self.browse(cr, uid, ids, context=context):
+            g.add_nodes(task.id)
+            for dep in task.successor_ids:
+                g.add_edge(task.id, dep.id)
+        _logger.debug('FGF networkx nodes%s' % (g.nodes()))
+        _logger.debug('FGF networkx edges%s' % (g.edges()))
+        return
                  
     def create(self, cr, uid, vals, context=None) :
         res = super(porject_task, self).create(cr, uid, vals, context=context)
@@ -141,11 +164,15 @@ class project_task(osv.Model):
 
     def write(self, cr, uid, ids, vals, context=None) :
         _logger = logging.getLogger(__name__)
-        date_start = self.compute_earliest_start(cr, uid, ids, context=None)
-        if date_start:
-            vals['date_start'] = date_start
-        
         res = super(project_task, self).write(cr, uid, ids, vals, context=context)
+        dates = self.compute_earliest_start(cr, uid, ids, context=None)
+        if dates:
+            vals['date_start'] = dates[0]
+            vals['date_end'] = dates[1]
+        _logger.debug('FGF task write vals %s' % vals)
+        res = super(project_task, self).write(cr, uid, ids, vals, context=context)
+        
+        self.compute_earliest_start_successors(cr, uid, ids, context)
         
         return res
 
