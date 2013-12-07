@@ -42,6 +42,21 @@ class project_task(osv.Model):
         , ('Minutes', _('Minutes'))
         ]
 
+    def _duration(self, cr, uid, ids, field_name, arg, context=None):
+        if context is None:
+            context = {}        
+        for task in self.browse(cr, uid, task_ids, context):
+            if task.date_start and task.date_end:
+                #_logger.debug('FGF date change %s %s' % (date_start, date_end ))
+                from_date = datetime.strptime(task.date_start,'%Y-%m-%d %H:%M:%S')
+                to_date = datetime.strptime(task.date_end,'%Y-%m-%d %H:%M:%S')
+                duration = (to_date - from_date).days
+            else:
+                duration = ''
+            #return {'value': {'duration': duration }}
+            res[task.id] = duration
+        return res
+    
     _columns = {
         'predecessor_ids': one2many_sorted.many2many_sorted('project.task',
                                             'task_predecessors_rel',
@@ -53,7 +68,8 @@ class project_task(osv.Model):
                                             'predecessor_id','task_id',
                                             'Task Successor',
                                              order = 'date_start, name' ),
-        'duration': fields.integer('Duration',digits=(4)),
+        #'duration': fields.integer('Duration',digits=(4)),
+        'duration': fields.function(_duration, type='integer', string="Duration"),
         'duration_min': fields.integer('Minimum Duration', digits=(4), help="Minimum duration in duration_unit. If not set it is computed automatically as difference between start and end date"),
         'duration_unit': fields.selection(_duration_units, 'Duration Unit', required=True, help="Currently only days are supported"),
         'compute_dependency': fields.boolean('Compute earliest start date', help="If set we compute the earliest start date of this task and of all marked successors and based on date for start and end or deadline if end not set"),
