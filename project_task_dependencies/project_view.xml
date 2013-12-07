@@ -37,12 +37,12 @@
             <field name="inherit_id" ref="project.view_task_form2"/>
             <field name="arch" type="xml">
                 <field name="planned_hours" position="after">
-                    <field name="date_start" on_change="on_change_date(date_start,date_end)"/>
-                    <field name="date_end" on_change="on_change_date(date_start,date_end)"/>
+                    <field name="date_start" on_change="on_change_date(date_start, date_end)"/>
+                    <field name="date_end" on_change="on_change_date(date_start, date_end)"/>
                     <group col="4" colspan="4">
                     <field name="duration_min" colspan="2"/>
                     <field name="duration_unit"  colspan="2" nolabel="1"/>
-                    <field name="duration" colspan="2"/>
+                    <field name="duration" colspan="2" on_change="on_change_duration(date_start, duration)"/>
                     </group>
                 </field>
             </field>
