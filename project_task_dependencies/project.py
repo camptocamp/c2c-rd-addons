@@ -69,7 +69,7 @@ class project_task(osv.Model):
                                             'predecessor_id','task_id',
                                             'Task Successor',
                                              order = 'date_start, name' ),
-        'duration_helper': fields.integer('Duration Input Field'),
+        'duration_helper': fields.integer('Duration', help="Input changes Date End (not respecting weekends etc"),
         'duration': fields.function(_duration, type='integer', string="Duration"),
         'duration_min': fields.integer('Minimum Duration', digits=(4), help="Minimum duration in duration_unit. If not set it is computed automatically as difference between start and end date"),
         'duration_unit': fields.selection(_duration_units, 'Duration Unit', required=True, help="Currently only days are supported"),
@@ -181,12 +181,16 @@ class project_task(osv.Model):
         return
                  
     def create(self, cr, uid, vals, context=None) :
+        if vals.get('duration') and vals['duration']:
+            vals['duration_helper'] = vals['duration']
         res = super(project_task, self).create(cr, uid, vals, context=context)
         self.compute_earliest_start(cr, uid, [res], context=None)
         return res
 
     def write(self, cr, uid, ids, vals, context=None) :
         _logger = logging.getLogger(__name__)
+        if vals.get('duration') and vals['duration']:
+            vals['duration_helper'] = vals['duration']
         res = super(project_task, self).write(cr, uid, ids, vals, context=context)
         
         dates = self.compute_earliest_start(cr, uid, ids, context=None)
