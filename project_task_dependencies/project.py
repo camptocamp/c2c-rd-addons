@@ -181,7 +181,7 @@ class project_task(osv.Model):
         return
                  
     def create(self, cr, uid, vals, context=None) :
-        res = super(porject_task, self).create(cr, uid, vals, context=context)
+        res = super(project_task, self).create(cr, uid, vals, context=context)
         self.compute_earliest_start(cr, uid, [res], context=None)
         return res
 
