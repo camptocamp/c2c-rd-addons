@@ -170,14 +170,14 @@ class project_task(osv.Model):
     def write(self, cr, uid, ids, vals, context=None) :
         _logger = logging.getLogger(__name__)
         res = super(project_task, self).write(cr, uid, ids, vals, context=context)
-        #dates = self.compute_earliest_start(cr, uid, ids, context=None)
-        #if dates:
-            #vals['date_start'] = dates[0]
-            #vals['date_end'] = dates[1]
+        dates = self.compute_earliest_start(cr, uid, ids, context=None)
+        if dates:
+            vals['date_start'] = dates[0]
+            vals['date_end'] = dates[1]
 
         #_logger.debug('FGF task write vals %s' % vals)
         
-        #res = super(project_task, self).write(cr, uid, ids, vals, context=context)
+        res = super(project_task, self).write(cr, uid, ids, vals, context=context)
         
         self.compute_earliest_start_successors(cr, uid, ids, context)
                
