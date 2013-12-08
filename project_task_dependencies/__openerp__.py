@@ -28,7 +28,7 @@
     'description': """
     This module allows the user to set dependencies on project tasks.
     Tasks cannot be completed if they have open dependencies.
-    DO NOT USE GANTT TO MODIFY DATES (successor tasks are not computed)
+    DO NOT USE GANTT VIEW TO MODIFY DATES (successor tasks dates are not computed)
     Needs python-networkx later?
     """,
     'author': 'Davide Corio, Ferdinand Gassauer',

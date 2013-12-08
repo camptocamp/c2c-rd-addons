@@ -77,8 +77,8 @@ class project_task(osv.Model):
     }
 
     _defaults = {
-    	'compute_dependency': lambda *a : True,
-    	'duration_unit': lambda *a : 'days' 
+        'compute_dependency': lambda *a : True,
+        'duration_unit': lambda *a : 'days' 
     }
 
     def action_close(self, cr, uid, ids, context=None):
@@ -112,9 +112,25 @@ class project_task(osv.Model):
             date_end = datetime.strftime(to_date,'%Y-%m-%d %H:%M:%S')            
         else:
             date_end = ''
-            
+           
         return {'value': {'date_end': date_end}}
     
+    def compute_date_compare(self, cr, uid, predecessor, context=None):
+        _logger = logging.getLogger(__name__)
+        res = ''
+        if predecessor.state != 'cancelled':
+            _logger.debug('FGF compute date %s,%s,%s' % (predecessor.name, predecessor.date_end, predecessor.date_deadline)   )
+            res = predecessor.date_end or predecessor.date_deadline
+        elif predecessor.predecessor_ids:
+            for p in predecessor.predecessor_ids:
+                _logger.debug('FGF compute date next'    )
+                res = self.compute_date_compare(cr, uid, p, context)
+        else:
+            _logger.debug('FGF compute date nothing'    )
+            
+        return res
+            
+        
     def compute_earliest_start(self, cr, uid, ids, context=None):
         _logger = logging.getLogger(__name__)
         res = ''
@@ -125,14 +141,16 @@ class project_task(osv.Model):
             if task.compute_dependency and task.predecessor_ids:
                 date_start = ''
                 for predecessor in task.predecessor_ids:
-                    date_compare = predecessor.date_end or predecessor.date_deadline
+                    date_compare = self.compute_date_compare(cr, uid,  predecessor, context)
+                    _logger.debug('FGF task date_compare %s' % (date_compare)   )
+                    #date_compare = predecessor.date_end or predecessor.date_deadline
                     if date_compare:
                         date_start = max(date_start or date_compare, date_compare)
                         _logger.debug('FGF task start new %s' % (date_start)   )
-                from_date = datetime.strptime(date_start,'%Y-%m-%d %H:%M:%S')
-                to_date = from_date + timedelta(days=(task.duration or task.duration_min or 1) )
-                date_end = datetime.strftime(to_date,'%Y-%m-%d %H:%M:%S')
-                res = (date_start, date_end)
+                        from_date = datetime.strptime(date_start,'%Y-%m-%d %H:%M:%S')
+                        to_date = from_date + timedelta(days=(task.duration or task.duration_min or 1) )
+                        date_end = datetime.strftime(to_date,'%Y-%m-%d %H:%M:%S')
+                        res = (date_start, date_end)
         return res
     
     def compute_earliest_start_successors(self, cr, uid, ids, context=None):   
@@ -143,11 +161,11 @@ class project_task(osv.Model):
                 _logger.debug('FGF successors %s' % (task.successor_ids)   )
                 for successor in task.successor_ids:
                     _logger.debug('FGF successor %s' % (successor.id)   )
-                    if successor.state != 'done':
+                    if successor.state not in ('done'):
                         dates = self.compute_earliest_start(cr, uid, successor.id, context)
                         if dates:
                             self.write(cr, uid, [successor.id], {'date_start': dates[0], 'date_end': dates[1]})
-                            #cr.commit()
+
         return res
 
 
@@ -170,21 +188,17 @@ class project_task(osv.Model):
     def write(self, cr, uid, ids, vals, context=None) :
         _logger = logging.getLogger(__name__)
         res = super(project_task, self).write(cr, uid, ids, vals, context=context)
+        
         dates = self.compute_earliest_start(cr, uid, ids, context=None)
-        if dates:
+        if dates and  dates[0] and dates[1]:
             vals['date_start'] = dates[0]
             vals['date_end'] = dates[1]
-
-        #_logger.debug('FGF task write vals %s' % vals)
-        
-        res = super(project_task, self).write(cr, uid, ids, vals, context=context)
+            #_logger.debug('FGF task write vals %s' % vals)
+            res = super(project_task, self).write(cr, uid, ids, vals, context=context)
         
         self.compute_earliest_start_successors(cr, uid, ids, context)
                
         #self.networkx_test(cr, uid, ids, vals, context)
         return res
 
-
-
-
-project_task()
+# end project_task
