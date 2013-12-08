@@ -147,7 +147,7 @@ class project_task(osv.Model):
                         dates = self.compute_earliest_start(cr, uid, successor.id, context)
                         if dates:
                             self.write(cr, uid, [successor.id], {'date_start': dates[0], 'date_end': dates[1]})
-                            cr.commit()
+                            #cr.commit()
         return res
 
 
