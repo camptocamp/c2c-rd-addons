@@ -4,7 +4,7 @@
     <record model="ir.ui.view" id="chricar_view_budget_line_create_list">
       <field name="name">chricar.view.budget.line.create.list</field>
       <field name="model">c2c_budget.line</field>
-      <field name="inherit_id" ref="c2c_budget.view_budget_line_list"/>
+      <field name="inherit_id" ref="c2c_budget_chricar.view_budget_line_list"/>
       <field name="arch" type="xml">
         <field name="period_id" position="after">
           <field name="period_source_id"/>
