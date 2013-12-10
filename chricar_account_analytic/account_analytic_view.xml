@@ -199,8 +199,6 @@ Modification of Bank statement - change trigger
             </field>
         </record>
 
-
-
         <record id="view_account_analytic_line_period_filter" model="ir.ui.view">
             <field name="name">account.analytic.line.period.filter</field>
             <field name="model">account.analytic.line</field>
@@ -215,7 +213,18 @@ Modification of Bank statement - change trigger
             </field>
         </record>
 
-
+        <record id="view_account_analytic_line_period_filter2" model="ir.ui.view">
+            <field name="name">account.analytic.line.period.filter2</field>
+            <field name="model">account.analytic.line</field>
+            <field name="type">search</field>
+            <field name="inherit_id" ref="account.view_account_analytic_line_filter"/>
+            <field name="arch" type="xml">
+               <xpath expr="/search/group/filter[@string='product_id']" position="after">
+                  <separator orientation="vertical"/>
+                  <field name="period_id"/>
+               </xpath>
+            </field>
+        </record>
 
   </data>
 </openerp>
