@@ -221,7 +221,7 @@ Modification of Bank statement - change trigger
             <field name="arch" type="xml">
                <xpath expr="/search/group/filter[@string='Product']" position="after">
                   <separator orientation="vertical"/>
-                  <field name="period_id"/>
+                  <filter string="Period" context="{'group_by': 'period_id'}" icon="terp-go-month"/>
                </xpath>
             </field>
         </record>
