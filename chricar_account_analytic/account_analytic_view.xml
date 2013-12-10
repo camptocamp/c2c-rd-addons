@@ -219,7 +219,7 @@ Modification of Bank statement - change trigger
             <field name="type">search</field>
             <field name="inherit_id" ref="account.view_account_analytic_line_filter"/>
             <field name="arch" type="xml">
-               <xpath expr="/search/group/filter[@string='product_id']" position="after">
+               <xpath expr="/search/group/filter[@string='Product']" position="after">
                   <separator orientation="vertical"/>
                   <field name="period_id"/>
                </xpath>
