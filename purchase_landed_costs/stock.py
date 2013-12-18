@@ -3,7 +3,7 @@
 #
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2010 Tiny SPRL (<http://tiny.be>).
-#    Copyright (C) 2010-2012 Camptocamp Austria (<http://www.camptocamp.at>)
+#    Copyright (C) 2010-2012 Camptocamp (<http://www.camptocamp.at>)
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -31,9 +31,9 @@ class stock_move(osv.osv):
     def _landing_cost(self, cr, uid, ids, name, args, context):
         if not ids : return {}
         result = {}
-        landed_costs = 0.0
         # landed costss for the line
         for line in self.browse(cr, uid, ids):
+            landed_costs = 0.0
             if line.landed_cost_line_ids:
                 for costs in line.landed_cost_line_ids:
                     if costs.price_type == 'value':
@@ -46,9 +46,9 @@ class stock_move(osv.osv):
     def _landing_cost_order(self, cr, uid, ids, name, args, context):
         if not ids : return {}
         result = {}
-        landed_costs = 0.0
         # landed costss for the line
         for line in self.browse(cr, uid, ids):
+            landed_costs = 0.0            
             # distrubution of landed costs of PO
             if line.picking_id.landed_cost_line_ids:
                if line.picking_id.total_amount and line.picking_id.total_amount > 0.0:
@@ -62,21 +62,17 @@ class stock_move(osv.osv):
     def _landed_cost(self, cr, uid, ids, name, args, context):
         if not ids : return {}
         result = {}
-        landed_costs = 0.0
         # landed costss for the line
         for line in self.browse(cr, uid, ids):
-            landed_costs +=  line.product_qty * line.price_unit
-            result[line.id] = landed_costs
+            result[line.id] = line.product_qty * line.price_unit
 
         return result
 
     def _sub_total(self, cr, uid, ids, name, args, context):
         if not ids : return {}
         result = {}
-        sub_total = 0.0
         for line in self.browse(cr, uid, ids):
-            sub_total += line.product_qty * line.price_unit_net or 0.0
-            result[line.id] = sub_total
+            result[line.id] = line.product_qty * line.price_unit_net or 0.0
 
         return result
 
@@ -101,8 +97,8 @@ class stock_picking(osv.osv):
     def _landed_cost_base_value(self, cr, uid, ids, name, args, context):
         if not ids : return {}
         result = {}
-        landed_costs_base_value = 0.0
         for line in self.browse(cr, uid, ids):
+            landed_costs_base_value = 0.0
             if line.landed_cost_line_ids:
                 for costs in line.landed_cost_line_ids:
                     if costs.product_id.landed_cost_type == 'value':
@@ -113,8 +109,8 @@ class stock_picking(osv.osv):
     def _landed_cost_base_quantity(self, cr, uid, ids, name, args, context):
         if not ids : return {}
         result = {}
-        landed_costs_base_quantity = 0.0
         for line in self.browse(cr, uid, ids):
+            landed_costs_base_quantity = 0.0
             if line.landed_cost_line_ids:
                 for costs in line.landed_cost_line_ids:
                     if costs.product_id.landed_cost_type == 'quantity':
@@ -125,9 +121,9 @@ class stock_picking(osv.osv):
     def _landed_cost(self, cr, uid, ids, name, args, context):
         if not ids : return {}
         result = {}
-        landed_costs = 0.0
         # landed costss for the line
         for line in self.browse(cr, uid, ids):
+            landed_costs = 0.0            
             if line.move_lines:
                 for ml in line.move_lines:
                     landed_costs += ml.landed_cost 
@@ -138,8 +134,8 @@ class stock_picking(osv.osv):
     def _landing_cost_lines(self, cr, uid, ids, name, args, context):
         if not ids : return {}
         result = {}
-        landed_cost_lines = 0.0
         for line in self.browse(cr, uid, ids):
+            landed_cost_lines = 0.0
             if line.move_lines:
                 for ml in line.move_lines:
                     if ml.product_qty > 0.0:
@@ -150,8 +146,8 @@ class stock_picking(osv.osv):
     def _quantity_total(self, cr, uid, ids, name, args, context):
         if not ids : return {}
         result = {}
-        quantity_total = 0.0
         for line in self.browse(cr, uid, ids):
+            quantity_total = 0.0
             if line.move_lines:
                 for ml in line.move_lines:
                     if ml.product_qty > 0.0:
@@ -160,10 +156,12 @@ class stock_picking(osv.osv):
         return result
 
     def _amount_total(self, cr, uid, ids, name, args, context):
-        if not ids : return {}
+        if not ids:
+            return {}
         result = {}
-        amount_total = 0.0
-        for line in self.browse(cr, uid, ids):
+        stock_picking_lines = self.browse(cr, uid, ids)
+        for line in stock_picking_lines:
+            amount_total = 0.0
             if line.move_lines:
                 for ml in line.move_lines:
                     if ml.product_qty > 0.0 and ml.price_unit:
