@@ -166,6 +166,7 @@ class chricar_budget(osv.osv):
                 sql = """select -sum(product_qty) 
                             from stock_move
                         where prodlot_id = %s
+                            and state = 'done'
                             and location_id in  %s""" % ( line.prod_lot_id.id, tuple(location_ids)) 
                 _logger.debug('FGF lot qty %s' % (sql))
                 cr.execute(sql)
@@ -176,6 +177,7 @@ class chricar_budget(osv.osv):
                 sql = """select sum(product_qty) 
                             from stock_move
                         where prodlot_id = %s
+                            and state = 'done'
                             and location_dest_id in  %s""" % ( line.prod_lot_id.id, tuple(location_ids)) 
                 cr.execute(sql)
                 q = cr.fetchone()
