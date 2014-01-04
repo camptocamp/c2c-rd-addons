@@ -54,6 +54,7 @@ class partner_erp(osv.osv):
         , 'user'                  : fields.char    ('DB-User', size=32 )
         , 'passwd'                : fields.char    ('DB-Password', size=32 )
         , 'server_https'          : fields.function(_server_https, type='char', string='https command')
+        , 'notes'                 : fields.text    ('Notes')
         }
 
     _defaults = {

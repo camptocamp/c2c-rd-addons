@@ -34,6 +34,7 @@ class account_move_line(osv.osv):
         for l in self.browse(cr, uid, ids, context):
             r = True
             if l.reconcile_id and not l.account_id.reconcile:
+                raise osv.except_osv("Reconcile Error", 'Reconcile id: "%s"  Account Name: %s' % (l.reconcile_id.name, l.account_id.name))
 		r = False
         return r
     
