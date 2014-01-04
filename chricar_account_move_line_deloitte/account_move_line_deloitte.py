@@ -220,7 +220,7 @@ class chricar_account_move_line_deloitte(osv.osv):
          if not acc_deloitte_ids:
              return True
          self.write(cr, uid, acc_deloitte_ids, {'state': 'progress'} )
-         acc_ids = account_obj.search(cr, uid, [('company_id','=',company_id)])
+         acc_ids = account_obj.search(cr, uid, [('company_id','=',company_id),('type','!=','view')])
          _logger.debug('FGF account ids %s' % (acc_ids))
          acc_codes = []
          for acc in  account_obj.browse(cr, uid, acc_ids, context=None):
