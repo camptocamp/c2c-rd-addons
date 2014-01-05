@@ -13,12 +13,12 @@
                         <field name="user_company_ids" colspan="4" nolabel="1">
                             <tree string="Company Data">
                                     <field name="company_id"/>
-                                    <field name="user_mail"/>
+                                    <field name="user_email"/>
                                     <field name="signature"/>
                             </tree>
                             <form string="Company Data">                                
                                     <field name="company_id"/>
-                                    <field name="user_mail"/>
+                                    <field name="user_email"/>
                                     <field name="signature"/>
                             </form>
                         </field>
