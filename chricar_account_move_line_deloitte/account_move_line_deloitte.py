@@ -91,7 +91,7 @@ class chricar_account_move_line_deloitte(osv.osv):
              result[move.id] = False
              if move.analytic_account and move.company_id:
                  account_ids= self.pool.get('account.analytic.account').search(cr,uid,[('company_id','=',move.company_id.id),('code','=',move.analytic_account)])
-                 if len(account_ids):
+                 if account_ids:
                      result[move.id] = account_ids[0]
          return result
 
@@ -110,9 +110,9 @@ class chricar_account_move_line_deloitte(osv.osv):
                       acc =  move.account
 
              account_ids= self.pool.get('account.account').search(cr,uid,[('company_id','=',move.company_id.id),('code','=',acc),('type','!=','view')])
-             if not account_ids and len(move.counter_account)==3:
+             if not account_ids and move.counter_account and len(move.counter_account)==3:
                     account_ids= self.pool.get('account.account').search(cr,uid,[('company_id','=',move.company_id.id),('code','=','0'+acc),('type','!=','view')])
-             if len(account_ids):
+             if account_ids:
                  result[move.id] = account_ids[0]
          return result
 
@@ -134,7 +134,7 @@ class chricar_account_move_line_deloitte(osv.osv):
                  if not account_ids and len(move.counter_account)==3:
                     account_ids= self.pool.get('account.account').search(cr,uid,[('company_id','=',move.company_id.id),('code','=','0'+acc),('type','!=','view')])
 
-                 if len(account_ids):
+                 if account_ids:
                      result[move.id] = account_ids[0]
          return result
 
