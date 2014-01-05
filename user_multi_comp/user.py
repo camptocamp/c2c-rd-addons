@@ -33,13 +33,13 @@ class res_users_company(osv.osv):
         'signature': fields.text('Signature', help="Signature for this company"),
         }
 
-    def init(self, cr):
-      return
-      cr.execute("""
-          insert into res_users_company(user_id,company_id,user_email,signature)
-                 select id,company_id,email,signature from res_config_users u
-                 where (u.id,u.company_id) not in (select user_id,company_id from res_users_company);
-      """)
+    #def init(self, cr):
+      #return
+      #cr.execute("""
+          #insert into res_users_company(user_id,company_id,user_email,signature)
+                 #select id,company_id,email,signature from res_config_users u
+                 #where (u.id,u.company_id) not in (select user_id,company_id from res_users_company);
+      #""")
 
     
 res_users_company()
@@ -49,39 +49,48 @@ class users(osv.osv):
     _inherit = "res.users"
 
     def _get_email(self, cr, uid, ids, field, arg, context=None):
+        _logger = logging.getLogger(__name__)
         if not context:
             context = {}
+        _logger.debug('FGF get mail context %s', context)
         user_comp_obj = self.pool.get('res.users.company')
         res = {}        
         
         c_id = ''
         if context.get('company_id'):
             c_id = context['company_id']
-        for user in self.browse(cr, uid, ids):         
+        _logger.debug('FGF get mail c_id %s', c_id)    
+        for user in self.browse(cr, uid, ids, context):         
             res[user.id] = ''
+            _logger.debug('FGF get mail user %s', user)
             for comp in user.user_company_ids:
-                if c_id or user.company_id.id == comp.company_id.id:
-                    #c_id = user.company_id.id
+                _logger.debug('FGF get mail res %s %s'%( c_id or user.company_id.id ,comp.company_id.id))        
+                if (c_id or user.company_id.id) == comp.company_id.id:
+                    _logger.debug('FGF get mail res found %s %s'%( (c_id or user.company_id.id) ,comp.company_id.id)) 
                     res[user.id] = comp.user_email
-                
+        _logger.debug('FGF get mail res %s', res)
         return res
 
     def _get_signature(self, cr, uid, ids, field, arg, context=None):
+        _logger = logging.getLogger(__name__)
         if not context:
             context = {}
         user_comp_obj = self.pool.get('res.users.company')
         res = {}        
-        
         c_id = ''
         if context.get('company_id'):
             c_id = context['company_id']
-        for user in self.browse(cr, uid, ids):         
+        _logger.debug('FGF get mail c_id %s', c_id)    
+        for user in self.browse(cr, uid, ids, context):         
             res[user.id] = ''
-
+            _logger.debug('FGF get mail user %s', user)
             for comp in user.user_company_ids:
-                if c_id or user.company_id.id == comp.company_id.id:
-                    #c_id = user.company_id.id
+                _logger.debug('FGF get mail res %s %s'%( c_id or user.company_id.id ,comp.company_id.id))        
+                if (c_id or user.company_id.id) == comp.company_id.id:
+                    _logger.debug('FGF get mail res found %s %s'%( (c_id or user.company_id.id) ,comp.company_id.id)) 
                     res[user.id] = comp.signature
+        _logger.debug('FGF get mail res %s', res)
+        return res
                 
         return res
     
@@ -93,3 +102,31 @@ class users(osv.osv):
         }
 
 users()
+
+class mail_message(osv.osv):
+    _inherit = 'mail.message'
+
+    def _get_company(self, cr, uid, ids, field, arg, context=None):
+        if not context:
+            context = {}
+        res = {}
+        _logger = logging.getLogger(__name__)
+        for message in self.browse(cr, uid, ids, context):
+            res[message.id] = ''
+            if message.model:
+                _logger.debug('FGF message.model %s', message.model)
+                model_obj = self.pool.get(message.model)
+                
+                for model_rows in model_obj.browse(cr, uid, [message.res_id], context):
+                    try:
+                        _logger.debug('FGF message.model comp %s', model_rows.company_id.id)
+                        res[message.id] = model_rows.company_id.id
+                    except:
+                        pass
+        return res
+        
+    _columns = {
+        'company_id' : fields.function(_get_company, methd=True, type='many2one', relation='res.company', string='Company')
+    }
+    
+mail_message() 

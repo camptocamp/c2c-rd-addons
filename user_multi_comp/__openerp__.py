@@ -30,9 +30,12 @@ in multi company installations users may have different emails and functions
 ============================================================================
 Mails will use correct signature depending on company in object
 
+ATTENTION
+current user email und signature data are LOST!
+
     """,
     'website': 'http://www.camptocamp.com',
-    "depends" : ["multi_company","one2many_sorted"],
+    "depends" : ["multi_company","one2many_sorted","mail","crm_helpdesk"],
     'init_xml': [],
     'update_xml': ['user_view.xml','security/ir.model.access.csv'],
     'demo_xml': [],

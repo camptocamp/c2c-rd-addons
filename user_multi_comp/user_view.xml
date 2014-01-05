@@ -26,5 +26,39 @@
                 </page>
             </field>
         </record>
+        
+        <record id="crm_case_form_view_helpdesk_company" model="ir.ui.view">
+            <field name="name">crm.case.form.view.helpdesk.company</field>
+            <field name="model">crm.helpdesk</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="crm_helpdesk.crm_case_form_view_helpdesk"/>
+            <field name="arch" type="xml"> 
+                <button string="Reply" position="replace">
+                    <field name='company_id' invisible="1"/>
+                    <button
+                        string="Reply" attrs="{'invisible': [('email_from', '=', False)]}"
+                        name="%(mail.action_email_compose_message_wizard)d"
+                        context="{'mail.compose.message.mode':'reply', 'message_id':active_id, 'company_id': company_id}"
+                        icon="terp-mail-replied" type="action" />
+
+                </button>
+            </field>
+        </record> 
+        
+        <record id="crm_case_form_view_helpdesk_company2" model="ir.ui.view">
+            <field name="name">crm.case.form.view.helpdesk2.company</field>
+            <field name="model">crm.helpdesk</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="crm_helpdesk.crm_case_form_view_helpdesk"/>
+            <field name="arch" type="xml"> 
+                <button string="Send New Email" position="replace">
+                    <button string="Send New Email"
+                        name="%(mail.action_email_compose_message_wizard)d"
+                        context="{'company_id': company_id}"
+                        icon="terp-mail-message-new" type="action"/>
+
+                </button>
+            </field>
+        </record> 
     </data>
 </openerp>
