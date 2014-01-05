@@ -3,7 +3,7 @@
 , "version"      : "1.0"
 , "author"       : "ChriCar Beteiligungs- und Beratungs- GmbH"
 , "website"      : "http://www.chricar.at"
-, "description"  : """Import table for account move lines of Deloitte
+, "description"  : """Import table for account move lines of Deloitte and other accounting systems
 generated 2009-10-17 12:10:57+02"""
 , "category"     : "Client Modules/ChriCar Addons"
 , "depends"      : ["account"]
