@@ -27,6 +27,33 @@
             </field>
         </record>
         
+        <record id="view_users_form_simple_company_data" model="ir.ui.view">
+            <field name="name">res.users.company.simple.data.form.inherit</field>
+            <field name="model">res.users</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="base.view_users_form_simple_modif"/>
+            <field name="arch" type="xml">
+                <separator string="Email Preferences" position="after" >       
+                    <field name="user_company_ids" colspan="4" nolabel="1">
+                        <tree string="Company Data">
+                            <field name="company_id"/>
+                            <field name="user_email"/>
+                            <field name="signature"/>
+                        </tree>
+                        <form string="Company Data">                                
+                            <field name="company_id"/>
+                            <field name="user_email"/>
+                            <field name="signature"/>
+                        </form>
+                    </field>
+                    <separator string="Current" colspan="4"/>       
+                </separator>
+                
+            </field>
+        </record>
+        
+        
+        
         <record id="crm_case_form_view_helpdesk_company" model="ir.ui.view">
             <field name="name">crm.case.form.view.helpdesk.company</field>
             <field name="model">crm.helpdesk</field>
