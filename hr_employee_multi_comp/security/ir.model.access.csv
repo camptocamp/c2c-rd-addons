@@ -1,0 +1,3 @@
+"id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
+"hr_employee_company_manager","hr_employee_company_manager","model_hr_employee_company","base.group_hr_manager",1,1,1,1
+"hr_employee_company_user","hr_employee_company_user","model_hr_employee_company","base.group_hr_user",1,0,0,0

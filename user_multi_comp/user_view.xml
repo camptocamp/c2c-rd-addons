@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_users_form_company_data" model="ir.ui.view">
+            <field name="name">res.users.company.data.form.inherit</field>
+            <field name="model">res.users</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="base.view_users_form"/>
+            <field name="arch" type="xml">
+                <page string="Allowed Companies" position="after">
+                    <page string="Company Data">
+                        <field name="user_company_ids" colspan="4" nolabel="1">
+                            <tree string="Company Data">
+                                    <field name="company_id"/>
+                                    <field name="user_mail"/>
+                                    <field name="signature"/>
+                            </tree>
+                            <form string="Company Data">                                
+                                    <field name="company_id"/>
+                                    <field name="user_mail"/>
+                                    <field name="signature"/>
+                            </form>
+                        </field>
+                    </page>
+                </page>
+            </field>
+        </record>
+    </data>
+</openerp>

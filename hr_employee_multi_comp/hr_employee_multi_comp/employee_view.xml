@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_employee_form_company_data" model="ir.ui.view">
+            <field name="name">hr.employee.company.data.form.inherit</field>
+            <field name="model">hr.employee</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <page string="Notes" position="after">
+                    <page string="Company Data">
+                        <field name="employee_company_ids" colspan="4" nolabel="1">
+                            <tree string="Company Data">
+                                    <field name="company_id"/>
+                                    <field name="work_phone"/>
+                                    <field name="work_email"/>
+                                    <field name="work_location"/>
+                                    <field name="job_id"/>
+                            </tree>
+                            <form string="Company Data">
+                                    <field name="company_id"/>
+                                    <field name="work_phone"/>
+                                    <field name="work_email"/>
+                                    <field name="work_location"/>
+                                    <field name="job_id"/>
+                            </form>
+                        </field>
+                    </page>
+                </page>
+            </field>
+        </record>
+    </data>
+</openerp>
