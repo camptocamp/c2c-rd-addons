@@ -68,6 +68,7 @@ Replace default help context
             <field name="date" select="1"/>
             <field name="date_deadline"/>
             <field colspan="4" name="ref"/>
+            <field name="company_id"/>
           </group>
         </xpath>
       </field>
