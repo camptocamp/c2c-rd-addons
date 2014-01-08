@@ -79,7 +79,7 @@ class ir_sequence(osv.osv):
                         period_obj = self.pool.get('account.period')
                         for period in period_obj.browse(cr, uid, [context['period_id']]):
                             period_code = period.code
-                            prefix = journal.sequence_id.prefix + period.fiscalyear_id.code +'-'+ period_code[2:6] +'-'
+                            prefix = journal.sequence_id.prefix + period.fiscalyear_id.code +'-'+ period_code[4:6] +'-'
                         sequence_code = journal.sequence_id.code
                         vals = \
                         { 'code'           : sequence_code
