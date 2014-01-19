@@ -5,7 +5,7 @@
     <record model="ir.ui.view" id="product_normal_stock_loc_form_view">
       <field name="name">view.product.normal.stock.loc.form</field>
       <field name="model">product.product</field>
-      <field name="inherit_id" ref="product.product_normal_form_view"/>
+      <field name="inherit_id" ref="stock.view_normal_procurement_locations_form"/>
       <field name="type">form</field>
       <field name="arch" type="xml">
         <field name="loc_rack" position="before">
