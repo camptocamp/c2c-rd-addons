@@ -42,7 +42,7 @@ class stock_location(osv.osv):
             points = ''
             if loc.yield_rate and loc.capacity:
                 # capacity = ha
-                points = round(loc.yield_rate/loc.capacity*10000*100,0)
+                points = round(loc.yield_rate/(loc.capacity*10000)*100,0)
             res[loc.id] = points
         return res
 
