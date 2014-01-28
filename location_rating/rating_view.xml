@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- <?xml version="1.0" encoding="UTF-8"?> -->
+<openerp>
+  <data>
+
+      <record id="view_location_tree2_yield" model="ir.ui.view">
+      <field name="name">view.location.tree2.yield</field>
+      <field name="model">stock.location</field>
+      <field name="type">form</field>
+      <field name="inherit_id" ref="stock.view_location_tree2"/>
+      <field name="arch" type="xml">
+        <field name="usage" position="after">
+            <field name="yield_rate"/>
+            <field name="yield_points"/>
+        </field>
+      </field>
+    </record>
+
+    <record id="view_location_form_yield" model="ir.ui.view">
+      <field name="name">view.location.form.yield</field>
+      <field name="model">stock.location</field>
+      <field name="type">form</field>
+      <field name="inherit_id" ref="stock.view_location_form"/>
+      <field name="arch" type="xml">
+        <field name="active" position="after">
+            <field name="yield_rate"/>
+            <field name="yield_points"/>
+        </field>
+      </field>
+    </record>
+
+  </data>
+</openerp>
