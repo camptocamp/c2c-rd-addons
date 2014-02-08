@@ -154,8 +154,13 @@ class project_task(osv.Model):
         return res
     
     def compute_earliest_start_successors(self, cr, uid, ids, context=None):   
+        if not context:
+            context = {}
         _logger = logging.getLogger(__name__)
         res = ''
+        _logger.debug('FGF task ids %s' % (ids)   )
+        if not isinstance(ids, list):
+            ids = [ids]
         for task in self.browse(cr, uid, ids, context=context):
             if task.successor_ids:
                 _logger.debug('FGF successors %s' % (task.successor_ids)   )
