@@ -21,9 +21,9 @@
 import time
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
-from osv import fields, osv
-import decimal_precision as dp
-from tools.translate import _
+from openerp.osv import fields, osv
+import openerp.addons.decimal_precision as dp
+from openerp.tools.translate import _
 import logging
 
 class account_account(osv.osv):

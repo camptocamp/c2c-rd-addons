@@ -19,7 +19,8 @@
 #
 ##############################################################################
 
-{
+{ 'sequence': 500,
+
     "name" : "MRP Reopen",
     "version" : "1.1",
     "author" : "Camptocamp Austria",
@@ -33,7 +34,7 @@ Allows reopening of confirmed production orders.
     'website': 'http://www.camptocamp.com',
     "depends" : ["mrp"],
     'init_xml': [],
-    'update_xml': ['mrp_view.xml','mrp_workflow.xml' ],
+    'data': ['mrp_view.xml','mrp_workflow.xml' ],
     'demo_xml': [],
     'installable': True,
     'auto_install': False,

@@ -21,7 +21,8 @@
 ##############################################################################
 
 
-{
+{ 'sequence': 500,
+
     'name': 'Camptocamp Austria ChriCar',
     'version': '1.0',
     'category': 'Others',
@@ -45,8 +46,8 @@ This module installs everything we need for Austrian chricar extension
 ,"chricar_inventory"
 ,"sale_shipped_rate"
       ],
-    'update_xml': [       ],
-    #'update_xml': ['product_view.xml'],
+    'data': [       ],
+    #'data': ['product_view.xml'],
     'demo_xml': [],
     'installable': True,
     'active': False,

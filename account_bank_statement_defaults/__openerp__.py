@@ -28,7 +28,8 @@
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 ##############################################################################
-{ "name"         : "Bank Statment Line Defaults"
+{ 'sequence': 500,
+ "name"         : "Bank Statment Line Defaults"
 , "description"  : """Sets more usable defaults for bank statement lines"""
 , "version"      : "0.9"
 , "depends"      : ["account"]

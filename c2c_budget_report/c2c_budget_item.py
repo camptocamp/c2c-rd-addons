@@ -33,14 +33,14 @@ from dateutil.relativedelta import relativedelta
 from operator import itemgetter
 import logging
 
-import pooler
-from osv import fields, osv
-import decimal_precision as dp
-from tools.translate import _
+#import pooler
+from openerp.osv import fields, osv
+import openerp.addons.decimal_precision as dp
+from openerp.tools.translate import _
 
 from copy import copy
-from c2c_reporting_tools_chricar.c2c_helper import *             
-import decimal_precision as dp
+from openerp.addons.c2c_reporting_tools_chricar.c2c_helper import *             
+import openerp.addons.decimal_precision as dp
         
         
 

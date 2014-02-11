@@ -21,7 +21,8 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
-{ "name" : "Account Period Sum"
+{ 'sequence': 500,
+ "name" : "Account Period Sum"
 , "version" : "0.9.9"
 , "author"  : "ChriCar Beteiligungs- und Beratungs- GmbH"
 , "website" : "http://www.chricar.at/ChriCar"
@@ -79,7 +80,7 @@ correct period sums.
     ]
 , "init_xml" : []
 , "demo"     : []
-, "update_xml" :
+, "data" :
     [ "chricar_account_period_sum_view.xml"
     , "wizard/chart.xml"
     , "security/rule.xml"

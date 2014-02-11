@@ -31,9 +31,9 @@
 #
 ###############################################
 #import wizard
-import pooler
-from osv import osv
-from tools.translate import _
+#import pooler
+from openerp.osv import osv
+from openerp.tools.translate import _
 import base64
 
 class wizard_generate_csv(wizard.interface):

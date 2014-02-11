@@ -20,7 +20,8 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-{ "name" : "Common financial reports"
+{ 'sequence': 500,
+ "name" : "Common financial reports"
 , "version" : "1.0"
 , "author" : "Zikzakmedia SL"
 , "website" : "www.zikzakmedia.com"
@@ -43,7 +44,7 @@ Some reports are based on previous work by Pexego and others on the *c2c_finance
 """
 , "init_xml" : []
 , "demo"     : []
-, "update_xml" : 
+, "data" : 
   [ "account_report_report.xml"
 #  , "account_report_wizard.xml"
   ]

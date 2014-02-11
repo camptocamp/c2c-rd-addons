@@ -32,7 +32,8 @@
 # 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 ###############################################
-{ "name"        : "Camptocamp basic definitions"
+{ 'sequence': 500,
+ "name"        : "Camptocamp basic definitions"
 , "version"     : "1.0"
 , "author"      : "Camptocamp Austria"
 , "website"     : "http://www.camptocamp.at"
@@ -45,7 +46,7 @@
 , "depends"     : ["base"]
 , "init_xml"    : []
 , "demo"        : []
-, "update_xml"  : ["base_view.xml"]
+, "data"  : ["base_view.xml"]
 , "auto_install": False
 , "installable" : True
 , 'application'  : False

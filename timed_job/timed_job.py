@@ -34,13 +34,13 @@ import datetime
 import logging
 import threading
 import time
-import pooler
-from osv import fields, osv
-import tools
+#import pooler
+from openerp.osv import fields, osv
+import openerp.tools
 import sys
 import traceback
-from tools.translate import _
-#from tools.save_eval import save_eval as eval
+from openerp.tools.translate import _
+#from openerp.tools.save_eval import save_eval as eval
 
 class timed_job(osv.osv):
     """Executes job at a specific point in time and repeats this at an exact time-interval."""

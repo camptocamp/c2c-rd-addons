@@ -21,7 +21,8 @@
 ##############################################################################
 
 
-{
+{ 'sequence': 500,
+
     'name': 'Austria - Real Estate minimum chart',
     'version': '1.0',
     'category': 'Localisation/Account Charts',
@@ -36,13 +37,13 @@ No XML data yet - these must be extracted from the database Real Estate template
         "base_iban",
         "c2c_account_tax_rounding",
       ],
-    'update_xml': [                
+    'data': [                
             "l10n_at_chart.xml",
             "l10n_at_tax_code.xml",
             "l10n_at_tax.xml",
             "l10n_at_wizard.xml",
    ],
-    #'update_xml': ['product_view.xml'],
+    #'data': ['product_view.xml'],
     'demo_xml': [],
     'installable': True,
     'active': False,

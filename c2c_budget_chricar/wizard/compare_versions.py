@@ -29,7 +29,7 @@
 #
 ##############################################################################
 import wizard
-import pooler
+#import pooler
 
 
 class wiz_compare_versions(wizard.interface):

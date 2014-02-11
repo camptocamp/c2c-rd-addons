@@ -21,7 +21,8 @@
 ##############################################################################
 
 
-{
+{ 'sequence': 500,
+
     'name': 'Product Price Unit',
     'version': '0.7',
     'category': 'Warehouse Management',
@@ -73,18 +74,16 @@ ToDo:
 * Price Lists
     """,
     'author': 'Camptocamp Austria',
-    'depends': ['product', 'purchase', 'hr_expense','account_anglo_saxon', 'c2c_stock_accounting' ],
-    'update_xml': ['c2c_product.price_unit.xml',
-                   'security/product_security.xml',
-                   'security/ir.model.access.csv',
-                   'product_view.xml',
+    'depends': ['product', 'purchase', 'hr_expense','account_anglo_saxon', 'c2c_stock_accounting', 'c2c_product_price_unit_id'],
+    'data': [
+                   
                    'purchase_view.xml',
                    'sale_view.xml',
                    'stock_view.xml',
                    'account_invoice_view.xml',
                    'wizard/stock_partial_picking_view.xml',
                  ],
-    #'update_xml': ['product_view.xml'],
+    #'data': ['product_view.xml'],
     'demo_xml': [],
     'installable': True,
     'active': False,

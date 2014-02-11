@@ -19,8 +19,8 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from osv import fields, osv, orm
-from tools.translate import _
+from openerp.osv import fields, osv, orm
+from openerp.tools.translate import _
 import tempfile
 import base64
 from PIL import Image

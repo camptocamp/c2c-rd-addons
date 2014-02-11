@@ -30,7 +30,10 @@
 # 59 Temple Place - Suite 330, Boston, MA  02111-1.17, USA.
 #
 ###############################################
-{ "name"         : "Variant of field type one2many and many2many for sorted associations"
+{ 'sequence': 500,
+ 'sequence': 500,
+ 'sequence': 500,
+ "name"         : "Variant of field type one2many and many2many for sorted associations"
 , "version"      : "1.0"
 , "author"       : "Swing Entwicklung betrieblicher Informationssysteme GmbH"
 , "website"      : "http://www.swing-system.com"
@@ -39,16 +42,22 @@ Variant of field type one2many for sorted associations
 
 Usage:
 
-| import one2many_sorted
+| import openerp.addons.one2many_sorted as one2many_sorted
 | ...
 |    _columns = \
-|        { 'partner_ids'  : one2many_sorted.one2many_sorted
+|        { 'sequence': 500,
+ 'sequence': 500,
+ 'sequence': 500,
+ 'partner_ids'  : one2many_sorted.one2many_sorted
 |            ( 'res.partner'
 |            , 'parent_id'
 |            , 'Sorted Partner List'
 |            , order='name.upper(), title'
 |            , search=[('is_company', '=', 'False')]
-|            , set={'is_company' : False}
+|            , set={ 'sequence': 500,
+ 'sequence': 500,
+ 'sequence': 500,
+'is_company' : False}
 |            )
 |        }
 | ...
@@ -78,7 +87,7 @@ Note that it works on translated term, not only the text stored in the DB !
 , "depends"      : ["base"]
 , "init_xml"     : []
 , "demo"         : []
-, "update_xml"   : []
+, "data"   : []
 , "test"         : []
 , "auto_install" : False
 , "installable"  : True

@@ -1,4 +1,5 @@
-{ "name"         : "Liquidity"
+{ 'sequence': 500,
+ "name"         : "Liquidity"
 , "version"      : "1.0"
 , "author"       : "ChriCar Beteiligungs- und Beratungs- GmbH"
 , "website"      : "http://www.chricar.at/ChriCar"
@@ -8,7 +9,7 @@ generated 2009-08-14 15:55:18+02"""
 , "depends"      : ["c2c_budget_chricar"]
 , "init_xml"     : ["mig_liquidity_plan_init.xml"]
 , "demo"         : []
-, "update_xml"   : ["liquidity_plan_view.xml"]
+, "data"   : ["liquidity_plan_view.xml"]
 , "auto_install" : False
 , "installable"  : True
 , 'application'  : False

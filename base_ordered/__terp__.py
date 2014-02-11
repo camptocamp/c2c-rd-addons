@@ -35,9 +35,9 @@ This module orders the following tables by date desc
 """,
     'author': 'Camptocamp Austria',
     'depends': [ 'purchase','sale','stock','account' ],
-    'update_xml': [
+    'data': [
        ],
-    #'update_xml': ['product_view.xml'],
+    #'data': ['product_view.xml'],
     'demo_xml': [],
     'installable': True,
     'active': False,

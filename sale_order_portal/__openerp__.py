@@ -21,7 +21,8 @@
 ##############################################################################
 
 
-{
+{ 'sequence': 500,
+
     'name': 'Sale Order Portal',
     'version': '0.7',
     'category': 'Sale Management',
@@ -30,9 +31,9 @@ Simple Sale order entry for partners
 """,
     'author': 'Camptocamp Austria',
     'depends': [ 'sale_uos_entry','stock_get_name_qty','portal','mail'],
-    'update_xml': ['sale_view.xml'
+    'data': ['sale_view.xml'
        ],
-    #'update_xml': ['product_view.xml'],
+    #'data': ['product_view.xml'],
     'demo_xml': [],
     'installable': False,
     'active': False,

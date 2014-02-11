@@ -19,7 +19,8 @@
 #
 ##############################################################################
 
-{
+{ 'sequence': 500,
+
     "name" : "Purchase No Gap",
     "version" : "1.1",
     "author" : "Camptocamp Austria",
@@ -33,7 +34,7 @@ Purchase orders no gap
     'website': 'http://www.camptocamp.com',
     "depends" : ["purchase"],
     'init_xml': [],
-    'update_xml': [],
+    'data': [],
     'demo_xml': [],
     'installable': True,
     'auto_install': False,

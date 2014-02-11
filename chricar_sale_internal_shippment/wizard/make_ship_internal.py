@@ -19,12 +19,12 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from osv import fields, osv
-from tools.translate import _
-import pooler
+from openerp.osv import fields, osv
+from openerp.tools.translate import _
+#import pooler
 from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta
-import netsvc
+import openerp.netsvc
 import logging
 
 class sale_order(osv.osv):

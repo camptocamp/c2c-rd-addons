@@ -30,10 +30,10 @@
 #
 ###############################################
 import time
-from osv import fields,osv
-import decimal_precision as dp
-import one2many_sorted
-from tools.translate import _
+from openerp.osv import fields,osv
+import openerp.addons.decimal_precision as dp
+import openerp.addons.one2many_sorted as one2many_sorted
+from openerp.tools.translate import _
 
 import logging
 

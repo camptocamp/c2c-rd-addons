@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-{ "name"         : "Stock Care"
+{ 'sequence': 500,
+ "name"         : "Stock Care"
 , "version"      : "1.0"
 , "author"       : "ChriCar Beteiligungs- und Beratungs- GmbH"
 , "website"      : "http://www.chricar.at"
@@ -9,7 +10,7 @@ generated 2010-04-03 21:47:30+02"""
 , "depends"      : ["product", "stock","c2c_stock_accounting","c2c_product_price_unit"]
 , "init_xml"     : []
 , "demo"         : []
-, "update_xml"   : ["stock_care_view.xml"]
+, "data"   : ["stock_care_view.xml"]
 , "auto_install" : False
 , "installable"  : True
 , 'application'  : False

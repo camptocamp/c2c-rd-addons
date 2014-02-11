@@ -21,7 +21,8 @@
 ##############################################################################
 
 
-{
+{ 'sequence': 500,
+
     'name': 'Sale Order Intercompany Purchase',
     'version': '0.7',
     'category': 'Sale Management',
@@ -32,9 +33,9 @@ instead of using the purchse process itself
 """,
     'author': 'Camptocamp Austria',
     'depends': [ 'sale','purchase','account','product_price_property','stock'],
-    'update_xml': [
+    'data': [
        ],
-    'update_xml': ['sale_view.xml','picking_view.xml'],
+    'data': ['sale_view.xml','picking_view.xml'],
     'demo_xml': [],
     'installable': True,
     'active': False,

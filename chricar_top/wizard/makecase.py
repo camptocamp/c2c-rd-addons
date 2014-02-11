@@ -22,7 +22,7 @@
 ##############################################################################
 
 import wizard
-import pooler
+#import pooler
 
 def _get_default(obj, cursor, uid, data, context=None):
     '''Get default value'''

@@ -32,7 +32,7 @@
 ##############################################################################
 import wizard
 #from copy import copy
-import pooler
+#import pooler
 import time
 
 

@@ -19,9 +19,9 @@
 #
 ##############################################################################
 
-from osv import osv
-from tools.translate import _
-import addons
+from openerp.osv import osv
+from openerp.tools.translate import _
+#import addons
 import logging
 
 

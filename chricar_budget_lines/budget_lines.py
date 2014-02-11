@@ -30,9 +30,9 @@
 #
 ###############################################
 from datetime import *
-from osv import fields,osv
+from openerp.osv import fields,osv
 from dateutil.relativedelta import *
-import decimal_precision as dp
+import openerp.addons.decimal_precision as dp
 import logging
 
 

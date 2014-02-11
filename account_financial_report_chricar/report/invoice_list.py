@@ -32,10 +32,10 @@
 
 import time
 from mx.DateTime import *
-from report import report_sxw
+from openerp.report import report_sxw
 import xml
 import rml_parse
-import pooler
+#import pooler
 
 class print_invoice_list(rml_parse.rml_parse):
     """ Report that print invoices grouped by currency and type """

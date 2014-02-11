@@ -21,7 +21,8 @@
 ##############################################################################
 
 
-{
+{ 'sequence': 500,
+
     'name': 'CRM Profile Enhancements',
     'version': '0.9',
     'category': 'CRM & SRM',
@@ -32,9 +33,9 @@
 """,
     'author': 'Camptocamp Austria',
     'depends': [ 'crm_profiling' ],
-    'update_xml': ['profile_view.xml',
+    'data': ['profile_view.xml',
        ],
-    #'update_xml': ['product_view.xml'],
+    #'data': ['product_view.xml'],
     'demo_xml': [],
     'installable': True,
     'active': False,

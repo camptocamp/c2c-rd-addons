@@ -1,4 +1,5 @@
-{ "name"         : "Room"
+{ 'sequence': 500,
+ "name"         : "Room"
 , "version"      : "1.0"
 , "author"       : "ChriCar Beteiligungs- und Beratungs- GmbH"
 , "website"      : "http://www.chricar.at/ChriCar"
@@ -8,7 +9,7 @@ generated 2009-07-11 12:22:10+02"""
 , "depends"      : ["chricar_top"]
 , "init_xml"     : ["mig_room_init.xml"]
 , "demo"         : []
-, "update_xml"   : ["room_view.xml", "security/ir.model.access.csv"]
+, "data"   : ["room_view.xml", "security/ir.model.access.csv"]
 , "auto_install" : False
 , "installable"  : True
 , 'application'  : False

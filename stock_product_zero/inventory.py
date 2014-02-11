@@ -19,9 +19,9 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from osv import fields, osv
-import decimal_precision as dp
-import one2many_sorted
+from openerp.osv import fields, osv
+import openerp.addons.decimal_precision as dp
+import openerp.addons.one2many_sorted as one2many_sorted
 import logging
 
 class stock_inventory(osv.osv):

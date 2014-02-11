@@ -21,7 +21,8 @@
 ##############################################################################
 
 
-{
+{ 'sequence': 500,
+
     'name': 'Mass Mail adds partner_id',
     'version': '1.0',
     'category': 'Hidden/Dependency',
@@ -30,9 +31,9 @@ Mass Mail must set partner id (bug 1039625)
 """,
     'author': 'Camptocamp Austria',
     'depends': [ 'mail'],
-    'update_xml': [
+    'data': [
        ],
-    #'update_xml': ['product_view.xml'],
+    #'data': ['product_view.xml'],
     'demo_xml': [],
     'installable': True,
     'auto_install': True,

@@ -30,7 +30,8 @@
 # 59 Temple Place - Suite 330, Boston, MA  02111-1.17, USA.
 #
 ###############################################
-{ "name"        : "Austrian electronic invoicing standard"
+{ 'sequence': 500,
+ "name"        : "Austrian electronic invoicing standard"
 , "version"     : "1.0"
 , "author"      : "Swing Entwicklung betrieblicher Informationssysteme GmbH"
 , "website"     : "http://www.swing-system.com"
@@ -48,7 +49,7 @@ This module generates a XML-file per invoice and attaches it to the invoice.
     ]
 , "init_xml"    : ["ebInterfaceV4.0.xml"]
 , "demo_xml"    : []
-, "update_xml"  : ["installer_view.xml"]
+, "data"  : ["installer_view.xml"]
 , "test"        : []
 , "auto_install": False
 , "installable" : True

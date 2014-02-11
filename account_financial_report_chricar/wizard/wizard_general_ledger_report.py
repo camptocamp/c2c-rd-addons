@@ -23,10 +23,10 @@
 ##############################################################################
 
 import wizard
-import pooler
+#import pooler
 import locale
 import time
-from tools.translate import _
+from openerp.tools.translate import _
 
 account_form = '''<?xml version="1.0"?>
 <form string="Select parent account">

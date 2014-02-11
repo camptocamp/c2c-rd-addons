@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-{ "name"         : "Stock Weighing"
+{ 'sequence': 500,
+ "name"         : "Stock Weighing"
 , "version"      : "1.0"
 , "author"       : "ChriCar Beteiligungs- und Beratungs- GmbH"
 , "website"      : "http://www.chricar.at"
@@ -18,7 +19,7 @@ Extension to Production
 , "depends"      : ["stock", "mrp", "delivery", "mrp_reopen","chricar_stock_care"]
 , "init_xml"     : []
 , "demo"         : []
-, "update_xml"   :
+, "data"   :
     [ "stock_weighing_view.xml"
     , "mrp_view.xml"
     , "mrp_workflow.xml"

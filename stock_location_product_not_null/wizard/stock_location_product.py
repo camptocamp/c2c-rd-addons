@@ -19,7 +19,7 @@
 #
 ##############################################################################
 
-from osv import fields, osv
+from openerp.osv import fields, osv
 
 class stock_location_product(osv.osv_memory):
     _inherit = "stock.location.product"

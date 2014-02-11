@@ -20,10 +20,10 @@
 #
 ##############################################################################
 
-from osv import osv, fields
-import decimal_precision as dp
-from tools.translate import _
-from tools.sql import drop_view_if_exists
+from openerp.osv import osv, fields
+import openerp.addons.decimal_precision as dp
+from openerp.tools.translate import _
+from openerp.tools.sql import drop_view_if_exists
 import logging
 
 

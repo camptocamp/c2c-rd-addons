@@ -21,7 +21,7 @@
 ##############################################################################
 
 #import wizard
-import pooler
+#import pooler
 import time
 
 def _action_open_window(self, cr, uid, data, context=None): 

@@ -19,7 +19,8 @@
 #
 ##############################################################################
 
-{
+{ 'sequence': 500,
+
     "name" : "Sale Order Reopen",
     "version" : "1.2",
     "author" : "Camptocamp Austria",
@@ -36,7 +37,7 @@ as associated pickings or invoices are canceled if possible
     'website': 'http://www.camptocamp.com',
     "depends" : ["sale","stock_picking_reopen","account_invoice_reopen"],
     'init_xml': [],
-    'update_xml': ['sale_view.xml','sale_workflow.xml' ],
+    'data': ['sale_view.xml','sale_workflow.xml' ],
     'demo_xml': [],
     'installable': True,
     'auto_install': False,

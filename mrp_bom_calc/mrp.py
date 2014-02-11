@@ -23,11 +23,11 @@
 #
 #
 ##############################################################################
-from osv import fields
-from osv import osv
-import decimal_precision as dp
-import netsvc
-from tools import config
+from openerp.osv import fields
+from openerp.osv import osv
+import openerp.addons.decimal_precision as dp
+import openerp.netsvc
+from openerp.tools import config
 
 class mrp_bom(osv.osv):
     _name = 'mrp.bom'

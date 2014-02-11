@@ -21,7 +21,8 @@
 ##############################################################################
 
 
-{
+{ 'sequence': 500,
+
     'name': 'Modules Blaustauden',
     'version': '1.0',
     'category': 'Others',
@@ -57,7 +58,7 @@ This module installs everything for Blaustauden
 ,"audittrail"
 ,"base"
 ,"base_action_rule"
-,"base_calendar"
+#,"base_calendar"
 #,"base_contact"
 ,"base_iban"
 #,"base_ordered"
@@ -230,14 +231,14 @@ This module installs everything for Blaustauden
 #,"web_tests"
 #,"wiki"
 #,"wiki_faq"
-,"wiki_object"
+#,"wiki_object"
 #,"wiki_quality_manual"
 #,"wiki_sale_faq"
 #,"xml_export_data"
 #,"xml_template"
      ],
-    'update_xml': [       ],
-    #'update_xml': ['product_view.xml'],
+    'data': [       ],
+    #'data': ['product_view.xml'],
     'demo_xml': [],
     'installable': True,
     'active': False,

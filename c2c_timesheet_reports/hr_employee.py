@@ -30,7 +30,7 @@
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 ##############################################################################
-from osv import fields, osv
+from openerp.osv import fields, osv
 
 
 class custom_res_partner_bank (osv.osv):

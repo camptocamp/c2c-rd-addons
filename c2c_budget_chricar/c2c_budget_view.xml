@@ -423,20 +423,20 @@
                 </record>
 
                 <!-- ACTION: dbl click on a budget item in the tree structure to check the structure-->
+<!-- 20140111 FGF
                 <wizard string="Validate Budget Structure" 
-                        model="c2c_budget.item" 
-                        name="c2c_budget.validate_budget_structure" 
+                        model="c2c_budget_chricar.item" 
+                        name="validate_budget_structure" 
                         id="action_validate_budget_structure" 
                 />
                 <record model="ir.values" id="ir_check_structure">
                         <field name="key2" eval=" 'tree_but_open'" />
-                        <field name="model"  eval="'c2c_budget.item'" />
+                        <field name="model"  eval="'c2c_budget_chricar.item'" />
                         <field name="name">Check Budget Stucture</field>
                         <field name="value" eval="'ir.actions.wizard,%d'%action_validate_budget_structure"/>
                         <field name="object" eval="True"/>
                 </record>
-
-                
+-->               
             <!-- ########################################### -->
             <!-- Menus                                       -->
             <!-- ########################################### -->

@@ -29,8 +29,8 @@
 #
 ##############################################################################
 #import wizard
-import pooler
-from osv import osv
+#import pooler
+from openerp.osv import osv
 
 
 class wiz_budgetlines_from_aa(wizard.interface):

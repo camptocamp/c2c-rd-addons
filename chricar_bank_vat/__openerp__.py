@@ -19,7 +19,8 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-{ "name"         : "ChriCar Bank Account VAT + Analytic"
+{ 'sequence': 500,
+ "name"         : "ChriCar Bank Account VAT + Analytic"
 , "version"      : "1.0"
 , "author"       : "ChriCar Beteiligungs- und Beratungs- GmbH"
 , "website"      : "http://www.chricar.at/ChriCar"
@@ -34,7 +35,7 @@ Does not support:
 , "depends"      : ["account","account_voucher"]
 , "init_xml"     : []
 , "demo"         : []
-, "update_xml"   : ["bank_account_vat_view.xml","account_view.xml"]
+, "data"   : ["bank_account_vat_view.xml","account_view.xml"]
 , "auto_install" : False
 , "installable"  : True
 , 'application'  : False

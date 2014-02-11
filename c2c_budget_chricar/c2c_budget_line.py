@@ -28,8 +28,8 @@
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 ##############################################################################
-from osv import fields, osv
-from c2c_reporting_tools_chricar.c2c_helper import *   
+from openerp.osv import fields, osv
+from openerp.addons.c2c_reporting_tools_chricar.c2c_helper import *   
 from datetime import datetime
 from time import mktime
 import time

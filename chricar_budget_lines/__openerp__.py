@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-{ "name"         : "Budget Products Lines"
+{ 'sequence': 500,
+ "name"         : "Budget Products Lines"
 , "version"      : "1.0"
 , "author"       : "ChriCar Beteiligungs- und Beratungs- GmbH"
 , "website"      : "http://www.chricar.at"
@@ -17,7 +18,7 @@ generated 2009-08-21 15:12:07+02"""
     ]
 , "init_xml"     : []
 , "demo"         : []
-, "update_xml"   : ["budget_lines_view.xml"]
+, "data"   : ["budget_lines_view.xml"]
 , "auto_install" : False
 , "installable"  : True
 , 'application'  : False

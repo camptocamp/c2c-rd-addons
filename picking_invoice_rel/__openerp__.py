@@ -28,7 +28,8 @@
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 ##############################################################################
-{ "name"         : "Invoice to Picking Relation"
+{ 'sequence': 500,
+ "name"         : "Invoice to Picking Relation"
 , "description"  : """Adds reference between Invoice and Picking"""
 , "version"      : "0.9"
 , "depends"      : ["stock", "account", "purchase", "sale"]

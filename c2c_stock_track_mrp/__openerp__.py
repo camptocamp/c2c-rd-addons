@@ -21,7 +21,8 @@
 ##############################################################################
 
 
-{
+{ 'sequence': 500,
+
     'name': 'Stock track mrp',
     'version': '0.9',
     'category': 'Warehouse Management',
@@ -30,10 +31,10 @@ adds prod lot to mrp produce
 """,
     'author': 'Camptocamp Austria',
     'depends': [ 'mrp','c2c_stock_track_internal' ],
-    'update_xml': [
+    'data': [
     'mrp_view.xml',
        ],
-    #'update_xml': ['product_view.xml'],
+    #'data': ['product_view.xml'],
     'demo_xml': [],
     'installable': False,
     'active': False,

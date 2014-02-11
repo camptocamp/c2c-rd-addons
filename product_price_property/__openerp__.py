@@ -21,7 +21,8 @@
 ##############################################################################
 
 
-{
+{ 'sequence': 500,
+
     'name': 'Product Price Property',
     'version': '1.0',
     'category': 'Accounting & Finance',
@@ -40,9 +41,9 @@ in report.analytic.line.to_invoice or in stock valuation report
 """,
     'author': 'Camptocamp Austria',
     'depends': [ 'product'],
-    'update_xml': [
+    'data': [
        ],
-    #'update_xml': ['product_view.xml'],
+    #'data': ['product_view.xml'],
     'demo_xml': [],
     'installable': True,
     'active': False,

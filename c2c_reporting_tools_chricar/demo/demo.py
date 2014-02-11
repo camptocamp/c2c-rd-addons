@@ -33,8 +33,8 @@
 from c2c_reporting_tools.reports.standard_report import StandardReport
 from c2c_reporting_tools.flowables.simple_row_table import *
 
-from reportlab.platypus import Paragraph
-from reportlab.lib.styles import ParagraphStyle
+from openerp.reportlab.platypus import Paragraph
+from openerp.reportlab.lib.styles import ParagraphStyle
 
 
 from c2c_reporting_tools.translation import _

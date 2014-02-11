@@ -19,7 +19,8 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-{ 'name'        : 'check sign in-out on sheet level'
+{ 'sequence': 500,
+ 'name'        : 'check sign in-out on sheet level'
 , 'version'     : '0.7'
 , 'category'    : 'HR'
 , 'description' : """
@@ -29,7 +30,7 @@ thus allowing to enter past sign_in_out dates/times
 """
 , 'author'      : 'Camptocamp Austria'
 , 'depends'     : ['hr_attendance','hr_timesheet_sheet' ]
-, 'update_xml'  : ['hr_attendance_checkbox.xml']
+, 'data'  : ['hr_attendance_checkbox.xml']
 , 'demo_xml'    : []
 , 'installable' : True
 , 'active'      : False

@@ -20,9 +20,9 @@
 #
 ##############################################################################
 
-from osv import osv, fields
-import decimal_precision as dp
-from tools.translate import _
+from openerp.osv import osv, fields
+import openerp.addons.decimal_precision as dp
+from openerp.tools.translate import _
 import logging
 #----------------------------------------------------------
 # Sale Line INHERIT
@@ -31,10 +31,12 @@ class sale_order_line(osv.osv):
     _inherit = "sale.order.line"
     _logger = logging.getLogger(__name__)
 
-    def _get_default_id(self, cr, uid, price_unit_id, context=None):
-        pu = self.pool.get('c2c_product.price.unit')
-        if not pu: return 1.0
-        return pu.get_default_id(cr, uid, price_unit_id, context)
+    def _get_default_id(self, cr, uid, context=None):
+    
+        pu = self.pool.get('c2c_product.price_unit')
+        #if not pu: return 1.0
+        self._logger.debug('purch get default `%s`', pu)
+        return pu.get_default_id(cr, uid, context)
 
     def _get_default_price_unit_pu(self, cr, uid, price_unit_id, context=None):
         pu = self.browse(cr, uid, price_unit_id)

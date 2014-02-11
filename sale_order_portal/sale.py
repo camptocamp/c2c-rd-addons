@@ -20,11 +20,11 @@
 #
 ##############################################################################
 import time
-from osv import fields, osv
-from tools.translate import _
+from openerp.osv import fields, osv
+from openerp.tools.translate import _
 import logging
-import one2many_sorted
-import decimal_precision as dp
+import openerp.addons.one2many_sorted as one2many_sorted
+import openerp.addons.decimal_precision as dp
 import time as tm
 
 class sale_order(osv.osv):

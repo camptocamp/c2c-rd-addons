@@ -20,8 +20,8 @@
 #
 ##############################################################################
 
-from osv import fields, osv
-from tools.translate import _
+from openerp.osv import fields, osv
+from openerp.tools.translate import _
 import logging
 
 class c2c_budget_create(osv.osv_memory):

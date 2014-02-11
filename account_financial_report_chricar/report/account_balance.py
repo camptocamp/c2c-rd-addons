@@ -27,9 +27,9 @@ import copy
 from operator import itemgetter
 import time
 import datetime
-from report import report_sxw
-from tools import config
-#import decimal_precision as dp
+from openerp.report import report_sxw
+from openerp.tools import config
+#import openerp.addons.decimal_precision as dp
 
 class account_balance(report_sxw.rml_parse):
     _name = 'report.account.balance.full'

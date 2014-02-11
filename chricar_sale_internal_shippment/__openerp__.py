@@ -21,7 +21,8 @@
 ##############################################################################
 
 
-{
+{ 'sequence': 500,
+
     'name': 'Sale order internal picking',
     'version': '0.9',
     'category': 'Sales Management',
@@ -34,9 +35,9 @@
 """,
     'author': 'Camptocamp Austria',
     'depends': [ 'base','sale','stock' ],
-    'update_xml': ['sale_view.xml','wizard/make_ship_internal.xml',
+    'data': ['sale_view.xml','wizard/make_ship_internal.xml',
        ],
-    #'update_xml': ['product_view.xml'],
+    #'data': ['product_view.xml'],
     'demo_xml': [],
     'installable': True,
     'active': False,

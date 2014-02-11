@@ -22,8 +22,8 @@
 
 # FIXME remove logger lines or change to debug
  
-from osv import fields, osv
-import decimal_precision as dp
+from openerp.osv import fields, osv
+import openerp.addons.decimal_precision as dp
 
 
 

@@ -20,8 +20,8 @@
 ##############################################################################
 import time
 import datetime
-from osv import osv, fields
-from tools.translate import _, translate
+from openerp.osv import osv, fields
+from openerp.tools.translate import _, translate
 import locale
 #
 # TODO: check unit of measure !!!

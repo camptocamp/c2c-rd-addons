@@ -21,7 +21,8 @@
 ##############################################################################
 
 
-{
+{ 'sequence': 500,
+
     'name': 'Survey Export as XML',
     'version': '1.0',
     'category': 'Tools',
@@ -31,7 +32,7 @@ This modules allows to export the question / answer structure as XML
 """,
     'author': 'Camptocamp Austria',
     'depends': [ 'survey_multi_lang','xml_template'],
-    'update_xml': ['survey_view.xml'],
+    'data': ['survey_view.xml'],
     'demo_xml': [],
     'installable': True,
     'active': False,

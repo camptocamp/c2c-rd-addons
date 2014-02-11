@@ -30,7 +30,7 @@
 # 59 Temple Place - Suite 330, Boston, MA  02111-1.17, USA.
 #
 ###############################################
-from osv import osv, fields
+from openerp.osv import osv, fields
 
 class payment_mode(osv.osv):
     _inherit     = 'payment.mode'
@@ -42,7 +42,8 @@ class payment_mode(osv.osv):
             ( 'Require Bank Account'
             , help='Ensure all lines in the payment order have a bank account when proposing lines to be added in the payment order.'
             )
-        ,'type': fields.many2one('payment.type', 'Payment type', required=True, help='Select the Payment Type for the Payment Mode.'),
+        #,'type': fields.many2one('payment.type', 'Payment type', required=True, help='Select the Payment Type for the Payment Mode.'),
+        ,'type': fields.many2one('payment.type', 'Payment type',  help='Select the Payment Type for the Payment Mode.'),
         }
     _defaults = \
         { 'amount_partner_min'   : lambda *a : 100.0

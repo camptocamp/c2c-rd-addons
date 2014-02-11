@@ -22,7 +22,7 @@
 #
 ##############################################################################
 
-from osv import fields, osv
+from openerp.osv import fields, osv
 
 class account_move(osv.osv):
     _inherit = "account.move"

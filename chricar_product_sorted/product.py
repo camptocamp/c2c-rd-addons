@@ -33,8 +33,8 @@
 #
 ###############################################
 import time
-from osv import fields,osv
-import pooler
+from openerp.osv import fields,osv
+#import pooler
 import logging
 
 class product_product(osv.osv):

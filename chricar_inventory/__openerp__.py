@@ -1,4 +1,5 @@
-{ "name"         : "Inventory"
+{ 'sequence': 500,
+ "name"         : "Inventory"
 , "version"      : "0.1"
 , "author"       : "ChriCar Beteiligungs- und Beratungs- GmbH"
 , "website"      : "http://www.chricar.at"
@@ -8,7 +9,7 @@ generated 2009-02-11 16:03:53+01"""
 , "depends"      : ["stock"]
 , "init_xml"     : []
 , "demo"         : []
-, "update_xml"   : 
+, "data"   : 
     [ "inventory_view.xml"
     , "security/group.xml"
     , "security/ir.model.access.csv"

@@ -21,7 +21,8 @@
 ##############################################################################
 
 
-{
+{ 'sequence': 500,
+
     'name': 'Custom Product Fields',
     'version': '0.7',
     'category': 'Warehouse Management',
@@ -30,7 +31,7 @@
     """,
     'author': 'Camptocamp Austria',
     'depends': ['product' ],
-    'update_xml': ['product_view.xml',
+    'data': ['product_view.xml',
                    ],
     'demo_xml': [],
     'installable': False,

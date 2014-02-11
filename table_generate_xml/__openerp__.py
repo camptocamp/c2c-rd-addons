@@ -30,7 +30,8 @@
 # 59 Temple Place - Suite 330, Boston, MA  02111-1.17, USA.
 #
 ###############################################
-{ "name"         : "Generate XML-file from a table"
+{ 'sequence': 500,
+ "name"         : "Generate XML-file from a table"
 , "version"      : "1.1"
 , "author"       : "Swing Entwicklung betrieblicher Informationssysteme GmbH"
 , "website"      : "http://www.swing-system.com"
@@ -42,7 +43,7 @@ FIXME remove module wizard
 , "depends"      : ["base"]
 , "init_xml"     : []
 , "demo"         : []
-, "update_xml"   : ['wizard/generate_xml_view.xml']
+, "data"   : ['wizard/generate_xml_view.xml']
 , "test"         : []
 , "auto_install" : False
 , "installable"  : False

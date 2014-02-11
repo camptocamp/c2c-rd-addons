@@ -28,7 +28,8 @@
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 ##############################################################################
-{ "name"         : "Webkit Report Cash Register"
+{ 'sequence': 500,
+ "name"         : "Webkit Report Cash Register"
 , "description"  : """Cash Register using Webkit and one2many_sorted"""
 , "version"      : "1.0"
 , "depends"      : ["account", "report_webkit", "one2many_sorted"]

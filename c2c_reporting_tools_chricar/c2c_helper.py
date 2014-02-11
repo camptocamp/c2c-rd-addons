@@ -30,13 +30,13 @@
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 ##############################################################################
-from osv import osv
+from openerp.osv import osv
 
 import time
 import datetime
 from datetime import timedelta
 import os.path
-import tools
+import openerp.tools
 import re
 
 

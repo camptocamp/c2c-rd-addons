@@ -24,7 +24,8 @@
 #
 ##############################################################################
 
-{
+{ 'sequence': 500,
+
     'name': 'MRP bom calculation',
     'version': '.02',
     'description': """
@@ -36,7 +37,7 @@
     'website': 'http://www.zbeanztech.com',
     'depends': ['c2c_product_price_unit','mrp','mrp_subproduct'],
     'init_xml': [],
-    'update_xml': [
+    'data': [
             'mrp_view.xml',
             'mrp_bom_workflow.xml',
     ],

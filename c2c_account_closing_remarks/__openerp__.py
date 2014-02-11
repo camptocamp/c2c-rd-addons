@@ -20,7 +20,8 @@
 #
 ##############################################################################
 
-{
+{ 'sequence': 500,
+
     'name': 'Account Closing Remarks',
     'version': '0.7',
     'category': 'Accounting & Finance',
@@ -29,7 +30,7 @@ Add a per year textbox for description of account closing remarks
 """,
     'author': 'Camptocamp Austria',
     'depends': [ 'account' ],
-    'update_xml': ['account_view.xml','security/ir.model.access.csv'
+    'data': ['account_view.xml','security/ir.model.access.csv'
        ],
     'demo_xml': [],
     'installable': True,

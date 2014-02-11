@@ -32,11 +32,11 @@
 #
 ##############################################################################
 import time
-from reportlab.lib.styles import ParagraphStyle
-from reportlab.platypus import *
+from openerp.reportlab.lib.styles import ParagraphStyle
+from openerp.reportlab.platypus import *
 from c2c_reporting_tools.c2c_helper import *
-from reportlab.lib.units import mm
-from reportlab.lib import colors
+from openerp.reportlab.lib.units import mm
+from openerp.reportlab.lib import colors
 import reportlab.lib.enums
 
 class CellData(object):

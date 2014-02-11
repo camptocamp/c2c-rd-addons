@@ -31,8 +31,8 @@
 #
 ##############################################################################
 import time
-from report import report_sxw
-import pooler
+from openerp.report import report_sxw
+#import pooler
 from mx import DateTime
 
 class timesheet_status(report_sxw.rml_parse):

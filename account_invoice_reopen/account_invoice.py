@@ -19,10 +19,10 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from osv import fields, osv
-from tools.translate import _
+from openerp.osv import fields, osv
+from openerp.tools.translate import _
 import time
-import netsvc
+import openerp.netsvc
 import logging
 
 class account_invoice(osv.osv):

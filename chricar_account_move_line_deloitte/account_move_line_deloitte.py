@@ -34,9 +34,9 @@
 from time import mktime
 from datetime import datetime
 import time
-from osv import fields,osv
-import pooler
-from tools.translate import _
+from openerp.osv import fields,osv
+##import pooler
+from openerp.tools.translate import _
 import logging
 
 class chricar_account_move_import_deny(osv.osv):

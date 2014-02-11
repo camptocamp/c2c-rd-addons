@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-{ "name"         : "Timesheet encode tasks"
+{ 'sequence': 500,
+ "name"         : "Timesheet encode tasks"
 , "version"      : "1.0"
 , "author"       : "Camptocamp Austria"
 , "website"      : "http://www.camptocamp.at"
@@ -12,7 +13,7 @@
  , "depends"      : ["base","project","project_timesheet"]
  , "init_xml"     : []
  , "demo"         : []
- , "update_xml"   : ["timesheet_task_view.xml"]
+ , "data"   : ["timesheet_task_view.xml"]
  , "auto_install" : False
  , "installable"  : True
 , 'application'  : False

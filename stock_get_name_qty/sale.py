@@ -20,9 +20,9 @@
 #
 ##############################################################################
 
-from osv import fields, osv
+from openerp.osv import fields, osv
 import logging
-from tools.translate import _
+from openerp.tools.translate import _
 
 class product_product(osv.osv):
     _inherit = 'product.product'

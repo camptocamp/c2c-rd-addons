@@ -19,10 +19,10 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from osv import fields, osv
-import pooler
-import tools.sql
-from tools import config
+from openerp.osv import fields, osv
+##import pooler
+import openerp.tools.sql
+from openerp.tools import config
 
 from datetime import datetime
 from dateutil.relativedelta import relativedelta

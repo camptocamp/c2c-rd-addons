@@ -30,7 +30,7 @@
     "author" : "Camptocamp",
     "init_xml" : [],
     
-    "update_xml" : [    
+    "data" : [    
                         "sale_view.xml"
                     ],
     "installable" : True,

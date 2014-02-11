@@ -19,7 +19,8 @@
 #
 ##############################################################################
 
-{
+{ 'sequence': 500,
+
     "name" : "Invoice Reopen",
     "version" : "1.1",
     "author" : "Camptocamp SA",
@@ -41,7 +42,7 @@ This allows to change all content of the invoice if necessary.
     'website': 'http://www.camptocamp.com',
     "depends" : ["account"],
     'init_xml': [],
-    'update_xml': ['account_reopen_view.xml','account_invoice_workflow.xml' ],
+    'data': ['account_reopen_view.xml','account_invoice_workflow.xml' ],
     'demo_xml': [],
     'installable': True,
     'auto_install': False,

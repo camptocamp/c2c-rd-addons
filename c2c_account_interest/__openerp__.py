@@ -21,7 +21,8 @@
 ##############################################################################
 
 
-{
+{ 'sequence': 500,
+
     'name': 'Account Interests',
     'version': '0.7',
     'category': 'Accounting & Finance',
@@ -31,12 +32,12 @@ Base for calculation interests on moves. (ToDo)
 """,
     'author': 'Camptocamp Austria',
     'depends': [ 'account' ],
-    'update_xml': [
+    'data': [
     
     'interest_view.xml',
     'security/ir.model.access.csv',
        ],
-    #'update_xml': ['product_view.xml'],
+    #'data': ['product_view.xml'],
     'demo_xml': [],
     'installable': True,
     'active': False,

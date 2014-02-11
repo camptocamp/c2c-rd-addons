@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-{ "name"         : "ChriCar CRM helpdesk date extension"
+{ 'sequence': 500,
+ "name"         : "ChriCar CRM helpdesk date extension"
 , "version"      : "0.1"
 , "author"       : "ChriCar Beteiligungs- und Beratungs- GmbH"
 , "website"      : "http://www.chricar.at/ChriCar"
@@ -10,7 +11,7 @@ Adds lead times to crm_heldesk
 , "depends"      : ["crm_helpdesk"]
 , "init_xml"     : []
 , "demo"         : []
-, "update_xml"   : ["crm_helpdesk_view.xml"]
+, "data"   : ["crm_helpdesk_view.xml"]
 , "auto_install" : False
 , "installable"  : True
 , 'application'  : False

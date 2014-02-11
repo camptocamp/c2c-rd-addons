@@ -38,15 +38,15 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 from datetime import datetime, timedelta
-from reportlab import platypus
-from reportlab.platypus import *
-from reportlab.lib.units import mm
-from reportlab.lib import colors
+from openerp.reportlab import platypus
+from openerp.reportlab.platypus import *
+from openerp.reportlab.lib.units import mm
+from openerp.reportlab.lib import colors
 
-from reportlab.lib.styles import ParagraphStyle
-from reportlab.pdfbase.pdfmetrics import stringWidth
+from openerp.reportlab.lib.styles import ParagraphStyle
+from openerp.reportlab.pdfbase.pdfmetrics import stringWidth
 
-from reportlab.lib.enums import *
+from openerp.reportlab.lib.enums import *
 
 import time
 from c2c_reporting_tools.c2c_helper import *

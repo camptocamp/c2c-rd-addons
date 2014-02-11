@@ -30,7 +30,8 @@
 # 59 Temple Place - Suite 330, Boston, MA  02111-1.17, USA.
 #
 ###############################################
-{ "name"         : "Migration tool using XML"
+{ 'sequence': 500,
+ "name"         : "Migration tool using XML"
 , "version"      : "1.1"
 , "author"       : "Swing Entwicklung betrieblicher Informationssysteme GmbH"
 , "website"      : "http://www.swing-system.com"
@@ -42,7 +43,7 @@ FIXME remove module import
 , "depends"      : ["base"]
 , "init_xml"     : []
 , "demo"         : []
-, "update_xml"   : ["migrate_data_wizard.xml"]
+, "data"   : ["migrate_data_wizard.xml"]
 , "test"         : []
 , "auto_install" : False
 , "installable"  : False

@@ -19,7 +19,8 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-{ 'name'        : 'Makes product user relation available in projects'
+{ 'sequence': 500,
+ 'name'        : 'Makes product user relation available in projects'
 , 'version'     : '0.7'
 , 'category'    : 'Sales Management'
 , 'description' : """
@@ -28,7 +29,7 @@ for timesheet tasks invoicing)
 """
 , 'author'      : 'Camptocamp Austria'
 , 'depends'     : [ 'analytic_user_function','project_timesheet' ]
-, 'update_xml'  : ['analytic_user_function_view.xml','security/ir.model.access.csv']
+, 'data'  : ['analytic_user_function_view.xml','security/ir.model.access.csv']
 , 'demo_xml'    : []
 , 'installable' : True
 , 'application'  : False 

@@ -19,7 +19,8 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-{
+{ 'sequence': 500,
+
     'name': 'ChriCar Export CSV Utilities',
     'version': '1.0',
     'category': 'Tools',
@@ -34,7 +35,7 @@ This module provides
     'author': 'ChriCar Beteiligungs- und Beratungs- GmbH',
     'depends': ['base'],
     'website': 'http://www.chricar.at',
-    'update_xml': ['tools_export_view.xml'],
+    'data': ['tools_export_view.xml'],
     'installable': False,
     'active': False,
 }

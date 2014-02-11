@@ -30,7 +30,7 @@
 # 59 Temple Place - Suite 330, Boston, MA  02111-1.17, USA.
 #
 ###############################################
-from osv import fields, osv
+from openerp.osv import fields, osv
 
 class period_u30_installer(osv.osv_memory):
     _name    = 'account.period.u30.installer'

@@ -21,7 +21,8 @@
 ##############################################################################
 
 
-{
+{ 'sequence': 500,
+
     'name': 'Account Cash Discount 6.1',
     'version': '0.7',
     'category': 'Accounting & Finance',
@@ -62,10 +63,10 @@ Not covered/ToDo:
 """,
     'author': 'Camptocamp Austria',
     'depends': [ 'account_voucher' ],
-    'update_xml': [
+    'data': [
     'payment_term_view.xml',
            ],
-    #'update_xml': ['product_view.xml'],
+    #'data': ['product_view.xml'],
     'demo_xml': [],
     'installable': True,
     'active': False,

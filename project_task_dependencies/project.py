@@ -19,9 +19,9 @@
 #
 ##############################################################################
 
-from osv import fields, osv
+from openerp.osv import fields, osv
 from openerp.tools.translate import _
-import one2many_sorted
+import openerp.addons.one2many_sorted as one2many_sorted
 import time
 from datetime import datetime
 from datetime import timedelta

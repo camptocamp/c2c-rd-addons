@@ -19,7 +19,8 @@
 #
 ##############################################################################
 
-{
+{ 'sequence': 500,
+
     "name" : "Adds links to unreconciled partner moves",
     "version" : "1.0",
     "author" : "Camptocamp Austria",
@@ -34,7 +35,7 @@ add search buttons for payables and receivables to search view for journal items
     'website': 'http://www.camptocamp.com',
     "depends" : ["account","picking_invoice_rel"],
     'init_xml': [],
-    'update_xml': ['account_invoice_view.xml'],
+    'data': ['account_invoice_view.xml'],
     'demo_xml': [],
     'installable': True,
     'auto_install': False,

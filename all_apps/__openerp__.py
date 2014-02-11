@@ -21,7 +21,8 @@
 ##############################################################################
 
 
-{
+{ 'sequence': 500,
+
     'name': 'All apps',
     'version': '1.0',
     'category': 'Others',
@@ -32,7 +33,8 @@ installs all apps
     'depends': [
 "account_accountant"
 ,"account_voucher"
-,"base_calendar"
+,"account_asset"
+#,"base_calendar"
 ,"contacts"
 ,"crm"
 ,"event"
@@ -42,6 +44,9 @@ installs all apps
 ,"hr_holidays"
 ,"hr_recruitment"
 ,"hr_timesheet_sheet"
+,"idea"
+,"im"
+,"im_livechat"
 ,"mail"
 ,"mrp"
 ,"note"
@@ -52,8 +57,13 @@ installs all apps
 ,"purchase"
 ,"sale"
 ,"stock"
+,"website"
+,"website_blog"
+,"website_event"
+,"website_sale"
+,
      ],
-    'update_xml': [],
+    'data': [],
     'demo_xml': [],
     'installable': True,
     'active': False,

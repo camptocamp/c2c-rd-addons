@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-{ "name"         : "Budget Create"
+{ 'sequence': 500,
+ "name"         : "Budget Create"
 , "version"      : "1.0"
 , "author"       : "Camptocamp Austria"
 , "website"      : "http://www.chricar.at/ChriCar"
@@ -16,7 +17,7 @@ periods may overlap (Example use month Oct 2010 to Sept 2011 as basis for 2012)
 , "depends"      : ["chricar_budget_lines"]
 , "init_xml"     : []
 , "demo"         : []
-, "update_xml"   : ["budget_view.xml","wizard/budget_create_view.xml"]
+, "data"   : ["budget_view.xml","wizard/budget_create_view.xml"]
 , "auto_install" : False
 , "installable"  : True
 , 'application'  : False

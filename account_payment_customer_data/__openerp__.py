@@ -30,7 +30,8 @@
 # 59 Temple Place - Suite 330, Boston, MA  02111-1.17, USA.
 #
 ###############################################
-{ "name"        : "Support for payment via electronic banking"
+{ 'sequence': 500,
+ "name"        : "Support for payment via electronic banking"
 , "version"     : "1.1"
 , "author"      : "Swing Entwicklung betrieblicher Informationssysteme GmbH"
 , "website"     : "http://www.swing-system.com"
@@ -45,7 +46,7 @@ This reference is used by EDIFACT or SEPA.
 , "depends"     : ["account"]
 , "init_xml"    : []
 , "demo"        : []
-, "update_xml"  : ["account_invoice_view.xml"]
+, "data"  : ["account_invoice_view.xml"]
 , "test"        : []
 , "auto_install": False
 , "installable" : True

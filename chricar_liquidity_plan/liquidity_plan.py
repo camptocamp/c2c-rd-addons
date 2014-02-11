@@ -31,7 +31,7 @@
 # 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 ###############################################
-from osv import fields,osv
+from openerp.osv import fields,osv
 import time
 from datetime import datetime, timedelta
 from mx import DateTime

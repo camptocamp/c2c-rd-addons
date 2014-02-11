@@ -28,7 +28,8 @@
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 ##############################################################################
-{ "name"         : "CRM Helpdesk Report"
+{ 'sequence': 500,
+ "name"         : "CRM Helpdesk Report"
 , "description"  : """This module provides a report displaying history of crm_helpdesk"""
 , "version"      : "0.9"
 , "depends"      : ["crm_helpdesk", "report_webkit"]

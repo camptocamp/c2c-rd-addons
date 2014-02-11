@@ -33,10 +33,10 @@
 #
 ###############################################
 import time
-from osv import fields,osv
-import pooler
+from openerp.osv import fields,osv
+#import pooler
 from mx.DateTime import now, DateTime, localtime
-from tools.translate import _
+from openerp.tools.translate import _
 
 class stock_move(osv.osv):
     _inherit = "stock.move"

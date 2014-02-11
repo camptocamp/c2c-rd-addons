@@ -20,8 +20,8 @@
 
 
 
-import tools
-from osv import  osv
+import openerp.tools
+from openerp.osv import  osv
 import addons
 
 class WizardMultiChartsAccounts(osv.osv_memory):

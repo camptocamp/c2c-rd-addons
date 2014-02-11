@@ -8,7 +8,7 @@
 #  Copyright (c) 2012 CamptoCamp Austria. All rights reserved.
 #
 ##############################################################################
-from osv import osv, fields
+from openerp.osv import osv, fields
 class sale_order(osv.osv):
     _inherit = "sale.order"
     

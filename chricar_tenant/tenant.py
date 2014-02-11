@@ -34,10 +34,10 @@
 ###############################################
 from datetime import datetime
 import time
-from osv import fields,osv
-import pooler
+from openerp.osv import fields,osv
+#import pooler
 import logging
-from tools.translate import _
+from openerp.tools.translate import _
 
 class chricar_tenant(osv.osv):
     _name = "chricar.tenant"

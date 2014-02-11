@@ -21,7 +21,8 @@
 ##############################################################################
 
 
-{
+{ 'sequence': 500,
+
     'name': 'Product Price Unit Anglos Saxon',
     'version': '0.7',
     'category': 'Warehouse Management',
@@ -30,8 +31,8 @@ adapts the price difference (write down to use price units)
     """,
     'author': 'Camptocamp Austria',
     'depends': ['account_anglo_saxon','c2c_product_price_unit','c2c_stock_accounting','picking_invoice_rel' ],
-    'update_xml': [],
-    #'update_xml': ['product_view.xml'],
+    'data': [],
+    #'data': ['product_view.xml'],
     'demo_xml': [],
     'installable': True,
     'active': False,

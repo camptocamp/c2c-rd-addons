@@ -19,7 +19,8 @@
 #
 ##############################################################################
 
-{
+{ 'sequence': 500,
+
     "name" : "Stock Invoice Service",
     "version" : "1.1",
     "author" : "Camptocamp Austria",
@@ -38,7 +39,7 @@ this should be made configurable
     'website': 'http://www.camptocamp.com',
     "depends" : ["sale"],
     'init_xml': [],
-    'update_xml': [],
+    'data': [],
     'demo_xml': [],
     'installable': False,
     'auto_install': False,

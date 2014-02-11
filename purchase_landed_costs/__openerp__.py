@@ -21,7 +21,8 @@
 ##############################################################################
 
 
-{
+{ 'sequence': 500,
+
     'name': 'Landed Costs',
     'version': '0.8',
     'category': 'Warehouse Management',
@@ -42,7 +43,7 @@
     """,
     'author': 'Camptocamp Austria',
     'depends': ['purchase' ],
-    'update_xml': ['security/ir.model.access.csv',
+    'data': ['security/ir.model.access.csv',
                    'purchase_view.xml',
                    'stock_view.xml',
                    ],

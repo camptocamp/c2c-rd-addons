@@ -53,7 +53,7 @@
     "depends" : [],
     "init_xml" : [
         ],
-    "update_xml" : [
+    "data" : [
     ],
     "active": False,
     "installable": True

@@ -1,4 +1,5 @@
-{ "name"         : "chricar_stock_location_product_limited"
+{ 'sequence': 500,
+ "name"         : "chricar_stock_location_product_limited"
 , "version"      : "0.1"
 , "author"       : "Z-Beanz Technologies"
 , "website"      : "http://www.chricar.at/ChriCar/index.html"
@@ -15,7 +16,7 @@ http://www.zbeanztech.com/
 , "depends"      : ["stock"]
 , "init_xml"     : []
 , "demo"         : []
-, "update_xml"   : ['stock_wizard.xml']
+, "data"   : ['stock_wizard.xml']
 , "auto_install" : False
 , "installable"  : True
 , 'application'  : False

@@ -21,7 +21,8 @@
 #
 ##############################################################################
 
-{
+{ 'sequence': 500,
+
     'name': 'Task Dependencies',
     'version': '1.0',
     'category': 'Project Management',

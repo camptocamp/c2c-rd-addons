@@ -30,14 +30,14 @@
 #
 ###############################################
 from mx import DateTime
-from osv import fields,osv
-from tools import config
-from tools.translate import _
-import tools
-from tools.sql import drop_view_if_exists
+from openerp.osv import fields,osv
+from openerp.tools import config
+from openerp.tools.translate import _
+import openerp.tools
+from openerp.tools.sql import drop_view_if_exists
 from datetime import date
 from datetime import datetime
-import decimal_precision as dp
+import openerp.addons.decimal_precision as dp
 
 #----------------------------------------------------------
 # prepare stock_moves

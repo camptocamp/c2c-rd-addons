@@ -19,7 +19,8 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-{ 'name'        : 'Displays product in hr analytic timesheet'
+{ 'sequence': 500,
+ 'name'        : 'Displays product in hr analytic timesheet'
 , 'version'     : '0.7'
 , 'category'    : 'HR'
 , 'description' : """
@@ -28,7 +29,7 @@ This module displays the hidden field product_id
 """
 , 'author'      : 'Camptocamp Austria'
 , 'depends'     : ['hr_timesheet' ]
-, 'update_xml'  : ['hr_timesheet_product.xml']
+, 'data'  : ['hr_timesheet_product.xml']
 , 'demo_xml'    : []
 , 'installable' : True
 , 'active'      : False

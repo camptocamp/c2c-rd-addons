@@ -19,7 +19,8 @@
 #
 ##############################################################################
 
-{
+{ 'sequence': 500,
+
     "name" : "Adds partner reference to customer invoice view",
     "version" : "1.2",
     "author" : "Camptocamp SA",
@@ -33,7 +34,7 @@ allows to enter partner referenc data in customer invoices and refunds
     'website': 'http://www.camptocamp.com',
     "depends" : ["account","picking_invoice_rel"],
     'init_xml': [],
-    'update_xml': ['account_invoice_view.xml'],
+    'data': ['account_invoice_view.xml'],
     'demo_xml': [],
     'installable': True,
     'auto_install': False,

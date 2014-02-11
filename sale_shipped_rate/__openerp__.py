@@ -21,7 +21,8 @@
 ##############################################################################
 
 
-{
+{ 'sequence': 500,
+
     'name': 'Sale Shipped rate',
     'version': '0.7',
     'category': 'Warehouse Management',
@@ -33,9 +34,9 @@ This module shows the completion of internal moves associated with sale orders
 """,
     'author': 'Camptocamp Austria',
     'depends': [ 'sale' ],
-    'update_xml': ['sale_view.xml',
+    'data': ['sale_view.xml',
        ],
-    #'update_xml': ['product_view.xml'],
+    #'data': ['product_view.xml'],
     'demo_xml': [],
     'installable': True,
     'active': False,

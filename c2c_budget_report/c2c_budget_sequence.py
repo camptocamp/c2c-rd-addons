@@ -28,7 +28,7 @@
 
 
         
-from osv import fields, osv
+from openerp.osv import fields, osv
 
 
 class c2c_budget_item(osv.osv):

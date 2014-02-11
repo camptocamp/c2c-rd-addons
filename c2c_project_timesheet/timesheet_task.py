@@ -38,13 +38,13 @@
 # this way group by date will work for allmost all tz as we use 12AM as time which will be converted in almost ll tz to the correct period
 # this needs redesign from scratch
 ###############################################
-from osv import fields,osv
+from openerp.osv import fields,osv
 import time
 from datetime import date
 import datetime 
 from datetime import timedelta
 from dateutil import relativedelta
-from openerp import tools
+import openerp.tools
 import logging
 
 datetime = __import__('datetime')

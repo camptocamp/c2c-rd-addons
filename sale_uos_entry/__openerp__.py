@@ -21,7 +21,8 @@
 ##############################################################################
 
 
-{
+{ 'sequence': 500,
+
     'name': 'Sale Order UoS Data Entry, Show Packing Info',
     'version': '0.7',
     'category': 'Warehouse Management',
@@ -31,7 +32,7 @@ and shows packing Info in various views.
 """,
     'author': 'Camptocamp Austria',
     'depends': [ 'sale','stock' ],
-    'update_xml': ['sale_view.xml','product_view.xml','stock_view.xml'],
+    'data': ['sale_view.xml','product_view.xml','stock_view.xml'],
     'demo_xml': [],
     'installable': False,
     'active': False,

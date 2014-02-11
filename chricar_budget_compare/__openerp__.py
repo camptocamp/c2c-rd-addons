@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-{ "name"         : "Budget Products"
+{ 'sequence': 500,
+ "name"         : "Budget Products"
 , "version"      : "1.0"
 , "author"       : "ChriCar Beteiligungs- und Beratungs- GmbH"
 , "website"      : "http://www.chricar.at/ChriCar"
@@ -13,7 +14,7 @@ ToDo
  , "depends"      : ["product","chricar_view_id","c2c_budget_chricar"]
  , "init_xml"     : []
  , "demo"         : []
- , "update_xml"   : ["budget_update.xml","security/ir.model.access.csv"]
+ , "data"   : ["budget_update.xml","security/ir.model.access.csv"]
  , "auto_install" : False
  , "installable"  : True
 , 'application'  : False

@@ -18,9 +18,9 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from osv import fields, osv
+from openerp.osv import fields, osv
 import time
-from report import report_sxw
+from openerp.report import report_sxw
 import logging
 
 class report_webkit_html(report_sxw.rml_parse):

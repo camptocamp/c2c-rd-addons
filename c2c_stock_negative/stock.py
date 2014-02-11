@@ -20,11 +20,11 @@
 #
 ##############################################################################
 
-from osv import osv, fields
-#import decimal_precision as dp
+from openerp.osv import osv, fields
+#import openerp.addons.decimal_precision as dp
 
 import re
-from tools.translate import _
+from openerp.tools.translate import _
 import logging
 
 #----------------------------------------------------------
@@ -73,7 +73,7 @@ class stock_move(osv.osv):
                     and company_id = %d \
                   group by product_id, location_id,prodlot_id \
                  having sum(name) < 0" % ( move.product_id.id, move.company_id.id ))
-               for check in  cr.fetchall():
+                for check in  cr.fetchall():
                     product= self.pool.get('product.product').browse(cr,uid,[check[0]], context)[0].name
                     location = self.pool.get('stock.location').browse(cr,uid,[check[1]], context)[0].name
                     if check[2]:

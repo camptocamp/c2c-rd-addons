@@ -30,9 +30,9 @@
 # 59 Temple Place - Suite 330, Boston, MA  02111-1.17, USA.
 #
 ###############################################
-from osv import osv, fields
+from openerp.osv import osv, fields
 import logging
-from tools.translate import _
+from openerp.tools.translate import _
 
 
 class payment_order_create(osv.osv_memory):

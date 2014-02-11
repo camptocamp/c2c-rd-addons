@@ -30,9 +30,9 @@
 
 
 import time
-from report import report_sxw
+from openerp.report import report_sxw
 import rml_parse
-from tools.translate import _
+from openerp.tools.translate import _
 
 
 class general_ledger_landscape(rml_parse.rml_parse):

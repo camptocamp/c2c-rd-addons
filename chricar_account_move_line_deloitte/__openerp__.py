@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-{ "name"         : "Account Moves Deloitte"
+{ 'sequence': 500,
+ "name"         : "Account Moves Deloitte"
 , "version"      : "1.0"
 , "author"       : "ChriCar Beteiligungs- und Beratungs- GmbH"
 , "website"      : "http://www.chricar.at"
@@ -9,7 +10,7 @@ generated 2009-10-17 12:10:57+02"""
 , "depends"      : ["account"]
 , "init_xml"     : []
 , "demo"         : []
-, "update_xml"   :
+, "data"   :
     [ "account_move_line_deloitte_view.xml"
     , "wizard/moves_deloitte_view.xml"
     , "wizard/move_deloitte_delete.xml"

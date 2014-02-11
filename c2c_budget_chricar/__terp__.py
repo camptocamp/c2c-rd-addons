@@ -46,7 +46,7 @@
                     "c2c_reporting_tools_chricar"
                 ],
     "init_xml" : [],
-    "update_xml" : [
+    "data" : [
                         "c2c_budget_view.xml",
                         "c2c_budget_wizard.xml",
                         "security/ir.model.access.csv",

@@ -1,4 +1,4 @@
-from osv import fields,osv
+from openerp.osv import fields,osv
 
 class chricar_view_id(osv.osv):
     _name = "chricar_view_id"

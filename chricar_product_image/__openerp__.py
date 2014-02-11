@@ -1,4 +1,5 @@
-{ "name"         : "Product Image"
+{ 'sequence': 500,
+ "name"         : "Product Image"
 , "version"      : "1.1"
 , "author"       : "ChriCar Beteiligungs- und Beratungs- GmbH"
 , "website"      : "http://www.chricar.at/ChriCar"
@@ -9,7 +10,7 @@
 sorts the products by code"""
 , "init_xml"     : []
 , "demo"         : []
-, "update_xml"   : ["chricar_product_image_view.xml"]
+, "data"   : ["chricar_product_image_view.xml"]
 , "auto_install" : False
 , "installable"  : True
 , 'application'  : False

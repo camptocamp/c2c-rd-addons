@@ -21,7 +21,8 @@
 ##############################################################################
 
 
-{
+{ 'sequence': 500,
+
     'name': 'Camptocamp Austria Payment',
     'version': '1.0',
     'category': 'Others',
@@ -35,8 +36,8 @@ This module installs everything we need for Austrian for payment
 #,"purchase_payment"
 #,"sale_payment"
 ],
-    'update_xml': [],
-    #'update_xml': ['product_view.xml'],
+    'data': [],
+    #'data': ['product_view.xml'],
     'demo_xml': [],
     'installable': True,
     'active': False,

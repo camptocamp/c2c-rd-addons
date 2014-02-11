@@ -1,4 +1,5 @@
-{ "name"         : "Application Columns"
+{ 'sequence': 500,
+ "name"         : "Application Columns"
 , "version"      : "1.0"
 , "author"       : "ChriCar Beteiligungs- und Beratungs- GmbH"
 , "website"      : "http://www.chricar.at/ChriCar"
@@ -8,7 +9,7 @@ generated 2009-03-27 16:28:26+01"""
 , "depends"      : ["chricar_application_tables"]
 , "init_xml"     : []
 , "demo"         : []
-, "update_xml"   : ["application_columns_view.xml"]
+, "data"   : ["application_columns_view.xml"]
 , "auto_install" : False
 , "installable"  : True
 , 'application'  : False

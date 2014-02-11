@@ -7,7 +7,7 @@
 # created 2008-08-13
 #
 ###############################################
-from osv import fields, osv
+from openerp.osv import fields, osv
 import mx.DateTime
 from mx.DateTime import RelativeDateTime, now, DateTime, localtime
 

@@ -45,7 +45,7 @@
     """,
     "depends" : ["hr_timesheet_sheet", "hr", "c2c_reporting_tools"],
     "init_xml" : [],
-    "update_xml" : [ "c2c_timesheet_view.xml", "c2c_timesheet_report.xml", "c2c_timesheet_wizard.xml" ],
+    "data" : [ "c2c_timesheet_view.xml", "c2c_timesheet_report.xml", "c2c_timesheet_wizard.xml" ],
     "active": False,
     "installable": True
 }

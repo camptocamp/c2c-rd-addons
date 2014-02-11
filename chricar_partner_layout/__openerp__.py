@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-{ "name"         : "Partner: better layout for long partner names"
+{ 'sequence': 500,
+ "name"         : "Partner: better layout for long partner names"
 , "version"      : "1.0"
 , "author"       : "Camptocamp Austria"
 , "website"      : "http://www.camptocamp.at"
@@ -8,7 +9,7 @@
 , "depends"      : ["base"]
 , "init_xml"     : []
 , "demo"         : []
-, "update_xml"   : ["partner_view.xml"]
+, "data"   : ["partner_view.xml"]
 , "auto_install" : False
 , "installable"  : False
 , 'application'  : False

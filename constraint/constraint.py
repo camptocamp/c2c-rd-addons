@@ -30,8 +30,8 @@
 # 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 ###############################################
-from osv import fields,osv
-from tools.translate import _
+from openerp.osv import fields,osv
+from openerp.tools.translate import _
 
 class Look_Ahead_Gen(object):
     is_finished = property (lambda s: not s)

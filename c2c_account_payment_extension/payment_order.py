@@ -30,9 +30,9 @@
 # 59 Temple Place - Suite 330, Boston, MA  02111-1.17, USA.
 #
 ###############################################
-from osv import osv, fields
-from tools.translate import _
-import one2many_sorted
+from openerp.osv import osv, fields
+from openerp.tools.translate import _
+import openerp.addons.one2many_sorted as one2many_sorted
 
 class payment_order(osv.osv):
     _name = 'payment.order'

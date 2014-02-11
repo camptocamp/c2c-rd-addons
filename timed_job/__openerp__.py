@@ -19,7 +19,8 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-{ 'name'         : "Executes Jobs periodically at a specific point in time and repeats this at a time-interval"
+{ 'sequence': 500,
+ 'name'         : "Executes Jobs periodically at a specific point in time and repeats this at a time-interval"
 , 'version'      : "1.1"
 , 'category'     : "Tools"
 , 'description'  : """Executes job at a specific point in time and repeats this at a time-interval.
@@ -82,7 +83,7 @@ Programmatic interface :
 , "author"       : "Swing Entwicklung betrieblicher Informationssysteme GmbH"
 , "website"      : "http://www.swing-system.com"
 , 'depends'      : ["email_template"]
-, 'update_xml'   : 
+, 'data'   : 
     [ "security/ir.model.access.csv"
     , "timed_job_view.xml"
     ]

@@ -7,9 +7,9 @@
 # created 2008-07-05
 #
 ###############################################
-from osv import fields,osv
-from tools.translate import _
-import one2many_sorted
+from openerp.osv import fields,osv
+from openerp.tools.translate import _
+import openerp.addons.one2many_sorted as one2many_sorted
 import logging
 import time
 

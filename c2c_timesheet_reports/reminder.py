@@ -32,12 +32,12 @@
 ##############################################################################
 from c2c_reporting_tools.translation import _
 
-from osv import fields, osv
+from openerp.osv import fields, osv
 import time
 from datetime import datetime, timedelta
 from mx import DateTime
-import pooler
-import tools
+#import pooler
+import openerp.tools
 
 
 class reminder (osv.osv):

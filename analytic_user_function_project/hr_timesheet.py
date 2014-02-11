@@ -20,7 +20,7 @@
 ##############################################################################
 import time
 import datetime
-from osv import osv, fields
+from openerp.osv import osv, fields
 
 class project_work(osv.osv):
     _inherit = "project.task.work"

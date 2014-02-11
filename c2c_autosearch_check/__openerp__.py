@@ -29,7 +29,8 @@
 # 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 ###############################################
-{ "name"         : "Autosearch Check"
+{ 'sequence': 500,
+ "name"         : "Autosearch Check"
 , "version"      : "1.0"
 , "author"       : "Camptocamp Austria"
 , "website"      : "http://www.camptocamp.at"
@@ -44,7 +45,7 @@ This check will run periodically and turn off autosearch for ir_act_window where
 , "depends"      : ["base"]
 , "init_xml"     : ["autosearch_data.xml"]
 , "demo"         : []
-, "update_xml"   : ["autosearch_view.xml"]
+, "data"   : ["autosearch_view.xml"]
 , "auto_install" : False
 , "installable"  : True
 , 'application'  : False

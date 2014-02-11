@@ -29,8 +29,8 @@
 # 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 ###############################################
-from osv import fields,osv
-import decimal_precision as dp
+from openerp.osv import fields,osv
+import openerp.addons.decimal_precision as dp
 
 class location_income_tax(osv.osv):
     _name = "location.income.tax"

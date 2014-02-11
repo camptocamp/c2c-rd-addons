@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-{ "name"         : "Product by Stock "
+{ 'sequence': 500,
+ "name"         : "Product by Stock "
 , "version"      : "1.0"
 , "author"       : "Camptocamp Austria"
 , "website"      : "http://www.camptocamp.com"
@@ -16,7 +17,7 @@
     ]
 , "init_xml"     : []
 , "demo"         : []
-, "update_xml"   : ["stock_product_production_view.xml"]
+, "data"   : ["stock_product_production_view.xml"]
 , "auto_install" : False
 , "installable"  : True
 , 'application'  : False

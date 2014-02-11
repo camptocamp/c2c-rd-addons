@@ -21,7 +21,7 @@
 ##############################################################################
 
 
-from osv import fields, osv
+from openerp.osv import fields, osv
 import logging
 
 class sale_order(osv.osv):

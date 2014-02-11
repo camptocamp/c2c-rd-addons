@@ -19,7 +19,8 @@
 #
 ##############################################################################
 
-{
+{ 'sequence': 500,
+
     'name': 'Analytic hours timesheet analyis',
     'version': '1.0',
     'category': 'Project Management',
@@ -29,7 +30,7 @@
     'author': 'Camptocamp',
     'website': 'http://www.comtocamp.com',
     'depends': ['project_timesheet'],
-    'update_xml': ["report/task_report_view.xml",],
+    'data': ["report/task_report_view.xml",],
     'installable': True,
     'auto_install': False,
 }

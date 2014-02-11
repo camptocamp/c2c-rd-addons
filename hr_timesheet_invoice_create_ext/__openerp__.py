@@ -19,7 +19,8 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-{ 'name'        : 'Adds fields for invoice creation from task work'
+{ 'sequence': 500,
+ 'name'        : 'Adds fields for invoice creation from task work'
 , 'version'     : '0.7'
 , 'category'    : 'Sales Management'
 , 'description' : """
@@ -33,7 +34,7 @@ This module will allow to spezify
 """
 , 'author'      : 'Camptocamp Austria'
 , 'depends'     : [ 'hr_timesheet_invoice' ]
-, 'update_xml'  : ['hr_timesheet_invoice_view.xml', 'wizard/hr_timesheet_invoice_create_view.xml']
+, 'data'  : ['hr_timesheet_invoice_view.xml', 'wizard/hr_timesheet_invoice_create_view.xml']
 , 'demo_xml'    : []
 , 'installable' : True
 , 'application'  : False 

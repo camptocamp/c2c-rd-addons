@@ -38,8 +38,8 @@
 
 
 import inspect
-import tools
-from tools.translate import _
+import openerp.tools
+from openerp.tools.translate import _
 
 class GettextAlias_42(object):
     """provide a replacement method _() to use "code" translations 

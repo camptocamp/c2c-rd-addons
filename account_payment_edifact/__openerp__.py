@@ -30,7 +30,8 @@
 # 59 Temple Place - Suite 330, Boston, MA  02111-1.17, USA.
 #
 ###############################################
-{ "name"        : "Electronic Banking via EDIFACT"
+{ 'sequence': 500,
+ "name"        : "Electronic Banking via EDIFACT"
 , "version"     : "1.1"
 , "author"      : "Swing Entwicklung betrieblicher Informationssysteme GmbH"
 , "website"     : "http://www.swing-system.com"
@@ -73,7 +74,7 @@ A conversion to ASCII for all texts within the EDIFACT-file is attempted.
     ]
 , "init_xml"    : []
 , "demo"        : []
-, "update_xml"  : 
+, "data"  : 
     [ 'payment_iban.xml'
     , 'res_bank_view.xml'
     , 'wizard/generate_edifact_view.xml'

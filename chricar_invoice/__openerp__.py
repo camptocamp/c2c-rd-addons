@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-{ "name"         : "Invoice"
+{ 'sequence': 500,
+ "name"         : "Invoice"
 , "version"      : "1.0"
 , "author"       : "ChriCar Beteiligungs- und Beratungs- GmbH"
 , "website"      : "http://www.chricar.at/ChriCar"
@@ -9,7 +10,7 @@ generated 2009-07-11 14:55:52+02"""
 , "depends"      : ["chricar_room", "chricar_top"]
 , "init_xml"     : []
 , "demo"         : []
-, "update_xml"   : ["invoice_view.xml", "security/ir.model.access.csv"]
+, "data"   : ["invoice_view.xml", "security/ir.model.access.csv"]
 , "auto_install" : False
 , "installable"  : True
 , 'application'  : False

@@ -21,7 +21,8 @@
 ##############################################################################
 
 
-{
+{ 'sequence': 500,
+
     'name': 'Stock Product Location',
     'version': '0.8',
     'category': 'Warehouse Management',

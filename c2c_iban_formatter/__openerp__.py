@@ -32,7 +32,8 @@
 # 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 ###############################################
-{ "name"        : "Camptocamp IBAN formatting"
+{ 'sequence': 500,
+ "name"        : "Camptocamp IBAN formatting"
 , "version"     : "1.0"
 , "author"      : "Camptocamp Austria"
 , "website"     : "http://www.camptocamp.at"
@@ -45,7 +46,7 @@ CAUTION - please make sure that the payment module removes the spaces again
 , "depends"     : ["base_iban"]
 , "init_xml"    : []
 , "demo"        : []
-, "update_xml"  : ["iban_view.xml"]
+, "data"  : ["iban_view.xml"]
 , "auto_install": False
 , "installable" : True
 , 'application'  : False

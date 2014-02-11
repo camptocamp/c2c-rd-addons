@@ -29,7 +29,7 @@
 # 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 ###############################################
-from osv import fields,osv
+from openerp.osv import fields,osv
 
 class chricar_inventory(osv.osv):
      _name = "chricar.inventory"

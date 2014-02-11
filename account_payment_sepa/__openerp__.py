@@ -30,7 +30,8 @@
 # 59 Temple Place - Suite 330, Boston, MA  02111-1.17, USA.
 #
 ###############################################
-{ "name"        : "Electronic Banking via SEPA"
+{ 'sequence': 500,
+ "name"        : "Electronic Banking via SEPA"
 , "version"     : "1.1"
 , "author"      : "Swing Entwicklung betrieblicher Informationssysteme GmbH"
 , "website"     : "http://www.swing-system.com"
@@ -58,7 +59,7 @@ The "payment day" is, if unspecified or in the past, the file-creation-date.
     , "pain_001_001_02_austrian_002.xml"
     ]
 , "demo"        : []
-, "update_xml"  : ["wizard/generate_sepa_view.xml"]
+, "data"  : ["wizard/generate_sepa_view.xml"]
 , "test"        : []
 , "auto_install": False
 , "installable" : True

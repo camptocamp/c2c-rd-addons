@@ -35,12 +35,12 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
-from reportlab import platypus
-from reportlab.platypus import *
-from reportlab.lib.styles import ParagraphStyle
-from reportlab.lib import colors
+from openerp.reportlab import platypus
+from openerp.reportlab.platypus import *
+from openerp.reportlab.lib.styles import ParagraphStyle
+from openerp.reportlab.lib import colors
 from c2c_reporting_tools.core.table_elements import *
-from tools.translate import _
+from openerp.tools.translate import _
 
 class SimpleRowsTableBuilder(object):
     """ Tool to generate a table that can be insert in reports.

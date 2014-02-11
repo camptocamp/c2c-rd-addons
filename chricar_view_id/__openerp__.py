@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-{ "name"        : "ChriCar unique View ID"
+{ 'sequence': 500,
+ "name"        : "ChriCar unique View ID"
 , "version"     : "0.2"
 , "author"      : "Network Gulf IT - India"
 , "website"     : "http://www.chricar.at/ChriCar/index.html"
@@ -51,7 +52,7 @@ fast:
 , "depends"      : ["base"]
 , "init_xml"     : []
 , "demo"         : []
-, "update_xml"   : []
+, "data"   : []
 , "auto_install" : False
 , "installable"  : True
 , 'application'  : False

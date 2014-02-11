@@ -21,7 +21,8 @@
 ##############################################################################
 
 
-{
+{ 'sequence': 500,
+
     'name': 'Stock suppress all zero lines',
     'version': '0.7',
     'category': 'Warehouse Management',
@@ -34,9 +35,9 @@ Adds a nice inventory report based on webkit
 """,
     'author': 'Camptocamp Austria',
     'depends': [ 'stock','one2many_sorted',"report_webkit" ],
-    'update_xml': ['stock_view.xml','inventory_view.xml','stock_inventory_webkit.xml',
+    'data': ['stock_view.xml','inventory_view.xml','stock_inventory_webkit.xml',
        ],
-    #'update_xml': ['product_view.xml'],
+    #'data': ['product_view.xml'],
     'demo_xml': [],
     'installable': True,
     'active': False,

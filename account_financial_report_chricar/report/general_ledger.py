@@ -29,10 +29,10 @@
 ##############################################################################
 
 import time
-from report import report_sxw
+from openerp.report import report_sxw
 import rml_parse
-from tools import config
-from tools.translate import _
+from openerp.tools import config
+from openerp.tools.translate import _
 
 
 class general_ledger(rml_parse.rml_parse):

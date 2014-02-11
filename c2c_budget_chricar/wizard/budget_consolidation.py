@@ -28,8 +28,8 @@
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 ##############################################################################
-import wizard
-import pooler
+#import wizard
+#import pooler
 
 class wiz_budget_consolidation(wizard.interface):
     """ this wizard display options to print the budget consolidation report """

@@ -25,9 +25,9 @@
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 ##############################################################################
-from osv import fields, osv
-from tools import config
-from tools.sql import drop_view_if_exists
+from openerp.osv import fields, osv
+from openerp.tools import config
+from openerp.tools.sql import drop_view_if_exists
 
 class chricar_report_location_moves(osv.osv):
         _name = "chricar.report.location.moves"

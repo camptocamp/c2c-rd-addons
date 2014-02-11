@@ -19,7 +19,8 @@
 #
 ##############################################################################
 
-{
+{ 'sequence': 500,
+
     "name" : "Picking Reopen",
     "version" : "1.2",
     "author" : "Camptocamp SA",
@@ -39,7 +40,7 @@ usually only visible after printing the picking.
     'website': 'http://www.camptocamp.com',
     "depends" : ["stock","account_invoice_reopen"],
     'init_xml': [],
-    'update_xml': ['stock_view.xml','stock_workflow.xml' ],
+    'data': ['stock_view.xml','stock_workflow.xml' ],
     'demo_xml': [],
     'installable': True,
     'auto_install': False,

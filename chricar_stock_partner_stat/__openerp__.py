@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-{ "name"         : "Product Partner Moves"
+{ 'sequence': 500,
+ "name"         : "Product Partner Moves"
 , "version"      : "1.0"
 , "author"       : "ChriCar Beteiligungs- und Beratungs- GmbH"
 , "website"      : "http://www.chricar.at/ChriCar"
@@ -11,7 +12,7 @@ Adds partner, transaction type and period to stock move.
 , "depends"      : ["stock", "sale", "purchase", "chricar_view_id", "c2c_stock_accounting"]
 , "init_xml"     : []
 , "demo"         : []
-, "update_xml"   : ["partner_product_view.xml"]
+, "data"   : ["partner_product_view.xml"]
 , "auto_install" : False
 , "installable"  : True
 , 'application'  : False

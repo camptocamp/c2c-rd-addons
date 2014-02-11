@@ -21,7 +21,8 @@
 ##############################################################################
 
 
-{
+{ 'sequence': 500,
+
     'name': 'Sale Pull From Internal Stock Locations',
     'version': '0.7',
     'category': 'Warehouse Management',
@@ -31,9 +32,9 @@ to be able to deliver the ordered quantities
 """,
     'author': 'Camptocamp Austria',
     'depends': [ 'sale','stock' ],
-    'update_xml': ['sale_view.xml',
+    'data': ['sale_view.xml',
        ],
-    #'update_xml': ['product_view.xml'],
+    #'data': ['product_view.xml'],
     'demo_xml': [],
     'installable': False,
     'active': False,

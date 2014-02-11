@@ -19,7 +19,8 @@
 #
 ##############################################################################
 
-{
+{ 'sequence': 500,
+
     "name" : "Stock Production Moves",
     "version" : "1.1",
     "author" : "Camptocamp Austria",
@@ -33,7 +34,7 @@ Records moves from/to production locations.
     'website': 'http://www.camptocamp.com',
     "depends" : ["stock_picking_reopen","c2c_stock_accounting"],
     'init_xml': [],
-    'update_xml': ['stock_view.xml' ],
+    'data': ['stock_view.xml' ],
     'demo_xml': [],
     'installable': True,
     'auto_install': False,

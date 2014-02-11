@@ -28,7 +28,8 @@
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 ##############################################################################
-{ "name"         : "Customer Invoice to Picking Relation"
+{ 'sequence': 500,
+ "name"         : "Customer Invoice to Picking Relation"
 , "description"  : """Adds backwards reference from Customer Invoice to Picking"""
 , "version"      : "0.9"
 , "depends"      : ["sale_margin"]

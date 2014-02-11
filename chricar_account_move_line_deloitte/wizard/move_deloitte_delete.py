@@ -28,8 +28,8 @@
 #
 ##############################################################################
 
-from osv import fields,osv
-import pooler
+from openerp.osv import fields,osv
+#import pooler
 
 
 

@@ -19,7 +19,8 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-{ 'name'        : 'VAT check enhanced'
+{ 'sequence': 500,
+ 'name'        : 'VAT check enhanced'
 , 'version'     : '1.0'
 , 'category'    : 'Base'
 , 'description' : """
@@ -32,7 +33,7 @@ This module enhances the VAT check to comply to accounting standards
 """
 , 'author'      : 'Camptocamp Austria'
 , 'depends'     : [ 'base_vat' ]
-, 'update_xml'  : ['base_vat_view.xml', 'installer_view.xml']
+, 'data'  : ['base_vat_view.xml', 'installer_view.xml']
 , 'demo_xml'    : []
 , 'installable' : True
 , 'active'      : False

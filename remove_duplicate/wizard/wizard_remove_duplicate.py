@@ -30,8 +30,8 @@
 # 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 ###############################################
-from osv import fields, osv
-from tools.translate import _
+from openerp.osv import fields, osv
+from openerp.tools.translate import _
 import logging
 
 class wizard_merge_duplicates(osv.osv_memory):
@@ -96,7 +96,7 @@ wizard_merge_duplicates_new()
 
 
 #import wizard
-#import pooler
+##import pooler
 
 #class wizard_remove_duplicate(wizard.interface):
 #    _logger = logging.getLogger(__name__)

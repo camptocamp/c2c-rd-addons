@@ -20,8 +20,8 @@
 #
 ##############################################################################
 import wizard
-import pooler
-from tools.misc import UpdateableStr
+#import pooler
+from openerp.tools.misc import UpdateableStr
 
 FORM = UpdateableStr()
 

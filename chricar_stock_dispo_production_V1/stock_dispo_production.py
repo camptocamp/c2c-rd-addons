@@ -29,8 +29,8 @@
 # 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 ###############################################
-from osv import fields,osv
-import one2many_sorted
+from openerp.osv import fields,osv
+import openerp.addons.one2many_sorted as one2many_sorted
 import logging
 
 #class chricar_stock_dispo_production(osv.osv):

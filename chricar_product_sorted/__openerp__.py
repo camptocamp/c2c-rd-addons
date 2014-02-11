@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-{ "name"         : "Product order by (template) name"
+{ 'sequence': 500,
+ "name"         : "Product order by (template) name"
 , "version"      : "1.0"
 , "author"       : "ChriCar Beteiligungs- und Beratungs- GmbH"
 , "website"      : "http://www.chricar.at/ChriCar"
@@ -8,7 +9,7 @@
 , "depends"      : ["product"]
 , "init_xml"     : []
 , "demo"         : []
-, "update_xml"   : ["product_update.xml"]
+, "data"   : ["product_update.xml"]
 , "auto_install" : False
 , "installable"  : True
 , 'application'  : False

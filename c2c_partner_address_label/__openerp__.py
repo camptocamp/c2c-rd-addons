@@ -21,7 +21,8 @@
 ##############################################################################
 
 
-{
+{ 'sequence': 500,
+
     'name': 'Partner Address as Label',
     'version': '0.7',
     'category': 'Base',
@@ -33,10 +34,10 @@ ToDo: adapt reports to use this
 """,
     'author': 'Camptocamp Austria',
     'depends': [ 'base' ],
-    'update_xml': [
+    'data': [
     'partner_view.xml','report_label.xml',
        ],
-    #'update_xml': ['product_view.xml'],
+    #'data': ['product_view.xml'],
     'demo_xml': [],
     'installable': True,
     'active': False,

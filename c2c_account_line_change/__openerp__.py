@@ -21,7 +21,8 @@
 ##############################################################################
 
 
-{
+{ 'sequence': 500,
+
     'name': 'Account change',
     'version': '0.9',
     'category': 'Accounting & Finance',
@@ -33,9 +34,9 @@ This module allows to change accounts of posted moves
     """,
     'author': 'Camptocamp Austria',
     'depends': ['account' ],
-    'update_xml': ['wizard/account_move_line_change.xml',
+    'data': ['wizard/account_move_line_change.xml',
                   ],
-    #'update_xml': ['product_view.xml'],
+    #'data': ['product_view.xml'],
     'demo_xml': [],
     'installable': True,
     'active': False,

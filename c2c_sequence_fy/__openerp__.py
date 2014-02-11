@@ -21,7 +21,8 @@
 ##############################################################################
 
 
-{ 'name'        : 'Sequence Financial Year Extension fy (for v61 and above'
+{ 'sequence': 500,
+ 'name'        : 'Sequence Financial Year Extension fy (for v61 and above'
 , 'version'     : '0.8'
 , 'category'    : 'Accounting & Finance'
 , 'description' : """
@@ -61,7 +62,7 @@ using '(fy)' instead of hard coding.
 """
 , 'author'      : 'Camptocamp Austria'
 , 'depends'     : ['account']
-, 'update_xml'  :
+, 'data'  :
     [ 'ir_sequence_view.xml'
     , 'account_fiscalyear_view.xml'
     , 'ir_sequence_type_view.xml'

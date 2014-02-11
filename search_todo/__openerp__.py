@@ -21,7 +21,8 @@
 ##############################################################################
 
 
-{
+{ 'sequence': 500,
+
     'name': 'ToDo Search Buttons',
     'version': '1.0',
     'category': 'Others',
@@ -36,7 +37,7 @@ this shows all resources which need further interaction (are not done or cancele
 ,"stock"
 ,"mrp"
      ],
-    'update_xml': ['purchase_view.xml','sale_view.xml','stock_view.xml', 'account_invoice_view.xml', 'partner_view.xml','mrp_view.xml'       ],
+    'data': ['purchase_view.xml','sale_view.xml','stock_view.xml', 'account_invoice_view.xml', 'partner_view.xml','mrp_view.xml'       ],
     'demo_xml': [],
     'installable': True,
     'active': False,

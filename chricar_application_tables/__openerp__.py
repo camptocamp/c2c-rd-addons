@@ -1,4 +1,5 @@
-{ "name"         : "Application Tables"
+{ 'sequence': 500,
+ "name"         : "Application Tables"
 , "version"      : "1.0"
 , "author"       : "ChriCar Beteiligungs- und Beratungs- GmbH"
 , "website"      : "http://www.chricar.at/ChriCar"
@@ -8,7 +9,7 @@ generated 2009-03-27 16:17:42+01"""
 , "depends"      : ["base","chricar_application"]
 , "init_xml"     : []
 , "demo"         : []
-, "update_xml"   : ["application_tables_view.xml"]
+, "data"   : ["application_tables_view.xml"]
 , "auto_install" : False
 , "installable"  : True
 , 'application'  : False

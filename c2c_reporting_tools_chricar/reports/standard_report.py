@@ -14,8 +14,8 @@
 #            HELLO WORLD EXEMPLE: 
 #        
 #            from c2c_reporting_tools.reports.standard_report import StandardReport
-#            from reportlab.platypus import Paragraph
-#            from reportlab.lib.styles import ParagraphStyle
+#            from openerp.reportlab.platypus import Paragraph
+#            from openerp.reportlab.lib.styles import ParagraphStyle
 #            
 #            class myReport(StandardReport):  
 #                
@@ -46,7 +46,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
-from report.interface import report_int
+from openerp.report.interface import report_int
 
 from c2c_reporting_tools import *
 
@@ -54,9 +54,9 @@ from c2c_reporting_tools.templates.standard_template import *
 from c2c_reporting_tools.translation import _
 
 
-import pooler
+#import pooler
 import logging
-import tools
+import openerp.tools
 import inspect
 
 

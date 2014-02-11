@@ -33,10 +33,10 @@
 #
 ###############################################
 import time
-from osv import fields,osv
-import pooler
+from openerp.osv import fields,osv
+#import pooler
 
-import decimal_precision as dp
+import openerp.addons.decimal_precision as dp
 import logging
 
 class c2c_budget_line(osv.osv):

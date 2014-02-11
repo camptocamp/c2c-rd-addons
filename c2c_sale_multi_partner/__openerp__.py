@@ -21,7 +21,8 @@
 ##############################################################################
 
 
-{
+{ 'sequence': 500,
+
     'name': 'Sale Delivery Partner',
     'version': '0.7',
     'category': 'Sales Management',
@@ -33,7 +34,7 @@ This module allows
 """,
     'author': 'Camptocamp Austria',
     'depends': [ 'sale','stock','delivery' ],
-    'update_xml': ['sale_view.xml',
+    'data': ['sale_view.xml',
                    'stock_view.xml',
                    'stock_report.xml',
        ],

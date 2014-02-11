@@ -39,7 +39,7 @@
 , "depends"     : ["base"]
 , "init_xml"    : []
 , "demo_xml"    : []
-, "update_xml"  : ["migrate_data_wizard.xml"]
+, "data"  : ["migrate_data_wizard.xml"]
 , "active"      : False
 , "installable" : True
 }

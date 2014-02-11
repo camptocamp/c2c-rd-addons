@@ -28,7 +28,8 @@
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 ##############################################################################
-{ "name"         : "production order badges"
+{ 'sequence': 500,
+ "name"         : "production order badges"
 , "description"  : """
 This module provides a report to print sale order badges for every
 Production Order Line

@@ -30,7 +30,8 @@
 # 59 Temple Place - Suite 330, Boston, MA  02111-1.17, USA.
 #
 ###############################################
-{ "name"        : "Austrian VAT declaration"
+{ 'sequence': 500,
+ "name"        : "Austrian VAT declaration"
 , "version"     : "1.0"
 , "author"      : "Swing Entwicklung betrieblicher Informationssysteme GmbH"
 , "website"     : "http://www.swing-system.com"
@@ -48,7 +49,7 @@ This module generates a XML-file per account period attaches it to the period.
     ]
 , "init_xml"    : ["U30.xml"]
 , "demo_xml"    : []
-, "update_xml"  : ["installer_view.xml"]
+, "data"  : ["installer_view.xml"]
 , "test"        : []
 , "auto_install": False
 , "installable" : True

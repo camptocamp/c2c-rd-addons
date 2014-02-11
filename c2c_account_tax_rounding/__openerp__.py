@@ -21,7 +21,8 @@
 ##############################################################################
 
 
-{
+{ 'sequence': 500,
+
     'name': 'Account Tax - simulate vertical calculation ',
     'version': '1.0',
     'category': 'Accounting & Finance',
@@ -37,10 +38,10 @@ Set "Rounding Precision" in Tax definiton.
 """,
     'author': 'Camptocamp Austria',
     'depends': [ 'account'],
-    'update_xml': [
+    'data': [
     'account_view.xml',
        ],
-    #'update_xml': ['product_view.xml'],
+    #'data': ['product_view.xml'],
     'demo_xml': [],
     'installable': False,
     'active': False,

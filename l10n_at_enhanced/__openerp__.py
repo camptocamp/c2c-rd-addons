@@ -19,7 +19,8 @@
 #
 ##############################################################################
 
-{
+{ 'sequence': 500,
+
     'name': 'Austria - Accounting enhanced fiscal position',
     'version': '1.0',
     'author': 'Camptocamp',

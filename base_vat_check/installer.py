@@ -30,7 +30,7 @@
 # 59 Temple Place - Suite 330, Boston, MA  02111-1.17, USA.
 #
 ###############################################
-from osv import fields, osv
+from openerp.osv import fields, osv
     
 class base_vat_installer(osv.osv_memory):
     _name    = 'res.partner.base_vat.installer'

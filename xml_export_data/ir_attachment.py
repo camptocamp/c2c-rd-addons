@@ -30,8 +30,8 @@
 # 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 ###############################################
-from osv import fields, osv
-from tools.translate import _
+from openerp.osv import fields, osv
+from openerp.tools.translate import _
 
 class ir_attachment (osv.osv):
     _inherit = "ir.attachment"

@@ -19,8 +19,8 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from osv import fields, osv
-import netsvc
+from openerp.osv import fields, osv
+import openerp.netsvc
 import logging
 
 class purchase_order(osv.osv):

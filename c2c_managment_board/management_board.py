@@ -19,8 +19,8 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from osv import fields, osv
-import tools.sql
+from openerp.osv import fields, osv
+import openerp.tools.sql as sql
 
 # SO
 class report_sale_order_board(osv.osv):
@@ -35,7 +35,7 @@ class report_sale_order_board(osv.osv):
         }
       
     def init(self, cr):
-        tools.sql.drop_view_if_exists(cr, 'report_sale_order_board')
+        sql.drop_view_if_exists(cr, 'report_sale_order_board')
         cr.execute("""
 CREATE view report_sale_order_board as
   select 
@@ -65,7 +65,7 @@ class report_purchase_order_board(osv.osv):
         }
 
     def init(self, cr):
-        tools.sql.drop_view_if_exists(cr, 'report_purchase_order_board')
+        sql.drop_view_if_exists(cr, 'report_purchase_order_board')
         cr.execute("""
 CREATE view report_purchase_order_board as
   select 
@@ -102,7 +102,7 @@ class report_invoice_board(osv.osv):
         }
 
     def init(self, cr):
-        tools.sql.drop_view_if_exists(cr, 'report_invoice_board')
+        sql.drop_view_if_exists(cr, 'report_invoice_board')
         cr.execute("""
 CREATE view report_invoice_board as
   select 
@@ -142,8 +142,8 @@ class report_finance_base_board(osv.osv):
       }
       
     def init(self, cr):
-        tools.sql.drop_view_if_exists(cr, 'report_finance_board')
-        tools.sql.drop_view_if_exists(cr, 'report_finance_base_board')
+        sql.drop_view_if_exists(cr, 'report_finance_board')
+        sql.drop_view_if_exists(cr, 'report_finance_base_board')
         cr.execute("""
 CREATE view report_finance_base_board as 
   select 
@@ -182,7 +182,7 @@ class report_finance_board(osv.osv):
         }
 
     def init(self, cr):
-        tools.sql.drop_view_if_exists(cr, 'report_finance_board')
+        sql.drop_view_if_exists(cr, 'report_finance_board')
         cr.execute("""
 CREATE view report_finance_board as
   select 

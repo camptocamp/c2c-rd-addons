@@ -19,7 +19,8 @@
 #
 ##############################################################################
 
-{
+{ 'sequence': 500,
+
     "name" : "Reconcile reconcile accounts",
     "version" : "1.1",
     "author" : "Camptocamp SA",
@@ -32,7 +33,7 @@ Allow reconciliation only for accounts marked to be reconciled
     'website': 'http://www.camptocamp.com',
     "depends" : ["account"],
     'init_xml': [],
-    'update_xml': [],
+    'data': [],
     'demo_xml': [],
     'installable': True,
     'auto_install': False,

@@ -30,7 +30,7 @@
 ##############################################################################
 #import wizard
 from copy import copy
-import pooler
+#import pooler
 
 
 _define_filters_form = '''<?xml version="1.0"?>

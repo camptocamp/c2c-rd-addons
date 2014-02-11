@@ -30,7 +30,8 @@
 # 59 Temple Place - Suite 330, Boston, MA  02111-1.17, USA.
 #
 ###############################################
-{ "name"         : "Tool to merge duplicate entries in tables"
+{ 'sequence': 500,
+ "name"         : "Tool to merge duplicate entries in tables"
 , "version"      : "1.1"
 , "author"       : "Swing Entwicklung betrieblicher Informationssysteme GmbH"
 , "website"      : "http://www.swing-system.com"
@@ -39,7 +40,7 @@
 , "depends"      : ["base"]
 , "init_xml"     : []
 , "demo"         : []
-, "update_xml"   : ["remove_duplicate_wizard.xml"]
+, "data"   : ["remove_duplicate_wizard.xml"]
 , "test"         : []
 , "auto_install" : False
 , "installable"  : True

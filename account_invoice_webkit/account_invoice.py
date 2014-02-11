@@ -19,10 +19,10 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-import decimal_precision as dp
-from osv import fields, osv, orm
-from tools.translate import _
-import one2many_sorted
+import openerp.addons.decimal_precision as dp
+from openerp.osv import fields, osv, orm
+from openerp.tools.translate import _
+import openerp.addons.one2many_sorted as one2many_sorted
 
 class account_invoice(osv.osv):
     _inherit = "account.invoice"

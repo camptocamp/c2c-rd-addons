@@ -20,8 +20,8 @@
 #
 ##############################################################################
 import time
-from report import report_sxw
-from osv import osv
+from openerp.report import report_sxw
+from openerp.osv import osv
 
 class report_webkit_html(report_sxw.rml_parse):
     def __init__(self, cr, uid, name, context):

@@ -19,7 +19,8 @@
 #
 ##############################################################################
 
-{
+{ 'sequence': 500,
+
     "name" : "Product Price Unit Precision",
     "version" : "1.1",
     "author" : "Camptocamp Austria",
@@ -51,7 +52,7 @@ Invoice must have in any case the max(SO/PO precision)
     'website': 'http://www.camptocamp.com',
     "depends" : ["account","sale","purchase"],
     'init_xml': [],
-    'update_xml': ["product_data.xml"],
+    'data': ["product_data.xml"],
     'demo_xml': [],
     'installable': False,
     'auto_install': False,

@@ -19,7 +19,8 @@
 #
 ##############################################################################
 
-{
+{ 'sequence': 500,
+
     "name" : "Purchase Order Reopen",
     "version" : "1.1",
     "author" : "Camptocamp Austria",
@@ -36,7 +37,7 @@ as associated pickings or invoices are canceled if possible
     'website': 'http://www.camptocamp.com',
     "depends" : ["purchase","stock_picking_reopen","account_invoice_reopen"],
     'init_xml': [],
-    'update_xml': ['purchase_view.xml','purchase_workflow.xml' ],
+    'data': ['purchase_view.xml','purchase_workflow.xml' ],
     'demo_xml': [],
     'installable': True,
     'auto_install': False,

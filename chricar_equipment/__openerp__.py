@@ -1,4 +1,5 @@
-{ "name"         : "Equipment"
+{ 'sequence': 500,
+ "name"         : "Equipment"
 , "version"      : "1.0"
 , "author"       : "ChriCar Beteiligungs- und Beratungs- GmbH"
 , "website"      : "http://www.chricar.at/ChriCar"
@@ -8,7 +9,7 @@ generated 2009-07-11 14:41:58+02"""
 , "depends"      : ["chricar_room","chricar_top"]
 , "init_xml"     : []
 , "demo"         : []
-, "update_xml"   : ["equipment_view.xml","security/ir.model.access.csv"]
+, "data"   : ["equipment_view.xml","security/ir.model.access.csv"]
 , "auto_install" : False
 , "installable"  : True
 , 'application'  : False

@@ -21,8 +21,8 @@
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
 
-from osv import fields,osv
-import tools
+from openerp.osv import fields,osv
+import openerp.tools
 
 class report_timesheet_task_user(osv.osv):
     _inherit = "report.timesheet.task.user"

@@ -30,10 +30,10 @@
 # 59 Temple Place - Suite 330, Boston, MA  02111-1.17, USA.
 #
 ###############################################
+import res_partner
 import payment_type
 import payment_mode
 import payment_order
-import res_partner
 import account_invoice
 import account_move_line
 import wizard

@@ -34,8 +34,8 @@
 ###############################################
 import time
 from datetime import datetime
-from osv import fields,osv
-import pooler
+from openerp.osv import fields,osv
+#import pooler
 import logging
 
 class chricar_account_move_line_igel(osv.osv):

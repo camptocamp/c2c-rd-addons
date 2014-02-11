@@ -33,10 +33,10 @@ ToDo: adapt reports to use this
 """,
     'author': 'Camptocamp Austria',
     'depends': [ 'base' ],
-    'update_xml': [
+    'data': [
     'partner_view.xml',
        ],
-    #'update_xml': ['product_view.xml'],
+    #'data': ['product_view.xml'],
     'demo_xml': [],
     'installable': True,
     'active': False,

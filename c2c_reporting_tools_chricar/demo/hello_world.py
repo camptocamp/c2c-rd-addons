@@ -31,8 +31,8 @@
 #
 ##############################################################################
 from c2c_reporting_tools.reports.standard_report import StandardReport
-from reportlab.platypus import Paragraph
-from reportlab.lib.styles import ParagraphStyle
+from openerp.reportlab.platypus import Paragraph
+from openerp.reportlab.lib.styles import ParagraphStyle
 
 
 class myReport(StandardReport):     

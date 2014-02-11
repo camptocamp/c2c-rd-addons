@@ -21,7 +21,8 @@
 ##############################################################################
 
 
-{
+{ 'sequence': 500,
+
     'name': 'Changes period name to yyyymm',
     'version': '1.0',
     'category': 'Accounting & Finance',
@@ -32,7 +33,7 @@
     """,
     'author': 'Camptocamp Austria',
     'depends': [ 'account'],
-    'update_xml': [],
+    'data': [],
     'demo_xml': [],
     'installable': True,
     'active': False,

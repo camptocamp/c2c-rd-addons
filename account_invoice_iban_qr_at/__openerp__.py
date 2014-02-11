@@ -28,7 +28,8 @@
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 ##############################################################################
-{ "name"         : "Invoice IBAN QR CODE (AT) "
+{ 'sequence': 500,
+ "name"         : "Invoice IBAN QR CODE (AT) "
 , "description"  : """
 Adds an image datafeld to invoice with IBAN BIC Information according to
 http://www.stuzza.at/11250_DE.6858781c0841bfb08be3ce61a7d21fb40e0f0830

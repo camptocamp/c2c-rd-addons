@@ -22,8 +22,8 @@
 ##############################################################################
 
 import wizard
-import pooler
-from tools.translate import _
+#import pooler
+from openerp.tools.translate import _
 
 form = '''<?xml version="1.0"?>
 <form string="Print Journal">

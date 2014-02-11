@@ -30,7 +30,7 @@
 # 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 ###############################################
-from osv import fields, osv
+from openerp.osv import fields, osv
 
 class wizard_generate_edifact(osv.osv_memory) :
     _name = "payment.order.edifact"

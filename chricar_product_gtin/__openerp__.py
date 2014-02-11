@@ -1,4 +1,5 @@
-{ "name"         : "Product GTIN EAN8 EAN13 UPC JPC Support"
+{ 'sequence': 500,
+ "name"         : "Product GTIN EAN8 EAN13 UPC JPC Support"
 , "version"      : "1.1"
 , "author"       : "ChriCar Beteiligungs- und Beratungs- GmbH"
 , "website"      : "http://www.chricar.at/ChriCar"
@@ -10,7 +11,7 @@ makes EAN visible in simplified view
 """
 , "init_xml"     : []
 , "demo"         : []
-, "update_xml"   : ["chricar_product_gtin_view.xml"]
+, "data"   : ["chricar_product_gtin_view.xml"]
 , "auto_install" : False
 , "installable"  : True
 , 'application'  : False

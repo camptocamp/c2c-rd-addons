@@ -32,8 +32,8 @@
 #
 ###############################################
 import time
-from osv import fields,osv
-import pooler
+from openerp.osv import fields,osv
+#import pooler
 
 class chricar_application_tables(osv.osv):
      _name = "chricar.application_tables"
@@ -62,7 +62,7 @@ class chricar_application_tables(osv.osv):
        'table_name'         : fields.char    ('Table Name Display', size=254),
        'table_name_source'  : fields.char    ('Source Table', size=64, required=True),
        'tree_editable'      : fields.char    ('Tree Editable', size=8),
-       'update_xml'         : fields.char    ('Update XML', size=64, required=True),
+       'data'         : fields.char    ('Update XML', size=64, required=True),
        'version'            : fields.char    ('Version', size=8, required=True),
        'website'            : fields.char    ('Website', size=64),
 }
@@ -77,7 +77,7 @@ class chricar_application_tables(osv.osv):
        'menu_seq'          : lambda *a: '10',
        'migrate'           : lambda *a: True,
        'state'             : lambda *a: 'Draft',
-       'update_xml'        : lambda *a: 'not defined',
+       'data'        : lambda *a: 'not defined',
        'version'           : lambda *a: '1.0',
 }
      _order = "name"

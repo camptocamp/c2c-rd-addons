@@ -52,7 +52,7 @@ Two rule-checking predicates are provided:
 , "depends"     : ["base"]
 , "init_xml"    : ["constraint_data.xml"]
 , "demo_xml"    : []
-, "update_xml"  : ["security/constraint_security.xml", "security/ir.model.access.csv", "constraint_view.xml"]
+, "data"  : ["security/constraint_security.xml", "security/ir.model.access.csv", "constraint_view.xml"]
 , "active"      : False
 , "installable" : True
 }

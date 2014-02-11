@@ -19,8 +19,8 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from osv import osv, fields
-from tools.translate import _
+from openerp.osv import osv, fields
+from openerp.tools.translate import _
         
 
 #----------------------------------------------------------

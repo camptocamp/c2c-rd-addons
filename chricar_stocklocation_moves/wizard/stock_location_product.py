@@ -20,11 +20,11 @@
 #
 ##############################################################################
 
-from osv import fields, osv
+from openerp.osv import fields, osv
 from datetime import datetime, date, time
-from tools.translate import _
+from openerp.tools.translate import _
 import logging
-import tools
+import openerp.tools
 
 class stock_location_product(osv.osv_memory):
     _inherit = "stock.location.product"

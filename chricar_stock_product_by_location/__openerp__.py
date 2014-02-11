@@ -1,4 +1,5 @@
-{ "name"         : "Product by Stock "
+{ 'sequence': 500,
+ "name"         : "Product by Stock "
 , "version"      : "1.0"
 , "author"       : "ChriCar Beteiligungs- und Beratungs- GmbH"
 , "website"      : "http://www.chricar.at"
@@ -10,7 +11,7 @@ generated 2009-09-19 23:51:03+02"""
     ]
 , "init_xml"     : []
 , "demo"         : []
-, "update_xml"   : 
+, "data"   : 
     [ "stock_product_by_location_view.xml"
     , "security/ir.model.access.csv"
     ]

@@ -19,7 +19,8 @@
 #
 ##############################################################################
 
-{
+{ 'sequence': 500,
+
     "name" : "Purchase Order Packing",
     "version" : "1.1",
     "author" : "Camptocamp Austria",
@@ -36,7 +37,7 @@ Add packing to purichase order line
     'website': 'http://www.camptocamp.com',
     "depends" : ["purchase"],
     'init_xml': [],
-    'update_xml': ['purchase_view.xml' ],
+    'data': ['purchase_view.xml' ],
     'demo_xml': [],
     'installable': True,
     'auto_install': False,

@@ -21,10 +21,10 @@
 ##############################################################################
 
 # FIXME remove logger lines or change to debug
-from osv import fields, osv
-from tools.translate import _
+from openerp.osv import fields, osv
+from openerp.tools.translate import _
 import logging
-from tools import float_round, float_is_zero, float_compare
+from openerp.tools import float_round, float_is_zero, float_compare
 
 
 class account_voucher(osv.osv):

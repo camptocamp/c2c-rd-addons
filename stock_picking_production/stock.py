@@ -21,9 +21,9 @@
 ##############################################################################
 
  
-from osv import fields, osv
-import netsvc
-from tools.translate import _
+from openerp.osv import fields, osv
+import openerp.netsvc
+from openerp.tools.translate import _
 import time
 import logging
 

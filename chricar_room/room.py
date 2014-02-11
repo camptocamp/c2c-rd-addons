@@ -33,8 +33,8 @@
 #
 ###############################################
 import time
-from osv import fields,osv
-import pooler
+from openerp.osv import fields,osv
+#import pooler
 
 class chricar_room(osv.osv):
      _name = "chricar.room"

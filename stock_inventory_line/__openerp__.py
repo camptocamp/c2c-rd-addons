@@ -21,7 +21,8 @@
 ##############################################################################
 
 
-{
+{ 'sequence': 500,
+
     'name': 'Stock Inventory Lines',
     'version': '0.7',
     'category': 'Warehouse Management',
@@ -31,7 +32,7 @@ Shows Inventoy Lines
 """,
     'author': 'Camptocamp Austria',
     'depends': ['stock' ],
-    'update_xml': ['product_view.xml',
+    'data': ['product_view.xml',
        ],
     'demo_xml': [],
     'installable': True,

@@ -20,10 +20,10 @@
 #
 ##############################################################################
 
-from osv import fields, osv
+from openerp.osv import fields, osv
 from datetime import datetime, date, time
 import logging
-import tools
+import openerp.tools
 import pytz
 
 class stock_location_product(osv.osv_memory):

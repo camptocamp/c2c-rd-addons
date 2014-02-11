@@ -19,7 +19,8 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-{ "name"         : "ChriCar Account Analytic"
+{ 'sequence': 500,
+ "name"         : "ChriCar Account Analytic"
 , "version"      : "1.0"
 , "author"       : "ChriCar Beteiligungs- und Beratungs- GmbH"
 , "website"      : "http://www.chricar.at/ChriCar"
@@ -63,7 +64,7 @@ other - naming !!!
 , "depends"      : ["account", "chricar_bank_vat", "sale", "stock"]
 , "init_xml"     : []
 , "demo"         : []
-, "update_xml"   : ["account_analytic_view.xml"]
+, "data"   : ["account_analytic_view.xml"]
 , "auto_install" : False
 , "installable"  : True
 , 'application'  : False

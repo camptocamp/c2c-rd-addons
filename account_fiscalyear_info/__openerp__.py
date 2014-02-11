@@ -28,7 +28,8 @@
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 ##############################################################################
-{ "name"         : "Fiscal Year extended Info"
+{ 'sequence': 500,
+ "name"         : "Fiscal Year extended Info"
 , "description"  : """
 Allows to store additional data (dates) per fiscal year
 * date of balance resolution

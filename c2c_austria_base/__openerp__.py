@@ -21,7 +21,8 @@
 ##############################################################################
 
 
-{
+{ 'sequence': 500,
+
     'name': 'Camptocamp Austria Base',
     'version': '1.0',
     'category': 'Others',
@@ -41,7 +42,7 @@ This module installs everything from addons we need for Austrian Base
  ,"analytic"
  ,"base"
  ,"base_action_rule"
- ,"base_calendar"
+# ,"base_calendar"
  ,"base_iban"
 # ,"base_report_creator"
 # ,"base_report_designer"
@@ -107,8 +108,8 @@ This module installs everything from addons we need for Austrian Base
  #,"wiki_quality_manual"
 # ,"wiki_sale_faq"
       ],
-    'update_xml': [       ],
-    #'update_xml': ['product_view.xml'],
+    'data': [       ],
+    #'data': ['product_view.xml'],
     'demo_xml': [],
     'installable': True,
     'active': False,

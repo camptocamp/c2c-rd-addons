@@ -21,7 +21,8 @@
 ##############################################################################
 
 
-{
+{ 'sequence': 500,
+
     'name': 'Displays available lot quantity along with name',
     'version': '1.0',
     'category': 'Warehouse Management',
@@ -32,7 +33,7 @@
 """,
     'author': 'Camptocamp Austria',
     'depends': [ 'stock','sale'],
-    'update_xml': ['stock_view.xml'],
+    'data': ['stock_view.xml'],
     'demo_xml': [],
     'installable': True,
     'active': False,

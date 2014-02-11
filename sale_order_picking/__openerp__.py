@@ -21,7 +21,8 @@
 ##############################################################################
 
 
-{
+{ 'sequence': 500,
+
     'name': 'Sale Order Picking Location',
     'version': '0.7',
     'category': 'Sale Management',
@@ -30,9 +31,9 @@ Chooses oldest lot and/or location  with available qty > 0
 """,
     'author': 'Camptocamp Austria',
     'depends': [ 'sale'],
-    'update_xml': [
+    'data': [
        ],
-    #'update_xml': ['product_view.xml'],
+    #'data': ['product_view.xml'],
     'demo_xml': [],
     'installable': True,
     'active': False,

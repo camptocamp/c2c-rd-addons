@@ -19,7 +19,8 @@
 #
 ##############################################################################
 
-{
+{ 'sequence': 500,
+
     "name" : "Project display dates in tree",
     "version" : "1.0",
     "author" : "Camptocamp Austria",
@@ -31,7 +32,7 @@ Displays stat and end date of projects and tasks in tree view
     'website': 'http://www.camptocamp.com',
     "depends" : ["project"],
     'init_xml': [],
-    'update_xml': ['project_view.xml'],
+    'data': ['project_view.xml'],
     'demo_xml': [],
     'installable': True,
     'auto_install': False,

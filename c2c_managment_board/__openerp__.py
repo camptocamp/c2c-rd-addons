@@ -21,7 +21,8 @@
 ##############################################################################
 
 
-{
+{ 'sequence': 500,
+
     'name': 'Dashboard for Management',
     'version': '1.0',
     'category': 'Board/Management Dashboard',
@@ -37,7 +38,7 @@ This module implements a dashboard for management
     """,
     'author': 'Camptocamp Austria',
     'depends': ['board', 'sale', 'purchase', 'account'],
-    'update_xml': ['management_board.xml','management_board_graph.xml','security/ir.model.access.csv'],
+    'data': ['management_board.xml','management_board_graph.xml','security/ir.model.access.csv'],
     'demo_xml': [],
     'installable': True,
     'active': False,

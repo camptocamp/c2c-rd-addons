@@ -20,9 +20,9 @@
 #
 ##############################################################################
 
-from osv import osv, fields
-import decimal_precision as dp
-from tools.translate import _
+from openerp.osv import osv, fields
+import openerp.addons.decimal_precision as dp
+from openerp.tools.translate import _
 import logging
 #----------------------------------------------------------
 # Purchase Line INHERIT
@@ -31,10 +31,12 @@ class purchase_order_line(osv.osv):
     _inherit = "purchase.order.line"
     _logger = logging.getLogger(__name__)
 
-    def _get_default_id(self, cr, uid, price_unit_id, context=None):
-        pu = self.pool.get('c2c_product.price.unit')
-        if not pu: return 1.0
-        return pu.get_default_id(cr, uid, price_unit_id, context)
+    def _get_default_id(self, cr, uid, context=None):
+    
+        pu = self.pool.get('c2c_product.price_unit')
+        #if not pu: return 1.0
+        self._logger.debug('purch get default `%s`', pu)
+        return pu.get_default_id(cr, uid, context)
 
     def _get_default_price_unit_pu(self, cr, uid, price_unit_id, context=None):
         pu = self.browse(cr, uid, price_unit_id)
@@ -72,6 +74,13 @@ class purchase_order_line(osv.osv):
         cr.execute("""
             update purchase_order_line set price_unit_id = (select min(id) from c2c_product_price_unit where coefficient=1) where price_unit_id is null;
         """)
+#        price_unit_obj = self.pool.get('c2c_product.price.unit') 
+#        puid = price_unit_obj.search(cr, uid, [('coefficient', '=', 1)])
+#        ids = self.search(cr, uid, [('price_unit_pu','=', False)])
+#        for pos in self.browse(cr, uid, ids):
+#            self.write(cr, uid, pos.id, { 'price_unit_pu': price_unit, 'price_unit_id': puid })
+            
+            
 
     def product_id_change_2c2_pu(self, cr, uid, ids, pricelist, product, qty, uom,
             partner_id, date_order=False, fiscal_position=False, date_planned=False,

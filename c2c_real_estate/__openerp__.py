@@ -21,7 +21,8 @@
 ##############################################################################
 
 
-{
+{ 'sequence': 500,
+
     'name': 'Camptocamp Real Estate',
     'version': '1.0',
     'category': 'Others',
@@ -36,8 +37,8 @@ This module installs a simple real estate management tool
 ,"chricar_room"
 ,"chricar_equipment"
       ],
-    'update_xml': [       ],
-    #'update_xml': ['product_view.xml'],
+    'data': [       ],
+    #'data': ['product_view.xml'],
     'demo_xml': [],
     'installable': True,
     'active': False,

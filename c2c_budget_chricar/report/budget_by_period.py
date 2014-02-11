@@ -30,9 +30,9 @@
 ##############################################################################
 from c2c_reporting_tools_chricar.reports.standard_report import *
 from c2c_reporting_tools_chricar.flowables.simple_row_table import *
-from c2c_reporting_tools_chricar.c2c_helper import *
+from openerp.addons.c2c_reporting_tools_chricar.c2c_helper import *
 from c2c_reporting_tools_chricar.translation import _
-from reportlab.platypus import *
+from openerp.reportlab.platypus import *
 from c2c_budget.report.helper import *
 
 class budget_by_period(StandardReport):  

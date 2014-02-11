@@ -21,7 +21,8 @@
 ##############################################################################
 
 
-{
+{ 'sequence': 500,
+
     'name': 'Camptocamp Austria Extra Addons',
     'version': '1.0',
     'category': 'Others',
@@ -80,8 +81,8 @@ This module installs everything we need for Austrian extra addons c2c_extension
 #,"stock_location"
 #,"chricar_partner_layout"
 ],
-    'update_xml': [],
-    #'update_xml': ['product_view.xml'],
+    'data': [],
+    #'data': ['product_view.xml'],
     'demo_xml': [],
     'installable': True,
     'active': False,

@@ -32,8 +32,8 @@
 #
 ###############################################
 import time
-from osv import fields,osv
-import pooler
+from openerp.osv import fields,osv
+#import pooler
 
 class chricar_application_columns(osv.osv):
      _name = "chricar.application_columns"

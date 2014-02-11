@@ -28,9 +28,9 @@
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 ##############################################################################
-from osv import fields, osv
+from openerp.osv import fields, osv
 import time
-import pooler
+#import pooler
 
 
 class c2c_budget_wizard_abstraction(osv.osv):

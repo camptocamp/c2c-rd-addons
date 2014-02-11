@@ -21,7 +21,8 @@
 ##############################################################################
 
 
-{
+{ 'sequence': 500,
+
     'name': 'Toggle display of product with 0 Values in stock location analysis',
     'version': '1.0',
     'category': 'Warehouse Management',
@@ -36,10 +37,10 @@ http://www.camptocamp.com/en/blog/2011/10/sort-and-filter-options-for-function-f
 """,
     'author': 'Camptocamp Austria',
     'depends': [ 'stock'],
-    'update_xml': [
+    'data': [
     'wizard/stock_location_product_view.xml',
        ],
-    #'update_xml': ['product_view.xml'],
+    #'data': ['product_view.xml'],
     'demo_xml': [],
     'installable': False,
     'active': False,

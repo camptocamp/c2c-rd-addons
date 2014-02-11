@@ -30,4 +30,4 @@
 ##############################################################################
 import account_invoice
 #import wizard
-import report
+#import report

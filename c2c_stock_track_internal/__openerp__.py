@@ -21,7 +21,8 @@
 ##############################################################################
 
 
-{
+{ 'sequence': 500,
+
     'name': 'Stock track internal moves',
     'version': '0.7',
     'category': 'Warehouse Management',
@@ -30,10 +31,10 @@ Requires production lot for internal moves
 """,
     'author': 'Camptocamp Austria',
     'depends': [ 'stock' ],
-    'update_xml': [
+    'data': [
     'stock_view.xml',
        ],
-    #'update_xml': ['product_view.xml'],
+    #'data': ['product_view.xml'],
     'demo_xml': [],
     'installable': True,
     'active': False,

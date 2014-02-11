@@ -19,8 +19,8 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from osv import fields, osv
-import decimal_precision as dp
+from openerp.osv import fields, osv
+import openerp.addons.decimal_precision as dp
 import logging
 
 class product_product(osv.osv):

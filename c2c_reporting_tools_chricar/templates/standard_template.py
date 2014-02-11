@@ -35,12 +35,12 @@
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 ##############################################################################
-from reportlab import platypus
-from reportlab.platypus import BaseDocTemplate, PageTemplate
-from reportlab.lib.units import mm
+from openerp.reportlab import platypus
+from openerp.reportlab.platypus import BaseDocTemplate, PageTemplate
+from openerp.reportlab.lib.units import mm
 import StringIO
 import time
-import pooler
+#import pooler
 from datetime import datetime, timedelta
 
     

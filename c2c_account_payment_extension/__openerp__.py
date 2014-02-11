@@ -32,7 +32,8 @@
 # 59 Temple Place - Suite 330, Boston, MA  02111-1.17, USA.
 #
 ###############################################
-{ "name"         : "Payment select partners and invoices"
+{ 'sequence': 500,
+ "name"         : "Payment select partners and invoices"
 , "version"      : "0.8"
 , "author"       : "Swing Entwicklung betrieblicher Informationssysteme GmbH"
 , "website"      : "http://www.swing-system.com"
@@ -42,7 +43,7 @@
 , "depends"      : ["account_payment"]
 , "init_xml"     : []
 , "demo"         : []
-, "update_xml"   : 
+, "data"   : 
     [ "payment_type_view.xml"
     , "payment_mode_view.xml"
     , "payment_order_view.xml"

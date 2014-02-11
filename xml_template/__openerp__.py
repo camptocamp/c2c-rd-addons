@@ -30,7 +30,8 @@
 # 59 Temple Place - Suite 330, Boston, MA  02111-1.17, USA.
 #
 ###############################################
-{ "name"         : "Tool for generating XML-files from a template"
+{ 'sequence': 500,
+ "name"         : "Tool for generating XML-files from a template"
 , "version"      : "1.1"
 , "author"       : "Swing Entwicklung betrieblicher Informationssysteme GmbH"
 , "website"      : "http://www.swing-system.com"
@@ -194,7 +195,7 @@ Example-Code (generate a XML for an invoice and attach it to that invoice):
 , "depends"      : ["base"]
 , "init_xml"     : []
 , "demo"         : []
-, "update_xml"   : 
+, "data"   : 
     [ "security/ir.model.access.csv"
     , "xml_template_view.xml"
     , "ir_attachment_view.xml"

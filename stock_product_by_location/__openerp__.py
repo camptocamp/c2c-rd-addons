@@ -1,4 +1,5 @@
-{ "name"         : "Product by Stock Location"
+{ 'sequence': 500,
+ "name"         : "Product by Stock Location"
 , "version"      : "1.0"
 , "author"       : "Camptocamp Austria"
 , "website"      : "http://www.camptocamp.com"
@@ -7,7 +8,7 @@
 , "depends"      : ["stock"]
 , "init_xml"     : []
 , "demo"         : []
-, "update_xml"   : 
+, "data"   : 
     [ "stock_product_by_location_view.xml"
     , "security/ir.model.access.csv"
     ]

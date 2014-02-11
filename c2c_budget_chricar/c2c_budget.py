@@ -26,9 +26,9 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
-from osv import fields, osv
+from openerp.osv import fields, osv
 import time
-import pooler
+#import pooler
 
 
 class c2c_budget(osv.osv):

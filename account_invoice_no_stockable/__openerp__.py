@@ -19,7 +19,8 @@
 #
 ##############################################################################
 
-{
+{ 'sequence': 500,
+
     "name" : "Controls product encoding in invoice lines",
     "version" : "1.2",
     "author" : "Camptocamp SA",
@@ -33,7 +34,7 @@ Forbid, allow or require  stockable product encoding  for journals
     'website': 'http://www.camptocamp.com',
     "depends" : ["account","picking_invoice_rel"],
     'init_xml': [],
-    'update_xml': ['account_invoice_view.xml'],
+    'data': ['account_invoice_view.xml'],
     'demo_xml': [],
     'installable': True,
     'auto_install': False,

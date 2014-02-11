@@ -51,7 +51,7 @@
                 ],
         "init_xml" : ["security/c2c_project_activites_security.xml"],
         "demo_xml" : ["c2c_activities_demo.xml"],
-        "update_xml" : [
+        "data" : [
                 "c2c_project_activities_view.xml",
         ],
         "active": False,

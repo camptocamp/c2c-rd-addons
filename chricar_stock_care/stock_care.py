@@ -30,9 +30,9 @@
 #
 ###############################################
 import time
-from osv import fields,osv
-import netsvc
-from tools.misc import UpdateableStr, UpdateableDict
+from openerp.osv import fields,osv
+import openerp.netsvc
+from openerp.tools.misc import UpdateableStr, UpdateableDict
 
 class stock_move(osv.osv):
     _inherit = "stock.move"

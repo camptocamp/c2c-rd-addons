@@ -24,11 +24,11 @@
 #
 #
 ###############################################
-from osv import fields, osv
-from tools.misc import currency
-from tools.sql import drop_view_if_exists
-from tools.translate import _
-import decimal_precision as dp
+from openerp.osv import fields, osv
+from openerp.tools.misc import currency
+from openerp.tools.sql import drop_view_if_exists
+from openerp.tools.translate import _
+import openerp.addons.decimal_precision as dp
 import logging
 
 

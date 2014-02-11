@@ -19,8 +19,8 @@
 #
 ##############################################################################
 import time
-from osv import osv, fields
-from tools.translate import _
+from openerp.osv import osv, fields
+from openerp.tools.translate import _
 
 
 class hr_timesheet_sheet(osv.osv):

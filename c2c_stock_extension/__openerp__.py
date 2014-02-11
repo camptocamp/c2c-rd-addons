@@ -21,7 +21,8 @@
 ##############################################################################
 
 
-{
+{ 'sequence': 500,
+
     'name': 'Stock Extensions',
     'version': '0.7',
     'category': 'Warehouse Management',
@@ -31,9 +32,9 @@ make lot ref searchable
 """,
     'author': 'Camptocamp Austria',
     'depends': [ 'stock' ],
-    'update_xml': ['stock_view.xml',
+    'data': ['stock_view.xml',
        ],
-    #'update_xml': ['product_view.xml'],
+    #'data': ['product_view.xml'],
     'demo_xml': [],
     'installable': True,
     'active': False,

@@ -22,8 +22,8 @@
 
 # FIXME remove logger lines or change to debug
  
-from osv import fields, osv
-from tools.translate import _
+from openerp.osv import fields, osv
+from openerp.tools.translate import _
 import logging
 
 class account_move_line(osv.osv):

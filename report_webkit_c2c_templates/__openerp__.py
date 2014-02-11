@@ -28,7 +28,8 @@
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 ##############################################################################
-{ "name"         : "Webkit Report c2c Austria Templates"
+{ 'sequence': 500,
+ "name"         : "Webkit Report c2c Austria Templates"
 , "description"  : """Provides Templates"""
 , "version"      : "0.9"
 , "depends"      : ["report_webkit"]

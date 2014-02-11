@@ -30,7 +30,8 @@
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 ##############################################################################
-{ "name" : "c2c Reporting Tools. A library that provide a new way to create clean reports efficiently"
+{ 'sequence': 500,
+ "name" : "c2c Reporting Tools. A library that provide a new way to create clean reports efficiently"
 , "version" : "5.0"
 , "author" : "Camptocamp"
 , "category" : "Generic Modules/Reporting"
@@ -48,7 +49,7 @@ This module follows multiple goals:
 , "website": "http://www.camptocamp.com"
 , "depends" : ["base"]
 , "init_xml" : []
-, "update_xml" : []
+, "data" : []
 , "auto_install": False
 , "installable": True
 , 'application'  : False

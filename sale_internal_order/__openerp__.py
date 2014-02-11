@@ -21,7 +21,8 @@
 ##############################################################################
 
 
-{
+{ 'sequence': 500,
+
     'name': 'Sale Internal Order',
     'version': '0.7',
     'category': 'Warehouse Management',
@@ -35,9 +36,9 @@ technical:
 """,
     'author': 'Camptocamp Austria',
     'depends': [ 'sale','stock' ],
-    'update_xml': ['partner_view.xml','sale_workflow.xml'
+    'data': ['partner_view.xml','sale_workflow.xml'
        ],
-    #'update_xml': ['product_view.xml'],
+    #'data': ['product_view.xml'],
     'demo_xml': [],
     'installable': False,
     'active': False,

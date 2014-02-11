@@ -20,6 +20,6 @@
 #
 ##############################################################################
 
-import tools_export
+import openerp.tools_export
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

@@ -29,7 +29,7 @@
 ##############################################################################
 
 import time
-from report import report_sxw
+from openerp.report import report_sxw
 import xml
 import rml_parse
 import copy
