@@ -268,6 +268,7 @@ Modification of Parents (only for matching table prefixes)
     <!--
 links to helpdesk
    -->
+<!-- 20140211 FGF
     <act_window
       domain="[('partner_id', '=', partner_id)]"
       id="act_tenant_helpdesk_partner"
@@ -285,6 +286,7 @@ links to helpdesk
       view_mode="tree,form"
       view_type="form"/>
 
+-->
 
     <record id="view_location_form_re_value" model="ir.ui.view">
       <field name="name">stock.location.form.re_value</field>

@@ -385,8 +385,13 @@ Modification of Parents (only for matching table prefixes)
         </field>
       </field>
     </record>
-    <!--
-        <separator string="Additional Information" colspan="4" position="before">
+    <record id="view_location_form_blueprint2" model="ir.ui.view">
+      <field name="name">stock.location.form.blueprint2</field>
+      <field name="model">stock.location</field>
+      <field name="type">form</field>
+      <field name="inherit_id" ref="view_location_form_blueprint"/>
+      <field name="arch" type="xml">
+        <separator string="Additional Information" position="before">
          <separator colspan="4" string="Real Estate"/>
           <field name="assessed_value"/>
           <field name="assessed_date"/>
@@ -396,7 +401,7 @@ Modification of Parents (only for matching table prefixes)
         </separator>
       </field>
     </record>
-    -->
+
     <act_window
       domain="[('ref','=',ref_top)]"
       id="act_top_2_helpdesk"
