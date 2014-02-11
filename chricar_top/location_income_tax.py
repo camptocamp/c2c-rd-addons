@@ -48,7 +48,7 @@ location_income_tax()
 class stock_location(osv.osv):
     _inherit = "stock.location"
 
-     def _get_tax_res(self, cr, uid, ids, name, args, context=None):
+    def _get_tax_res(self, cr, uid, ids, name, args, context=None):
         res = {}
         data = {}
         for loc in self.browse(cr, uid, ids, context=context):

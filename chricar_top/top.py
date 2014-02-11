@@ -335,7 +335,7 @@ class stock_location(osv.osv):
         'top_ids'        : fields.one2many('chricar.top','location_id','Real Estate Top'),
         'operating_cost' : fields.float   ('Monthly Operating Costs', digits=(10,2), help="""Operating Costs for Real Estate, will be calculated per m² for each Top"""),
     }
-      _order = 'complete_name'
+    _order = 'complete_name'
 
 stock_location()
 

@@ -2,8 +2,8 @@
 ##############################################################################
 #
 #    OpenERP, Open Source Management Solution
-#    Copyright (C) 2004-2012 Tiny SPRL (<http://tiny.be>).
-#    Copyright (C) 2004-2012 Camptocamp Austria (<http://camptocamp.com>).
+#    Copyright (C) 2004-2010 Tiny SPRL (<http://tiny.be>).
+#    Copyright (C) 2010-2012 Camptocamp Austria (<http://www.camptocamp.at>)
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -20,7 +20,27 @@
 #
 ##############################################################################
 
-import project
 
+{ 'sequence': 500,
+
+    'name': 'Product Price Unit ID Helper APP',
+    'version': '0.7',
+    'category': 'hidden',
+    'description': """
+Do not install this module
+Install 'Product Price Unit' instead
+    """,
+    'author': 'Camptocamp Austria',
+    'depends': ['product', 'purchase', 'hr_expense','account_anglo_saxon', 'c2c_stock_accounting'],
+    'data': ['c2c_product.price_unit.xml',
+                   'security/product_security.xml',
+                   'security/ir.model.access.csv',
+                   'product_view.xml',
+
+                 ],
+    #'data': ['product_view.xml'],
+    'demo_xml': [],
+    'installable': True,
+    'active': False,
+}
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
-

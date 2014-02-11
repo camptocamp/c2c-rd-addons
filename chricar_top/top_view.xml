@@ -385,6 +385,7 @@ Modification of Parents (only for matching table prefixes)
         </field>
       </field>
     </record>
+    <!--
         <separator string="Additional Information" colspan="4" position="before">
          <separator colspan="4" string="Real Estate"/>
           <field name="assessed_value"/>
@@ -395,6 +396,7 @@ Modification of Parents (only for matching table prefixes)
         </separator>
       </field>
     </record>
+    -->
     <act_window
       domain="[('ref','=',ref_top)]"
       id="act_top_2_helpdesk"
@@ -408,5 +410,6 @@ Modification of Parents (only for matching table prefixes)
       id="menu_action_location_tree_chricar"
       parent="chricar_top.menu_chricar_real_estate"
       sequence="15"/>
-  </data>
+
+</data>
 </openerp>

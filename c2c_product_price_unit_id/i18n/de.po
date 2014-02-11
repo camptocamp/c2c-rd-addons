@@ -1,0 +1,384 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* c2c_product_price_unit
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 6.1rc1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-01-23 22:04+0000\n"
+"PO-Revision-Date: 2012-01-24 00:19+0000\n"
+"Last-Translator: Joël Grand-Guillaume @ CampToCamp "
+"<joel.grandguillaume@camptocamp.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2012-10-23 05:13+0000\n"
+"X-Generator: Launchpad (build 16179)\n"
+
+#. module: c2c_product_price_unit
+#: sql_constraint:purchase.order:0
+#: sql_constraint:sale.order:0
+msgid "Order Reference must be unique per Company!"
+msgstr "Bestellbezug muss je Unternehmen eindeutig sein!"
+
+#. module: c2c_product_price_unit
+#: model:ir.model,name:c2c_product_price_unit.model_c2c_product_price_unit
+msgid "Product Price Unit"
+msgstr "Produkt Preis Einheit"
+
+#. module: c2c_product_price_unit
+#: view:product.product:0
+msgid "List Price:"
+msgstr "Listenpreis:"
+
+#. module: c2c_product_price_unit
+#: model:ir.model,name:c2c_product_price_unit.model_hr_expense_line
+msgid "Expense Line"
+msgstr "Spesenposition"
+
+#. module: c2c_product_price_unit
+#: help:account.invoice.line,price_unit_pu:0
+#: help:hr.expense.line,price_unit_pu:0
+#: help:product.template,list_price_pu:0
+#: help:product.template,standard_price_pu:0
+#: help:purchase.order.line,price_unit_pu:0
+#: help:sale.order.line,price_unit_pu:0
+#: help:stock.move,price_unit_pu:0
+msgid "Price using \"Price Units\""
+msgstr "Preis in \"Preis Einheiten\""
+
+#. module: c2c_product_price_unit
+#: help:stock.partial.picking.line,sale:0
+msgid "Sale for this product line"
+msgstr "Verkauf dieser Produktzeile"
+
+#. module: c2c_product_price_unit
+#: constraint:product.template:0
+msgid ""
+"Error: The default UOM and the purchase UOM must be in the same category."
+msgstr ""
+"Fehler: Die Standard Mengeneinheit (ME) sowie die Mengeneinheit (ME) bei der "
+"Beschaffung muss in derselben Kategorie sein."
+
+#. module: c2c_product_price_unit
+#: model:ir.model,name:c2c_product_price_unit.model_purchase_order_line
+msgid "Purchase Order Line"
+msgstr "Einkaufspositionen"
+
+#. module: c2c_product_price_unit
+#: field:stock.partial.picking.line,sale:0
+msgid "Sale"
+msgstr "Verkauf"
+
+#. module: c2c_product_price_unit
+#: constraint:product.product:0
+msgid "Error: Invalid EAN code"
+msgstr "Fehler: ungültiger EAN Code"
+
+#. module: c2c_product_price_unit
+#: model:ir.model,name:c2c_product_price_unit.model_purchase_order_line_invoice
+msgid "Purchase Order Line Make Invoice"
+msgstr "Rechnungserstellung für Auftragsposition"
+
+#. module: c2c_product_price_unit
+#: field:product.template,list_price_pu:0
+msgid "List Price PU"
+msgstr "Listenpreis PU"
+
+#. module: c2c_product_price_unit
+#: help:stock.partial.picking.line,cost_pu:0
+#: help:stock.partial.picking.line,cost_sale_pu:0
+msgid "PU Unit Cost for this product line"
+msgstr "PU Unit Cost for this product line"
+
+#. module: c2c_product_price_unit
+#: model:ir.model,name:c2c_product_price_unit.model_stock_picking
+msgid "Picking List"
+msgstr "Lieferschein Liste"
+
+#. module: c2c_product_price_unit
+#: field:stock.move,price_unit_coeff:0
+msgid "Price/Coeff internal"
+msgstr "Preis/Koeff intern"
+
+#. module: c2c_product_price_unit
+#: model:c2c_product.price_unit,name:c2c_product_price_unit.c2c_product_1
+msgid "Price/Unit"
+msgstr "Preis/Einheit"
+
+#. module: c2c_product_price_unit
+#: help:c2c_product.price_unit,coefficient:0
+msgid "Values will be calculated as price / coefficient "
+msgstr "Werte werden als Preis/Koeffizien errechnet "
+
+#. module: c2c_product_price_unit
+#: model:c2c_product.price_unit,code:c2c_product_price_unit.c2c_product_100
+msgid "%0"
+msgstr "%0"
+
+#. module: c2c_product_price_unit
+#: code:addons/c2c_product_price_unit/sale.py:182
+#, python-format
+msgid ""
+"There is no income category account defined in default Properties for "
+"Product Category or Fiscal Position is not defined !"
+msgstr ""
+"Für diese Produktkategorie ist keine Ertragskonto oder keine Steuerposition "
+"definiert !"
+
+#. module: c2c_product_price_unit
+#: model:res.groups,name:c2c_product_price_unit.group_c2c_product_price_unit_manager
+msgid "Product Price Unit Manager"
+msgstr "Produkt Preis Einheit Mananger"
+
+#. module: c2c_product_price_unit
+#: field:c2c_product.price_unit,coefficient:0
+msgid "Coefficient"
+msgstr "Koeffizient"
+
+#. module: c2c_product_price_unit
+#: model:c2c_product.price_unit,code:c2c_product_price_unit.c2c_product_1
+msgid " "
+msgstr " "
+
+#. module: c2c_product_price_unit
+#: field:c2c_product.price_unit,name:0
+msgid "Price per Unit"
+msgstr "Price je Einheit"
+
+#. module: c2c_product_price_unit
+#: model:c2c_product.price_unit,code:c2c_product_price_unit.c2c_product_100c
+msgid "%"
+msgstr "%"
+
+#. module: c2c_product_price_unit
+#: field:c2c_product.price_unit,code:0
+msgid "PU"
+msgstr "PU"
+
+#. module: c2c_product_price_unit
+#: constraint:stock.move:0
+msgid "You try to assign a lot which is not from the same product"
+msgstr ""
+"Sie versuchen eine Losnummer ohne Bezug zu diesem Produkt zuzuweisen."
+
+#. module: c2c_product_price_unit
+#: constraint:stock.move:0
+msgid "You can not move products from or to a location of the type view."
+msgstr "Sie können keine Buchungen auf Sichten machen"
+
+#. module: c2c_product_price_unit
+#: field:purchase.order.line,price_unit_pu:0
+msgid "Unit Price PU"
+msgstr "Unit Price PU"
+
+#. module: c2c_product_price_unit
+#: constraint:account.invoice.line:0
+msgid "You must not define an analytic account.(invoiceline)"
+msgstr "You must not define an analytic account.(invoiceline)"
+
+#. module: c2c_product_price_unit
+#: model:res.groups,name:c2c_product_price_unit.group_c2c_product_price_unit_user
+msgid "Product Price Unit User"
+msgstr "Produkt Preis Einheit Benutzer"
+
+#. module: c2c_product_price_unit
+#: model:c2c_product.price_unit,name:c2c_product_price_unit.c2c_product_100
+msgid "Price/1000"
+msgstr "Preis/1000"
+
+#. module: c2c_product_price_unit
+#: help:c2c_product.price_unit,name:0
+msgid "Enter something like: Price for 100 units"
+msgstr "Eingabe zB: Preis für 100 Einheiten"
+
+#. module: c2c_product_price_unit
+#: model:ir.model,name:c2c_product_price_unit.model_stock_partial_picking
+msgid "Partial Picking Processing Wizard"
+msgstr "Teillieferungsassistent"
+
+#. module: c2c_product_price_unit
+#: field:stock.partial.picking.line,move_type:0
+msgid "Move Type"
+msgstr "Buchungstyp"
+
+#. module: c2c_product_price_unit
+#: view:c2c_product.price_unit:0
+#: model:ir.actions.act_window,name:c2c_product_price_unit.c2c_product_price_unit_act1
+#: model:ir.ui.menu,name:c2c_product_price_unit.menu_c2c_product_price_unit_list
+msgid "Price Units"
+msgstr "Preis Einheiten"
+
+#. module: c2c_product_price_unit
+#: code:addons/c2c_product_price_unit/stock.py:157
+#, python-format
+msgid "Error, no partner !"
+msgstr "Fehler, kein Partner!"
+
+#. module: c2c_product_price_unit
+#: constraint:stock.move:0
+msgid ""
+"Error: Negative quantities for location and/or lots are not allowed for this "
+"product or product category"
+msgstr "Fehler: negative Mengen sind für diesen Lagerort / Los nicht erlaubt"
+
+#. module: c2c_product_price_unit
+#: model:ir.model,name:c2c_product_price_unit.model_stock_partial_picking_line
+msgid "stock.partial.picking.line"
+msgstr "stock.partial.picking.line"
+
+#. module: c2c_product_price_unit
+#: code:addons/c2c_product_price_unit/wizard/purchase_line_invoice.py:172
+#, python-format
+msgid "Supplier Invoices"
+msgstr "Lieferanten Rechnungen"
+
+#. module: c2c_product_price_unit
+#: constraint:stock.move:0
+msgid "You must assign a production lot for this product"
+msgstr "Sie müssen zwingend eine Losnummer für dieses Produkt angeben"
+
+#. module: c2c_product_price_unit
+#: model:ir.model,name:c2c_product_price_unit.model_product_product
+msgid "Product"
+msgstr "Produkt"
+
+#. module: c2c_product_price_unit
+#: field:stock.partial.picking.line,cost_pu:0
+msgid "Cost PU"
+msgstr "Cost PU"
+
+#. module: c2c_product_price_unit
+#: model:ir.model,name:c2c_product_price_unit.model_product_template
+msgid "Product Template"
+msgstr "Vorlage f. Produkte"
+
+#. module: c2c_product_price_unit
+#: field:stock.move,price_unit_sale_id:0
+#: field:stock.partial.picking.line,cost_unit_sale_pu:0
+msgid "Price Unit Sale"
+msgstr "Preis Einheit Verkauf"
+
+#. module: c2c_product_price_unit
+#: sql_constraint:stock.picking:0
+msgid "Reference must be unique per Company!"
+msgstr "Referenz muss je Unternehmen eindeutig sein"
+
+#. module: c2c_product_price_unit
+#: constraint:account.invoice.line:0
+msgid "You must not alter a fixed analytic account.(invoiceline)"
+msgstr "You must not alter a fixed analytic account.(invoiceline)"
+
+#. module: c2c_product_price_unit
+#: view:c2c_product.price_unit:0
+msgid "invisible"
+msgstr "unsichtbar"
+
+#. module: c2c_product_price_unit
+#: code:addons/c2c_product_price_unit/sale.py:163
+#: code:addons/c2c_product_price_unit/sale.py:181
+#: code:addons/c2c_product_price_unit/wizard/purchase_line_invoice.py:136
+#, python-format
+msgid "Error !"
+msgstr "Fehler!"
+
+#. module: c2c_product_price_unit
+#: model:ir.model,name:c2c_product_price_unit.model_purchase_order
+msgid "Purchase Order"
+msgstr "Beschaffungsauftrag"
+
+#. module: c2c_product_price_unit
+#: field:account.invoice.line,price_unit_id:0
+#: field:hr.expense.line,price_unit_id:0
+#: field:product.template,list_price_unit_id:0
+#: field:product.template,price_unit_id:0
+#: field:purchase.order.line,price_unit_id:0
+#: field:sale.order.line,price_unit_id:0
+#: field:stock.move,price_unit_id:0
+#: field:stock.partial.picking.line,cost_unit_pu:0
+msgid "Price Unit"
+msgstr "Preis Einheit"
+
+#. module: c2c_product_price_unit
+#: code:addons/c2c_product_price_unit/sale.py:164
+#, python-format
+msgid "There is no income account defined for this product: \"%s\" (id:%d)"
+msgstr "Für dieses Produkt ist kein Ertragskonto definiert: \"%s\" (id:%d)"
+
+#. module: c2c_product_price_unit
+#: constraint:account.invoice.line:0
+msgid "You must assign an analytic account.(invoiceline)"
+msgstr "You must assign an analytic account.(invoiceline)"
+
+#. module: c2c_product_price_unit
+#: help:c2c_product.price_unit,code:0
+msgid "a 3 char code to pe placed next to the price"
+msgstr "ein 3stelliger Code nach dem Preis"
+
+#. module: c2c_product_price_unit
+#: model:c2c_product.price_unit,code:c2c_product_price_unit.c2c_product_1000
+msgid "¢"
+msgstr "¢"
+
+#. module: c2c_product_price_unit
+#: model:c2c_product.price_unit,name:c2c_product_price_unit.c2c_product_100c
+msgid "Price/100"
+msgstr "Preis/100"
+
+#. module: c2c_product_price_unit
+#: model:ir.model,name:c2c_product_price_unit.model_stock_move
+msgid "Stock Move"
+msgstr "Lagerbuchung"
+
+#. module: c2c_product_price_unit
+#: code:addons/c2c_product_price_unit/wizard/purchase_line_invoice.py:137
+#, python-format
+msgid "There is no expense account defined for this product: \"%s\" (id:%d)"
+msgstr "Für diese Produkt ist kein Aufwandskonto definiert: \"%s\" (id:%d)"
+
+#. module: c2c_product_price_unit
+#: model:ir.model,name:c2c_product_price_unit.model_account_invoice_line
+msgid "Invoice Line"
+msgstr "Rechungsposition"
+
+#. module: c2c_product_price_unit
+#: field:product.template,standard_price_pu:0
+msgid "Cost Price PU"
+msgstr "Cost Price PU"
+
+#. module: c2c_product_price_unit
+#: field:stock.partial.picking.line,cost_sale_pu:0
+msgid "Sale PU"
+msgstr "Sale PU"
+
+#. module: c2c_product_price_unit
+#: field:account.invoice.line,price_unit_pu:0
+#: field:hr.expense.line,price_unit_pu:0
+#: field:sale.order.line,price_unit_pu:0
+#: field:stock.move,price_unit_pu:0
+msgid "Unit Price"
+msgstr "Preis"
+
+#. module: c2c_product_price_unit
+#: model:c2c_product.price_unit,name:c2c_product_price_unit.c2c_product_1000
+msgid "Price in Cents"
+msgstr "Preis in Cents"
+
+#. module: c2c_product_price_unit
+#: model:ir.model,name:c2c_product_price_unit.model_sale_order
+msgid "Sales Order"
+msgstr "Verkaufsauftrag"
+
+#. module: c2c_product_price_unit
+#: model:ir.model,name:c2c_product_price_unit.model_sale_order_line
+msgid "Sales Order Line"
+msgstr "Auftragsposition"
+
+#. module: c2c_product_price_unit
+#: code:addons/c2c_product_price_unit/stock.py:158
+#, python-format
+msgid ""
+"Please put a partner on the picking list if you want to generate invoice."
+msgstr "Bitte Partner für die Erstellung einer Rechnung eingeben"

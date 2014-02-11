@@ -1,0 +1,5 @@
+"id","coefficient","code","name"
+1,"1"," ","Price / Unit"
+2,"100","¢","Price in Cents"
+3,"100","%","Price / 100"
+4,"1000","%0","Price / 1000"

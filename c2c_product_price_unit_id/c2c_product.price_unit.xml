@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data noupdate="1">
+    <record id="c2c_product_1" model="c2c_product.price_unit">
+      <field name="coefficient">1</field>
+      <field name="code">.</field>
+      <field name="name">Price / Unit</field>
+    </record>
+    <record id="c2c_product_100c" model="c2c_product.price_unit">
+      <field name="coefficient">100</field>
+      <field name="code">¢</field>
+      <field name="name">Price in Cents</field>
+    </record>
+    <record id="c2c_product_100" model="c2c_product.price_unit">
+      <field name="coefficient">100</field>
+      <field name="code">%</field>
+      <field name="name">Price / 100</field>
+    </record>
+    <record id="c2c_product_1000" model="c2c_product.price_unit">
+      <field name="coefficient">1000</field>
+      <field name="code">%0</field>
+      <field name="name">Price / 1000</field>
+    </record>
+  </data>
+</openerp>

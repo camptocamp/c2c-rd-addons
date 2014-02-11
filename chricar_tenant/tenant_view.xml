@@ -200,7 +200,7 @@ Modification of Parents (only for matching table prefixes)
     </record>
     <record model="ir.ui.view" id="chricar_top_tenant_form2">
       <field name="name">chricar.top.form2</field>
-      <field name="model">chrchricaricar.top</field>
+      <field name="model">chricar.top</field>
       <field name="inherit_id" ref="chricar_top_tenant_form1"/>
       <field name="arch" type="xml">
         <field name="lease_target" position="after">

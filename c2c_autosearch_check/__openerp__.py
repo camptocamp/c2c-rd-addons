@@ -30,7 +30,7 @@
 #
 ###############################################
 { 'sequence': 500,
- "name"         : "Autosearch Check"
+ "name"         : "Autosearch Check - just an Idea"
 , "version"      : "1.0"
 , "author"       : "Camptocamp Austria"
 , "website"      : "http://www.camptocamp.at"
@@ -47,7 +47,7 @@ This check will run periodically and turn off autosearch for ir_act_window where
 , "demo"         : []
 , "data"   : ["autosearch_view.xml"]
 , "auto_install" : False
-, "installable"  : True
+, "installable"  : False
 , 'application'  : False
 }
 
