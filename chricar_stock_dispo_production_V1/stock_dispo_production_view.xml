@@ -1210,11 +1210,13 @@ Modification of Parents (only for matching table prefixes)
       <field name="view_id" ref="chricar_sale_order_dispo_production_form"/>
       <field name="act_window_id" ref="chricar_stock_dispo_production_act2"/>
     </record>
+<!--
     <menuitem
       action="chricar_stock_dispo_production_act2"
       id="menu_chricar_stock_dispo_production_form"
       parent="menu_chricar_farm_production"
       sequence="30"/>
+-->
 <!--
     <record model="ir.actions.act_window" id="chricar_stock_dispo_production_open_act">
       <field name="name">Dispo Production Open</field>

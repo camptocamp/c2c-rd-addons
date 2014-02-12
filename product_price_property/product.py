@@ -28,7 +28,7 @@ class product_product(osv.osv):
 
     _columns = {
       'list_price': fields.property(
-            'product.product',
+            relation='product.product',
             type='float',
             digits_compute=dp.get_precision('Sale Price'),
             string="Sale Price",
@@ -36,7 +36,7 @@ class product_product(osv.osv):
             group_name=None,
             help="Base price for computing the customer price. Sometimes called the catalog price."),
       'standard_price': fields.property(
-            'product.product',
+            relation='product.product',
             type='float',
             digits_compute=dp.get_precision('Purchase Price'),
             string="Cost Price",

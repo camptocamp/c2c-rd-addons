@@ -45,7 +45,7 @@ No XML data yet - these must be extracted from the database Real Estate template
    ],
     #'data': ['product_view.xml'],
     'demo_xml': [],
-    'installable': True,
+    'installable': False,
     'active': False,
 }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

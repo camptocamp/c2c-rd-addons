@@ -36,14 +36,15 @@ class account_payment_term_line(osv.osv):
     _columns = {
         'is_discount': fields.related('payment_id','is_discount', type='boolean', string='Is Cash Discount', readonly=True) ,
         'discount': fields.float('Discount (%)', digits=(4,2), ),
-        'discount_income_account_id': fields.property('account.account', type='many2one', relation='account.account', string='Discount Income Account',  view_load=True,
+        'discount_income_account_id': fields.property(type='many2one', relation='account.account', string='Discount Income Account',  view_load=True, 
               help="This account will be used to post the cash discount income"),
-        'discount_expense_account_id': fields.property('account.account', type='many2one', relation='account.account', string='Discount Expense Account',  view_load=True,
+        'discount_expense_account_id': fields.property(type='many2one', relation='account.account', string='Discount Expense Account',  view_load=True,
               help="This account will be used to post the cash discount expense"),
     }
 
     def onchange_discount(self, cr, uid, ids, discount):
         if not discount: return {}
+        # FIXME FGF 20140212
         result = {}
         result = {'value': { 'value_amount': round(1-(discount/100.0),2), }}
         return result

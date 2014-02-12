@@ -24,7 +24,7 @@ from openerp.osv import fields, orm
 class product_template(orm.Model):
     _inherit = 'product.template'
     _columns = {
-        'property_stock_location': fields.property('stock.location',
+        'property_stock_location': fields.property(
             relation='stock.location', type='many2one',
             string='Stock Location', method=True, view_load=True,
             help="This location will be proposed as source (sale,internal) or target (purchase,production) location for stock move for this product."\
@@ -35,7 +35,7 @@ class product_template(orm.Model):
 class product_category(orm.Model):
     _inherit = 'product.category'
     _columns = {
-        'property_stock_location': fields.property('stock.location',
+        'property_stock_location': fields.property(
             relation='stock.location', type='many2one',
             string='Stock Location', method=True, view_load=True,
             help="This location will be proposed as source (sale,internal) or target (purchase,production) location for stock moves of this category"),

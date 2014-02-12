@@ -42,11 +42,11 @@ class account_move_line_change(osv.osv_memory):
 
     _columns = {
         'account_id'       : fields.many2one('account.account','Current Account' ),
-        'account_type'     : fields.char('Internal Type', size='16'),
+        'account_type'     : fields.char('Internal Type', size=16),
         'account_user_type': fields.many2one('account.account.type', 'Account Type'),
         'account_new_id'   : fields.many2one('account.account','New Account' ),
         'period_id'        : fields.many2one('account.period','Period' ),
-        'period_state'     : fields.char('Period State', size ='16' ),
+        'period_state'     : fields.char('Period State', size =16 ),
 
     }
 

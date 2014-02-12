@@ -26,6 +26,7 @@ from openerp.osv import fields, osv
 class sale_order(osv.osv):
     _inherit = "sale.order"
     _columns = {
-       'partner_shipping_p_id': fields.related('partner_shipping_id', 'partner_id', type='many2one', relation='res.partner', string='Shipping Partner'),
+       #'partner_shipping_p_id': fields.related('partner_shipping_id', 'partner_id', type='many2one', relation='res.partner', string='Shipping Partner'),
+       'partner_shipping_p_id': fields.many2one('res.partner', 'Shipping Partner'),
     }
 sale_order()
