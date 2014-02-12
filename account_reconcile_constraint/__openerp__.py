@@ -23,7 +23,7 @@
 
     "name" : "Reconcile reconcile accounts",
     "version" : "1.1",
-    "author" : "Camptocamp SA",
+    "author" : "Camptocamp Austria",
     "category": 'Accounting & Finance',
     'complexity': "normal",
     "description": """

@@ -20,7 +20,7 @@
 #
 ##############################################################################
 
-from openerp #import pooler, tools
+#from openerp import pooler, tools
 from openerp.report.interface import report_rml
 from openerp.tools import to_xml
 from openerp.tools.translate import translate

@@ -23,7 +23,7 @@
 
     "name" : "Controls product encoding in invoice lines",
     "version" : "1.2",
-    "author" : "Camptocamp SA",
+    "author" : "Camptocamp Austria",
     "category": 'Accounting & Finance',
     'complexity': "normal",
     "description": """
