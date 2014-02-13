@@ -42,7 +42,7 @@ http://www.camptocamp.com/en/blog/2011/10/sort-and-filter-options-for-function-f
        ],
     #'data': ['product_view.xml'],
     'demo_xml': [],
-    'installable': False,
+    'installable': True,
     'active': False,
 }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

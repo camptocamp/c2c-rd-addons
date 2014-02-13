@@ -41,7 +41,7 @@ this should be made configurable
     'init_xml': [],
     'data': [],
     'demo_xml': [],
-    'installable': False,
+    'installable': True,
     'auto_install': False,
 }
 

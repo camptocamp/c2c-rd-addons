@@ -13,7 +13,7 @@
  , "demo"         : []
  , "data"   : ["cashbox_view.xml"]
  , "auto_install" : False
- , "installable"  : False
+ , "installable"  : True
 , 'application'  : False
 }
 
