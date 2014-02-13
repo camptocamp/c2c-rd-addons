@@ -23,24 +23,24 @@
 
 { 'sequence': 500,
 
-    'name': 'Dashboard for Management',
-    'version': '1.0',
-    'category': 'Board/Management Dashboard',
-    'description': """
+'name': 'Dashboard for Management',
+'version': '1.0',
+'category': 'Board/Management Dashboard',
+'description': """
 This module implements a dashboard for management
     * financial development last 13 weeks
-    ** Sale orders 
-    ** Purchase Orders
-    ** Invoices
-    ** Financial status (For short term bank+cash accounts use user_type.code = cash)
+        * Sale orders 
+        * Purchase Orders
+        * Invoices
+        * Financial status (For short term bank+cash accounts use user_type.code = cash)
 
-    ToDo: make it  multicompany ready
-    """,
-    'author': 'Camptocamp Austria',
-    'depends': ['board', 'sale', 'purchase', 'account'],
-    'data': ['management_board.xml','management_board_graph.xml','security/ir.model.access.csv'],
-    'demo_xml': [],
-    'installable': True,
-    'active': False,
+ToDo: make it  multicompany ready
+""",
+'author': 'Camptocamp Austria',
+'depends': ['board', 'sale', 'purchase', 'account'],
+'data': ['management_board.xml','management_board_graph.xml','security/ir.model.access.csv'],
+'demo_xml': [],
+'installable': True,
+'active': False,
 }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

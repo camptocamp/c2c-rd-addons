@@ -23,24 +23,24 @@
 
 { 'sequence': 500,
 
-    'name': 'Stock Product Location',
-    'version': '0.8',
-    'category': 'Warehouse Management',
-    'description': """
+'name': 'Stock Product Location',
+'version': '0.8',
+'category': 'Warehouse Management',
+'description': """
 This module defines a default stock location for products and product groups.
 This will be used 
-* as destination location for purchases, production, and stock update from
-  product.
-* as source location for sales and internal moves
+    * as destination location for purchases, production, and stock update from
+product.
+    * as source location for sales and internal moves
 
 """,
-    'author': 'Camptocamp Austria',
-    'depends': [ 'product','stock','sale','purchase' ],
-    'data': ['product_view.xml',
-       ],
-    'demo': [],
-    'contributors': ['Pedro M. Baeza (pedro.baeza@serviciosbaeza.com)'],
-    'installable': True,
-    'active': False,
+'author': 'Camptocamp Austria',
+'depends': [ 'product','stock','sale','purchase' ],
+'data': ['product_view.xml',
+  ],
+'demo': [],
+'contributors': ['Pedro M. Baeza (pedro.baeza@serviciosbaeza.com)'],
+'installable': True,
+'active': False,
 }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

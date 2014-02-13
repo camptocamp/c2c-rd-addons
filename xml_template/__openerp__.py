@@ -31,7 +31,7 @@
 #
 ###############################################
 { 'sequence': 500,
- "name"         : "Tool for generating XML-files from a template"
+"name"         : "Tool for generating XML-files from a template"
 , "version"      : "1.1"
 , "author"       : "Swing Entwicklung betrieblicher Informationssysteme GmbH"
 , "website"      : "http://www.swing-system.com"
@@ -143,15 +143,15 @@ will produce
 
 The programmatic interface (API) of the XML-Template:
 
- def generate_xml(self, cr, uid, id, nsmap=None, \*\*scope_dict)
+def generate_xml(self, cr, uid, id, nsmap=None, \*\*scope_dict)
 
 returns the output XMl. If a schema is provided, the validity is checked.
 
- def attach_xml(self, cr, uid, id, attach_to, xml, name, fname, description, context)
+def attach_xml(self, cr, uid, id, attach_to, xml, name, fname, description, context)
 
 creates an attachment from the output XML and attaches it to another object.
 
- def write_file(self, cr, uid, id, xml, filename)
+def write_file(self, cr, uid, id, xml, filename)
 
 writes the output XML to a (server-side) provided file.
 
@@ -196,10 +196,10 @@ Example-Code (generate a XML for an invoice and attach it to that invoice):
 , "init_xml"     : []
 , "demo"         : []
 , "data"   : 
-    [ "security/ir.model.access.csv"
-    , "xml_template_view.xml"
-    , "ir_attachment_view.xml"
-    ]
+[ "security/ir.model.access.csv"
+, "xml_template_view.xml"
+, "ir_attachment_view.xml"
+]
 , "test"         : []
 , "auto_install" : False
 , "installable"  : True

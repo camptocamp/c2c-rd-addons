@@ -1,5 +1,5 @@
 { 'sequence': 500,
- "name"         : "Equipment"
+"name"         : "Equipment"
 , "version"      : "1.0"
 , "author"       : "ChriCar Beteiligungs- und Beratungs- GmbH"
 , "website"      : "http://www.chricar.at/ChriCar"

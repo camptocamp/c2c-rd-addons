@@ -31,7 +31,7 @@
 #
 ###############################################
 { 'sequence': 500,
- "name"         : "Migration tool using XML"
+"name"         : "Migration tool using XML"
 , "version"      : "1.1"
 , "author"       : "Swing Entwicklung betrieblicher Informationssysteme GmbH"
 , "website"      : "http://www.swing-system.com"

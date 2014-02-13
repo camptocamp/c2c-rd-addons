@@ -33,13 +33,13 @@
 #
 ###############################################
 { 'sequence': 500,
- "name"        : "Camptocamp basic definitions"
+"name"        : "Camptocamp basic definitions"
 , "version"     : "1.0"
 , "author"      : "Camptocamp Austria"
 , "website"     : "http://www.camptocamp.at"
 , "description" : """Defines basic information for Camptocamp
 
-* process to access os with proper error handling
+    * process to access os with proper error handling
 
 """
 , "category"    : "Client Modules/Camptocamp"

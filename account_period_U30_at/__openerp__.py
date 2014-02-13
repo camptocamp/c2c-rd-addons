@@ -31,7 +31,7 @@
 #
 ###############################################
 { 'sequence': 500,
- "name"        : "Austrian VAT declaration"
+"name"        : "Austrian VAT declaration"
 , "version"     : "1.0"
 , "author"      : "Swing Entwicklung betrieblicher Informationssysteme GmbH"
 , "website"     : "http://www.swing-system.com"
@@ -44,9 +44,9 @@ This module generates a XML-file per account period attaches it to the period.
 """
 , "category"    : "Accounting & Finance"
 , "depends"     : 
-    [ "account"
-    , "xml_template"
-    ]
+[ "account"
+, "xml_template"
+]
 , "init_xml"    : ["U30.xml"]
 , "demo_xml"    : []
 , "data"  : ["installer_view.xml"]

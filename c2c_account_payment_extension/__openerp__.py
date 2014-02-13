@@ -33,7 +33,7 @@
 #
 ###############################################
 { 'sequence': 500,
- "name"         : "Payment select partners and invoices"
+"name"         : "Payment select partners and invoices"
 , "version"      : "0.8"
 , "author"       : "Swing Entwicklung betrieblicher Informationssysteme GmbH"
 , "website"      : "http://www.swing-system.com"
@@ -44,14 +44,14 @@
 , "init_xml"     : []
 , "demo"         : []
 , "data"   : 
-    [ "payment_type_view.xml"
-    , "payment_mode_view.xml"
-    , "payment_order_view.xml"
-    , "res_partner_view.xml"
-    , "account_invoice_view.xml"
-    , "wizard/account_payment_order_view.xml"
-    , "security/ir.model.access.csv"
-    ]
+[ "payment_type_view.xml"
+, "payment_mode_view.xml"
+, "payment_order_view.xml"
+, "res_partner_view.xml"
+, "account_invoice_view.xml"
+, "wizard/account_payment_order_view.xml"
+, "security/ir.model.access.csv"
+]
 , "test"         : []
 , "auto_install" : False
 , "installable"  : True

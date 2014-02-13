@@ -31,7 +31,7 @@
 #
 ###############################################
 { 'sequence': 500,
- "name"         : "Generate CSV-file from a table"
+"name"         : "Generate CSV-file from a table"
 , "version"      : "1.1"
 , "author"       : "Swing Entwicklung betrieblicher Informationssysteme GmbH"
 , "website"      : "http://www.swing-system.com"

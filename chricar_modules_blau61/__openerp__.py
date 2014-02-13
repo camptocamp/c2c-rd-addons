@@ -23,14 +23,14 @@
 
 { 'sequence': 500,
 
-    'name': 'Modules Blaustauden',
-    'version': '1.0',
-    'category': 'Others',
-    'description': """
+'name': 'Modules Blaustauden',
+'version': '1.0',
+'category': 'Others',
+'description': """
 This module installs everything for Blaustauden
 """,
-    'author': 'Camptocamp Austria',
-    'depends': [
+'author': 'Camptocamp Austria',
+'depends': [
 "account"
 ,"account_accountant"
 ,"account_analytic_analysis"
@@ -236,11 +236,11 @@ This module installs everything for Blaustauden
 #,"wiki_sale_faq"
 #,"xml_export_data"
 #,"xml_template"
-     ],
-    'data': [       ],
-    #'data': ['product_view.xml'],
-    'demo_xml': [],
-    'installable': True,
-    'active': False,
+],
+'data': [       ],
+#'data': ['product_view.xml'],
+'demo_xml': [],
+'installable': True,
+'active': False,
 }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

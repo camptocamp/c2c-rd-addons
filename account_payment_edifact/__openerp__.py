@@ -31,7 +31,7 @@
 #
 ###############################################
 { 'sequence': 500,
- "name"        : "Electronic Banking via EDIFACT"
+"name"        : "Electronic Banking via EDIFACT"
 , "version"     : "1.1"
 , "author"      : "Swing Entwicklung betrieblicher Informationssysteme GmbH"
 , "website"     : "http://www.swing-system.com"
@@ -68,17 +68,17 @@ A conversion to ASCII for all texts within the EDIFACT-file is attempted.
 """
 , "category"    : "Payment module"
 , "depends"     : 
-    [ "account_payment"
-    , "base_iban"
-    , "account_payment_customer_data"
-    ]
+[ "account_payment"
+, "base_iban"
+, "account_payment_customer_data"
+]
 , "init_xml"    : []
 , "demo"        : []
 , "data"  : 
-    [ 'payment_iban.xml'
-    , 'res_bank_view.xml'
-    , 'wizard/generate_edifact_view.xml'
-    ]
+[ 'payment_iban.xml'
+, 'res_bank_view.xml'
+, 'wizard/generate_edifact_view.xml'
+]
 , "test"        : []
 , "auto_install": False
 , "installable" : True

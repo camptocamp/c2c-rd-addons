@@ -29,7 +29,7 @@
 #
 ##############################################################################
 { 'sequence': 500,
- "name"         : "CRM Helpdesk Report"
+"name"         : "CRM Helpdesk Report"
 , "description"  : """This module provides a report displaying history of crm_helpdesk"""
 , "version"      : "0.9"
 , "depends"      : ["crm_helpdesk", "report_webkit"]

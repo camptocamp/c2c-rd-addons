@@ -21,21 +21,21 @@
 
 { 'sequence': 500,
 
-    "name" : "Project Notes",
-    "version" : "1.0",
-    "author" : "Camptocamp Austria",
-    "category": 'Project',
-    'complexity': "easy",
-    "description": """
+"name" : "Project Notes",
+"version" : "1.0",
+"author" : "Camptocamp Austria",
+"category": 'Project',
+'complexity': "easy",
+"description": """
 Adds Note fields to Project and Task
-    """,
-    'website': 'http://www.camptocamp.com',
-    "depends" : ["project"],
-    'init_xml': [],
-    'data': ['project_view.xml'],
-    'demo_xml': [],
-    'installable': True,
-    'auto_install': False,
+""",
+'website': 'http://www.camptocamp.com',
+"depends" : ["project"],
+'init_xml': [],
+'data': ['project_view.xml'],
+'demo_xml': [],
+'installable': True,
+'auto_install': False,
 }
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

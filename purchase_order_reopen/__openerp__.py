@@ -21,26 +21,26 @@
 
 { 'sequence': 500,
 
-    "name" : "Purchase Order Reopen",
-    "version" : "1.1",
-    "author" : "Camptocamp Austria",
-    "category": 'Purchase Management',
-    'complexity': "normal",
-    "description": """
+"name" : "Purchase Order Reopen",
+"version" : "1.1",
+"author" : "Camptocamp Austria",
+"category": 'Purchase Management',
+'complexity': "normal",
+"description": """
 Allows reopening of purchase orders.
 ================================
 
 This module allows to reopen (set to Quotation) Purchase Orders in state progress and cancel
 as associated pickings or invoices are canceled if possible
 
-    """,
-    'website': 'http://www.camptocamp.com',
-    "depends" : ["purchase","stock_picking_reopen","account_invoice_reopen"],
-    'init_xml': [],
-    'data': ['purchase_view.xml','purchase_workflow.xml' ],
-    'demo_xml': [],
-    'installable': True,
-    'auto_install': False,
+""",
+'website': 'http://www.camptocamp.com',
+"depends" : ["purchase","stock_picking_reopen","account_invoice_reopen"],
+'init_xml': [],
+'data': ['purchase_view.xml','purchase_workflow.xml' ],
+'demo_xml': [],
+'installable': True,
+'auto_install': False,
 }
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

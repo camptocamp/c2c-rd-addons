@@ -23,39 +23,39 @@
 
 { 'sequence': 500,
 
-    'name': 'Stock Accounting',
-    'version': '0.7',
-    'category': 'Warehouse Management',
-    'description': """
+'name': 'Stock Accounting',
+'version': '0.7',
+'category': 'Warehouse Management',
+'description': """
 ************** Attention ***************
-* Must be intalled without demo data
-* the module must be installed and upgraded immediately to complete all modifications
+    * Must be intalled without demo data
+    * the module must be installed and upgraded immediately to complete all modifications
 ************** Attention ***************
 
 This module adds stock accounting features
-* historical evaluation
-* stock evaluation matches financial accounting
-* analytic account - to create analytc moves derived from stock_moves
-* value corrections per stock location and lot
+    * historical evaluation
+    * stock evaluation matches financial accounting
+    * analytic account - to create analytc moves derived from stock_moves
+    * value corrections per stock location and lot
 
 ToDo
-* stock reports
-** partly DONE report/report_stock_move.py - need in/out values for internal locations too
-* generate analytic lines
-* Recalculate move_value_cost of out moves if value correction or in move is prior of out moves
-** correct real time accounting
-* automatic handling of value roundings if qty_available is 0 after posting
+    * stock reports
+        * partly DONE report/report_stock_move.py - need in/out values for internal locations too
+    * generate analytic lines
+    * Recalculate move_value_cost of out moves if value correction or in move is prior of out moves
+        * correct real time accounting
+    * automatic handling of value roundings if qty_available is 0 after posting
 """,
-    'author': 'Camptocamp Austria',
-    'depends': ['product','purchase','sale', 'stock','stock_get_name_qty','stock_product_zero','report_webkit','c2c_stock_track_internal' ],
-    'data': ['security/stock_security.xml',
-                   'stock_view.xml',
-                   'stock_report.mxl',
-                   'wizard/stock_location_product_view.xml',
-       ],
-    #'data': ['product_view.xml'],
-    'demo_xml': [],
-    'installable': True,
-    'active': False,
+'author': 'Camptocamp Austria',
+'depends': ['product','purchase','sale', 'stock','stock_get_name_qty','stock_product_zero','report_webkit','c2c_stock_track_internal' ],
+'data': ['security/stock_security.xml',
+              'stock_view.xml',
+              'stock_report.mxl',
+              'wizard/stock_location_product_view.xml',
+  ],
+#'data': ['product_view.xml'],
+'demo_xml': [],
+'installable': True,
+'active': False,
 }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

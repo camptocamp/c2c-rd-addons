@@ -29,7 +29,7 @@
 #
 ##############################################################################
 { 'sequence': 500,
- "name"         : "Webkit Report c2c Austria Templates"
+"name"         : "Webkit Report c2c Austria Templates"
 , "description"  : """Provides Templates"""
 , "version"      : "0.9"
 , "depends"      : ["report_webkit"]

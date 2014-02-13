@@ -31,7 +31,7 @@
 #
 ###############################################
 { 'sequence': 500,
- "name"         : "Constraints definitions"
+"name"         : "Constraints definitions"
 , "version"      : "1.1"
 , "author"       : "Swing Entwicklung betrieblicher Informationssysteme GmbH"
 , "website"      : "http://www.swing-system.com"
@@ -41,16 +41,16 @@ Defines data-model constraints.
 During each "create" and "write" operation a constraint checking can be defined for this object.
 Two rule-checking predicates are provided:
 
- - Exists
- - For All
+- Exists
+- For All
 
- A rule is a python-expression that evaluates to True, if the condition is met.
- 
- Two menu-entries are provided:
+A rule is a python-expression that evaluates to True, if the condition is met.
 
- - Customization/Constraints/Exists
- - Customization/Constraints/For All
-  
+Two menu-entries are provided:
+
+- Customization/Constraints/Exists
+- Customization/Constraints/For All
+
 Requires "Constraint Manager" privilege-group.  
 """
 , "category"     : "Client Modules"

@@ -20,20 +20,20 @@
 ##############################################################################
 { 'sequence': 500,
 
-    "name" : "Base Partner or Contact",
-    "version" : "1.0",
-    "author" : "Camptocamp Austria",
-    "website" : "http://www.camptocamp.com",
-    "category" : "Base",
-    "description": """
+"name" : "Base Partner or Contact",
+"version" : "1.0",
+"author" : "Camptocamp Austria",
+"website" : "http://www.camptocamp.com",
+"category" : "Base",
+"description": """
 This module allows to uses person as partners respecting first, middle, last name and title prefix and postfix.
 
-    """,
-    "depends" : ["base"],
-    "init_xml" : [ ],
-    "demo"     : [ ],
-    "data" : [ "partner_view.xml", "security/ir.model.access.csv", ],
-    "installable": True
+""",
+"depends" : ["base"],
+"init_xml" : [ ],
+"demo"     : [ ],
+"data" : [ "partner_view.xml", "security/ir.model.access.csv", ],
+"installable": True
 }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
 

@@ -21,23 +21,23 @@
 
 { 'sequence': 500,
 
-    "name" : "Controls product encoding in invoice lines",
-    "version" : "1.2",
-    "author" : "Camptocamp Austria",
-    "category": 'Accounting & Finance',
-    'complexity': "normal",
-    "description": """
+"name" : "Controls product encoding in invoice lines",
+"version" : "1.2",
+"author" : "Camptocamp Austria",
+"category": 'Accounting & Finance',
+'complexity': "normal",
+"description": """
 Forbid, allow or require  stockable product encoding  for journals
 ==================================================================
 
-    """,
-    'website': 'http://www.camptocamp.com',
-    "depends" : ["account","picking_invoice_rel"],
-    'init_xml': [],
-    'data': ['account_invoice_view.xml'],
-    'demo_xml': [],
-    'installable': True,
-    'auto_install': False,
+""",
+'website': 'http://www.camptocamp.com',
+"depends" : ["account","picking_invoice_rel"],
+'init_xml': [],
+'data': ['account_invoice_view.xml'],
+'demo_xml': [],
+'installable': True,
+'auto_install': False,
 }
 
 

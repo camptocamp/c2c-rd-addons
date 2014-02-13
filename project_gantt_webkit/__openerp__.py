@@ -21,25 +21,25 @@
 
 { 'sequence': 500,
 
-    "name" : "Project Gantt Webkit",
-    "version" : "1.0",
-    "author" : "Camptocamp Austria",
-    "category": 'Project',
-    'complexity': "easy",
-    "description": """
+"name" : "Project Gantt Webkit",
+"version" : "1.0",
+"author" : "Camptocamp Austria",
+"category": 'Project',
+'complexity': "easy",
+"description": """
 Print Gantt 
 
 Attention:
     * no UTF-8 support
     * only a few tasks supported (API limit?)
-    """,
-    'website': 'http://www.camptocamp.com',
-    "depends" : ["project","report_webkit"],
-    'init_xml': [],
-    'data': ['project_view.xml'],
-    'demo_xml': [],
-    'installable': True,
-    'auto_install': False,
+""",
+'website': 'http://www.camptocamp.com',
+"depends" : ["project","report_webkit"],
+'init_xml': [],
+'data': ['project_view.xml'],
+'demo_xml': [],
+'installable': True,
+'auto_install': False,
 }
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

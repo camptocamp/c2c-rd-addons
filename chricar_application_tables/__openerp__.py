@@ -1,5 +1,5 @@
 { 'sequence': 500,
- "name"         : "Application Tables"
+"name"         : "Application Tables"
 , "version"      : "1.0"
 , "author"       : "ChriCar Beteiligungs- und Beratungs- GmbH"
 , "website"      : "http://www.chricar.at/ChriCar"

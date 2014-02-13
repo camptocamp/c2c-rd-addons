@@ -22,54 +22,54 @@
 
 
 { 'sequence': 500,
- 'name'        : 'Sequence Financial Year Extension fy (for v61 and above'
+'name'        : 'Sequence Financial Year Extension fy (for v61 and above'
 , 'version'     : '0.8'
 , 'category'    : 'Accounting & Finance'
 , 'description' : """
 This module adds
-* monthly sequences for journals
-* "fy", "stn", "stc" and "jn" as placeholder for prefix and suffix.
+    * monthly sequences for journals
+    * "fy", "stn", "stc" and "jn" as placeholder for prefix and suffix.
 
-* creation rules for missing sequences in ir_sequence_type and account journal
-   if a not existing sequence is requested it will be created on the fly.
-   * if no prefix pattern is defined in sequence-codes, a name will be created using
-     the first characters of each word of then name of the sequence-code
-     Example "Account Invoice In" will be "AAI-"
+    * creation rules for missing sequences in ir_sequence_type and account journal
+if a not existing sequence is requested it will be created on the fly.
+    * if no prefix pattern is defined in sequence-codes, a name will be created using
+the first characters of each word of then name of the sequence-code
+Example "Account Invoice In" will be "AAI-"
 
-* "fy" (fiscal year)
-  This allows contiguous numbering per fiscal year.
-  This sequence code will be used to format the start date of the fiscal year
-  for the placeholder 'fy' defined for sequences as prefix and suffix.
-  Example a fiscal year starting on March 1st with a sequence code %Ya will generate 2011a.
-  This allows to handle multiple fiscal years per calendar year and fiscal years not matching calendar years easily.
+    * "fy" (fiscal year)
+This allows contiguous numbering per fiscal year.
+This sequence code will be used to format the start date of the fiscal year
+for the placeholder 'fy' defined for sequences as prefix and suffix.
+Example a fiscal year starting on March 1st with a sequence code %Ya will generate 2011a.
+This allows to handle multiple fiscal years per calendar year and fiscal years not matching calendar years easily.
 
-* "stn" (sequence-type-name)
-  This allows to use the (abbreviated) sequence-code name as placeholder.
+    * "stn" (sequence-type-name)
+This allows to use the (abbreviated) sequence-code name as placeholder.
 
-* "stc" (sequence-type-code)
-  This allows to use the (abbreviated) sequence-code code as placeholder.
+    * "stc" (sequence-type-code)
+This allows to use the (abbreviated) sequence-code code as placeholder.
 
-* "jn" (journal-name)
-  This allows to use the (abbreviated) journal name as placeholder.
+    * "jn" (journal-name)
+This allows to use the (abbreviated) journal name as placeholder.
 
 If no prefix/suffix is specified, the prefix/suffix of the sequence-code is used.
 
 This module is a prerequisite to automatically generated new fiscal years, periods and associated sequences
 using '(fy)' instead of hard coding.
 
-* Configuration wizard:
-  During configuration you may choose to replace all '(year)' prefix and suffix occurrences by '(fy)'.
+    * Configuration wizard:
+During configuration you may choose to replace all '(year)' prefix and suffix occurrences by '(fy)'.
 """
 , 'author'      : 'Camptocamp Austria'
 , 'depends'     : ['account']
 , 'data'  :
-    [ 'ir_sequence_view.xml'
-    , 'account_fiscalyear_view.xml'
-    , 'ir_sequence_type_view.xml'
-    , 'ir_sequence_installer_view.xml'
-    , 'account_view.xml'
-    , 'security/ir.model.access.csv'
-    ]
+[ 'ir_sequence_view.xml'
+, 'account_fiscalyear_view.xml'
+, 'ir_sequence_type_view.xml'
+, 'ir_sequence_installer_view.xml'
+, 'account_view.xml'
+, 'security/ir.model.access.csv'
+]
 , 'demo_xml'    : []
 , 'installable' : True
 , 'application'  : False 

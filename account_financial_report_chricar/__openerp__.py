@@ -21,7 +21,7 @@
 #
 ##############################################################################
 { 'sequence': 500,
- "name" : "Common financial reports"
+"name" : "Common financial reports"
 , "version" : "1.0"
 , "author" : "Zikzakmedia SL"
 , "website" : "www.zikzakmedia.com"
@@ -30,12 +30,12 @@
 , "category" : "Localisation/Accounting"
 , "description": """
 Add some common financial/accounting reports and some wizards to quickly compute them:
- * Account chart list
- * Invoice list
- * Account move (journal ledger)
- * Account move line
- * Account balance compared period-fiscal year
- * Cumulative general ledger
+    * Account chart list
+    * Invoice list
+    * Account move (journal ledger)
+    * Account move line
+    * Account balance compared period-fiscal year
+    * Cumulative general ledger
 
 They can be found in the "Financial Management/Legal Statements/Generic Reports" menu or in the tree/form views of accounts, journals, invoices, account entries and account move lines.
 
@@ -45,9 +45,9 @@ Some reports are based on previous work by Pexego and others on the *c2c_finance
 , "init_xml" : []
 , "demo"     : []
 , "data" : 
-  [ "account_report_report.xml"
+[ "account_report_report.xml"
 #  , "account_report_wizard.xml"
-  ]
+]
 , "auto_install": False
 , "installable": True
 , 'application'  : False

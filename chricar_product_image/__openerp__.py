@@ -1,5 +1,5 @@
 { 'sequence': 500,
- "name"         : "Product Image"
+"name"         : "Product Image"
 , "version"      : "1.1"
 , "author"       : "ChriCar Beteiligungs- und Beratungs- GmbH"
 , "website"      : "http://www.chricar.at/ChriCar"

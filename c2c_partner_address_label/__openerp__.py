@@ -23,23 +23,23 @@
 
 { 'sequence': 500,
 
-    'name': 'Partner Address as Label',
-    'version': '0.7',
-    'category': 'Base',
-    'description': """
+'name': 'Partner Address as Label',
+'version': '0.7',
+'category': 'Base',
+'description': """
 Adds
 - a function field for address labels with zip position depending on country
 - per company definition for address window positions
 ToDo: adapt reports to use this
 """,
-    'author': 'Camptocamp Austria',
-    'depends': [ 'base' ],
-    'data': [
-    'partner_view.xml','report_label.xml',
-       ],
-    #'data': ['product_view.xml'],
-    'demo_xml': [],
-    'installable': True,
-    'active': False,
+'author': 'Camptocamp Austria',
+'depends': [ 'base' ],
+'data': [
+'partner_view.xml','report_label.xml',
+  ],
+#'data': ['product_view.xml'],
+'demo_xml': [],
+'installable': True,
+'active': False,
 }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

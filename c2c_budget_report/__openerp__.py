@@ -27,25 +27,25 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 { 'sequence': 500,
- "name" : "Advanced Budget Webkit Report"
+"name" : "Advanced Budget Webkit Report"
 , "version" : "6.1"
 , "author" : "Camptocamp Austria"
 , "category" : "Generic Modules/Accounting"
 , "website" : "http://camptocamp.com"
 , "description": """
 Budget Module:
- * Webkit report compares real to budget
+    * Webkit report compares real to budget
 
 """
 , "depends" : 
-    [ "c2c_budget_chricar","chricar_account_period_sum",
-    ]
+[ "c2c_budget_chricar","chricar_account_period_sum",
+]
 , "init_xml" : []
 , "data" : 
-    [ "security/ir.model.access.csv"
-    , "report_chart.xml"
-    , "wizard/chart.xml"
-    ]
+[ "security/ir.model.access.csv"
+, "report_chart.xml"
+, "wizard/chart.xml"
+]
 , "auto_install": False
 , "installable": True
 , 'application'  : False

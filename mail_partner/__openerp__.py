@@ -23,20 +23,20 @@
 
 { 'sequence': 500,
 
-    'name': 'Mass Mail adds partner_id',
-    'version': '1.0',
-    'category': 'Hidden/Dependency',
-    'description': """
+'name': 'Mass Mail adds partner_id',
+'version': '1.0',
+'category': 'Hidden/Dependency',
+'description': """
 Mass Mail must set partner id (bug 1039625)
 """,
-    'author': 'Camptocamp Austria',
-    'depends': [ 'mail'],
-    'data': [
-       ],
-    #'data': ['product_view.xml'],
-    'demo_xml': [],
-    'installable': True,
-    'auto_install': True,
-    'active': False,
+'author': 'Camptocamp Austria',
+'depends': [ 'mail'],
+'data': [
+  ],
+#'data': ['product_view.xml'],
+'demo_xml': [],
+'installable': True,
+'auto_install': True,
+'active': False,
 }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

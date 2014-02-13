@@ -23,21 +23,21 @@
 
 { 'sequence': 500,
 
-    'name': 'Stock track mrp',
-    'version': '0.9',
-    'category': 'Warehouse Management',
-    'description': """
+'name': 'Stock track mrp',
+'version': '0.9',
+'category': 'Warehouse Management',
+'description': """
 adds prod lot to mrp produce
 """,
-    'author': 'Camptocamp Austria',
-    'depends': [ 'mrp','c2c_stock_track_internal' ],
-    'data': [
-    'mrp_view.xml',
-       ],
-    #'data': ['product_view.xml'],
-    'demo_xml': [],
-    'installable': False,
-    'active': False,
-    'auto_install': True,
+'author': 'Camptocamp Austria',
+'depends': [ 'mrp','c2c_stock_track_internal' ],
+'data': [
+'mrp_view.xml',
+  ],
+#'data': ['product_view.xml'],
+'demo_xml': [],
+'installable': False,
+'active': False,
+'auto_install': True,
 }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

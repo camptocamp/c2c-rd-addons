@@ -23,19 +23,19 @@
 
 { 'sequence': 500,
 
-    'name': 'Displays available lot quantity along with name',
-    'version': '1.0',
-    'category': 'Warehouse Management',
-    'description': """
-    usefull to select product, stock location or lot with product qty information
-    if quantity available and virtual quantity are different both values are indicated
+'name': 'Displays available lot quantity along with name',
+'version': '1.0',
+'category': 'Warehouse Management',
+'description': """
+usefull to select product, stock location or lot with product qty information
+if quantity available and virtual quantity are different both values are indicated
 
 """,
-    'author': 'Camptocamp Austria',
-    'depends': [ 'stock','sale'],
-    'data': ['stock_view.xml'],
-    'demo_xml': [],
-    'installable': True,
-    'active': False,
+'author': 'Camptocamp Austria',
+'depends': [ 'stock','sale'],
+'data': ['stock_view.xml'],
+'demo_xml': [],
+'installable': True,
+'active': False,
 }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

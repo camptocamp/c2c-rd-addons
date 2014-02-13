@@ -23,23 +23,23 @@
 
 { 'sequence': 500,
 
-    'name': 'Sale Delivery Partner',
-    'version': '0.7',
-    'category': 'Sales Management',
-    'description': """
+'name': 'Sale Delivery Partner',
+'version': '0.7',
+'category': 'Sales Management',
+'description': """
 This module allows 
-* to use any partner as delivery address 
-* adds notes which are printed on the Packing List
+    * to use any partner as delivery address 
+    * adds notes which are printed on the Packing List
 
 """,
-    'author': 'Camptocamp Austria',
-    'depends': [ 'sale','stock','delivery' ],
-    'data': ['sale_view.xml',
-                   'stock_view.xml',
-                   'stock_report.xml',
-       ],
-    'demo_xml': [],
-    'installable': True,
-    'active': False,
+'author': 'Camptocamp Austria',
+'depends': [ 'sale','stock','delivery' ],
+'data': ['sale_view.xml',
+              'stock_view.xml',
+              'stock_report.xml',
+  ],
+'demo_xml': [],
+'installable': True,
+'active': False,
 }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

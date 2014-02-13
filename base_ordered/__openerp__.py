@@ -23,24 +23,24 @@
 
 { 'sequence': 500,
 
-    'name': 'Order by date decending',
-    'version': '0.7',
-    'category': 'Base',
-    'description': """
+'name': 'Order by date decending',
+'version': '0.7',
+'category': 'Base',
+'description': """
 This module orders the following tables by date desc
-* sale order
-* purchase order
-* picking / packing
-* invoices
+    * sale order
+    * purchase order
+    * picking / packing
+    * invoices
 
 """,
-    'author': 'Camptocamp Austria',
-    'depends': [ 'purchase','sale','stock','account' ],
-    'data': [
-       ],
-    #'data': ['product_view.xml'],
-    'demo_xml': [],
-    'installable': True,
-    'active': False,
+'author': 'Camptocamp Austria',
+'depends': [ 'purchase','sale','stock','account' ],
+'data': [
+  ],
+#'data': ['product_view.xml'],
+'demo_xml': [],
+'installable': True,
+'active': False,
 }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

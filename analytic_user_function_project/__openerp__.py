@@ -20,7 +20,7 @@
 #
 ##############################################################################
 { 'sequence': 500,
- 'name'        : 'Makes product user relation available in projects'
+'name'        : 'Makes product user relation available in projects'
 , 'version'     : '0.7'
 , 'category'    : 'Sales Management'
 , 'description' : """

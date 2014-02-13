@@ -23,24 +23,24 @@
 
 { 'sequence': 500,
 
-    'name': 'Product Price Unit ID Helper APP',
-    'version': '0.7',
-    'category': 'hidden',
-    'description': """
+'name': 'Product Price Unit ID Helper APP',
+'version': '0.7',
+'category': 'hidden',
+'description': """
 Do not install this module
 Install 'Product Price Unit' instead
-    """,
-    'author': 'Camptocamp Austria',
-    'depends': ['product', 'purchase', 'hr_expense','account_anglo_saxon', 'c2c_stock_accounting'],
-    'data': ['c2c_product.price_unit.xml',
-                   'security/product_security.xml',
-                   'security/ir.model.access.csv',
-                   'product_view.xml',
+""",
+'author': 'Camptocamp Austria',
+'depends': ['product', 'purchase', 'hr_expense','account_anglo_saxon', 'c2c_stock_accounting'],
+'data': ['c2c_product.price_unit.xml',
+              'security/product_security.xml',
+              'security/ir.model.access.csv',
+              'product_view.xml',
 
-                 ],
-    #'data': ['product_view.xml'],
-    'demo_xml': [],
-    'installable': True,
-    'active': False,
+            ],
+#'data': ['product_view.xml'],
+'demo_xml': [],
+'installable': True,
+'active': False,
 }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

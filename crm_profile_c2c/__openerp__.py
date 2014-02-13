@@ -23,21 +23,21 @@
 
 { 'sequence': 500,
 
-    'name': 'CRM Profile Enhancements',
-    'version': '0.9',
-    'category': 'CRM & SRM',
-    'description': """
-    This modules adds
+'name': 'CRM Profile Enhancements',
+'version': '0.9',
+'category': 'CRM & SRM',
+'description': """
+This modules adds
     * ordering the questions
     * allow to restart wizard with unanswered questions
 """,
-    'author': 'Camptocamp Austria',
-    'depends': [ 'crm_profiling' ],
-    'data': ['profile_view.xml',
-       ],
-    #'data': ['product_view.xml'],
-    'demo_xml': [],
-    'installable': True,
-    'active': False,
+'author': 'Camptocamp Austria',
+'depends': [ 'crm_profiling' ],
+'data': ['profile_view.xml',
+  ],
+#'data': ['product_view.xml'],
+'demo_xml': [],
+'installable': True,
+'active': False,
 }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

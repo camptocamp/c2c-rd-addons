@@ -23,10 +23,10 @@
 
 { 'sequence': 500,
 
-    'name': 'Toggle display of product with 0 Values in stock location analysis',
-    'version': '1.0',
-    'category': 'Warehouse Management',
-    'description': """
+'name': 'Toggle display of product with 0 Values in stock location analysis',
+'version': '1.0',
+'category': 'Warehouse Management',
+'description': """
 Add check to prohibit printing products with Real and Future Value = 0 
 
 ****************************************************
@@ -35,14 +35,14 @@ http://www.camptocamp.com/en/blog/2011/10/sort-and-filter-options-for-function-f
 ****************************************************
 
 """,
-    'author': 'Camptocamp Austria',
-    'depends': [ 'stock'],
-    'data': [
-    'wizard/stock_location_product_view.xml',
-       ],
-    #'data': ['product_view.xml'],
-    'demo_xml': [],
-    'installable': True,
-    'active': False,
+'author': 'Camptocamp Austria',
+'depends': [ 'stock'],
+'data': [
+'wizard/stock_location_product_view.xml',
+  ],
+#'data': ['product_view.xml'],
+'demo_xml': [],
+'installable': True,
+'active': False,
 }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

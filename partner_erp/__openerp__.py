@@ -21,21 +21,21 @@
 
 { 'sequence': 500,
 
-    "name" : "Partner ERP Access",
-    "version" : "1.0",
-    "author" : "Camptocamp Austria",
-    "category": 'Project',
-    'complexity': "easy",
-    "description": """
+"name" : "Partner ERP Access",
+"version" : "1.0",
+"author" : "Camptocamp Austria",
+"category": 'Project',
+'complexity': "easy",
+"description": """
 ERP Access Data for Clients
-    """,
-    'website': 'http://www.camptocamp.com',
-    "depends" : ["base"],
-    'init_xml': [],
-    'data': ['partner_view.xml', 'security/group.xml', 'security/ir.model.access.csv','security/partner_erp_security.xml'],
-    'demo_xml': [],
-    'installable': True,
-    'auto_install': False,
+""",
+'website': 'http://www.camptocamp.com',
+"depends" : ["base"],
+'init_xml': [],
+'data': ['partner_view.xml', 'security/group.xml', 'security/ir.model.access.csv','security/partner_erp_security.xml'],
+'demo_xml': [],
+'installable': True,
+'auto_install': False,
 }
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

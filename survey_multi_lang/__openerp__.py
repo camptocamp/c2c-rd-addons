@@ -23,18 +23,18 @@
 
 { 'sequence': 500,
 
-    'name': 'Survey multilanguage',
-    'version': '1.0',
-    'category': 'Tools',
-    'description': """
+'name': 'Survey multilanguage',
+'version': '1.0',
+'category': 'Tools',
+'description': """
 This module increases the length of text and makes it translatable
 
 """,
-    'author': 'Camptocamp Austria',
-    'depends': [ 'survey'],
-    'data': ['survey_view.xml','wizard/survey_print_multi.xml','report/survey_report.xml'],
-    'demo_xml': [],
-    'installable': True,
-    'active': False,
+'author': 'Camptocamp Austria',
+'depends': [ 'survey'],
+'data': ['survey_view.xml','wizard/survey_print_multi.xml','report/survey_report.xml'],
+'demo_xml': [],
+'installable': True,
+'active': False,
 }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

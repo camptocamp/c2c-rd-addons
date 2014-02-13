@@ -1,5 +1,5 @@
 { 'sequence': 500,
- "name"         : "Product by Stock Location"
+"name"         : "Product by Stock Location"
 , "version"      : "1.0"
 , "author"       : "Camptocamp Austria"
 , "website"      : "http://www.camptocamp.com"
@@ -9,9 +9,9 @@
 , "init_xml"     : []
 , "demo"         : []
 , "data"   : 
-    [ "stock_product_by_location_view.xml"
-    , "security/ir.model.access.csv"
-    ]
+[ "stock_product_by_location_view.xml"
+, "security/ir.model.access.csv"
+]
 , "auto_install" : False
 , "installable"  : True
 , 'application'  : False

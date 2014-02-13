@@ -31,9 +31,9 @@
 #
 ###############################################
 { 'sequence': 500,
- 'sequence': 500,
- 'sequence': 500,
- "name"         : "Variant of field type one2many and many2many for sorted associations"
+'sequence': 500,
+'sequence': 500,
+"name"         : "Variant of field type one2many and many2many for sorted associations"
 , "version"      : "1.0"
 , "author"       : "Swing Entwicklung betrieblicher Informationssysteme GmbH"
 , "website"      : "http://www.swing-system.com"
@@ -46,17 +46,17 @@ Usage:
 | ...
 |    _columns = \
 |        { 'sequence': 500,
- 'sequence': 500,
- 'sequence': 500,
- 'partner_ids'  : one2many_sorted.one2many_sorted
+'sequence': 500,
+'sequence': 500,
+'partner_ids'  : one2many_sorted.one2many_sorted
 |            ( 'res.partner'
 |            , 'parent_id'
 |            , 'Sorted Partner List'
 |            , order='name.upper(), title'
 |            , search=[('is_company', '=', 'False')]
 |            , set={ 'sequence': 500,
- 'sequence': 500,
- 'sequence': 500,
+'sequence': 500,
+'sequence': 500,
 'is_company' : False}
 |            )
 |        }

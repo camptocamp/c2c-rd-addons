@@ -23,18 +23,18 @@
 
 { 'sequence': 500,
 
-    'name': 'Survey Export as XML',
-    'version': '1.0',
-    'category': 'Tools',
-    'description': """
+'name': 'Survey Export as XML',
+'version': '1.0',
+'category': 'Tools',
+'description': """
 This modules allows to export the question / answer structure as XML
 
 """,
-    'author': 'Camptocamp Austria',
-    'depends': [ 'survey_multi_lang','xml_template'],
-    'data': ['survey_view.xml'],
-    'demo_xml': [],
-    'installable': True,
-    'active': False,
+'author': 'Camptocamp Austria',
+'depends': [ 'survey_multi_lang','xml_template'],
+'data': ['survey_view.xml'],
+'demo_xml': [],
+'installable': True,
+'active': False,
 }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

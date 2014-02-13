@@ -23,20 +23,20 @@
 
 { 'sequence': 500,
 
-    'name': 'Prohibit negative stock quantities',
-    'version': '0.7',
-    'category': 'Warehouse Management',
-    'description': """
+'name': 'Prohibit negative stock quantities',
+'version': '0.7',
+'category': 'Warehouse Management',
+'description': """
 Add check to prohibit negative real stock quantites per location and/or lot
 """,
-    'author': 'Camptocamp Austria',
-    'depends': [ 'stock','chricar_stock_product_by_location','stock_get_name_qty'],
-    'data': [
-    'stock_view.xml',
-       ],
-    #'data': ['product_view.xml'],
-    'demo_xml': [],
-    'installable': True,
-    'active': False,
+'author': 'Camptocamp Austria',
+'depends': [ 'stock','chricar_stock_product_by_location','stock_get_name_qty'],
+'data': [
+'stock_view.xml',
+  ],
+#'data': ['product_view.xml'],
+'demo_xml': [],
+'installable': True,
+'active': False,
 }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

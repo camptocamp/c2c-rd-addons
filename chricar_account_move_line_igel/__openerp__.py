@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 { 'sequence': 500,
- "name"         : "Account Moves Igel"
+"name"         : "Account Moves Igel"
 , "version"      : "1.0"
 , "author"       : "ChriCar Beteiligungs- und Beratungs- GmbH"
 , "website"      : "http://www.chricar.at"
@@ -10,10 +10,10 @@
 , "init_xml"     : []
 , "demo"         : []
 , "data"   :
-    [ "account_move_line_igel_view.xml"
-    , "wizard/moves_igel_view.xml"
-    , "security/rule.xml","security/ir.model.access.csv"
-    ]
+[ "account_move_line_igel_view.xml"
+, "wizard/moves_igel_view.xml"
+, "security/rule.xml","security/ir.model.access.csv"
+]
 , "auto_install" : False
 , "installable"  : True
 , 'application'  : False

@@ -23,15 +23,15 @@
 
 { 'sequence': 500,
 
-    'name': 'Camptocamp Austria ChriCar',
-    'version': '1.0',
-    'category': 'Others',
-    'description': """
+'name': 'Camptocamp Austria ChriCar',
+'version': '1.0',
+'category': 'Others',
+'description': """
 This module installs everything we need for Austrian chricar extension
 """,
-    'author': 'Camptocamp Austria',
-    'depends': [
- "c2c_austria_extension"
+'author': 'Camptocamp Austria',
+'depends': [
+"c2c_austria_extension"
 #,"hr_contract_timesheet" 
 ,"chricar_budget"
 ,"chricar_budget_lines"
@@ -45,11 +45,11 @@ This module installs everything we need for Austrian chricar extension
 ,"chricar_stock_product_production"
 ,"chricar_inventory"
 ,"sale_shipped_rate"
-      ],
-    'data': [       ],
-    #'data': ['product_view.xml'],
-    'demo_xml': [],
-    'installable': True,
-    'active': False,
+ ],
+'data': [       ],
+#'data': ['product_view.xml'],
+'demo_xml': [],
+'installable': True,
+'active': False,
 }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

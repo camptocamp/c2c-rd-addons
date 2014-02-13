@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 { 'sequence': 500,
- "name"         : "Partner: better layout for long partner names"
+"name"         : "Partner: better layout for long partner names"
 , "version"      : "1.0"
 , "author"       : "Camptocamp Austria"
 , "website"      : "http://www.camptocamp.at"

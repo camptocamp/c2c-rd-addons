@@ -31,7 +31,7 @@
 #
 ###############################################
 { 'sequence': 500,
- "name"        : "Austrian electronic invoicing standard"
+"name"        : "Austrian electronic invoicing standard"
 , "version"     : "1.0"
 , "author"      : "Swing Entwicklung betrieblicher Informationssysteme GmbH"
 , "website"     : "http://www.swing-system.com"
@@ -44,9 +44,9 @@ This module generates a XML-file per invoice and attaches it to the invoice.
 """
 , "category"    : "Accounting & Finance"
 , "depends"     : 
-    [ "account"
-    , "xml_template"
-    ]
+[ "account"
+, "xml_template"
+]
 , "init_xml"    : ["ebInterfaceV4.0.xml"]
 , "demo_xml"    : []
 , "data"  : ["installer_view.xml"]

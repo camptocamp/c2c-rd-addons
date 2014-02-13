@@ -29,7 +29,7 @@
 #
 ##############################################################################
 { 'sequence': 500,
- "name"         : "Bank Statment Line Defaults"
+"name"         : "Bank Statment Line Defaults"
 , "description"  : """Sets more usable defaults for bank statement lines"""
 , "version"      : "0.9"
 , "depends"      : ["account"]

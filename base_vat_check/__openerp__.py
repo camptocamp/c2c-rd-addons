@@ -20,15 +20,15 @@
 #
 ##############################################################################
 { 'sequence': 500,
- 'name'        : 'VAT check enhanced'
+'name'        : 'VAT check enhanced'
 , 'version'     : '1.0'
 , 'category'    : 'Base'
 , 'description' : """
 This module enhances the VAT check to comply to accounting standards
 
-* save date and the method (vies/checksum) used for checking
-* automatically save the company name associated with the VAT-ID
-** at least some German VAT numbers return '---' as company name !!!
+    * save date and the method (vies/checksum) used for checking
+    * automatically save the company name associated with the VAT-ID
+        * at least some German VAT numbers return '---' as company name !!!
 
 """
 , 'author'      : 'Camptocamp Austria'

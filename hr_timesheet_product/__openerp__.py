@@ -20,7 +20,7 @@
 #
 ##############################################################################
 { 'sequence': 500,
- 'name'        : 'Displays product in hr analytic timesheet'
+'name'        : 'Displays product in hr analytic timesheet'
 , 'version'     : '0.7'
 , 'category'    : 'HR'
 , 'description' : """

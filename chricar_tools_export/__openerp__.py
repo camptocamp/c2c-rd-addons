@@ -21,22 +21,22 @@
 ##############################################################################
 { 'sequence': 500,
 
-    'name': 'ChriCar Export CSV Utilities',
-    'version': '1.0',
-    'category': 'Tools',
-    'description': """
-    WARNING - it breaks Form Export on GTK https://bugs.launchpad.net/openobject-client/+bug/665733
-    works on koo and Web
+'name': 'ChriCar Export CSV Utilities',
+'version': '1.0',
+'category': 'Tools',
+'description': """
+WARNING - it breaks Form Export on GTK https://bugs.launchpad.net/openobject-client/+bug/665733
+works on koo and Web
 This module provides
-* a field in Objects with a psql statement to export all table data to CSV
-  which can be reimproted using Form Import.
-* a default list for Form Export with all fields
-    """,
-    'author': 'ChriCar Beteiligungs- und Beratungs- GmbH',
-    'depends': ['base'],
-    'website': 'http://www.chricar.at',
-    'data': ['tools_export_view.xml'],
-    'installable': False,
-    'active': False,
+    * a field in Objects with a psql statement to export all table data to CSV
+which can be reimproted using Form Import.
+    * a default list for Form Export with all fields
+""",
+'author': 'ChriCar Beteiligungs- und Beratungs- GmbH',
+'depends': ['base'],
+'website': 'http://www.chricar.at',
+'data': ['tools_export_view.xml'],
+'installable': False,
+'active': False,
 }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

@@ -29,20 +29,20 @@
 #
 ##############################################################################
 { 'sequence': 500,
- "name"         : "Fiscal Year extended Info"
+"name"         : "Fiscal Year extended Info"
 , "description"  : """
 Allows to store additional data (dates) per fiscal year
-* date of balance resolution
-* date filing balance to commercial register
-* date publishing balance to public
-* date filing fiscal declaration
+    * date of balance resolution
+    * date filing balance to commercial register
+    * date publishing balance to public
+    * date filing fiscal declaration
 """
 , "version"      : "1.0"
 , "depends"      : 
-    [ "account"
-    #, "report_webkit"
-    , "one2many_sorted"
-    ]
+[ "account"
+#, "report_webkit"
+, "one2many_sorted"
+]
 , "category"     : "Accounting & Finance"
 , "author"       : "Camptocamp Austria"
 , "website"      : "http://www.camptocamp.com/"

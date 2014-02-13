@@ -31,7 +31,7 @@
 #
 ###############################################
 { 'sequence': 500,
- "name"        : "Support for payment via electronic banking"
+"name"        : "Support for payment via electronic banking"
 , "version"     : "1.1"
 , "author"      : "Swing Entwicklung betrieblicher Informationssysteme GmbH"
 , "website"     : "http://www.swing-system.com"

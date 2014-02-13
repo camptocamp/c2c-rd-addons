@@ -21,21 +21,21 @@
 
 { 'sequence': 500,
 
-    "name" : "Project display dates in tree",
-    "version" : "1.0",
-    "author" : "Camptocamp Austria",
-    "category": 'Project',
-    'complexity': "easy",
-    "description": """
+"name" : "Project display dates in tree",
+"version" : "1.0",
+"author" : "Camptocamp Austria",
+"category": 'Project',
+'complexity': "easy",
+"description": """
 Displays stat and end date of projects and tasks in tree view
-    """,
-    'website': 'http://www.camptocamp.com',
-    "depends" : ["project"],
-    'init_xml': [],
-    'data': ['project_view.xml'],
-    'demo_xml': [],
-    'installable': True,
-    'auto_install': False,
+""",
+'website': 'http://www.camptocamp.com',
+"depends" : ["project"],
+'init_xml': [],
+'data': ['project_view.xml'],
+'demo_xml': [],
+'installable': True,
+'auto_install': False,
 }
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

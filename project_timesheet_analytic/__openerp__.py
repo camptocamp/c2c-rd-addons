@@ -21,17 +21,17 @@
 
 { 'sequence': 500,
 
-    'name': 'Analytic hours timesheet analyis',
-    'version': '1.0',
-    'category': 'Project Management',
-    'description': """
-    Displays analyitc hours (in addition to task hours and timesheet hours)
-    """,
-    'author': 'Camptocamp',
-    'website': 'http://www.comtocamp.com',
-    'depends': ['project_timesheet'],
-    'data': ["report/task_report_view.xml",],
-    'installable': True,
-    'auto_install': False,
+'name': 'Analytic hours timesheet analyis',
+'version': '1.0',
+'category': 'Project Management',
+'description': """
+Displays analyitc hours (in addition to task hours and timesheet hours)
+""",
+'author': 'Camptocamp',
+'website': 'http://www.comtocamp.com',
+'depends': ['project_timesheet'],
+'data': ["report/task_report_view.xml",],
+'installable': True,
+'auto_install': False,
 }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

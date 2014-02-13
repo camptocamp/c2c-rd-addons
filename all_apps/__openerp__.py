@@ -23,14 +23,14 @@
 
 { 'sequence': 500,
 
-    'name': 'All apps',
-    'version': '1.0',
-    'category': 'Others',
-    'description': """
+'name': 'All apps',
+'version': '1.0',
+'category': 'Others',
+'description': """
 installs all apps
 """,
-    'author': 'Camptocamp Austria',
-    'depends': [
+'author': 'Camptocamp Austria',
+'depends': [
 "account_accountant"
 ,"account_voucher"
 ,"account_asset"
@@ -62,10 +62,10 @@ installs all apps
 ,"website_event"
 ,"website_sale"
 ,
-     ],
-    'data': [],
-    'demo_xml': [],
-    'installable': True,
-    'active': False,
+],
+'data': [],
+'demo_xml': [],
+'installable': True,
+'active': False,
 }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

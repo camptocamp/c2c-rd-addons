@@ -29,7 +29,7 @@
 #
 ##############################################################################
 { 'sequence': 500,
- "name" : "Webkit Report Purchase Order Payment Term, Incoterm"
+"name" : "Webkit Report Purchase Order Payment Term, Incoterm"
 , "description" : """
 Purchase Order using Webkit,
 adds fields for supplier payment term and incoterm
@@ -39,12 +39,12 @@ using address label field with addressee's country specific zip position
 suppress unused columns in purchase order lines."""
 , "version"      : "0.9"
 , "depends"      : 
-    [ "purchase"
-    , "stock"
-    , "report_webkit"
-    , "c2c_partner_address_label"
-    , "one2many_sorted"
-    ]
+[ "purchase"
+, "stock"
+, "report_webkit"
+, "c2c_partner_address_label"
+, "one2many_sorted"
+]
 , "category"     : "PurchaseManagement"
 , "author"       : "Camptocamp SA - Ferdinand Gassauer"
 , "website"      : "http://www.camptocamp.com/"

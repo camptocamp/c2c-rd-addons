@@ -23,23 +23,23 @@
 
 { 'sequence': 500,
 
-    'name': 'Sale order internal picking',
-    'version': '0.9',
-    'category': 'Sales Management',
-    'description': """
-    This module adds an extra internal picking to sale order on request
-    Purpose
-    SO
-    -> internal: shiping products to company location at customer site
-    -> out: from company location at customer site to customer
+'name': 'Sale order internal picking',
+'version': '0.9',
+'category': 'Sales Management',
+'description': """
+This module adds an extra internal picking to sale order on request
+Purpose
+SO
+-> internal: shiping products to company location at customer site
+-> out: from company location at customer site to customer
 """,
-    'author': 'Camptocamp Austria',
-    'depends': [ 'base','sale','stock' ],
-    'data': ['sale_view.xml','wizard/make_ship_internal.xml',
-       ],
-    #'data': ['product_view.xml'],
-    'demo_xml': [],
-    'installable': True,
-    'active': False,
+'author': 'Camptocamp Austria',
+'depends': [ 'base','sale','stock' ],
+'data': ['sale_view.xml','wizard/make_ship_internal.xml',
+  ],
+#'data': ['product_view.xml'],
+'demo_xml': [],
+'installable': True,
+'active': False,
 }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

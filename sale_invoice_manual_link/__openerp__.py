@@ -21,23 +21,23 @@
 
 { 'sequence': 500,
 
-    "name" : "Sale Invoice manual Link",
-    "version" : "1.1",
-    "author" : "Camptocamp Austria",
-    "category": 'Sale Management',
-    'complexity': "easy",
-    "description": """
+"name" : "Sale Invoice manual Link",
+"version" : "1.1",
+"author" : "Camptocamp Austria",
+"category": 'Sale Management',
+'complexity': "easy",
+"description": """
 Allow to add (and remove) invoices to (from) Sale Order manually
 =====================================
 
-    """,
-    'website': 'http://www.camptocamp.com',
-    "depends" : ["c2c_sale_multi_partner"],
-    'init_xml': [],
-    'data': ['sale_view.xml'],
-    'demo_xml': [],
-    'installable': True,
-    'auto_install': False,
+""",
+'website': 'http://www.camptocamp.com',
+"depends" : ["c2c_sale_multi_partner"],
+'init_xml': [],
+'data': ['sale_view.xml'],
+'demo_xml': [],
+'installable': True,
+'auto_install': False,
 }
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

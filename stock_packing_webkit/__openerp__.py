@@ -29,7 +29,7 @@
 #
 ##############################################################################
 { 'sequence': 500,
- "name"         : "Webkit Report Stock Packing"
+"name"         : "Webkit Report Stock Packing"
 , "description"  : """
 Stock picking using Webkit,
 
@@ -39,12 +39,12 @@ using address lebel field with addressee's country specific zip position
 shows address in internal tree view"""
 , "version"      : "0.9"
 , "depends"      : 
-    [ "stock"
-    , "report_webkit"
-    , "c2c_partner_address_label"
-    , "delivery"
-    , "one2many_sorted"
-    ]
+[ "stock"
+, "report_webkit"
+, "c2c_partner_address_label"
+, "delivery"
+, "one2many_sorted"
+]
 , "category"     : "Warehouse Management"
 , "author"       : "Camptocamp Austria"
 , "website"      : "http://www.camptocamp.com/"

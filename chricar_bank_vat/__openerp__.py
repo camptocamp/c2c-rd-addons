@@ -20,7 +20,7 @@
 #
 ##############################################################################
 { 'sequence': 500,
- "name"         : "ChriCar Bank Account VAT + Analytic"
+"name"         : "ChriCar Bank Account VAT + Analytic"
 , "version"      : "1.0"
 , "author"       : "ChriCar Beteiligungs- und Beratungs- GmbH"
 , "website"      : "http://www.chricar.at/ChriCar"
@@ -29,7 +29,7 @@ Adds VAT to bank statement lines
 
 Does not support:
 
- * multiple VAT per line
+    * multiple VAT per line
 """
 , "category"     : "Accounting & Finance"
 , "depends"      : ["account","account_voucher"]

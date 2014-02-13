@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 { 'sequence': 500,
- "name"         : "Stock Care"
+"name"         : "Stock Care"
 , "version"      : "1.0"
 , "author"       : "ChriCar Beteiligungs- und Beratungs- GmbH"
 , "website"      : "http://www.chricar.at"

@@ -23,19 +23,19 @@
 
 { 'sequence': 500,
 
-    'name': 'Changes period name to yyyymm',
-    'version': '1.0',
-    'category': 'Accounting & Finance',
-    'description': """
-    This module changes the period name and code from mm/yyyy to yyyymm for easy data entry and sorting by name and code.
-    period_id will be added to stock_move, account_move_line etc and monthly resources can be easily selected avoiding the
-    cumbersome from/to date selection
-    """,
-    'author': 'Camptocamp Austria',
-    'depends': [ 'account'],
-    'data': [],
-    'demo_xml': [],
-    'installable': True,
-    'active': False,
+'name': 'Changes period name to yyyymm',
+'version': '1.0',
+'category': 'Accounting & Finance',
+'description': """
+This module changes the period name and code from mm/yyyy to yyyymm for easy data entry and sorting by name and code.
+period_id will be added to stock_move, account_move_line etc and monthly resources can be easily selected avoiding the
+cumbersome from/to date selection
+""",
+'author': 'Camptocamp Austria',
+'depends': [ 'account'],
+'data': [],
+'demo_xml': [],
+'installable': True,
+'active': False,
 }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

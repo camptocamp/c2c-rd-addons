@@ -23,20 +23,20 @@
 
 { 'sequence': 500,
 
-    'name': 'Stock Extensions',
-    'version': '0.7',
-    'category': 'Warehouse Management',
-    'description': """
+'name': 'Stock Extensions',
+'version': '0.7',
+'category': 'Warehouse Management',
+'description': """
 Adds some info fields to stock location
 makes lot ref searchable
 """,
-    'author': 'Camptocamp Austria',
-    'depends': [ 'stock' ],
-    'data': ['stock_view.xml',
-       ],
-    #'data': ['product_view.xml'],
-    'demo_xml': [],
-    'installable': True,
-    'active': False,
+'author': 'Camptocamp Austria',
+'depends': [ 'stock' ],
+'data': ['stock_view.xml',
+  ],
+#'data': ['product_view.xml'],
+'demo_xml': [],
+'installable': True,
+'active': False,
 }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

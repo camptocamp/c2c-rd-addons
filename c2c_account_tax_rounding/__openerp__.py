@@ -23,10 +23,10 @@
 
 { 'sequence': 500,
 
-    'name': 'Account Tax - simulate vertical calculation ',
-    'version': '1.0',
-    'category': 'Accounting & Finance',
-    'description': """
+'name': 'Account Tax - simulate vertical calculation ',
+'version': '1.0',
+'category': 'Accounting & Finance',
+'description': """
 Default tax calculation is per line including rounding of tax amount per line.
 This module turns off rounding per line and per tax, hence simulation vertical calculation
 standard: tax = sum(round(net*tax))  (~decimal)
@@ -36,14 +36,14 @@ sum(net)*tax
 which is the desired outcome.
 Set "Rounding Precision" in Tax definiton.
 """,
-    'author': 'Camptocamp Austria',
-    'depends': [ 'account'],
-    'data': [
-    'account_view.xml',
-       ],
-    #'data': ['product_view.xml'],
-    'demo_xml': [],
-    'installable': False,
-    'active': False,
+'author': 'Camptocamp Austria',
+'depends': [ 'account'],
+'data': [
+'account_view.xml',
+  ],
+#'data': ['product_view.xml'],
+'demo_xml': [],
+'installable': False,
+'active': False,
 }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

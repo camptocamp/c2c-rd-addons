@@ -21,22 +21,22 @@
 
 { 'sequence': 500,
 
-    "name" : "Product Price Unit Precision",
-    "version" : "1.1",
-    "author" : "Camptocamp Austria",
-    "category": 'Accounting & Finance',
-    'complexity': "normal",
-    "description": """
+"name" : "Product Price Unit Precision",
+"version" : "1.1",
+"author" : "Camptocamp Austria",
+"category": 'Accounting & Finance',
+'complexity': "normal",
+"description": """
 Allows to specify independent decimal precision.
 =================================================
 
 This module allows to set the following precisions for
-* price_unit
-* sub_total
+    * price_unit
+    * sub_total
 for the following tables
-* purchase
-* sale
-* invoice
+    * purchase
+    * sale
+    * invoice
 
 for obvious reasons the price_units should have the same precision in all modules
 
@@ -48,14 +48,14 @@ Hence SO/PO and invoice should have the same precision to be consistent.
 Invoice must have in any case the max(SO/PO precision)
 
 
-    """,
-    'website': 'http://www.camptocamp.com',
-    "depends" : ["account","sale","purchase"],
-    'init_xml': [],
-    'data': ["product_data.xml"],
-    'demo_xml': [],
-    'installable': True,
-    'auto_install': False,
+""",
+'website': 'http://www.camptocamp.com',
+"depends" : ["account","sale","purchase"],
+'init_xml': [],
+'data': ["product_data.xml"],
+'demo_xml': [],
+'installable': True,
+'auto_install': False,
 }
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

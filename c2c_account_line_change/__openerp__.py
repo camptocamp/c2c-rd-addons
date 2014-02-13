@@ -23,22 +23,22 @@
 
 { 'sequence': 500,
 
-    'name': 'Account change',
-    'version': '0.9',
-    'category': 'Accounting & Finance',
-    'description': """
+'name': 'Account change',
+'version': '0.9',
+'category': 'Accounting & Finance',
+'description': """
 ********** Use with care *********
 This module allows to change accounts of posted moves
-* open periods - the account is simply replaced by the new one
-* closed periods - 2 additional records are created in the selected period (ToDo)
-    """,
-    'author': 'Camptocamp Austria',
-    'depends': ['account' ],
-    'data': ['wizard/account_move_line_change.xml',
-                  ],
-    #'data': ['product_view.xml'],
-    'demo_xml': [],
-    'installable': True,
-    'active': False,
+    * open periods - the account is simply replaced by the new one
+    * closed periods - 2 additional records are created in the selected period (ToDo)
+""",
+'author': 'Camptocamp Austria',
+'depends': ['account' ],
+'data': ['wizard/account_move_line_change.xml',
+             ],
+#'data': ['product_view.xml'],
+'demo_xml': [],
+'installable': True,
+'active': False,
 }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

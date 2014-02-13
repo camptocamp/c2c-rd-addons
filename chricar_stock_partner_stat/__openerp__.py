@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 { 'sequence': 500,
- "name"         : "Product Partner Moves"
+"name"         : "Product Partner Moves"
 , "version"      : "1.0"
 , "author"       : "ChriCar Beteiligungs- und Beratungs- GmbH"
 , "website"      : "http://www.chricar.at/ChriCar"

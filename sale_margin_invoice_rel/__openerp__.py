@@ -29,7 +29,7 @@
 #
 ##############################################################################
 { 'sequence': 500,
- "name"         : "Customer Invoice to Picking Relation"
+"name"         : "Customer Invoice to Picking Relation"
 , "description"  : """Adds backwards reference from Customer Invoice to Picking"""
 , "version"      : "0.9"
 , "depends"      : ["sale_margin"]

@@ -23,19 +23,19 @@
 
 { 'sequence': 500,
 
-    'name': 'Stock Inventory Lines',
-    'version': '0.7',
-    'category': 'Warehouse Management',
-    'description': """
+'name': 'Stock Inventory Lines',
+'version': '0.7',
+'category': 'Warehouse Management',
+'description': """
 Shows Inventoy Lines
 
 """,
-    'author': 'Camptocamp Austria',
-    'depends': ['stock' ],
-    'data': ['product_view.xml',
-       ],
-    'demo_xml': [],
-    'installable': True,
-    'active': False,
+'author': 'Camptocamp Austria',
+'depends': ['stock' ],
+'data': ['product_view.xml',
+  ],
+'demo_xml': [],
+'installable': True,
+'active': False,
 }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

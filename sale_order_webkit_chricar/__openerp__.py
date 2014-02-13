@@ -29,7 +29,7 @@
 #
 ##############################################################################
 { 'sequence': 500,
- "name" : "Webkit Report Sale Order"
+"name" : "Webkit Report Sale Order"
 , "description" : """
 Sale Order using Webkit,
 
@@ -39,13 +39,13 @@ using address label field with addressee's country specific zip position
 suppress unused columns in sale order lines."""
 , "version"      : "0.9"
 , "depends"      : 
-    [ "sale"
-    , "report_webkit"
-    , "c2c_partner_address_label"
-    , "one2many_sorted"
-    , "delivery"
-    , "stock_packing_webkit"
-    ]
+[ "sale"
+, "report_webkit"
+, "c2c_partner_address_label"
+, "one2many_sorted"
+, "delivery"
+, "stock_packing_webkit"
+]
 , "category"     : "Sales Management"
 , "author"       : "Camptocamp Austria"
 , "website"      : "http://www.camptocamp.com/"

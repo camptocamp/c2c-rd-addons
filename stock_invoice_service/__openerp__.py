@@ -21,12 +21,12 @@
 
 { 'sequence': 500,
 
-    "name" : "Stock Invoice Service",
-    "version" : "1.1",
-    "author" : "Camptocamp Austria",
-    "category": 'Sales Management',
-    'complexity': "normal",
-    "description": """
+"name" : "Stock Invoice Service",
+"version" : "1.1",
+"author" : "Camptocamp Austria",
+"category": 'Sales Management',
+'complexity': "normal",
+"description": """
 
 Invoices Services ordered together with products which are invoiced based on pickings
 
@@ -35,14 +35,14 @@ this should be made configurable
 
 
 
-    """,
-    'website': 'http://www.camptocamp.com',
-    "depends" : ["sale"],
-    'init_xml': [],
-    'data': [],
-    'demo_xml': [],
-    'installable': True,
-    'auto_install': False,
+""",
+'website': 'http://www.camptocamp.com',
+"depends" : ["sale"],
+'init_xml': [],
+'data': [],
+'demo_xml': [],
+'installable': True,
+'auto_install': False,
 }
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

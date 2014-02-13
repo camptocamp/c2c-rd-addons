@@ -20,17 +20,17 @@
 #
 ##############################################################################
 { 'sequence': 500,
- 'name'        : 'Adds fields for invoice creation from task work'
+'name'        : 'Adds fields for invoice creation from task work'
 , 'version'     : '0.7'
 , 'category'    : 'Sales Management'
 , 'description' : """
 This module will allow to spezify
- * search for partner
- * invoice date, journal
- * automatic calculation of "Clearing period" and setting this as reference
- * prefix for analytic account name
- * remove the default date of today as prefix for analytic account name
- * group all projects in ONE invoice per partner
+    * search for partner
+    * invoice date, journal
+    * automatic calculation of "Clearing period" and setting this as reference
+    * prefix for analytic account name
+    * remove the default date of today as prefix for analytic account name
+    * group all projects in ONE invoice per partner
 """
 , 'author'      : 'Camptocamp Austria'
 , 'depends'     : [ 'hr_timesheet_invoice' ]

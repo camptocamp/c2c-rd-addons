@@ -23,24 +23,24 @@
 
 { 'sequence': 500,
 
-    'name': 'Sale Internal Order',
-    'version': '0.7',
-    'category': 'Warehouse Management',
-    'description': """
+'name': 'Sale Internal Order',
+'version': '0.7',
+'category': 'Warehouse Management',
+'description': """
 This module handles internal orders.
 Usefull for companies with external franchise partners and own shops.
 technical:
-* sale_order.order_policy : new value "internal"
-* stock_location must be internal for order_policy='internal' otherwise 'customer'
-* workflow - sale.order state = 'done' after shipping
+    * sale_order.order_policy : new value "internal"
+    * stock_location must be internal for order_policy='internal' otherwise 'customer'
+    * workflow - sale.order state = 'done' after shipping
 """,
-    'author': 'Camptocamp Austria',
-    'depends': [ 'sale','stock' ],
-    'data': ['partner_view.xml','sale_workflow.xml'
-       ],
-    #'data': ['product_view.xml'],
-    'demo_xml': [],
-    'installable': False,
-    'active': False,
+'author': 'Camptocamp Austria',
+'depends': [ 'sale','stock' ],
+'data': ['partner_view.xml','sale_workflow.xml'
+  ],
+#'data': ['product_view.xml'],
+'demo_xml': [],
+'installable': False,
+'active': False,
 }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

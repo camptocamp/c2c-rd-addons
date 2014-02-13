@@ -22,18 +22,18 @@
 
 { 'sequence': 500,
 
-    'name': 'Account Closing Remarks',
-    'version': '0.7',
-    'category': 'Accounting & Finance',
-    'description': """
+'name': 'Account Closing Remarks',
+'version': '0.7',
+'category': 'Accounting & Finance',
+'description': """
 Add a per year textbox for description of account closing remarks
 """,
-    'author': 'Camptocamp Austria',
-    'depends': [ 'account' ],
-    'data': ['account_view.xml','security/ir.model.access.csv'
-       ],
-    'demo_xml': [],
-    'installable': True,
-    'active': False,
+'author': 'Camptocamp Austria',
+'depends': [ 'account' ],
+'data': ['account_view.xml','security/ir.model.access.csv'
+  ],
+'demo_xml': [],
+'installable': True,
+'active': False,
 }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

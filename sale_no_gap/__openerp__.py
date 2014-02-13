@@ -21,23 +21,23 @@
 
 { 'sequence': 500,
 
-    "name" : "Sale No Gap",
-    "version" : "1.1",
-    "author" : "Camptocamp Austria",
-    "category": 'Sale Management',
-    'complexity': "easy",
-    "description": """
+"name" : "Sale No Gap",
+"version" : "1.1",
+"author" : "Camptocamp Austria",
+"category": 'Sale Management',
+'complexity': "easy",
+"description": """
 Sale orders no gap
 =====================================
 
-    """,
-    'website': 'http://www.camptocamp.com',
-    "depends" : ["sale"],
-    'init_xml': [],
-    'data': [],
-    'demo_xml': [],
-    'installable': True,
-    'auto_install': False,
+""",
+'website': 'http://www.camptocamp.com',
+"depends" : ["sale"],
+'init_xml': [],
+'data': [],
+'demo_xml': [],
+'installable': True,
+'auto_install': False,
 }
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

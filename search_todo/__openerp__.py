@@ -23,23 +23,23 @@
 
 { 'sequence': 500,
 
-    'name': 'ToDo Search Buttons',
-    'version': '1.0',
-    'category': 'Others',
-    'description': """
+'name': 'ToDo Search Buttons',
+'version': '1.0',
+'category': 'Others',
+'description': """
 adds a To Do Button as default to search views
 this shows all resources which need further interaction (are not done or canceled)
 """,
-    'author': 'Camptocamp Austria',
-    'depends': [
+'author': 'Camptocamp Austria',
+'depends': [
 "purchase"
 ,"sale"
 ,"stock"
 ,"mrp"
-     ],
-    'data': ['purchase_view.xml','sale_view.xml','stock_view.xml', 'account_invoice_view.xml', 'partner_view.xml','mrp_view.xml'       ],
-    'demo_xml': [],
-    'installable': True,
-    'active': False,
+],
+'data': ['purchase_view.xml','sale_view.xml','stock_view.xml', 'account_invoice_view.xml', 'partner_view.xml','mrp_view.xml'       ],
+'demo_xml': [],
+'installable': True,
+'active': False,
 }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

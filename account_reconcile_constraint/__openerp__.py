@@ -21,22 +21,22 @@
 
 { 'sequence': 500,
 
-    "name" : "Reconcile reconcile accounts",
-    "version" : "1.1",
-    "author" : "Camptocamp Austria",
-    "category": 'Accounting & Finance',
-    'complexity': "normal",
-    "description": """
+"name" : "Reconcile reconcile accounts",
+"version" : "1.1",
+"author" : "Camptocamp Austria",
+"category": 'Accounting & Finance',
+'complexity': "normal",
+"description": """
 Allow reconciliation only for accounts marked to be reconciled
 
-    """,
-    'website': 'http://www.camptocamp.com',
-    "depends" : ["account"],
-    'init_xml': [],
-    'data': [],
-    'demo_xml': [],
-    'installable': True,
-    'auto_install': False,
+""",
+'website': 'http://www.camptocamp.com',
+"depends" : ["account"],
+'init_xml': [],
+'data': [],
+'demo_xml': [],
+'installable': True,
+'auto_install': False,
 }
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

@@ -29,7 +29,7 @@
 #
 ##############################################################################
 { 'sequence': 500,
- "name"         : "Invoice to Picking Relation"
+"name"         : "Invoice to Picking Relation"
 , "description"  : """Adds reference between Invoice and Picking"""
 , "version"      : "0.9"
 , "depends"      : ["stock", "account", "purchase", "sale"]
@@ -37,13 +37,13 @@
 , "author"       : "Camptocamp Austria"
 , "website"      : "http://www.camptocamp.com/"
 , "data"         : 
-    [ "invoice_view.xml"
-    , "picking_view.xml"
-    , "stock_view.xml"
-    , "sale_view.xml"
-    , "security/group.xml"
-    , "security/ir.model.access.csv"
-    ]
+[ "invoice_view.xml"
+, "picking_view.xml"
+, "stock_view.xml"
+, "sale_view.xml"
+, "security/group.xml"
+, "security/ir.model.access.csv"
+]
 , "installable"  : True
 , 'application'  : False
 , "auto_install" : False

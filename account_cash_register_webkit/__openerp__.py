@@ -29,7 +29,7 @@
 #
 ##############################################################################
 { 'sequence': 500,
- "name"         : "Webkit Report Cash Register"
+"name"         : "Webkit Report Cash Register"
 , "description"  : """Cash Register using Webkit and one2many_sorted"""
 , "version"      : "1.0"
 , "depends"      : ["account", "report_webkit", "one2many_sorted"]

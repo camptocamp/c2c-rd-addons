@@ -31,7 +31,7 @@
 #
 ###############################################
 { 'sequence': 500,
- "name"        : "Electronic Banking via SEPA"
+"name"        : "Electronic Banking via SEPA"
 , "version"     : "1.1"
 , "author"      : "Swing Entwicklung betrieblicher Informationssysteme GmbH"
 , "website"     : "http://www.swing-system.com"
@@ -49,15 +49,15 @@ The "payment day" is, if unspecified or in the past, the file-creation-date.
 """
 , "category"    : "Payment module"
 , "depends"     : 
-    [ "account_payment"
-    , "base_iban"
-    , "xml_template"
-    , "account_payment_customer_data"
-    ]
+[ "account_payment"
+, "base_iban"
+, "xml_template"
+, "account_payment_customer_data"
+]
 , "init_xml"    : 
-    [ "pain_001_001_03_austrian_001.xml"
-    , "pain_001_001_02_austrian_002.xml"
-    ]
+[ "pain_001_001_03_austrian_001.xml"
+, "pain_001_001_02_austrian_002.xml"
+]
 , "demo"        : []
 , "data"  : ["wizard/generate_sepa_view.xml"]
 , "test"        : []

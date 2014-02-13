@@ -23,22 +23,22 @@
 
 { 'sequence': 500,
 
-    'name': 'Sale Shipped rate',
-    'version': '0.7',
-    'category': 'Warehouse Management',
-    'description': """
+'name': 'Sale Shipped rate',
+'version': '0.7',
+'category': 'Warehouse Management',
+'description': """
 This module shows the completion of internal moves associated with sale orders
 2 cases
-* internal stock to internal stock at customer location
-* internal stock to internal delivery stock location in the warehouse
+    * internal stock to internal stock at customer location
+    * internal stock to internal delivery stock location in the warehouse
 """,
-    'author': 'Camptocamp Austria',
-    'depends': [ 'sale' ],
-    'data': ['sale_view.xml',
-       ],
-    #'data': ['product_view.xml'],
-    'demo_xml': [],
-    'installable': True,
-    'active': False,
+'author': 'Camptocamp Austria',
+'depends': [ 'sale' ],
+'data': ['sale_view.xml',
+  ],
+#'data': ['product_view.xml'],
+'demo_xml': [],
+'installable': True,
+'active': False,
 }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

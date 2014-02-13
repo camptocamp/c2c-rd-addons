@@ -23,23 +23,23 @@
 
 { 'sequence': 500,
 
-    'name': 'Account Interests',
-    'version': '0.7',
-    'category': 'Accounting & Finance',
-    'description': """
+'name': 'Account Interests',
+'version': '0.7',
+'category': 'Accounting & Finance',
+'description': """
 Adds general or individual interest rates to accounts. 
 Base for calculation interests on moves. (ToDo)
 """,
-    'author': 'Camptocamp Austria',
-    'depends': [ 'account' ],
-    'data': [
-    
-    'interest_view.xml',
-    'security/ir.model.access.csv',
-       ],
-    #'data': ['product_view.xml'],
-    'demo_xml': [],
-    'installable': True,
-    'active': False,
+'author': 'Camptocamp Austria',
+'depends': [ 'account' ],
+'data': [
+
+'interest_view.xml',
+'security/ir.model.access.csv',
+  ],
+#'data': ['product_view.xml'],
+'demo_xml': [],
+'installable': True,
+'active': False,
 }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

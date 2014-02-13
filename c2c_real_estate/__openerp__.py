@@ -23,24 +23,24 @@
 
 { 'sequence': 500,
 
-    'name': 'Camptocamp Real Estate',
-    'version': '1.0',
-    'category': 'Others',
-    'description': """
+'name': 'Camptocamp Real Estate',
+'version': '1.0',
+'category': 'Others',
+'description': """
 This module installs a simple real estate management tool
 """,
-    'author': 'Camptocamp Austria',
-    'depends': [
+'author': 'Camptocamp Austria',
+'depends': [
 "chricar_top"
 ,"chricar_tenant"
 ,"chricar_invoice"
 ,"chricar_room"
 ,"chricar_equipment"
-      ],
-    'data': [       ],
-    #'data': ['product_view.xml'],
-    'demo_xml': [],
-    'installable': True,
-    'active': False,
+ ],
+'data': [       ],
+#'data': ['product_view.xml'],
+'demo_xml': [],
+'installable': True,
+'active': False,
 }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

@@ -20,7 +20,7 @@
 #
 ##############################################################################
 { 'sequence': 500,
- 'name'        : 'check sign in-out on sheet level'
+'name'        : 'check sign in-out on sheet level'
 , 'version'     : '0.7'
 , 'category'    : 'HR'
 , 'description' : """

@@ -23,18 +23,18 @@
 
 { 'sequence': 500,
 
-    'name': 'Sale Order UoS Data Entry, Show Packing Info',
-    'version': '0.7',
-    'category': 'Warehouse Management',
-    'description': """
+'name': 'Sale Order UoS Data Entry, Show Packing Info',
+'version': '0.7',
+'category': 'Warehouse Management',
+'description': """
 This modul allows to enter Uom or Uos quantities in sale order
 and shows packing Info in various views.
 """,
-    'author': 'Camptocamp Austria',
-    'depends': [ 'sale','stock' ],
-    'data': ['sale_view.xml','product_view.xml','stock_view.xml'],
-    'demo_xml': [],
-    'installable': False,
-    'active': False,
+'author': 'Camptocamp Austria',
+'depends': [ 'sale','stock' ],
+'data': ['sale_view.xml','product_view.xml','stock_view.xml'],
+'demo_xml': [],
+'installable': False,
+'active': False,
 }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

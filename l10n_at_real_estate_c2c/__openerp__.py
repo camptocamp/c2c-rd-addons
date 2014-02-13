@@ -23,29 +23,29 @@
 
 { 'sequence': 500,
 
-    'name': 'Austria - Real Estate minimum chart',
-    'version': '1.0',
-    'category': 'Localisation/Account Charts',
-    'description': """
+'name': 'Austria - Real Estate minimum chart',
+'version': '1.0',
+'category': 'Localisation/Account Charts',
+'description': """
 This module installs a minimum chart of accounts for real estate management tool
 No XML data yet - these must be extracted from the database Real Estate templates
 """,
-    'author': 'Camptocamp Austria',
-    'depends': [
-        "account", 
-        "base_vat", 
-        "base_iban",
-        "c2c_account_tax_rounding",
-      ],
-    'data': [                
-            "l10n_at_chart.xml",
-            "l10n_at_tax_code.xml",
-            "l10n_at_tax.xml",
-            "l10n_at_wizard.xml",
-   ],
-    #'data': ['product_view.xml'],
-    'demo_xml': [],
-    'installable': False,
-    'active': False,
+'author': 'Camptocamp Austria',
+'depends': [
+   "account", 
+   "base_vat", 
+   "base_iban",
+   "c2c_account_tax_rounding",
+ ],
+'data': [                
+       "l10n_at_chart.xml",
+       "l10n_at_tax_code.xml",
+       "l10n_at_tax.xml",
+       "l10n_at_wizard.xml",
+],
+#'data': ['product_view.xml'],
+'demo_xml': [],
+'installable': False,
+'active': False,
 }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

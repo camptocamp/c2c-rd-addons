@@ -27,34 +27,34 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 { 'sequence': 500,
- "name" : "Advanced Budget"
+"name" : "Advanced Budget"
 , "version" : "5.0"
 , "author" : "Camptocamp SA (aw)"
 , "category" : "Generic Modules/Accounting"
 , "website" : "http://camptocamp.com"
 , "description": """
 Budget Module:
- * Create budget, budget items and budget versions.
- * Base your budget on analytic accounts
- * Budget versions are multi currencies and multi companies.
+    * Create budget, budget items and budget versions.
+    * Base your budget on analytic accounts
+    * Budget versions are multi currencies and multi companies.
 
 This module is for real advanced budget use, otherwise prefer to use the Tiny one.
 """
 , "depends" : 
-    [ "account"
-    , "c2c_reporting_tools_chricar"
-    , "chricar_account_period_sum"
+[ "account"
+, "c2c_reporting_tools_chricar"
+, "chricar_account_period_sum"
 #    , "report_webkit_chapter_server"
-    ]
+]
 , "init_xml" : []
 , "data" : 
-    [ 
+[ 
 "c2c_budget_view.xml"
-    #, "c2c_budget_wizard.xml"
-    , "security/ir.model.access.csv"
-    , "report_chart.xml"
-    #, "wizard/chart.xml"
-    ]
+#, "c2c_budget_wizard.xml"
+, "security/ir.model.access.csv"
+, "report_chart.xml"
+#, "wizard/chart.xml"
+]
 , "auto_install": False
 , "installable": True
 , 'application'  : False

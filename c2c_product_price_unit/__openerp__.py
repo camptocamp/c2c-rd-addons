@@ -23,10 +23,10 @@
 
 { 'sequence': 500,
 
-    'name': 'Product Price Unit',
-    'version': '0.7',
-    'category': 'Warehouse Management',
-    'description': """
+'name': 'Product Price Unit',
+'version': '0.7',
+'category': 'Warehouse Management',
+'description': """
 Attention the module must be installed and upgraded immediately to complete all modifications
 
 This module allows to define price units
@@ -35,7 +35,7 @@ This module allows to define price units
     * price per 1000
     * price in cents ...
 Example: gasoline is quoted 1 liter i= 115,5 cents or 1,115 €
-         diodes 4.99€/1000 Units
+    diodes 4.99€/1000 Units
 
 The module hides the original price fields and fills these with converted values.
 Advantage - no change of the underlying logic of the base model for computation.
@@ -46,46 +46,46 @@ Tested with sales/purchase installed
 Forms Layout not optimized for group "Product Price Unit Manager" - this is mainly for debugging
 
 ToDo:
-* all onchange on product_id must return default price_unit_id (done for SO/PO,INV)
-* all wizards must transfer price_unit_id and unit_price_pu (many do not work now)
-* all "create" must transfer price_unit_id and unit_price_pu
-* defaults for
-** price_unit_id
-** price_unit_pu (from price_unit)
-* functions using price_unit must probably use price_unit_pu
-* c2c_product.price_unit.xml must be loaded in product.py
-  before running the update statements
-  currenty the module must be updated immediately to fill price_unit_id
-* Product
-** Button Udate standard price (average costing)
-* Request For Quotation
-** Form
-** Report
-* Purchase Order
-** Report
-* Leads
-* Quatations
-* Sales Order
-** Form small layout issue
-** Report
-* Warehouse
-** Forms
-** Reports
-* Price Lists
-    """,
-    'author': 'Camptocamp Austria',
-    'depends': ['product', 'purchase', 'hr_expense','account_anglo_saxon', 'c2c_stock_accounting', 'c2c_product_price_unit_id'],
-    'data': [
-                   
-                   'purchase_view.xml',
-                   'sale_view.xml',
-                   'stock_view.xml',
-                   'account_invoice_view.xml',
-                   'wizard/stock_partial_picking_view.xml',
-                 ],
-    #'data': ['product_view.xml'],
-    'demo_xml': [],
-    'installable': True,
-    'active': False,
+    * all onchange on product_id must return default price_unit_id (done for SO/PO,INV)
+    * all wizards must transfer price_unit_id and unit_price_pu (many do not work now)
+    * all "create" must transfer price_unit_id and unit_price_pu
+    * defaults for
+        * price_unit_id
+        * price_unit_pu (from price_unit)
+    * functions using price_unit must probably use price_unit_pu
+    * c2c_product.price_unit.xml must be loaded in product.py
+before running the update statements
+currenty the module must be updated immediately to fill price_unit_id
+    * Product
+        * Button Udate standard price (average costing)
+    * Request For Quotation
+        * Form
+        * Report
+    * Purchase Order
+        * Report
+    * Leads
+    * Quatations
+    * Sales Order
+        * Form small layout issue
+        * Report
+    * Warehouse
+        * Forms
+        * Reports
+    * Price Lists
+""",
+'author': 'Camptocamp Austria',
+'depends': ['product', 'purchase', 'hr_expense','account_anglo_saxon', 'c2c_stock_accounting', 'c2c_product_price_unit_id'],
+'data': [
+              
+              'purchase_view.xml',
+              'sale_view.xml',
+              'stock_view.xml',
+              'account_invoice_view.xml',
+              'wizard/stock_partial_picking_view.xml',
+            ],
+#'data': ['product_view.xml'],
+'demo_xml': [],
+'installable': True,
+'active': False,
 }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

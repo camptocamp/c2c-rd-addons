@@ -21,13 +21,13 @@
 
 { 'sequence': 500,
 
-    'name': 'Austria - Accounting enhanced fiscal position',
-    'version': '1.0',
-    'author': 'Camptocamp',
-    'website': 'http://www.camptocamp.com',
-    'category': 'Localization/Account Charts',
-    'depends': ['account_chart', 'base_vat', 'l10n_at','xml_template','base_iban'],
-    'description': """
+'name': 'Austria - Accounting enhanced fiscal position',
+'version': '1.0',
+'author': 'Camptocamp',
+'website': 'http://www.camptocamp.com',
+'category': 'Localization/Account Charts',
+'depends': ['account_chart', 'base_vat', 'l10n_at','xml_template','base_iban'],
+'description': """
 This module provides an enhanced standard Accounting Chart for Austria which is based on the Template from BMF.gv.at.
 =====================================================================================================================
 Please keep in mind that you should review and adapt it with your Accountant, before using it in a live Environment.
@@ -36,10 +36,10 @@ The fiscal positions defined in l10n_at are set to inactive
 20130122 prepare for VAT XML
 http://www.bmf.gv.at/EGovernment/FINANZOnline/InformationenfrSoft_3165/Umsatzsteuervoranme_11373/_start.htm
 """,
-    'demo': [],
-    'data': ['account_tax.xml','wizard/account_vat_view.xml'],
-    'auto_install': False,
-    'installable': True
+'demo': [],
+'data': ['account_tax.xml','wizard/account_vat_view.xml'],
+'auto_install': False,
+'installable': True
 }
 
 

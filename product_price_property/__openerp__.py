@@ -23,10 +23,10 @@
 
 { 'sequence': 500,
 
-    'name': 'Product Price Property',
-    'version': '1.0',
-    'category': 'Accounting & Finance',
-    'description': """
+'name': 'Product Price Property',
+'version': '1.0',
+'category': 'Accounting & Finance',
+'description': """
 Creates a poperty for list and standard price on product (not template).
 this allows different prices for variants and companies
 
@@ -34,18 +34,18 @@ ATT - 6.1 has server bug - ir property can not defined on "_inherits" table
 
 Warning : 
 
- - This methode will not work if prices are used through SQL queries in OpenERP. Like
+- This methode will not work if prices are used through SQL queries in OpenERP. Like
 in report.analytic.line.to_invoice or in stock valuation report
- - May cause incompatibility in custom module because the data model change
+- May cause incompatibility in custom module because the data model change
 
 """,
-    'author': 'Camptocamp Austria',
-    'depends': [ 'product'],
-    'data': [
-       ],
-    #'data': ['product_view.xml'],
-    'demo_xml': [],
-    'installable': True,
-    'active': False,
+'author': 'Camptocamp Austria',
+'depends': [ 'product'],
+'data': [
+  ],
+#'data': ['product_view.xml'],
+'demo_xml': [],
+'installable': True,
+'active': False,
 }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

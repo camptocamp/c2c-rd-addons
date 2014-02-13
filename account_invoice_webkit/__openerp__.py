@@ -29,7 +29,7 @@
 #
 ##############################################################################
 { 'sequence': 500,
- "name"         : "Webkit Report Invoice"
+"name"         : "Webkit Report Invoice"
 , "description"  : """
 Invoice using Webkit,
 
@@ -42,14 +42,14 @@ set "print code" in company to print internal product code on sale_order,icking 
 """
 , "version"      : "0.9"
 , "depends"      : 
-    [ "account"
-    , "report_webkit"
-    , "c2c_partner_address_label"
-    , "picking_invoice_rel"
-    , "stock_packing_webkit"
-    , "one2many_sorted"
-    , "account_invoice_iban_qr_at"
-    ]
+[ "account"
+, "report_webkit"
+, "c2c_partner_address_label"
+, "picking_invoice_rel"
+, "stock_packing_webkit"
+, "one2many_sorted"
+, "account_invoice_iban_qr_at"
+]
 , "category"     : "Accounting & Finance"
 , "author"       : "Camptocamp SA - NBessi, Camptocamp Austria"
 , "website"      : "http://www.camptocamp.com/"

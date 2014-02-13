@@ -23,14 +23,14 @@
 
 { 'sequence': 500,
 
-    'name': 'Camptocamp Austria Extra Addons',
-    'version': '1.0',
-    'category': 'Others',
-    'description': """
+'name': 'Camptocamp Austria Extra Addons',
+'version': '1.0',
+'category': 'Others',
+'description': """
 This module installs everything we need for Austrian extra addons c2c_extension
 """,
-    'author': 'Camptocamp Austria',
-    'depends': [
+'author': 'Camptocamp Austria',
+'depends': [
 "c2c_austria_base"
 ,"c2c_partner_address_label"
 ,"c2c_sequence_fy"
@@ -81,10 +81,10 @@ This module installs everything we need for Austrian extra addons c2c_extension
 #,"stock_location"
 #,"chricar_partner_layout"
 ],
-    'data': [],
-    #'data': ['product_view.xml'],
-    'demo_xml': [],
-    'installable': True,
-    'active': False,
+'data': [],
+#'data': ['product_view.xml'],
+'demo_xml': [],
+'installable': True,
+'active': False,
 }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

@@ -22,7 +22,7 @@
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 { 'sequence': 500,
- "name"         : "Account Test __compute"
+"name"         : "Account Test __compute"
 , "version"      : "0.9.5"
 , "author"       : "ChriCar Beteiligungs- und Beratungs- GmbH" 
 , "website"      : "http://www.chricar.at/ChriCar"

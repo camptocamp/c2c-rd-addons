@@ -23,19 +23,19 @@
 
 { 'sequence': 500,
 
-    'name': 'Sale Order Picking Location',
-    'version': '0.7',
-    'category': 'Sale Management',
-    'description': """
+'name': 'Sale Order Picking Location',
+'version': '0.7',
+'category': 'Sale Management',
+'description': """
 Chooses oldest lot and/or location  with available qty > 0
 """,
-    'author': 'Camptocamp Austria',
-    'depends': [ 'sale'],
-    'data': [
-       ],
-    #'data': ['product_view.xml'],
-    'demo_xml': [],
-    'installable': True,
-    'active': False,
+'author': 'Camptocamp Austria',
+'depends': [ 'sale'],
+'data': [
+  ],
+#'data': ['product_view.xml'],
+'demo_xml': [],
+'installable': True,
+'active': False,
 }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

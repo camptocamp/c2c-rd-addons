@@ -23,21 +23,21 @@
 
 { 'sequence': 500,
 
-    'name': 'Task Dependencies',
-    'version': '1.0',
-    'category': 'Project Management',
-    'description': """
-    This module allows the user to set dependencies on project tasks.
-    Tasks cannot be completed if they have open dependencies.
-    DO NOT USE GANTT VIEW TO MODIFY DATES (successor tasks dates are not computed)
-    Needs python-networkx later?
-    """,
-    'author': 'Davide Corio, Ferdinand Gassauer',
-    'website': 'http://www.davidecorio.com, http://www.camptocamp.com',
-    'summary': 'Task Dependencies',
-    'depends': ['project'],
-    'data': ['project_view.xml'],
-    'installable': True,
-    'application': False,
-    'auto_install': False,
+'name': 'Task Dependencies',
+'version': '1.0',
+'category': 'Project Management',
+'description': """
+This module allows the user to set dependencies on project tasks.
+Tasks cannot be completed if they have open dependencies.
+DO NOT USE GANTT VIEW TO MODIFY DATES (successor tasks dates are not computed)
+Needs python-networkx later?
+""",
+'author': 'Davide Corio, Ferdinand Gassauer',
+'website': 'http://www.davidecorio.com, http://www.camptocamp.com',
+'summary': 'Task Dependencies',
+'depends': ['project'],
+'data': ['project_view.xml'],
+'installable': True,
+'application': False,
+'auto_install': False,
 }

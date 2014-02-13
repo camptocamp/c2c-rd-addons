@@ -29,7 +29,7 @@
 #
 ##############################################################################
 { 'sequence': 500,
- "name"         : "production order badges"
+"name"         : "production order badges"
 , "description"  : """
 This module provides a report to print sale order badges for every
 Production Order Line

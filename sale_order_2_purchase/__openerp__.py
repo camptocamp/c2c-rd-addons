@@ -23,21 +23,21 @@
 
 { 'sequence': 500,
 
-    'name': 'Sale Order Intercompany Purchase',
-    'version': '0.7',
-    'category': 'Sale Management',
-    'description': """
+'name': 'Sale Order Intercompany Purchase',
+'version': '0.7',
+'category': 'Sale Management',
+'description': """
 Creates and confirms a purchase order in other company.
 This is useful if the "other company" orders in a sale portal 
 instead of using the purchse process itself
 """,
-    'author': 'Camptocamp Austria',
-    'depends': [ 'sale','purchase','account','product_price_property','stock'],
-    'data': [
-       ],
-    'data': ['sale_view.xml','picking_view.xml'],
-    'demo_xml': [],
-    'installable': True,
-    'active': False,
+'author': 'Camptocamp Austria',
+'depends': [ 'sale','purchase','account','product_price_property','stock'],
+'data': [
+  ],
+'data': ['sale_view.xml','picking_view.xml'],
+'demo_xml': [],
+'installable': True,
+'active': False,
 }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

@@ -23,19 +23,19 @@
 
 { 'sequence': 500,
 
-    'name': 'Product Price Unit Anglos Saxon',
-    'version': '0.7',
-    'category': 'Warehouse Management',
-    'description': """
+'name': 'Product Price Unit Anglos Saxon',
+'version': '0.7',
+'category': 'Warehouse Management',
+'description': """
 adapts the price difference (write down to use price units)
-    """,
-    'author': 'Camptocamp Austria',
-    'depends': ['account_anglo_saxon','c2c_product_price_unit','c2c_stock_accounting','picking_invoice_rel' ],
-    'data': [],
-    #'data': ['product_view.xml'],
-    'demo_xml': [],
-    'installable': True,
-    'active': False,
-    'auto_install': True
+""",
+'author': 'Camptocamp Austria',
+'depends': ['account_anglo_saxon','c2c_product_price_unit','c2c_stock_accounting','picking_invoice_rel' ],
+'data': [],
+#'data': ['product_view.xml'],
+'demo_xml': [],
+'installable': True,
+'active': False,
+'auto_install': True
 }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

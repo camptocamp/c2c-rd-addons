@@ -26,24 +26,24 @@
 
 { 'sequence': 500,
 
-    'name': 'MRP bom calculation',
-    'version': '.02',
-    'description': """
-    This programm adds 
-      *  version management and 
-      *  calculation of costs to bill of material
-    """,
-    'author': 'zBeanz',
-    'website': 'http://www.zbeanztech.com',
-    'depends': ['c2c_product_price_unit','mrp','mrp_subproduct'],
-    'init_xml': [],
-    'data': [
-            'mrp_view.xml',
-            'mrp_bom_workflow.xml',
-    ],
-    'demo_xml': [],
-    'installable': False,
-    'active': False,
-    'certificate': '',
+'name': 'MRP bom calculation',
+'version': '.02',
+'description': """
+This programm adds 
+ *  version management and 
+ *  calculation of costs to bill of material
+""",
+'author': 'zBeanz',
+'website': 'http://www.zbeanztech.com',
+'depends': ['c2c_product_price_unit','mrp','mrp_subproduct'],
+'init_xml': [],
+'data': [
+       'mrp_view.xml',
+       'mrp_bom_workflow.xml',
+],
+'demo_xml': [],
+'installable': False,
+'active': False,
+'certificate': '',
 }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

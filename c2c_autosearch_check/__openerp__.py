@@ -30,7 +30,7 @@
 #
 ###############################################
 { 'sequence': 500,
- "name"         : "Autosearch Check - just an Idea"
+"name"         : "Autosearch Check - just an Idea"
 , "version"      : "1.0"
 , "author"       : "Camptocamp Austria"
 , "website"      : "http://www.camptocamp.at"

@@ -1,5 +1,5 @@
 { 'sequence': 500,
- "name"         : "Partner Participations"
+"name"         : "Partner Participations"
 , "version"      : "0.7"
 , "author"       : "ChriCar Beteiligungs- und Beratungs- GmbH"
 , "website"      : "http://www.chricar.at/ChriCar"
@@ -17,10 +17,10 @@ Added Participation tab to partners to show Parent and Participations"""
 , "init_xml"     : []
 , "demo"         : ["partner_parent_companies_demo.xml"]
 , "data"   :
-    [ "partner_parent_companies_view.xml"
-    , "security/ir.model.access.csv"
-    , "report_participation.xml"
-    ]
+[ "partner_parent_companies_view.xml"
+, "security/ir.model.access.csv"
+, "report_participation.xml"
+]
 , "auto_install" : False
 , "installable"  : True
 , 'application'  : False

@@ -21,12 +21,12 @@
 
 { 'sequence': 500,
 
-    "name" : "Picking Reopen",
-    "version" : "1.2",
-    "author" : "Camptocamp SA",
-    "category": 'Warehouse Management',
-    'complexity': "normal",
-    "description": """
+"name" : "Picking Reopen",
+"version" : "1.2",
+"author" : "Camptocamp SA",
+"category": 'Warehouse Management',
+'complexity': "normal",
+"description": """
 Allows reopening of uninvoiced and canceled pickings.
 =====================================================
 
@@ -36,14 +36,14 @@ of this picking are confirmed.
 The intention is to allow to correct errors or add missing info which becomes 
 usually only visible after printing the picking.
 
-    """,
-    'website': 'http://www.camptocamp.com',
-    "depends" : ["stock","account_invoice_reopen"],
-    'init_xml': [],
-    'data': ['stock_view.xml','stock_workflow.xml' ],
-    'demo_xml': [],
-    'installable': True,
-    'auto_install': False,
+""",
+'website': 'http://www.camptocamp.com',
+"depends" : ["stock","account_invoice_reopen"],
+'init_xml': [],
+'data': ['stock_view.xml','stock_workflow.xml' ],
+'demo_xml': [],
+'installable': True,
+'auto_install': False,
 }
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

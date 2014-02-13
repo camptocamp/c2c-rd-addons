@@ -33,7 +33,7 @@
 #
 ###############################################
 { 'sequence': 500,
- "name"        : "Camptocamp IBAN formatting"
+"name"        : "Camptocamp IBAN formatting"
 , "version"     : "1.0"
 , "author"      : "Camptocamp Austria"
 , "website"     : "http://www.camptocamp.at"

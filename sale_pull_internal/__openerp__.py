@@ -23,20 +23,20 @@
 
 { 'sequence': 500,
 
-    'name': 'Sale Pull From Internal Stock Locations',
-    'version': '0.7',
-    'category': 'Warehouse Management',
-    'description': """
+'name': 'Sale Pull From Internal Stock Locations',
+'version': '0.7',
+'category': 'Warehouse Management',
+'description': """
 This modul generates internal pickings from different stock locations to the ramp
 to be able to deliver the ordered quantities
 """,
-    'author': 'Camptocamp Austria',
-    'depends': [ 'sale','stock' ],
-    'data': ['sale_view.xml',
-       ],
-    #'data': ['product_view.xml'],
-    'demo_xml': [],
-    'installable': False,
-    'active': False,
+'author': 'Camptocamp Austria',
+'depends': [ 'sale','stock' ],
+'data': ['sale_view.xml',
+  ],
+#'data': ['product_view.xml'],
+'demo_xml': [],
+'installable': False,
+'active': False,
 }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

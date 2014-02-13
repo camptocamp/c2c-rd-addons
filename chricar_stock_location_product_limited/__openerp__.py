@@ -1,5 +1,5 @@
 { 'sequence': 500,
- "name"         : "chricar_stock_location_product_limited"
+"name"         : "chricar_stock_location_product_limited"
 , "version"      : "0.1"
 , "author"       : "Z-Beanz Technologies"
 , "website"      : "http://www.chricar.at/ChriCar/index.html"

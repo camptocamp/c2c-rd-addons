@@ -23,18 +23,18 @@
 
 { 'sequence': 500,
 
-    'name': 'Custom Product Fields',
-    'version': '0.7',
-    'category': 'Warehouse Management',
-    'description': """
-    This module adds custom specifiy product attributes
-    """,
-    'author': 'Camptocamp Austria',
-    'depends': ['product' ],
-    'data': ['product_view.xml',
-                   ],
-    'demo_xml': [],
-    'installable': False,
-    'active': False,
+'name': 'Custom Product Fields',
+'version': '0.7',
+'category': 'Warehouse Management',
+'description': """
+This module adds custom specifiy product attributes
+""",
+'author': 'Camptocamp Austria',
+'depends': ['product' ],
+'data': ['product_view.xml',
+              ],
+'demo_xml': [],
+'installable': False,
+'active': False,
 }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

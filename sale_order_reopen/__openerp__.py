@@ -21,26 +21,26 @@
 
 { 'sequence': 500,
 
-    "name" : "Sale Order Reopen",
-    "version" : "1.2",
-    "author" : "Camptocamp Austria",
-    "category": 'Sales Management',
-    'complexity': "normal",
-    "description": """
+"name" : "Sale Order Reopen",
+"version" : "1.2",
+"author" : "Camptocamp Austria",
+"category": 'Sales Management',
+'complexity': "normal",
+"description": """
 Allows reopening of sale orders.
 ================================
 
 This module allows to reopen (set to Quotation) Sale Orders in state progress and cancel
 as associated pickings or invoices are canceled if possible
 
-    """,
-    'website': 'http://www.camptocamp.com',
-    "depends" : ["sale","stock_picking_reopen","account_invoice_reopen"],
-    'init_xml': [],
-    'data': ['sale_view.xml','sale_workflow.xml' ],
-    'demo_xml': [],
-    'installable': True,
-    'auto_install': False,
+""",
+'website': 'http://www.camptocamp.com',
+"depends" : ["sale","stock_picking_reopen","account_invoice_reopen"],
+'init_xml': [],
+'data': ['sale_view.xml','sale_workflow.xml' ],
+'demo_xml': [],
+'installable': True,
+'auto_install': False,
 }
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
