@@ -1,0 +1,283 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+# 	* hr_timesheet_farm
+# <> <>, 2014.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 6.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-02-15 16:39+0000\n"
+"PO-Revision-Date: 2014-02-15 20:48+0400\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+"X-Generator: Gtranslator 2.91.6\n"
+
+#. module: hr_timesheet_farm
+#: field:hr.timesheet.farm.line,hours_detail:0
+msgid "Sum Detail Hours"
+msgstr ""
+
+#. module: hr_timesheet_farm
+#: field:hr.timesheet.farm.line,hours_care:0
+msgid "Hours Care"
+msgstr ""
+
+#. module: hr_timesheet_farm
+#: view:hr.timesheet.farm.line.detail:0
+msgid "This Yr"
+msgstr ""
+
+#. module: hr_timesheet_farm
+#: field:hr.timesheet.farm.line.detail,resource_machine_id:0
+msgid "Machine"
+msgstr ""
+
+#. module: hr_timesheet_farm
+#: view:hr.timesheet.farm.line.detail:0
+msgid "Group By..."
+msgstr ""
+
+#. module: hr_timesheet_farm
+#: field:hr.timesheet.farm.line,other:0
+msgid "Other"
+msgstr ""
+
+#. module: hr_timesheet_farm
+#: field:hr.timesheet.farm.line.detail,location_id:0
+msgid "Location"
+msgstr ""
+
+#. module: hr_timesheet_farm
+#: view:hr.timesheet.farm.line.detail:0
+msgid "This month work"
+msgstr ""
+
+#. module: hr_timesheet_farm
+#: field:hr.timesheet.farm.line,hours_overtime_50:0
+msgid "Hours Overtime 50%"
+msgstr ""
+
+#. module: hr_timesheet_farm
+#: help:hr.timesheet.farm.line,name:0
+msgid "Date of work"
+msgstr ""
+
+#. module: hr_timesheet_farm
+#: view:hr.timesheet.farm.line.detail:0
+msgid "This Quarter work"
+msgstr ""
+
+#. module: hr_timesheet_farm
+#: field:hr.timesheet.farm.line.detail,hours:0
+msgid "Hours"
+msgstr ""
+
+#. module: hr_timesheet_farm
+#: field:hr.timesheet.farm.line,hours_overtime_25:0
+msgid "Hours Overtime 25%"
+msgstr ""
+
+#. module: hr_timesheet_farm
+#: view:hr.timesheet.farm.line.detail:0
+msgid "Timesheet Farm Search"
+msgstr ""
+
+#. module: hr_timesheet_farm
+#: view:hr.timesheet.farm.line:0
+msgid "Timesheet Lines"
+msgstr ""
+
+#. module: hr_timesheet_farm
+#: view:hr.timesheet.farm.line.detail:0
+msgid "This Mo"
+msgstr ""
+
+#. module: hr_timesheet_farm
+#: view:hr.timesheet.farm.line.detail:0
+msgid "Last year work"
+msgstr ""
+
+#. module: hr_timesheet_farm
+#: view:hr.timesheet.farm.line.detail:0
+msgid "Yesterday"
+msgstr ""
+
+#. module: hr_timesheet_farm
+#: field:hr.timesheet.farm.line,hours_cleaning:0
+msgid "Hours Cleaning"
+msgstr ""
+
+#. module: hr_timesheet_farm
+#: view:hr.timesheet.farm.line.detail:0
+msgid "Today"
+msgstr ""
+
+#. module: hr_timesheet_farm
+#: view:hr.timesheet.farm.line.detail:0
+msgid "Todays work"
+msgstr ""
+
+#. module: hr_timesheet_farm
+#: field:hr.timesheet.farm.line,name:0 view:hr.timesheet.farm.line.detail:0
+#: field:hr.timesheet.farm.line.detail,date:0
+msgid "Date"
+msgstr ""
+
+#. module: hr_timesheet_farm
+#: field:hr.timesheet.farm.line,allowance:0
+msgid "Allowance"
+msgstr ""
+
+#. module: hr_timesheet_farm
+#: field:hr.timesheet.farm.line,user_id:0 view:hr.timesheet.farm.line.detail:0
+msgid "User"
+msgstr ""
+
+#. module: hr_timesheet_farm
+#: field:hr.timesheet.farm.line.detail,task_id:0
+msgid "Task"
+msgstr ""
+
+#. module: hr_timesheet_farm
+#: view:hr.timesheet.farm.line.detail:0
+msgid "Work Lines"
+msgstr ""
+
+#. module: hr_timesheet_farm
+#: field:hr.timesheet.farm.line,notes:0
+#: field:hr.timesheet.farm.line.detail,name:0
+msgid "Notes"
+msgstr ""
+
+#. module: hr_timesheet_farm
+#: field:hr.timesheet.farm.line,work_ids:0
+msgid "Work"
+msgstr ""
+
+#. module: hr_timesheet_farm
+#: field:hr.timesheet.farm.line.detail,resource_tractor_id:0
+msgid "Tractor"
+msgstr ""
+
+#. module: hr_timesheet_farm
+#: model:ir.actions.act_window,name:hr_timesheet_farm.act_hr_timesheet_farm_line_form
+#: model:ir.ui.menu,name:hr_timesheet_farm.menu_hr_timesheet_farm_line
+msgid "Timesheet Lines Farm"
+msgstr ""
+
+#. module: hr_timesheet_farm
+#: view:hr.timesheet.farm.line.detail:0
+msgid "My Work"
+msgstr ""
+
+#. module: hr_timesheet_farm
+#: field:hr.timesheet.farm.line,hours_regular:0
+msgid "Hours Regular"
+msgstr ""
+
+#. module: hr_timesheet_farm
+#: field:hr.timesheet.farm.line,hours_holiday:0
+msgid "Hours Holiday"
+msgstr ""
+
+#. module: hr_timesheet_farm
+#: view:hr.timesheet.farm.line.detail:0
+msgid "Last Yr"
+msgstr ""
+
+#. module: hr_timesheet_farm
+#: help:hr.timesheet.farm.line.detail,prodlot_id:0
+msgid "For all product related work"
+msgstr ""
+
+#. module: hr_timesheet_farm
+#: field:hr.timesheet.farm.line.detail,line_id:0
+msgid "Daily work"
+msgstr ""
+
+#. module: hr_timesheet_farm
+#: view:hr.timesheet.farm.line.detail:0
+msgid "Last Qu"
+msgstr ""
+
+#. module: hr_timesheet_farm
+#: field:hr.timesheet.farm.line.detail,prodlot_id:0
+msgid "Production Lot"
+msgstr ""
+
+#. module: hr_timesheet_farm
+#: view:hr.timesheet.farm.line.detail:0
+msgid "This Qu"
+msgstr ""
+
+#. module: hr_timesheet_farm
+#: view:hr.timesheet.farm.line.detail:0
+msgid "This year work"
+msgstr ""
+
+#. module: hr_timesheet_farm
+#: field:hr.timesheet.farm.line,hours_overtime_100:0
+msgid "Hours Overtime 100%"
+msgstr ""
+
+#. module: hr_timesheet_farm
+#: field:hr.timesheet.farm.line,hours_illnes:0
+msgid "Hours Illness"
+msgstr ""
+
+#. module: hr_timesheet_farm
+#: help:hr.timesheet.farm.line.detail,location_id:0
+msgid "Only necessary if no production lot exists"
+msgstr ""
+
+#. module: hr_timesheet_farm
+#: model:ir.model,name:hr_timesheet_farm.model_hr_timesheet_farm_line
+msgid "hr.timesheet.farm.line"
+msgstr ""
+
+#. module: hr_timesheet_farm
+#: field:hr.timesheet.farm.line,hours_holiday_work:0
+msgid "Hours Holiday Work"
+msgstr ""
+
+#. module: hr_timesheet_farm
+#: view:hr.timesheet.farm.line.detail:0
+msgid "Last Mo"
+msgstr ""
+
+#. module: hr_timesheet_farm
+#: field:hr.timesheet.farm.line,bonus:0
+msgid "Bonus"
+msgstr ""
+
+#. module: hr_timesheet_farm
+#: model:ir.actions.act_window,help:hr_timesheet_farm.act_hr_timesheet_farm_line_form
+msgid ""
+"Farm Through this menu you can register and follow your workings hours by "
+"project every day."
+msgstr ""
+
+#. module: hr_timesheet_farm
+#: model:ir.model,name:hr_timesheet_farm.model_hr_timesheet_farm_line_detail
+msgid "hr.timesheet.farm.line.detail"
+msgstr ""
+
+#. module: hr_timesheet_farm
+#: view:hr.timesheet.farm.line.detail:0
+msgid "Yesterdays Work"
+msgstr ""
+
+#. module: hr_timesheet_farm
+#: view:hr.timesheet.farm.line.detail:0
+msgid "Last month work"
+msgstr ""
+
+#. module: hr_timesheet_farm
+#: view:hr.timesheet.farm.line.detail:0
+msgid "Last quarters work"
+msgstr ""
