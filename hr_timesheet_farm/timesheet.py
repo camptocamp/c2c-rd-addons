@@ -70,6 +70,11 @@ class hr_timesheet_farm_line(osv.osv):
         'work_ids': one2many_sorted.one2many_sorted('hr.timesheet.farm.line.detail', 'line_id', 'Work' , order = 'prodlot_id.name') ,
         'hours_detail': fields.function(_get_hours_detail, method=True, type='float', string='Sum Detail Hours'),
         }
+
+    _defaults = {
+        'user_id': lambda self, cr, uid, context: uid,
+        'name': lambda *a: time.strftime('%Y-%m-%d')
+       }
     
 hr_timesheet_farm_line()
 
@@ -85,8 +90,8 @@ class hr_timesheet_farm_line_detail(osv.osv):
         'task_id'     : fields.many2one('project.task', 'Task', ondelete='cascade', required=True),
         'prodlot_id'  : fields.many2one('stock.production.lot', 'Production Lot', help="For all product related work"),
         'location_id' : fields.many2one('stock.location','Location', help="Only necessary if no production lot exists"),
-        'resource_tractor_id' : fields.many2one("resource.resource", "Tractor"),
-        'resource_machine_id' : fields.many2one("resource.resource", "Machine"),
+        'resource_tractor_id' : fields.many2one("resource.resource", "Tractor", domain="[('code','ilike','T ') ]"),
+        'resource_machine_id' : fields.many2one("resource.resource", "Machine", domain="[('code','ilike','M ') ]"),
         'name': fields.text ('Notes'),
         }
     
