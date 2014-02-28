@@ -72,7 +72,7 @@ class purchase_order_line(osv.osv):
 
     def _landing_cost(self, cr, uid, ids, name, args, context):
         if not ids : return {}
-        def cl_calc(amo, qty, cltype res=0.0):
+        def cl_calc(amo, qty, cltype, res=0.0):
             if cltype == 'value': res = amo
             else: res = amo * qty
             return res
