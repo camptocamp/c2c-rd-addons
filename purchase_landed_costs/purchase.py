@@ -76,8 +76,9 @@ class purchase_order_line(osv.osv):
             if cltype == 'value': res = amo
             else: res = amo * qty
             return res
-        result = {}
+
         landed_costs = 0.0
+        result = {}
         # landed costss for the line
         for line in self.browse(cr, uid, ids):
             if line.landed_cost_line_ids:
