@@ -56,7 +56,7 @@ class landed_cost_position(osv.osv):
             if prod.product_tmpl_id.seller_ids:
                 vals.update( {'partner_id': prod.product_tmpl_id.seller_ids[0].name.id} )
             else:
-                # TODO: blank field to prevents last selected partner to be displayed
+                # TODO: blanks field to prevents last selected partner to be displayed
                 pass
             res = {'value': vals }
         return res
@@ -72,17 +72,20 @@ class purchase_order_line(osv.osv):
 
     def _landing_cost(self, cr, uid, ids, name, args, context):
         if not ids : return {}
+        def cl_calc(amo, qty, cltype res=0.0):
+            if cltype == 'value': res = amo
+            else: res = amo * qty
+            return res
         result = {}
         landed_costs = 0.0
         # landed costss for the line
         for line in self.browse(cr, uid, ids):
             if line.landed_cost_line_ids:
                 for costs in line.landed_cost_line_ids:
-                    if costs.price_type == 'value':
-                        landed_costs += costs.amount
-                    else:
-                        landed_costs += costs.amount * line.product_qty
+                    landed_costs += cl_calc(costs.amount, line.product_qty, costs.price_type)
             result[line.id] = landed_costs
+            landed_costs = 0.0
+
         return result
 
     def _landing_cost_order(self, cr, uid, ids, name, args, context):
@@ -144,12 +147,18 @@ class purchase_order(osv.osv):
         for line in self.browse(cr, uid, ids):
             if line.landed_cost_line_ids:
                 for costs in line.landed_cost_line_ids:
-                    if costs.product_id.landed_cost_type == 'quantity':
-                         landed_costs_base_quantity += costs.amount
+                    if costs.product_id.landed_cost_type == 'per_unit':
+                         landed_costs_base_quantity += costs.amount * line.quantity_total
             result[line.id] = landed_costs_base_quantity
         return result
 
     def _quantity_total(self, cr, uid, ids, name, args, context):
+        # TODO  It would be useful to discriminate those qtys that don't
+        #       carry costs at all.
+        # This may occur when there're no costs at the purchase order base
+        # in those orders with multiple lines order. In turn some of its
+        # order lines has associated costs but others lines has not.
+
         if not ids : return {}
         result = {}
         quantity_total = 0.0
@@ -180,7 +189,7 @@ class purchase_order(osv.osv):
             if line.order_line:
                 for pol in line.order_line:
                     if pol.product_qty > 0.0:
-                         landed_cost_lines += pol.landing_costs
+                        landed_cost_lines += pol.landing_costs
             result[line.id] = landed_cost_lines
         return result
 
