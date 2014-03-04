@@ -10,24 +10,59 @@
         <tree string="Timesheet Lines" editable="top">
           <field name="user_id"/>
           <field name="name"/>
-          <field name="hours_regular"/>
-          <field name="hours_cleaning"/>
-          <field name="hours_overtime_25"/>
-          <field name="hours_overtime_50"/>
-          <field name="hours_overtime_100"/>
-          <field name="hours_holiday_work"/>
-          <field name="hours_holiday"/>
-          <field name="hours_illnes"/>
-          <field name="hours_care"/>
-          <field name="allowance"/>
-          <field name="bonus"/>
-          <field name="other"/>
+          <field name="hours_regular" sum="Hours"/>
+          <field name="hours_cleaning" sum="Clean"/>
+          <field name="hours_overtime_25" sum="25 OT"/>
+          <field name="hours_overtime_50" sum="50 OT"/>
+          <field name="hours_overtime_100" sum="100 OT"/>
+          <field name="hours_holiday_work" sum="Holiday Work"/>
+          <field name="hours_holiday" sum="Holiday"/>
+          <field name="hours_illnes" sum="Illness"/>
+          <field name="hours_care" sum="Care"/>
+          <field name="allowance" sum="Allow"/>
+          <field name="bonus" sum="Bonus"/>
+          <field name="other" sum="other"/>
           <field name="notes"/>
           <field name="work_ids"/>
-          <field name="hours_detail"/>
+          <field name="hours_detail" sum="H Detail"/>
         </tree>
       </field>
     </record>
+    
+      <record id="hr_timesheet_farm_line_form" model="ir.ui.view">
+      <field name="name">hr.timesheet.farm.line.form</field>
+      <field name="model">hr.timesheet.farm.line</field>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <form string="Timesheet Lines">
+          
+          
+          <group colspan="2" col="2">
+          <field name="user_id"/>
+          <field name="hours_regular" />
+          <field name="hours_cleaning" />
+          <field name="hours_overtime_25" />
+          <field name="hours_overtime_50" />
+          <field name="hours_overtime_100" />
+          <field name="hours_holiday_work" />
+          <field name="hours_detail" />
+          </group>
+          <group colspan="2" col="2">
+          <field name="name"/>
+          <field name="hours_holiday" />
+          <field name="hours_illnes" />
+          <field name="hours_care" />
+          <field name="allowance" />
+          <field name="bonus" />
+          <field name="other" />
+          <field name="notes"/>
+          </group>
+          
+          <field name="work_ids" widget="one2many_list" colspan="4" nolabel="1"/>
+        </form>
+      </field>
+    </record>
+
 
     <record id="hr_timesheet_farm_line_list_detail" model="ir.ui.view">
       <field name="name">hr.timesheet.farm.line.detail.list</field>
@@ -35,7 +70,7 @@
       <field name="type">tree</field>
       <field name="arch" type="xml">
         <tree string="Work Lines" editable="top">
-          <field name="hours"/>
+          <field name="hours" sum="Hours"/>
           <field name="task_id"/>
           <field name="prodlot_id"/>
           <field name="location_id"/>
@@ -128,7 +163,7 @@
         <field name="res_model">hr.timesheet.farm.line</field>
         <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
-        <field name="context">{"search_default_today":1, "search_default_mywork":1}</field>
+        <field name="context">{"search_default_today":0, "search_default_mywork":0}</field>
         <field name="search_view_id" ref="hr_timesheet_farm_line_detail_search"/>
         <field name="help">Farm Through this menu you can register and follow your workings hours by project every day.</field>
     </record>

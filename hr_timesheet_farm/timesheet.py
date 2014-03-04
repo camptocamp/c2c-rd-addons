@@ -75,7 +75,9 @@ class hr_timesheet_farm_line(osv.osv):
         'user_id': lambda self, cr, uid, context: uid,
         'name': lambda *a: time.strftime('%Y-%m-%d')
        }
-    
+
+    _order          = "name desc"    
+
 hr_timesheet_farm_line()
 
 class hr_timesheet_farm_line_detail(osv.osv):
