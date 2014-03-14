@@ -8,7 +8,7 @@
             <field name="type">search</field>
             <field name="arch" type="xml">
               <xpath expr="/search/filter[@string='Quotations']" position="before">
-                  <filter icon="terp-gtk-jump-to-ltr" name="to_do" string="To Do" domain="['|',('uninvoiced_lines','=',True),('state','not in',('done','cancel')),('state','!=','cancel')]" help="All what needs your attention."/>
+                  <filter icon="terp-gtk-jump-to-ltr" name="to_do" string="To Do" domain="['|','|',('uninvoiced_lines','=',True),('state','not in',('done','cancel')),('invoiced','=', False)]" help="All what needs your attention.(unpaid, uninvoiced lines, unfinished sale order"/>
                 <separator orientation="vertical"/>
               </xpath>
            </field>
@@ -33,6 +33,7 @@
        <field name="arch" type="xml">
            <field name="state" position="after">
                <field name="uninvoiced_lines"/>
+               <field name="invoiced"/>
            </field>
        </field>
    </record>
