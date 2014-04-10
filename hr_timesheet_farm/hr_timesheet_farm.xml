@@ -75,7 +75,9 @@
           <field name="prodlot_id"/>
           <field name="location_id"/>
           <field name="resource_tractor_id"/>
+          <field name="hours_tractor" sum="Hours Tractor"/>
           <field name="resource_machine_id"/>
+          <field name="hours_machine" sum="Hours Machine"/>
 
         </tree>
       </field>

@@ -93,7 +93,9 @@ class hr_timesheet_farm_line_detail(osv.osv):
         'prodlot_id'  : fields.many2one('stock.production.lot', 'Production Lot', help="For all product related work"),
         'location_id' : fields.many2one('stock.location','Location', help="Only necessary if no production lot exists"),
         'resource_tractor_id' : fields.many2one("resource.resource", "Tractor", domain="[('code','ilike','T ') ]"),
+        'hours_tractor': fields.float  ('Hours Tractor', digits=(4,2)),
         'resource_machine_id' : fields.many2one("resource.resource", "Machine", domain="[('code','ilike','M ') ]"),
+        'hours_machine': fields.float  ('Hours Machine', digits=(4,2)),
         'name': fields.text ('Notes'),
         }
     
