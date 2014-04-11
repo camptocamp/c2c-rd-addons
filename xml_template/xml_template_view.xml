@@ -26,6 +26,8 @@
           <field name="valid_to"/>
           <newline/>
           <field name="schema" widget="url" colspan="3"/>
+          <newline/>
+          <field name="namespace" colspan="3"/>
           <button
             name="button_generate_template"
             string="Generate Template from Schema"

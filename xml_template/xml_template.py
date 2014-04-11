@@ -46,6 +46,7 @@ class xml_template(osv.osv):
         , "content"        : fields.text("Content", required=True, help="Contains XML-template specification")
         , "name"           : fields.char("Name", size=256, required=True)
         , "schema"         : fields.char("XML schema", size=256, help="Generated XML-file will be checked against this")
+        , "namespace"      : fields.char("Default namespace", size=256)
         , "reference_ids"  : fields.one2many("xml.template.ref", "xml_template_id", "References")
         , "regulation_ids" : fields.one2many("xml.template.url", "xml_template_id", "Regulations")
         , "valid_from"     : fields.date("Valid from")
