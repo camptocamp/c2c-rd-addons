@@ -4,7 +4,7 @@
     <record model="xml.template" id="xml_template_sepa_pain_001_001_03_austrian_003" forcecreate="True">
       <field name="name">pain_001_001_03_austrian_003</field>
       <field name="schema">http://www.stuzza.at/schemata/ISO.pain.001.001.03.austrian.003.xsd</field>
-      <field name="namespace">ISO:pain.001.001.03:APC:STUZZA:payments:003</fieldd>
+      <field name="namespace">ISO:pain.001.001.03:APC:STUZZA:payments:003</field>
       <field name="content" type="xml">
 <Document>
   <CstmrCdtTrfInitn>
