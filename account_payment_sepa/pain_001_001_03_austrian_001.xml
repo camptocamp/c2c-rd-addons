@@ -17,7 +17,7 @@
         <Nm text-eval="order.mode.bank_id.iban.replace(' ','').upper()[0:35]"/>
       </InitgPty>
     </GrpHdr>
-    <PmtInf var="date,p_banks" loop-eval="sepa_payments(order,company).iteritems()">
+    <PmtInf var="date,p_banks" seq-eval="sepa_payments(order,company).iteritems()">
       <PmtInfId text-eval="time1"/>
       <PmtMtd text-eval="'TRF'"/>
       <CtrlSum text-eval="sum(line.amount for line in p_banks)"/>
