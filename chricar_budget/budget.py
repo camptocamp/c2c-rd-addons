@@ -223,6 +223,41 @@ class chricar_budget(osv.osv):
            res[line.id] = amount
          return res
 
+
+      def _amount_prod_lot_qty(self, cr, uid, ids, name, args, context=None):
+         aml = self.pool.get('account.invoice')
+         ail = self.pool.get('account.invoice.line')
+         move_obj = self.pool.get('stock.move')
+         pick_obj = self.pool.get('stock.picking')
+         res = {}
+         _logger = logging.getLogger(__name__)
+         for line in self.browse(cr, uid, ids, context=context):
+           invoice_line_ids = []
+           amount = 0
+           if line.prod_lot_id:
+             #move_ids = move_obj.search(cr, uid, [('prodlot_id','=',line.prod_lot_id.id),('picking_id','>','0')])
+             move_ids = move_obj.search(cr, uid, [('prodlot_id','=',line.prod_lot_id.id)])
+             #_logger.debug('FGF move_ids %s' % (move_ids))
+             for move in move_obj.browse(cr, uid, move_ids):
+                 if  move.picking_id :
+                   _logger.debug('FGF move pick id %s %s %s' % (move.picking_id.name , move.picking_id.type, move.picking_id.state))
+                   if  move.picking_id.invoice_ids :
+                    for inv in move.picking_id.invoice_ids:
+                      _logger.debug('FGF move pick inv %s %s %s' % (inv.number, inv.type, inv.state))
+                      if inv.state in ['open','paid'] and inv.invoice_line:
+                        for inv_line in inv.invoice_line:
+                          if inv_line.product_id == line.product_id: # FIXME problematic if 2 lots are in one invoice
+                            if inv_line.id not in invoice_line_ids:
+                               invoice_line_ids.append(inv_line.id)
+           for l in ail.browse(cr, uid, invoice_line_ids):
+                if l.invoice_id.type == 'out_invoice':
+                     amount += l.quantity
+                else:
+                     amount -= l.quantity
+           #_logger.debug('FGF move pick inv %s line %s  amount %s cum amount %s' % (inv.number, inv_line.name, inv_line.price_subtotal,amount))
+           res[line.id] = amount
+         return res
+
      def _yield_line(self, cr, uid, ids, name, args, context=None):
         res = {}
         for line in self.browse(cr, uid, ids, context=context):
@@ -375,6 +410,7 @@ class chricar_budget(osv.osv):
        'harvest_done'       : fields.function(_harvest_done, method=True, string='Harvest Done' ,type='char', help="Harvested production order state", readonly=True),
        'prod_lot_id'        : fields.many2one('stock.production.lot', 'Production Lot', domain="[('product_id','=',product_id)]"),
        'amount_prod_lot'    : fields.function(_amount_prod_lot, method=True, string='Sales Prod Lot' ,digits_compute=dp.get_precision('Budget'),help="Invoiced production lots"),
+       'amount_prod_lot_qty': fields.function(_amount_prod_lot_qty, method=True, string='Sales Prod Lot Qty' ,digits_compute=dp.get_precision('Budget'),help="Invoiced production lot Quantity"),
        'product_qty_stock'  : fields.function(_qty_stock_prod_lot, method=True, string='Unsold Stock Lot' ,digits_compute=dp.get_precision('Budget'),help="Uninvoiced quantity on stock of this lot"),
        'product_qty_stock_tot'  : fields.related ('product_id', 'qty_available', type="float",  string="Unsold Stock", readonly = True ,help="Uninvoiced quantitiy of this product"),
        'product_qty_lot'    : fields.related ('prod_lot_id','stock_available', type="float",  string="Uninvoiced Lot", readonly = True ,help="Uninvoiced quantitiy of this production lot"),
