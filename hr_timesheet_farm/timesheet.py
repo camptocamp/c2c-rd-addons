@@ -87,7 +87,7 @@ class hr_timesheet_farm_line_detail(osv.osv):
 
     _columns = {
         'line_id'     : fields.many2one('hr.timesheet.farm.line', 'Daily work', required = True),
-        'date'        : fields.related ('hr.timesheet.farm.line','date',type='date',string='Date',readonly=True),
+        'date'        : fields.related ('line_id','name',type='date',string='Date',readonly=True, store=True),
         'hours'       : fields.float  ('Hours', digits=(4,2), required=True),
         'task_id'     : fields.many2one('project.task', 'Task', ondelete='cascade', required=True),
         'prodlot_id'  : fields.many2one('stock.production.lot', 'Production Lot', help="For all product related work"),
