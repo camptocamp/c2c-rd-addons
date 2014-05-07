@@ -182,43 +182,43 @@
         <search string="Timesheet Farm Search">
           <group col="14" colspan="4">
             <filter
-              domain="[('name','&lt;=',time.strftime('%%Y-%%m-%%d 23:59:59')),('name','&gt;=',time.strftime('%%Y-%%m-%%d 00:00:00'))]"
+              domain="[('date','&lt;=',time.strftime('%%Y-%%m-%%d 23:59:59')),('date','&gt;=',time.strftime('%%Y-%%m-%%d 00:00:00'))]"
               help="Todays work"
               icon="terp-go-today"
               name="today"
               string="Today"/>
             <filter
-              domain="[('name','&lt;=',(datetime.date.today() + relativedelta(days=-1)).strftime('%%Y-%%m-%%d 23:59:59')),('name','&gt;=',(datetime.date.today() + relativedelta(days=-1)).strftime('%%Y-%%m-%%d 00:00:00'))]"
+              domain="[('date','&lt;=',(datetime.date.today() + relativedelta(days=-1)).strftime('%%Y-%%m-%%d 23:59:59')),('date','&gt;=',(datetime.date.today() + relativedelta(days=-1)).strftime('%%Y-%%m-%%d 00:00:00'))]"
               help="Yesterdays Work"
               icon="terp-go-today"
               string="Yesterday"/>
             <filter
-              domain="[('name','&lt;',(datetime.date.today() + relativedelta(months=1)).strftime('%%Y-%%m-01 00:00:00')),('name','&gt;=',time.strftime('%%Y-%%m-01 00:00:00')) ]"
+              domain="[('date','&lt;',(datetime.date.today() + relativedelta(months=1)).strftime('%%Y-%%m-01 00:00:00')),('date','&gt;=',time.strftime('%%Y-%%m-01 00:00:00')) ]"
               help="This month work"
               icon="terp-go-month"
               string="This Mo"/>
             <filter
-              domain="[('name','&lt;',(datetime.date.today().strftime('%%Y-%%m-01 00:00:00'))) , ('name','&gt;=', ((datetime.date.today() + relativedelta(months=-1)).strftime('%%Y-%%m-01 00:00:00'))) ]"
+              domain="[('date','&lt;',(datetime.date.today().strftime('%%Y-%%m-01 00:00:00'))) , ('date','&gt;=', ((datetime.date.today() + relativedelta(months=-1)).strftime('%%Y-%%m-01 00:00:00'))) ]"
               help="Last month work"
               icon="terp-go-month"
               string="Last Mo"/>
             <filter
-              domain="[('name','&gt;=', (datetime.date.today().strftime('%%Y-'+ str((((datetime.date.today().month/4)+1)*3-2)).zfill(2) +'-01 00:00:00')))]"
+              domain="[('date','&gt;=', (datetime.date.today().strftime('%%Y-'+ str((((datetime.date.today().month/4)+1)*3-2)).zfill(2) +'-01 00:00:00')))]"
               help="This Quarter work"
               icon="terp-go-month"
               string="This Qu"/>
             <filter
-              domain="[('name','&lt;', (datetime.date.today().strftime('%%Y-'+ str((((datetime.date.today().month/4)+1)*3-2)).zfill(2) +'-01 00:00:00'))) ,  ('name','&gt;=', ((datetime.datetime.now() + relativedelta(months=-3)).strftime('%%Y-'+ str(((( (datetime.datetime.now() + relativedelta(months=-3)).month/4)+1)*3-2)).zfill(2) +'-01 00:00:00'))) ] "
+              domain="[('date','&lt;', (datetime.date.today().strftime('%%Y-'+ str((((datetime.date.today().month/4)+1)*3-2)).zfill(2) +'-01 00:00:00'))) ,  ('date','&gt;=', ((datetime.datetime.now() + relativedelta(months=-3)).strftime('%%Y-'+ str(((( (datetime.datetime.now() + relativedelta(months=-3)).month/4)+1)*3-2)).zfill(2) +'-01 00:00:00'))) ] "
               help="Last quarters work"
               icon="terp-go-month"
               string="Last Qu"/>
             <filter
-              domain="[('name','&gt;=',time.strftime('%%Y-01-01 00:00:00')) ]"
+              domain="[('date','&gt;=',time.strftime('%%Y-01-01 00:00:00')) ]"
               help="This year work"
               icon="terp-go-year"
               string="This Yr"/>
             <filter
-              domain="[('name','&lt;',time.strftime('%%Y-01-01 00:00:00')) ,('name','&gt;=',(datetime.date.today() + relativedelta(years=-1)).strftime('%%Y-01-01 00:00:00')) ]"
+              domain="[('date','&lt;',time.strftime('%%Y-01-01 00:00:00')) ,('date','&gt;=',(datetime.date.today() + relativedelta(years=-1)).strftime('%%Y-01-01 00:00:00')) ]"
               help="Last year work"
               icon="terp-go-year"
               string="Last Yr"/>
@@ -263,7 +263,7 @@
               string="Machine"/>
 
             <filter
-              context="{'group_by':'name'}"
+              context="{'group_by':'date'}"
               domain="[]"
               icon="terp-accessories-archiver"
               name="by_name"
