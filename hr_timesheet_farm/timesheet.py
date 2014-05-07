@@ -96,7 +96,8 @@ class hr_timesheet_farm_line_detail(osv.osv):
         'hours_tractor': fields.float  ('Hours Tractor', digits=(4,2)),
         'resource_machine_id' : fields.many2one("resource.resource", "Machine", domain="[('code','ilike','M ') ]"),
         'hours_machine': fields.float  ('Hours Machine', digits=(4,2)),
-        'name': fields.text ('Notes'),
+        'name'        : fields.text ('Notes'),
+        'user_id'     : fields.related('line_id', 'user_id', type='many2one', relation='res.users', string='User', readonly=True, store=True),
         }
     
 hr_timesheet_farm_line_detail()
