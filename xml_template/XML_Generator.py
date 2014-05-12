@@ -131,8 +131,9 @@ class XML_Generator (object) :
 
                     import logging #######
                     _logger = logging.getLogger(__name__) #####
+                    _logger.info("objs %s" % str(objs)) #########
                     for o in objs : ########
-                        _logger.info("obj %s" % o) #########
+                        _logger.info("obj %s" % str(o)) #########
 
                 except :
                     self._logger.error('ERROR in seq-eval for `%s` `%s`', c.tag, c.attrib["seq-eval"])
