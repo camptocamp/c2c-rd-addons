@@ -139,7 +139,11 @@ class XML_Generator (object) :
                     self._logger.error('ERROR in seq-eval for `%s` `%s`', c.tag, c.attrib["seq-eval"])
                     raise 
                 for o in objs :
-                    scope_dict [c.attrib["var"]] = o
+                    if "," in c.attrib["var"] :
+                        for i, v in enumerate(c.attrib["var"].split(",")) :
+                            scope_dict [v.strip()] = o[i]
+                    else :
+                        scope_dict [c.attrib["var"]] = o
                     x = etree.SubElement (out, c.tag)
                     self._iterate (c, x, scope_dict)
                     del scope_dict [c.attrib ["var"]]
