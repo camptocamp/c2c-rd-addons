@@ -182,11 +182,13 @@ class payment_order(osv.osv) :
                             % (amount, p_bank.iban, p_bank.bank.name, date)
                         )
         result = {}
+
+        import logging #######
+        _logger = logging.getLogger(__name__) #####
+
         for date, p_banks in dates.iteritems() :
 
-            import logging
-            _logger = logging.getLogger(__name__)
-            _logger.info("date %s p_banks %s" % (date, p_banks))
+            _logger.info("date %s p_banks %s" % (date, p_banks)) #########
 
             lls = []
             for p_bank, lines in p_banks.iteritems() :
@@ -242,6 +244,10 @@ class payment_order(osv.osv) :
                                 )
                             )
             result[date] = lls
+
+        for k,v in result : #########
+            _logger.info("date %s line %s" % (k, v)) #########
+
         return result
     # end def sepa_payments
 
