@@ -183,6 +183,11 @@ class payment_order(osv.osv) :
                         )
         result = {}
         for date, p_banks in dates.iteritems() :
+
+            import logging
+            _logger = logging.getLogger(__name__)
+            self._logger.debug("date %s p_banks %s" % (date, p_banks))
+
             lls = []
             for p_bank, lines in p_banks.iteritems() :
                 if [l for l in lines if l.amount <= 0.0] :
