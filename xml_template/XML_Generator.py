@@ -128,6 +128,12 @@ class XML_Generator (object) :
                             )
                         , scope_dict 
                         )
+
+                    import logging #######
+                    _logger = logging.getLogger(__name__) #####
+                    for o in objs : ########
+                        _logger.info("obj %s" % o) #########
+
                 except :
                     self._logger.error('ERROR in seq-eval for `%s` `%s`', c.tag, c.attrib["seq-eval"])
                     raise 
@@ -139,7 +145,7 @@ class XML_Generator (object) :
             else :
                 x = etree.SubElement (out, c.tag)
                 for name, value in c.items () :
-                    if name == "loop-eval" : pass
+                    if   name == "loop-eval" : pass
                     elif name == "seq-eval": pass
                     elif name == "var" : pass
                     elif name [0:9] == "attr-eval" : pass
