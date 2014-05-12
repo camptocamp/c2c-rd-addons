@@ -146,7 +146,11 @@ class XML_Generator (object) :
                         scope_dict [c.attrib["var"]] = o
                     x = etree.SubElement (out, c.tag)
                     self._iterate (c, x, scope_dict)
-                    del scope_dict [c.attrib ["var"]]
+                    if "," in c.attrib["var"] :
+                        for i, v in enumerate(c.attrib["var"].split(",")) :
+                            del scope_dict [v.strip()]
+                    else :
+                        del scope_dict [c.attrib ["var"]]
             else :
                 x = etree.SubElement (out, c.tag)
                 for name, value in c.items () :
