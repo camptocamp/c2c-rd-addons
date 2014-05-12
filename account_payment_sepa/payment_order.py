@@ -186,7 +186,7 @@ class payment_order(osv.osv) :
 
             import logging
             _logger = logging.getLogger(__name__)
-            _logger.debug("date %s p_banks %s" % (date, p_banks))
+            _logger.info("date %s p_banks %s" % (date, p_banks))
 
             lls = []
             for p_bank, lines in p_banks.iteritems() :
