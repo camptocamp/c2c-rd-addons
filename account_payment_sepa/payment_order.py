@@ -245,7 +245,7 @@ class payment_order(osv.osv) :
                             )
             result[date] = lls
 
-        for k,v in result : #########
+        for k,v in result.iteritems() : #########
             _logger.info("date %s line %s" % (k, v)) #########
 
         return result
