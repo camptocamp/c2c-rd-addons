@@ -1,7 +1,7 @@
 { "name"         : "Dispo Production"
 , "version"      : "1.0"
-, "author"       : "ChriCar Beteiligungs- und Beratungs- GmbH"
-, "website"      : "http://www.chricar.at"
+, "author"       : "Camptocamp"
+, "website"      : "http://www.camptocamp.com"
 , "description"  : """Dispo Production
 generated 2010-04-02 15:01:02+02"""
 , "category"     : "Client Modules/Farm"

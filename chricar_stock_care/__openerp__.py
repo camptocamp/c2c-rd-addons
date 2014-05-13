@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 { "name"         : "Stock Care"
 , "version"      : "1.0"
-, "author"       : "ChriCar Beteiligungs- und Beratungs- GmbH"
-, "website"      : "http://www.chricar.at"
+, "author"       : "Camptocamp"
+, "website"      : "http://www.camptocamp.com"
 , "description"  : """Stock Care"""
 , "category"     : "Client Modules/Farm"
 , "depends"      : ["product", "stock","c2c_product_price_unit"]

@@ -23,8 +23,8 @@
 #
 { "name"         : "Account Test __compute"
 , "version"      : "0.9.5"
-, "author"       : "ChriCar Beteiligungs- und Beratungs GmbH" 
-, "website"      : "http://www.chricar.at/ChriCar"
+, "author"       : "Camptocamp" 
+, "website"      : "http://www.camptocamp.com"
 , "description"  : """test to overwrite def __compute"""
 , "category"     : "Generic Modules/Others"
 , "depends"      : ["account","chricar_view_id"]

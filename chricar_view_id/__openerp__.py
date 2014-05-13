@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 { "name"        : "ChriCar unique View ID"
 , "version"     : "0.2"
-, "author"      : "Network Gulf IT - India"
-, "website"     : "http://www.chricar.at/ChriCar/index.html"
+, "author"      : "Camptocamp"
+, "website"     : "http://www.camptocamp.com"
 , "description" : """
 This module is funded by
 

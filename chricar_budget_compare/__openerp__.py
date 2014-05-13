@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 { "name"         : "Budget Products"
 , "version"      : "1.0"
-, "author"       : "ChriCar Beteiligungs- und beratungs GmbH"
-, "website"      : "http://www.chricar.at/ChriCar"
+, "author"       : "Camptocamp"
+, "website"      : "http://www.camptocamp.com"
 , "description"  : """Allows to compare current and previous budgets with current and previous real
 
 ToDo

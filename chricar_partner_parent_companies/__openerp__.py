@@ -1,7 +1,7 @@
 { "name"         : "Partner Participations"
 , "version"      : "0.7"
-, "author"       : "ChriCar Beteiligungs- und Beratungs- GmbH" 
-, "website"      : "http://www.chricar.at/ChriCar"
+, "author"       : "Camptocamp" 
+, "website"      : "http://www.camptocamp.com"
 , "description"  : """This module allows to define owners of a partner.
 The owner has to be defined in OpenERP as partner.
 Currently no check is made if max 100% of the capital is defined here

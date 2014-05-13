@@ -31,9 +31,9 @@ This module provides
   which can be reimproted using Form Import.
 * a default list for Form Export with all fields
     """,
-    'author': 'ChriCar Beteiligungs- und Beratungs GmbH',
+    'author': 'Camptocamp',
     'depends': ['base'],
-    'website': 'http://www.chricar.at',
+    'website': 'http://www.camptocamp.com',
     'update_xml': ['tools_export_view.xml'],
     'installable': True,
     'active': False,

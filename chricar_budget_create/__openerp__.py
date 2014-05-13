@@ -2,7 +2,7 @@
 { "name"         : "Budget Create"
 , "version"      : "1.0"
 , "author"       : "Camptocamp"
-, "website"      : "http://www.chricar.at/ChriCar"
+, "website"      : "http://www.camptocamp.com"
 , "description"  : """
 Create budget lines derived from account_move_lines of previous periods.
 This is helpful for planning fixed costs and often a good starting point 

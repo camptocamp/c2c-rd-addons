@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 { "name"         : "Stock Weighing"
 , "version"      : "1.0"
-, "author"       : "ChriCar Beteiligungs- und Beratungs- GmbH"
-, "website"      : "http://www.chricar.at"
+, "author"       : "Camptocamp"
+, "website"      : "http://www.camptocamp.com"
 , "description"  : """Stock Weighing
 
 Extension to carrier

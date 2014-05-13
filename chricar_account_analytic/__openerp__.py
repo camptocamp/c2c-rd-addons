@@ -21,8 +21,8 @@
 ##############################################################################
 { "name"         : "ChriCar Account Analytic"
 , "version"      : "1.0"
-, "author"       : "ChriCar Beteiligungs- und Beratungs GmbH"
-, "website"      : "http://www.chricar.at/ChriCar"
+, "author"       : "Camptocamp"
+, "website"      : "http://www.camptocamp.com"
 , "description"  : """
 Allows to define analytic accounts and their usage for accounts.
 It is especially IMPORTANT to assign default analytic accounts to all P&L accounts which are created automatically.

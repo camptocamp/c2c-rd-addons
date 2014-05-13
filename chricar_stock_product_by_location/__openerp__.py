@@ -1,7 +1,7 @@
 { "name"         : "Product by Stock "
 , "version"      : "1.0"
-, "author"       : "ChriCar Beteiligungs- und beratungs GmbH"
-, "website"      : "http://www.chricar.at"
+, "author"       : "Camptocamp"
+, "website"      : "http://www.camptocamp.com"
 , "description"  : """Shows quantity and amount of products per stock location
 generated 2009-09-19 23:51:03+02"""
 , "category"     : "Warehouse Management"

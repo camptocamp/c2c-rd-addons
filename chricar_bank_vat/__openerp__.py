@@ -21,8 +21,8 @@
 ##############################################################################
 { "name"         : "ChriCar Bank Account VAT + Analytic"
 , "version"      : "1.0"
-, "author"       : "ChriCar Beteiligungs- und Beratungs GmbH"
-, "website"      : "http://www.chricar.at/ChriCar"
+, "author"       : "Camptocamp"
+, "website"      : "http://www.camptocamp.com"
 , "description"  : """
 Adds VAT to bank statement lines
 
