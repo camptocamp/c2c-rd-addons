@@ -33,7 +33,7 @@ class sale_order(osv.osv):
         for order in self.browse(cr,uid,ids):
             to_invoice = False
             #if order.amount_total and order.amount_total > 0.0 and order.order_line:
-            if order.amount_total and order.amount_total > 0.0 :
+            if order.state == 'done' and order.invoiced_rate < 98 :
                 for line in order.order_line:
                     if line.invoiced != True and line.price_unit and line.price_unit >0.0 :
                         to_invoice = True
@@ -42,7 +42,7 @@ class sale_order(osv.osv):
         return res
 
     _columns = {
-        'uninvoiced_lines': fields.function(_uninvoiced_lines, method=True, string='Uninvoiced Lines', type='boolean', store=True),
+        'uninvoiced_lines': fields.function(_uninvoiced_lines, method=True, string='Uninvoiced Lines', type='boolean', store = True),
     }
 
 sale_order()
