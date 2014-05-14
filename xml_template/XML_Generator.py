@@ -115,9 +115,17 @@ class XML_Generator (object) :
                 if not ("omit_on_empty" in c.attrib and c.attrib["omit_on_empty"] == "True" and not objs) :
                     x = etree.SubElement (out, c.tag)
                     for o in objs :
-                        scope_dict [c.attrib["var"]] = o
+                        if "," in c.attrib["var"] :
+                            for i, v in enumerate(c.attrib["var"].split(",")) :
+                                scope_dict[v.strip()] = o[i]
+                        else :
+                            scope_dict[c.attrib["var"]] = o
                         self._iterate (c, x, scope_dict)
-                        del scope_dict [c.attrib ["var"]]
+                        if "," in c.attrib["var"] :
+                            for i, v in enumerate(c.attrib["var"].split(",")) :
+                                del scope_dict [v.strip()]
+                        else :
+                            del scope_dict[c.attrib ["var"]]
             elif "seq-eval" in c.attrib :
                 try :
                     objs = eval \
@@ -128,27 +136,20 @@ class XML_Generator (object) :
                             )
                         , scope_dict 
                         )
-
-                    import logging #######
-                    _logger = logging.getLogger(__name__) #####
-                    _logger.info("objs %s" % str(objs)) #########
-                    for o in objs : ########
-                        _logger.info("obj %s" % str(o)) #########
-
                 except :
                     self._logger.error('ERROR in seq-eval for `%s` `%s`', c.tag, c.attrib["seq-eval"])
                     raise 
                 for o in objs :
                     if "," in c.attrib["var"] :
                         for i, v in enumerate(c.attrib["var"].split(",")) :
-                            scope_dict [v.strip()] = o[i]
+                            scope_dict[v.strip()] = o[i]
                     else :
-                        scope_dict [c.attrib["var"]] = o
+                        scope_dict[c.attrib["var"]] = o
                     x = etree.SubElement (out, c.tag)
                     self._iterate (c, x, scope_dict)
                     if "," in c.attrib["var"] :
                         for i, v in enumerate(c.attrib["var"].split(",")) :
-                            del scope_dict [v.strip()]
+                            del scope_dict[v.strip()]
                     else :
                         del scope_dict [c.attrib ["var"]]
             else :
