@@ -82,7 +82,8 @@ class chricar_tenant(osv.osv):
        'termination_date'   : fields.selection([('month','Month End'),('quater','Quater End')], 'Termination Date',  size=24),
        'partner_id'         : fields.many2one('res.partner','Tenant', select=True, required=True),
        'price'              : fields.function(_price_per_m2, method=True, string=u"Price / m²", type='float', digits=(16,2),),
-       'sort'               : fields.related ('top_id', 'sort', tpye ='integer', relation='chricar.top', string="Sort", readonly = True),
+#       'sort'               : fields.related ('top_id', 'sort', tpye ='integer', relation='chricar.top', string="Sort", readonly = True, store = True),
+       'sequence'           : fields.related ('top_id', 'sequence', tpye ='integer', relation='chricar.top', string="Seq", readonly = True, store = True),
        'surface'            : fields.related ('top_id', 'surface', tpye ='float', relation='chricar.top', string="Surface", readonly = True),   
        'to_date'            : fields.date    ('To Date', help="Date Contract Ends"),
        'top_id'             : fields.many2one('chricar.top','Top', select=True, required=True),
@@ -120,6 +121,7 @@ class chricar_top(osv.osv):
          result = {}
          price = 0.0
          for p in self.browse(cr, uid, ids, context):
+             price = 0
              now = time.strftime('%Y-%m-%d %H:%M:%S')
              tenant_obj = self.pool.get('chricar.tenant')
              tenant_ids = tenant_obj.search(cr,uid,['|',('to_date','=',False),('to_date','>',now),('name','<=',now),('top_id','=',p.id)])
