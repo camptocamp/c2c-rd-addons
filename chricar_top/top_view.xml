@@ -403,7 +403,6 @@ Modification of Parents (only for matching table prefixes)
     </record>
 
     <act_window
-      domain="[('ref','=',ref_top)]"
       id="act_top_2_helpdesk"
       name="Helpdesk Top"
       res_model="crm.helpdesk"
@@ -411,7 +410,7 @@ Modification of Parents (only for matching table prefixes)
       view_mode="tree,form"
       view_type="form"/>
     <menuitem
-      action="stock.action_location_tree"
+      action="stock.action_location_form"
       id="menu_action_location_tree_chricar"
       parent="chricar_top.menu_chricar_real_estate"
       sequence="15"/>
