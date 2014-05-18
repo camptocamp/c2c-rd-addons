@@ -3,7 +3,7 @@
 #
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2010 Tiny SPRL (<http://tiny.be>).
-#    Copyright (C) 2010-2012 Camptocamp Austria (<http://www.camptocamp.at>)
+#    Copyright (C) 2010-2012 ChriCar Beteiligungs- und Beratungs- GmbH (<http://www.camptocamp.at>)
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -29,7 +29,7 @@
 'description': """
 This module installs everything for Blaustauden
 """,
-'author': 'Camptocamp Austria',
+'author': 'ChriCar Beteiligungs- und Beratungs- GmbH',
 'depends': [
 "account"
 ,"account_accountant"
@@ -55,7 +55,7 @@ This module installs everything for Blaustauden
 ,"analytic"
 #,"analytic_hours_block"
 ,"analytic_user_function"
-,"audittrail"
+#,"audittrail"
 ,"base"
 ,"base_action_rule"
 #,"base_calendar"
@@ -135,9 +135,9 @@ This module installs everything for Blaustauden
 ,"decimal_precision"
 ,"delivery"
 ,"document"
-,"document_ftp"
+#,"document_ftp"
 #,"document_ics"
-,"document_webdav"
+#,"document_webdav"
 ,"edi"
 ,"email_template"
 ,"fetchmail"
@@ -164,13 +164,13 @@ This module installs everything for Blaustauden
 ,"marketing"
 ,"marketing_campaign"
 ,"mrp"
-,"mrp_jit"
+#,"mrp_jit"
 #,"multi_company"
 #,"outlook"
 ,"pad"
 #,"point_of_sale"
 ,"portal"
-,"process"
+#,"process"
 ,"procurement"
 ,"product"
 ,"product_margin"
@@ -178,7 +178,7 @@ This module installs everything for Blaustauden
 #,"project_billing_utils"
 #,"project_caldav"
 ,"project_gantt_webkit"
-,"project_gtd"
+#,"project_gtd"
 #,"project_indicators"
 ,"project_issue"
 ,"project_issue_sheet"

@@ -3,7 +3,7 @@
 #
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2010 Tiny SPRL (<http://tiny.be>).
-#    Copyright (C) 2010-2012 Camptocamp Austria (<http://www.camptocamp.at>)
+#    Copyright (C) 2010-2012 ChriCar Beteiligungs- und Beratungs- GmbH (<http://www.camptocamp.at>)
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -23,13 +23,13 @@
 
 { 'sequence': 500,
 
-'name': 'Camptocamp Austria Extra Addons',
+'name': 'ChriCar Beteiligungs- und Beratungs- GmbH Extra Addons',
 'version': '1.0',
 'category': 'Others',
 'description': """
 This module installs everything we need for Austrian extra addons c2c_extension
 """,
-'author': 'Camptocamp Austria',
+'author': 'ChriCar Beteiligungs- und Beratungs- GmbH',
 'depends': [
 "c2c_austria_base"
 ,"c2c_partner_address_label"
@@ -57,7 +57,7 @@ This module installs everything we need for Austrian extra addons c2c_extension
 ,"account_financial_report_chricar"
 #,"account_payment_extension_chricar"
 #,"account_report"
-,"audittrail"
+#,"audittrail"
 #,"base_contact"
 #,"document_ics"
 ,"pad"

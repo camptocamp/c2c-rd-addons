@@ -3,7 +3,7 @@
 #
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2010 Tiny SPRL (<http://tiny.be>).
-#    Copyright (C) 2010-2012 Camptocamp Austria (<http://www.camptocamp.at>)
+#    Copyright (C) 2010-2012 ChriCar Beteiligungs- und Beratungs- GmbH (<http://www.camptocamp.at>)
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -60,7 +60,7 @@ using '(fy)' instead of hard coding.
     * Configuration wizard:
 During configuration you may choose to replace all '(year)' prefix and suffix occurrences by '(fy)'.
 """
-, 'author'      : 'Camptocamp Austria'
+, 'author'      : 'ChriCar Beteiligungs- und Beratungs- GmbH'
 , 'depends'     : ['account']
 , 'data'  :
 [ 'ir_sequence_view.xml'

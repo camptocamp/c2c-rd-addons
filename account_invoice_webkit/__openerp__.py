@@ -4,7 +4,7 @@
 # Copyright (c) 2010 Camptocamp SA (http://www.camptocamp.com) 
 # All Right Reserved
 #
-# Author : Ferdinand Gassauer (Camptocamp Austria)
+# Author : Ferdinand Gassauer (ChriCar Beteiligungs- und Beratungs- GmbH)
 #
 # WARNING: This program as such is intended to be used by professional
 # programmers who take the whole responsability of assessing all potential
@@ -51,7 +51,7 @@ set "print code" in company to print internal product code on sale_order,icking 
 , "account_invoice_iban_qr_at"
 ]
 , "category"     : "Accounting & Finance"
-, "author"       : "Camptocamp SA - NBessi, Camptocamp Austria"
+, "author"       : "Camptocamp SA - NBessi, ChriCar Beteiligungs- und Beratungs- GmbH"
 , "website"      : "http://www.camptocamp.com/"
 , "data"         : ["account_invoice_webkit_view.xml"]
 , "installable"  : True

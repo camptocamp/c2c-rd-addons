@@ -3,7 +3,7 @@
 #
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2010 Tiny SPRL (<http://tiny.be>).
-#    Copyright (C) 2010-2012 Camptocamp Austria (<http://www.camptocamp.at>)
+#    Copyright (C) 2010-2012 ChriCar Beteiligungs- und Beratungs- GmbH (<http://www.camptocamp.at>)
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -30,7 +30,7 @@
 This module installs a minimum chart of accounts for real estate management tool
 No XML data yet - these must be extracted from the database Real Estate templates
 """,
-'author': 'Camptocamp Austria',
+'author': 'ChriCar Beteiligungs- und Beratungs- GmbH',
 'depends': [
    "account", 
    "base_vat", 

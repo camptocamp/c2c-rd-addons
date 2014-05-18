@@ -23,7 +23,7 @@
 
 "name" : "Partner ERP Access",
 "version" : "1.0",
-"author" : "Camptocamp Austria",
+"author" : "ChriCar Beteiligungs- und Beratungs- GmbH",
 "category": 'Project',
 'complexity': "easy",
 "description": """

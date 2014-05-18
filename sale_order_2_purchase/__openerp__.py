@@ -3,7 +3,7 @@
 #
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2010 Tiny SPRL (<http://tiny.be>).
-#    Copyright (C) 2010-2012 Camptocamp Austria (<http://www.camptocamp.at>)
+#    Copyright (C) 2010-2012 ChriCar Beteiligungs- und Beratungs- GmbH (<http://www.camptocamp.at>)
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -31,7 +31,7 @@ Creates and confirms a purchase order in other company.
 This is useful if the "other company" orders in a sale portal 
 instead of using the purchse process itself
 """,
-'author': 'Camptocamp Austria',
+'author': 'ChriCar Beteiligungs- und Beratungs- GmbH',
 'depends': [ 'sale','purchase','account','product_price_property','stock'],
 'data': [
   ],

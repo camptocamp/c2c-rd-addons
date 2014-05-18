@@ -3,7 +3,7 @@
 #
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2010 Tiny SPRL (<http://tiny.be>).
-#    Copyright (C) 2010-2012 Camptocamp Austria (<http://www.camptocamp.at>)
+#    Copyright (C) 2010-2012 ChriCar Beteiligungs- und Beratungs- GmbH (<http://www.camptocamp.at>)
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -29,7 +29,7 @@
 'description': """
 adapts the price difference (write down to use price units)
 """,
-'author': 'Camptocamp Austria',
+'author': 'ChriCar Beteiligungs- und Beratungs- GmbH',
 'depends': ['account_anglo_saxon','c2c_product_price_unit','c2c_stock_accounting','picking_invoice_rel' ],
 'data': [],
 #'data': ['product_view.xml'],

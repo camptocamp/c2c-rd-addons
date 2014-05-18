@@ -4,7 +4,7 @@
 # Copyright (c) 2010 Camptocamp SA (http://www.camptocamp.com) 
 # All Right Reserved
 #
-# Author : Ferdinand Gassauer (Camptocamp Austria)
+# Author : Ferdinand Gassauer (ChriCar Beteiligungs- und Beratungs- GmbH)
 #
 # WARNING: This program as such is intended to be used by professional
 # programmers who take the whole responsability of assessing all potential
@@ -47,7 +47,7 @@ suppress unused columns in sale order lines."""
 , "stock_packing_webkit"
 ]
 , "category"     : "Sales Management"
-, "author"       : "Camptocamp Austria"
+, "author"       : "ChriCar Beteiligungs- und Beratungs- GmbH"
 , "website"      : "http://www.camptocamp.com/"
 , "data"         : ["sale_view.xml","sale_order_webkit_view.xml"]
 , "installable"  : True

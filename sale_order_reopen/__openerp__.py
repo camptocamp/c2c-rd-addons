@@ -23,7 +23,7 @@
 
 "name" : "Sale Order Reopen",
 "version" : "1.2",
-"author" : "Camptocamp Austria",
+"author" : "ChriCar Beteiligungs- und Beratungs- GmbH",
 "category": 'Sales Management',
 'complexity': "normal",
 "description": """

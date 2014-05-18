@@ -3,7 +3,7 @@
 #
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2010 Tiny SPRL (<http://tiny.be>).
-#    Copyright (C) 2010-2012 Camptocamp Austria (<http://www.camptocamp.at>)
+#    Copyright (C) 2010-2012 ChriCar Beteiligungs- und Beratungs- GmbH (<http://www.camptocamp.at>)
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -28,7 +28,7 @@ This module checks sign in out sequence when saving the sheet
 thus allowing to enter past sign_in_out dates/times
 
 """
-, 'author'      : 'Camptocamp Austria'
+, 'author'      : 'ChriCar Beteiligungs- und Beratungs- GmbH'
 , 'depends'     : ['hr_attendance','hr_timesheet_sheet' ]
 , 'data'  : ['hr_attendance_checkbox.xml']
 , 'demo_xml'    : []

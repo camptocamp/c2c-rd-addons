@@ -2,7 +2,7 @@
 { 'sequence': 500,
 "name"          : "Cashbox add date field in form"
 , "version"       : "1.0"
-, "author"        : "Camptocamp Austria"
+, "author"        : "ChriCar Beteiligungs- und Beratungs- GmbH"
 , "website"       : "http://www.camptocamp.at"
 , "description"   : """
 Adds date of cashbox to form to allow modifications

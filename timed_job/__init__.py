@@ -2,7 +2,7 @@
 ##############################################
 #
 # Copyright (C) 2011 Swing Entwicklung betrieblicher Informationssysteme GmbH (<http://www.swing-system.com>)
-# Copyright (C) 2011 Camptocamp Austria (<http://www.camptocamp.at>)
+# Copyright (C) 2011 ChriCar Beteiligungs- und Beratungs- GmbH (<http://www.camptocamp.at>)
 # all rights reserved
 #    20-JUN-2011 (GK) created
 #

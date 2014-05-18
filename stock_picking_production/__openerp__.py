@@ -23,7 +23,7 @@
 
 "name" : "Stock Production Moves",
 "version" : "1.1",
-"author" : "Camptocamp Austria",
+"author" : "ChriCar Beteiligungs- und Beratungs- GmbH",
 "category": 'Warehouse Management',
 'complexity': "normal",
 "description": """

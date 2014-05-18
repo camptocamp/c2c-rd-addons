@@ -4,7 +4,7 @@
 # Copyright (c) 2012 Camptocamp SA (http://www.camptocamp.com)
 # All Right Reserved
 #
-# Author : Ferdinand Gassauer (Camptocamp Austria)
+# Author : Ferdinand Gassauer (ChriCar Beteiligungs- und Beratungs- GmbH)
 #
 # WARNING: This program as such is intended to be used by professional
 # programmers who take the whole responsability of assessing all potential
@@ -44,7 +44,7 @@ Allows to store additional data (dates) per fiscal year
 , "one2many_sorted"
 ]
 , "category"     : "Accounting & Finance"
-, "author"       : "Camptocamp Austria"
+, "author"       : "ChriCar Beteiligungs- und Beratungs- GmbH"
 , "website"      : "http://www.camptocamp.com/"
 , "data"         : ["fiscalyear_view.xml"]
 , "installable"  : True

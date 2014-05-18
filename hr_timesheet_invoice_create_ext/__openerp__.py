@@ -3,7 +3,7 @@
 #
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2010 Tiny SPRL (<http://tiny.be>).
-#    Copyright (C) 2010-2012 Camptocamp Austria (<http://www.camptocamp.at>)
+#    Copyright (C) 2010-2012 ChriCar Beteiligungs- und Beratungs- GmbH (<http://www.camptocamp.at>)
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -32,7 +32,7 @@ This module will allow to spezify
     * remove the default date of today as prefix for analytic account name
     * group all projects in ONE invoice per partner
 """
-, 'author'      : 'Camptocamp Austria'
+, 'author'      : 'ChriCar Beteiligungs- und Beratungs- GmbH'
 , 'depends'     : [ 'hr_timesheet_invoice' ]
 , 'data'  : ['hr_timesheet_invoice_view.xml', 'wizard/hr_timesheet_invoice_create_view.xml']
 , 'demo_xml'    : []

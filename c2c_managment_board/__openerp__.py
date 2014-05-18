@@ -36,7 +36,7 @@ This module implements a dashboard for management
 
 ToDo: make it  multicompany ready
 """,
-'author': 'Camptocamp Austria',
+'author': 'ChriCar Beteiligungs- und Beratungs- GmbH',
 'depends': ['board', 'sale', 'purchase', 'account'],
 'data': ['management_board.xml','management_board_graph.xml','security/ir.model.access.csv'],
 'demo_xml': [],

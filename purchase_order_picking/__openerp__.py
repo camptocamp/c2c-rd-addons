@@ -23,7 +23,7 @@
 
 "name" : "Purchase Order Packing",
 "version" : "1.1",
-"author" : "Camptocamp Austria",
+"author" : "ChriCar Beteiligungs- und Beratungs- GmbH",
 "category": 'Purchase Management',
 'complexity': "normal",
 "description": """

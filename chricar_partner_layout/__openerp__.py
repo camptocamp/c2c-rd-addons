@@ -2,7 +2,7 @@
 { 'sequence': 500,
 "name"         : "Partner: better layout for long partner names"
 , "version"      : "1.0"
-, "author"       : "Camptocamp Austria"
+, "author"       : "ChriCar Beteiligungs- und Beratungs- GmbH"
 , "website"      : "http://www.camptocamp.at"
 , "description"  : """Layout modification for partner name"""
 , "category"     : "Generic Modules/Base"

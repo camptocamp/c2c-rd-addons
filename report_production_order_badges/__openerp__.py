@@ -4,7 +4,7 @@
 # Copyright (c) 2010 Camptocamp SA (http://www.camptocamp.com)
 # All Right Reserved
 #
-# Author : Ferdinand Gassauer (Camptocamp Austria)
+# Author : Ferdinand Gassauer (ChriCar Beteiligungs- und Beratungs- GmbH)
 #
 # WARNING: This program as such is intended to be used by professional
 # programmers who take the whole responsability of assessing all potential
@@ -37,7 +37,7 @@ Production Order Line
 , "version"      : "0.9"
 , "depends"      : ["sale", "chricar_stock_dispo_production_V1", "report_webkit"]
 , "category"     : 'Warehouse Management'
-, "author"       : "Camptocamp Austria"
+, "author"       : "ChriCar Beteiligungs- und Beratungs- GmbH"
 , "website"      : "http://www.camptocamp.at/"
 , "data"         : ["report_production_order_badges_view.xml"]
 , "installable"  : True

@@ -22,7 +22,7 @@
 
 "name" : "Base Partner or Contact",
 "version" : "1.0",
-"author" : "Camptocamp Austria",
+"author" : "ChriCar Beteiligungs- und Beratungs- GmbH",
 "website" : "http://www.camptocamp.com",
 "category" : "Base",
 "description": """

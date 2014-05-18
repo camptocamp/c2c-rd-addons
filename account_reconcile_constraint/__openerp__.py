@@ -23,7 +23,7 @@
 
 "name" : "Reconcile reconcile accounts",
 "version" : "1.1",
-"author" : "Camptocamp Austria",
+"author" : "ChriCar Beteiligungs- und Beratungs- GmbH",
 "category": 'Accounting & Finance',
 'complexity': "normal",
 "description": """

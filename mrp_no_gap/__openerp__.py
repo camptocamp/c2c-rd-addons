@@ -23,7 +23,7 @@
 
 "name" : "Production Order No Gap",
 "version" : "1.1",
-"author" : "Camptocamp Austria",
+"author" : "ChriCar Beteiligungs- und Beratungs- GmbH",
 "category": 'Manufacturing',
 'complexity': "easy",
 "description": """

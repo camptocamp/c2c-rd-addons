@@ -29,7 +29,7 @@
 { 'sequence': 500,
 "name" : "Advanced Budget Webkit Report"
 , "version" : "6.1"
-, "author" : "Camptocamp Austria"
+, "author" : "ChriCar Beteiligungs- und Beratungs- GmbH"
 , "category" : "Generic Modules/Accounting"
 , "website" : "http://camptocamp.com"
 , "description": """

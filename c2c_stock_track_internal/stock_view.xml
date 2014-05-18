@@ -4,7 +4,7 @@
     <record model="ir.ui.view" id="c2c_product_track_internal_form_view">
       <field name="name">c2c.product.track.internal.form</field>
       <field name="model">product.product</field>
-      <field name="inherit_id" ref="stock.view_normal_procurement_locations_form"/>
+      <field name="inherit_id" ref="stock.product_form_view_procurement_button"/>
       <field name="type">form</field>
       <field name="arch" type="xml">
         <field name="track_outgoing" position="after">

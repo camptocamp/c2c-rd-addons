@@ -23,7 +23,7 @@
 
 "name" : "Adds links to unreconciled partner moves",
 "version" : "1.0",
-"author" : "Camptocamp Austria",
+"author" : "ChriCar Beteiligungs- und Beratungs- GmbH",
 "category": 'Accounting & Finance',
 'complexity': "normal",
 "description": """

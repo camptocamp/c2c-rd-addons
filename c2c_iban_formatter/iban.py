@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 ##############################################
 #
-# Copyright (C) Camptocamp Austria
+# Copyright (C) ChriCar Beteiligungs- und Beratungs- GmbH
 # all rights reserved
 #
 # WARNING: This program as such is intended to be used by professional

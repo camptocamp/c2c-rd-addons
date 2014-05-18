@@ -4,7 +4,7 @@
 # Copyright (c) 2010 Camptocamp SA (http://www.camptocamp.com)
 # All Right Reserved
 #
-# Author : Ferdinand GAssauer (Camptocamp Austria)
+# Author : Ferdinand GAssauer (ChriCar Beteiligungs- und Beratungs- GmbH)
 #
 # WARNING: This program as such is intended to be used by professional
 # programmers who take the whole responsability of assessing all potential
@@ -39,7 +39,7 @@ http://www.stuzza.at/11250_DE.6858781c0841bfb08be3ce61a7d21fb40e0f0830
 [ "account"
 ]
 , "category"     : "Accounting & Finance"
-, "author"       : "Camptocamp Austria"
+, "author"       : "ChriCar Beteiligungs- und Beratungs- GmbH"
 , "website"      : "http://www.camptocamp.com/"
 , "data"         : ["account_qrcode_view.xml"]
 , "installable"  : True
