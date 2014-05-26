@@ -19,7 +19,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-
+# FGF depreciation date must be the first date of fiscal year (not calendar year)
 
 
 from osv import osv, fields
@@ -96,6 +96,8 @@ class account_asset_asset(osv.osv):
         return amount
              
     def compute_depreciation_board(self, cr, uid, ids, context=None):
+        fiscalyear_pool = self.pool.get('account.fiscalyear')
+        depreciation_lin_obj = self.pool.get('account.asset.depreciation.line')
 
         for asset in self.browse(cr, uid, ids, context):
             if asset.half_year_rule and (asset.prorata or asset.method != 'linear'):
@@ -104,17 +106,32 @@ class account_asset_asset(osv.osv):
         res = super(account_asset_asset, self).compute_depreciation_board(cr, uid, ids, context=None)
         
         for asset in self.browse(cr, uid, ids, context):
+            purchase_date = datetime.strptime(asset.purchase_date, '%Y-%m-%d')
+            fy_id = fiscalyear_pool.search(cr, uid, [('date_start','<=',purchase_date), ('date_stop','>=',purchase_date)])
+            for fy in  fiscalyear_pool.browse(cr, uid, fy_id):
+                depreciation_date =  datetime.strptime(fy.date_start, '%Y-%m-%d')
+                day = depreciation_date.day
+                month = depreciation_date.month
+                year = depreciation_date.year
+
             remaining_value = 0 
             line_count = 0
             for line in asset.depreciation_line_ids:
+                
                 if line_count > 0 and line.remaining_value < remaining_value:
                     last_line = line
                     remaining_value = line.remaining_value
                 else:
                     last_line = line
                     remaining_value = line.remaining_value
+                depreciation_lin_obj.write(cr, uid, line.id, {'depreciation_date': depreciation_date })
+                depreciation_date = (datetime(year, month, day) + relativedelta(months=+asset.method_period))
+                day = depreciation_date.day
+                month = depreciation_date.month
+                year = depreciation_date.year
+
+
             if remaining_value > 0:
-                depreciation_lin_obj = self.pool.get('account.asset.depreciation.line')
                 vals = {
                         'amount': remaining_value,
                         'asset_id': last_line.asset_id.id,
@@ -122,7 +139,7 @@ class account_asset_asset(osv.osv):
                         'name': str(asset.id) +'/' + str(last_line.sequence + 1),
                         'remaining_value': 0,
                         'depreciated_value': (asset.purchase_value - asset.salvage_value) - (last_line.remaining_value),
-                        'depreciation_date': (datetime.strptime(last_line.depreciation_date, '%Y-%m-%d') + relativedelta(years=1)).strftime('%Y-%m-%d') ,
+                        'depreciation_date': depreciation_date  ,
                     }
                 depreciation_lin_obj.create(cr, uid, vals, context=context)
         
