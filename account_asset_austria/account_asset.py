@@ -109,7 +109,7 @@ class account_asset_asset(osv.osv):
             purchase_date = datetime.strptime(asset.purchase_date, '%Y-%m-%d')
             fy_id = fiscalyear_pool.search(cr, uid, [('date_start','<=',purchase_date), ('date_stop','>=',purchase_date)])
             for fy in  fiscalyear_pool.browse(cr, uid, fy_id):
-                depreciation_date =  datetime.strptime(fy.date_start, '%Y-%m-%d')
+                depreciation_date =  datetime.strptime(fy.date_stop, '%Y-%m-%d')
                 day = depreciation_date.day
                 month = depreciation_date.month
                 year = depreciation_date.year
