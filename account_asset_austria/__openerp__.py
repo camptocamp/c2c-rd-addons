@@ -27,6 +27,7 @@
     'category': 'Accounting & Finance',
     'description': """
     Computes full/half depreciation if asset usage starts in fists/second half year
+    Sets depreciation date at end of year date
 """,
     'author': 'ChriCar Beteiligung und Beratung GmbH',
     'depends': ["account_asset"],
