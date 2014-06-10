@@ -65,6 +65,7 @@ create or replace function c2c_budget_sequence()
 
 -- postgres tablefunc.sql must be loaded
 
+          CREATE EXTENSION  if not exists tablefunc;
           create table c2c_budget_item_sequence as
           SELECT * FROM connectby('c2c_budget_item','id','parent_id',        'code', start_pos_p , 0, '~')
                 AS t(keyid integer, parent_keyid integer, level int, branch text, pos int);

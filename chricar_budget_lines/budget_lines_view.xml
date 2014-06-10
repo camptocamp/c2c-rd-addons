@@ -519,7 +519,7 @@ Modification of c2c_budget versions
     <record model="ir.ui.view" id="chricar_view_budget_version_form">
       <field name="name">chricar.view.budget.version.form</field>
       <field name="model">c2c_budget.version</field>
-      <field name="inherit_id" ref="c2c_budget.view_budget_version_form"/>
+      <field name="inherit_id" ref="c2c_budget_chricar.view_budget_version_form"/>
       <field name="arch" type="xml">
         <field name="create_date" position="after">
           <newline/>
@@ -538,7 +538,7 @@ Modification of c2c_budget lines
     <record model="ir.ui.view" id="chricar_view_budget_line_list_in_budget_version">
       <field name="name">chricar.view.budget.line.list.in.budget.version</field>
       <field name="model">c2c_budget.line</field>
-      <field name="inherit_id" ref="c2c_budget.view_budget_line_list_in_budget_version"/>
+      <field name="inherit_id" ref="c2c_budget_chricar.view_budget_line_list_in_budget_version"/>
       <field name="arch" type="xml">
         <field name="period_id" position="before">
           <field
@@ -552,7 +552,7 @@ Modification of c2c_budget lines
     <record model="ir.ui.view" id="chricar_view_budget_line_list">
       <field name="name">chricar.view.budget.line.list</field>
       <field name="model">c2c_budget.line</field>
-      <field name="inherit_id" ref="c2c_budget.view_budget_line_list"/>
+      <field name="inherit_id" ref="c2c_budget_chricar.view_budget_line_list"/>
       <field name="arch" type="xml">
         <field name="period_id" position="before">
           <field
@@ -579,7 +579,7 @@ Modification of c2c_budget lines
     <record model="ir.ui.view" id="chricar_view_budget_line_form">
       <field name="name">chricar.view.budget.line.form</field>
       <field name="model">c2c_budget.line</field>
-      <field name="inherit_id" ref="c2c_budget.view_budget_line_form"/>
+      <field name="inherit_id" ref="c2c_budget_chricar.view_budget_line_form"/>
       <field name="arch" type="xml">
         <field name="period_id" position="before">
           <newline/>
@@ -615,7 +615,7 @@ Modification of c2c_budget items
     <record model="ir.ui.view" id="chricar_view_budget_item_list">
       <field name="name">chricar.view.budget.item.list</field>
       <field name="model">c2c_budget.item</field>
-      <field name="inherit_id" ref="c2c_budget.view_budget_item_list"/>
+      <field name="inherit_id" ref="c2c_budget_chricar.view_budget_item_list"/>
       <field name="arch" type="xml">
         <field name="active" position="before">
           <field name="is_cash"/>
@@ -626,7 +626,7 @@ Modification of c2c_budget items
     <record model="ir.ui.view" id="chricar_view_budget_item_tree">
       <field name="name">chricar.view.budget.item.tree</field>
       <field name="model">c2c_budget.item</field>
-      <field name="inherit_id" ref="c2c_budget.view_budget_item_tree"/>
+      <field name="inherit_id" ref="c2c_budget_chricar.view_budget_item_tree"/>
       <field name="arch" type="xml">
         <field name="type" position="after">
           <field name="is_cash"/>
@@ -637,7 +637,7 @@ Modification of c2c_budget items
     <record model="ir.ui.view" id="chricar_view_budget_item_form">
       <field name="name">chricar.view.budget.item.form</field>
       <field name="model">c2c_budget.item</field>
-      <field name="inherit_id" ref="c2c_budget.view_budget_item_form"/>
+      <field name="inherit_id" ref="c2c_budget_chricar.view_budget_item_form"/>
       <field name="arch" type="xml">
         <field name="active" position="before">
           <field name="is_cash"/>

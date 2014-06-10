@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_task_form_deps" model="ir.ui.view">
+            <field name="name">project.task.form.deps</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_form2"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook/page[@string='Description']" position="after">
+                    <page string="Dependencies">
+                        <group colspan="4">
+                            <field name="compute_dependency"/>
+                            <newline/>
+                            <separator string="Predecessors" colspan="4"/>
+                            <field name="predecessor_ids" colspan="4"  nolabel="1" />
+                            <separator string="Successors" colspan="4"/>
+                            <field name="successor_ids" colspan="4"  nolabel="1" />
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_task_form1_deps" model="ir.ui.view">
+            <field name="name">project.task.form1.deps</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_form2"/>
+            <field name="arch" type="xml">
+                <group string="Gantt View" position="replace"/>
+            </field>
+        </record>
+
+        <record id="view_task_form2_deps" model="ir.ui.view">
+            <field name="name">project.task.form2.deps</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_form2"/>
+            <field name="arch" type="xml">
+                <field name="planned_hours" position="after">
+                    <field name="date_start" on_change="on_change_date(date_start, date_end)"/>
+                    <field name="date_end" on_change="on_change_date(date_start, date_end)"/>
+                    <group col="4" colspan="4">
+                    <field name="duration_min" colspan="2"/>
+                    <field name="duration_unit"  colspan="2" nolabel="1"/>
+                    <field name="duration" colspan="2" invisible="1"/>
+                    <field name="duration_helper" colspan="2" on_change="on_change_duration(date_start, duration_helper)"/>
+                    </group>
+                </field>
+            </field>
+        </record>
+
+    </data>
+</openerp>
