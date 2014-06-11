@@ -1,0 +1,113 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* project_task_dependencies
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 7.0-20140206-002714\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-02-06 12:12+0000\n"
+"PO-Revision-Date: 2014-02-06 12:12+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: project_task_dependencies
+#: model:ir.model,name:project_task_dependencies.model_project_task
+msgid "Task"
+msgstr ""
+
+#. module: project_task_dependencies
+#: field:project.task,predecessor_ids:0
+msgid "Task Predecessor"
+msgstr ""
+
+#. module: project_task_dependencies
+#: field:project.task,duration_unit:0
+msgid "Duration Unit"
+msgstr ""
+
+#. module: project_task_dependencies
+#: help:project.task,duration_unit:0
+msgid "Currently only days are supported"
+msgstr ""
+
+#. module: project_task_dependencies
+#: field:project.task,compute_dependency:0
+msgid "Compute earliest start date"
+msgstr ""
+
+#. module: project_task_dependencies
+#: help:project.task,duration_min:0
+msgid "Minimum duration in duration_unit. If not set it is computed automatically as difference between start and end date"
+msgstr ""
+
+#. module: project_task_dependencies
+#: help:project.task,compute_dependency:0
+msgid "If set we compute the earliest start date of this task and of all marked successors and based on date for start and end or deadline if end not set"
+msgstr ""
+
+#. module: project_task_dependencies
+#: selection:project.task,duration_unit:0
+msgid "Days"
+msgstr ""
+
+#. module: project_task_dependencies
+#: selection:project.task,duration_unit:0
+msgid "Month"
+msgstr ""
+
+#. module: project_task_dependencies
+#: selection:project.task,duration_unit:0
+msgid "Hours"
+msgstr ""
+
+#. module: project_task_dependencies
+#: help:project.task,duration_helper:0
+msgid "Input changes Date End (not respecting weekends etc"
+msgstr ""
+
+#. module: project_task_dependencies
+#: view:project.task:0
+msgid "Dependencies"
+msgstr ""
+
+#. module: project_task_dependencies
+#: field:project.task,duration_min:0
+msgid "Minimum Duration"
+msgstr ""
+
+#. module: project_task_dependencies
+#: field:project.task,duration:0
+#: field:project.task,duration_helper:0
+msgid "Duration"
+msgstr ""
+
+#. module: project_task_dependencies
+#: field:project.task,successor_ids:0
+msgid "Task Successor"
+msgstr ""
+
+#. module: project_task_dependencies
+#: view:project.task:0
+msgid "Gantt View"
+msgstr ""
+
+#. module: project_task_dependencies
+#: view:project.task:0
+msgid "Successors"
+msgstr ""
+
+#. module: project_task_dependencies
+#: selection:project.task,duration_unit:0
+msgid "Minutes"
+msgstr ""
+
+#. module: project_task_dependencies
+#: view:project.task:0
+msgid "Predecessors"
+msgstr ""
+
