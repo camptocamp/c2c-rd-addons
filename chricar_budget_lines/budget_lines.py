@@ -34,6 +34,7 @@ from osv import fields,osv
 from dateutil.relativedelta import *
 import decimal_precision as dp
 import logging
+from tools.translate import _
 
 
 # ************************
