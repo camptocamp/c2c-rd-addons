@@ -51,6 +51,7 @@ class stock_picking(osv.osv):
     def allow_reopen(self, cr, uid, ids, context=None):
         _logger = logging.getLogger(__name__)
         move_line_obj = self.pool.get('stock.move')
+        stock_pick_obj = self.pool.get('stock.picking')
         account_invoice_obj = self.pool.get('account.invoice')
         _logger.debug('FGF picking allow open ids %s ' %(ids)   )
         for pick in self.browse(cr, uid, ids, context):
@@ -81,12 +82,15 @@ class stock_picking(osv.osv):
                     # FIXME - not sure if date or id has to be checked or both if average price is used
                     # FGF 20121130 date_expected 
                     if move.product_id.cost_method == 'average':
-                      later_ids = move_line_obj.search(cr, uid, [('product_id','=',move.product_id.id),('state','=','done'),('date_expected','>',move.date),('price_unit','!=',move.price_unit),('company_id','=',move.company_id.id)])
+                      later_ids = move_line_obj.search(cr, uid, [('product_id','=',move.product_id.id),('state','=','done'),('date_expected','>',move.date),('price_unit','!=',move.price_unit),('company_id','=',move.company_id.id), ])
+                      if pick.id == move.picking_id.id: continue
+  
                       if later_ids:
                         later_prices = []
+                        _logger.debug('FGF later_ids %s '  % (later_ids)   )
                         for later_move in move_line_obj.browse(cr, uid, later_ids):
                             later_prices.append(later_move.price_unit)
-                            raise osv.except_osv(_('Error'), _('You cannot reopen this picking, because product "%s" of this picking has already later posted moves with different cost price(s) %s  then the current [%s] to be reopened! Recalculation of avarage price is not supported') % (move.product_id.name, later_prices, move.price_unit))
+                            raise osv.except_osv(_('Error'), _('You cannot reopen this picking, because product "%s" of this picking has already later posted moves with different cost price(s) %s  then the current [%s] to be reopened! Recalculation of avarage price is not supported, LS: %s %s') % (move.product_id.name, later_prices, move.price_unit, pick.name, move.picking_id.name))
         return True
     
 
