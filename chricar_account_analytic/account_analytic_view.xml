@@ -47,12 +47,23 @@ Modification of Account
       <field name="type">tree</field>
       <field name="arch" type="xml">
         <field name="type" position="after">
-          <field name="user_type"/>
           <field name="account_analytic_usage"/>
           <field name="analytic_account_id"/>
         </field>
       </field>
     </record>
+    <record model="ir.ui.view" id="account_analytic_list1">
+      <field name="name">account.account.analytic.list</field>
+      <field name="inherit_id" ref="account.view_account_list"/>
+      <field name="model">account.account</field>
+      <field name="type">tree</field>
+      <field name="arch" type="xml">
+        <field name="user_type" position="replace">
+          <field name="user_type"/>
+        </field>
+      </field>
+    </record>
+
 
     <!--
 ==============================================
