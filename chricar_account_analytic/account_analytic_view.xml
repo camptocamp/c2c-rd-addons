@@ -47,6 +47,7 @@ Modification of Account
       <field name="type">tree</field>
       <field name="arch" type="xml">
         <field name="type" position="after">
+          <field name="user_type"/>
           <field name="account_analytic_usage"/>
           <field name="analytic_account_id"/>
         </field>
