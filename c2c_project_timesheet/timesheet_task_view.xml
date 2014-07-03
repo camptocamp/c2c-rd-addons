@@ -73,12 +73,12 @@ work per task
               icon="terp-go-month"
               string="Last Mo"/>
             <filter
-              domain="[('date','&gt;=', (datetime.date.today().strftime('%%Y-'+ str((((datetime.date.today().month/4)+1)*3-2)).zfill(2) +'-01 00:00:00')))]"
+              domain="[('date','&gt;=', (datetime.date.today().strftime('%%Y-'+ str(int(round(datetime.date.today().month / 3.0)*3+1)).zfill(2) +'-01 00:00:00')))]"
               help="This Quarter work"
               icon="terp-go-month"
               string="This Qu"/>
             <filter
-              domain="[('date','&lt;', (datetime.date.today().strftime('%%Y-'+ str((((datetime.date.today().month/4)+1)*3-2)).zfill(2) +'-01 00:00:00'))) ,  ('date','&gt;=', ((datetime.datetime.now() + relativedelta(months=-3)).strftime('%%Y-'+ str(((( (datetime.datetime.now() + relativedelta(months=-3)).month/4)+1)*3-2)).zfill(2) +'-01 00:00:00'))) ] "
+              domain="[('date','&lt;', (datetime.date.today().strftime('%%Y-'+ str(int(round(datetime.date.today().month / 3.0)*3+1)).zfill(2) +'-01 00:00:00'))) ,  ('date','&gt;=', (datetime.date.today().strftime('%%Y-'+ str(int(round(datetime.date.today().month / 3.0)*3-5)).zfill(2) +'-01 00:00:00'))) ] "
               help="Last quarters work"
               icon="terp-go-month"
               string="Last Qu"/>
