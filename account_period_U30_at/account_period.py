@@ -33,21 +33,29 @@
 from osv import fields, osv
 import time
 from tools.translate import _
+import logging
 
 class account_period(osv.osv) :
     _inherit = "account.period"
 
     def kz(self, period, code) :
+        _logger = logging.getLogger(__name__)
         cr      = self.cr
         uid     = self.uid
         aml_obj = self.pool.get("account.move.line")
         atc_obj = self.pool.get("account.tax.code")
-        atc_ids = atc_obj.search(cr, uid, [("code", "=", code.replace("KZ", ""))])
-        aml_ids = aml_obj.search(cr, uid, [("period_id", "=", period.id), ("tax_code_id", "in", tuple(atc_ids))])  # vereinbarte entgelte, hängt von Firmenart ab, currency_id
+        #atc_ids = atc_obj.search(cr, uid, [("code", "=", code.replace("KZ", "").replace('-',''))])
+        atc_ids = atc_obj.search(cr, uid, [("code", "like", code.replace("KZ", ""))])
+        _logger.info('FGF atc_ids %s ' % (atc_ids))
+        atc_ids2 = atc_obj.search(cr, uid, [('parent_id', 'child_of', atc_ids)])
+        _logger.info('FGF atc_ids2 %s ' % (atc_ids2))
+        #aml_ids = aml_obj.search(cr, uid, [("period_id", "=", period.id), ("tax_code_id", "in", tuple(atc_ids))])  # vereinbarte entgelte, hängt von Firmenart ab, currency_id
+        aml_ids = aml_obj.search(cr, uid, [("period_id", "=", period.id), ("tax_code_id", "in", atc_ids2)])  # vereinbarte entgelte, hängt von Firmenart ab, currency_id
         if not aml_ids :
             return "0.00"
         else :
-            return "%f0.2" % sum(l.tax_amount for l in aml_obj.browse(cr, uid, aml_ids))
+            #return "%f0.2" % sum(l.tax_amount for l in aml_obj.browse(cr, uid, aml_ids))
+            return sum(l.tax_amount for l in aml_obj.browse(cr, uid, aml_ids))
     # end def kz
 
     def generate_u30(self, cr , uid, ids, context=None):
