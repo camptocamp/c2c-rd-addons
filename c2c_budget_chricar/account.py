@@ -114,7 +114,7 @@ class account_period(osv.osv):
         parent_result = super(account_period, self).search(cr, user, args, offset, limit, order, context, count)    
 
         #special search limited to a version
-        if context.get('version_id', None):
+        if context and context.get('version_id', None):
             
             #get version's periods
             version_obj = self.pool.get('c2c_budget.version')
