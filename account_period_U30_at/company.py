@@ -1,11 +1,8 @@
 # -*- coding: utf-8 -*-
 ##############################################
 #
-# Swing Entwicklung betrieblicher Informationssysteme GmbH
-# (<http://www.swing-system.com>)
 # Copyright (C) ChriCar Beteiligungs- und Beratungs- GmbH
 # all rights reserved
-#    23-Jan-2013 (GK) created
 #
 # WARNING: This program as such is intended to be used by professional
 # programmers who take the whole responsibility of assessing all potential
@@ -27,30 +24,17 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, see <http://www.gnu.org/licenses/> or
 # write to the Free Software Foundation, Inc.,
-# 59 Temple Place - Suite 330, Boston, MA  02111-1.17, USA.
+# 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 ###############################################
-{ "name"        : "Austrian VAT declaration"
-, "version"     : "1.0"
-, "author"      : "Swing Entwicklung betrieblicher Informationssysteme GmbH"
-, "website"     : "http://www.swing-system.com"
-, "description" : 
-"""
-U30 is a XML-type VAT declaration for the Austrian governement.
+from osv import fields, osv
+from tools.translate import _
 
-This module generates a XML-file per account period attaches it to the period.
+class res_company(osv.osv) :
+    _inherit = "res.company"
 
-"""
-, "category"    : "Accounting & Finance"
-, "depends"     : 
-    [ "account"
-    , "xml_template"
-    ]
-, "init_xml"    : ["U30.xml"]
-, "demo_xml"    : []
-, "update_xml"  : ["company_view.xml","installer_view.xml"]
-, "test"        : []
-, "auto_install": False
-, "installable" : True
-}
+    _columns = {
+        'tax_office_number': fields.char("Tax Office Number", size=32, help="Company Tax Number Fiscal Authorities (not VAT)"),
+    }
 
+res_company()

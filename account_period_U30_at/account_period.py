@@ -62,6 +62,7 @@ class account_period(osv.osv) :
         self.cr  = cr
         self.uid = uid
         for period in self.browse(cr, uid, ids) :
+            tax_number = period.company_id.tax_office_number
             template_obj  = self.pool.get("xml.template")
             template_ids  = template_obj.search(cr, uid, [("name", "=", "U30 VAT declaration")])
             if not template_ids :
@@ -83,7 +84,7 @@ class account_period(osv.osv) :
                 , are      = "J"
                 , repo     = "J"
                 , kz       = self.kz
-                , tax_nr   = "123456789"
+                , tax_nr   = tax_number
                 )
             template_obj.attach_xml \
                 ( cr, uid
