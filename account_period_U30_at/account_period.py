@@ -98,9 +98,7 @@ class account_period(osv.osv) :
                 )
     # end def generate_u30
 
-    def button_generate_u30(self, cr, uid, ids, context=None)
-
-    def button_generate_u30(self, cr, uid, ids, context=None)
+    def button_generate_u30(self, cr, uid, ids, context=None):
         self.generate_u30(cr, uid, ids, context=context)
 
 # end class account_period
