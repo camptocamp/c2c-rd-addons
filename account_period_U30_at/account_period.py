@@ -33,12 +33,12 @@
 from osv import fields, osv
 import time
 from tools.translate import _
-import logging
 
 class account_period(osv.osv) :
     _inherit = "account.period"
 
     def kz(self, period, code) :
+        import logging
         _logger = logging.getLogger(__name__)
         cr      = self.cr
         uid     = self.uid
