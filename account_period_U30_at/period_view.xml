@@ -6,10 +6,10 @@
             <field name="name">account.period.u30.form</field>
             <field name="model">account.period</field>
             <field name="type">form</field>
-            <field name="arch" type="xml">
             <field name="inherit_id" ref="account.view_account_period_form"/>
-                <button name="action_draft" position="after">
-                      <button name="button_generate_u30" />
+            <field name="arch" type="xml">
+                <field name="state" position="after">
+                      <button name="button_generate_u30" string="Create U30 xml" type="object" icon="gtk-execute" help="File will show up as attachment"/>
                 </field>
             </field>
         </record>

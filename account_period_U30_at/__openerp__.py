@@ -48,7 +48,7 @@ This module generates a XML-file per account period attaches it to the period.
     ]
 , "init_xml"    : ["U30.xml"]
 , "demo_xml"    : []
-, "update_xml"  : ["company_view.xml", "company_view.xml", "installer_view.xml"]
+, "update_xml"  : ["company_view.xml", "period_view.xml", "installer_view.xml"]
 , "test"        : []
 , "auto_install": False
 , "installable" : True
