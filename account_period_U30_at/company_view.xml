@@ -3,7 +3,7 @@
     <data>
 
         <record model="ir.ui.view" id="view_company_tax_office_form">
-            <field name="name">res.company.form.inherit</field>
+            <field name="name">res.company.form.tax_office.inherit</field>
             <field name="inherit_id" ref="account.view_company_inherit_1_form"/>
             <field name="model">res.company</field>
             <field name="type">form</field>
