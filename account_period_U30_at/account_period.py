@@ -37,11 +37,12 @@ from tools.translate import _
 class account_period(osv.osv) :
     _inherit = "account.period"
 
-    def kz(self, period, code) :
+    def kz(self, code) :
         import logging
         _logger = logging.getLogger(__name__)
         cr      = self.cr
         uid     = self.uid
+        period  = self.period
         aml_obj = self.pool.get("account.move.line")
         atc_obj = self.pool.get("account.tax.code")
         #atc_ids = atc_obj.search(cr, uid, [("code", "=", code.replace("KZ", "").replace('-',''))])
@@ -54,14 +55,15 @@ class account_period(osv.osv) :
         if not aml_ids :
             return "0.00"
         else :
-            #return "%f0.2" % sum(l.tax_amount for l in aml_obj.browse(cr, uid, aml_ids))
-            return sum(l.tax_amount for l in aml_obj.browse(cr, uid, aml_ids))
+            return "%0.2f" % abs(sum(l.tax_amount for l in aml_obj.browse(cr, uid, aml_ids)))
+            #return             sum(l.tax_amount for l in aml_obj.browse(cr, uid, aml_ids))
     # end def kz
 
     def generate_u30(self, cr , uid, ids, context=None):
         self.cr  = cr
         self.uid = uid
         for period in self.browse(cr, uid, ids) :
+            self.period = period
             tax_number = period.company_id.tax_office_number
             template_obj  = self.pool.get("xml.template")
             template_ids  = template_obj.search(cr, uid, [("name", "=", "U30 VAT declaration")])
@@ -92,7 +94,7 @@ class account_period(osv.osv) :
                 , attach_to   = period
                 , xml         = xml
                 , name        = period.code + "_U30"
-                , fname       = period.code + "_U30" + ".xml"
+                , fname       = period.code + "_U30"
                 , description = "U30 VAT declaration for period"
                 , context     = None
                 )

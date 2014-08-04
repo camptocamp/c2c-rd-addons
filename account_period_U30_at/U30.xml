@@ -3,7 +3,6 @@
   <data noupdate="1">
     <record model="xml.template" id="xml_template_U30" forcecreate="True">
       <field name="name">U30 VAT declaration</field>
-      <field name="schema">/home/openerp/instances/openerp_prod_chricar/src/c2c-rd-addons/account_period_U30_at/BMF_ERKLAERUNGS_UEBERMITTLUNG_U30_2.xsd</field>
       <field name="content" type="xml">
         <!-- Umsatzsteuervoranmeldung ab 01/2009 - Stand: 11.01.2013-->
         <ERKLAERUNGS_UEBERMITTLUNG>
@@ -25,59 +24,59 @@
               <KUNDENINFO text-eval="period.company_id.name"/>
             </ALLGEMEINE_DATEN>
             <LIEFERUNGEN_LEISTUNGEN_EIGENVERBRAUCH>
-              <KZ000 type="kz" text-eval="kz(period, 'KZ000')"/>
-              <KZ001 type="kz" text-eval="kz(period, 'KZ001')"/>
-              <KZ021 type="kz" text-eval="kz(period, 'KZ021')"/>
+              <KZ000 attr-name1="type" attr-eval1="'kz'" text-eval="kz('KZ000')" seq-eval="[0] if kz('KZ000') != '0.00' else []" var="x"/>
+              <KZ001 attr-name1="type" attr-eval1="'kz'" text-eval="kz('KZ001')" seq-eval="[0] if kz('KZ001') != '0.00' else []" var="x"/>
+              <KZ021 attr-name1="type" attr-eval1="'kz'" text-eval="kz('KZ021')" seq-eval="[0] if kz('KZ021') != '0.00' else []" var="x"/>
               <STEUERFREI>
-                <KZ011 type="kz" text-eval="kz(period, 'KZ011')"/>
-                <KZ012 type="kz" text-eval="kz(period, 'KZ012')"/>
-                <KZ015 type="kz" text-eval="kz(period, 'KZ015')"/>
-                <KZ017 type="kz" text-eval="kz(period, 'KZ017')"/>
-                <KZ018 type="kz" text-eval="kz(period, 'KZ018')"/>
-                <KZ019 type="kz" text-eval="kz(period, 'KZ019')"/>
-                <KZ016 type="kz" text-eval="kz(period, 'KZ016')"/>
+                <KZ011 attr-name1="type" attr-eval1="'kz'" text-eval="kz('KZ011')" seq-eval="[0] if kz('KZ011') != '0.00' else []" var="x"/>
+                <KZ012 attr-name1="type" attr-eval1="'kz'" text-eval="kz('KZ012')" seq-eval="[0] if kz('KZ012') != '0.00' else []" var="x"/>
+                <KZ015 attr-name1="type" attr-eval1="'kz'" text-eval="kz('KZ015')" seq-eval="[0] if kz('KZ015') != '0.00' else []" var="x"/>
+                <KZ017 attr-name1="type" attr-eval1="'kz'" text-eval="kz('KZ017')" seq-eval="[0] if kz('KZ017') != '0.00' else []" var="x"/>
+                <KZ018 attr-name1="type" attr-eval1="'kz'" text-eval="kz('KZ018')" seq-eval="[0] if kz('KZ018') != '0.00' else []" var="x"/>
+                <KZ019 attr-name1="type" attr-eval1="'kz'" text-eval="kz('KZ019')" seq-eval="[0] if kz('KZ019') != '0.00' else []" var="x"/>
+                <KZ016 attr-name1="type" attr-eval1="'kz'" text-eval="kz('KZ016')" seq-eval="[0] if kz('KZ016') != '0.00' else []" var="x"/>
                 <VST text-eval="vst"/>
-                <KZ020 type="kz" text-eval="kz(period, 'KZ020')"/>
+                <KZ020 attr-name1="type" attr-eval1="'kz'" text-eval="kz('KZ020')" seq-eval="[0] if kz('KZ020') != '0.00' else []" var="x"/>
               </STEUERFREI>
               <VERSTEUERT>
-                <KZ022 type="kz" text-eval="kz(period, 'KZ022')"/>
-                <KZ029 type="kz" text-eval="kz(period, 'KZ029')"/>
-                <KZ025 type="kz" text-eval="kz(period, 'KZ025')"/>
-                <KZ037 type="kz" text-eval="kz(period, 'KZ037')"/>
-                <KZ052 type="kz" text-eval="kz(period, 'KZ052')"/>
-                <KZ038 type="kz" text-eval="kz(period, 'KZ038')"/>
-                <KZ056 type="kz" text-eval="kz(period, 'KZ056')"/>
-                <KZ057 type="kz" text-eval="kz(period, 'KZ057')"/>
-                <KZ048 type="kz" text-eval="kz(period, 'KZ048')"/>
-                <KZ044 type="kz" text-eval="kz(period, 'KZ044')"/>
-                <KZ032 type="kz" text-eval="kz(period, 'KZ032')"/>
+                <KZ022 attr-name1="type" attr-eval1="'kz'" text-eval="kz('KZ022')" seq-eval="[0] if kz('KZ022') != '0.00' else []" var="x"/>
+                <KZ029 attr-name1="type" attr-eval1="'kz'" text-eval="kz('KZ029')" seq-eval="[0] if kz('KZ029') != '0.00' else []" var="x"/>
+                <KZ025 attr-name1="type" attr-eval1="'kz'" text-eval="kz('KZ025')" seq-eval="[0] if kz('KZ025') != '0.00' else []" var="x"/>
+                <KZ037 attr-name1="type" attr-eval1="'kz'" text-eval="kz('KZ037')" seq-eval="[0] if kz('KZ037') != '0.00' else []" var="x"/>
+                <KZ052 attr-name1="type" attr-eval1="'kz'" text-eval="kz('KZ052')" seq-eval="[0] if kz('KZ052') != '0.00' else []" var="x"/>
+                <KZ038 attr-name1="type" attr-eval1="'kz'" text-eval="kz('KZ038')" seq-eval="[0] if kz('KZ038') != '0.00' else []" var="x"/>
+                <KZ056 attr-name1="type" attr-eval1="'kz'" text-eval="kz('KZ056')" seq-eval="[0] if kz('KZ056') != '0.00' else []" var="x"/>
+                <KZ057 attr-name1="type" attr-eval1="'kz'" text-eval="kz('KZ057')" seq-eval="[0] if kz('KZ057') != '0.00' else []" var="x"/>
+                <KZ048 attr-name1="type" attr-eval1="'kz'" text-eval="kz('KZ048')" seq-eval="[0] if kz('KZ048') != '0.00' else []" var="x"/>
+                <KZ044 attr-name1="type" attr-eval1="'kz'" text-eval="kz('KZ044')" seq-eval="[0] if kz('KZ044') != '0.00' else []" var="x"/>
+                <KZ032 attr-name1="type" attr-eval1="'kz'" text-eval="kz('KZ032')" seq-eval="[0] if kz('KZ032') != '0.00' else []" var="x"/>
               </VERSTEUERT>
             </LIEFERUNGEN_LEISTUNGEN_EIGENVERBRAUCH>
             <INNERGEMEINSCHAFTLICHE_ERWERBE>
-              <KZ070 type="kz" text-eval="kz(period, 'KZ070')"/>
-              <KZ071 type="kz" text-eval="kz(period, 'KZ071')"/>
+              <KZ070 type="kz" text-eval="kz('KZ070')"/>
+              <KZ071 attr-name1="type" attr-eval1="'kz'" text-eval="kz('KZ071')" seq-eval="[0] if kz('KZ071') != '0.00' else []" var="x"/>
               <VERSTEUERT_IGE>
-                <KZ072 type="kz" text-eval="kz(period, 'KZ072')"/>
-                <KZ073 type="kz" text-eval="kz(period, 'KZ073')"/>
-                <KZ088 type="kz" text-eval="kz(period, 'KZ088')"/>
-                <KZ076 type="kz" text-eval="kz(period, 'KZ076')"/>
-                <KZ077 type="kz" text-eval="kz(period, 'KZ077')"/>
+                <KZ072 attr-name1="type" attr-eval1="'kz'" text-eval="kz('KZ072')" seq-eval="[0] if kz('KZ072') != '0.00' else []" var="x"/>
+                <KZ073 attr-name1="type" attr-eval1="'kz'" text-eval="kz('KZ073')" seq-eval="[0] if kz('KZ073') != '0.00' else []" var="x"/>
+                <KZ088 attr-name1="type" attr-eval1="'kz'" text-eval="kz('KZ088')" seq-eval="[0] if kz('KZ088') != '0.00' else []" var="x"/>
+                <KZ076 attr-name1="type" attr-eval1="'kz'" text-eval="kz('KZ076')" seq-eval="[0] if kz('KZ076') != '0.00' else []" var="x"/>
+                <KZ077 attr-name1="type" attr-eval1="'kz'" text-eval="kz('KZ077')" seq-eval="[0] if kz('KZ077') != '0.00' else []" var="x"/>
               </VERSTEUERT_IGE>
             </INNERGEMEINSCHAFTLICHE_ERWERBE>
             <VORSTEUER>
-              <KZ060 type="kz" text-eval="kz(period, 'KZ060')"/>
-              <KZ061 type="kz" text-eval="kz(period, 'KZ061')"/>
-              <KZ083 type="kz" text-eval="kz(period, 'KZ083')"/>
-              <KZ065 type="kz" text-eval="kz(period, 'KZ065')"/>
-              <KZ066 type="kz" text-eval="kz(period, 'KZ066')"/>
-              <KZ082 type="kz" text-eval="kz(period, 'KZ082')"/>
-              <KZ087 type="kz" text-eval="kz(period, 'KZ087')"/>
-              <KZ089 type="kz" text-eval="kz(period, 'KZ089')"/>
-              <KZ064 type="kz" text-eval="kz(period, 'KZ064')"/>
-              <KZ062 type="kz" text-eval="kz(period, 'KZ062')"/>
-              <KZ063 type="kz" text-eval="kz(period, 'KZ063')"/>
-              <KZ067 type="kz" text-eval="kz(period, 'KZ067')"/>
-              <KZ090 type="kz" text-eval="kz(period, 'KZ090')"/>
+              <KZ060 attr-name1="type" attr-eval1="'kz'" text-eval="kz('KZ060')" seq-eval="[0] if kz('KZ060') != '0.00' else []" var="x"/>
+              <KZ061 attr-name1="type" attr-eval1="'kz'" text-eval="kz('KZ061')" seq-eval="[0] if kz('KZ061') != '0.00' else []" var="x"/>
+              <KZ083 attr-name1="type" attr-eval1="'kz'" text-eval="kz('KZ083')" seq-eval="[0] if kz('KZ083') != '0.00' else []" var="x"/>
+              <KZ065 attr-name1="type" attr-eval1="'kz'" text-eval="kz('KZ065')" seq-eval="[0] if kz('KZ065') != '0.00' else []" var="x"/>
+              <KZ066 attr-name1="type" attr-eval1="'kz'" text-eval="kz('KZ066')" seq-eval="[0] if kz('KZ066') != '0.00' else []" var="x"/>
+              <KZ082 attr-name1="type" attr-eval1="'kz'" text-eval="kz('KZ082')" seq-eval="[0] if kz('KZ082') != '0.00' else []" var="x"/>
+              <KZ087 attr-name1="type" attr-eval1="'kz'" text-eval="kz('KZ087')" seq-eval="[0] if kz('KZ087') != '0.00' else []" var="x"/>
+              <KZ089 attr-name1="type" attr-eval1="'kz'" text-eval="kz('KZ089')" seq-eval="[0] if kz('KZ089') != '0.00' else []" var="x"/>
+              <KZ064 attr-name1="type" attr-eval1="'kz'" text-eval="kz('KZ064')" seq-eval="[0] if kz('KZ064') != '0.00' else []" var="x"/>
+              <KZ062 attr-name1="type" attr-eval1="'kz'" text-eval="kz('KZ062')" seq-eval="[0] if kz('KZ062') != '0.00' else []" var="x"/>
+              <KZ063 attr-name1="type" attr-eval1="'kz'" text-eval="kz('KZ063')" seq-eval="[0] if kz('KZ063') != '0.00' else []" var="x"/>
+              <KZ067 attr-name1="type" attr-eval1="'kz'" text-eval="kz('KZ067')" seq-eval="[0] if kz('KZ067') != '0.00' else []" var="x"/>
+              <KZ090 attr-name1="type" attr-eval1="'kz'" text-eval="kz('KZ090')" seq-eval="[0] if kz('KZ090') != '0.00' else []" var="x"/>
               <ARE text-eval="are"/>
               <REPO text-eval="repo"/>
             </VORSTEUER>
