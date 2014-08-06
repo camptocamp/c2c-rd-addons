@@ -35,6 +35,7 @@ from tools.translate import _
 import XML_Generator
 import base64
 from lxml import etree
+import urllib
 
 class xml_template(osv.osv):
     _name           = "xml.template"
@@ -107,7 +108,11 @@ class xml_template(osv.osv):
         obj = self.browse(cr, uid, id)
         if obj and obj.schema :
             parser = etree.XMLParser(no_network=False)
-            schema_root = etree.parse(obj.schema, parser)
+            if obj.schema.startswith("http") :
+                data = urllib.urlopen(obj.schema).read()
+                schema_root = etree.XML(data, parser)
+            else :
+                schema_root = etree.parse(obj.schema, parser)
             if ".xsd" in obj.schema.lower() :
                 schema = etree.XMLSchema(schema_root)
             elif ".rng" in obj.schema.lower() :
