@@ -28,6 +28,7 @@ import logging
 
 class account_account(osv.osv):
     _inherit = "account.account"
+    _logger = logging.getLogger(__name__)
 
     def get_analytic(self, cr, uid, ids, account_id):
         result = {}
@@ -187,7 +188,13 @@ for balance accounts
         if account_id:
             account = self.browse(cr, uid,  account_id)
             if account.account_analytic_usage in ('mandatory','fixed') and not analytic_account_id :
+                raise osv.except_osv(_('Error'), _('missing analytic account for %s %s', account.name, account.account_analytic_usage))
+
+                #_logger = logging.getLogger(__name__)
+                #_logger.info('FGF analytic_usage %s %s:%s', account.name, account.account_analytic_usage, analytic_account_id)
                 return False
+            else:
+                return True
         return True
 
     def check_analytic_account_fixed(self, cr, uid, ids, account_id, analytic_account_id):
