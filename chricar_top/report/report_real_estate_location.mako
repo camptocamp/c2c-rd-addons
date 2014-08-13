@@ -22,9 +22,9 @@
 <%
 owner = []
 for top in loc.top_ids:
-    if top.partner_id.name not in owner:
+    if top.partner_id and top.partner_id.name not in owner:
          owner.append(top.partner_id.name)    
-owners = ','.join([id for id in owner])
+owners = ', '.join([name for name in owner])
 
 %>
 <h1>${_("Info Real Estate")}</h1>
