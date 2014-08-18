@@ -48,11 +48,12 @@ class res_country(osv.osv):
 
     }
      
-    def check_eu_member(self, cr, uid, country_d, date):
+    def check_eu_member(self, cr, uid, country_id, date):
         res = False
-        d = date.strftime('%Y-%m-%d')
+        #d = date.strftime('%Y-%m-%d')
+        d = date
         for country in self.browse(cr, uid, [country_id]):
-            if date_start and date_start <= d and (not date_end or (date_end and date_end >= d)):
+            if country.date_start and country.date_start <= d and (not country.date_end or (country.date_end and country.date_end >= d)):
                 res = True
         
         return res
