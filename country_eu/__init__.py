@@ -4,5 +4,4 @@
 
 ##############################################
 import country
-import partner
 
