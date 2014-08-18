@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+
+             <!-- Country -->
+        <record id="view_country_eu_tree" model="ir.ui.view">
+            <field name="name">res.country.eu.tree</field>
+            <field name="model">res.country</field>
+            <field name="inherit_id" ref="base.view_country_tree"/>
+            <field name="arch" type="xml">
+                <field name="code" position="after">
+                    <field name="eu_member"/>
+                    <field name="date_start"/>
+                    <field name="date_end"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_country_eu_form" model="ir.ui.view">
+            <field name="name">res.country.eu.form</field>
+            <field name="model">res.country</field>
+            <field name="inherit_id" ref="base.view_country_form"/>
+            <field name="arch" type="xml">
+                <field name="code" position="after">
+                    <field name="eu_member"/>
+                    <field name="date_start"/>
+                    <field name="date_end"/>
+                </field>
+            </field>
+        </record>
+ 
+      
+
+  </data>
+</openerp>
