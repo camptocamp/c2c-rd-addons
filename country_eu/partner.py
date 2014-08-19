@@ -40,6 +40,7 @@ class res_partner(osv.osv):
 
     def check_fiscal_position(self, cr, uid, ids, context):
         _logger = logging.getLogger(__name__)
+        _logger.debug('FGF fp ids %s', ids)
         country_obj = self.pool.get('res.country')
         company_obj = self.pool.get('res.company')
         partner_obj = self.pool.get('res.partner')
@@ -77,12 +78,16 @@ class res_partner(osv.osv):
 
     def write(self, cr, uid, ids, vals, context=None):
         res = super(res_partner, self).write(cr, uid, ids, vals, context=context)
+        _logger = logging.getLogger(__name__)
+        _logger.debug('FGF write res %s %s' %( res, ids))
         self.check_fiscal_position(cr, uid, ids, context)
         return res
 
     def create(self, cr, uid, vals, context=None):
         res = super(res_partner, self).create(cr, uid, vals, context=context)
-        self.check_fiscal_position(cr, uid, ids, context)
+        _logger = logging.getLogger(__name__)
+        _logger.debug('FGF create res %s', res)
+        self.check_fiscal_position(cr, uid, [res], context)
         return res
 
 
