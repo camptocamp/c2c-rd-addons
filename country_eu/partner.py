@@ -79,7 +79,7 @@ class res_partner(osv.osv):
 
     def create(self, cr, uid, vals, context=None):
         res = super(res_partner, self).create(cr, uid, vals, context=context)
-        self.check_fiscal_position(cr, uid, ids, context)
+        self.check_fiscal_position(cr, uid, [res], context)
         return res
 
 
