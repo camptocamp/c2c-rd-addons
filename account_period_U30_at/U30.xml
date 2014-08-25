@@ -54,7 +54,7 @@
               </VERSTEUERT>
             </LIEFERUNGEN_LEISTUNGEN_EIGENVERBRAUCH>
             <INNERGEMEINSCHAFTLICHE_ERWERBE>
-              <KZ070 type="kz" text-eval="kz('KZ070')"/>
+              <KZ070 attr-name1="type" attr-eval1="'kz'" text-eval="kz('KZ070')" seq-eval="[0] if kz('KZ070') != '0.00' else []" var="x"/>
               <KZ071 attr-name1="type" attr-eval1="'kz'" text-eval="kz('KZ071')" seq-eval="[0] if kz('KZ071') != '0.00' else []" var="x"/>
               <VERSTEUERT_IGE>
                 <KZ072 attr-name1="type" attr-eval1="'kz'" text-eval="kz('KZ072')" seq-eval="[0] if kz('KZ072') != '0.00' else []" var="x"/>
