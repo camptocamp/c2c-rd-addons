@@ -31,6 +31,7 @@ table {
         <tr>
             <th colspan="4"> </th>
             <th style="text-align:right">${_("Starting Balance")}</th>
+            <th style="text-align:right;white-space:normal">${voucher.balance_start}</th>
         </tr>
         <tr>
         <th style="text-align:left;white-space:nowrap">${_("Text")}</th>
@@ -38,7 +39,8 @@ table {
         
         <th style="text-align:left;white-space:nowrap">${_("Partner Account")}</th>
         <th style="text-align:left;white-space:nowrap">${_("Tax")}</th>
-        <th style="text-align:right;white-space:normal">${voucher.balance_start}</th>
+        <th style="text-align:left;white-space:nowrap">${_("Tax Amount")}</th>
+
         </tr>
         </thead>
         %for line in voucher.line_ids_sorted:
@@ -47,14 +49,15 @@ table {
             <td style="text-align:left;white-space:nowrap">${line.name or ''}</td>
             <td style="white-space:nowrap">${line.date}</td>
             <td>${line.partner_id.name or line.account_id.name}</td>
-            <td>${line.tax_id.name or ''}</td>
+            <td style="white-space:nowrap">${line.tax_id.name or ''}</td>
+            <td style="text-align:right;white-space:nowrap">${line.amount_tax or ''}</td>
             <td style="text-align:right;white-space:nowrap">${line.amount}</td>
             </tr>
             </tbody>
             %endfor
             <tfoot>
             <tr>
-            <th colspan="3"> </th>
+            <th colspan="4"> </th>
             <th style="text-align:right">${_("Ending Balance")}</th>
             <th style="text-align:right;white-space:nowrap">${voucher.balance_end_real}</th>
             </tr>
