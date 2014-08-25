@@ -39,6 +39,28 @@
     FY Sums
     ==============================================
 -->
+         <record id="view_account_fy_search_chricar_1" model="ir.ui.view">
+            <field name="name">account.account_fiscalyear_sum.search.fy_chricar_1</field>
+            <field name="model">account.account_fiscalyear_sum</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string="Search">
+                    <group col="10" colspan="4">
+                        <field name="fiscalyear_id"/>
+                        <field name="code"/>
+                        <field name="account_id"/>
+                        <field name="company_id" groups="base.group_multi_company" widget="selection"/>
+                    </group>
+                    <newline/>
+                    <group expand="0" string="Group By..." colspan="4" col="4" >
+                        <filter string="Fiscal Year" icon="terp-go-year" context="{'group_by':'fiscalyear_id'}"/>
+                        <filter string="Account" name="group_account" icon="terp-folder-green" context="{'group_by':'account_id'}"/>
+                    </group>
+                </search>
+
+           </field>
+         </record>
+
     <record model="ir.ui.view" id="view_account_fy_chricar_1">
       <field name="name">account.account_fiscalyear_sum.fy_chricar_1</field>
       <field name="model">account.account_fiscalyear_sum</field>
@@ -81,6 +103,8 @@
       <field name="type">ir.actions.act_window</field>
       <field name="res_model">account.account_fiscalyear_sum</field>
       <field name="view_type">form</field>
+      <field name="search_view_id" ref="view_account_fy_search_chricar_1"/>
+
     </record>
     <record model="ir.actions.act_window.view" id="action_account_fy_chricar_1">
       <field name="view_mode">tree</field>
