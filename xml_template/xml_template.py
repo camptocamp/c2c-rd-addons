@@ -60,25 +60,6 @@ class xml_template(osv.osv):
          )
         ]
 
-    def button_generate_template(self, cr, uid, ids, id):
-        for obj in self.browse(cr, uid, ids) :
-            if obj.schema :
-                parser = etree.XMLParser(no_network=False)
-                schema_root = etree.parse(obj.schema, parser)
-                if ".xsd" in obj.schema.lower() :
-                    xslt_root   = etree.parse("http://www.swing-system.com/xsl/xsd2xml.xsl", parser) # can be optimized as function field!
-                elif ".rng" in obj.schema.lower() :
-                    xslt_root   = etree.parse("http://www.swing-system.com/xsl/rng2xml.xsl", parser) # can be optimized as function field!
-                else :
-                    raise osv.except_osv \
-                        ( _("Data Error !")
-                        , _("Unknown schema type: %s" % obj.schema)
-                        )
-                transform   = etree.XSLT(xslt_root)
-                template    = transform(schema_root)
-                self.write(cr, uid, [obj.id], {'content' : template})
-    # end def button_generate_template
-
     def generate_xml(self, cr, uid, id, nsmap=None, **scope_dict) :
         """Generates the XML and returns it
         

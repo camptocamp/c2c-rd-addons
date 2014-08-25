@@ -28,10 +28,6 @@
           <field name="schema" widget="url" colspan="3"/>
           <newline/>
           <field name="namespace" colspan="3"/>
-          <button
-            name="button_generate_template"
-            string="Generate Template from Schema"
-            type="object"/>
           <notebook colspan="4">
             <page string="Content">
               <field name="content" nolabel="1"/>
