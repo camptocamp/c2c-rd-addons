@@ -14,6 +14,68 @@
             </field>
         </record>
 
+
+    <record id="view_account_period_tax_search" model="ir.ui.view">
+      <field name="name">view.account.period.tax.search</field>
+      <field name="model">account.period.tax</field>
+      <field name="type">search</field>
+      <field name="arch" type="xml">
+         <search string="Tax Search">
+            <group>
+                <field name="company_id"/>
+                <field name="tax_code_id"/>
+                <field name="period_id"/>
+            </group>
+            <newline/>
+            <group expand="0" string="Group By...">
+                <filter string="Company" domain="[]" context="{'group_by':'company_id'}"/>
+                <filter string="Tax Code" domain="[]"  context="{'group_by':'tax_code_id'}"/>
+                <filter string="Period" domain="[]"  context="{'group_by':'period_id'}"/>
+            </group>
+        </search>
+      </field>
+    </record>
+
+
+        <record id="view_account_period_tax_list" model="ir.ui.view">
+            <field name="name">account.period.tax.list</field>
+            <field name="model">account.period.tax</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+              <tree string="Costs" >
+                <field name="name"/>
+                <field name="company_id"/>
+                <field name="period_id"/>
+                <field name="tax_code_id" />
+                <field name="debit" sum="Sum Debit"/>
+                <field name="credit" sum="Sum Credit"/>
+                <field name="balance" sum="Sum Balance"/>
+                <field name="tax_amount" />
+                <field name="tax_base" />
+                <field name="tax_percent" />
+                <field name="tax_percent_amount" sum="Sum Tax"/>
+                <field name="tax_percent_amount_check" sum="Sum Check"/>
+              </tree>
+            </field>
+        </record>
+
+    <record model="ir.actions.act_window" id="account_period_tax_list_act">
+      <field name="name">Tax per Period</field>
+      <field name="res_model">account.period.tax</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="view_id" ref="view_account_period_tax_list"/>
+      <field name="search_view_id" ref="view_account_period_tax_search"/>
+    </record>
+
+    <menuitem
+      action="account_period_tax_list_act"
+      id="menue_account_period_tax_list"
+      parent="account.menu_tax_report"
+      sequence="20"/>
+
+        
+
     </data>
 </openerp>
 

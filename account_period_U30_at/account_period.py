@@ -33,6 +33,8 @@
 from osv import fields, osv
 import time
 from tools.translate import _
+import decimal_precision as dp
+from tools.sql import drop_view_if_exists
 
 class account_period(osv.osv) :
     _inherit = "account.period"
@@ -149,3 +151,85 @@ class account_period(osv.osv) :
 
 # end class account_period
 account_period()
+
+
+class account_period_tax(osv.osv):
+    _name        = "account.period.tax"
+    _description = "Account Period Tax"
+    _auto        = False
+
+    def _get_percent(self, cr, uid, ids, field_name, arg, context=None):
+         result = {}
+         tax_obj = self.pool.get('account.tax') 
+         tax_code_obj = self.pool.get('account.tax.code') 
+         for code in self.browse(cr, uid, ids, context):
+             result[code.id] = 0.00
+             for tc in tax_code_obj.browse(cr, uid, [code.tax_code_id.id], context):
+                 tax_ids = tax_obj.search(cr, uid, ['|',('base_code_id','=',tc.id), ('tax_code_id','=',tc.id )]) 
+                 for percent in tax_obj.browse(cr, uid, tax_ids, context):
+                     result[code.id] = percent.amount
+         return result
+
+    def _get_base(self, cr, uid, ids, field_name, arg, context=None):
+         result = {}
+         tax_obj = self.pool.get('account.tax') 
+         tax_code_obj = self.pool.get('account.tax.code') 
+         for code in self.browse(cr, uid, ids, context):
+             result[code.id] = False
+             for tc in tax_code_obj.browse(cr, uid, [code.tax_code_id.id], context):
+                 tax_ids = tax_obj.search(cr, uid, [('base_code_id','=',tc.id)]) 
+                 if tax_ids:
+                     result[code.id] = True
+         import logging
+         _logger = logging.getLogger(__name__)
+         _logger.info('FGF get_base %s ' % (result))
+         return result
+
+    def _get_percent_amount(self, cr, uid, ids, field_name, arg, context=None):
+         result = {}
+         for code in self.browse(cr, uid, ids, context):
+             if code.tax_base:
+                 result[code.id] = code.tax_amount * code.tax_percent 
+             else:
+                 result[code.id] = code.tax_amount  
+         return result
+
+
+    def _get_percent_amount_check(self, cr, uid, ids, field_name, arg, context=None):
+         result = {}
+         for code in self.browse(cr, uid, ids, context):
+             if code.tax_base:
+                 result[code.id] = -code.tax_amount * code.tax_percent 
+             else:
+                 result[code.id] = code.tax_amount  
+         return result
+ 
+    _columns  = {
+          'name'               : fields.char    ('Tax Code Name',size=32) 
+        , 'company_id'         : fields.many2one('res.company', 'Company', required=True)
+        , 'period_id'          : fields.many2one('account.period' , 'Period' ,readonly=True)
+        , 'tax_code_id'        : fields.many2one('account.tax.code', 'Tax Code', help="The tax basis of the tax declaration.")
+        , 'debit'              : fields.float   ('Debit', digits_compute=dp.get_precision('Account') ,readonly=True)
+        , 'credit'             : fields.float   ('Credit', digits_compute=dp.get_precision('Account'),readonly=True)
+        , 'balance'            : fields.float   ('Balance Period', digits_compute=dp.get_precision('Account')    ,readonly=True)
+        , 'tax_amount'         : fields.float   ('Tax Amount', digits_compute=dp.get_precision('Account'),readonly=True)
+        , 'tax_base'           : fields.function(_get_base, method=True, type='boolean', string='Tax Base') 
+        , 'tax_percent'        : fields.function(_get_percent, digits_compute=dp.get_precision('Account'), method=True, type='float', string='Tax %')
+        , 'tax_percent_amount' : fields.function(_get_percent_amount, digits_compute=dp.get_precision('Account'), method=True, type='float', string='Tax % Amount')
+        , 'tax_percent_amount_check' : fields.function(_get_percent_amount_check, digits_compute=dp.get_precision('Account'), method=True, type='float', string='Tax Check')
+        }
+
+    def init(self, cr):
+        drop_view_if_exists(cr, "account_period_tax")
+        cr.execute("""
+           create or replace view account_period_tax as
+         select max(l.id) as id,
+               c.name as name,l.company_id as company_id, l.period_id as period_id, l.tax_code_id as tax_code_id, 
+               sum(l.debit) as debit, sum(l.credit) as credit, sum(l.debit-l.credit) as balance, sum(l.tax_amount) as tax_amount
+           from account_move_line l,
+                account_tax_code c
+          where c.id = l.tax_code_id
+           group by c.name,l.company_id, l.period_id, l.tax_code_id
+           """)
+         
+account_period_tax()
