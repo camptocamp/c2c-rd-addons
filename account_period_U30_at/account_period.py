@@ -37,26 +37,69 @@ from tools.translate import _
 class account_period(osv.osv) :
     _inherit = "account.period"
 
-    def kz(self, code) :
+
+    def kz_check(self, code, check_pos,check_neg):
         import logging
         _logger = logging.getLogger(__name__)
+        codes = []
+        if code == '067':
+           codes = check_pos
+        if code == '090':
+           codes = check_neg
+        amount = 0
+        for c in codes:
+           amt = self.kz(c, False)
+           if amt < 0 and c in check_pos :
+               amount -= amt
+           if amt > 0 and c in check_neg :
+               amount += amt
+           
+           _logger.info('FGF kz_negativ %s %s %s ' % (c,codes,amount))
+           
+        return amount   
+
+    def kz(self, code, check_negativ=True ) :
+        import logging
+        _logger = logging.getLogger(__name__)
+        _logger.info('FGF kz %s %s ' % (code,check_negativ))
+        check_pos = [ '022','029' ]
+        check_neg = [ '060', ]
         cr      = self.cr
         uid     = self.uid
         period  = self.period
         aml_obj = self.pool.get("account.move.line")
         atc_obj = self.pool.get("account.tax.code")
         #atc_ids = atc_obj.search(cr, uid, [("code", "=", code.replace("KZ", "").replace('-',''))])
-        atc_ids = atc_obj.search(cr, uid, [("code", "like", code.replace("KZ", ""))])
-        _logger.info('FGF atc_ids %s ' % (atc_ids))
-        atc_ids2 = atc_obj.search(cr, uid, [('parent_id', 'child_of', atc_ids)])
-        _logger.info('FGF atc_ids2 %s ' % (atc_ids2))
-        #aml_ids = aml_obj.search(cr, uid, [("period_id", "=", period.id), ("tax_code_id", "in", tuple(atc_ids))])  # vereinbarte entgelte, hängt von Firmenart ab, currency_id
-        aml_ids = aml_obj.search(cr, uid, [("period_id", "=", period.id), ("tax_code_id", "in", atc_ids2)])  # vereinbarte entgelte, hängt von Firmenart ab, currency_id
-        if not aml_ids :
-            return "0.00"
-        else :
-            return "%0.2f" % abs(sum(l.tax_amount for l in aml_obj.browse(cr, uid, aml_ids)))
+        code3 = code.replace("KZ", "").replace('-','')        
+        if code3 in ['067', '090']:
+            amount =  self.kz_check(code3, check_pos, check_neg)
+            if amount == 0:
+               amount = "0.00"
+            else :
+               amount = "%0.2f" % amount
+            _logger.info('FGF check %s %s' % (code3,amount))
+            return amount
+        else: 
+            atc_ids = atc_obj.search(cr, uid, [("code", "like", code3)])
+            _logger.info('FGF atc_ids %s ' % (atc_ids))
+            atc_ids2 = atc_obj.search(cr, uid, [('parent_id', 'child_of', atc_ids)])
+            _logger.info('FGF atc_ids2 %s ' % (atc_ids2))
+            #aml_ids = aml_obj.search(cr, uid, [("period_id", "=", period.id), ("tax_code_id", "in", tuple(atc_ids))])  # vereinbarte entgelte, hängt von Firmenart ab, currency_id
+            aml_ids = aml_obj.search(cr, uid, [("period_id", "=", period.id), ("tax_code_id", "in", atc_ids2)])  # vereinbarte entgelte, hängt von Firmenart ab, currency_id
+            if not aml_ids :
+                return "0.00"
+            else :
+                amount = sum(l.tax_amount for l in aml_obj.browse(cr, uid, aml_ids))
+                _logger.info('FGF all tax %s %s %s' % (code3,amount,check_negativ))
+                if check_negativ and amount < 0:
+                    if code3 in check_pos :
+                        return "0.00"
+                    else:
+                        return "%0.2f" % abs(amount)
+                else: 
+                    return amount
             #return             sum(l.tax_amount for l in aml_obj.browse(cr, uid, aml_ids))
+        _logger.info('FGF all tax no return %s', code ) 
     # end def kz
 
     def generate_u30(self, cr , uid, ids, context=None):
@@ -102,6 +145,7 @@ class account_period(osv.osv) :
 
     def button_generate_u30(self, cr, uid, ids, context=None):
         self.generate_u30(cr, uid, ids, context=context)
+        return True 
 
 # end class account_period
 account_period()
