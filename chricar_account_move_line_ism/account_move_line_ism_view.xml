@@ -13,6 +13,7 @@ ISM Mandant
       <field name="type">form</field>
       <field name="arch" type="xml">
         <form string="ISM Mandant">
+          <field name="mandant" />
           <field name="name" />
           <field name="company_id" />
           <notebook colspan="4">
@@ -28,6 +29,7 @@ ISM Mandant
       <field name="type">tree</field>
       <field name="arch" type="xml">
         <tree string="ISM Mandant" editable="top">
+             <field name="mandant" />
           <field name="name" />
           <field name="company_id" />
         </tree>
@@ -78,7 +80,7 @@ ISM Buchungsjahr
         <form string="ISM Buchungsjahr">
           <field name="code" />
           <field name="name" />
-          <field name="mandanten_nummer" />
+          <field name="mandant" />
           <field name="company_id" />
           <field name="period_ids"  widget="one2many_list" colspan="4"  nolabel="1"/>
         </form>
@@ -93,7 +95,7 @@ ISM Buchungsjahr
         <tree string="ISM Buchungsjahr" editable="top">
           <field name="code" />
           <field name="name" />
-          <field name="mandanten_nummer" />
+          <field name="mandant" />
           <field name="company_id" />
         </tree>
       </field>
@@ -136,9 +138,9 @@ ISM Periode
       <field name="type">form</field>
       <field name="arch" type="xml">
         <form string="ISM Periode">
-          <field name="matchcode" />
+          <field name="code" />
           <field name="name" />
-          <field name="mandanten_nummer" />
+          <field name="mandant" />
           <field name="company_id" />
          </form>
       </field>
@@ -150,10 +152,13 @@ ISM Periode
       <field name="type">tree</field>
       <field name="arch" type="xml">
         <tree string="ISM Periode" editable="top">
-          <field name="matchcode" />
+          <field name="code" />
           <field name="name" />
-          <field name="mandanten_nummer" />
+          <field name="jahr_id" />
+          <field name="mandant" />
+          <field name="mandant_id" />
           <field name="company_id" />
+          
         </tree>
       </field>
     </record>
@@ -195,9 +200,10 @@ ISM Account
       <field name="type">form</field>
       <field name="arch" type="xml">
         <form string="ISM Account">
-          <field name="matchcode" />
+          <field name="code" />
           <field name="name" />
-          <field name="mandanten_nummer" />
+          <field name="mandant" />
+          <field name="mandant_id" />
           <field name="company_id" />
          </form>
       </field>
@@ -209,9 +215,10 @@ ISM Account
       <field name="type">tree</field>
       <field name="arch" type="xml">
         <tree string="ISM Account" editable="top">
-          <field name="matchcode" />
+          <field name="code" />
           <field name="name" />
-          <field name="mandanten_nummer" />
+          <field name="mandant" />
+          <field name="mandant_id" />
           <field name="company_id" />
         </tree>
       </field>
@@ -258,7 +265,7 @@ ISM Beleg
           <field name="beleg_text" />
           <field name="buchungsjahr" />
           <field name="jahr_id" />          
-          <field name="mandanten_nummer" />
+          <field name="mandant" />
           <field name="company_id" />
          </form>
       </field>
@@ -274,7 +281,7 @@ ISM Beleg
           <field name="beleg_text" />
           <field name="buchungsjahr" />
           <field name="jahr_id" />          
-          <field name="mandanten_nummer" />
+          <field name="mandant" />
           <field name="company_id" />
         </tree>
       </field>
@@ -329,7 +336,7 @@ ISM Buchungen
           <field name="credit" />
           <field name="name" />
           
-          <field name="mandanten_nummer" />
+          <field name="mandant" />
           <field name="company_id" />
          </form>
       </field>
@@ -353,7 +360,7 @@ ISM Buchungen
           <field name="credit" />
           <field name="name" />
           
-          <field name="mandanten_nummer" />
+          <field name="mandant" />
           <field name="company_id" />
         </tree>
       </field>

@@ -45,6 +45,7 @@ class ism_mandant(osv.osv):
     _name = "ism.mandant"
 
     _columns = {
+      'mandant'   : fields.char    ('Mandant', size=8, required=True),
       'name'      : fields.char    ('Mandant', size=32, required=True),
       'company_id': fields.many2one('res.company', 'Company'),
     }
@@ -54,18 +55,29 @@ ism_mandant()
 class ism_buchungsjahr(osv.osv):
     _name = "ism.buchungsjahr"
 
+    def _mandant_id(self, cr, uid, ids, name, arg, context):
+        result = {}
+        for move in self.browse(cr, uid, ids):
+            res_ids= self.pool.get('ism.mandant').search(cr,uid,[('mandant','=',move.mandant) ])
+
+            if len(res_ids):
+                result[move.id] = res_ids[0]
+
+        return result
+
     _columns = {
-       'mandanten_nummer'  : fields.many2one('ism.mandant', 'Mandant'),
+       'mandant'  : fields.char    ('Mandant', size=8, required=True),
        'code'              : fields.char    ('Code', size=64, required=True),
        'name'              : fields.char    ('Bezeichnung', size=16, required=True), 
+       'mandant_id'        : fields.function(_mandant_id, method=True, string="Company",type='many2one', relation='ism.mandant', store=True, select="1",  ), 
        'company_id'        : fields.related
-               ( "mandanten_nummer"
+               ( "mandant_id"
                , "company_id"
                , type     = "many2one"
                , relation = "res.company"
                , string   = "Company"
-               , store    = True
-               ),
+               , store    = False
+               )      ,
        'period_ids': fields.one2many('ism.periode','jahr_id','Perioden')
     }          
 
@@ -73,50 +85,76 @@ ism_buchungsjahr()
 
 class ism_periode(osv.osv):
     _name = "ism.periode"
-    
+
+
+    def _mandant_id(self, cr, uid, ids, name, arg, context):
+        result = {}
+        for move in self.browse(cr, uid, ids):
+            res_ids= self.pool.get('ism.mandant').search(cr,uid,[('mandant','=',move.mandant) ])
+
+            if len(res_ids):
+                result[move.id] = res_ids[0]
+        return result
+                
     def _jahr_id(self, cr, uid, ids, name, arg, context):
         result = {}
         for move in self.browse(cr, uid, ids):
-            res_ids= self.pool.get('ism.buchungsjahr').search(cr,uid,[('company_id','=',move.company_id.id),('code','like',move.matchcode) ])
+            res_ids= self.pool.get('ism.buchungsjahr').search(cr,uid,[('mandant','=',move.mandant),('code','like',move.code[:4]) ])
 
             if len(res_ids):
                 result[move.id] = res_ids[0]
 
         return result
-     
+    
     _columns = {
-       'mandanten_nummer'  : fields.many2one('ism.mandant', 'Mandant'),
-       'matchcode'         : fields.char    ('Code', size=64, required=True),
-       'name'              : fields.char    ('Bezeichnung', size=16, required=True), 
-       'jahr_id'           : fields.function(_jahr_id, method=True, string="Year",type='many2one', relation='ism.jahr', store=True, select="1",  ), 
+       'mandant'  : fields.char    ('Mandant', size=8, required=True),
+       'mandant_id'        : fields.function(_mandant_id, method=True, string="Company",type='many2one', relation='ism.mandant', store=True, select="1",  ),
+       'code'         : fields.char    ('Code', size=64, required=True),
+       'name'              : fields.char    ('Periode', size=16, required=True), 
+       
+       'jahr_id'           : fields.function(_jahr_id, method=True, string="Year",type='many2one', relation='ism.buchungsjahr', store=True, select="1",  ), 
+#       'jahr_id'           : fields.char    ('Jahr', size=16, required=False),
        'company_id'        : fields.related
-               ( "mandanten_nummer"
+               ( "mandant_id"
                , "company_id"
                , type     = "many2one"
                , relation = "res.company"
                , string   = "Company"
-               , store    = True
-               )
+               , store    = False
+               )    
     }          
 
 ism_periode()
 
 
 class ism_account(osv.osv):
-    _name = "ism.account"
+    
+    _logger = logging.getLogger(__name__)
 
+    _name = "ism.account"
+    
+    def _mandant_id(self, cr, uid, ids, name, arg, context):
+        result = {}
+        for move in self.browse(cr, uid, ids):
+            res_ids= self.pool.get('ism.mandant').search(cr,uid,[('mandant','=',move.mandant) ])
+
+            if len(res_ids):
+                result[move.id] = res_ids[0]
+        return result
+          
     _columns = {
-       'mandanten_nummer'  : fields.many2one('ism.mandant', 'Mandant'),
-       'matchcode'         : fields.char    ('Code', size=64, required=True),
-       'name'              : fields.char    ('Kontobezeichnung', size=16, required=True), 
+       'mandant'           : fields.char    ('Mandant', size=8, required=True),
+       'code'              : fields.char    ('Code', size=16, required=True),
+       'name'              : fields.char    ('Kontobezeichnung', size=50, required=True), 
+       'mandant_id'        : fields.function(_mandant_id, method=True, string="Company",type='many2one', relation='ism.mandant', store=False, select="1",  ), 
        'company_id'        : fields.related
-               ( "mandanten_nummer"
+               ( "mandant_id"
                , "company_id"
                , type     = "many2one"
                , relation = "res.company"
                , string   = "Company"
-               , store    = True
-               ),
+               , store    = False
+               )     ,
        'move_ids': fields.one2many('ism.buchungen','konto_id','Buchungen')
     }
 
@@ -124,6 +162,15 @@ ism_account()
 
 class ism_belege(osv.osv):
     _name = "ism.belege"
+
+    def _mandant_id(self, cr, uid, ids, name, arg, context):
+        result = {}
+        for move in self.browse(cr, uid, ids):
+            res_ids= self.pool.get('ism.mandant').search(cr,uid,[('mandant','=',move.mandant) ])
+
+            if len(res_ids):
+                result[move.id] = res_ids[0]
+        return result
 
 
     def _jahr_id(self, cr, uid, ids, name, arg, context):
@@ -136,21 +183,23 @@ class ism_belege(osv.osv):
 
             if len(res_ids):
                 result[move.id] = res_ids[0]
-
         return result
+
     _columns = {
-       'mandanten_nummer'  : fields.many2one('ism.mandant', 'Mandant', required=True),
+       'mandant'  : fields.char    ('Mandant', size=8, required=True),
+       'mandant_id'        : fields.function(_mandant_id, method=True, string="Company",type='many2one', relation='ism.mandant', store=True, select="1",  ),     
+       
        'name'              : fields.char    ('Beleg', size=8, required=True), 
        'beleg_text'        : fields.char    ('Beleg Text', size=8, required=True), 
        'buchungsjahr'      : fields.char    ('Buchungsjahr', size=5, required=True), 
        'jahr_id'           : fields.function(_jahr_id, method=True, string="Year",type='many2one', relation='ism.buchungsjahr', store=True, select="1",  ),     
        'company_id'        : fields.related
-               ( "mandanten_nummer"
+               ( "mandant_id"
                , "company_id"
                , type     = "many2one"
                , relation = "res.company"
                , string   = "Company"
-               , store    = True
+               , store    = False
                ),
        'move_ids'          : fields.one2many('ism.buchungen','beleg_id','Buchungen')
 
@@ -161,11 +210,22 @@ ism_belege()
 
 class ism_buchungen(osv.osv):
     _name = "ism.buchungen"
+    
+    def _mandant_id(self, cr, uid, ids, name, arg, context):
+        result = {}
+        for move in self.browse(cr, uid, ids):
+            res_ids= self.pool.get('ism.mandant').search(cr,uid,[('mandant','=',move.mandant) ])
+
+            if len(res_ids):
+                result[move.id] = res_ids[0]
+                
+        return result
+
 
     def _period_id(self, cr, uid, ids, name, arg, context):
         result = {}
         for move in self.browse(cr, uid, ids):
-            res_ids= self.pool.get('ism.periode').search(cr,uid,[('company_id','=',move.company_id.id),('matchcode','like',move.periode) ])
+            res_ids= self.pool.get('ism.periode').search(cr,uid,[('company_id','=',move.company_id.id),('code','like',move.periode) ])
 
             if len(res_ids):
                 result[move.id] = res_ids[0]
@@ -185,7 +245,7 @@ class ism_buchungen(osv.osv):
         result = {}
         for move in self.browse(cr, uid, ids):
             result[move.id] = False
-            konto_ids= self.pool.get('ism.account').search(cr,uid,[('company_id','=',move.company_id.id),('matchcode','=',move.kontonummer)])
+            konto_ids= self.pool.get('ism.account').search(cr,uid,[('company_id','=',move.company_id.id),('code','=',move.kontonummer)])
             if len(konto_ids):
                 result[move.id] = konto_ids[0]
         return result
@@ -211,15 +271,9 @@ class ism_buchungen(osv.osv):
     
 
     _columns ={
-       'mandanten_nummer'  : fields.many2one('ism.mandant', 'Mandant'),
-       'company_id'        : fields.related
-               ( "mandanten_nummer"
-               , "company_id"
-               , type     = "many2one"
-               , relation = "res.company"
-               , string   = "Company"
-               , store    = True
-               ),
+       'mandant'  : fields.char    ('Mandant', size=8, required=True),
+       'mandant_id'        : fields.function(_mandant_id, method=True, string="Company",type='many2one', relation='ism.mandant', store=True, select="1",  ),     
+
 
        'kontonummer'        : fields.char    ('Kontonummer', size=8, required=True),
        'konto_id'           : fields.function(_konto_id, method=True, string="Account",type='many2one', relation='ism.konto',  select="1", store=True ),
@@ -232,7 +286,14 @@ class ism_buchungen(osv.osv):
        'debit'              : fields.function(_debit, method=True, string="Debit",type='float', store=True, ),
        
        'credit'             : fields.function(_credit, method=True, string="Debit",type='float', store=True, ),
-       
+       'company_id'        : fields.related
+               ( "mandant_id"
+               , "company_id"
+               , type     = "many2one"
+               , relation = "res.company"
+               , string   = "Company"
+               , store    = False
+               ),       
 }
 
     _order = "name"
