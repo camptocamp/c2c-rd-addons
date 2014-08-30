@@ -224,7 +224,7 @@ class ism_buchungen(osv.osv):
     def _period_id(self, cr, uid, ids, name, arg, context):
         result = {}
         for move in self.browse(cr, uid, ids):
-            res_ids= self.pool.get('ism.periode').search(cr,uid,[('company_id','=',move.company_id.id),('code','like',move.periode) ])
+            res_ids= self.pool.get('ism.periode').search(cr,uid,[('mandant','=',move.mandant),('code','=',move.periode) ])
 
             if len(res_ids):
                 result[move.id] = res_ids[0]
@@ -235,7 +235,7 @@ class ism_buchungen(osv.osv):
         result = {}
         for move in self.browse(cr, uid, ids):
             result[move.id] = False
-            konto_ids= self.pool.get('ism.belege').search(cr,uid,[('company_id','=',move.company_id.id),('name','=',move.beleg)])
+            konto_ids= self.pool.get('ism.belege').search(cr,uid,[('mandant','=',move.mandant),('name','=',move.beleg)])
             if len(konto_ids):
                 result[move.id] = konto_ids[0]
         return result
@@ -244,7 +244,7 @@ class ism_buchungen(osv.osv):
         result = {}
         for move in self.browse(cr, uid, ids):
             result[move.id] = False
-            konto_ids= self.pool.get('ism.account').search(cr,uid,[('company_id','=',move.company_id.id),('code','=',move.kontonummer)])
+            konto_ids= self.pool.get('ism.account').search(cr,uid,[('mandant','=',move.mandant),('code','=',move.kontonummer)])
             if len(konto_ids):
                 result[move.id] = konto_ids[0]
         return result
