@@ -109,7 +109,7 @@ class ism_periode(osv.osv):
     _columns = {
        'mandant'  : fields.char    ('Mandant', size=8, required=True),
        'mandant_id'        : fields.function(_mandant_id, method=True, string="Company",type='many2one', relation='ism.mandant', store=True, select="1",  ),
-       'code'         : fields.char    ('Code', size=64, required=True),
+       'code'              : fields.char    ('Code', size=64, required=True),
        'name'              : fields.char    ('Periode', size=16, required=True), 
        
        'jahr_id'           : fields.function(_jahr_id, method=True, string="Year",type='many2one', relation='ism.buchungsjahr', store=True, select="1",  ), 
@@ -178,8 +178,7 @@ class ism_belege(osv.osv):
         for move in self.browse(cr, uid, ids):
             res_ids = []
             result[move.id] = ''
-            if move.company_id:
-                res_ids= self.pool.get('ism.buchungsjahr').search(cr,uid,[('company_id','=',move.company_id.id),('code','=',move.buchungsjahr) ])
+            res_ids= self.pool.get('ism.buchungsjahr').search(cr,uid,[('mandant','=',move.mandant),('code','=',move.buchungsjahr) ])
 
             if len(res_ids):
                 result[move.id] = res_ids[0]
@@ -189,7 +188,7 @@ class ism_belege(osv.osv):
        'mandant'  : fields.char    ('Mandant', size=8, required=True),
        'mandant_id'        : fields.function(_mandant_id, method=True, string="Company",type='many2one', relation='ism.mandant', store=True, select="1",  ),     
        
-       'name'              : fields.char    ('Beleg', size=8, required=True), 
+       'name'              : fields.char    ('Beleg', size=8, required=False), 
        'beleg_text'        : fields.char    ('Beleg Text', size=8, required=True), 
        'buchungsjahr'      : fields.char    ('Buchungsjahr', size=5, required=True), 
        'jahr_id'           : fields.function(_jahr_id, method=True, string="Year",type='many2one', relation='ism.buchungsjahr', store=True, select="1",  ),     
