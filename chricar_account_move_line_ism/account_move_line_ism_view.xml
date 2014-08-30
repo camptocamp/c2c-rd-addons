@@ -1,0 +1,388 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <!--
+==============================================
+ISM Mandant
+==============================================
+-->
+    <record model="ir.ui.view" id="ism_mandant_form">
+      <field name="name">ism.mandant.form</field>
+      <field name="model">ism.mandant</field>
+      <field name="priority">1</field>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <form string="ISM Mandant">
+          <field name="name" />
+          <field name="company_id" />
+          <notebook colspan="4">
+            <page string="invisible" invisible="1"/>
+          </notebook>
+        </form>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="ism_mandant_list">
+      <field name="name">ism.mandant.list</field>
+      <field name="model">ism.mandant</field>
+      <field name="priority">1</field>
+      <field name="type">tree</field>
+      <field name="arch" type="xml">
+        <tree string="ISM Mandant" editable="top">
+          <field name="name" />
+          <field name="company_id" />
+        </tree>
+      </field>
+    </record>
+    <record model="ir.actions.act_window" id="ism_mandant_act1">
+      <field name="name">ISM Mandant</field>
+      <field name="res_model">ism.mandant</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="view_id" ref="ism_mandant_list"/>
+    </record>
+    <record model="ir.actions.act_window.view" id="ism_mandant_act1_view2">
+      <field name="sequence" eval="1"/>
+      <field name="view_mode">tree</field>
+      <field name="view_id" ref="ism_mandant_list"/>
+      <field name="act_window_id" ref="ism_mandant_act1"/>
+    </record>
+    <record model="ir.actions.act_window.view" id="ism_mandant_act1_view1">
+      <field name="sequence" eval="2"/>
+      <field name="view_mode">form</field>
+      <field name="view_id" ref="ism_mandant_form"/>
+      <field name="act_window_id" ref="ism_mandant_act1"/>
+    </record>
+    <menuitem
+      id="menu_ism"
+      name="ISM"
+      parent="account.menu_finance_entries"
+      sequence="150"/>
+    <menuitem
+      action="ism_mandant_act1"
+      id="menu_ism_mandant_list"
+      parent="menu_ism"
+      sequence="150"/>
+    
+    
+        <!--
+==============================================
+ISM Buchungsjahr
+==============================================
+-->
+    <record model="ir.ui.view" id="ism_buchungsjahr_form">
+      <field name="name">ism.buchungsjahr.form</field>
+      <field name="model">ism.buchungsjahr</field>
+      <field name="priority">1</field>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <form string="ISM Buchungsjahr">
+          <field name="code" />
+          <field name="name" />
+          <field name="mandanten_nummer" />
+          <field name="company_id" />
+          <field name="period_ids"  widget="one2many_list" colspan="4"  nolabel="1"/>
+        </form>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="ism_buchungsjahr_list">
+      <field name="name">ism.buchungsjahr.list</field>
+      <field name="model">ism.buchungsjahr</field>
+      <field name="priority">1</field>
+      <field name="type">tree</field>
+      <field name="arch" type="xml">
+        <tree string="ISM Buchungsjahr" editable="top">
+          <field name="code" />
+          <field name="name" />
+          <field name="mandanten_nummer" />
+          <field name="company_id" />
+        </tree>
+      </field>
+    </record>
+    <record model="ir.actions.act_window" id="ism_buchungsjahr_act1">
+      <field name="name">ISM Buchungsjahr</field>
+      <field name="res_model">ism.buchungsjahr</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="view_id" ref="ism_buchungsjahr_list"/>
+    </record>
+    <record model="ir.actions.act_window.view" id="ism_buchungsjahr_act1_view2">
+      <field name="sequence" eval="1"/>
+      <field name="view_mode">tree</field>
+      <field name="view_id" ref="ism_buchungsjahr_list"/>
+      <field name="act_window_id" ref="ism_buchungsjahr_act1"/>
+    </record>
+    <record model="ir.actions.act_window.view" id="ism_buchungsjahr_act1_view1">
+      <field name="sequence" eval="2"/>
+      <field name="view_mode">form</field>
+      <field name="view_id" ref="ism_buchungsjahr_form"/>
+      <field name="act_window_id" ref="ism_buchungsjahr_act1"/>
+    </record>
+
+    <menuitem
+      action="ism_buchungsjahr_act1"
+      id="menu_ism_buchungsjahr_list"
+      parent="menu_ism"
+      sequence="150"/>
+    
+        <!--
+==============================================
+ISM Periode
+==============================================
+-->
+    <record model="ir.ui.view" id="ism_periode_form">
+      <field name="name">ism.periode.form</field>
+      <field name="model">ism.periode</field>
+      <field name="priority">1</field>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <form string="ISM Periode">
+          <field name="matchcode" />
+          <field name="name" />
+          <field name="mandanten_nummer" />
+          <field name="company_id" />
+         </form>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="ism_periode_list">
+      <field name="name">ism.periode.list</field>
+      <field name="model">ism.periode</field>
+      <field name="priority">1</field>
+      <field name="type">tree</field>
+      <field name="arch" type="xml">
+        <tree string="ISM Periode" editable="top">
+          <field name="matchcode" />
+          <field name="name" />
+          <field name="mandanten_nummer" />
+          <field name="company_id" />
+        </tree>
+      </field>
+    </record>
+    <record model="ir.actions.act_window" id="ism_periode_act1">
+      <field name="name">ISM Periode</field>
+      <field name="res_model">ism.periode</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="view_id" ref="ism_periode_list"/>
+    </record>
+    <record model="ir.actions.act_window.view" id="ism_periode_act1_view2">
+      <field name="sequence" eval="1"/>
+      <field name="view_mode">tree</field>
+      <field name="view_id" ref="ism_periode_list"/>
+      <field name="act_window_id" ref="ism_periode_act1"/>
+    </record>
+    <record model="ir.actions.act_window.view" id="ism_periode_act1_view1">
+      <field name="sequence" eval="2"/>
+      <field name="view_mode">form</field>
+      <field name="view_id" ref="ism_periode_form"/>
+      <field name="act_window_id" ref="ism_periode_act1"/>
+    </record>
+
+    <menuitem
+      action="ism_periode_act1"
+      id="menu_ism_periode_list"
+      parent="menu_ism"
+      sequence="150"/>
+
+       <!--
+==============================================
+ISM Account
+==============================================
+-->
+    <record model="ir.ui.view" id="ism_account_form">
+      <field name="name">ism.account.form</field>
+      <field name="model">ism.account</field>
+      <field name="priority">1</field>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <form string="ISM Account">
+          <field name="matchcode" />
+          <field name="name" />
+          <field name="mandanten_nummer" />
+          <field name="company_id" />
+         </form>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="ism_account_list">
+      <field name="name">ism.account.list</field>
+      <field name="model">ism.account</field>
+      <field name="priority">1</field>
+      <field name="type">tree</field>
+      <field name="arch" type="xml">
+        <tree string="ISM Account" editable="top">
+          <field name="matchcode" />
+          <field name="name" />
+          <field name="mandanten_nummer" />
+          <field name="company_id" />
+        </tree>
+      </field>
+    </record>
+    <record model="ir.actions.act_window" id="ism_account_act1">
+      <field name="name">ISM Account</field>
+      <field name="res_model">ism.account</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="view_id" ref="ism_account_list"/>
+    </record>
+    <record model="ir.actions.act_window.view" id="ism_account_act1_view2">
+      <field name="sequence" eval="1"/>
+      <field name="view_mode">tree</field>
+      <field name="view_id" ref="ism_account_list"/>
+      <field name="act_window_id" ref="ism_account_act1"/>
+    </record>
+    <record model="ir.actions.act_window.view" id="ism_account_act1_view1">
+      <field name="sequence" eval="2"/>
+      <field name="view_mode">form</field>
+      <field name="view_id" ref="ism_account_form"/>
+      <field name="act_window_id" ref="ism_account_act1"/>
+    </record>
+
+    <menuitem
+      action="ism_account_act1"
+      id="menu_ism_account_list"
+      parent="menu_ism"
+      sequence="150"/>
+
+       <!--
+==============================================
+ISM Beleg
+==============================================
+-->
+    <record model="ir.ui.view" id="ism_beleg_form">
+      <field name="name">ism.belege.form</field>
+      <field name="model">ism.belege</field>
+      <field name="priority">1</field>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <form string="ISM Beleg">
+          <field name="name" />
+          <field name="beleg_text" />
+          <field name="buchungsjahr" />
+          <field name="jahr_id" />          
+          <field name="mandanten_nummer" />
+          <field name="company_id" />
+         </form>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="ism_beleg_list">
+      <field name="name">ism.belege.list</field>
+      <field name="model">ism.belege</field>
+      <field name="priority">1</field>
+      <field name="type">tree</field>
+      <field name="arch" type="xml">
+        <tree string="ISM Beleg" editable="top">
+          <field name="name" />
+          <field name="beleg_text" />
+          <field name="buchungsjahr" />
+          <field name="jahr_id" />          
+          <field name="mandanten_nummer" />
+          <field name="company_id" />
+        </tree>
+      </field>
+    </record>
+    <record model="ir.actions.act_window" id="ism_beleg_act1">
+      <field name="name">ISM Beleg</field>
+      <field name="res_model">ism.belege</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="view_id" ref="ism_beleg_list"/>
+    </record>
+    <record model="ir.actions.act_window.view" id="ism_beleg_act1_view2">
+      <field name="sequence" eval="1"/>
+      <field name="view_mode">tree</field>
+      <field name="view_id" ref="ism_beleg_list"/>
+      <field name="act_window_id" ref="ism_beleg_act1"/>
+    </record>
+    <record model="ir.actions.act_window.view" id="ism_beleg_act1_view1">
+      <field name="sequence" eval="2"/>
+      <field name="view_mode">form</field>
+      <field name="view_id" ref="ism_beleg_form"/>
+      <field name="act_window_id" ref="ism_beleg_act1"/>
+    </record>
+
+    <menuitem
+      action="ism_beleg_act1"
+      id="menu_ism_beleg_list"
+      parent="menu_ism"
+      sequence="150"/>
+    
+           <!--
+==============================================
+ISM Buchungen
+==============================================
+-->
+    <record model="ir.ui.view" id="ism_buchungen_form">
+      <field name="name">ism.buchungen.form</field>
+      <field name="model">ism.buchungen</field>
+      <field name="priority">1</field>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <form string="ISM Buchungen">
+          <field name="beleg" />          
+          <field name="beleg_id" />          
+          <field name="kontonummer" />          
+          <field name="konto_id" />          
+          <field name="periode" />          
+          <field name="periode_id" />
+          
+          <field name="amount" />          
+          <field name="debit" />          
+          <field name="credit" />
+          <field name="name" />
+          
+          <field name="mandanten_nummer" />
+          <field name="company_id" />
+         </form>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="ism_buchungen_list">
+      <field name="name">ism.buchungen.list</field>
+      <field name="model">ism.buchungen</field>
+      <field name="priority">1</field>
+      <field name="type">tree</field>
+      <field name="arch" type="xml">
+        <tree string="ISM Buchungen" editable="top">
+          <field name="beleg" />          
+          <field name="beleg_id" />          
+          <field name="kontonummer" />          
+          <field name="konto_id" />          
+          <field name="periode" />          
+          <field name="periode_id" />
+          
+          <field name="amount" />          
+          <field name="debit" />          
+          <field name="credit" />
+          <field name="name" />
+          
+          <field name="mandanten_nummer" />
+          <field name="company_id" />
+        </tree>
+      </field>
+    </record>
+    <record model="ir.actions.act_window" id="ism_buchungen_act1">
+      <field name="name">ISM Buchungen</field>
+      <field name="res_model">ism.buchungen</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="view_id" ref="ism_buchungen_list"/>
+    </record>
+    <record model="ir.actions.act_window.view" id="ism_buchungen_act1_view2">
+      <field name="sequence" eval="1"/>
+      <field name="view_mode">tree</field>
+      <field name="view_id" ref="ism_buchungen_list"/>
+      <field name="act_window_id" ref="ism_buchungen_act1"/>
+    </record>
+    <record model="ir.actions.act_window.view" id="ism_buchungen_act1_view1">
+      <field name="sequence" eval="2"/>
+      <field name="view_mode">form</field>
+      <field name="view_id" ref="ism_buchungen_form"/>
+      <field name="act_window_id" ref="ism_buchungen_act1"/>
+    </record>
+
+    <menuitem
+      action="ism_buchungen_act1"
+      id="menu_ism_buchungen_list"
+      parent="menu_ism"
+      sequence="150"/>
+    
+  </data>
+</openerp>
