@@ -1,7 +1,7 @@
 "id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
-"access_ism_buchungen","ism.account.move.line","model_ism_buchungen","account.group_account_user",1,1,1,1
-"access_ism_account","ism.account","model_ism_account","account.group_account_user",1,1,1,1
-"access_ism_belege","ism.belege","model_ism_belege","account.group_account_user",1,1,1,1
-"access_ism_mandant","ism.mandant","model_ism_mandant","account.group_account_user",1,1,1,1
-"access_ism_buchungsjahr","ism.buchungsjahr","model_ism_buchungsjahr","account.group_account_user",1,1,1,1
-"access_ism_periode","ism.periode","model_ism_periode","account.group_account_user",1,1,1,1
+"access_ism_buchungen","ism.account.move.line","model_ism_buchungen","account.group_account_user",1,0,0,0
+"access_ism_account","ism.account","model_ism_account","account.group_account_user",1,0,0,0
+"access_ism_belege","ism.belege","model_ism_belege","account.group_account_user",1,0,0,0
+"access_ism_mandant","ism.mandant","model_ism_mandant","account.group_account_user",1,0,0,0
+"access_ism_buchungsjahr","ism.buchungsjahr","model_ism_buchungsjahr","account.group_account_user",1,0,0,0
+"access_ism_periode","ism.periode","model_ism_periode","account.group_account_user",1,0,0,0
