@@ -205,6 +205,7 @@ ISM Account
           <field name="mandant" />
           <field name="mandant_id" />
           <field name="company_id" />
+          <field name="move_ids"  widget="one2many_list" colspan="4"  nolabel="1"/>
          </form>
       </field>
     </record>
@@ -215,11 +216,11 @@ ISM Account
       <field name="type">tree</field>
       <field name="arch" type="xml">
         <tree string="ISM Account" editable="top">
-          <field name="code" />
-          <field name="name" />
+          <field name="code" select="1"/>
+          <field name="name" select="1"/>
           <field name="mandant" />
           <field name="mandant_id" />
-          <field name="company_id" />
+          <field name="company_id" select="1"/>
         </tree>
       </field>
     </record>
@@ -267,6 +268,7 @@ ISM Beleg
           <field name="jahr_id" />          
           <field name="mandant" />
           <field name="company_id" />
+          <field name="move_ids"  widget="one2many_list" colspan="4"  nolabel="1"/>
          </form>
       </field>
     </record>
@@ -277,12 +279,12 @@ ISM Beleg
       <field name="type">tree</field>
       <field name="arch" type="xml">
         <tree string="ISM Beleg" editable="top">
-          <field name="name" />
+          <field name="name" select="1"/>
           <field name="beleg_text" />
-          <field name="buchungsjahr" />
-          <field name="jahr_id" />          
+          <field name="buchungsjahr"/>
+          <field name="jahr_id" select="1"/>          
           <field name="mandant" />
-          <field name="company_id" />
+          <field name="company_id" select="1"/>
         </tree>
       </field>
     </record>
@@ -349,19 +351,19 @@ ISM Buchungen
       <field name="arch" type="xml">
         <tree string="ISM Buchungen" editable="top">
           <field name="beleg" />          
-          <field name="beleg_id" />          
-          <field name="kontonummer" />          
-          <field name="konto_id" />          
+          <field name="beleg_id"  select="1"/>          
+          <field name="kontonummer"  />          
+          <field name="konto_id" select="1"/>          
           <field name="periode" />          
-          <field name="periode_id" />
+          <field name="periode_id" select="1" />
           
           <field name="amount" />          
           <field name="debit" />          
           <field name="credit" />
-          <field name="name" />
+          <field name="name" select="1"/>
           
           <field name="mandant" />
-          <field name="company_id" />
+          <field name="company_id" select="1"/>
         </tree>
       </field>
     </record>

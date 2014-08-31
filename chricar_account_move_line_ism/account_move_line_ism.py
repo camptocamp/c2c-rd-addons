@@ -38,7 +38,7 @@ from osv import fields,osv
 import pooler
 from tools.translate import _
 import logging
-
+import one2many_sorted
 
 
 class ism_mandant(osv.osv):
@@ -49,7 +49,8 @@ class ism_mandant(osv.osv):
       'name'      : fields.char    ('Mandant', size=32, required=True),
       'company_id': fields.many2one('res.company', 'Company'),
     }
-
+    _order          = "name"
+    
 ism_mandant()
 
 class ism_buchungsjahr(osv.osv):
@@ -80,6 +81,7 @@ class ism_buchungsjahr(osv.osv):
                )      ,
        'period_ids': fields.one2many('ism.periode','jahr_id','Perioden')
     }          
+    _order          = "mandant,code"
 
 ism_buchungsjahr()
 
@@ -123,7 +125,8 @@ class ism_periode(osv.osv):
                , store    = False
                )    
     }          
-
+    _order          = "mandant,code"
+    
 ism_periode()
 
 
@@ -157,7 +160,8 @@ class ism_account(osv.osv):
                )     ,
        'move_ids': fields.one2many('ism.buchungen','konto_id','Buchungen')
     }
-
+    _order          = "mandant,code"
+    
 ism_account()
 
 class ism_belege(osv.osv):
@@ -192,7 +196,7 @@ class ism_belege(osv.osv):
        'mandant'  : fields.char    ('Mandant', size=8, required=True),
        'mandant_id'        : fields.function(_mandant_id, method=True, string="Company",type='many2one', relation='ism.mandant', store=True, select="1",  ),     
        
-       'name'              : fields.char    ('Beleg', size=8, required=False), 
+       'name'              : fields.char    ('Beleg', size=16, required=False), 
        'beleg_text'        : fields.char    ('Beleg Text', size=8,), 
        'buchungsjahr'      : fields.char    ('Buchungsjahr', size=5, required=True), 
        'jahr_id'           : fields.function(_jahr_id, method=True, string="Year",type='many2one', relation='ism.buchungsjahr', store=True, select="1",  ),     
@@ -207,7 +211,8 @@ class ism_belege(osv.osv):
        'move_ids'          : fields.one2many('ism.buchungen','beleg_id','Buchungen')
 
     }
-
+    _order          = "mandant,buchungsjahr,name"
+    
 ism_belege()
 
 
@@ -303,5 +308,5 @@ class ism_buchungen(osv.osv):
                ),       
 }
 
-    _order = "name"
+    _order          = "mandant,periode,beleg,name"
 ism_buchungen()

@@ -5,7 +5,7 @@
 , "website"      : "http://www.chricar.at"
 , "description"  : """Import table for account move lines of Deloitte"""
 , "category"     : "Client Modules/ChriCar Addons"
-, "depends"      : ["account"]
+, "depends"      : ["account","one2many_sorted"]
 , "init_xml"     : []
 , "demo_xml"     : []
 , "update_xml"   : 
