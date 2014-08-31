@@ -177,11 +177,14 @@ class ism_belege(osv.osv):
         result = {}
         for move in self.browse(cr, uid, ids):
             res_ids = []
-            result[move.id] = ''
+            
             res_ids= self.pool.get('ism.buchungsjahr').search(cr,uid,[('mandant','=',move.mandant),('code','=',move.buchungsjahr) ])
 
             if len(res_ids):
                 result[move.id] = res_ids[0]
+            else:
+                raise osv.except_osv(_('Error !'),'Missing year in ism.buchungsjahr %s %s.' %(move.mandant, move.buchungsjahr))
+
         return result
 
     _columns = {
@@ -189,7 +192,7 @@ class ism_belege(osv.osv):
        'mandant_id'        : fields.function(_mandant_id, method=True, string="Company",type='many2one', relation='ism.mandant', store=True, select="1",  ),     
        
        'name'              : fields.char    ('Beleg', size=8, required=False), 
-       'beleg_text'        : fields.char    ('Beleg Text', size=8, required=True), 
+       'beleg_text'        : fields.char    ('Beleg Text', size=8,), 
        'buchungsjahr'      : fields.char    ('Buchungsjahr', size=5, required=True), 
        'jahr_id'           : fields.function(_jahr_id, method=True, string="Year",type='many2one', relation='ism.buchungsjahr', store=True, select="1",  ),     
        'company_id'        : fields.related
