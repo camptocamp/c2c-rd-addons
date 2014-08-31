@@ -319,6 +319,32 @@ ISM Beleg
 ISM Buchungen
 ==============================================
 -->
+    
+    <record model="ir.ui.view" id="ism_buchungen_search">
+      <field name="name">ism.buchungen.search</field>
+      <field name="model">ism.buchungen</field>
+      <field name="priority">1</field>
+      <field name="type">search</field>
+      <field name="arch" type="xml">
+
+        <search string="Search">
+            <group col="10" colspan="4">
+                <field name="periode_id"/>
+                <field name="konto_id"/>
+                <field name="beleg_id"/>
+                
+            </group>
+            <newline/>
+            <group expand="0" string="Group By..." colspan="4" col="4" >
+                <filter string="Period" icon="terp-go-year" context="{'group_by':'periode_id'}"/>
+                <filter string="Account" name="group_account" icon="terp-folder-green" context="{'group_by':'konto_id'}"/>
+                <filter string="Beleg" name="group_beleg" icon="terp-folder-green" context="{'group_by':'beleg_id'}"/>
+            </group>
+        </search>
+
+    </field>
+    </record>
+
     <record model="ir.ui.view" id="ism_buchungen_form">
       <field name="name">ism.buchungen.form</field>
       <field name="model">ism.buchungen</field>
@@ -357,9 +383,9 @@ ISM Buchungen
           <field name="periode" />          
           <field name="periode_id" select="1" />
           
-          <field name="amount" />          
-          <field name="debit" />          
-          <field name="credit" />
+          <field name="amount" sum="Balance" />          
+          <field name="debit"  sum="Debit"/>          
+          <field name="credit"  sum="Credit"/>
           <field name="name" select="1"/>
           
           <field name="mandant" />
@@ -373,6 +399,7 @@ ISM Buchungen
       <field name="view_type">form</field>
       <field name="view_mode">tree,form</field>
       <field name="view_id" ref="ism_buchungen_list"/>
+      <field name="search_view_id" ref="ism_buchungen_search"/>
     </record>
     <record model="ir.actions.act_window.view" id="ism_buchungen_act1_view2">
       <field name="sequence" eval="1"/>
