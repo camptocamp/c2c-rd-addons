@@ -170,6 +170,7 @@ class ism_belege(osv.osv):
 
             if len(res_ids):
                 result[move.id] = res_ids[0]
+                
         return result
 
 
@@ -231,6 +232,8 @@ class ism_buchungen(osv.osv):
 
             if len(res_ids):
                 result[move.id] = res_ids[0]
+            else:
+                raise osv.except_osv(_('Error !'),'Missing period in ism.buchungen %s %s.' %(move.mandant, move.periode))
 
         return result
     
@@ -241,6 +244,8 @@ class ism_buchungen(osv.osv):
             konto_ids= self.pool.get('ism.belege').search(cr,uid,[('mandant','=',move.mandant),('name','=',move.beleg)])
             if len(konto_ids):
                 result[move.id] = konto_ids[0]
+            else:
+                raise osv.except_osv(_('Error !'),'Missing beleg in ism.beleg %s %s.' %(move.mandant, move.beleg))
         return result
 
     def _konto_id(self, cr, uid, ids, name, arg, context):
@@ -250,13 +255,15 @@ class ism_buchungen(osv.osv):
             konto_ids= self.pool.get('ism.account').search(cr,uid,[('mandant','=',move.mandant),('code','=',move.kontonummer)])
             if len(konto_ids):
                 result[move.id] = konto_ids[0]
+            else:
+                raise osv.except_osv(_('Error !'),'Missing account in ism.account %s %s.' %(move.mandant, move.kontonummer))                
         return result
 
     def _debit(self, cr, uid, ids, name, arg, context):
         result = {}
         for move in self.browse(cr, uid, ids):
-            result[move.id] = 0
-            if move.amount >0:
+            result[move.id] = 0.0
+            if move.amount >0.0:
                 result[move.id] = move.amount
 
         return result
@@ -265,30 +272,28 @@ class ism_buchungen(osv.osv):
         result = {}
 
         for move in self.browse(cr, uid, ids):
-            result[move.id] = 0
-            if move.amount <0:
-                result[move.id] = move.amount
+            result[move.id] = 0.0
+            if move.amount <0.0:
+                result[move.id] = -move.amount
 
         return result
     
 
     _columns ={
-       'mandant'  : fields.char    ('Mandant', size=8, required=True),
-       'mandant_id'        : fields.function(_mandant_id, method=True, string="Company",type='many2one', relation='ism.mandant', store=True, select="1",  ),     
-
-
+       'mandant'            : fields.char    ('Mandant', size=8, required=True),
+       'mandant_id'         : fields.function(_mandant_id, method=True, string="Company",type='many2one', relation='ism.mandant', store=True, select="1",  ),     
        'kontonummer'        : fields.char    ('Kontonummer', size=8, required=True),
-       'konto_id'           : fields.function(_konto_id, method=True, string="Account",type='many2one', relation='ism.konto',  select="1", store=True ),
+       'konto_id'           : fields.function(_konto_id, method=True, string="Account",type='many2one', relation='ism.account',  select="1", store=True ),
        'periode'            : fields.char    ('Periode', size=8, required=True),
        'periode_id'         : fields.function(_period_id, method=True, string="Period",type='many2one', relation='ism.periode', store=True, select="1",  ),
-       'beleg'              : fields.char    ('Beleg', size=8, required=True),
+       'beleg'              : fields.char    ('Beleg', size=16, required=True),
        'beleg_id'           : fields.function(_beleg_id, method=True, string="Beleg",type='many2one', relation='ism.belege', store=True, select="1",  ),
+       #'beleg_id'             : fields.float   ('BelegID',  digits=(16,2)),
        'amount'             : fields.float   ('Balance', required=True, digits=(16,2)),
        'name'               : fields.char    ('Text', size=128),
-       'debit'              : fields.function(_debit, method=True, string="Debit",type='float', store=True, ),
-       
+       'debit'              : fields.function(_debit, method=True, string="Debit",type='float', store=True, ),      
        'credit'             : fields.function(_credit, method=True, string="Debit",type='float', store=True, ),
-       'company_id'        : fields.related
+       'company_id'         : fields.related
                ( "mandant_id"
                , "company_id"
                , type     = "many2one"
