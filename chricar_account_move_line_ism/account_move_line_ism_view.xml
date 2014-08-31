@@ -330,6 +330,7 @@ ISM Buchungen
         <search string="Search">
             <group col="10" colspan="4">
                 <field name="periode_id"/>
+                <field name="kontonummer" /> 
                 <field name="konto_id"/>
                 <field name="beleg_id"/>
                 

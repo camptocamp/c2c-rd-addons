@@ -287,7 +287,7 @@ class ism_buchungen(osv.osv):
     _columns ={
        'mandant'            : fields.char    ('Mandant', size=8, required=True),
        'mandant_id'         : fields.function(_mandant_id, method=True, string="Company",type='many2one', relation='ism.mandant', store=True, select="1",  ),     
-       'kontonummer'        : fields.char    ('Kontonummer', size=8, required=True),
+       'kontonummer'        : fields.char    ('Kontonummer', size=8, required=True, select="1", ),
        'konto_id'           : fields.function(_konto_id, method=True, string="Account",type='many2one', relation='ism.account',  select="1", store=True ),
        'periode'            : fields.char    ('Periode', size=8, required=True),
        'periode_id'         : fields.function(_period_id, method=True, string="Period",type='many2one', relation='ism.periode', store=True, select="1",  ),
