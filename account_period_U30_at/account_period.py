@@ -35,73 +35,79 @@ import time
 from tools.translate import _
 import decimal_precision as dp
 from tools.sql import drop_view_if_exists
+import logging
+
+class account_tax_code(osv.osv):
+    _inherit = 'account.tax.code'
+    
+    _columns = {
+        'check_sign'    : fields.selection( [('pos','Positive'), ('neg','Negative'), ('none','None')], 'Check Code Amount Sign', 
+                             help="""Use alternate Case Code if condition is met (beware of debit-credit balance, custom VAT=pos, supplier vat=neg)\
+                                   Zahllast (MWSt - VSt) must be positive
+                                   All values in XML must be positive"""),
+        'code_alternate': fields.char('Case Code Alternate', size=64),        
+        }
+    
+
+account_tax_code()
 
 class account_period(osv.osv) :
     _inherit = "account.period"
 
 
-    def kz_check(self, code, check_pos,check_neg):
-        import logging
-        _logger = logging.getLogger(__name__)
-        codes = []
-        if code == '067':
-           codes = check_pos
-        if code == '090':
-           codes = check_neg
-        amount = 0
-        for c in codes:
-           amt = self.kz(c, False)
-           if amt < 0 and c in check_pos :
-               amount -= amt
-           if amt > 0 and c in check_neg :
-               amount += amt
-           
-           _logger.info('FGF kz_negativ %s %s %s ' % (c,codes,amount))
-           
-        return amount   
 
-    def kz(self, code, check_negativ=True ) :
-        import logging
+    def kz(self, code) :
         _logger = logging.getLogger(__name__)
-        _logger.info('FGF kz %s %s ' % (code,check_negativ))
-        check_pos = [ '022','029' ]
-        check_neg = [ '060', ]
+        _logger.debug('FGF kz %s  ' % (code))
         cr      = self.cr
         uid     = self.uid
         period  = self.period
         aml_obj = self.pool.get("account.move.line")
         atc_obj = self.pool.get("account.tax.code")
-        #atc_ids = atc_obj.search(cr, uid, [("code", "=", code.replace("KZ", "").replace('-',''))])
         code3 = code.replace("KZ", "").replace('-','')        
-        if code3 in ['067', '090']:
-            amount =  self.kz_check(code3, check_pos, check_neg)
-            if amount == 0:
-               amount = "0.00"
-            else :
-               amount = "%0.2f" % amount
-            _logger.info('FGF check %s %s' % (code3,amount))
-            return amount
-        else: 
-            atc_ids = atc_obj.search(cr, uid, [("code", "like", code3)])
-            _logger.info('FGF atc_ids %s ' % (atc_ids))
-            atc_ids2 = atc_obj.search(cr, uid, [('parent_id', 'child_of', atc_ids)])
-            _logger.info('FGF atc_ids2 %s ' % (atc_ids2))
-            #aml_ids = aml_obj.search(cr, uid, [("period_id", "=", period.id), ("tax_code_id", "in", tuple(atc_ids))])  # vereinbarte entgelte, hängt von Firmenart ab, currency_id
-            aml_ids = aml_obj.search(cr, uid, [("period_id", "=", period.id), ("tax_code_id", "in", atc_ids2)])  # vereinbarte entgelte, hängt von Firmenart ab, currency_id
-            if not aml_ids :
-                return "0.00"
-            else :
+        atc_ids = atc_obj.search(cr, uid, [("code", "like", code3)])
+        _logger.debug('FGF atc_ids %s ' % (atc_ids))
+        atc_ids2 = atc_obj.search(cr, uid, [('parent_id', 'child_of', atc_ids)])
+        _logger.debug('FGF atc_ids2 %s ' % (atc_ids2))
+        code_sum = 0
+        for code_child in atc_ids2:
+            aml_ids = aml_obj.search(cr, uid, [("period_id", "=", period.id), ("tax_code_id", "=", code_child)])  # vereinbarte entgelte, hängt von Firmenart ab, currency_id
+            if aml_ids :
                 amount = sum(l.tax_amount for l in aml_obj.browse(cr, uid, aml_ids))
-                _logger.info('FGF all tax %s %s %s' % (code3,amount,check_negativ))
-                if check_negativ and amount < 0:
-                    if code3 in check_pos :
-                        return "0.00"
+                _logger.debug('FGF code tax %s %s ' % (code_child,amount))
+                for check in atc_obj.browse(cr, uid, [code_child] ):
+                    _logger.debug('FGF code check %s %s %s' % (check.check_sign,amount,check.code_alternate))
+                    if check.code_alternate and ((check.check_sign == 'neg' and amount <0.0) or (check.check_sign == 'pos' and amount >0.0)):
+                        _logger.debug('FGF code tax not used %s %s ' % (code_child,amount))
                     else:
-                        return "%0.2f" % abs(amount)
-                else: 
-                    return amount
-            #return             sum(l.tax_amount for l in aml_obj.browse(cr, uid, aml_ids))
-        _logger.info('FGF all tax no return %s', code ) 
+                        code_sum += amount
+        # code_alternate
+        # we need to do the tree down computation starting with code (not code_alternate) - but with reverse check
+        code_alt_usage =  atc_obj.search(cr, uid, [("code_alternate", "like", code3)])
+        _logger.debug('FGF  code_alternate  %s %s' % (code_alt_usage,code3 ))
+        for code_alt in atc_obj.browse(cr,uid, code_alt_usage):
+            atc_ids2 = atc_obj.search(cr, uid, [('parent_id', 'child_of', [code_alt.id])])
+            _logger.debug('FGF  code_alt  %s %s %s %s' % (code_alt.id, code_alt.name, code_alt.code, atc_ids2 ))
+            amount = 0
+            
+            aml_ids = aml_obj.search(cr, uid, [("period_id", "=", period.id), ("tax_code_id", "in", atc_ids2)])  # vereinbarte entgelte, hängt von Firmenart ab, currency_id
+            if aml_ids :
+                amount += sum(l.tax_amount for l in aml_obj.browse(cr, uid, aml_ids))
+            if amount <> 0.00:
+                for check in atc_obj.browse(cr, uid, [code_alt.id] ):
+                    _logger.debug('FGF code alt check %s %s %s' % (check.check_sign,amount,check.code_alternate))
+                    # here is the invers from above
+                    if check.code_alternate and  ((check.check_sign == 'neg' and amount >0.0) or (check.check_sign == 'pos' and amount <0.0)):
+                        _logger.debug('FGF code alt tax not used %s %s ' % (code_alt.code,amount))
+                    else:
+                        code_sum += amount
+                                           
+        _logger.debug('FGF  tax code return %s %s' % (code, code_sum ))
+        if code_sum == 0:
+            return "0.00"
+        else:
+            return "%0.2f" % abs(code_sum)
+ 
     # end def kz
 
     def generate_u30(self, cr , uid, ids, context=None):
@@ -182,7 +188,7 @@ class account_period_tax(osv.osv):
                      result[code.id] = True
          import logging
          _logger = logging.getLogger(__name__)
-         _logger.info('FGF get_base %s ' % (result))
+         _logger.debug('FGF get_base %s ' % (result))
          return result
 
     def _get_percent_amount(self, cr, uid, ids, field_name, arg, context=None):
