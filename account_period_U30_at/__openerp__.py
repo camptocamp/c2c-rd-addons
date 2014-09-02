@@ -32,7 +32,7 @@
 ###############################################
 { "name"        : "Austrian VAT declaration"
 , "version"     : "1.0"
-, "author"      : "Swing Entwicklung betrieblicher Informationssysteme GmbH"
+, "author"      : "Swing Entwicklung betrieblicher Informationssysteme GmbH, ChriCar Bet. u Beratung GmbH"
 , "website"     : "http://www.swing-system.com"
 , "description" : 
 """
@@ -40,6 +40,14 @@ U30 is a XML-type VAT declaration for the Austrian governement.
 
 This module generates a XML-file per account period attaches it to the period.
 
+*******************
+IMPORTANT premise to get correct XML
+*******************
+tax_amount must be 
+* POSITIVE for customer VAT (Mehrwertsteuer)
+* NEGATIVE for supplier VAT (Vorsteuer)
+
+Zahllast = Mehrwertsteuer - Vorsteuer
 """
 , "category"    : "Accounting & Finance"
 , "depends"     : 
