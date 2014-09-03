@@ -63,8 +63,9 @@
                 <form string="Accounting VAT Voucher">
                     <group col="6" colspan="4">
                         
-                        <field name="partner_id" required="1" on_change="onchange_journal_voucher(line_ids, tax_id, amount, partner_id, journal_id, type)"/>
+                        <field name="partner_id" invisible="1"  on_change="onchange_journal_voucher(line_ids, tax_id, amount, partner_id, journal_id, type)"/>
                         
+                        <field name="account_id" />
                         <field name="date" on_change="onchange_date(date, currency_id, payment_rate_currency_id, amount, company_id)"/>
                         <field name="journal_id" widget="selection" select="1" on_change="onchange_journal_voucher(line_ids, tax_id, amount, partner_id, journal_id, type)"/>
                         <field name="type" required="1"/>
@@ -161,7 +162,8 @@
             <field name="res_model">account.voucher</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
-            <field name="context">{'type':'general'}</field>
+            <field name="context">{'type':'gen_vat'}</field>
+            <field name="domain">[('type','=','gen_vat')]</field>
             <field name="view_id" eval="view_voucher_vat_tree"/>
             <field name="search_view_id" ref="view_voucher_vat_filter"/>
         </record>
@@ -178,5 +180,21 @@
         </record>
         <menuitem action="action_voucher_vat_list" id="menu_encode_entries_by_voucher" parent="account.menu_finance_entries" sequence="16"/>
 
+        <!-- do not display type general in standard voucher -->
+        
+        
+         <record model="ir.actions.act_window" id="account_voucher.action_voucher_list">
+            <field name="name">Journal Vouchers</field>
+            <field name="res_model">account.voucher</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,graph</field>
+            <field name="context">{'type':'general'}</field>
+            <field name="domain">[('type','!=','gen_vat')]</field>
+            <field name="view_id" eval="account_voucher.view_voucher_tree"/>
+            <field name="search_view_id" ref="account_voucher.view_voucher_filter"/>
+        </record>
+
+        
+        
   </data>
 </openerp>

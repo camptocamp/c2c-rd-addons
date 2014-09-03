@@ -26,12 +26,19 @@ import logging
 
 class account_voucher_vat(osv.osv):
     _inherit = 'account.voucher'
+
     _columns = {
-        'type':fields.char('Type', readonly=True,size=8, states={'draft':[('readonly',False)]}),
+         'type':fields.selection([
+            ('sale','Sale'),
+            ('purchase','Purchase'),
+            ('payment','Payment'),
+            ('receipt','Receipt'),
+            ('gen_vat','General Vat'),
+        ],'Default Type', readonly=True, states={'draft':[('readonly',False)]}),
         }
     
     _defaults = {
-        'type': 'general'
+        'type': 'gen_vat'
         }
     def create_move_from_st_line(self, cr, uid, st_line_id, company_currency_id, next_number, context=None):
         res = super(account_voucher, self).create_move_from_st_line( cr, uid, st_line_id, company_currency_id, next_number, context)
