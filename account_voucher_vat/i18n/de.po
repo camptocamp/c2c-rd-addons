@@ -1,0 +1,119 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* chricar_bank_vat
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 6.1rc1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-01-23 22:05+0000\n"
+"PO-Revision-Date: 2012-01-24 01:02+0000\n"
+"Last-Translator: Joël Grand-Guillaume @ CampToCamp "
+"<joel.grandguillaume@camptocamp.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2012-10-23 05:13+0000\n"
+"X-Generator: Launchpad (build 16179)\n"
+
+#. module: chricar_bank_vat
+#: model:ir.model,name:chricar_bank_vat.model_account_bank_statement_line
+msgid "Bank Statement Line"
+msgstr "Bankauszug Buchungen"
+
+#. module: chricar_bank_vat
+#: code:addons/chricar_bank_vat/bank_account_vat.py:78
+#: code:addons/chricar_bank_vat/bank_account_vat.py:81
+#: code:addons/chricar_bank_vat/bank_account_vat.py:181
+#, python-format
+msgid "Error !"
+msgstr "Fehler!"
+
+#. module: chricar_bank_vat
+#: help:account.bank.statement.line,tax_id:0
+msgid "VAT for this line, only allowed if no partner specified"
+msgstr "Ust ist nur erlaubt, wenn kein Partner definiert ist"
+
+#. module: chricar_bank_vat
+#: code:addons/chricar_bank_vat/bank_account_vat.py:301
+#: code:addons/chricar_bank_vat/bank_account_vat.py:310
+#, python-format
+msgid "Error!"
+msgstr "Fehler!"
+
+#. module: chricar_bank_vat
+#: code:addons/chricar_bank_vat/bank_account_vat.py:182
+#, python-format
+msgid "Journal Item \"%s\" is not valid"
+msgstr "Journal Position \"%s\" ist nicht gültig"
+
+#. module: chricar_bank_vat
+#: code:addons/chricar_bank_vat/bank_account_vat.py:79
+#, python-format
+msgid "VAT and Amount Net do not match Amount in line \"%s\""
+msgstr "Ust und Netto stimmen mit Brutto nicht überein in Zeile \"%s\""
+
+#. module: chricar_bank_vat
+#: constraint:account.bank.statement.line:0
+msgid "You must not define an analytic account."
+msgstr "You must not define an analytic account."
+
+#. module: chricar_bank_vat
+#: field:account.bank.statement.line,tax_id:0
+msgid "Tax"
+msgstr "Steuer"
+
+#. module: chricar_bank_vat
+#: model:ir.model,name:chricar_bank_vat.model_account_bank_statement
+msgid "Bank Statement"
+msgstr "Bankauszug"
+
+#. module: chricar_bank_vat
+#: field:account.bank.statement.line,amount_tax:0
+#: help:account.bank.statement.line,amount_tax:0
+msgid "Amount Tax"
+msgstr "Steuerbetrag"
+
+#. module: chricar_bank_vat
+#: code:addons/chricar_bank_vat/bank_account_vat.py:311
+#, python-format
+msgid "only tax group VAT with percentage supported"
+msgstr "nur Steuer mit Prozent unterstützt"
+
+#. module: chricar_bank_vat
+#: code:addons/chricar_bank_vat/bank_account_vat.py:302
+#, python-format
+msgid "VAT not allowed for moves lines with partner"
+msgstr "Ust nicht erlaubt wenn Partner Definiert ist"
+
+#. module: chricar_bank_vat
+#: code:addons/chricar_bank_vat/bank_account_vat.py:82
+#, python-format
+msgid "Lines \"%s\" with VAT must not have partner account "
+msgstr "Zeile \"%s\" mit USt darf kein Partnereintrag haben "
+
+#. module: chricar_bank_vat
+#: constraint:account.bank.statement.line:0
+msgid ""
+"The amount of the voucher must be the same amount as the one on the "
+"statement line"
+msgstr ""
+"Der Betrag des Zahlungsbelegs sollte mit dem Betrag der Position auf dem "
+"Bankauszug übereinstimmen."
+
+#. module: chricar_bank_vat
+#: constraint:account.bank.statement.line:0
+msgid "You must assign an analytic account.(bank)"
+msgstr "You must assign an analytic account.(bank)"
+
+#. module: chricar_bank_vat
+#: constraint:account.bank.statement.line:0
+msgid "You must not alter a fixed analytic account."
+msgstr "You must not alter a fixed analytic account."
+
+#. module: chricar_bank_vat
+#: field:account.bank.statement.line,amount_net:0
+#: help:account.bank.statement.line,amount_net:0
+msgid "Amount Net"
+msgstr "Betrag Netto"
