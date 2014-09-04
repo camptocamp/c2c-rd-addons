@@ -46,6 +46,7 @@ class account_tax_code(osv.osv):
                                    Zahllast (MWSt - VSt) must be positive
                                    All values in XML must be positive"""),
         'code_alternate': fields.char('Case Code Alternate', size=64),        
+        'code_alternate_proz': fields.boolean('Alternate Code as %',help="Return value aof alternate code as tax not as base amount"),        
         }
     
 
@@ -63,6 +64,7 @@ class account_period(osv.osv) :
         uid     = self.uid
         period  = self.period
         aml_obj = self.pool.get("account.move.line")
+        at_obj = self.pool.get("account.tax")
         atc_obj = self.pool.get("account.tax.code")
         code3 = code.replace("KZ", "").replace('-','')        
         atc_ids = atc_obj.search(cr, uid, [("code", "like", code3)])
@@ -100,11 +102,18 @@ class account_period(osv.osv) :
                     if check.code_alternate and  ((check.check_sign == 'neg' and amount >0.0) or (check.check_sign == 'pos' and amount <0.0)):
                         _logger.debug('FGF code alt tax not used %s %s ' % (code_alt.code,amount))
                     else:
-                        code_sum += amount
+                        tax_ids = at_obj.search(cr, uid, ['|',('base_code_id','=',code_alt.id),('ref_base_code_id','=',code_alt.id)])
+                        for code_orig in at_obj.browse(cr, uid, tax_ids):
+                            if code_alt.code_alternate_proz :
+                                code_sum -= amount*code_orig.amount
+                            else:
+                                code_sum += amount*code_orig.amount
                                            
         _logger.debug('FGF  tax code return %s %s' % (code, code_sum ))
         if code_sum == 0:
             return "0.00"
+        elif code3 in ['063','067','090']:
+            return "%0.2f" % code_sum
         else:
             return "%0.2f" % abs(code_sum)
  

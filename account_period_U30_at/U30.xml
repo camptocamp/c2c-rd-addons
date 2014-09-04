@@ -36,7 +36,6 @@
                 <KZ018 attr-name1="type" attr-eval1="'kz'" text-eval="kz('KZ018')" seq-eval="[0] if kz('KZ018') != '0.00' else []" var="x"/>
                 <KZ019 attr-name1="type" attr-eval1="'kz'" text-eval="kz('KZ019')" seq-eval="[0] if kz('KZ019') != '0.00' else []" var="x"/>
                 <KZ016 attr-name1="type" attr-eval1="'kz'" text-eval="kz('KZ016')" seq-eval="[0] if kz('KZ016') != '0.00' else []" var="x"/>
-                <VST text-eval="vst"/>
                 <KZ020 attr-name1="type" attr-eval1="'kz'" text-eval="kz('KZ020')" seq-eval="[0] if kz('KZ020') != '0.00' else []" var="x"/>
               </STEUERFREI>
               <VERSTEUERT>
