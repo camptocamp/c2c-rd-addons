@@ -102,7 +102,7 @@ for balance accounts
 
     def _check_analytic_account_id(self, cr, uid, ids):
         account = self.browse(cr, uid, ids[0])
-        if account.type != 'view':
+        if account.type not in ( 'view', 'consolidation'):
             if account.account_analytic_usage in ('fixed') and not account.analytic_account_id :
                 return False
         # FIXME - do we need the following check? -
