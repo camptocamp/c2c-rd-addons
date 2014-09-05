@@ -333,6 +333,40 @@ class account_voucher_vat_line(osv.osv):
         return {'value': {'amount': balance, 'account_id': account_id,'type': type,
                  'tax_id':'', 'amount_tax':'', 'amount_net':'' }}
 
+    def onchange_dc(self, cr, uid, ids, debit, credit):
+        value = {}
+        if debit:
+            return {'value' : {'amount': debit-credit, 'credit':0}}
+        else:
+            return {'value' : {'amount': debit-credit, 'debit':0}}
+
+    def onchange_voucher_tax(self, cr, uid, ids, tax_id, amount ,partner_id=None):
+        result = {}
+        amount_net = 0.0
+        amount_tax = 0.0
+        precision = self.pool.get('decimal.precision').precision_get(cr, uid, 'Account')
+        self._logger.debug('prec `%s`', precision)
+        if tax_id:
+            if partner_id:
+                #raise osv.except_osv(_('Error!'),
+                #  _('VAT not allowed for moves lines with partner'))
+                tax_id = ''
+            else:
+                tax_obj = self.pool.get('account.tax').browse(cr, uid,tax_id)
+                if tax_obj.type == 'percent':  # and tax_obj.tax_group == 'vat': -- tax_group does not exist any more
+                    amount_net = round(amount / (1 + tax_obj.amount), precision)
+                    amount_tax = amount - amount_net
+                else:
+                    raise osv.except_osv(_('Error!'),
+                       _('only tax group VAT with percentage supported'))
+        result = {'value': {
+            
+            'amount_net': amount_net,
+            'amount_tax': amount_tax,
+            }
+        }
+        return result
+    
     def onchange_amount(self, cr, uid, ids, tax_id, amount, partner_id, date, date_statement):
         result = {}
         value = {}

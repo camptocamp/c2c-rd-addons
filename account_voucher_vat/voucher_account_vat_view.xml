@@ -84,10 +84,10 @@
                                 <tree string="Voucher VAT Items" editable="bottom">
                                     <field name="account_id"/>
                                     <field name="name"/>
-                                    <field name="debit"/>
-                                    <field name="credit"/>
-                                    <field name="amount" sum="Total Amount"/>
-                                    <field name="tax_id"/>
+                                    <field name="debit" on_change="onchange_dc(debit, 0)"/>
+                                    <field name="credit" on_change="onchange_dc(0, credit)"/>
+                                    <field name="amount" on_change="onchange_voucher_tax(tax_id, amount)"  sum="Total Amount"/>
+                                    <field name="tax_id" on_change="onchange_voucher_tax(tax_id, amount)" />
                                     <field name="amount_net"/>
                                     <field name="amount_tax"/>
                                     <field name="account_analytic_id" groups="analytic.group_analytic_accounting"/>
