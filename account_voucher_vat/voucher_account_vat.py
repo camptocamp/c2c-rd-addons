@@ -151,6 +151,7 @@ class account_voucher_vat(osv.osv):
                     'debit'      : debit_tax,
                     'credit'     : credit_tax,
                     'account_id' : line.tax_id.account_collected_id.id,
+                    'analytic_account_id' : None,
                 })
                 tot_line += debit_tax - credit_tax
                 _logger.debug('FGF voucher tot_line tax %s ', tot_line)     
@@ -248,8 +249,10 @@ class account_voucher_vat_line(osv.osv):
             help="""Amount Net"""),
         'amount_tax': fields.float('Amount Tax',  digits_compute=dp.get_precision('Account'),
             help="""Amount Tax"""),
+        'sequence': fields.integer('Sequence', required=True, help="The sequence field is used to order the resources from lower sequences to higher ones."),
     }
         
+    _order = "sequence"
     # may be this is not needed
     def FIXME_onchange_partner_id(self, cr, uid, line_id, partner_id, type, currency_id,
             context={}):
