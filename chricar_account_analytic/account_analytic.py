@@ -188,10 +188,11 @@ for balance accounts
         if account_id:
             account = self.browse(cr, uid,  account_id)
             if account.account_analytic_usage in ('mandatory','fixed') and not analytic_account_id :
-                raise osv.except_osv(_('Error'), _('missing analytic account for %s %s', account.name, account.account_analytic_usage))
+                raise osv.except_osv(_('Error'), _('missing analytic account for %s %s' % ( ' '.join((account.code,account.name)), account.account_analytic_usage)))
 
                 #_logger = logging.getLogger(__name__)
                 #_logger.info('FGF analytic_usage %s %s:%s', account.name, account.account_analytic_usage, analytic_account_id)
+                raise osv.except_osv(_('Error'), _('You must specify an analytic account %s !') % (' '.join((account.code,account.name))))         
                 return False
             else:
                 return True
@@ -207,6 +208,7 @@ for balance accounts
             else:
                 analytic_name = _('No analytic account specified')
             if account.account_analytic_usage == 'fixed' and account.analytic_account_id.id != analytic_account_id :
+                raise osv.except_osv(_('Error'), _('You must use fixed analytic account %s %s !') % (' '.join((account.code,account.name)),account.analytic_account_id.name))         
                 return False
         return True
 
@@ -214,6 +216,7 @@ for balance accounts
         if account_id:
             account = self.browse(cr, uid,  account_id)
             if analytic_account_id and account.account_analytic_usage == 'none':
+                raise osv.except_osv(_('Error'), _('No analytic account allowed for account %s  !') % (' '.join((account.code,account.name))))
                 return False
         return True
 
