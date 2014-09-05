@@ -32,7 +32,7 @@ Does not support:
  * multiple VAT per line
 """
 , "category"     : "Accounting & Finance"
-, "depends"      : ["account_voucher"]
+, "depends"      : ["account_voucher","chricar_bank_vat"]
 , "init_xml"     : []
 , "demo_xml"     : []
 , "update_xml"   : ["voucher_account_vat_view.xml"]
