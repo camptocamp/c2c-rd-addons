@@ -55,8 +55,6 @@ class account_voucher_vat(osv.osv):
         :return: Tuple build as (remaining amount not allocated on voucher lines, list of account_move_line created in this method)
         :rtype: tuple(float, list of int)
         '''
-        _logger = logging.getLogger(__name__)
-        _logger.debug('FGF voucher start  %s ', line_total)
         if context is None:
             context = {}
         move_line_obj = self.pool.get('account.move.line')
@@ -64,7 +62,9 @@ class account_voucher_vat(osv.osv):
         tax_obj = self.pool.get('account.tax')
         tot_line = line_total
         rec_lst_ids = []
-
+        _logger = logging.getLogger(__name__)
+        _logger.debug('FGF voucher start  %s ', line_total)
+        
         voucher_brw = self.pool.get('account.voucher').browse(cr, uid, voucher_id, context)
         ctx = context.copy()
         ctx.update({'date': voucher_brw.date})
@@ -96,32 +96,55 @@ class account_voucher_vat(osv.osv):
             }
             
             amount_net = line.amount_net
-            if amount > 0:
+            amount_tax = line.amount_tax
+            if not line.type:
+                line.type = 'dr'
+            _logger.debug('FGF voucher amount pre %s %s %s %s', amount,amount_net,amount_tax, line.type)
+            
+            if amount < 0:
+                
+                #if amount_net and amount_net > 0:
+                amount_net = -amount_net or 0
+                
+                amount = -amount
+                if line.type == 'dr':
+                    line.type = 'cr'
+                else:
+                    line.type = 'dr'
+            _logger.debug('FGF voucher amount post %s %s %s', amount,amount_net,amount_tax)
+            if (line.type=='dr'):
+                tot_line += amount_net or amount
                 move_line['debit'] = amount_net or amount
-            else:               
-                move_line['credit'] = -amount_net or -amount
-            tot_line += amount_net or amount
+            else:
+                tot_line -= amount_net or amount
+                move_line['credit'] = amount_net or amount
+            _logger.debug('FGF voucher tot_line %s ', tot_line)
             
             if voucher_brw.tax_id and voucher_brw.type in ('sale', 'purchase'):
                 move_line.update({
                     'account_tax_id': voucher_brw.tax_id.id,
                 })
-            _logger.debug('FGF voucher tot_line %s ', tot_line)                
+
+            if move_line.get('account_tax_id', False):
+                tax_data = tax_obj.browse(cr, uid, [move_line['account_tax_id']], context=context)[0]
+                if not (tax_data.base_code_id and tax_data.tax_code_id):
+                    raise osv.except_osv(_('No Account Base Code and Account Tax Code!'),_("You have to configure account base code and account tax code on the '%s' tax!") % (tax_data.name))
+
             move_line_tax = {}
             if line.tax_id and line.voucher_id.type == ('gen_vat'):
                 
                 move_line.update({
                     'tax_code_id': line.tax_id.base_code_id.id,
-                    'tax_amount' : amount_net,
+                    'tax_amount' : line.amount_net,
 
                 })
                 
                 move_line_tax = move_line.copy()
                 debit_tax = credit_tax = 0
-                if amount > 0:
-                    debit_tax = line.amount_tax
+                if amount_tax > 0:
+                    debit_tax = amount_tax
                 else:
-                    credit_tax = -line.amount_tax
+                    credit_tax = -amount_tax
                 move_line_tax.update({
                     'tax_code_id': line.tax_id.tax_code_id.id,
                     'tax_amount' : line.amount_tax,
@@ -132,11 +155,6 @@ class account_voucher_vat(osv.osv):
                 tot_line += debit_tax - credit_tax
                 _logger.debug('FGF voucher tot_line tax %s ', tot_line)     
                 
-
-            #if move_line.get('account_tax_id', False):
-                #tax_data = tax_obj.browse(cr, uid, [move_line['account_tax_id']], context=context)[0]
-                #if not (tax_data.base_code_id and tax_data.tax_code_id):
-                    #raise osv.except_osv(_('No Account Base Code and Account Tax Code!'),_("You have to configure account base code and account tax code on the '%s' tax!") % (tax_data.name))
 
             # compute the amount in foreign currency
             foreign_currency_diff = 0.0
@@ -168,9 +186,7 @@ class account_voucher_vat(osv.osv):
             if move_line_tax:
                 _logger.debug('FGF voucher move line tax %s ', move_line_tax)
                 voucher_line_tax = move_line_obj.create(cr, uid, move_line_tax)
-            
-            
-
+                
             if not currency_obj.is_zero(cr, uid, voucher_brw.company_id.currency_id, currency_rate_difference):
                 # Change difference entry in company currency
                 exch_lines = self._get_exchange_lines(cr, uid, line, move_id, currency_rate_difference, company_currency, current_currency, context=context)
@@ -199,10 +215,11 @@ class account_voucher_vat(osv.osv):
 
             if line.move_line_id.id:
                 rec_lst_ids.append(rec_ids)
+        tot_line = round(tot_line,2)
         _logger.debug('FGF voucher %s %s', tot_line, rec_lst_ids)
-
         return (tot_line, rec_lst_ids)
 
+   
         
 
     def action_move_line_create(self, cr, uid, ids, context=None):
