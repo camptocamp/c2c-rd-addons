@@ -143,8 +143,8 @@ class account_period(osv.osv) :
                 , beginn   = period.date_start[0:7]
                 , ende     = period.date_stop[0:7]
                 , vst      = "000"
-                , are      = "J"
-                , repo     = "J"
+                , are      = ""
+                , repo     = ""
                 , kz       = self.kz
                 , tax_nr   = tax_number
                 )
