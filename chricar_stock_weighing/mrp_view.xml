@@ -14,6 +14,7 @@ Harvest
         <tree colors="red:date_planned&lt;current_date and state not in ('done','cancel')" string="Production orders">
           <field name="name"/>
           <field name="product_id"/>
+          <field name="prodlot_id"/>
           <field name="product_qty" sum="Total Qty"/>
           <field name="date_planned"/>
           <field name="state"/>
