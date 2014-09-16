@@ -1,119 +1,253 @@
 # Translation of OpenERP Server.
 # This file contains the translation of the following modules:
-#	* chricar_bank_vat
+#	* account_voucher_vat
 #
+# , 2014.
 msgid ""
 msgstr ""
-"Project-Id-Version: OpenERP Server 6.1rc1\n"
+"Project-Id-Version: OpenERP Server 6.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-01-23 22:05+0000\n"
-"PO-Revision-Date: 2012-01-24 01:02+0000\n"
-"Last-Translator: Joël Grand-Guillaume @ CampToCamp "
-"<joel.grandguillaume@camptocamp.com>\n"
-"Language-Team: \n"
+"POT-Creation-Date: 2014-09-16 11:34+0000\n"
+"PO-Revision-Date: 2014-09-16 13:49+0200\n"
+"Last-Translator: \n"
+"Language-Team: American English <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2012-10-23 05:13+0000\n"
-"X-Generator: Launchpad (build 16179)\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+"Language: en_US\n"
+"X-Generator: Lokalize 1.5\n"
 
-#. module: chricar_bank_vat
-#: model:ir.model,name:chricar_bank_vat.model_account_bank_statement_line
-msgid "Bank Statement Line"
-msgstr "Bankauszug Buchungen"
+#. module: account_voucher_vat
+#: view:account.voucher:0
+msgid "Search Vouchers VAT"
+msgstr "Suche Beleg mit MWSt"
 
-#. module: chricar_bank_vat
-#: code:addons/chricar_bank_vat/bank_account_vat.py:78
-#: code:addons/chricar_bank_vat/bank_account_vat.py:81
-#: code:addons/chricar_bank_vat/bank_account_vat.py:181
+#. module: account_voucher_vat
+#: code:addons/account_voucher_vat/voucher_account_vat.py:336
+#: code:addons/account_voucher_vat/voucher_account_vat.py:399
 #, python-format
-msgid "Error !"
-msgstr "Fehler!"
+msgid "only tax group VAT with percentage supported"
+msgstr "Nur MWst mit % ist unterstützt"
 
-#. module: chricar_bank_vat
-#: help:account.bank.statement.line,tax_id:0
-msgid "VAT for this line, only allowed if no partner specified"
-msgstr "Ust ist nur erlaubt, wenn kein Partner definiert ist"
+#. module: account_voucher_vat
+#: view:account.voucher:0
+msgid "Accounting VAT Voucher"
+msgstr "Finanz MWSt Beleg"
 
-#. module: chricar_bank_vat
-#: code:addons/chricar_bank_vat/bank_account_vat.py:301
-#: code:addons/chricar_bank_vat/bank_account_vat.py:310
+#. module: account_voucher_vat
+#: view:account.voucher:0
+msgid "Group By..."
+msgstr "Gruppierung..."
+
+#. module: account_voucher_vat
+#: view:account.voucher:0
+msgid "State"
+msgstr "Status"
+
+#. module: account_voucher_vat
+#: view:account.voucher.line:0
+msgid "Voucher VAT Lines"
+msgstr "Beleg MWst Zeilen"
+
+#. module: account_voucher_vat
+#: view:account.voucher:0
+msgid "Draft"
+msgstr "Entwurf"
+
+#. module: account_voucher_vat
+#: view:account.voucher:0
+msgid "Set to Draft"
+msgstr "Entwurf"
+
+#. module: account_voucher_vat
+#: code:addons/account_voucher_vat/voucher_account_vat.py:327
+#: code:addons/account_voucher_vat/voucher_account_vat.py:390
+#, python-format
+msgid "VAT not allowed for moves lines with partner"
+msgstr "MWSt nicht erlaubt für Zeilen mit Partner"
+
+#. module: account_voucher_vat
+#: field:account.voucher.line,debit:0
+msgid "Debit"
+msgstr "Soll"
+
+#. module: account_voucher_vat
+#: view:account.voucher:0
+msgid "Draft Vouchers"
+msgstr "Entwurf Belege"
+
+#. module: account_voucher_vat
+#: view:account.voucher:0
+msgid "Posted Vouchers"
+msgstr "Verbuchte Belege"
+
+#. module: account_voucher_vat
+#: view:account.voucher:0
+msgid "Journal"
+msgstr "Journal"
+
+#. module: account_voucher_vat
+#: view:account.voucher:0
+msgid "Internal Notes"
+msgstr "Interne Hinweise"
+
+#. module: account_voucher_vat
+#: help:account.voucher.line,sequence:0
+msgid ""
+"The sequence field is used to order the resources from lower sequences to "
+"higher ones."
+msgstr ""
+"The sequence field is used to order the resources from lower sequences to "
+"higher ones."
+
+#. module: account_voucher_vat
+#: code:addons/account_voucher_vat/voucher_account_vat.py:326
+#: code:addons/account_voucher_vat/voucher_account_vat.py:335
+#: code:addons/account_voucher_vat/voucher_account_vat.py:389
+#: code:addons/account_voucher_vat/voucher_account_vat.py:398
 #, python-format
 msgid "Error!"
 msgstr "Fehler!"
 
-#. module: chricar_bank_vat
-#: code:addons/chricar_bank_vat/bank_account_vat.py:182
+#. module: account_voucher_vat
+#: view:account.voucher:0
+msgid "Are you sure to unreconcile this record ?"
+msgstr "Möchten Sie wirklich den Rechnungsausgleich zurücksetzen ?"
+
+#. module: account_voucher_vat
+#: view:account.voucher:0
+msgid "Journal Items"
+msgstr "Buchungsjournale"
+
+#. module: account_voucher_vat
+#: view:account.voucher:0
+msgid "Post"
+msgstr "Buchen"
+
+#. module: account_voucher_vat
+#: view:account.voucher:0
+msgid "Posted"
+msgstr "Gebucht"
+
+#. module: account_voucher_vat
+#: help:account.voucher.line,tax_id:0
+msgid "VAT for this line, only allowed if no partner specified"
+msgstr "MWSt für diese Zeile, nur wenn kein Partner spezifiziert"
+
+#. module: account_voucher_vat
+#: view:account.voucher:0
+msgid "Voucher Entries"
+msgstr "Zahlungsbeleg Buchungen"
+
+#. module: account_voucher_vat
+#: code:addons/account_voucher_vat/voucher_account_vat.py:131
 #, python-format
-msgid "Journal Item \"%s\" is not valid"
-msgstr "Journal Position \"%s\" ist nicht gültig"
+msgid "No Account Base Code and Account Tax Code!"
+msgstr "Kein Steuerbasis oder Steuerkonto!"
 
-#. module: chricar_bank_vat
-#: code:addons/chricar_bank_vat/bank_account_vat.py:79
+#. module: account_voucher_vat
+#: help:account.voucher.line,credit:0
+#: help:account.voucher.line,debit:0
+msgid "Amount incl VAT"
+msgstr "Brutto"
+
+#. module: account_voucher_vat
+#: field:account.voucher.line,credit:0
+msgid "Credit"
+msgstr "Haben"
+
+#. module: account_voucher_vat
+#: view:account.voucher:0
+msgid "Voucher VAT Items"
+msgstr "Beleg MWSt Buchungen"
+
+#. module: account_voucher_vat
+#: view:account.voucher:0
+msgid "Voucher VAT Entry"
+msgstr "Beleg MWSt Erfassung"
+
+#. module: account_voucher_vat
+#: field:account.voucher.line,sequence:0
+msgid "Sequence"
+msgstr "Sequenz"
+
+#. module: account_voucher_vat
+#: code:addons/account_voucher_vat/voucher_account_vat.py:131
 #, python-format
-msgid "VAT and Amount Net do not match Amount in line \"%s\""
-msgstr "Ust und Netto stimmen mit Brutto nicht überein in Zeile \"%s\""
+msgid ""
+"You have to configure account base code and account tax code on the '%s' tax!"
+msgstr ""
+"Sie müssen ein Steuer Basiskonto und Steuerkonto für die Steuer '%s' "
+"konfigurieren."
 
-#. module: chricar_bank_vat
-#: constraint:account.bank.statement.line:0
-msgid "You must not define an analytic account."
-msgstr "You must not define an analytic account."
+#. module: account_voucher_vat
+#: code:addons/account_voucher_vat/voucher_account_vat.py:203
+#, python-format
+msgid "change"
+msgstr "Verändern"
 
-#. module: chricar_bank_vat
-#: field:account.bank.statement.line,tax_id:0
+#. module: account_voucher_vat
+#: view:account.voucher:0
+msgid "Total"
+msgstr "Summe"
+
+#. module: account_voucher_vat
+#: field:account.voucher.line,amount_tax:0
+#: help:account.voucher.line,amount_tax:0
+msgid "Amount Tax"
+msgstr "Steuer"
+
+#. module: account_voucher_vat
+#: view:account.voucher:0
+msgid "To Review"
+msgstr "Zu Prüfen"
+
+#. module: account_voucher_vat
+#: model:ir.model,name:account_voucher_vat.model_account_voucher
+msgid "Accounting Voucher"
+msgstr "Buchung Zahlungsbelege"
+
+#. module: account_voucher_vat
+#: field:account.voucher.line,tax_id:0
 msgid "Tax"
 msgstr "Steuer"
 
-#. module: chricar_bank_vat
-#: model:ir.model,name:chricar_bank_vat.model_account_bank_statement
-msgid "Bank Statement"
-msgstr "Bankauszug"
+#. module: account_voucher_vat
+#: view:account.voucher:0
+msgid "Period"
+msgstr "Periode"
 
-#. module: chricar_bank_vat
-#: field:account.bank.statement.line,amount_tax:0
-#: help:account.bank.statement.line,amount_tax:0
-msgid "Amount Tax"
-msgstr "Steuerbetrag"
+#. module: account_voucher_vat
+#: model:ir.model,name:account_voucher_vat.model_account_voucher_line
+msgid "Voucher Lines"
+msgstr "Zahlungspositionen"
 
-#. module: chricar_bank_vat
-#: code:addons/chricar_bank_vat/bank_account_vat.py:311
-#, python-format
-msgid "only tax group VAT with percentage supported"
-msgstr "nur Steuer mit Prozent unterstützt"
+#. module: account_voucher_vat
+#: view:account.voucher:0
+msgid "Cancel"
+msgstr "Abbrechen"
 
-#. module: chricar_bank_vat
-#: code:addons/chricar_bank_vat/bank_account_vat.py:302
-#, python-format
-msgid "VAT not allowed for moves lines with partner"
-msgstr "Ust nicht erlaubt wenn Partner Definiert ist"
+#. module: account_voucher_vat
+#: view:account.voucher:0
+msgid "Partner"
+msgstr "Partner"
 
-#. module: chricar_bank_vat
-#: code:addons/chricar_bank_vat/bank_account_vat.py:82
-#, python-format
-msgid "Lines \"%s\" with VAT must not have partner account "
-msgstr "Zeile \"%s\" mit USt darf kein Partnereintrag haben "
-
-#. module: chricar_bank_vat
-#: constraint:account.bank.statement.line:0
-msgid ""
-"The amount of the voucher must be the same amount as the one on the "
-"statement line"
-msgstr ""
-"Der Betrag des Zahlungsbelegs sollte mit dem Betrag der Position auf dem "
-"Bankauszug übereinstimmen."
-
-#. module: chricar_bank_vat
-#: constraint:account.bank.statement.line:0
-msgid "You must assign an analytic account.(bank)"
-msgstr "You must assign an analytic account.(bank)"
-
-#. module: chricar_bank_vat
-#: constraint:account.bank.statement.line:0
-msgid "You must not alter a fixed analytic account."
-msgstr "You must not alter a fixed analytic account."
-
-#. module: chricar_bank_vat
-#: field:account.bank.statement.line,amount_net:0
-#: help:account.bank.statement.line,amount_net:0
+#. module: account_voucher_vat
+#: field:account.voucher.line,amount_net:0
+#: help:account.voucher.line,amount_net:0
 msgid "Amount Net"
-msgstr "Betrag Netto"
+msgstr "Netto"
+
+#. module: account_voucher_vat
+#: view:account.voucher:0
+msgid "Total Amount"
+msgstr "Gesamtbetrag"
+
+#. module: account_voucher_vat
+#: model:ir.actions.act_window,name:account_voucher_vat.action_voucher_vat_list
+#: model:ir.ui.menu,name:account_voucher_vat.menu_encode_entries_by_voucher
+msgid "Journal Vouchers VAT"
+msgstr "Journal Belege MSt"
+
+
