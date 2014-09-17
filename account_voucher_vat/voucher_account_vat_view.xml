@@ -82,6 +82,7 @@
                         <page string="Voucher VAT Entry">
                             <field name="line_ids" on_change="onchange_price(line_ids, tax_id, partner_id)" context="{'journal_id':journal_id, 'type':type, 'partner_id':partner_id}" colspan="4" nolabel="1" height="180">
                                 <tree string="Voucher VAT Items" editable="bottom">
+                                    <field name="sequence" invisible="1"/>
                                     <field name="account_id"/>
                                     <field name="name"/>
                                     <field name="debit" on_change="onchange_dc(debit, 0)"/>
