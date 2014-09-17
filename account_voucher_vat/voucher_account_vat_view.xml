@@ -66,7 +66,7 @@
                         <field name="partner_id" invisible="1"  on_change="onchange_journal_voucher(line_ids, tax_id, amount, partner_id, journal_id, type)"/>
                         <field name="move_id" />
                         
-                        <field name="date" on_change="onchange_date(date, currency_id, payment_rate_currency_id, amount, company_id)"/>
+                        <field name="date" on_change="onchange_date_only(date)"/>
                         <field name="period_id" />
                         <field name="journal_id" widget="selection" select="1" on_change="onchange_journal_voucher(line_ids, tax_id, amount, partner_id, journal_id, type)"/>
                         <field name="type" required="1"/>
@@ -115,7 +115,9 @@
                         </page>
                         <page string="Journal Items" groups="base.group_extended" attrs="{'invisible': [('state','!=','posted')]}">
                             <group col="6" colspan="4">
+<!--
                                 <field name="period_id"/>
+-->
                                 <field name="audit"/>
                             </group>
                             <field name="move_ids" colspan="4" nolabel="1" readonly="1">

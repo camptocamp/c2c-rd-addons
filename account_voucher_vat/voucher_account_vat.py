@@ -220,7 +220,25 @@ class account_voucher_vat(osv.osv):
         _logger.debug('FGF voucher %s %s', tot_line, rec_lst_ids)
         return (tot_line, rec_lst_ids)
 
-   
+  
+    def onchange_date_only(self, cr, uid, ids, date, context=None):
+        """ On change of Date Compute Pierod.
+    
+        @param date: Invoice Date
+        @return: period ID
+        """
+        obj_period = self.pool.get('account.period')
+
+        res = {}
+        if date:
+            period_ids = obj_period.search(cr,uid,[('date_start','<=',date), ('date_stop','>=',date), ('state','=','draft'), ('special', '!=', True) ], context)
+            if period_ids:
+                res['value'] = {'period_id' : period_ids[0]}
+            else:
+                raise osv.except_osv(_('Error'), _('You can not set a date in a closed period !'))
+
+        return res
+ 
         
 
     def action_move_line_create(self, cr, uid, ids, context=None):
