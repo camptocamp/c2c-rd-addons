@@ -261,7 +261,12 @@
               icon="terp-accessories-archiver"
               name="by_machine"
               string="Machine"/>
-
+            <filter
+              context="{'group_by':'location_id'}"
+              domain="[]"
+              icon="terp-accessories-archiver"
+              name="by_location"
+              string="Location"/>
             <filter
               context="{'group_by':'date'}"
               domain="[]"
