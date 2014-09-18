@@ -51,9 +51,26 @@ class hr_timesheet_farm_line(osv.osv):
           res[line.id] = hours
         return res
 
+    def _period_id(self, cr, uid, ids, name, arg, context):
+        result = {}
+        for line in self.browse(cr, uid, ids):
+            date = line.name
+            #res_ids = self.pool.get('account.period').search(cr,uid,[('date_start','<=',date), ('date_stop','>=',date), ('state','=','draft'), ('special', '!=', True) ], context)
+            res_ids = self.pool.get('account.period').find(cr, uid, date, context)
+            if len(res_ids):
+                result[line.id] = res_ids[0]
+            else:
+                raise osv.except_osv(_('Error !'),'Missing period in hr.timesheet.farm.line %s %s.' %(line.date, line.user.id.name))
+
+        return result
+
+
+
     _columns = {
         'user_id'       : fields.many2one('res.users', 'User', required = True),
         'name'          : fields.date   ('Date', help="Date of work", required = True),
+        'period_id'     : fields.function(_period_id, method=True, string="Period",type='many2one', relation='account.period', store=True, select="1",  ),
+        'fiscalyear_id' : fields.related('period_id', 'fiscalyear_id', string='Fiscal Year', type='many2one', relation='account.fiscalyear', store=True),
         'hours_regular' : fields.float  ('Hours Regular', digits=(4,2)),
         'hours_cleaning': fields.float  ('Hours Cleaning', digits=(4,2)),
         'hours_overtime_25': fields.float  ('Hours Overtime 25%', digits=(4,2)),
@@ -88,6 +105,8 @@ class hr_timesheet_farm_line_detail(osv.osv):
     _columns = {
         'line_id'     : fields.many2one('hr.timesheet.farm.line', 'Daily work', required = True),
         'date'        : fields.related ('line_id','name',type='date',string='Date',readonly=True, store=True),
+        'period_id'   : fields.related ('line_id','period_id',type='many2one',string='Period', relation="account.period", readonly=True, store=True),
+        'fiscalyear_id' : fields.related('line_id', 'fiscalyear_id', string='Fiscal Year', type='many2one', relation='account.fiscalyear', store=True),
         'hours'       : fields.float  ('Hours', digits=(4,2), required=True),
         'task_id'     : fields.many2one('project.task', 'Task', ondelete='cascade', required=True),
         'prodlot_id'  : fields.many2one('stock.production.lot', 'Production Lot', help="For all product related work"),

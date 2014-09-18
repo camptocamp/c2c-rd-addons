@@ -10,6 +10,8 @@
         <tree string="Timesheet Lines" editable="top">
           <field name="user_id"/>
           <field name="name"/>
+          <field name="period_id" invisible="1"/>
+          <field name="fiscalyear_id" />
           <field name="hours_regular" sum="Hours"/>
           <field name="hours_cleaning" sum="Clean"/>
           <field name="hours_overtime_25" sum="25 OT"/>
@@ -135,6 +137,8 @@
 
             <newline/>
             <field name="name"/>
+            <field name="period_id"/>
+            <field name="fiscalyear_id"/>
             <field name="user_id">
               <filter domain="[('user_id','=',uid)]" help="My Work" icon="terp-personal" name="mywork"/>
             </field>
@@ -153,6 +157,18 @@
               icon="terp-accessories-archiver"
               name="by_name"
               string="Date"/>
+            <filter
+              context="{'group_by':'period_id'}"
+              domain="[]"
+              icon="terp-accessories-archiver"
+              name="by_period"
+              string="Period"/>
+            <filter
+              context="{'group_by':'fiscalyear_id'}"
+              domain="[]"
+              icon="terp-accessories-archiver"
+              name="by_fiscalyear"
+              string="Fiscal Year"/>
           </group>
         </search>
       </field>
@@ -225,6 +241,8 @@
 
             <newline/>
             <field name="name"/>
+            <field name="period_id"/>
+            <field name="fiscalyear_id"/>
             <field name="user_id">
               <filter domain="[('user_id','=',uid)]" help="My Work" icon="terp-personal" name="mywork"/>
             </field>
@@ -273,6 +291,18 @@
               icon="terp-accessories-archiver"
               name="by_name"
               string="Date"/>
+            <filter
+              context="{'group_by':'period_id'}"
+              domain="[]"
+              icon="terp-accessories-archiver"
+              name="by_period"
+              string="Period"/>
+            <filter
+              context="{'group_by':'fiscalyear_id'}"
+              domain="[]"
+              icon="terp-accessories-archiver"
+              name="by_fiscalyear"
+              string="Fiscalyear"/>
           </group>
         </search>
       </field>
@@ -287,6 +317,8 @@
         <tree string="Work Lines" editable="top">
           <field name="user_id" />
           <field name="date" />
+          <field name="period_id" />
+          <field name="fiscalyear_id" />
           <field name="hours" sum="Hours"/>
           <field name="task_id"/>
           <field name="prodlot_id"/>
