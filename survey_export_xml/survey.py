@@ -22,8 +22,8 @@
 from openerp.osv import fields, osv
 from openerp.tools.translate import _
 
-class survey(osv.osv):
-    _inherit = 'survey'
+class survey_survey(osv.osv):
+    _inherit = 'survey.survey'
 
     _columns = {
         'template_id' : fields.many2one('xml.template', "Template"),  
@@ -48,7 +48,7 @@ class survey(osv.osv):
             user_obj = self.pool.get('res.users')
             user_lang = user_obj.browse(cr, uid, uid, context=context).lang
             xml_gen_obj.attach_xml(cr, uid, survey.id  , survey , xml, 'questionaire_' + user_lang + '.xml', 'questionaire_' + user_lang + '.xml', description=False, pretty_print=True, context=None)
-survey()
+survey_survey()
 
 class survey_question(osv.osv):
     _inherit = 'survey.question'

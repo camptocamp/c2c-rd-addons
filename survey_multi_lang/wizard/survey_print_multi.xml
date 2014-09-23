@@ -38,8 +38,8 @@
         </record>
 
         <menuitem name="Print Surveys Multi Lang" id="menu_print_survey_multi_lang_form" sequence="1"
-            action="action_view_survey_multi_print" parent="base.next_id_10"
-            groups="base.group_tool_manager" icon="STOCK_PRINT"/>
+            action="action_view_survey_multi_print" parent="survey.menu_surveys"
+            groups="base.group_survey_user" icon="STOCK_PRINT"/>
 
     </data>
 </openerp>

@@ -4,7 +4,7 @@
 
         <report auto="False"
                 id="report_survey_multi_form"
-                model="survey"
+                model="survey.survey"
                 name="survey.multi.form"
                 string="Survey Multi Lang"/>
 

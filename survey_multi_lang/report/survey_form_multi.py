@@ -147,7 +147,7 @@ class survey_form_multi(report_rml):
             <paraStyle name="terp_default_9" fontName="Helvetica" fontSize="9.0" leading="11" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0"/>
         </stylesheet>
         <story>"""
-        surv_obj = pooler.get_pool(cr.dbname).get('survey')
+        surv_obj = pooler.get_pool(cr.dbname).get('survey.survey')
         for survey in surv_obj.browse(cr,uid,ids):
             rml += """
             if survey.lang:
@@ -402,6 +402,6 @@ class survey_form_multi(report_rml):
         pdf = create_doc(rml, title=self.title)
         return (pdf, report_type)
 
-survey_form_multi('report.survey.multi.form', 'survey','','')
+survey_form_multi('report.survey.multi.form', 'survey.survey','','')
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

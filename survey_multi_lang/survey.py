@@ -27,8 +27,8 @@ def _lang_get(self, cr, uid, context=None):
     res = lang_pool.read(cr, uid, ids, ['code', 'name'], context)
     return [(r['code'], r['name']) for r in res]
     
-class survey(osv.osv):
-    _inherit = 'survey'
+class survey_survey(osv.osv):
+    _inherit = 'survey.survey'
 
     _columns = {
        'title': fields.char('Survey Title', size=255, required=1,  translate=True),
@@ -38,7 +38,7 @@ class survey(osv.osv):
 
       }
       
-survey()
+survey_survey()
      
 class survey_page(osv.osv):
     _inherit = 'survey.page'
@@ -65,34 +65,35 @@ class survey_question(osv.osv):
      
 survey_question()
 
-class survey_question_column_heading(osv.osv):
-    _inherit = 'survey.question.column.heading'
-    
-    _columns = {
-        'title': fields.char('Column Heading', size=128, required=1, translate=True),
-        'menu_choice': fields.text('Menu Choice', translate=True),
-        }
-        
-survey_question_column_heading()
+# FIXME 20140923 - class missin
+#class survey_question_column_heading(osv.osv):
+#    _inherit = 'survey.question.column.heading'
+#    
+#    _columns = {
+#        'title': fields.char('Column Heading', size=128, required=1, translate=True),
+#        'menu_choice': fields.text('Menu Choice', translate=True),
+#        }
+#        
+#survey_question_column_heading()
 
-class survey_answer(osv.osv):
-    _inherit = 'survey.answer'
-    
-    _columns = {
-        'answer': fields.char('Answer', size=255, required=1, translate=True),
-        'menu_choice': fields.text('Menu Choices', translate=True),
-        'question_answer_int': fields.integer('Question Answer ID unique'),
-        }
-        
-survey_answer()
+#class survey_answer(osv.osv):
+#    _inherit = 'survey.answer'
+#    
+#    _columns = {
+#        'answer': fields.char('Answer', size=255, required=1, translate=True),
+#        'menu_choice': fields.text('Menu Choices', translate=True),
+#        'question_answer_int': fields.integer('Question Answer ID unique'),
+#        }
+#        
+#survey_answer()
 
-class survey_response_line(osv.osv):
-    _inherit = 'survey.response.line'
-    
-    _columns = {
-       'comment': fields.text('Notes', translate=True),
-       'single_text': fields.char('Text', size=255, translate=True),
-       }
-
-survey_response_line()
+#class survey_response_line(osv.osv):
+#    _inherit = 'survey.response.line'
+#    
+#    _columns = {
+#       'comment': fields.text('Notes', translate=True),
+#       'single_text': fields.char('Text', size=255, translate=True),
+#       }
+#
+#survey_response_line()
 

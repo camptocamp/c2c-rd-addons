@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
-
+<!-- FIXME 20140923
         <record model="ir.ui.view" id="survey_lang_form">
             <field name="name">survey_lang_form</field>
-            <field name="model">survey</field>
+            <field name="model">survey.survey</field>
             <field name="inherit_id" ref="survey.survey_form"/>
             <field name="arch" type="xml">
                 <field name="response_user" position="after">
@@ -12,10 +12,11 @@
                 </field>
             </field>
         </record>
+-->
 <!--
         <record model="ir.ui.view" id="survey_quid_form">
             <field name="name">survey_quid_form</field>
-            <field name="model">survey</field>
+            <field name="model">survey.survey</field>
             <field name="inherit_id" ref="survey.survey_form"/>
             <field name="arch" type="xml">
                 <xpath expr="answer_choice_ids" position="before">

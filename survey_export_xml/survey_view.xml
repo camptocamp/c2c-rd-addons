@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
+<!-- FIXME 20140923
         <record model="ir.ui.view" id="survey_export_xml_form1">
             <field name="name">survey_lang_form</field>
-            <field name="model">survey</field>
+            <field name="model">survey.survey</field>
             <field name="inherit_id" ref="survey.survey_form"/>
             <field name="arch" type="xml">
                 <field name="response_user" position="after">
@@ -11,10 +12,10 @@
                 </field>
             </field>
         </record>
-        
+
         <record model="ir.ui.view" id="survey_export_xml_form2">
             <field name="name">survey_lang_form</field>
-            <field name="model">survey</field>
+            <field name="model">survey.survey</field>
             <field name="inherit_id" ref="survey.survey_form"/>
             <field name="arch" type="xml">
                 <button name="action_print_survey" position="after">
@@ -25,7 +26,7 @@
 
         <record model="ir.ui.view" id="survey_export_xml_tree">
             <field name="name">survey_lang_form</field>
-            <field name="model">survey</field>
+            <field name="model">survey.survey</field>
             <field name="inherit_id" ref="survey.survey_tree"/>
             <field name="arch" type="xml">
                 <button name="action_print_survey" position="after">
@@ -33,6 +34,7 @@
                 </button>
             </field>
         </record>
+--> 
         
     </data>
 </openerp>
