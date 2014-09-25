@@ -42,7 +42,7 @@ class project_work(osv.osv):
             p = aufg_obj.search(cr, uid, [('user_id','=', user_id),('account_id','=',account_id)])
             if p:
                for aufg in aufg_obj.browse(cr, uid, p, context=None):
-                  line_obj.write(cr, uid, line_id, {'product_id': aufg.product_id.id,  'amount' : -ts.hours * aufg.product_id.standard_price   }) 
+                  line_obj.write(cr, uid, line_id, {'product_id': aufg.product_id.id,  'amount' : -ts.hours * aufg.product_id.price   }) 
 
         return res
 
@@ -53,11 +53,12 @@ update account_analytic_line a set product_id = (select product_id from analytic
    --and id in (select id from account_analytic_line where invoice_id is null and to_invoice is not null and product_id is not null )
    and account_id in (select account_id from analytic_user_funct_grid);
 """)
-          cr.execute("""
-update account_analytic_line a set amount = (select -a.unit_amount * standard_price from product_product p, product_template t where p.id =  a.product_id and t.id = p.product_tmpl_id)
- where invoice_id is null and to_invoice is not null and product_id is not null and unit_amount is not null
-   --and id in (select id from account_analytic_line where invoice_id is null and to_invoice is not null and product_id is not null )
-   and account_id in (select account_id from analytic_user_funct_grid);
-""")
+# FIXME 20140924 - standard_price became function price
+#          cr.execute("""
+#update account_analytic_line a set amount = (select -a.unit_amount * standard_price from product_product p, product_template t where p.id =  a.product_id and t.id = p.product_tmpl_id)
+# where invoice_id is null and to_invoice is not null and product_id is not null and unit_amount is not null
+#   --and id in (select id from account_analytic_line where invoice_id is null and to_invoice is not null and product_id is not null )
+#   and account_id in (select account_id from analytic_user_funct_grid);
+#""")
 
 project_work()
