@@ -8,7 +8,7 @@
             string="**Full account balance"
             model="account.account"
             name="account.balance.full"
-            rml="account_financial_report/report/account_balance_full.rml"
+            rml="account_financial_report_chricar/report/account_balance_full.rml"
                         header="False"
                         auto="False"
                         menu="False"/>
@@ -19,7 +19,7 @@
             string="**Cumulative general ledger"
             model="account.account"
             name="account.general.ledger.cumulative"
-            rml="account_financial_report/report/general_ledger.rml"
+            rml="account_financial_report_chricar/report/general_ledger.rml"
                         header="False"
                         auto="False"
                         menu="False"/>
@@ -30,7 +30,7 @@
             string="**Cumulative general ledger landscape"
             model="account.account"
             name="account.general.ledger.cumulative.landscape"
-            rml="account_financial_report/report/general_ledger_landscape.rml"
+            rml="account_financial_report_chricar/report/general_ledger_landscape.rml"
                         header="False"
                         auto="False"
                         menu="False"/>
@@ -41,7 +41,7 @@
                         string="**Chart of accounts"
                         model="account.account"
                         name="account.account.chart.report"
-                        rml="account_financial_report/report/account_chart.rml"
+                        rml="account_financial_report_chricar/report/account_chart.rml"
                         header="False"
                         auto="False"
                         menu="True"/>
@@ -52,7 +52,7 @@
                         string="**Invoice list"
                         model="account.invoice"
                         name="account.invoice.list.report"
-                        rml="account_financial_report/report/invoice_list.rml"
+                        rml="account_financial_report_chricar/report/invoice_list.rml"
                         header="False"
                         auto="False"
                         menu="True"/>
@@ -63,7 +63,7 @@
             string="**Entry lines"
             model="account.move.line"
             name="account.move.line.report"
-            rml="account_financial_report/report/account_move_line.rml"
+            rml="account_financial_report_chricar/report/account_move_line.rml"
             header="False"
             auto="True"/>
 
@@ -73,7 +73,7 @@
             string="**Entry"
             model="account.move"
             name="account.move.report"
-            rml="account_financial_report/report/account_move_line_record.rml"
+            rml="account_financial_report_chricar/report/account_move_line_record.rml"
             header="False"
             auto="True"/>
         <report
@@ -81,7 +81,7 @@
             string="**Entry landscape"
             model="account.move"
             name="account.move.report.h"
-            rml="account_financial_report/report/account_move_line_record_h.rml"
+            rml="account_financial_report_chricar/report/account_move_line_record_h.rml"
             header="False"
             auto="True"/>
 
@@ -90,7 +90,7 @@
             string="**Print journal by entries"
             model="account.journal.period"
             name="account.print.journal.entries"
-            rml="account_financial_report/report/account_move_line_record.rml"
+            rml="account_financial_report_chricar/report/account_move_line_record.rml"
             header="False"
             auto="False"/>
         <report
@@ -98,7 +98,7 @@
             string="**Print journal by entries landscape"
             model="account.journal.period"
             name="account.print.journal.entriesh"
-            rml="account_financial_report/report/account_move_line_record_h.rml"
+            rml="account_financial_report_chricar/report/account_move_line_record_h.rml"
             header="False"
             auto="False"/>
 
