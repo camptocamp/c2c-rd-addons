@@ -513,8 +513,8 @@ select d.counter_account_id,date, d.description as name, d.analytic_account_id,
 union all
 -- tax code account - net
 select d.counter_account_id,date, d.description as name, d.analytic_account_id,
-       case when d.amount < 0 then -d.amount - round(-d.amount / (1+tc.percent),2) else 0 end as debit,
-       case when d.amount > 0 then  d.amount -round( d.amount / (1+tc.percent),2) else 0 end as credit,
+       case when d.amount < 0 then round(-d.amount / (1+tc.percent),2) else 0 end as debit,
+       case when d.amount > 0 then round( d.amount / (1+tc.percent),2) else 0 end as credit,
        'valid' as state
   from chricar_account_move_line_deloitte d,
        account_account ac,
@@ -532,8 +532,8 @@ select d.counter_account_id,date, d.description as name, d.analytic_account_id,
 union all
 -- tax code account - tax - avoid rounding differnces !!!
 select tc.account_id,date, d.description as name, d.analytic_account_id,
-       case when d.amount < 0 then round(-d.amount / (1+tc.percent),2) else 0 end as debit,
-       case when d.amount > 0 then round( d.amount / (1+tc.percent),2) else 0 end as credit,
+       case when d.amount < 0 then -d.amount - round(-d.amount / (1+tc.percent),2) else 0 end as debit,
+       case when d.amount > 0 then  d.amount - round( d.amount / (1+tc.percent),2) else 0 end as credit,
        'valid' as state
   from chricar_account_move_line_deloitte d,
        account_account ac,
