@@ -107,7 +107,7 @@ class chricar_account_move_line_deloitte(osv.osv):
                  if move.account[:2] in ['23','33']:
                       acc = move.account[:2]+'00'
                  else:
-                      acc =  move.account
+                      acc =  move.account.zfill(4)
 
              account_ids= self.pool.get('account.account').search(cr,uid,[('company_id','=',move.company_id.id),('code','=',acc),('type','!=','view')])
              if not account_ids and len(move.counter_account)==3:
@@ -152,8 +152,8 @@ class chricar_account_move_line_deloitte(osv.osv):
                     try:
                        date = time.strptime(move.date,'%d-%m-%y')
                     except:
-                       continue
-             date = datetime.fromtimestamp(mktime(date))
+                        raise osv.except_osv(_('Error :'), _('FGF period_id conversion error %s ') % ( move.date)) 
+             #date = datetime.fromtimestamp(mktime(date))
              if date: 
                  period_ids= self.pool.get('account.period').search(cr,uid,[('company_id','=',move.company_id.id),('date_start','<=',date),('date_stop','>=',date )])
 
@@ -413,7 +413,7 @@ class chricar_account_move_line_deloitte(osv.osv):
                 try:
                    d =  datetime.strptime(move['date'],"%d/%m/%y")
                 except:
-                   pass
+                   raise osv.except_osv(_('Error :'), _('FGF date conversion %s ') % ( move['date'] ))
              date = d.strftime('%Y-%m-%d') 
              vals.update({
                 'journal_id' : journal_id,
