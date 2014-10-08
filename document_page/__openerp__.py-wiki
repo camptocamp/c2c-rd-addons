@@ -1,0 +1,50 @@
+# -*- coding: utf-8 -*-
+##############################################################################
+#
+#    OpenERP, Open Source Management Solution
+#    Copyright (C) 2004-2010 Tiny SPRL (<http://tiny.be>).
+#    Copyright (C) 2010-2010 Camptocamp Austria (<http://www.camptocamp.at>)
+#    Copyright (C) 2011-2011 Camptocamp (<http://www.camptocamp.com>)
+#    @author Guewen Baconnier
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU Affero General Public License as
+#    published by the Free Software Foundation, either version 3 of the
+#    License, or (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU Affero General Public License for more details.
+#
+#    You should have received a copy of the GNU Affero General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+##############################################################################
+
+
+{
+    'name': 'Link from Objects to Wiki Pages',
+    'version': '1.0',
+    'category': 'Tools',
+    'description': """
+Allows to create a link to a Wiki page on each model.
+The objective is to have a contextual documentation of usage and processes of a company directly accessible from the views.
+
+ - From a wiki page, you can choose which model will refers to the page, a link will be automatically added
+ - From the models list, you can create a link on models, just by activating the "Wiki Link" checkbox
+ - In the configuration of the Wiki, you can choose a list of model on which you want a link to a wiki page
+
+""",
+    'author': 'Camptocamp',
+    'license': 'AGPL-3',
+    'depends': ['document_page'],
+    'update_xml': ['wiki_object_view.xml',
+                   'ir_model_view.xml',
+                   'wizard/ir_model_active_links_view.xml'],
+    'demo_xml': [],
+    'installable': True,
+    'active': False,
+}
+
+# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
