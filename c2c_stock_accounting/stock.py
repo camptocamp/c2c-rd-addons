@@ -366,12 +366,16 @@ class stock_move(osv.osv):
 
     def _period_id(self, cr, uid, ids, name, arg, context):
          result = {}
+         per_obj = self.pool.get('account.period')
          for move in self.browse(cr, uid, ids):
              #period_ids= self.pool.get('account.period').search(cr,uid,[('date_start','<=',move.date),('date_stop','>=',move.date ), ('special','=',False)])
              #period_ids= self.pool.get('account.period').search(cr,uid,[('date_start','<=',move.date),('date_stop','>=',move.date ),('special','!=', True)])
              period_ids= self.pool.get('account.period').search(cr,uid,[('company_id','=',move.company_id.id),('date_start','<=',move.date_expected),('date_stop','>=',move.date_expected ),('special','!=', True)], context=context)
              
              if len(period_ids):
+                 for per in per_obj.browse(cr, uid, period_ids):
+                     if per.state == 'done':
+                         raise osv.except_osv(_('Error'), _('Period %s is already closed !') % (per.code))
                  result[move.id] = period_ids[0]
              
          return result
