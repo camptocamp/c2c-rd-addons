@@ -374,7 +374,7 @@ class stock_move(osv.osv):
              
              if len(period_ids):
                  for per in per_obj.browse(cr, uid, period_ids):
-                     if per.state == 'done':
+                     if per.state == 'done' and move.period_id.id != period_ids[0] and move.state != 'done':
                          raise osv.except_osv(_('Error'), _('Period %s is already closed !') % (per.code))
                  result[move.id] = period_ids[0]
              
