@@ -27,23 +27,38 @@
 # 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 ###############################################
-import string
 from openerp.osv import fields, osv
 from openerp.tools.translate import _
+from stdnum import iban
+import logging
 
-def _format_iban(string):
-    '''
-    This function removes all characters from given 'string' that isn't a alpha numeric and converts it to upper case.
-    '''
-    res = ""
-    for char in string:
-        if char.isalnum():
-            res += char.upper()
-    iban = res
-    res = ""
-    while len(iban) > 0 :
-        res = res + iban[0:4] + ' '
-        iban = iban[4:]
 
-    return res.strip()
-  
+class res_partner_bank(osv.osv):
+    _inherit = "res.partner.bank"
+
+    def _format_iban(self, cr, uid, acc_number):
+        '''
+        This function removes all characters from given 'string' that isn't a alpha numeric and converts it to upper case, checks checksums and groups by 4
+        '''
+        res = ''
+        if acc_number:
+            _logger = logging.getLogger(__name__)
+            _logger.dbug('FGF acc_number %s' % (acc_number))
+            try:
+                a = iban.validate(acc_number)
+            except:
+                raise osv.except_osv(_('Error!'), (_('%s is not a valid IBAN.') % (acc_number)))
+            res = iban.format(a) 
+        return res
+
+    def onchange_acc_id(self, cr, uid, ids, acc_number, context=None):
+        result = {}
+        if acc_number:
+             for acc in  self.browse(cr, uid, ids, context=context):
+                 if acc.state == 'iban':
+                     result['acc_number'] = self._format_iban(cr, uid, acc_number)
+             
+        return {'value': result}
+     
+ 
+res_partner_bank() 
