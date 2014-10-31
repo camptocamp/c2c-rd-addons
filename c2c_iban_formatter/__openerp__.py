@@ -38,9 +38,11 @@
 , "author"      : "ChriCar Beteiligungs- und Beratungs- GmbH"
 , "website"     : "http://www.camptocamp.at"
 , "description" : """
-Formats IBAN in group by 4 characters
+validates check digits and formats IBAN in group by 4 characters
 
-CAUTION - please make sure that the payment module removes the spaces again
+CAUTION 
+- please make sure that the payment module removes the spaces again
+- in case of strange errors please update your python-stdnum to >1.0
 """
 , "category"    : "Client Modules/Camptocamp"
 , "depends"     : ["base_iban"]
