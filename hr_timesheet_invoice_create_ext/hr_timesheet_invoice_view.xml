@@ -13,6 +13,7 @@
             <field name="arch" type="xml">
                 <field name="account_id" position="before">
                     <field name="partner_id" invisible="1"/>
+                    <field name="invoice_id" />
                 </field>
             </field>
         </record>
