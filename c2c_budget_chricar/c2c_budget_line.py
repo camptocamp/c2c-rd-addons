@@ -31,6 +31,7 @@
 from osv import fields, osv
 from c2c_reporting_tools_chricar.c2c_helper import *   
 from datetime import datetime
+from dateutil.relativedelta import relativedelta
 from time import mktime
 import time
 import logging
@@ -313,7 +314,9 @@ class c2c_budget_line(osv.osv):
             # if a line's period is entierly before \
             #the budget's period or entierly after it, \
             #the line's period does not overlay the budget's period
-            if    (l.period_id.date_start < l.budget_version_id.budget_id.start_date \
+            #if    (l.period_id.date_start < l.budget_version_id.budget_id.start_date - relativedelta(months=12) \
+            if    (l.period_id.date_start <  \
+                 (datetime.strptime(l.budget_version_id.budget_id.start_date , '%Y-%m-%d') - relativedelta(months=12) ).strftime('%Y-%m-%d') \
             and l.period_id.date_stop < l.budget_version_id.budget_id.start_date) \
             or (l.period_id.date_start > l.budget_version_id.budget_id.end_date \
             and l.period_id.date_stop > l.budget_version_id.budget_id.end_date):
