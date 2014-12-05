@@ -3,7 +3,7 @@
 #
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2010 Tiny SPRL (<http://tiny.be>).
-#    Copyright (C) 2010-2012 Camptocamp Austria (<http://www.camptocamp.at>)
+#    Copyright (C) 2010-2012 Camptocamp (<http://www.camptocamp.at>)
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -65,9 +65,9 @@ class purchase_order_line(osv.osv):
     def _landing_cost(self, cr, uid, ids, name, args, context):
         if not ids : return {}
         result = {}
-        landed_costs = 0.0
         # landed costss for the line
         for line in self.browse(cr, uid, ids):
+            landed_costs = 0.0
             if line.landed_cost_line_ids:
                 for costs in line.landed_cost_line_ids:
                     if costs.price_type == 'value':
@@ -80,13 +80,17 @@ class purchase_order_line(osv.osv):
     def _landing_cost_order(self, cr, uid, ids, name, args, context):
         if not ids : return {}
         result = {}
-        landed_costs = 0.0
-        # landed costss for the line
-        for line in self.browse(cr, uid, ids):
-            # distrubution of landed costs of PO
+        lines = self.browse(cr, uid, ids)
+        # Landed costs line by line
+        for line in lines:
+            landed_costs = 0.0
+            # distribution of landed costs of PO
             if line.order_id.landed_cost_line_ids:
-               landed_costs += line.order_id.landed_cost_base_value / line.order_id.amount_total * line.price_subtotal + \
-                        line.order_id.landed_cost_base_quantity / line.order_id.quantity_total * line.product_qty
+                # Base value (Absolute Value)
+                landed_costs += line.order_id.landed_cost_base_value / line.order_id.amount_total * line.price_subtotal
+
+                # Base quantity (Per Quantity)
+                landed_costs += line.order_id.landed_cost_base_quantity / line.order_id.quantity_total * line.product_qty
             result[line.id] = landed_costs
 
         return result
@@ -95,11 +99,9 @@ class purchase_order_line(osv.osv):
     def _landed_cost(self, cr, uid, ids, name, args, context):
         if not ids : return {}
         result = {}
-        landed_costs = 0.0
         # landed costss for the line
         for line in self.browse(cr, uid, ids):
-            landed_costs += line.price_subtotal + line.landing_costs +  line.landing_costs_order
-            result[line.id] = landed_costs
+            result[line.id] = line.price_subtotal + line.landing_costs +  line.landing_costs_order
 
         return result
         
@@ -120,8 +122,9 @@ class purchase_order(osv.osv):
     def _landed_cost_base_value(self, cr, uid, ids, name, args, context):
         if not ids : return {}
         result = {}
-        landed_costs_base_value = 0.0
+        
         for line in self.browse(cr, uid, ids):
+            landed_costs_base_value = 0.0
             if line.landed_cost_line_ids:
                 for costs in line.landed_cost_line_ids:
                     if costs.product_id.landed_cost_type == 'value':
@@ -132,8 +135,9 @@ class purchase_order(osv.osv):
     def _landed_cost_base_quantity(self, cr, uid, ids, name, args, context):
         if not ids : return {}
         result = {}
-        landed_costs_base_quantity = 0.0
+        
         for line in self.browse(cr, uid, ids):
+            landed_costs_base_quantity = 0.0
             if line.landed_cost_line_ids:
                 for costs in line.landed_cost_line_ids:
                     if costs.product_id.landed_cost_type == 'quantity':
@@ -144,8 +148,9 @@ class purchase_order(osv.osv):
     def _quantity_total(self, cr, uid, ids, name, args, context):
         if not ids : return {}
         result = {}
-        quantity_total = 0.0
+        
         for line in self.browse(cr, uid, ids):
+            quantity_total = 0.0
             if line.order_line:
                 for pol in line.order_line:
                     if pol.product_qty > 0.0:
@@ -156,11 +161,9 @@ class purchase_order(osv.osv):
     def _landed_cost(self, cr, uid, ids, name, args, context):
         if not ids : return {}
         result = {}
-        landed_costs = 0.0
-        # landed costss for the line
+        # landed costs for the line
         for line in self.browse(cr, uid, ids):
-            landed_costs += line.landing_cost_lines + line.amount_untaxed
-            result[line.id] = landed_costs
+            result[line.id] = line.landing_cost_lines + line.amount_untaxed
 
         return result
 
@@ -190,9 +193,9 @@ class purchase_order(osv.osv):
     def _prepare_order_line_move(self, cr, uid, order, order_line, picking_id, context=None):
         res = super(purchase_order,self)._prepare_order_line_move( cr, uid, order, order_line, picking_id, context)
         res['price_unit_net'] =  res['price_unit']
-        res['price_unit'] = order_line.landed_costs / order_line.product_qty        
+        res['price_unit'] = order_line.landed_costs / order_line.product_qty
         return res
-
+        
     def _prepare_order_picking(self, cr, uid, order, context=None):
         res = super(purchase_order,self)._prepare_order_picking( cr, uid, order, context)
 
