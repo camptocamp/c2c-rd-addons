@@ -47,12 +47,20 @@ class landed_cost_position(osv.osv):
       }
 
     def onchange_product_id(self, cr, uid, ids, product_id, context=None):
+        res = vals = {}
         if product_id:
             prod_obj=self.pool.get('product.product')
-            prod=prod_obj.browse(cr,uid,[product_id])[0]
-            v = {'price_type':prod.landed_cost_type}
-            return {'value': v}
-        return {}
+            prod = prod_obj.browse(cr,uid,[product_id])[0]
+            if prod.landed_cost_type:
+                vals = {'price_type': prod.landed_cost_type}
+            if prod.product_tmpl_id.seller_ids:
+                vals.update( {'partner_id': prod.product_tmpl_id.seller_ids[0].name.id} )
+            else:
+                # TODO: blanks field to prevents last selected partner to be displayed
+                pass
+            res = {'value': vals }
+        return res
+
 
 landed_cost_position()
 
@@ -64,17 +72,22 @@ class purchase_order_line(osv.osv):
 
     def _landing_cost(self, cr, uid, ids, name, args, context):
         if not ids : return {}
+        def cl_calc(amo, qty, cltype, res=0.0):
+            if cltype == 'value': res = amo
+            else: res = amo * qty
+            return res
+
+        landed_costs = 0.0
         result = {}
         # landed costss for the line
         for line in self.browse(cr, uid, ids):
             landed_costs = 0.0
             if line.landed_cost_line_ids:
                 for costs in line.landed_cost_line_ids:
-                    if costs.price_type == 'value':
-                        landed_costs += costs.amount
-                    else:       
-                        landed_costs += costs.amount * line.product_qty
+                    landed_costs += cl_calc(costs.amount, line.product_qty, costs.price_type)
             result[line.id] = landed_costs
+            landed_costs = 0.0
+
         return result
 
     def _landing_cost_order(self, cr, uid, ids, name, args, context):
@@ -104,7 +117,7 @@ class purchase_order_line(osv.osv):
             result[line.id] = line.price_subtotal + line.landing_costs +  line.landing_costs_order
 
         return result
-        
+
     _columns = \
        {
          'landed_cost_line_ids': fields.one2many('landed.cost.position', 'purchase_order_line_id', 'Landed Costs Positions'),
@@ -140,12 +153,18 @@ class purchase_order(osv.osv):
             landed_costs_base_quantity = 0.0
             if line.landed_cost_line_ids:
                 for costs in line.landed_cost_line_ids:
-                    if costs.product_id.landed_cost_type == 'quantity':
-                         landed_costs_base_quantity += costs.amount
+                    if costs.product_id.landed_cost_type == 'per_unit':
+                         landed_costs_base_quantity += costs.amount * line.quantity_total
             result[line.id] = landed_costs_base_quantity
         return result
 
     def _quantity_total(self, cr, uid, ids, name, args, context):
+        # TODO  It would be useful to discriminate those qtys that don't
+        #       carry costs at all.
+        # This may occur when there're no costs at the purchase order base
+        # in those orders with multiple lines order. In turn some of its
+        # order lines has associated costs but others lines has not.
+
         if not ids : return {}
         result = {}
         
@@ -175,7 +194,7 @@ class purchase_order(osv.osv):
             if line.order_line:
                 for pol in line.order_line:
                     if pol.product_qty > 0.0:
-                         landed_cost_lines += pol.landing_costs
+                        landed_cost_lines += pol.landing_costs
             result[line.id] = landed_cost_lines
         return result
 
@@ -201,10 +220,10 @@ class purchase_order(osv.osv):
 
         return res
 
-    def _create_pickings(self, cr, uid, order, order_lines, picking_id=False, context=None): 
+    def _create_pickings(self, cr, uid, order, order_lines, picking_id=False, context=None):
         res =  super(purchase_order,self)._create_pickings(cr, uid, order, order_lines, picking_id, context)
         pick_id = int(res[0])
-        # landing costs for PICK from PO 
+        # landing costs for PICK from PO
         cost_obj = self.pool.get('landed.cost.position')
         for order_cost in order.landed_cost_line_ids:
             vals = {}
@@ -216,10 +235,10 @@ class purchase_order(osv.osv):
             vals['price_type'] = order_cost.price_type
             vals['picking_id'] = pick_id
             self._logger.debug('vals `%s`', vals)
-            cost_obj.create(cr, uid, vals, context=None) 
+            cost_obj.create(cr, uid, vals, context=None)
 
-        #self.pool.get('landed.cost.position').create(cr, uid, cost_lines, context=None) 
-        # landing costs for PICK Lines from PO   
+        #self.pool.get('landed.cost.position').create(cr, uid, cost_lines, context=None)
+        # landing costs for PICK Lines from PO
         pick_obj = self.pool.get('stock.picking')
         for pick in pick_obj.browse(cr, uid, [pick_id], context=None):
           self._logger.debug('pick `%s`', pick)
@@ -235,9 +254,10 @@ class purchase_order(osv.osv):
             vals['price_type'] = order_cost.price_type
             vals['move_line_id'] = line.id
             self._logger.debug('vals `%s`', vals)
-            cost_obj.create(cr, uid, vals, context=None) 
+            cost_obj.create(cr, uid, vals, context=None)
         self._logger.debug('cost created')
-           
+
         return res
 
 purchase_order()
+# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
