@@ -142,18 +142,21 @@ class chricar_account_move_line_deloitte(osv.osv):
      def _period_id(self, cr, uid, ids, name, arg, context):
          result = {}
          for move in self.browse(cr, uid, ids):
+            if move.period_id:
+             result[move.id] = move.period_id.id
+            else:
              date = False
              try:
                  date = time.strptime(move.date,'%d.%m.%y')
              except:
                  try:
-                    date = time.strptime(move.date,'%d/%m/%y')
+                    date = time.strptime(move.date,'%m/%d/%y')
                  except:
                     try:
                        date = time.strptime(move.date,'%d-%m-%y')
                     except:
                         raise osv.except_osv(_('Error :'), _('FGF period_id conversion error %s ') % ( move.date)) 
-             #date = datetime.fromtimestamp(mktime(date))
+             date = datetime.fromtimestamp(mktime(date))
              if date: 
                  period_ids= self.pool.get('account.period').search(cr,uid,[('company_id','=',move.company_id.id),('date_start','<=',date),('date_stop','>=',date )])
 
