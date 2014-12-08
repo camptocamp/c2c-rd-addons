@@ -82,6 +82,7 @@ class payment_order_create(osv.osv_memory):
             , ('company_id', '=', company_id)
             , ('partner_id', '!=', False) # must be there in case there are imported lines without partner_id (Deloitte)
             , ('state', '=', 'valid')
+            , ('move_id.name', 'not like', 'Invalid') # due to Storno moves
             # , ('amount_to_pay', '>', 0) # see later in if statements
             ]
         domain   += \
@@ -92,6 +93,8 @@ class payment_order_create(osv.osv_memory):
         _logger.debug('FGF pay line domain %s' % (domain))
         _logger.debug('FGF pay line context %s' % (context))
         ids = line_obj.search(cr, uid, domain, context=context)
+        if not ids:
+            raise osv.except_osv(_('Warning !'),'No invoices to pay found. Suggestion: Change search criteria')
         ids2 = ','.join(map(str,ids))
         sql = """select partner_id, round(sum(debit-credit),2) as balance
                    from account_move_line
@@ -163,7 +166,7 @@ class payment_order_create(osv.osv_memory):
                 date_to_pay = line.date_maturity
             elif payment.date_prefered == 'fixed':
                 date_to_pay = payment.date_scheduled
-            
+            _logger.info('FGF line_id %s' % (line.id)) 
             payment_obj.create(cr, uid,{
                     'move_line_id': line.id,
                     'amount_currency': line.amount_to_pay,
