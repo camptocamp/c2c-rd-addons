@@ -30,9 +30,7 @@
 # 59 Temple Place - Suite 330, Boston, MA  02111-1.17, USA.
 #
 ###############################################
-{ 'sequence': 500,
-'sequence': 500,
-'sequence': 500,
+{
 "name"         : "Variant of field type one2many and many2many for sorted associations"
 , "version"      : "1.0"
 , "author"       : "Swing Entwicklung betrieblicher Informationssysteme GmbH"
@@ -42,25 +40,20 @@ Variant of field type one2many for sorted associations
 
 Usage:
 
-| import openerp.addons.one2many_sorted as one2many_sorted
+| import one2many_sorted
 | ...
 |    _columns = \
-|        { 'sequence': 500,
-'sequence': 500,
-'sequence': 500,
-'partner_ids'  : one2many_sorted.one2many_sorted
+|        { 'partner_ids'  : one2many_sorted.one2many_sorted
 |            ( 'res.partner'
 |            , 'parent_id'
 |            , 'Sorted Partner List'
 |            , order='name.upper(), title'
 |            , search=[('is_company', '=', 'False')]
-|            , set={ 'sequence': 500,
-'sequence': 500,
-'sequence': 500,
-'is_company' : False}
+|            , set={'is_company' : False}
 |            )
 |        }
 | ...
+
 
 In the example above, the primary sort criteria is "name" (not case-sensitive), the secondary is "title".
 Only partners that are physical persons (not is_company) are selected - and only those can be added.
