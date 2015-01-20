@@ -23,7 +23,7 @@
 # FIXME remove logger lines or change to debug
  
 from openerp.osv import fields, osv
-import openerp.netsvc
+from openerp import netsvc
 from openerp.tools.translate import _
 import time
 import logging
