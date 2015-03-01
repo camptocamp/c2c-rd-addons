@@ -33,7 +33,11 @@
 from openerp.osv import fields,osv
 from openerp.tools.translate import _
 
+import logging
+logger = logging.getLogger(__name__)
+
 class Look_Ahead_Gen(object):
+
     is_finished = property (lambda s: not s)
     
     def __init__(self, source):
@@ -200,6 +204,9 @@ class constraint_predicate(osv.osv):
                     continue
             if not has_it :
                 table_obj._constraints.append((_check_constraint_func, "See server log!", []))
+            logger.info('model %s' , model)
+            logger.info('model constraints %s' , table_obj._constraints)
+
     # end def button_start
 
     def button_stop (self, cr, uid, ids, id) :
@@ -209,10 +216,18 @@ class constraint_predicate(osv.osv):
             table_obj = self.pool.get(model)
             if table_obj is None : continue
             l = []
+            logger.info('model %s' , model)
             for constr in table_obj._constraints :
-                if constr[0].func_name != "_check_constraint_func" :
+                logger.info('constr %s' , constr)
+                logger.info('constr[0] %s' , constr[0])
+                try:
+                    if constr[0].func_name != "_check_constraint_func" :
+                        l.append(constr)
+                except:
                     l.append(constr)
+            logger.info('constraints %s' , l)
             table_obj._constraints = l
+            logger.info('model constraints %s' , table_obj._constraints)
     # end def button_stop
 
 constraint_predicate ()
