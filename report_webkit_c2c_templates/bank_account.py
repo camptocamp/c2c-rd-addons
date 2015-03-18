@@ -32,7 +32,7 @@ class res_company(osv.osv):
     _columns = {
        'company_bank_id': fields.many2one('res.partner.bank', 'Bank Account',
             help='Bank Account Number, default own company bank account to be printed with webkit',
-            domain="[('partner_id','=',partner_id)]"),
+            domain="[('partner_id','=',partner_id),('company_id','=', id)]"),
        'commercial_register': fields.char('Commercial Register', size=64, help="Commerical Register to be printed on webkit invoice"),
        'registered_office': fields.char('Registered Office', size=64, help="Register Office to be printed on webkit invoice"),
     }

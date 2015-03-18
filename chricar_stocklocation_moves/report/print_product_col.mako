@@ -28,6 +28,7 @@
       cumul_categ_value_minus = 0.0
       cumul_categ_value_inventory = 0.0
       cumul_categ_value_end = 0.0
+      cumul_categ_value_diff = 0.0
       cumul_categ_lines = 0.0
       
       cumul_tot_qty_begin = 0.0
@@ -132,11 +133,26 @@ sorted_objects = sorted(objects, key=lambda o : o.categ_id.name + o.name)
             <th style="text-align:right;white-space:nowrap;">${  formatLang(cumul_categ_value_end)}</th>
          </tr>
          <tr>
+%if cumul_categ_value_diff >= 0:
+            <th style="text-align:right;white-space:nowrap">${expense_account} : ${stock_account}</th>
+%else:
+            <th style="text-align:right;white-space:nowrap">${stock_account} : ${expense_account}</th>
+%endif
             <th style="text-align:right;white-space:nowrap"></th>
             <th style="text-align:right;white-space:nowrap"></th>
             <th style="text-align:right;white-space:nowrap"></th>
             <th style="text-align:right;white-space:nowrap"></th>
             <th style="text-align:right;white-space:nowrap"></th>
+            <th style="text-align:right;white-space:nowrap"></th>
+            <th style="text-align:right;white-space:nowrap"></th>
+            <th style="text-align:right;white-space:nowrap"></th>
+            <th style="text-align:right;white-space:nowrap"></th>
+            <th style="text-align:right;white-space:nowrap"></th>
+%if cumul_categ_value_diff >= 0:
+            <th style="text-align:right;white-space:nowrap">${formatLang(cumul_categ_value_diff)}</th>
+%else:
+            <th style="text-align:right;white-space:nowrap">${formatLang(-cumul_categ_value_diff)}</th>
+%endif
          </tr>
 <%
       cumul_categ_qty_begin = 0.0
@@ -149,6 +165,7 @@ sorted_objects = sorted(objects, key=lambda o : o.categ_id.name + o.name)
       cumul_categ_value_minus = 0.0
       cumul_categ_value_inventory = 0.0
       cumul_categ_value_end = 0.0
+      cumul_categ_value_diff= 0.0
       cumul_categ_lines = 0
 %>    
 %endif
@@ -218,6 +235,7 @@ sorted_objects = sorted(objects, key=lambda o : o.categ_id.name + o.name)
     cumul_categ_value_minus += value_minus
     cumul_categ_value_inventory += value_inventory
     cumul_categ_value_end += value_end
+    cumul_categ_value_diff += value_begin - value_end
     cumul_categ_lines += 1
     
     cumul_tot_qty_begin += qty_begin 
@@ -253,14 +271,30 @@ sorted_objects = sorted(objects, key=lambda o : o.categ_id.name + o.name)
             <th style="text-align:right;white-space:nowrap;">${  formatLang(cumul_categ_value_end)}</th>
 
          </tr>
-%endif
          <tr>
+%if cumul_categ_value_diff >= 0:
+            <th style="text-align:right;white-space:nowrap">${expense_account} : ${stock_account}</th>
+%else:
+            <th style="text-align:right;white-space:nowrap">${stock_account} : ${expense_account}</th>
+%endif
             <th style="text-align:right;white-space:nowrap"></th>
             <th style="text-align:right;white-space:nowrap"></th>
             <th style="text-align:right;white-space:nowrap"></th>
             <th style="text-align:right;white-space:nowrap"></th>
             <th style="text-align:right;white-space:nowrap"></th>
+            <th style="text-align:right;white-space:nowrap"></th>
+            <th style="text-align:right;white-space:nowrap"></th>
+            <th style="text-align:right;white-space:nowrap"></th>
+            <th style="text-align:right;white-space:nowrap"></th>
+            <th style="text-align:right;white-space:nowrap"></th>
+%if cumul_categ_value_diff >= 0:
+            <th style="text-align:right;white-space:nowrap">${formatLang(cumul_categ_value_diff)}</th>
+%else:
+            <th style="text-align:right;white-space:nowrap">${formatLang(-cumul_categ_value_diff)}</th>
+%endif
          </tr>
+
+%endif
 
           <tr>
             <th style="text-align:left;white-space:nowrap">${_("GRAND TOTAL")}</th>

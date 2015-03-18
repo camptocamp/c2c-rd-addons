@@ -30,6 +30,8 @@
 # 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 ###############################################
+# 20150210 FGF korr tax check and tax formulas -sign of i.g. Erwerb und Leistung must be identical to normal VAT
+
 from osv import fields, osv
 import time
 from tools.translate import _
@@ -204,7 +206,10 @@ class account_period_tax(osv.osv):
          result = {}
          for code in self.browse(cr, uid, ids, context):
              if code.tax_base:
-                 result[code.id] = code.tax_amount * code.tax_percent 
+                 if code.tax_percent < 0.0:
+                     result[code.id] = code.tax_amount * -code.tax_percent 
+                 else:
+                     result[code.id] = code.tax_amount * code.tax_percent 
              else:
                  result[code.id] = code.tax_amount  
          return result
@@ -214,7 +219,11 @@ class account_period_tax(osv.osv):
          result = {}
          for code in self.browse(cr, uid, ids, context):
              if code.tax_base:
-                 result[code.id] = -code.tax_amount * code.tax_percent 
+                 if code.tax_percent < 0.0:
+                     result[code.id] = code.tax_amount * code.tax_percent 
+                 else:
+                     result[code.id] = -code.tax_amount * code.tax_percent 
+ 
              else:
                  result[code.id] = code.tax_amount  
          return result

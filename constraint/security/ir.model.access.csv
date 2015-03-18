@@ -2,3 +2,6 @@
 "access_constraint_predicate","constraint.predicate","model_constraint_predicate","Constraint Manager",1,1,1,1
 "access_constraint_check_one","constraint.check_one","model_constraint_check_one","Constraint Manager",1,1,1,1
 "access_constraint_check_for_all","constraint.check_for_all","model_constraint_check_for_all","Constraint Manager",1,1,1,1
+"access_constraint_predicate_public","constraint.predicate.public","model_constraint_predicate",,1,0,0,0
+"access_constraint_check_one_public","constraint.check_on.public","model_constraint_check_one",,1,0,0,0
+"access_constraint_check_for_all_public","constraint.check_for_all.public","model_constraint_check_for_all",,1,0,0,0

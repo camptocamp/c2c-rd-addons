@@ -19,6 +19,8 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+# 20150224 FGF value for "fy" is taken form code or date_stop (instead date_start)
+
 import time
 from osv import fields, osv
 from tools.translate import _
@@ -143,7 +145,7 @@ class ir_sequence(osv.osv):
           if fy_id :
             fiscalyear_obj = self.pool.get('account.fiscalyear')
             fy = fiscalyear_obj.browse(cr, uid, fy_id)
-            return fy.sequence_code or fy.date_start[0:4]
+            return fy.sequence_code or fy.date_stop[0:4]
         else :
             return time.strftime('%Y')
     # end def _fy_code

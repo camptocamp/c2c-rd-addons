@@ -135,7 +135,7 @@ class account_voucher_vat(osv.osv):
                 
                 move_line.update({
                     'tax_code_id': line.tax_id.base_code_id.id,
-                    'tax_amount' : line.amount_net,
+                    'tax_amount' : -line.amount_net,
 
                 })
                 
@@ -147,7 +147,7 @@ class account_voucher_vat(osv.osv):
                     credit_tax = -amount_tax
                 move_line_tax.update({
                     'tax_code_id': line.tax_id.tax_code_id.id,
-                    'tax_amount' : line.amount_tax,
+                    'tax_amount' : -line.amount_tax,
                     'debit'      : debit_tax,
                     'credit'     : credit_tax,
                     'account_id' : line.tax_id.account_collected_id.id,
