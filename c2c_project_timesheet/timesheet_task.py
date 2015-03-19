@@ -114,6 +114,8 @@ class project_work(osv.osv):
         for work in self.browse(cr, uid, ids, context=context):
             if 'user_id' not in vals:
                vals['user_id'] = work.user_id.id
+            if vals.get('date_date', None):
+               vals['date'] = vals['date_date']+' 12:00:00'
             res.append( super(project_work,self).write(cr, uid, ids, vals, context))
         for work in self.browse(cr, uid, ids, context=context):
             if work.hr_analytic_timesheet_id and work.hr_analytic_timesheet_id.line_id:

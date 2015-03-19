@@ -147,8 +147,8 @@ class payment_order(osv.osv) :
             if line.currency != company.currency_id : 
                 raise osv.except_osv \
                     ( _('Data Error !')
-                    , _('Payment contains currency (%s) different from company currency (%s).')
-                        % (line.currency.name, currency_name)
+                    , _('Payment contains currency (%s) different from company currency (%s). Partner: %s')
+                        % (line.currency.name, currency_name, p_bank.partner_id.name)
                     )
             if not p_bank : 
                 raise osv.except_osv \
@@ -158,12 +158,12 @@ class payment_order(osv.osv) :
             if not p_bank.bank.bic : 
                 raise osv.except_osv \
                     ( _('Data Error !')
-                    , _('SEPA-Payment requires BIC for bank %s.') % (p_bank.bank.name)
+                    , _('SEPA-Payment requires BIC for bank %s. Partner: %s') % (p_bank.bank.name, p_bank.partner_id.name)
                     )
             if not p_bank.iban : 
                 raise osv.except_osv \
                     ( _('Data Error !')
-                    , _('SEPA-Payment requires IBAN for bank %s.') % (p_bank.bank.name)
+                    , _('SEPA-Payment requires IBAN for bank %s. Partner: %s') % (p_bank.bank.name, p_bank.partner_id.name)
                     )
             if date not in dates :
                 dates[date] = Date(P_Bank(p_bank, line))
