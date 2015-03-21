@@ -52,6 +52,6 @@ This module generates a XML-file per invoice and attaches it to the invoice.
 , "data"  : ["installer_view.xml"]
 , "test"        : []
 , "auto_install": False
-, "installable" : True
+, 'installable': False
 , 'application'  : False
 }

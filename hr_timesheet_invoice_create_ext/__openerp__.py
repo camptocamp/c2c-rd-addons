@@ -36,7 +36,7 @@ This module will allow to spezify
 , 'depends'     : [ 'hr_timesheet_invoice' ]
 , 'data'  : ['hr_timesheet_invoice_view.xml', 'wizard/hr_timesheet_invoice_create_view.xml']
 , 'demo_xml'    : []
-, 'installable' : True
+, 'installable': False
 , 'application'  : False 
 , 'active'      : False
 }

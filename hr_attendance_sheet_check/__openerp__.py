@@ -32,7 +32,7 @@ thus allowing to enter past sign_in_out dates/times
 , 'depends'     : ['hr_attendance','hr_timesheet_sheet' ]
 , 'data'  : ['hr_attendance_checkbox.xml']
 , 'demo_xml'    : []
-, 'installable' : True
+, 'installable': False
 , 'active'      : False
 }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

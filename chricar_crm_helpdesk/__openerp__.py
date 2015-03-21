@@ -13,6 +13,6 @@ Adds lead times to crm_heldesk
 , "demo"         : []
 , "data"   : ["crm_helpdesk_view.xml"]
 , "auto_install" : False
-, "installable"  : True
+, 'installable': False
 , 'application'  : False
 }

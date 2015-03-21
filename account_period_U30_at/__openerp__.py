@@ -52,6 +52,6 @@ This module generates a XML-file per account period attaches it to the period.
 , "data"  : ["installer_view.xml"]
 , "test"        : []
 , "auto_install": False
-, "installable" : True
+, 'installable': False
 }
 

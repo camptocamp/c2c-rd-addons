@@ -84,7 +84,7 @@ This module installs everything we need for Austrian extra addons c2c_extension
 'data': [],
 #'data': ['product_view.xml'],
 'demo_xml': [],
-'installable': True,
+'installable': False,
 'active': False,
 }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

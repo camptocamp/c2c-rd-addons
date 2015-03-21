@@ -16,6 +16,6 @@ generated 2009-09-19 23:51:03+02"""
 , "security/ir.model.access.csv"
 ]
 , "auto_install" : False
-, "installable"  : True
+, 'installable': False
 , 'application'  : False
 }

@@ -13,7 +13,7 @@ Adds date of cashbox to form to allow modifications
 , "demo"         : []
 , "data"   : ["cashbox_view.xml"]
 , "auto_install" : False
-, "installable"  : True
+, 'installable': False
 , 'application'  : False
 }
 

@@ -50,6 +50,6 @@ FIXME ToDo remove wizard
 , "data"   : ['table_generate_csv_wizard.xml']
 , "test"         : []
 , "auto_install" : False
-, "installable"  : False
+, 'installable'  : False
 , 'application'  : False
 }

@@ -22,6 +22,6 @@ Added Participation tab to partners to show Parent and Participations"""
 , "report_participation.xml"
 ]
 , "auto_install" : False
-, "installable"  : True
+, 'installable': False
 , 'application'  : False
 }

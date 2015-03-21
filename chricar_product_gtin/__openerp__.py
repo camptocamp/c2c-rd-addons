@@ -13,6 +13,6 @@ makes EAN visible in simplified view
 , "demo"         : []
 , "data"   : ["chricar_product_gtin_view.xml"]
 , "auto_install" : False
-, "installable"  : True
+, 'installable': False
 , 'application'  : False
 }

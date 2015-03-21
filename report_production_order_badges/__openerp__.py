@@ -40,7 +40,7 @@ Production Order Line
 , "author"       : "ChriCar Beteiligungs- und Beratungs- GmbH"
 , "website"      : "http://www.camptocamp.at/"
 , "data"         : ["report_production_order_badges_view.xml"]
-, "installable"  : True
+, 'installable': False
 , 'application'  : False
 , "auto_install" : False
 }

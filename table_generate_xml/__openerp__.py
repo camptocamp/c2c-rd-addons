@@ -46,6 +46,6 @@ FIXME remove module wizard
 , "data"   : ['wizard/generate_xml_view.xml']
 , "test"         : []
 , "auto_install" : False
-, "installable"  : False
+, 'installable'  : False
 , 'application'  : False
 }

@@ -26,6 +26,6 @@ Extension to Production
 , "stock_report.xml"
 ]
 , "auto_install" : False
-, "installable"  : True
+, 'installable': False
 , 'application'  : False
 }

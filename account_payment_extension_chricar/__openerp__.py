@@ -55,7 +55,7 @@ Based on previous work of Pablo Rocandio & Zikzakmedia (version for 4.2).
 #    , "payment_sequence.xml"
 ]
 , "auto_install": False
-, "installable": False
+, 'installable': False
 , 'application'  : False
 }
 

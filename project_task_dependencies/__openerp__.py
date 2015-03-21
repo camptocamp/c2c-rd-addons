@@ -37,7 +37,7 @@ Needs python-networkx later?
 'summary': 'Task Dependencies',
 'depends': ['project'],
 'data': ['project_view.xml'],
-'installable': True,
+'installable': False,
 'application': False,
 'auto_install': False,
 }

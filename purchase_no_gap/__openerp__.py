@@ -36,7 +36,7 @@ Purchase orders no gap
 'init_xml': [],
 'data': [],
 'demo_xml': [],
-'installable': True,
+'installable': False,
 'auto_install': False,
 }
 

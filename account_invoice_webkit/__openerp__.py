@@ -54,7 +54,7 @@ set "print code" in company to print internal product code on sale_order,icking 
 , "author"       : "Camptocamp SA - NBessi, ChriCar Beteiligungs- und Beratungs- GmbH"
 , "website"      : "http://www.camptocamp.com/"
 , "data"         : ["account_invoice_webkit_view.xml"]
-, "installable"  : True
+, 'installable': False
 , 'application'  : False
 , "auto_install" : False
 }

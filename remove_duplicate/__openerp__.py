@@ -43,6 +43,6 @@
 , "data"   : ["remove_duplicate_wizard.xml"]
 , "test"         : []
 , "auto_install" : False
-, "installable"  : True
+, 'installable': False
 , 'application'  : False
 }

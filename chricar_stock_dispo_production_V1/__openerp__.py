@@ -14,6 +14,6 @@ generated 2010-04-02 15:01:02+02"""
 , "stock_prod_lot_update.xml"
 ]
 , "auto_install" : False
-, "installable"  : True
+, 'installable': False
 , 'application'  : False
 }

@@ -81,6 +81,6 @@ A conversion to ASCII for all texts within the EDIFACT-file is attempted.
 ]
 , "test"        : []
 , "auto_install": False
-, "installable" : True
+, 'installable': False
 , 'application'  : False
 }

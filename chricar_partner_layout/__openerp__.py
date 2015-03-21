@@ -11,6 +11,6 @@
 , "demo"         : []
 , "data"   : ["partner_view.xml"]
 , "auto_install" : False
-, "installable"  : False
+, 'installable'  : False
 , 'application'  : False
 }

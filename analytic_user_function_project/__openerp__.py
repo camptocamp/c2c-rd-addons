@@ -31,7 +31,7 @@ for timesheet tasks invoicing)
 , 'depends'     : [ 'analytic_user_function','project_timesheet' ]
 , 'data'  : ['analytic_user_function_view.xml','security/ir.model.access.csv']
 , 'demo_xml'    : []
-, 'installable' : True
+, 'installable': False
 , 'application'  : False 
 , 'active'      : False
 }

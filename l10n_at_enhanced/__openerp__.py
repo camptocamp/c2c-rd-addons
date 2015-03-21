@@ -39,7 +39,7 @@ http://www.bmf.gv.at/EGovernment/FINANZOnline/InformationenfrSoft_3165/Umsatzste
 'demo': [],
 'data': ['account_tax.xml','wizard/account_vat_view.xml'],
 'auto_install': False,
-'installable': True
+'installable': False
 }
 
 

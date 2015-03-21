@@ -11,6 +11,6 @@ generated 2009-07-11 12:22:10+02"""
 , "demo"         : []
 , "data"   : ["room_view.xml", "security/ir.model.access.csv"]
 , "auto_install" : False
-, "installable"  : True
+, 'installable': False
 , 'application'  : False
 }

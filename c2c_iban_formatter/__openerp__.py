@@ -50,6 +50,6 @@ CAUTION
 , "demo"        : []
 , "data"  : ["iban_view.xml"]
 , "auto_install": False
-, "installable" : True
+, 'installable': True
 , 'application'  : False
 }

@@ -71,7 +71,7 @@ During configuration you may choose to replace all '(year)' prefix and suffix oc
 , 'security/ir.model.access.csv'
 ]
 , 'demo_xml'    : []
-, 'installable' : True
+, 'installable': False
 , 'application'  : False 
 , 'active'      : False
 }

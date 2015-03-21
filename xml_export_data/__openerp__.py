@@ -46,6 +46,6 @@ FIXME remove module import
 , "data"   : ["migrate_data_wizard.xml"]
 , "test"         : []
 , "auto_install" : False
-, "installable"  : False
+, 'installable'  : False
 , 'application'  : False
 }

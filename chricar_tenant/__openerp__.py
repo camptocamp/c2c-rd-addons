@@ -11,6 +11,6 @@ generated 2009-07-09 18:08:09+02"""
 , "demo"         : []
 , "data"   : ["tenant_view.xml"]
 , "auto_install" : False
-, "installable"  : True
+, 'installable': False
 , 'application'  : False
 }
