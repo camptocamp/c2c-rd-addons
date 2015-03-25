@@ -19,121 +19,121 @@ msgstr ""
 #: field:res.partner.id_category,active:0
 #: field:res.partner.id_number,active:0
 msgid "Active"
-msgstr ""
+msgstr "Activo"
 
 #. module: chricar_partner_id_number
 #: field:res.partner.id_number,category_id:0
 msgid "Category"
-msgstr ""
+msgstr "Categoría"
 
 #. module: chricar_partner_id_number
 #: field:res.partner.id_category,code:0
 msgid "Code"
-msgstr ""
+msgstr "Código"
 
 #. module: chricar_partner_id_number
 #: field:res.partner.id_category,create_uid:0
 #: field:res.partner.id_number,create_uid:0
 msgid "Created by"
-msgstr ""
+msgstr "Creado por"
 
 #. module: chricar_partner_id_number
 #: field:res.partner.id_category,create_date:0
 #: field:res.partner.id_number,create_date:0
 msgid "Created on"
-msgstr ""
+msgstr "Creado en"
 
 #. module: chricar_partner_id_number
 #: field:res.partner.id_category,id:0
 #: field:res.partner.id_number,id:0
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: chricar_partner_id_number
 #: field:res.partner.id_number,name:0
 msgid "ID Number"
-msgstr ""
+msgstr "Número ID"
 
 #. module: chricar_partner_id_number
 #: view:res.partner:chricar_partner_id_number.view_partner_form
 msgid "ID Numbers"
-msgstr ""
+msgstr "Números ID"
 
 #. module: chricar_partner_id_number
 #: field:res.partner.id_category,name:0
 msgid "ID name"
-msgstr ""
+msgstr "Nombre ID"
 
 #. module: chricar_partner_id_number
 #: field:res.partner,id_numbers:0
 msgid "Identification Numbers"
-msgstr ""
+msgstr "Números de identificación"
 
 #. module: chricar_partner_id_number
 #: field:res.partner.id_number,partner_issued_id:0
 msgid "Issued by"
-msgstr ""
+msgstr "Emitido por"
 
 #. module: chricar_partner_id_number
 #: field:res.partner.id_number,date_issued:0
 msgid "Issued on"
-msgstr ""
+msgstr "Emitido en"
 
 #. module: chricar_partner_id_number
 #: field:res.partner.id_category,write_uid:0
 #: field:res.partner.id_number,write_uid:0
 msgid "Last Updated by"
-msgstr ""
+msgstr "Última actualización por"
 
 #. module: chricar_partner_id_number
 #: field:res.partner.id_category,write_date:0
 #: field:res.partner.id_number,write_date:0
 msgid "Last Updated on"
-msgstr ""
+msgstr "Última actualización en"
 
 #. module: chricar_partner_id_number
 #: view:res.partner.id_number:chricar_partner_id_number.view_partner_id_numbers_form
 #: field:res.partner.id_number,comment:0
 msgid "Notes"
-msgstr ""
+msgstr "Notas"
 
 #. module: chricar_partner_id_number
 #: model:ir.model,name:chricar_partner_id_number.model_res_partner
 #: field:res.partner.id_number,partner_id:0
 msgid "Partner"
-msgstr ""
+msgstr "Empresa"
 
 #. module: chricar_partner_id_number
 #: model:ir.actions.act_window,name:chricar_partner_id_number.action_partner_id_category
 #: model:ir.ui.menu,name:chricar_partner_id_number.menu_partner_id_category
 msgid "Partner ID Categories"
-msgstr ""
+msgstr "Tipos de identificadores"
 
 #. module: chricar_partner_id_number
 #: model:ir.actions.act_window,name:chricar_partner_id_number.action_partner_id_numbers_form
 #: view:res.partner.id_number:chricar_partner_id_number.view_partner_id_numbers_form
 #: view:res.partner.id_number:chricar_partner_id_number.view_partner_id_numbers_tree
 msgid "Partner ID Numbers"
-msgstr ""
+msgstr "Identificadores de empresas"
 
 #. module: chricar_partner_id_number
 #: view:res.partner.id_category:chricar_partner_id_number.view_partner_id_category_form
 #: view:res.partner.id_category:chricar_partner_id_number.view_partner_id_category_tree
 msgid "Partner Identification Categories"
-msgstr ""
+msgstr "Tipos de identificadores"
 
 #. module: chricar_partner_id_number
 #: field:res.partner.id_number,state:0
 msgid "State"
-msgstr ""
+msgstr "Estado"
 
 #. module: chricar_partner_id_number
 #: field:res.partner.id_number,valid_from:0
 msgid "Valid from"
-msgstr ""
+msgstr "Válido desde"
 
 #. module: chricar_partner_id_number
 #: field:res.partner.id_number,valid_until:0
 msgid "Valid until"
-msgstr ""
+msgstr "Válido hasta"
 
