@@ -36,7 +36,7 @@ Add check to prohibit negative real stock quantites per location and/or lot
   ],
 #'data': ['product_view.xml'],
 'demo_xml': [],
-'installable': True,
+'installable': False,
 'active': False,
 }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

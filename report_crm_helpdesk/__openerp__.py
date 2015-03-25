@@ -37,7 +37,7 @@
 , "author"       : "ChriCar Beteiligungs- und Beratungs- GmbH"
 , "website"      : "http://www.camptocamp.at/"
 , "data"         : ["report_crm_helpdesk_view.xml"]
-, "installable"  : True
+, 'installable': False
 , 'application'  : False
 , "auto_install" : False
 }

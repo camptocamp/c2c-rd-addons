@@ -39,7 +39,7 @@ as associated pickings or invoices are canceled if possible
 'init_xml': [],
 'data': ['purchase_view.xml','purchase_workflow.xml' ],
 'demo_xml': [],
-'installable': True,
+'installable': False,
 'auto_install': False,
 }
 

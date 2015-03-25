@@ -60,6 +60,6 @@ Requires "Constraint Manager" privilege-group.
 , "data"   : ["security/constraint_security.xml", "security/ir.model.access.csv", "constraint_view.xml"]
 , "test"         : []
 , "auto_install" : False
-, "installable"  : True
+, 'installable': False
 , 'application'  : False
 }

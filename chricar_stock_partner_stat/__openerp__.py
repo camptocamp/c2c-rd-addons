@@ -14,6 +14,6 @@ Adds partner, transaction type and period to stock move.
 , "demo"         : []
 , "data"   : ["partner_product_view.xml"]
 , "auto_install" : False
-, "installable"  : True
+, 'installable': False
 , 'application'  : False
 }

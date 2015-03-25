@@ -48,6 +48,6 @@
 , "demo"        : []
 , "data"  : ["base_view.xml"]
 , "auto_install": False
-, "installable" : True
+, 'installable': False
 , 'application'  : False
 }

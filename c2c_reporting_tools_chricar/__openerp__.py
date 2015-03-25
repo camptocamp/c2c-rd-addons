@@ -51,6 +51,6 @@ For examples of use, have a look at *c2c_planning_management*. Our first module 
 , "init_xml" : []
 , "data" : []
 , "auto_install": False
-, "installable": True
+, 'installable': False
 , 'application'  : False
 }

@@ -88,6 +88,6 @@ correct period sums.
 , "report_chart.xml"
 ]
 , "auto_install": False
-, "installable": True
+, 'installable': False
 , 'application'  : False
 }

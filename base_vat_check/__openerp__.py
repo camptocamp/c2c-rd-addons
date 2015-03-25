@@ -35,7 +35,7 @@ This module enhances the VAT check to comply to accounting standards
 , 'depends'     : [ 'base_vat' ]
 , 'data'  : ['base_vat_view.xml', 'installer_view.xml']
 , 'demo_xml'    : []
-, 'installable' : True
+, 'installable': False
 , 'active'      : False
 }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

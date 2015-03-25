@@ -47,7 +47,7 @@ Allows to store additional data (dates) per fiscal year
 , "author"       : "ChriCar Beteiligungs- und Beratungs- GmbH"
 , "website"      : "http://www.camptocamp.com/"
 , "data"         : ["fiscalyear_view.xml"]
-, "installable"  : True
+, 'installable': False
 , 'application'  : False
 , "auto_install" : False
 }

@@ -34,7 +34,7 @@ adapts the price difference (write down to use price units)
 'data': [],
 #'data': ['product_view.xml'],
 'demo_xml': [],
-'installable': True,
+'installable': False,
 'active': False,
 'auto_install': True
 }

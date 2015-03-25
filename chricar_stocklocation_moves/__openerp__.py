@@ -8,7 +8,7 @@
 , "init_xml"     : []
 , "data"   : ["stocklocation_move.xml","stock_report.xml","security/ir.model.access.csv","wizard/stock_location_product_view.xml"]
 , "auto_install" : False
-, "installable"  : True
+, 'installable': False
 , 'application'  : False
 , "description"  : """Analysis of moves per location
 

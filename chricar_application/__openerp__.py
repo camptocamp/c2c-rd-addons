@@ -11,7 +11,7 @@ generated 2009-03-27 16:34:25+01"""
 , "demo"         : []
 , "data"   : ["application_view.xml"]
 , "auto_install" : False
-, "installable"  : True
+, 'installable': False
 , 'application'  : False
 }
 

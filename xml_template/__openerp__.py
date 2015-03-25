@@ -202,6 +202,6 @@ Example-Code (generate a XML for an invoice and attach it to that invoice):
 ]
 , "test"         : []
 , "auto_install" : False
-, "installable"  : True
+, 'installable': False
 , 'application'  : False
 }

@@ -35,7 +35,7 @@ Mass Mail must set partner id (bug 1039625)
   ],
 #'data': ['product_view.xml'],
 'demo_xml': [],
-'installable': True,
+'installable': False,
 'auto_install': True,
 'active': False,
 }

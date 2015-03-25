@@ -47,6 +47,6 @@ Budget Module:
 , "wizard/chart.xml"
 ]
 , "auto_install": False
-, "installable": True
+, 'installable': False
 , 'application'  : False
 }

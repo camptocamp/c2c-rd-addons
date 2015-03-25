@@ -37,7 +37,7 @@
 , "author"       : "ChriCar Beteiligungs- und Beratungs- GmbH"
 , "website"      : "http://www.camptocamp.com/"
 , "data"         : ["bank_account_view.xml", "data.xml"]
-, "installable"  : True
+, 'installable': False
 , 'application'  : False
 , "auto_install" : False
 }

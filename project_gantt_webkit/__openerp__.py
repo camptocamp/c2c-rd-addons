@@ -38,7 +38,7 @@ Attention:
 'init_xml': [],
 'data': ['project_view.xml'],
 'demo_xml': [],
-'installable': True,
+'installable': False,
 'auto_install': False,
 }
 

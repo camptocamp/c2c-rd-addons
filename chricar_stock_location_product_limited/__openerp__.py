@@ -18,6 +18,6 @@ http://www.zbeanztech.com/
 , "demo"         : []
 , "data"   : ['stock_wizard.xml']
 , "auto_install" : False
-, "installable"  : True
+, 'installable': False
 , 'application'  : False
 }

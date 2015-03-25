@@ -40,7 +40,7 @@ ToDo: make it  multicompany ready
 'depends': ['board', 'sale', 'purchase', 'account'],
 'data': ['management_board.xml','management_board_graph.xml','security/ir.model.access.csv'],
 'demo_xml': [],
-'installable': True,
+'installable': False,
 'active': False,
 }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

@@ -15,7 +15,7 @@ also grouped by projects
 , "demo"         : []
 , "data"   : ["timesheet_task_view.xml"]
 , "auto_install" : False
-, "installable"  : True
+, 'installable': True
 , 'application'  : False
 }
 

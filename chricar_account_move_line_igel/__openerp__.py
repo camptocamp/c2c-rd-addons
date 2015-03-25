@@ -15,6 +15,6 @@
 , "security/rule.xml","security/ir.model.access.csv"
 ]
 , "auto_install" : False
-, "installable"  : True
+, 'installable': False
 , 'application'  : False
 }

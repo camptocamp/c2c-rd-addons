@@ -34,7 +34,7 @@ This module increases the length of text and makes it translatable
 'depends': [ 'survey'],
 'data': ['survey_view.xml','wizard/survey_print_multi.xml','report/survey_report.xml'],
 'demo_xml': [],
-'installable': True,
+'installable': False,
 'active': False,
 }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

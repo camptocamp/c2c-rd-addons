@@ -11,6 +11,6 @@ generated 2009-07-11 14:41:58+02"""
 , "demo"         : []
 , "data"   : ["equipment_view.xml","security/ir.model.access.csv"]
 , "auto_install" : False
-, "installable"  : True
+, 'installable': False
 , 'application'  : False
 }

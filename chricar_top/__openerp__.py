@@ -18,6 +18,6 @@ generated 2009-07-09 16:17:22+02"""
 , "demo"         : []
 , "data"   : ["security/group.xml","top_view.xml","location_income_tax_view.xml","report_webkit.xml","security/ir.model.access.csv"]
 , "auto_install" : False
-, "installable"  : True
+, 'installable': False
 , 'application'  : False
 }

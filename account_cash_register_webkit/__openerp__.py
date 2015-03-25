@@ -37,7 +37,7 @@
 , "author"       : "ChriCar Beteiligungs- und Beratungs- GmbH"
 , "website"      : "http://www.camptocamp.com/"
 , "data"         : ["account_cash_register_webkit_view.xml"]
-, "installable"  : True
+, 'installable': False
 , 'application'  : False
 , "auto_install" : False
 }

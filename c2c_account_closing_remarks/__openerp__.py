@@ -33,7 +33,7 @@ Add a per year textbox for description of account closing remarks
 'data': ['account_view.xml','security/ir.model.access.csv'
   ],
 'demo_xml': [],
-'installable': True,
+'installable': False,
 'active': False,
 }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

@@ -12,6 +12,6 @@ generated 2010-04-03 21:47:30+02"""
 , "demo"         : []
 , "data"   : ["stock_care_view.xml"]
 , "auto_install" : False
-, "installable"  : True
+, 'installable': False
 , 'application'  : False
 }

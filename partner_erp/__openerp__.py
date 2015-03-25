@@ -34,7 +34,7 @@ ERP Access Data for Clients
 'init_xml': [],
 'data': ['partner_view.xml', 'security/group.xml', 'security/ir.model.access.csv','security/partner_erp_security.xml'],
 'demo_xml': [],
-'installable': True,
+'installable': False,
 'auto_install': False,
 }
 

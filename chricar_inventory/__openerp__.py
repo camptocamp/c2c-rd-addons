@@ -16,6 +16,6 @@ generated 2009-02-11 16:03:53+01"""
 , "inventory_webkit_view.xml"
 ]
 , "auto_install" : False
-, "installable"  : True
+, 'installable': False
 , 'application'  : False
 }

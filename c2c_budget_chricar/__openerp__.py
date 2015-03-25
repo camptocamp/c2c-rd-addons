@@ -56,6 +56,6 @@ This module is for real advanced budget use, otherwise prefer to use the Tiny on
 #, "wizard/chart.xml"
 ]
 , "auto_install": False
-, "installable": True
+, 'installable': False
 , 'application'  : False
 }

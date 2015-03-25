@@ -37,6 +37,6 @@ Does not support:
 , "demo"         : []
 , "data"   : ["bank_account_vat_view.xml","account_view.xml"]
 , "auto_install" : False
-, "installable"  : True
+, 'installable': False
 , 'application'  : False
 }

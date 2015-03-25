@@ -12,6 +12,6 @@ sorts the products by code"""
 , "demo"         : []
 , "data"   : ["chricar_product_image_view.xml"]
 , "auto_install" : False
-, "installable"  : True
+, 'installable': False
 , 'application'  : False
 }

@@ -49,6 +49,6 @@ This reference is used by EDIFACT or SEPA.
 , "data"  : ["account_invoice_view.xml"]
 , "test"        : []
 , "auto_install": False
-, "installable" : True
+, 'installable': False
 , 'application'  : False
 }

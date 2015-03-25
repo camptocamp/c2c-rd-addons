@@ -34,7 +34,7 @@ This modules allows to export the question / answer structure as XML
 'depends': [ 'survey_multi_lang','xml_template'],
 'data': ['survey_view.xml'],
 'demo_xml': [],
-'installable': True,
+'installable': False,
 'active': False,
 }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

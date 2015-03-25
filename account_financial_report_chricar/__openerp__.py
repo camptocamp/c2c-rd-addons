@@ -49,6 +49,6 @@ Some reports are based on previous work by Pexego and others on the *c2c_finance
 #  , "account_report_wizard.xml"
 ]
 , "auto_install": False
-, "installable": True
+, 'installable': False
 , 'application'  : False
 }

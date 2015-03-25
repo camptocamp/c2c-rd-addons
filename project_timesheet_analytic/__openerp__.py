@@ -31,7 +31,7 @@ Displays analyitc hours (in addition to task hours and timesheet hours)
 'website': 'http://www.comtocamp.com',
 'depends': ['project_timesheet'],
 'data': ["report/task_report_view.xml",],
-'installable': True,
+'installable': False,
 'auto_install': False,
 }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
