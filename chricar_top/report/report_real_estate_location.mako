@@ -16,8 +16,10 @@
      pre {font-family:helvetica; font-size:12;}
     </style>
 
-
-%for loc in objects:
+<%
+sorted_objects = sorted(objects,key=lambda o: o.name )
+%>
+%for loc in sorted_objects:
 
 <%
 owner = []
@@ -129,6 +131,12 @@ owners = ', '.join([name for name in owner])
         <td/>
         <td style="text-align:right;">${formatLang(loc.discount_value_actual/loc.surface) or ''|entity}</td>
         <td style="text-align:right;">${formatLang(loc.discount_value_plan/loc.surface) or ''|entity}</td>
+        </tr>
+        <tr>
+        <td>${_("GrESt")}</td>
+        <td>3.5%</td>
+        <td style="text-align:right;">${formatLang(loc.discount_value_actual * 0.035,0) or ''|entity}</td>
+        <td style="text-align:right;">${formatLang(loc.discount_value_plan * 0.035,0) or ''|entity}</td>
         </tr>
         %endif
         %endif
