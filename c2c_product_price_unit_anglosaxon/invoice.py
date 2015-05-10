@@ -189,11 +189,18 @@ class account_invoice_line(osv.osv):
                                 'tax_code_id': tax[smp][1],
                                 })
                         # price diff
-                        if amount_diff != 0:
+                        if amount_diff != 0.0:
+                            
+                            self._logger.info('FGF qty_diff  %s', qty_diff)
+                            if qty_diff and qty_diff != 0.0:
+                                pu_diff = amount_diff / qty_diff
+                            else:
+                                pu_diff = amount_diff
+                            
                             res.append({
                                 'type':'src',
                                 'name': i_line.name[:64],
-                                'price_unit': amount_diff / qty_diff, #i_line.product_id.standard_price,
+                                'price_unit': pu_diff, #i_line.product_id.standard_price,
                                 'quantity': i_line.quantity,
                                 'price': amount_diff, #-1 * get_price(cr, uid, inv, company_currency, i_line),
                                 'account_id': acc,
