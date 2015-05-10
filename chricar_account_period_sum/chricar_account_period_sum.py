@@ -144,7 +144,7 @@ INSERT
       and p.special != True
       and p.company_id = l.company_id
       and j.company_id = l.company_id %s
-    group by p.name,l.period_id, l.company_id, account_id ,fiscalyear_id ;
+    group by p.name,l.period_id, l.company_id, account_id ,p.fiscalyear_id ;
 """ % (where)
         cr.execute(sql)
         
@@ -420,10 +420,34 @@ account_account_with_postings()
 #
 class account_move_line(osv.osv):
     _inherit = "account.move.line"
+
+    def _get_fy(self, cr, uid, ids, field, arg, context=None):
+        # related does not return values BUG?
+        _logger = logging.getLogger(__name__)
+        if not context:
+            context = {}
+        res = {}
+        for line in self.browse(cr, uid, ids, context):
+            res[line.id] = line.move_id.period_id.fiscalyear_id.id
+
+        _logger.info('FGF aml fy_ids %s', res)
+        return res
+
+     
     _columns = \
-        { 'account_period_sum_id': fields.many2one('account.account_period_sum', 'Period Sum', select=1)}
+        { 'account_period_sum_id': fields.many2one('account.account_period_sum', 'Period Sum', select=1),
+          'fiscalyear_id'        : fields.related ('move_id', 'period_id', 'fiscalyear_id', string='Fiscal Year', type='many2one', relation='account.fiscalyear', store=True)
+         # 'fiscalyear_id'        : fields.function(_get_fy, method=True, type='many2one', relation='account.fiscalyear', string='Fiscal Year', store=True, select="1",)
+        }
 account_move_line()
 
+class account_move(osv.osv):
+    _inherit = "account.move"
+    _columns = \
+        { 
+          'fiscalyear_id'      : fields.related ('period_id', 'fiscalyear_id', string='Fiscal Year', type='many2one', relation='account.fiscalyear', store=True)
+        }
+account_move()
 
 
 class account_account_period_sum_cur_prev(osv.osv):

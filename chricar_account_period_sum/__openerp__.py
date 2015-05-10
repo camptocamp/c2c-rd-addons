@@ -85,6 +85,7 @@ correct period sums.
     , "security/rule.xml"
     , "security/ir.model.access.csv"
     , "report_chart.xml"
+    , "chricar_account_fy_view.xml"
     ]
 , "auto_install": False
 , "installable": True
