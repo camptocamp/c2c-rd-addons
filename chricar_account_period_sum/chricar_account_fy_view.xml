@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <!--
+    ==============================================
+    move search
+    ============================================== 
+        -->
+        <record model="ir.ui.view" id="view_move_search_fy_inherit">
+            <field name="name">view.move.search.fy.inherit</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_account_move_filter"/>
+            <field name="arch" type="xml">
+            <data>
+                <xpath expr="//field[@name='period_id']" position="after">
+                    <field name="fiscalyear_id"/>
+                </xpath>
+            </data>
+            </field>
+        </record>
+    <!--
+    ==============================================
+    move line search
+    ==============================================
+-->
+        <record model="ir.ui.view" id="view_move_line_search_fy_inherit">
+            <field name="name">view.move.line.search.fy.inherit</field>
+            <field name="model">account.move.line</field>
+            <field name="inherit_id" ref="account.view_account_move_line_filter"/>
+            <field name="arch" type="xml">
+            <data>
+                <xpath expr="//field[@name='period_id']" position="after">
+                    <field name="fiscalyear_id"/>
+                </xpath>
+            </data>
+            </field>
+        </record>
+
+</data>
+</openerp>
