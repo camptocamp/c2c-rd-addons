@@ -31,6 +31,25 @@
             <data>
                 <xpath expr="//field[@name='period_id']" position="after">
                     <field name="fiscalyear_id"/>
+                    <field name="tax_code_id"/>
+                </xpath>
+            </data>
+            </field>
+        </record>
+
+    <!--
+    ==============================================
+    move line group tax code
+    ==============================================
+-->
+        <record model="ir.ui.view" id="view_move_line_search_tax_inherit">
+            <field name="name">view.move.line.search.tax.inherit</field>
+            <field name="model">account.move.line</field>
+            <field name="inherit_id" ref="account.view_account_move_line_filter"/>
+            <field name="arch" type="xml">
+            <data>
+                <xpath expr="//filter[@string='Period']" position="after">
+                    <filter string="Tax Code"  domain="[]" context="{'group_by':'tax_code_id'}"/>
                 </xpath>
             </data>
             </field>
