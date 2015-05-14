@@ -87,13 +87,25 @@ class sale_order_line(osv.osv):
             res[line.id] = line.invoiced_qty - line.delivered_qty
         return res
 
+    def _diff_percent(self, cursor, user, ids, name, arg, context=None):
+        res = {}
+        for line in self.browse(cursor, user, ids, context=context):
+            if  line.delivered_qty > 0 and line.diff_qty < 0:
+                res[line.id] = line.diff_qty/line.delivered_qty*100
+            else:
+                res[line.id] = 0
+        return res
+
     _columns = {
          'delivered_qty' : fields.function(_delivered_qty, string='Delivered QTY', type='float'),
          'invoiced_qty'  : fields.function(_invoiced_qty, string='Invoiced QTY', type='float'),
          'diff_qty'      : fields.function(_diff_qty, string='Diff QTY', type='float'),
+         'diff_percent'  : fields.function(_diff_percent, string='Diff %', type='float'),
          'invoiced_amount':fields.function(_invoiced_amount, string='Invoiced Amount', type='float'),
          'invoiced_price': fields.function(_invoiced_price, string='Invoiced Price', type='float'),
          'date_order'    : fields.related('order_id', 'date_order', type='date', string='Date Order', store=True),
+         'state_order'   : fields.related('order_id', 'state', type='varchar', string='State Order'),
+         'partner_shipping_id'    : fields.related('order_id', 'partner_shipping_p_id', type='many2one',relation='res.partner', string='Shipping Partner', store=True),
         }
 
 

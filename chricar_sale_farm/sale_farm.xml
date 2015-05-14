@@ -9,13 +9,16 @@
       <field name="arch" type="xml">
         <tree string="Sale Order Line" editable="top">
           <field name="order_partner_id"/>
+          <field name="partner_shipping_id"/>
           <field name="order_id"/>
           <field name="date_order"/>
+          <field name="state_order"/>
           <field name="product_id"/>
           <field name="product_uom_qty" string="Ordered Qty" sum="Ordered"/>
           <field name="delivered_qty" sum="Delivered"/>
           <field name="invoiced_qty" sum="Invoiced"/>
           <field name="diff_qty" sum="Diff"/>
+          <field name="diff_percent" />
           <field name="invoiced_price"/>
           <field name="invoiced_amount" sum="Invoiced"/>
         </tree>
@@ -30,12 +33,14 @@
                 <search string="Search Sales Order Lines">
                     <field name="order_id"/>
                     <field name="order_partner_id"/>
+                    <field name="partner_shipping_id"/>
                     <field name="product_id"/>
                     <field name="date_order"/>
                     <newline/>
                     <group expand="0" string="Group By...">
                         <filter string="Order" icon="terp-gtk-jump-to-rtl" domain="[]" context="{'group_by':'order_id'}"/>
-                        <filter string="Partner" icon="terp-gtk-jump-to-rtl" domain="[]" context="{'group_by':'order_partner_id'}"/>
+                        <filter string="Customer" icon="terp-gtk-jump-to-rtl" domain="[]" context="{'group_by':'order_partner_id'}"/>
+                        <filter string="Shipping Partner" icon="terp-gtk-jump-to-rtl" domain="[]" context="{'group_by':'partner_shipping_id'}"/>
                         <filter string="Product" icon="terp-accessories-archiver" domain="[]" context="{'group_by':'product_id'}"/>
                         <filter string="Date Order" icon="terp-accessories-archiver" domain="[]" context="{'group_by':'date_order'}"/>
                     </group>
@@ -45,6 +50,7 @@
 
     
     <record id="act_sale_order_line_farm" model="ir.actions.act_window">
+        <field name="domain">[('state_order','!=','cancel')]</field>
         <field name="name">Sales Order Lines Farm</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">sale.order.line</field>
