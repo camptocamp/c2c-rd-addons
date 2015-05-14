@@ -21,6 +21,7 @@
           <field name="diff_percent" />
           <field name="invoiced_price"/>
           <field name="invoiced_amount" sum="Invoiced"/>
+          <field name="uninvoiced_amount" sum="Invoiced"/>
         </tree>
       </field>
     </record>

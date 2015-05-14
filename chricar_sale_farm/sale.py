@@ -84,7 +84,10 @@ class sale_order_line(osv.osv):
     def _diff_qty(self, cursor, user, ids, name, arg, context=None):
         res = {}
         for line in self.browse(cursor, user, ids, context=context):
-            res[line.id] = line.invoiced_qty - line.delivered_qty
+            if line.invoiced_qty - line.delivered_qty < 0:
+                res[line.id] = line.invoiced_qty - line.delivered_qty
+            else:
+                res[line.id] = 0
         return res
 
     def _diff_percent(self, cursor, user, ids, name, arg, context=None):
@@ -96,12 +99,22 @@ class sale_order_line(osv.osv):
                 res[line.id] = 0
         return res
 
+    def _uninvoiced_amount(self, cursor, user, ids, name, arg, context=None):
+        res = {}
+        for line in self.browse(cursor, user, ids, context=context):
+            res[line.id] = line.invoiced_price  * line.diff_qty
+        return res
+
     _columns = {
-         'delivered_qty' : fields.function(_delivered_qty, string='Delivered QTY', type='float'),
-         'invoiced_qty'  : fields.function(_invoiced_qty, string='Invoiced QTY', type='float'),
-         'diff_qty'      : fields.function(_diff_qty, string='Diff QTY', type='float'),
+         'delivered_qty' : fields.function(_delivered_qty, string='Delivered QTY', type='float',
+                           store={'stock.move': (_delivered_qty, ['product_qty'], 10) }),
+         'invoiced_qty'  : fields.function(_invoiced_qty, string='Invoiced QTY', type='float',
+                           store={'account.invoice.line': ( _invoiced_qty, ['quantity'], 10) }),
+         'diff_qty'      : fields.function(_diff_qty, string='Waste QTY', type='float', store=True),
          'diff_percent'  : fields.function(_diff_percent, string='Diff %', type='float'),
-         'invoiced_amount':fields.function(_invoiced_amount, string='Invoiced Amount', type='float'),
+         'invoiced_amount':fields.function(_invoiced_amount, string='Invoiced Amount', type='float',
+                           store={'account.invoice.line': ( _invoiced_amount, ['price_subtotal'], 10) }), 
+         'uninvoiced_amount':fields.function(_uninvoiced_amount, string='Waste Value', type='float',store = True),
          'invoiced_price': fields.function(_invoiced_price, string='Invoiced Price', type='float'),
          'date_order'    : fields.related('order_id', 'date_order', type='date', string='Date Order', store=True),
          'state_order'   : fields.related('order_id', 'state', type='varchar', string='State Order'),
