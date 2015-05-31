@@ -187,6 +187,31 @@ class account_fy_period_sum(osv.osv):
     _name        = "account.account_fy_period_sum"
     _description = "Account Fiscalyear Period Sum"
     _auto        = False
+
+    class one2many_movelines (fields.one2many):
+        #_logger      = logging.getLogger(_name)
+        def get (self, cr, obj, ids, name, user=None, offset=0, context=None, values={}):
+            res = {}
+            for id in ids :
+                res[id] = []
+                print "ID",id
+                per = obj.pool.get('account.account_period_sum').browse(cr, user, id, context=context)
+                ids2 = obj.pool.get (self._obj).search \
+                    ( cr
+                    , user
+                    , [ ('company_id', '=', per.company_id.id)
+                      , ('account_id', '=', per.account_id.id)
+                      , ('period_id', '=', per.period_id.id)
+                      ]   
+                    , limit = self._limit
+                    )   
+                for r in ids2:
+                    #self._logger.debug('r_ids2 `%s`', r)
+                    res [per.id].append(r)
+            return res 
+        #  set missing
+    # end class one2many_periods
+
     _columns     = \
         { 'name'               : fields.char    ('Period', size=16       ,readonly=True)
         , 'company_id'         : fields.many2one('res.company', 'Company', required=True)
@@ -198,9 +223,11 @@ class account_fy_period_sum(osv.osv):
         , 'balance'            : fields.float   ('Balance Period', digits_compute=dp.get_precision('Account')    ,readonly=True)
         , 'balance_cumulative' : fields.float   ('Balance cumulativ', digits_compute=dp.get_precision('Account')    ,readonly=True)
 #        , 'sum_fy_period_id'   : fields.integer ('Account FY id'             ,readonly=True)
-        , 'date_start'           : fields.date    ('Date Start',readonly=True)
-        , 'date_stop'           : fields.date    ('Date Stop' ,readonly=True)
-        , 'move_line_ids'      : fields.one2many('account.move.line','account_period_sum_id','Account_moves')
+        , 'date_start'         : fields.date    ('Date Start',readonly=True)
+        , 'date_stop'          : fields.date    ('Date Stop' ,readonly=True)
+        #, 'move_line_ids'      : fields.one2many('account.move.line','account_period_sum_id','Account_moves')
+        #, 'move_line_ids'      : fields.one2many('account.move.line','period_id','Account_moves')
+        ,  'move_line_ids'     : one2many_movelines('account.move.line', 'id','Account Moves',readonly=True)
         }
     _order = 'date_start asc,name'
 
