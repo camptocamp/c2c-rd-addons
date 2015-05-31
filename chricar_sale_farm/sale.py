@@ -42,6 +42,9 @@ class sale_order_line(osv.osv):
     def _invoiced_qty(self, cursor, user, ids, name, arg, context=None):
     #def _invoiced_qty(self, cursor, user, ids, context=None):
         res = {}
+        _logger = logging.getLogger(__name__)
+        _logger.info('FGF self.columnes %s' % (self._columns))
+        _logger.info('FGF ids %s,name %s,arg %s' % (ids,name,arg))
         for line in self.browse(cursor, user, ids, context=context):
             res[line.id] = 0
             if line.order_id.invoice_ids:
@@ -98,6 +101,9 @@ class sale_order_line(osv.osv):
     def _diff_qty(self, cursor, user, ids, name, arg, context=None):
     #def _diff_qty(self, cursor, user, ids, context=None):
         res = {}
+        _logger = logging.getLogger(__name__)
+        _logger.info('FGF diff_qty self.columnes %s' % (self._columns))
+        _logger.info('FGF ids %s,name %s,arg %s' % (ids,name,arg))
         for line in self.browse(cursor, user, ids, context=context):
             if line.invoiced_qty - line.delivered_qty < 0:
                 res[line.id] = line.invoiced_qty - line.delivered_qty
@@ -124,14 +130,27 @@ class sale_order_line(osv.osv):
 
     def _get_invoice_line(self, cr, uid, ids, context=None):
         result = {}
-        for line in self.pool.get('account.invoice.line').browse(cr, uid, ids, context=context):
-            result[line.invoice_id.id] = True
+        for il in self.pool.get('account.invoice.line').browse(cr, uid, ids, context=context):
+          if il.invoice_id and il.invoice_id.id: 
+            for inv in  self.pool.get('account.invoice').browse(cr, uid, [il.invoice_id.id], context=context):
+                for so in self.pool.get('sale.order').browse(cr, uid, inv.sale_order_ids, context=context):
+                    for sol in self.pool.get('sale.order.line').browse(cr, uid, so.order_line, context=context):
+                        if il.product_id.id == sol.product_id.id:
+                            result[il.id] = True
         return result.keys()
 
     def _get_order_line(self, cr, uid, ids, context=None):
         result = {}
-        for line in self.pool.get('sale.order.line').browse(cr, uid, ids, context=context):
-            result[line.invoice_id.id] = True
+        sale_line_id = []
+        for il in self.pool.get('account.invoice.line').browse(cr, uid, ids, context=context):
+            for inv in  self.pool.get('account.line').browse(cr, uid, [il.invoice_id.id], context=context):
+                for so in self.pool.get('sale.order').browse(cr, uid, [inv.sale_order_ids], context=context):
+                    for sol in self.pool.get('sale.order.line').browse(cr, uid, [so.order_line], context=context):
+                        if il.product_id.id == sol.product_id.id:
+                            result[il.id] = True
+          
+        #for line in self.pool.get('sale.order.line').browse(cr, uid, sale_line_id , context=context):
+        #    result[line.invoice_id.id] = True
         return result.keys()
 
     def _get_stock_move(self, cr, uid, ids, context=None):
