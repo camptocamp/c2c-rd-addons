@@ -174,7 +174,7 @@ for fy1 in loc.tax_res[1] :
               <tr>
                 <td/><td> ${pl} </td> 
                  %for fy1 in loc.tax_res[1] :
-                    <td style="text-align:right;"> ${formatLang(sums[pl][fy1[0]],0)} </td>
+                    <td style="text-align:right;white-space:nowrap"> ${formatLang(sums[pl][fy1[0]],0)} </td>
                  %endfor
               </tr>
           %endif
@@ -189,7 +189,7 @@ for fy1 in loc.tax_res[1] :
           <td> ${ac[0]} </td> 
           <td> ${ac[1]} </td> 
           %for fy1 in loc.tax_res[1] :
-            <td style="text-align:right;"> ${formatLang(val[ac[0]][fy1[0]] or 0, 0)} </td>
+            <td style="text-align:right;white-space:nowrap"> ${formatLang(val[ac[0]][fy1[0]] or 0, 0)} </td>
             <%
             sums[pl][fy1[0]] += val[ac[0]][fy1[0]] or 0
             sums['Result'][fy1[0]] += val[ac[0]][fy1[0]] or 0
@@ -201,13 +201,13 @@ for fy1 in loc.tax_res[1] :
               <tr>
                 <td/><td> ${pl} </td>  
                  %for fy1 in loc.tax_res[1] :
-                    <td style="text-align:right;"> ${formatLang(sums[pl][fy1[0]],0)} </td>
+                    <td style="text-align:right;white-space:nowrap"> ${formatLang(sums[pl][fy1[0]],0)} </td>
                  %endfor
               </tr>
               <tr style="font-weight:bold">
                 <td/><td> ${_("Result")} </td>  
                  %for fy1 in loc.tax_res[1] :
-                    <td style="text-align:right;"> ${formatLang(sums['Result'][fy1[0]],0)} </td>
+                    <td style="text-align:right;white-space:nowrap"> ${formatLang(sums['Result'][fy1[0]],0)} </td>
                  %endfor
 
               </tr>
