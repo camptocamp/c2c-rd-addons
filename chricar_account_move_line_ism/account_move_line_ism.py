@@ -285,25 +285,25 @@ class ism_buchungen(osv.osv):
     
 
     _columns ={
-       'mandant'            : fields.char    ('Mandant', size=8, required=True),
+       'mandant'            : fields.char    ('ISM Mandant', size=8, required=True),
        'mandant_id'         : fields.function(_mandant_id, method=True, string="Company",type='many2one', relation='ism.mandant', store=True, select="1",  ),     
-       'kontonummer'        : fields.char    ('Kontonummer', size=8, required=True, select="1", ),
+       'kontonummer'        : fields.char    ('ISM Kontonummer', size=8, required=True, select="1", ),
        'konto_id'           : fields.function(_konto_id, method=True, string="Account",type='many2one', relation='ism.account',  select="1", store=True ),
-       'periode'            : fields.char    ('Periode', size=8, required=True),
+       'periode'            : fields.char    ('ISM Periode', size=8, required=True),
        'periode_id'         : fields.function(_period_id, method=True, string="Period",type='many2one', relation='ism.periode', store=True, select="1",  ),
-       'beleg'              : fields.char    ('Beleg', size=16, required=True),
+       'beleg'              : fields.char    ('ISM Beleg', size=16, required=True),
        'beleg_id'           : fields.function(_beleg_id, method=True, string="Beleg",type='many2one', relation='ism.belege', store=True, select="1",  ),
        #'beleg_id'             : fields.float   ('BelegID',  digits=(16,2)),
        'amount'             : fields.float   ('Balance', required=True, digits=(16,2)),
        'name'               : fields.char    ('Text', size=128),
        'debit'              : fields.function(_debit, method=True, string="Debit",type='float', store=True, ),      
-       'credit'             : fields.function(_credit, method=True, string="Debit",type='float', store=True, ),
+       'credit'             : fields.function(_credit, method=True, string="Credit",type='float', store=True, ),
        'company_id'         : fields.related
                ( "mandant_id"
                , "company_id"
                , type     = "many2one"
                , relation = "res.company"
-               , string   = "Company"
+               , string   = "Odoo Company"
                , store    = False
                ),       
 }
