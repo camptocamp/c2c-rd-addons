@@ -46,7 +46,7 @@ class account_invoice_line(osv.osv):
                             help='Price using "Price Units"') ,
         'price_unit'       : fields.float(string='Unit Price internal',  digits=(16, 8), \
                             help="""Product's cost for accounting stock valuation."""),
-        'prodlot_id'       : fields.many2one('stock.production.lot', 'Production Lot', readonly=True),
+        'prodlot_id'       : fields.many2one('stock.production.lot', 'Production Lot'),
     }
     _defaults = {
         'price_unit_id'   : _get_default_id,
@@ -61,7 +61,7 @@ class account_invoice_line(osv.osv):
       """)
        
       from openerp import SUPERUSER_ID
-      inv_lines = self.search(cr, SUPERUSER_ID,[] )
+      inv_lines = self.search(cr, SUPERUSER_ID,[('prodlot_id', '=', False), ('product_id', '=', True )] )
       for line in self.browse(cr, SUPERUSER_ID, inv_lines):
           val = {}
           if line.product_id and line.invoice_id.picking_ids and not line.prodlot_id:
