@@ -61,7 +61,7 @@ class account_invoice_line(osv.osv):
       """)
        
       from openerp import SUPERUSER_ID
-      inv_lines = self.search(cr, SUPERUSER_ID,[('prodlot_id', '=', False), ('product_id', '=', True )] )
+      inv_lines = self.search(cr, SUPERUSER_ID,[('prodlot_id', '=', False), ('product_id', '!=', False )] )
       for line in self.browse(cr, SUPERUSER_ID, inv_lines):
           val = {}
           if line.product_id and line.invoice_id.picking_ids and not line.prodlot_id:
