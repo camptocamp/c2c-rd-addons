@@ -19,6 +19,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+# 20150618 added prodlot_id to invoice line to allow statistics on lot level
 
 from osv import osv, fields
 import decimal_precision as dp
@@ -45,6 +46,7 @@ class account_invoice_line(osv.osv):
                             help='Price using "Price Units"') ,
         'price_unit'       : fields.float(string='Unit Price internal',  digits=(16, 8), \
                             help="""Product's cost for accounting stock valuation."""),
+        'prodlot_id'       : fields.many2one('stock.production.lot', 'Production Lot', readonly=True),
     }
     _defaults = {
         'price_unit_id'   : _get_default_id,
@@ -57,7 +59,29 @@ class account_invoice_line(osv.osv):
       cr.execute("""
           update account_invoice_line set price_unit_id = (select min(id) from c2c_product_price_unit where coefficient=1) where price_unit_id is null;
       """)
-      
+       
+      from openerp import SUPERUSER_ID
+      inv_lines = self.search(cr, SUPERUSER_ID,[] )
+      for line in self.browse(cr, SUPERUSER_ID, inv_lines):
+          val = {}
+          if line.product_id and line.invoice_id.picking_ids and not line.prodlot_id:
+              for pick in line.invoice_id.picking_ids:
+                  count_lines = 0
+                  prodlot_id = ''
+                  for move in pick.move_lines:
+                      if move.product_id == line.product_id and move.prodlot_id and (not prodlot_id  or prodlot_id != move.prodlot_id.id):
+                         count_lines += 1
+                         prodlot_id = move.prodlot_id.id 
+                  for move in pick.move_lines:
+                      if (count_lines == 1 and move.product_id == line.product_id and move.prodlot_id) or (count_lines > 1 and move.product_id == line.product_id and move.product_qty == line.quantity and move.prodlot_id):
+                          if  not val or val['prodlot_id'] == move.prodlot_id.id:
+                              val = {'prodlot_id':move.prodlot_id.id}
+                          else:
+                              val = {}
+          if val:
+              self.write(cr,SUPERUSER_ID,line.id,val)
+                      
+                   
     def product_id_change_c2c_pu(self, cr, uid, ids, product, uom, qty=0, name='',
            type=False, partner_id=False, fposition_id=False, price_unit_pu=False, 
            address_invoice_id=False, currency_id=False, company_id=None,price_unit_id=None):

@@ -210,8 +210,14 @@ class chricar_budget(osv.osv):
                     for inv in move.picking_id.invoice_ids:
                       _logger.info('FGF move pick inv %s %s %s' % (inv.number, inv.type, inv.state))
                       if inv.state in ['open','paid'] and inv.invoice_line:
+                #        count_lines = 0
+                #        for inv_line in inv.invoice_line:
+                #          if inv_line.product_id == line.product_id: 
+                #            count_lines += 1
                         for inv_line in inv.invoice_line:
-                          if inv_line.product_id == line.product_id: # FIXME problematic if 2 lots are in one invoice 
+                          #if inv_line.product_id == line.product_id: # FIXME problematic if 2 lots are in one invoice 
+                          if inv_line.product_id == line.product_id and inv_line.prodlot_id == move.prodlot_id:
+                #          if (inv_line.product_id == line.product_id and round(inv_line.quantity) == round(move.product_qty) and count_lines > 1) or (inv_line.product_id == line.product_id and count_lines == 1): # FIXME problematic if 2 lots are in one invoice 
                             if inv_line.id not in invoice_line_ids:
                                invoice_line_ids.append(inv_line.id)
            for l in ail.browse(cr, uid, invoice_line_ids):    
