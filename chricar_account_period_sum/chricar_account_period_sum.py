@@ -30,6 +30,10 @@ from tools.sql import drop_view_if_exists
 from tools.translate import _
 import decimal_precision as dp
 import logging
+from dateutil import relativedelta
+from datetime import datetime
+
+
 
 
 
@@ -49,8 +53,25 @@ class account_period(osv.osv):
     _inherit = "account.period"
 
     def _get_prev_fy_period(self, cr, uid, ids, field_name, arg, context=None):
+        _logger      = logging.getLogger(__name__)
+        fy_obj = self.pool.get('account.fiscalyear')
         res = {}
         for p in self.pool.get('account.period').browse(cr, uid, ids, context=context):
+            #date_start = str(int(p.date_start[0:4]) - 1 ) + p.date_start[4:10]
+            fy_curr_date_start = datetime.strptime(p.fiscalyear_id.date_start,'%Y-%m-%d')
+            d=datetime.strptime(p.fiscalyear_id.date_start, '%Y-%m-%d') + relativedelta.relativedelta(days=-1)
+            d1=d.strftime('%Y-%m-%d')
+            _logger.info('FGF p.date_start %s, d=%s, d1=%s' % (p.date_start, d,d1) )  
+            _logger.info('FGF context %s' % (context) )  
+            fy_prev_id = fy_obj.search(cr, uid, [('date_stop','=', d1), ('company_id','=',p.company_id.id)  ])
+            _logger.info('FGF fy_prev_id %s' % (fy_prev_id) )  
+            for fy in fy_obj.browse(cr, uid, fy_prev_id , context=context):
+                fy_prev_date_start = datetime.strptime(fy.date_start,'%Y-%m-%d')
+                date_start = datetime.strptime(p.date_start, '%Y-%m-%d') + relativedelta.relativedelta(fy_curr_date_start , fy_prev_date_start)
+                _logger.info('FGF date_start %s' % (date_start) )  
+                if date_start < fy_curr_date_start:
+                    date_start = date_start.strftime('%Y-%m-%d')
+              
             date_start = str(int(p.date_start[0:4]) - 1 ) + p.date_start[4:10]
             cr.execute("""
 select id from account_period
