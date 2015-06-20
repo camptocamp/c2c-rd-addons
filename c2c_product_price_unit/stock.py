@@ -122,7 +122,8 @@ class stock_picking(osv.osv):
                 price_unit_id = move_line.price_unit_sale_id.id or ''
           
         inv_line_obj = self.pool.get('account.invoice.line')
-        inv_line_obj.write(cr, uid, invoice_line_id, {'price_unit_id': price_unit_id, 'price_unit_pu': price_unit_pu})
+        #FGF  20150620
+        inv_line_obj.write(cr, uid, invoice_line_id, {'price_unit_id': price_unit_id, 'price_unit_pu': price_unit_pu, 'prodlot_id': move_line.prodlot_id.id})
 
         return  super(stock_picking, self)._invoice_line_hook(cr, uid, move_line, invoice_line_id)
 
