@@ -55,7 +55,8 @@ class account_move(osv.osv):
             if future_fy_id:
                 future_fy_id = future_fy_id[0]
                 for future_fy in fy_obj.browse(cr, uid, [future_fy_id]):
-                    per_ids = per_obj.search(cr, uid, [('fiscalyear_id','=',fiscalyear_id),('company_id','=',fy.company_id.id)])
+                  per_ids = per_obj.search(cr, uid, [('fiscalyear_id','=',fiscalyear_id),('company_id','=',fy.company_id.id)])
+                  if per_ids:
                     sql="""
                     select sum(debit-credit)
                       from account_account_period_sum
