@@ -30,10 +30,6 @@ from tools.sql import drop_view_if_exists
 from tools.translate import _
 import decimal_precision as dp
 import logging
-from dateutil import relativedelta
-from datetime import datetime
-
-
 
 
 
@@ -53,25 +49,8 @@ class account_period(osv.osv):
     _inherit = "account.period"
 
     def _get_prev_fy_period(self, cr, uid, ids, field_name, arg, context=None):
-        _logger      = logging.getLogger(__name__)
-        fy_obj = self.pool.get('account.fiscalyear')
         res = {}
         for p in self.pool.get('account.period').browse(cr, uid, ids, context=context):
-            #date_start = str(int(p.date_start[0:4]) - 1 ) + p.date_start[4:10]
-            fy_curr_date_start = datetime.strptime(p.fiscalyear_id.date_start,'%Y-%m-%d')
-            d=datetime.strptime(p.fiscalyear_id.date_start, '%Y-%m-%d') + relativedelta.relativedelta(days=-1)
-            d1=d.strftime('%Y-%m-%d')
-            _logger.info('FGF p.date_start %s, d=%s, d1=%s' % (p.date_start, d,d1) )  
-            _logger.info('FGF context %s' % (context) )  
-            fy_prev_id = fy_obj.search(cr, uid, [('date_stop','=', d1), ('company_id','=',p.company_id.id)  ])
-            _logger.info('FGF fy_prev_id %s' % (fy_prev_id) )  
-            for fy in fy_obj.browse(cr, uid, fy_prev_id , context=context):
-                fy_prev_date_start = datetime.strptime(fy.date_start,'%Y-%m-%d')
-                date_start = datetime.strptime(p.date_start, '%Y-%m-%d') + relativedelta.relativedelta(fy_curr_date_start , fy_prev_date_start)
-                _logger.info('FGF date_start %s' % (date_start) )  
-                if date_start < fy_curr_date_start:
-                    date_start = date_start.strftime('%Y-%m-%d')
-              
             date_start = str(int(p.date_start[0:4]) - 1 ) + p.date_start[4:10]
             cr.execute("""
 select id from account_period
@@ -208,31 +187,6 @@ class account_fy_period_sum(osv.osv):
     _name        = "account.account_fy_period_sum"
     _description = "Account Fiscalyear Period Sum"
     _auto        = False
-
-    class one2many_movelines (fields.one2many):
-        #_logger      = logging.getLogger(_name)
-        def get (self, cr, obj, ids, name, user=None, offset=0, context=None, values={}):
-            res = {}
-            for id in ids :
-                res[id] = []
-                print "ID",id
-                per = obj.pool.get('account.account_period_sum').browse(cr, user, id, context=context)
-                ids2 = obj.pool.get (self._obj).search \
-                    ( cr
-                    , user
-                    , [ ('company_id', '=', per.company_id.id)
-                      , ('account_id', '=', per.account_id.id)
-                      , ('period_id', '=', per.period_id.id)
-                      ]   
-                    , limit = self._limit
-                    )   
-                for r in ids2:
-                    #self._logger.debug('r_ids2 `%s`', r)
-                    res [per.id].append(r)
-            return res 
-        #  set missing
-    # end class one2many_periods
-
     _columns     = \
         { 'name'               : fields.char    ('Period', size=16       ,readonly=True)
         , 'company_id'         : fields.many2one('res.company', 'Company', required=True)
@@ -244,11 +198,9 @@ class account_fy_period_sum(osv.osv):
         , 'balance'            : fields.float   ('Balance Period', digits_compute=dp.get_precision('Account')    ,readonly=True)
         , 'balance_cumulative' : fields.float   ('Balance cumulativ', digits_compute=dp.get_precision('Account')    ,readonly=True)
 #        , 'sum_fy_period_id'   : fields.integer ('Account FY id'             ,readonly=True)
-        , 'date_start'         : fields.date    ('Date Start',readonly=True)
-        , 'date_stop'          : fields.date    ('Date Stop' ,readonly=True)
-        #, 'move_line_ids'      : fields.one2many('account.move.line','account_period_sum_id','Account_moves')
-        #, 'move_line_ids'      : fields.one2many('account.move.line','period_id','Account_moves')
-        ,  'move_line_ids'     : one2many_movelines('account.move.line', 'id','Account Moves',readonly=True)
+        , 'date_start'           : fields.date    ('Date Start',readonly=True)
+        , 'date_stop'           : fields.date    ('Date Stop' ,readonly=True)
+        , 'move_line_ids'      : fields.one2many('account.move.line','account_period_sum_id','Account_moves')
         }
     _order = 'date_start asc,name'
 
@@ -493,6 +445,14 @@ class account_move(osv.osv):
     _inherit = "account.move"
     _columns = \
         { 
+          'fiscalyear_id'      : fields.related ('period_id', 'fiscalyear_id', string='Fiscal Year', type='many2one', relation='account.fiscalyear', store=True)
+        }
+account_move()
+
+class account_invoice(osv.osv):
+    _inherit = "account.invoice"
+    _columns = \
+        {
           'fiscalyear_id'      : fields.related ('period_id', 'fiscalyear_id', string='Fiscal Year', type='many2one', relation='account.fiscalyear', store=True)
         }
 account_move()
