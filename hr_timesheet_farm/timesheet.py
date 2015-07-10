@@ -33,6 +33,8 @@ import time
 from osv import fields,osv
 import netsvc
 import one2many_sorted
+from datetime import datetime
+
 import logging
 
 
@@ -53,15 +55,27 @@ class hr_timesheet_farm_line(osv.osv):
 
     def _period_id(self, cr, uid, ids, name, arg, context):
         result = {}
+        _logger = logging.getLogger(__name__)
         for line in self.browse(cr, uid, ids):
             date = line.name
+            _logger.info('FGF period_id date %s' % (date)) 
+            _logger.info('FGF period_id context %s' % (context)) 
+            _logger.info('FGF period_id uid %s' % (uid)) 
+            company_id = self.pool.get('res.users').browse(cr, uid, uid, context).company_id.id
+            context['company_id'] = company_id
+            _logger.info('FGF period_id context %s' % (context)) 
+            #date = datetime.strptime(line.name, '%Y-%m-%d')
+            #_logger.info('FGF period_id date %s' % (date)) 
             #res_ids = self.pool.get('account.period').search(cr,uid,[('date_start','<=',date), ('date_stop','>=',date), ('state','=','draft'), ('special', '!=', True) ], context)
-            res_ids = self.pool.get('account.period').find(cr, uid, date, context)
+            #_logger.info('FGF period_ids %s' % (res_ids)) 
+            # standard returns missing period for fiscal year != calendar year
+            res_ids = self.pool.get('account.period').find(cr, uid, date, context=context)
             if len(res_ids):
                 result[line.id] = res_ids[0]
             else:
                 raise osv.except_osv(_('Error !'),'Missing period in hr.timesheet.farm.line %s %s.' %(line.date, line.user.id.name))
 
+            _logger.info('FGF period_ids result %s' % (result)) 
         return result
 
 
