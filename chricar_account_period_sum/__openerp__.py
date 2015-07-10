@@ -86,6 +86,7 @@ correct period sums.
     , "security/ir.model.access.csv"
     , "report_chart.xml"
     , "chricar_account_fy_view.xml"
+    , "chricar_move_line_view.xml"
     ]
 , "auto_install": False
 , "installable": True

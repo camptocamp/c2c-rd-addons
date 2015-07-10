@@ -436,7 +436,8 @@ class account_move_line(osv.osv):
      
     _columns = \
         { 'account_period_sum_id': fields.many2one('account.account_period_sum', 'Period Sum', select=1),
-          'fiscalyear_id'        : fields.related ('move_id', 'period_id', 'fiscalyear_id', string='Fiscal Year', type='many2one', relation='account.fiscalyear', store=True)
+          'fiscalyear_id'        : fields.related ('move_id', 'period_id', 'fiscalyear_id', string='Fiscal Year', type='many2one', relation='account.fiscalyear', store=True),
+          'sequence'             : fields.integer('Sequence')
          # 'fiscalyear_id'        : fields.function(_get_fy, method=True, type='many2one', relation='account.fiscalyear', string='Fiscal Year', store=True, select="1",)
         }
 account_move_line()

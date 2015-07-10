@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <!--
+    ==============================================
+    move line sequence
+    ==============================================
+-->
+        <record model="ir.ui.view" id="view_move_line_sequence_inherit">
+            <field name="name">view.move.line.sequence.inherit</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form"/>
+            <field name="arch" type="xml">
+            <data>
+                <xpath expr="/form/notebook/page[@string='Journal Items']/field[@name='line_id']/tree/field[@name='ref']" position="before">
+                    <field name="sequence"/>
+                </xpath>
+            </data>
+            </field>
+        </record>
+
+</data>
+</openerp>
