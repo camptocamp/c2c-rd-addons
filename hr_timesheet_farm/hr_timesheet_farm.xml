@@ -14,16 +14,16 @@
           <field name="fiscalyear_id" />
           <field name="hours_regular" sum="Hours"/>
           <field name="hours_cleaning" sum="Clean"/>
-          <field name="hours_overtime_25" sum="25 OT" invisible = "True"/>
-          <field name="hours_overtime_50" sum="50 OT" invisible = "True"/>
-          <field name="hours_overtime_100" sum="100 OT" invisible = "True"/>
-          <field name="hours_holiday_work" sum="Holiday Work" invisible = "True"/>
-          <field name="hours_holiday" sum="Holiday" invisible = "True"/>
-          <field name="hours_illnes" sum="Illness" invisible = "True"/>
-          <field name="hours_care" sum="Care" invisible = "True"/>
-          <field name="allowance" sum="Allow" invisible = "True"/>
-          <field name="bonus" sum="Bonus" invisible = "True"/>
-          <field name="other" sum="other" invisible = "True"/>
+          <field name="hours_overtime_25" sum="25 OT" invisible = "False"/>
+          <field name="hours_overtime_50" sum="50 OT" invisible = "False"/>
+          <field name="hours_overtime_100" sum="100 OT" invisible = "False"/>
+          <field name="hours_holiday_work" sum="Holiday Work" invisible = "False"/>
+          <field name="hours_holiday" sum="Holiday" invisible = "False"/>
+          <field name="hours_illnes" sum="Illness" invisible = "False"/>
+          <field name="hours_care" sum="Care" invisible = "False"/>
+          <field name="allowance" sum="Allow" invisible = "False"/>
+          <field name="bonus" sum="Bonus" invisible = "False"/>
+          <field name="other" sum="other" invisible = "False"/>
           <field name="notes"/>
           <field name="work_ids"/>
           <field name="hours_detail" sum="H Detail"/>
@@ -43,20 +43,20 @@
           <field name="user_id"/>
           <field name="hours_regular" />
           <field name="hours_cleaning" />
-          <field name="hours_overtime_25" invisible = "True"/>
-          <field name="hours_overtime_50" invisible = "True"/>
-          <field name="hours_overtime_100" invisible = "True"/>
-          <field name="hours_holiday_work" invisible = "True"/>
+          <field name="hours_overtime_25" invisible = "False"/>
+          <field name="hours_overtime_50" invisible = "False"/>
+          <field name="hours_overtime_100" invisible = "False"/>
+          <field name="hours_holiday_work" invisible = "False"/>
           <field name="hours_detail" />
           </group>
           <group colspan="2" col="2">
           <field name="name"/>
-          <field name="hours_holiday" invisible = "True"/>
-          <field name="hours_illnes" invisible = "True"/>
-          <field name="hours_care" invisible = "True"/>
-          <field name="allowance" invisible = "True" />
-          <field name="bonus" invisible = "True"/>
-          <field name="other" invisible = "True"/>
+          <field name="hours_holiday" invisible = "False"/>
+          <field name="hours_illnes" invisible = "False"/>
+          <field name="hours_care" invisible = "False"/>
+          <field name="allowance" invisible = "False" />
+          <field name="bonus" invisible = "False"/>
+          <field name="other" invisible = "False"/>
           <field name="notes"/>
           </group>
           
