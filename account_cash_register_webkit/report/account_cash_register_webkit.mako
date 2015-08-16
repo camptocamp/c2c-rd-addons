@@ -15,8 +15,7 @@ table {
     cellspacing="0";
     font-size:12px;
     }
-    tr { page-break-inside : avoid; vertical-align: top;}
-    td { margin: 0px; padding: 3px; border: 1px solid lightgrey; vertical-align: top; }
+    td { margin: 0px; padding: 3px; border: 1px solid lightgrey;  vertical-align: top; }
     pre {font-family:helvetica; font-size:15;}
     </style>
     
@@ -32,6 +31,7 @@ table {
         <tr>
             <th colspan="4"> </th>
             <th style="text-align:right">${_("Starting Balance")}</th>
+            <th style="text-align:right;white-space:normal">${voucher.balance_start}</th>
         </tr>
         <tr>
         <th style="text-align:left;white-space:nowrap">${_("Text")}</th>
@@ -39,42 +39,28 @@ table {
         
         <th style="text-align:left;white-space:nowrap">${_("Partner Account")}</th>
         <th style="text-align:left;white-space:nowrap">${_("Tax")}</th>
-        <th style="text-align:right;white-space:normal">${formatLang(voucher.balance_start)}</th>
+        <th style="text-align:left;white-space:nowrap">${_("Tax Amount")}</th>
+
         </tr>
         </thead>
-        <%
-        running_tot = 0
-         %>
         %for line in voucher.line_ids_sorted:
             <tbody>
             <tr>
             <td style="text-align:left;white-space:nowrap">${line.name or ''}</td>
             <td style="white-space:nowrap">${line.date}</td>
-            <td>${line.partner_id.name or (line.account_id.code +' '+ line.account_id.name )}</td>
-
-            %if 'tax_id' in line._columns: 
-               <td>${line.tax_id.name or ''}</td>
-            %else:
-               <td/>
-            %endif
+            <td>${line.partner_id.name or line.account_id.name}</td>
+            <td style="white-space:nowrap">${line.tax_id.name or ''}</td>
+            <td style="text-align:right;white-space:nowrap">${line.amount_tax or ''}</td>
             <td style="text-align:right;white-space:nowrap">${line.amount}</td>
-            <%
-             running_tot += line.amount
-             %>
             </tr>
             </tbody>
             %endfor
             <tfoot>
             <tr>
-            <th colspan="3"> </th>
+            <th colspan="4"> </th>
             <th style="text-align:right">${_("Ending Balance")}</th>
-            <th style="text-align:right;white-space:nowrap">${formatLang(voucher.balance_end_real)}</th>
+            <th style="text-align:right;white-space:nowrap">${voucher.balance_end_real}</th>
             </tr>
-            %if running_tot != balance_end_real:
-            <th colspan="3"> </th>
-            <th style="text-align:right">${_("Computed Balance")}</th>
-            <th style="text-align:right;white-space:nowrap">${formatLang(running_tot)}</th>
-            %endif
             </tfoot>
             </table>
             
@@ -84,4 +70,4 @@ table {
             </body>
             
             </html>
-
+            
