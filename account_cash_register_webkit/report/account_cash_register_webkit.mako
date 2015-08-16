@@ -49,7 +49,7 @@ table {
             <td style="text-align:left;white-space:nowrap">${line.name or ''}</td>
             <td style="white-space:nowrap">${line.date}</td>
             <td>${line.partner_id.name or line.account_id.name}</td>
-            <td style="white-space:nowrap">${line.tax_id.name or ''}</td>
+            <td style="white-space:nowrap">${'tax_id' in line._columns and line.tax_id.name or ''}</td>
             <td style="text-align:right;white-space:nowrap">${line.amount_tax or ''}</td>
             <td style="text-align:right;white-space:nowrap">${line.amount}</td>
             </tr>
