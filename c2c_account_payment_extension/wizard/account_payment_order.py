@@ -76,6 +76,14 @@ class payment_order_create(osv.osv_memory):
         obj       = self.browse(cr, uid, ids, context=context)[0]
         payment   = order_obj.browse(cr, uid, context['active_id'], context=context)
         company_id = self.pool.get('res.users').browse(cr, uid, uid, context=context).company_id.id
+
+        # FGF 20150909
+        # must only pay open invoices
+        invoice_moves = []
+        invoice_ids = invoice_obj.search(cr, uid, [('state','=','open'),('type','in',['in_invoice','in_refund'])])
+        for invoice in invoice_obj.browse(cr, uid, invoice_ids, context):
+            invoice_moves.append(invoice.move_id.id)
+
         domain    = \
             [ ('reconcile_id', '=', False)
             , ('account_id.type', '=', 'payable')
@@ -90,8 +98,10 @@ class payment_order_create(osv.osv_memory):
             , ('date_maturity', '<=', obj.duedate)
             , ('date_maturity', '=', False)
             ]
+        domain += [('move_id','in',invoice_moves)]
         _logger.debug('FGF pay line domain %s' % (domain))
         _logger.debug('FGF pay line context %s' % (context))
+
         ids = line_obj.search(cr, uid, domain, context=context)
         if not ids:
             raise osv.except_osv(_('Warning !'),'No invoices to pay found. Suggestion: Change search criteria')
@@ -107,6 +117,7 @@ class payment_order_create(osv.osv_memory):
 
         _logger.debug('FGF pay line ids %s' % (ids))
         line_ids = []
+
         for line in line_obj.browse(cr, uid, ids) :
             _logger.debug('FGF line %s %s ' % (line.id, line.partner_id.name))
             _logger.debug('FGF pay block %s' % (line.invoice.payment_block))
