@@ -61,10 +61,10 @@ class res_partner(osv.osv):
                 if address.country_id:
                     home_country_id = address.country_id.id
         
-        partner = self.browse(cr, uid, ids, context)[0]
-        if home_country_id and not partner.property_account_position:
-            d = time.strftime('%Y-%m-%d')
-            for address in partner.address:
+        for partner in self.browse(cr, uid, ids, context):
+            if home_country_id and not partner.property_account_position:
+              d = time.strftime('%Y-%m-%d')
+              for address in partner.address:
                 if address.country_id and address.country_id.id != home_country_id:
                     for country in country_obj.browse(cr, uid, [address.country_id.id], context):
                         if country.date_start and country.date_start <= d and (not country.date_end or (country.date_end and country.date_end >= d)):
