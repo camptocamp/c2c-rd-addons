@@ -105,7 +105,7 @@ class account_invoice(osv.osv):
         , 'invoice_id'
         , 'Invoice Lines Sorted'
         , states={'draft': [('readonly', False)]}
-        , order  = 'product_id.name,name'
+        , order  = 'sequence, product_id.name, name'
         )
         
     }
