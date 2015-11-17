@@ -23,6 +23,7 @@ import wizard
 import pooler
 from tools.misc import UpdateableStr
 import time
+import logging
 
 
 FORM = UpdateableStr()
@@ -52,6 +53,8 @@ def search_entries(self, cr, uid, data, context):
     pool = pooler.get_pool(cr.dbname)
     order_obj = pool.get('payment.order')
     line_obj = pool.get('account.move.line')
+    invoice_obj = pool.get('account.invoice')
+    _logger = logging.getLogger(__name__)
 
     payment = order_obj.browse(cr, uid, data['id'],
             context=context)
@@ -71,8 +74,18 @@ def search_entries(self, cr, uid, data, context):
         domain += [('payment_type','=',payment.mode.type.id)]
 
     domain += ['|',('date_maturity','<',search_due_date),('date_maturity','=',False)]
-    line_ids = line_obj.search(cr, uid, domain, order='date_maturity', context=context)
+    
+    # FGF 20150909
+    # must only pay open invoices 
+    invoice_moves = []
+    invoice_ids = invoice_obj.search(cr, uid, [('state','=','open'),('type','in',['in_invoice','in_refund'])])
+    for invoice in invoice_obj.browse(cr, uid, invoice_ids, context)
+        invoice_moves.append(invoice.move_id.id)
+    domain += [('move_id','in',invoice_moves)]
+    _logger.debug('FGF domain %s', domain)
 
+    line_ids = line_obj.search(cr, uid, domain, order='date_maturity', context=context)
+    
 
     FORM.string = '''<?xml version="1.0" encoding="utf-8"?>
 <form string="Populate Payment:">
