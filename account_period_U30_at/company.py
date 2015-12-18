@@ -28,13 +28,8 @@
 #
 ###############################################
 from osv import fields, osv
-from tools.translate import _
 
 class res_company(osv.osv) :
     _inherit = "res.company"
-
-    _columns = {
-        'tax_office_number': fields.char("Tax Office Number", size=32, help="Company Tax Number Fiscal Authorities (not VAT)"),
-    }
-
+    _columns = {'tax_office_number': fields.char("Tax Office Number", size=32, help="Company Tax Number Fiscal Authorities (not VAT)")}
 res_company()

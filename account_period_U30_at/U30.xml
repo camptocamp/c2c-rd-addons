@@ -4,8 +4,10 @@
     <record model="xml.template" id="xml_template_U30" forcecreate="True">
       <field name="name">U30 VAT declaration</field>
       <field name="schema">https://www.bmf.gv.at/egovernment/fon/fuer-softwarehersteller/BMF_ERKLAERUNGS_UEBERMITTLUNG_U30_2.xsd</field>
+      <field name="valid_from">2009-1-1</field>
+      <field name="valid_to">2015-12-31</field>
       <field name="content" type="xml">
-        <!-- Umsatzsteuervoranmeldung ab 01/2009 - Stand: 11.01.2013-->
+        <!-- Umsatzsteuervoranmeldung ab 01/2009 - Stand: 11.01.2013 -->
         <ERKLAERUNGS_UEBERMITTLUNG>
           <INFO_DATEN>
             <ART_IDENTIFIKATIONSBEGRIFF text-eval="'FASTNR'"/>
@@ -86,4 +88,3 @@
     </record>
   </data>
 </openerp>
-

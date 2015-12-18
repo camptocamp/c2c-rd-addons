@@ -1,0 +1,680 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- Umsatzsteuervoranmeldung ab 01/2016 - Stand: 22.10.2015-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+  <xs:simpleType name="kz">
+    <xs:restriction base="xs:decimal">
+      <xs:maxInclusive value="9999999999999.99"/>
+      <xs:minInclusive value="0.01"/>
+      <xs:totalDigits value="15"/>
+      <xs:fractionDigits value="2"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="kznull">
+    <xs:restriction base="xs:decimal">
+      <xs:maxInclusive value="9999999999999.99"/>
+      <xs:minInclusive value="0"/>
+      <xs:totalDigits value="15"/>
+      <xs:fractionDigits value="2"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="kzvorz">
+    <xs:restriction base="xs:decimal">
+      <xs:minInclusive value="-9999999999999.99"/>
+      <xs:maxInclusive value="9999999999999.99"/>
+      <xs:totalDigits value="15"/>
+      <xs:fractionDigits value="2"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="vst">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="4"/>
+      <xs:minLength value="1"/>
+      <xs:pattern value="[0-9]{1}[0-9,a-z,A-Z]{0,3}"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="kztype">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="kz"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="datumtype">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="datum"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="jahrmonattype">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="jahrmonat"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="uhrzeittype">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="uhrzeit"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="ALLGEMEINE_DATEN">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="ANBRINGEN"/>
+        <xs:element ref="ZRVON"/>
+        <xs:element ref="ZRBIS"/>
+        <xs:element ref="FASTNR"/>
+        <xs:element ref="KUNDENINFO" minOccurs="0"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ANBRINGEN">
+    <xs:simpleType>
+      <xs:restriction base="xs:string">
+        <xs:enumeration value="U30"/>
+      </xs:restriction>
+    </xs:simpleType>
+  </xs:element>
+  <xs:element name="ANZAHL_ERKLAERUNGEN">
+    <xs:simpleType>
+      <xs:restriction base="xs:positiveInteger">
+        <xs:maxInclusive value="9999"/>
+        <xs:minInclusive value="1"/>
+        <xs:totalDigits value="4"/>
+      </xs:restriction>
+    </xs:simpleType>
+  </xs:element>
+  <xs:element name="ART_IDENTIFIKATIONSBEGRIFF">
+    <xs:simpleType>
+      <xs:restriction base="xs:string">
+        <xs:enumeration value="FASTNR"/>
+      </xs:restriction>
+    </xs:simpleType>
+  </xs:element>
+  <xs:element name="DATUM_ERSTELLUNG">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:date">
+          <xs:attribute name="type" type="datumtype" use="required"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ERKLAERUNG">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="SATZNR"/>
+        <xs:element ref="ALLGEMEINE_DATEN"/>
+        <xs:element ref="LIEFERUNGEN_LEISTUNGEN_EIGENVERBRAUCH"/>
+        <xs:element ref="INNERGEMEINSCHAFTLICHE_ERWERBE" minOccurs="0"/>
+        <xs:element ref="VORSTEUER" minOccurs="0"/>
+      </xs:sequence>
+      <xs:attribute name="art" type="xs:string" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ERKLAERUNGS_UEBERMITTLUNG">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="INFO_DATEN"/>
+        <xs:element ref="ERKLAERUNG" maxOccurs="9999"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="IDENTIFIKATIONSBEGRIFF">
+    <xs:simpleType>
+      <xs:restriction base="xs:positiveInteger">
+        <xs:maxInclusive value="989999999"/>
+        <xs:minInclusive value="010000010"/>
+        <xs:pattern value="\d{9}"/>
+      </xs:restriction>
+    </xs:simpleType>
+  </xs:element>
+  <xs:element name="INFO_DATEN">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="ART_IDENTIFIKATIONSBEGRIFF"/>
+        <xs:element ref="IDENTIFIKATIONSBEGRIFF"/>
+        <xs:element ref="PAKET_NR"/>
+        <xs:element ref="DATUM_ERSTELLUNG"/>
+        <xs:element ref="UHRZEIT_ERSTELLUNG"/>
+        <xs:element ref="ANZAHL_ERKLAERUNGEN"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="INNERGEMEINSCHAFTLICHE_ERWERBE">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="KZ070" minOccurs="0"/>
+        <xs:element ref="KZ071" minOccurs="0"/>
+        <xs:element ref="VERSTEUERT_IGE" minOccurs="0"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="KUNDENINFO">
+    <xs:simpleType>
+      <xs:restriction base="xs:string">
+        <xs:maxLength value="50"/>
+        <xs:minLength value="0"/>
+      </xs:restriction>
+    </xs:simpleType>
+  </xs:element>
+  <xs:element name="KZ000">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="kznull">
+          <xs:attribute name="type" type="kztype" use="required"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="KZ001">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="kz">
+          <xs:attribute name="type" type="kztype" use="required"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="KZ006">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="kz">
+          <xs:attribute name="type" type="kztype" use="required"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="KZ007">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="kz">
+          <xs:attribute name="type" type="kztype" use="required"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="KZ008">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="kz">
+          <xs:attribute name="type" type="kztype" use="required"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="KZ011">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="kz">
+          <xs:attribute name="type" type="kztype" use="required"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="KZ012">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="kz">
+          <xs:attribute name="type" type="kztype" use="required"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="KZ015">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="kz">
+          <xs:attribute name="type" type="kztype" use="required"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="KZ016">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="kz">
+          <xs:attribute name="type" type="kztype" use="required"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="KZ017">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="kz">
+          <xs:attribute name="type" type="kztype" use="required"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="KZ018">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="kz">
+          <xs:attribute name="type" type="kztype" use="required"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="KZ019">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="kz">
+          <xs:attribute name="type" type="kztype" use="required"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="KZ020">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="kz">
+          <xs:attribute name="type" type="kztype" use="required"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="KZ021">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="kz">
+          <xs:attribute name="type" type="kztype" use="required"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="KZ022">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="kz">
+          <xs:attribute name="type" type="kztype" use="required"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="KZ029">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="kz">
+          <xs:attribute name="type" type="kztype" use="required"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="KZ032">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="kz">
+          <xs:attribute name="type" type="kztype" use="required"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="KZ037">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="kz">
+          <xs:attribute name="type" type="kztype" use="required"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="KZ044">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="kz">
+          <xs:attribute name="type" type="kztype" use="required"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="KZ048">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="kz">
+          <xs:attribute name="type" type="kztype" use="required"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="KZ052">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="kz">
+          <xs:attribute name="type" type="kztype" use="required"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="KZ056">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="kz">
+          <xs:attribute name="type" type="kztype" use="required"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="KZ057">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="kz">
+          <xs:attribute name="type" type="kztype" use="required"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="KZ060">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="kz">
+          <xs:attribute name="type" type="kztype" use="required"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="KZ061">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="kz">
+          <xs:attribute name="type" type="kztype" use="required"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="KZ062">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="kz">
+          <xs:attribute name="type" type="kztype" use="required"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="KZ063">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="kzvorz">
+          <xs:attribute name="type" type="kztype" use="required"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="KZ064">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="kz">
+          <xs:attribute name="type" type="kztype" use="required"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="KZ065">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="kz">
+          <xs:attribute name="type" type="kztype" use="required"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="KZ066">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="kz">
+          <xs:attribute name="type" type="kztype" use="required"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="KZ067">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="kzvorz">
+          <xs:attribute name="type" type="kztype" use="required"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="KZ070">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="kznull">
+          <xs:attribute name="type" type="kztype" use="required"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="KZ071">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="kz">
+          <xs:attribute name="type" type="kztype" use="required"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="KZ072">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="kz">
+          <xs:attribute name="type" type="kztype" use="required"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="KZ073">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="kz">
+          <xs:attribute name="type" type="kztype" use="required"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="KZ076">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="kz">
+          <xs:attribute name="type" type="kztype" use="required"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="KZ077">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="kz">
+          <xs:attribute name="type" type="kztype" use="required"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="KZ082">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="kz">
+          <xs:attribute name="type" type="kztype" use="required"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="KZ083">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="kz">
+          <xs:attribute name="type" type="kztype" use="required"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="KZ087">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="kz">
+          <xs:attribute name="type" type="kztype" use="required"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="KZ088">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="kz">
+          <xs:attribute name="type" type="kztype" use="required"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="KZ089">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="kz">
+          <xs:attribute name="type" type="kztype" use="required"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="KZ090">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="kzvorz">
+          <xs:attribute name="type" type="kztype" use="required"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ARE">
+    <xs:simpleType>
+      <xs:restriction base="xs:string">
+        <xs:enumeration value="J"/>
+      </xs:restriction>
+    </xs:simpleType>
+  </xs:element>
+  <xs:element name="LIEFERUNGEN_LEISTUNGEN_EIGENVERBRAUCH">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="KZ000"/>
+        <xs:element ref="KZ001" minOccurs="0"/>
+        <xs:element ref="KZ021" minOccurs="0"/>
+        <xs:element ref="STEUERFREI" minOccurs="0"/>
+        <xs:element ref="VERSTEUERT" minOccurs="0"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="PAKET_NR">
+    <xs:simpleType>
+      <xs:restriction base="xs:positiveInteger">
+        <xs:maxInclusive value="999999999"/>
+        <xs:minInclusive value="1"/>
+        <xs:totalDigits value="9"/>
+      </xs:restriction>
+    </xs:simpleType>
+  </xs:element>
+  <xs:element name="SATZNR" type="xs:positiveInteger"/>
+  <xs:element name="STEUERFREI">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="KZ011" minOccurs="0"/>
+        <xs:element ref="KZ012" minOccurs="0"/>
+        <xs:element ref="KZ015" minOccurs="0"/>
+        <xs:element ref="KZ017" minOccurs="0"/>
+        <xs:element ref="KZ018" minOccurs="0"/>
+        <xs:element ref="KZ019" minOccurs="0"/>
+        <xs:element ref="KZ016" minOccurs="0"/>
+        <xs:element ref="VST" minOccurs="0"/>
+        <xs:element ref="KZ020" minOccurs="0"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="FASTNR">
+    <xs:simpleType>
+      <xs:restriction base="xs:positiveInteger">
+        <xs:maxInclusive value="989999999"/>
+        <xs:minInclusive value="010000010"/>
+        <xs:pattern value="\d{9}"/>
+      </xs:restriction>
+    </xs:simpleType>
+  </xs:element>
+  <xs:element name="REPO">
+    <xs:simpleType>
+      <xs:restriction base="xs:string">
+        <xs:enumeration value="J"/>
+      </xs:restriction>
+    </xs:simpleType>
+  </xs:element>
+  <xs:element name="UHRZEIT_ERSTELLUNG">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:time">
+          <xs:attribute name="type" type="uhrzeittype" use="required"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="VERSTEUERT">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="KZ022" minOccurs="0"/>
+        <xs:element ref="KZ029" minOccurs="0"/>
+        <xs:element ref="KZ006" minOccurs="0"/>
+        <xs:element ref="KZ037" minOccurs="0"/>
+        <xs:element ref="KZ052" minOccurs="0"/>
+        <xs:element ref="KZ007" minOccurs="0"/>
+        <xs:element ref="KZ056" minOccurs="0"/>
+        <xs:element ref="KZ057" minOccurs="0"/>
+        <xs:element ref="KZ048" minOccurs="0"/>
+        <xs:element ref="KZ044" minOccurs="0"/>
+        <xs:element ref="KZ032" minOccurs="0"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="VERSTEUERT_IGE">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="KZ072" minOccurs="0"/>
+        <xs:element ref="KZ073" minOccurs="0"/>
+        <xs:element ref="KZ008" minOccurs="0"/>
+        <xs:element ref="KZ088" minOccurs="0"/>
+        <xs:element ref="KZ076" minOccurs="0"/>
+        <xs:element ref="KZ077" minOccurs="0"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="VORSTEUER">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="KZ060" minOccurs="0"/>
+        <xs:element ref="KZ061" minOccurs="0"/>
+        <xs:element ref="KZ083" minOccurs="0"/>
+        <xs:element ref="KZ065" minOccurs="0"/>
+        <xs:element ref="KZ066" minOccurs="0"/>
+        <xs:element ref="KZ082" minOccurs="0"/>
+        <xs:element ref="KZ087" minOccurs="0"/>
+        <xs:element ref="KZ089" minOccurs="0"/>
+        <xs:element ref="KZ064" minOccurs="0"/>
+        <xs:element ref="KZ062" minOccurs="0"/>
+        <xs:element ref="KZ063" minOccurs="0"/>
+        <xs:element ref="KZ067" minOccurs="0"/>
+        <xs:element ref="KZ090" minOccurs="0"/>
+        <xs:element ref="ARE" minOccurs="0"/>
+        <xs:element ref="REPO" minOccurs="0"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="VST" type="vst"/>
+  <xs:element name="ZRBIS">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:gYearMonth">
+          <xs:attribute name="type" type="jahrmonattype" use="required"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ZRVON">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:gYearMonth">
+          <xs:attribute name="type" type="jahrmonattype" use="required"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
