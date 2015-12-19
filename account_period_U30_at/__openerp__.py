@@ -36,7 +36,7 @@
 , "website"     : "http://www.swing-system.com"
 , "description" : 
 """
-U30 is a XML-type VAT declaration for the Austrian governement.
+U30 is a XML-type VAT declaration for the Austrian government.
 
 This module generates a XML-file per account period attaches it to the period.
 
@@ -54,11 +54,10 @@ Zahllast = Mehrwertsteuer - Vorsteuer
     [ "account"
     , "xml_template"
     ]
-, "init_xml"    : ["U30.xml"]
+, "init_xml"    : ["U30.xml", "U30_2016.xml"]
 , "demo_xml"    : []
-, "update_xml"  : ["company_view.xml", "period_view.xml", "installer_view.xml","tax_view.xml"]
+, "update_xml"  : ["company_view.xml", "account_period_view.xml", "account_tax_code_view.xml", "installer_view.xml"]
 , "test"        : []
 , "auto_install": False
 , "installable" : True
 }
-
