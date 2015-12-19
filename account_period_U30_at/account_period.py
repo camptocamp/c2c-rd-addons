@@ -64,18 +64,19 @@ class account_period(osv.osv) :
         cr      = self.cr
         uid     = self.uid
         period  = self.period
-        aml_obj = self.pool.get("account.move.line") # GK company_id
-        at_obj  = self.pool.get("account.tax") # GK company_id
-        atc_obj = self.pool.get("account.tax.code") # GK company_id
+        aml_obj = self.pool.get("account.move.line")
+        at_obj  = self.pool.get("account.tax")
+        atc_obj = self.pool.get("account.tax.code")
         code3   = code.replace("KZ", "") # GK why?: .replace('-', '')
 
-        atc_ids = atc_obj.search(cr, uid, [("code", "like", code3)]) # GK company_id
+        atc_ids = atc_obj.search(cr, uid, [("code", "like", code3), ("company_id", "=", period.company_id.id)])
         _logger.debug('FGF atc_ids %s ' % atc_ids)
-        atc_ids2 = atc_obj.search(cr, uid, [('parent_id', 'child_of', atc_ids)]) # GK company_id
+        atc_ids2 = atc_obj.search(cr, uid, [('parent_id', 'child_of', atc_ids), ("company_id", "=", period.company_id.id)])
         _logger.debug('FGF atc_ids2 %s ' % atc_ids2)
         code_sum = 0
         for code_child in atc_ids2 :
-            aml_ids = aml_obj.search(cr, uid, [("period_id", "=", period.id), ("tax_code_id", "=", code_child)])  # vereinbarte Entgelte, hängt von Firmenart ab, currency_id
+            aml_ids = aml_obj.search \
+                (cr, uid, [("period_id", "=", period.id), ("tax_code_id", "=", code_child), ("company_id", "=", period.company_id.id)])  # vereinbarte Entgelte, hängt von Firmenart ab, currency_id
             if aml_ids :
                 amount = sum(l.tax_amount for l in aml_obj.browse(cr, uid, aml_ids))
                 _logger.debug('FGF code tax %s %s ' % (code_child, amount))
@@ -87,14 +88,16 @@ class account_period(osv.osv) :
                     code_sum += amount
         # code_alternate
         # we need to do the tree down computation starting with code (not code_alternate) - but with reverse check
-        code_alt_usage_ids = atc_obj.search(cr, uid, [("code_alternate", "like", code3)])
+        code_alt_usage_ids = atc_obj.search \
+            (cr, uid, [("code_alternate", "like", code3), ("company_id", "=", period.company_id.id)])
         _logger.debug('FGF  code_alternate  %s %s' % (code_alt_usage_ids, code3))
         for code_alt in atc_obj.browse(cr, uid, code_alt_usage_ids) :
-            atc_ids2 = atc_obj.search(cr, uid, [('parent_id', 'child_of', [code_alt.id])])
+            atc_ids2 = atc_obj.search(cr, uid, [('parent_id', 'child_of', [code_alt.id], ("company_id", "=", period.company_id.id))])
             _logger.debug('FGF  code_alt  %s %s %s %s' % (code_alt.id, code_alt.name, code_alt.code, atc_ids2))
             amount = 0.0
             
-            aml_ids = aml_obj.search(cr, uid, [("period_id", "=", period.id), ("tax_code_id", "in", atc_ids2)])  # vereinbarte Entgelte, hängt von Firmenart ab, currency_id
+            aml_ids = aml_obj.search \
+                (cr, uid, [("period_id", "=", period.id), ("tax_code_id", "in", atc_ids2), ("company_id", "=", period.company_id.id)])  # vereinbarte Entgelte, hängt von Firmenart ab, currency_id
             if aml_ids :
                 amount += sum(l.tax_amount for l in aml_obj.browse(cr, uid, aml_ids))
             if amount <> 0.0 :
@@ -112,10 +115,7 @@ class account_period(osv.osv) :
                                 code_sum += amount * code_orig.amount
                                            
         _logger.debug('FGF  tax code return %s %s' % (code, code_sum))
-        if code3 in ['063', '067', '090'] : # GK no!
-            return "%0.2f" % code_sum
-        else:
-            return "%0.2f" % abs(code_sum)
+        return "%0.2f" % code_sum
     # end def kz
 
     def generate_u30(self, cr , uid, ids, context=None) :
@@ -123,13 +123,17 @@ class account_period(osv.osv) :
         self.uid = uid
         for period in self.browse(cr, uid, ids) :
             self.period = period
-            tax_number = period.company_id.tax_office_number
-            template_obj  = self.pool.get("xml.template")
-            template_ids  = template_obj.search(cr, uid, [("name", "=", "U30 VAT declaration")]) # GK my job
+            template_obj = self.pool.get("xml.template")
+            template_filter = \
+                [ ("name", "like", "%U30 VAT%")
+                , ("valid_from", "<=", period.date_start)
+                , ("valid_to",   ">=", period.date_stop)
+                ]
+            template_ids  = template_obj.search(cr, uid, template_filter)
             if not template_ids :
                 raise osv.except_osv \
                     ( _("Customization Error !")
-                    , _("No Template '%s' defined") % template_name
+                    , _("No Template defined for %s") % str(template_filter)
                     )
             template_id = template_ids[0]
             xml = template_obj.generate_xml \
@@ -145,7 +149,7 @@ class account_period(osv.osv) :
                 , are      = ""
                 , repo     = ""
                 , kz       = self.kz
-                , tax_nr   = tax_number
+                , tax_nr   = period.company_id.tax_office_number
                 )
             template_obj.attach_xml \
                 ( cr, uid
