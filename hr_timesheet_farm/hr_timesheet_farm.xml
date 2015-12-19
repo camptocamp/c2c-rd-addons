@@ -72,6 +72,8 @@
       <field name="type">tree</field>
       <field name="arch" type="xml">
         <tree string="Work Lines" editable="top">
+          <field name="fiscalyear_id" />
+          <field name="period_id" />
           <field name="hours" sum="Hours"/>
           <field name="product_categ_id" domain="[('child_id','=',False)]"/>
           <field name="task_id"/>
@@ -138,6 +140,8 @@
 
             <newline/>
             <field name="name"/>
+            <field name="resource_tractor_id"/>
+            <field name="resource_machine_id"/>
             <field name="period_id"/>
             <field name="fiscalyear_id"/>
             <field name="user_id">
@@ -242,6 +246,8 @@
 
             <newline/>
             <field name="name"/>
+            <field name="resource_tractor_id"/>
+            <field name="resource_machine_id"/>
             <field name="period_id"/>
             <field name="fiscalyear_id"/>
             <field name="user_id">
