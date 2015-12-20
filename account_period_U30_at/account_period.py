@@ -223,7 +223,7 @@ class account_period_tax(osv.osv) :
                     result[code.id] = code.tax_amount * code.tax_percent 
                 else :
                     result[code.id] = -code.tax_amount * code.tax_percent 
-             else :
+            else :
                 result[code.id] = code.tax_amount  
         return result
     # end def _get_percent_amount_check
