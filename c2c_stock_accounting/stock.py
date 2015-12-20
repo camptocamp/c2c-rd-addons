@@ -353,10 +353,17 @@ class stock_move(osv.osv):
         for move in self.browse(cr, uid, ids):
             if move.state in ['done','cancel']: return {}
             self._logger.debug('type sale `%s`', move.picking_id.type)
-            if move.sale_line_id:
-                rate = res_curr_acc._get_conversion_rate(cr, uid, move.sale_line_id.order_id.pricelist_id.currency_id, move.company_id.currency_id, context=context)
-                result[move.id] = round(move.product_qty * move.sale_line_id.price_unit * rate, digits)
-                self._logger.debug('value_sale `%s`', result[move.id])
+            #if move.sale_line_id:
+            #    rate = res_curr_acc._get_conversion_rate(cr, uid, move.sale_line_id.order_id.pricelist_id.currency_id, move.company_id.currency_id, context=context)
+            #    result[move.id] = round(move.product_qty * move.sale_line_id.price_unit * rate, digits)
+            #    self._logger.debug('value_sale `%s`', result[move.id])
+            rate = res_curr_acc._get_conversion_rate(cr, uid, move.picking_id.sale_id.pricelist_id.currency_id, move.company_id.currency_id, context=context)
+            result[move.id] = 0 # if for some reason there is no matching order line
+            if move.picking_id and move.picking_id.sale_id:
+                for ol in move.picking_id.sale_id.order_line:
+                    if ol.product_id.id == move.product_id.id:
+                        result[move.id] = round(move.product_qty * ol.price_unit_pu * ol.price_unit_id / ol.price_unit_id.coefficient * rate, digits)
+                
         return result
 
     def _compute_price_unit_sale(self, cr, uid, ids, name, args, context):
