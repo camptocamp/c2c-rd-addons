@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <openerp>
   <data noupdate="1">
-    <record model="xml.template" id="xml_template_U30" forcecreate="True">
+    <record model="xml.template" id="xml_template_U30_2016" forcecreate="True">
       <field name="name">U30 VAT declaration 2016</field>
       <field name="schema">https://www.bmf.gv.at/egovernment/fon/fuer-softwarehersteller/BMF_ERKLAERUNGS_UEBERMITTLUNG_U30_ab_01_16.xsd</field>
       <field name="valid_from">2016-1-1</field>
