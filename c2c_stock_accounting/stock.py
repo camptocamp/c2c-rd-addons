@@ -357,12 +357,21 @@ class stock_move(osv.osv):
             #    rate = res_curr_acc._get_conversion_rate(cr, uid, move.sale_line_id.order_id.pricelist_id.currency_id, move.company_id.currency_id, context=context)
             #    result[move.id] = round(move.product_qty * move.sale_line_id.price_unit * rate, digits)
             #    self._logger.debug('value_sale `%s`', result[move.id])
-            rate = res_curr_acc._get_conversion_rate(cr, uid, move.picking_id.sale_id.pricelist_id.currency_id, move.company_id.currency_id, context=context)
             result[move.id] = 0 # if for some reason there is no matching order line
-            if move.picking_id and move.picking_id.sale_id:
+            date_invoice = ''
+            if move.location_dest_id.usage == 'customer' and move.picking_id:
+              if move.picking_id.invoice_ids:  # first check invoice for price 
+                for il in move.picking_id.invoice_ids.invoice_line:
+                    if il.product_id.id == move.product_id.id and date_invoice and il.invoice_id.date_invoice > date_invoice :
+                       date_invoice = il.invoice_id.date_invoice
+                       rate = res_curr_acc._get_conversion_rate(cr, uid, il.invoice_id.currency_id, move.company_id.currency_id, context=context)
+                       result[move.id] = round(move.product_qty * il.price_unit_pu  / il.price_unit_id.coefficient * rate, digits)
+                        
+              if move.picking_id.sale_id and result[move.id] == 0: # if no price check sale order 
+                rate = res_curr_acc._get_conversion_rate(cr, uid, move.picking_id.sale_id.pricelist_id.currency_id, move.company_id.currency_id, context=context)
                 for ol in move.picking_id.sale_id.order_line:
                     if ol.product_id.id == move.product_id.id:
-                        result[move.id] = round(move.product_qty * ol.price_unit_pu * ol.price_unit_id / ol.price_unit_id.coefficient * rate, digits)
+                       result[move.id] = round(move.product_qty * ol.price_unit_pu  / ol.price_unit_id.coefficient * rate, digits)
                 
         return result
 
@@ -414,6 +423,13 @@ class stock_move(osv.osv):
              ids2 = self.search(cr, uid, [('product_id','=',line.product_id.id),('date','>=', line.date)])
          return ids2
  
+    def _get_move_line(self, cr, uid, ids, context=None):
+        result = {}
+        for pick in self.pool.get('stock.picking').browse(cr, uid, ids, context=context):
+            for line in pick.move_lines:
+                result[line.id] = True
+        return result.keys()
+
  
 
     _columns = { 
@@ -427,6 +443,7 @@ class stock_move(osv.osv):
         'move_value_sale'    : fields.function(_compute_move_value_sale, method=True, string='Amount Sale', digits_compute=dp.get_precision('Account'),type='float' , 
            store={
                'stock.move': (lambda self, cr, uid, ids, c={}: ids, ['product_qty', 'state'], 20),
+               'stock.picking': (_get_move_line, ['invoice_ids'], 20),
                #'sale.order.line': (_get_sale_order_line, ['product_qty', 'price_subtotal'], 20),
                  },
                              help="""Product's sale value for accounting valuation.""") ,
