@@ -345,27 +345,33 @@ class stock_move(osv.osv):
         return result
 
     def _compute_move_value_sale(self, cr, uid, ids, name, args, context):
-        self._logger.debug('value_sale')
+        #self._logger.info('value_sale')
         res_curr_acc = self.pool.get('res.currency')
+        ail_obj = self.pool.get('account.invoice.line')
         digits = self.pool.get('decimal.precision').precision_get(cr, uid, 'Account')
         if not ids: return {}
         result = {}
         for move in self.browse(cr, uid, ids):
-            if move.state in ['done','cancel']: return {}
+            #if move.state in ['done','cancel']: return {}
             self._logger.debug('type sale `%s`', move.picking_id.type)
             #if move.sale_line_id:
             #    rate = res_curr_acc._get_conversion_rate(cr, uid, move.sale_line_id.order_id.pricelist_id.currency_id, move.company_id.currency_id, context=context)
             #    result[move.id] = round(move.product_qty * move.sale_line_id.price_unit * rate, digits)
             #    self._logger.debug('value_sale `%s`', result[move.id])
             result[move.id] = 0 # if for some reason there is no matching order line
-            date_invoice = ''
             if move.location_dest_id.usage == 'customer' and move.picking_id:
               if move.picking_id.invoice_ids:  # first check invoice for price 
-                for il in move.picking_id.invoice_ids.invoice_line:
-                    if il.product_id.id == move.product_id.id and date_invoice and il.invoice_id.date_invoice > date_invoice :
-                       date_invoice = il.invoice_id.date_invoice
-                       rate = res_curr_acc._get_conversion_rate(cr, uid, il.invoice_id.currency_id, move.company_id.currency_id, context=context)
-                       result[move.id] = round(move.product_qty * il.price_unit_pu  / il.price_unit_id.coefficient * rate, digits)
+                for inv in move.picking_id.invoice_ids:
+                  line_ids = ail_obj.search(cr, uid, [('invoice_id','=',inv.id),('product_id','=',move.product_id.id),('prodlot_id','=',move.prodlot_id.id) ])
+                  for il in inv.invoice_line:
+                    rate = res_curr_acc._get_conversion_rate(cr, uid, il.invoice_id.currency_id, move.company_id.currency_id, context=context)
+                    if len(line_ids) == 1:
+                      if il.product_id.id == move.product_id.id and il.prodlot_id and il.prodlot_id.id == move.prodlot_id.id:
+                       result[move.id] += round(il.price_subtotal * rate, digits)
+                    else:
+                      if il.product_id.id == move.product_id.id and il.prodlot_id and il.prodlot_id.id == move.prodlot_id.id and il.quantity == move.product_qty:
+                       result[move.id] += round(il.price_subtotal * rate, digits)
+                       #self._logger.info('net_value %s %s' % ( il.invoice_id.number,result[move.id]) )
                         
               if move.picking_id.sale_id and result[move.id] == 0: # if no price check sale order 
                 rate = res_curr_acc._get_conversion_rate(cr, uid, move.picking_id.sale_id.pricelist_id.currency_id, move.company_id.currency_id, context=context)
@@ -425,9 +431,11 @@ class stock_move(osv.osv):
  
     def _get_move_line(self, cr, uid, ids, context=None):
         result = {}
+        #self._logger.info('get_move_line')
         for pick in self.pool.get('stock.picking').browse(cr, uid, ids, context=context):
             for line in pick.move_lines:
                 result[line.id] = True
+        #self._logger.info('move_lines `%s`', result)
         return result.keys()
 
  
@@ -440,9 +448,9 @@ class stock_move(osv.osv):
                #'purchase.order.line': (_get_purchase_order_line, ['product_qty', 'price_subtotal'], 20),
                  },
                             help="""Product's cost for accounting valuation.""") ,
-        'move_value_sale'    : fields.function(_compute_move_value_sale, method=True, string='Amount Sale', digits_compute=dp.get_precision('Account'),type='float' , 
+        'move_value_sale'    : fields.function(_compute_move_value_sale, method=True, string='Amount Sale', digits_compute=dp.get_precision('Account'), #type='float' , 
            store={
-               'stock.move': (lambda self, cr, uid, ids, c={}: ids, ['product_qty', 'state'], 20),
+               'stock.move': (lambda self, cr, uid, ids, c={}: ids, ['product_qty', 'state', 'name'], 20),
                'stock.picking': (_get_move_line, ['invoice_ids'], 20),
                #'sale.order.line': (_get_sale_order_line, ['product_qty', 'price_subtotal'], 20),
                  },
