@@ -204,8 +204,8 @@ class chricar_top(osv.osv):
  
      def _get_top(self, cr, uid, ids, context=None):
         result = {}
-        for top in self.pool.get('chricar.tenant').browse(cr, uid, ids, context=context):
-            result[top.id] = True
+        for tenant in self.pool.get('chricar.tenant').browse(cr, uid, ids, context=context):
+            result[tenant.top_id.id] = True
         return result.keys()
 
 
