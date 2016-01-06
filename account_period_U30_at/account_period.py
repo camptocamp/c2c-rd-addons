@@ -115,7 +115,7 @@ class account_period(osv.osv) :
                                 code_sum += amount * code_orig.amount
                                            
         _logger.debug('FGF  tax code return %s %s' % (code, code_sum))
-        return "%0.2f" % code_sum
+        return "%0.2f" % abs(code_sum)
     # end def kz
 
     def generate_u30(self, cr , uid, ids, context=None) :
