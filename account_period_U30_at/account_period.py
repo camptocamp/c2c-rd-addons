@@ -92,7 +92,7 @@ class account_period(osv.osv) :
             (cr, uid, [("code_alternate", "like", code3), ("company_id", "=", period.company_id.id)])
         _logger.debug('FGF  code_alternate  %s %s' % (code_alt_usage_ids, code3))
         for code_alt in atc_obj.browse(cr, uid, code_alt_usage_ids) :
-            atc_ids2 = atc_obj.search(cr, uid, [('parent_id', 'child_of', [code_alt.id], ("company_id", "=", period.company_id.id))])
+            atc_ids2 = atc_obj.search(cr, uid, [('parent_id', 'child_of', [code_alt.id]), ("company_id", "=", period.company_id.id)])
             _logger.debug('FGF  code_alt  %s %s %s %s' % (code_alt.id, code_alt.name, code_alt.code, atc_ids2))
             amount = 0.0
             
