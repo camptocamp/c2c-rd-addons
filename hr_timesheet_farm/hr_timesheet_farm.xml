@@ -140,8 +140,10 @@
 
             <newline/>
             <field name="name"/>
+<!-- FGF 20160404
             <field name="resource_tractor_id"/>
             <field name="resource_machine_id"/>
+-->
             <field name="period_id"/>
             <field name="fiscalyear_id"/>
             <field name="user_id">
@@ -191,11 +193,10 @@
         <field name="help">Farm Through this menu you can register and follow your workings hours by project every day.</field>
     </record>
 
-    
     <menuitem id="menu_hr_timesheet_farm_line" parent="hr_attendance.menu_hr_time_tracking" action="act_hr_timesheet_farm_line_form"/>
- 
+
     <record id="hr_timesheet_farm_line_detail2_search" model="ir.ui.view">
-      <field name="name">hr.timesheet.farm.line.detail.search</field>
+      <field name="name">hr.timesheet.farm.line.detail2.search</field>
       <field name="model">hr.timesheet.farm.line.detail</field>
       <field name="type">search</field>
       <field eval="3" name="priority"/>

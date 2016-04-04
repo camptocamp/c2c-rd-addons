@@ -26,7 +26,7 @@
 Fast recording of working time per day and distribution of hours to lots  
 """
 , 'author'      : 'ChriCar Beteiligungs- und Beratungs- GmbH'
-, 'depends'     : ['hr_timesheet' ]
+, 'depends'     : ['hr_timesheet','hr_attendance' ]
 , 'update_xml'  : ['hr_timesheet_farm.xml']
 , 'demo_xml'    : []
 , 'installable' : True
