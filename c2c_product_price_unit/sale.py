@@ -92,7 +92,8 @@ class sale_order_line(osv.osv):
        return res
 
     def onchange_price_unit(self, cr, uid, ids, field_name,qty, price_pu, price_unit_id):
-        if  price_pu and  price_unit_id and qty:
+        #if  price_pu and  price_unit_id and qty:
+        if  price_pu and  price_unit_id: # qty not necessary here
             coeff = self.pool.get('c2c_product.price_unit').get_coeff(cr, uid, price_unit_id)
             price = price_pu / float(coeff) #* qty
             return {'value': {field_name : price}}
