@@ -47,15 +47,15 @@ class account_move_line(osv.osv):
             if count == 1:
                 account_id = l.account_id
                 account_name = l.account_id.name
-                partner_id = l.partner_id
-                partner_name = l.partner_id and l.partner_id.name
+                partner_id = l.partner_id 
+                partner_name = l.partner_id.name or '*No*'
                 if not l.account_id.reconcile:
                     raise osv.except_osv("Reconcile Error Account not allowed", 'Reconcile id: "%s"  Account Name: %s' % (l.reconcile_id.name, l.account_id.name))
             else:
                 if account_id != l.account_id:
                     raise osv.except_osv("Reconcile multiple accounts Error", 'Reconcile id: "%s", Acccount Name 1: %s Account Name 2: %s'  % (l.reconcile_id.name, account_name, l.account_id.name))
-                if partner_id != l.partner_id:
-                    raise osv.except_osv("Reconcile multiple Partners Error", 'Reconcile id: "%s",  Account Partner 1: %s Account Partner 2: %s' % (l.reconcile_id.name, partner_name, l.partner_id.name))
+                if (partner_id or 'None')  != (l.partner_id or 'None'):
+                    raise osv.except_osv("Reconcile multiple Partners Error", 'Reconcile id: "%s",  Partner 1: %s Partner 2: %s' % (l.reconcile_id.name, partner_name, l.partner_id.name))
 
 
     def write(self, cr, uid, ids, vals, context=None):
