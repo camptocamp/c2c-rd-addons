@@ -20,7 +20,7 @@
 #
 ##############################################################################
 
-# FIXME remove logger lines or change to debug
+# FIXME remove logger lines or change to info
  
 from osv import fields, osv
 from tools.translate import _
@@ -30,32 +30,44 @@ class account_move_line(osv.osv):
     _inherit = 'account.move.line'
     _logger = logging.getLogger(__name__)
     
-    def _reconcile(self, cr, uid, ids, context=None):
-        for l in self.browse(cr, uid, ids, context):
-            r = True
-            if l.reconcile_id and not l.account_id.reconcile:
-                raise osv.except_osv("Reconcile Error", 'Reconcile id: "%s"  Account Name: %s' % (l.reconcile_id.name, l.account_id.name))
-		r = False
-        return r
     
-    def _new_constraints(self, cr, uid, ids, context=None):
-        self._logger.debug('constraints start')
-        model_obj = self.pool.get('ir.model')
-        model_ids = model_obj.search(cr, uid, [('name','=','account.move.line')])
-        constraints = []
-        for m in model_obj.browse(cr, uid, model_ids):
-            if m._constraints:
-                constraints = m._constraints   
-                self._logger.debug('constraints %s', constraints)
-        s = "(_reconcile,_('You must not reconcile moves on account '),['reconcile_id'])"
-        self._logger.debug('constraints string %s', s)
-        constraints.append(s)
-        self._logger.info('new constraints %s', constraints)
-        return constraints
+    def _reconcile(self, cr, uid, r_id, context=None):
+        _logger = logging.getLogger(__name__)
+        _logger.info('FGF reconcile_id: %s', r_id)
+        aml = self.pool.get('account.move.line')
+        account_id = ''
+        partner_id = ''
  
-# FIXME       
-#    _constraints = _new_constraints
-    _constraints = [(_reconcile,_('You must not reconcile moves on account'),['reconcile_id'])]
+        l_ids = aml.search(cr, uid, [('reconcile_id','=', r_id)])
+        _logger.info('FGF line_ids: %s', l_ids)
+        for l in aml.browse(cr, uid, l_ids, context):
+            if not account_id:
+                account_id = l.account_id
+                account_name = l.account_id.name
+                if not l.account_id.reconcile:
+                    raise osv.except_osv("Reconcile Error", 'Reconcile id: "%s"  Account Name: %s' % (l.reconcile_id.name, l.account_id.name))
+            if not partner_id:
+                partner_id = l.partner_id
+                partner_name = l.partner_id.name
+            else:
+                if account_id != l.account_id:
+                    raise osv.except_osv("Reconcile multiple accounts Error", 'Reconcile id: "%s", Acccount Name 1: %s Account Name 2: %s'  % (l.reconcile_id.name, account_name, l.account_id.name))
+                if partner_id != l.partner_id:
+                    raise osv.except_osv("Reconcile multiple accounts Error", 'Reconcile id: "%s",  Account Partner 1: %s Account Partner 2: %s' % (l.reconcile_id.name, partner_name, l.partner_id.name))
+
+
+    def write(self, cr, uid, ids, vals, context=None):
+        _logger = logging.getLogger(__name__)
+        res = super(osv.osv, self).write(cr, uid, ids, vals, context=context)
+
+        _logger.info('FGF write vals: %s', vals)
+        if vals.get('reconcile_id') and vals['reconcile_id']: 
+            self._reconcile(cr, uid, vals['reconcile_id'], context)
+
+        return res
 
     
 account_move_line()
+
+
+

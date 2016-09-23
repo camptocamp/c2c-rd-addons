@@ -20,16 +20,17 @@
 ##############################################################################
 
 {
-    "name" : "Reconcile reconcile accounts",
-    "version" : "1.1",
-    "author" : "Camptocamp SA",
+    "name" : "Check reconcile accounts",
+    "version" : "1.2",
+    "author" : "ChriCar",
     "category": 'Accounting & Finance',
     'complexity': "normal",
     "description": """
 Allow reconciliation only for accounts marked to be reconciled
+Checks if only one partner and one account is selected
 
     """,
-    'website': 'http://www.camptocamp.com',
+    'website': 'http://www.chricar.at',
     "depends" : ["account"],
     'init_xml': [],
     'update_xml': [],
