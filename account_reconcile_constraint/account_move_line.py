@@ -40,20 +40,22 @@ class account_move_line(osv.osv):
  
         l_ids = aml.search(cr, uid, [('reconcile_id','=', r_id)])
         _logger.info('FGF line_ids: %s', l_ids)
-        for l in aml.browse(cr, uid, l_ids, context):
-            if not account_id:
+        if len(l_ids)> 1:
+          count = 0
+          for l in aml.browse(cr, uid, l_ids, context):
+            count += 1
+            if count == 1:
                 account_id = l.account_id
                 account_name = l.account_id.name
-                if not l.account_id.reconcile:
-                    raise osv.except_osv("Reconcile Error", 'Reconcile id: "%s"  Account Name: %s' % (l.reconcile_id.name, l.account_id.name))
-            if not partner_id:
                 partner_id = l.partner_id
-                partner_name = l.partner_id.name
+                partner_name = l.partner_id and l.partner_id.name
+                if not l.account_id.reconcile:
+                    raise osv.except_osv("Reconcile Error Account not allowed", 'Reconcile id: "%s"  Account Name: %s' % (l.reconcile_id.name, l.account_id.name))
             else:
                 if account_id != l.account_id:
                     raise osv.except_osv("Reconcile multiple accounts Error", 'Reconcile id: "%s", Acccount Name 1: %s Account Name 2: %s'  % (l.reconcile_id.name, account_name, l.account_id.name))
                 if partner_id != l.partner_id:
-                    raise osv.except_osv("Reconcile multiple accounts Error", 'Reconcile id: "%s",  Account Partner 1: %s Account Partner 2: %s' % (l.reconcile_id.name, partner_name, l.partner_id.name))
+                    raise osv.except_osv("Reconcile multiple Partners Error", 'Reconcile id: "%s",  Account Partner 1: %s Account Partner 2: %s' % (l.reconcile_id.name, partner_name, l.partner_id.name))
 
 
     def write(self, cr, uid, ids, vals, context=None):
