@@ -20,7 +20,7 @@
 #
 ##############################################################################
 
-# FIXME remove logger lines or change to info
+# FIXME remove logger lines or change to debug
  
 from osv import fields, osv
 from tools.translate import _
@@ -34,13 +34,13 @@ class account_move_line(osv.osv):
     
     def _reconcile(self, cr, uid, r_id, context=None):
         _logger = logging.getLogger(__name__)
-        _logger.info('FGF reconcile_id: %s', r_id)
+        _logger.debug('FGF reconcile_id: %s', r_id)
         aml = self.pool.get('account.move.line')
         account_id = ''
         partner_id = ''
  
         l_ids = aml.search(cr, uid, [('reconcile_id','=', r_id)])
-        _logger.info('FGF line_ids: %s', l_ids)
+        _logger.debug('FGF line_ids: %s', l_ids)
         if len(l_ids)> 1:
           count = 0
           for l in aml.browse(cr, uid, l_ids, context):
@@ -64,7 +64,7 @@ class account_move_line(osv.osv):
         _logger = logging.getLogger(__name__)
         res = super(osv.osv, self).write(cr, uid, ids, vals, context=context)
 
-        _logger.info('FGF write vals: %s', vals)
+        _logger.debug('FGF write vals: %s', vals)
         if vals.get('reconcile_id') and vals['reconcile_id']: 
             self._reconcile(cr, uid, vals['reconcile_id'], context)
 
