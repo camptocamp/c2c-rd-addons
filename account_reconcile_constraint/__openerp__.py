@@ -28,7 +28,7 @@
     "description": """
 Allow reconciliation only for accounts marked to be reconciled
 Checks if only one partner and one account is selected
-
+applies precision rounding to debit and credit - to avoid partial reconciliation
     """,
     'website': 'http://www.chricar.at',
     "depends" : ["account"],

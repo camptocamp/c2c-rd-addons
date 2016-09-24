@@ -26,6 +26,7 @@ from osv import fields, osv
 from tools.translate import _
 import logging
 
+
 class account_move_line(osv.osv):
     _inherit = 'account.move.line'
     _logger = logging.getLogger(__name__)
@@ -54,7 +55,8 @@ class account_move_line(osv.osv):
             else:
                 if account_id != l.account_id:
                     raise osv.except_osv("Reconcile multiple accounts Error", 'Reconcile id: "%s", Acccount Name 1: %s Account Name 2: %s'  % (l.reconcile_id.name, account_name, l.account_id.name))
-                if (partner_id or 'None')  != (l.partner_id or 'None'):
+                #if (partner_id or 'None')  != (l.partner_id or 'None'):
+                if l.account_id.type in ('payable','receivable') and partner_id != l.partner_id :
                     raise osv.except_osv("Reconcile multiple Partners Error", 'Reconcile id: "%s",  Partner 1: %s Partner 2: %s' % (l.reconcile_id.name, partner_name, l.partner_id.name))
 
 
@@ -72,4 +74,16 @@ class account_move_line(osv.osv):
 account_move_line()
 
 
+class account_move_line_reconcile(osv.osv_memory):
+    _inherit = 'account.move.line.reconcile'
 
+    def trans_rec_get(self, cr, uid, ids, context=None):
+        
+        res = super(account_move_line_reconcile, self).trans_rec_get(cr, uid, ids, context=context)
+        precision = self.pool.get('decimal.precision').precision_get(cr, uid, 'Account')
+        res['debit'] = round(res['debit'],precision)
+        res['credit'] = round(res['credit'],precision)
+ 
+        return res
+
+account_move_line_reconcile()
