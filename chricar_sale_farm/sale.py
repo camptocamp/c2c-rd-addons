@@ -29,6 +29,8 @@
 # 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 ###############################################
+# FGF 20160926 - store function was not defined correctl - hence values are calculated now on the fly - apparently no performance issue
+
 import time
 from osv import fields,osv
 import netsvc
@@ -121,8 +123,8 @@ class sale_order_line(osv.osv):
                 res[line.id] = 0
         return res
 
-    #def _uninvoiced_amount(self, cursor, user, ids, name, arg, context=None):
-    def _uninvoiced_amount(self, cursor, user, ids, context=None):
+    def _uninvoiced_amount(self, cursor, user, ids, name, arg, context=None):
+    #def _uninvoiced_amount(self, cursor, user, ids, context=None):
         res = {}
         for line in self.browse(cursor, user, ids, context=context):
             res[line.id] = line.invoiced_price  * line.diff_qty
@@ -162,29 +164,36 @@ class sale_order_line(osv.osv):
 
 
     _columns = {
-         'delivered_qty' : fields.function(_delivered_qty, string='Delivered QTY', type='float',
-                           store={
-                               'stock.move': (_get_stock_move, ['product_qty'], 10),
-                               'sale.order.line'    : (lambda self, cr, uid, ids, c={}: ids, ['delivered_qty'], 10),
-                                 }),
-         'invoiced_qty'  : fields.function(_invoiced_qty, string='Invoiced QTY', type='float',
-                           store={'account.invoice.line': (_get_invoice_line, ['quantity'], 10),
-                                  'sale.order.line'    : (lambda self, cr, uid, ids, c={}: ids, ['invoiced_qty'], 10),
-                                 }),
-         'diff_qty'      : fields.function(_diff_qty, string='Waste QTY', type='float', 
-                           store={ 'stock.move': (_get_stock_move, ['product_qty'], 10),
-                                   'account.invoice.line': (_get_invoice_line, ['quantity'], 10),
-                                   'sale.order.line'    : (lambda self, cr, uid, ids, c={}: ids, ['diff_qty'], 10), 
-                                 }),
+#         'delivered_qty' : fields.function(_delivered_qty, string='Delivered QTY', type='float',
+#                           store={
+#                               'stock.move': (_get_stock_move, ['product_qty'], 10),
+#                               'sale.order.line'    : (lambda self, cr, uid, ids, c={}: ids, ['delivered_qty'], 10),
+#                                 }),
+#         'invoiced_qty'  : fields.function(_invoiced_qty, string='Invoiced QTY', type='float',
+#                           store={'account.invoice.line': (_get_invoice_line, ['quantity'], 10),
+#                                  'sale.order.line'    : (lambda self, cr, uid, ids, c={}: ids, ['invoiced_qty'], 10),
+#                                 }),
+#         'diff_qty'      : fields.function(_diff_qty, string='Waste QTY', type='float', 
+#                           store={ 'stock.move': (_get_stock_move, ['product_qty'], 10),
+#                                   'account.invoice.line': (_get_invoice_line, ['quantity'], 10),
+#                                   'sale.order.line'    : (lambda self, cr, uid, ids, c={}: ids, ['diff_qty'], 10), 
+#                                 }),
+#         'diff_percent'  : fields.function(_diff_percent, string='Diff %', type='float'),
+#         'invoiced_amount':fields.function(_invoiced_amount, string='Invoiced Amount', type='float',
+#                           store={'account.invoice.line': (_get_invoice_line, ['price_subtotal'], 10) , 
+#                                  'sale.order.line'    : (lambda self, cr, uid, ids, c={}: ids, ['invoiced_amount'], 10),
+#                                 }),
+#         'uninvoiced_amount':fields.function(_uninvoiced_amount, string='Waste Value', type='float',
+#                           store= {'sale.order.line'    : (lambda self, cr, uid, ids, c={}: ids, ['uninvoiced_amount'], 10),
+#                                   'account.invoice.line': (_get_invoice_line, ['price_subtotal'], 10)
+#                                  }),
+         'delivered_qty' : fields.function(_delivered_qty, string='Delivered QTY', type='float',),
+         'invoiced_qty'  : fields.function(_invoiced_qty, string='Invoiced QTY', type='float',),
+         'diff_qty'      : fields.function(_diff_qty, string='Waste QTY', type='float',),
          'diff_percent'  : fields.function(_diff_percent, string='Diff %', type='float'),
-         'invoiced_amount':fields.function(_invoiced_amount, string='Invoiced Amount', type='float',
-                           store={'account.invoice.line': (_get_invoice_line, ['price_subtotal'], 10) , 
-                                  'sale.order.line'    : (lambda self, cr, uid, ids, c={}: ids, ['invoiced_amount'], 10),
-                                 }),
-         'uninvoiced_amount':fields.function(_uninvoiced_amount, string='Waste Value', type='float',
-                           store= {'sale.order.line'    : (lambda self, cr, uid, ids, c={}: ids, ['uninvoiced_amount'], 10),
-                                   'account.invoice.line': (_get_invoice_line, ['price_subtotal'], 10)
-                                  }),
+         'invoiced_amount':fields.function(_invoiced_amount, string='Invoiced Amount', type='float',),
+         'uninvoiced_amount':fields.function(_uninvoiced_amount, string='Waste Value', type='float',),
+
          'invoiced_price': fields.function(_invoiced_price, string='Invoiced Price', type='float'),
          'date_order'    : fields.related('order_id', 'date_order', type='date', string='Date Order', store=True),
          'state_order'   : fields.related('order_id', 'state', type='varchar', string='State Order'),
