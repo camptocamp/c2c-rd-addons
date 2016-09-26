@@ -60,9 +60,9 @@ class account_move_line(osv.osv):
                     raise osv.except_osv("Reconcile multiple Partners Error", 'Reconcile id: "%s",  Partner 1: %s Partner 2: %s' % (l.reconcile_id.name, partner_name, l.partner_id.name))
 
 
-    def write(self, cr, uid, ids, vals, context=None):
+    def write(self, cr, uid, ids, vals, context=None, check=None):
         _logger = logging.getLogger(__name__)
-        res = super(osv.osv, self).write(cr, uid, ids, vals, context=context)
+        res = super(account_move_line, self).write(cr, uid, ids, vals, context=context, check=check)
 
         _logger.debug('FGF write vals: %s', vals)
         if vals.get('reconcile_id') and vals['reconcile_id']: 
