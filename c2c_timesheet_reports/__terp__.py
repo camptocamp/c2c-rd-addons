@@ -43,7 +43,7 @@
             * Add a field "ended" to the employee form to define when the employee stopped working for the company
             * Add a tool "/HR/Configuration/Timesheet Reminder" to send automatics emails to those who did not complete their timesheet and add a boolean field to employees to define if they should receive this message or not
     """,
-    "depends" : ["hr_timesheet_sheet", "hr", "c2c_reporting_tools"],
+    "depends" : ["hr_timesheet_sheet", "hr", "c2c_reporting_tools_chricar"],
     "init_xml" : [],
     "update_xml" : [ "c2c_timesheet_view.xml", "c2c_timesheet_report.xml", "c2c_timesheet_wizard.xml" ],
     "active": False,
