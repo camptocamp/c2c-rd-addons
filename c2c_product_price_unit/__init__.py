@@ -21,11 +21,11 @@
 ##############################################################################
 
 
+import stock
 import product
 import purchase
 import sale
 import account_invoice
-import stock
 import hr_expense
 import wizard
 
