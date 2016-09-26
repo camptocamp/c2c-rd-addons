@@ -78,7 +78,7 @@ class project_work(osv.osv):
         'date_date': lambda *a: time.strftime('%Y-%m-%d')
         }
 
-    def init(self, cr):
+    def no_init(self, cr):
         
         res_user_obj = self.pool.get('res.users')
         if res_user_obj._columns.get('context_tz'):
@@ -104,8 +104,9 @@ class project_work(osv.osv):
 
         work_ids = self.search(cr, 1, [])
         for work in self.browse(cr, 1, work_ids):
+          if work.date_date:
             d = work.date_date+' 12:00:00'
-            if d != work.date:
+            if d != work.date and  not work.hr_analytic_timesheet_id.line_id.invoice_id :
                 self.write(cr, 1, [work.id], {'date': d})
          
 
