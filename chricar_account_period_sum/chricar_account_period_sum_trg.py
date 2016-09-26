@@ -216,7 +216,7 @@ class account_move(osv.osv):
         """
         _logger = logging.getLogger(__name__)
         moves_state_pre = self._get_moves_state(cr, uid, ids)
-        res = super(account_move, self).write(cr, uid, ids, vals, context)
+        res = super(account_move, self).write(cr, uid, ids, vals, context=context)
         moves_state_post = self._get_moves_state(cr, uid, ids)
         move_plus_ids = []
         move_minus_ids = []
