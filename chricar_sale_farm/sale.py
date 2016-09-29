@@ -52,7 +52,7 @@ class sale_order_line(osv.osv):
             if line.order_id.invoice_ids:
                 for inv in line.order_id.invoice_ids:
                     for inv_line in inv.invoice_line:
-                        if inv_line.product_id == line.product_id:
+                        if inv_line.product_id == line.product_id and inv_line.invoice_id.state != 'cancel':
                             res[line.id] += inv_line.quantity
         return res
 
@@ -65,7 +65,7 @@ class sale_order_line(osv.osv):
                 for inv in line.order_id.invoice_ids:
                     for inv_line in inv.invoice_line:
                         if inv_line.product_id == line.product_id and inv_line.invoice_id.state in ['open','paid']:
-                            if inv_line.invoice_id.type == 'out_invoice': 
+                            if inv_line.invoice_id.type == 'out_invoice' and inv_line.invoice_id.state != 'cancel': 
                                 res[line.id] += inv_line.price_subtotal
                             else: 
                                 res[line.id] -= inv_line.price_subtotal
