@@ -373,12 +373,14 @@
             <!-- ACTION: dbl click on Financial Management/Budgets/Budgets -->
             <record model="ir.actions.act_window" id="open_budget_list">
             <field name="res_model">c2c_budget</field>
+                        <field name="name">Budget List</field>
                         <field name="view_type">form</field>
                         <field name="view_mode">tree,form</field>
              </record>        
             <!-- ACTION: dbl click on Financial Management/Budgets/Budgets versions -->
             <record model="ir.actions.act_window" id="open_budget_version_list">
             <field name="res_model">c2c_budget.version</field>
+                        <field name="name">Budget Version List</field>
                         <field name="view_type">form</field>
                         <field name="view_mode">tree,form</field>
                         <field name="view_id" ref="view_budget_version_list_from_menu"/>
@@ -386,6 +388,7 @@
             <!-- ACTION: dbl click on Financial Management/Budgets/Budgets lines -->
             <record model="ir.actions.act_window" id="open_budget_lines_list">
             <field name="res_model">c2c_budget.line</field>
+                        <field name="name">Budget Lines List</field>
                         <field name="view_type">form</field>
                         <field name="view_mode">tree,form</field>
                         <field name="view_id" ref="view_budget_line_list"/>
@@ -393,6 +396,7 @@
             <!-- ACTION: dbl click on Financial Management/Budgets/Budgets items -->
             <record model="ir.actions.act_window" id="open_budget_items_list">
             <field name="res_model">c2c_budget.item</field>
+                        <field name="name">Budget Items List</field>
                         <field name="view_type">form</field>
                         <field name="view_mode">tree,form</field>
                         <field name="view_id" ref="view_budget_item_list"/>
