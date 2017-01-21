@@ -29,7 +29,8 @@
 #
 ##############################################################################
 { "name"         : "Bank Statment Line Defaults"
-, "description"  : """Sets more usable defaults for bank statement lines"""
+, "description"  : """Sets more usable defaults for bank statement lines
+prohibit duplicate bank statement  number"""
 , "version"      : "0.9"
 , "depends"      : ["account"]
 , "category"     : "Accounting & Finance"
