@@ -99,6 +99,13 @@ class sale_order_line(osv.osv):
             return {'value': {field_name : price}}
         return {}
 
+    def write(self, cr, uid, ids, vals, context=None):
+        if vals.get('price_pu', False) and vals.get('price_unit_id'):
+            coeff = self.pool.get('c2c_product.price_unit').get_coeff(cr, uid, vals['price_unit_id'])
+            price = vals['price_pu'] / float(coeff) #* qty
+            vals.update({'price': price})
+        return super(sale_order_line, self).write(cr, uid, ids, vals, context=context)
+
 sale_order_line()
 
 class sale_order(osv.osv):
