@@ -100,10 +100,10 @@ class sale_order_line(osv.osv):
         return {}
 
     def write(self, cr, uid, ids, vals, context=None):
-        if vals.get('price_pu', False) and vals.get('price_unit_id'):
+        if vals.get('price_unit_pu', False) and vals.get('price_unit_id'):
             coeff = self.pool.get('c2c_product.price_unit').get_coeff(cr, uid, vals['price_unit_id'])
-            price = vals['price_pu'] / float(coeff) #* qty
-            vals.update({'price': price})
+            price = vals['price_unit_pu'] / float(coeff) #* qty
+            vals.update({'price_unit': price})
         return super(sale_order_line, self).write(cr, uid, ids, vals, context=context)
 
 sale_order_line()
