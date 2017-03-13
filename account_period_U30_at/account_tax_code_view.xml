@@ -12,6 +12,7 @@
         <field name="code" position="after">
           <field name="check_sign" />
           <field name="code_alternate" />
+          <field name="code_alternate_positiv" />
           <field name="code_alternate_proz" />
         </field>
       </field>
@@ -27,6 +28,7 @@
           <newline/>
           <field name="check_sign" />
           <field name="code_alternate" />
+          <field name="code_alternate_positiv" />
           <field name="code_alternate_proz" />
         </field>
       </field>

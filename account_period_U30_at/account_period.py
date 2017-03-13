@@ -31,6 +31,7 @@
 #
 ###############################################
 # 2015-02-10 FGF korr tax check and tax formulas -sign of i.g. Erwerb und Leistung must be identical to normal VAT
+# 20170303 FGF not all XML values for alternate code must be positiv
 
 from osv import fields, osv
 from tools.translate import _
@@ -48,11 +49,16 @@ class account_tax_code(osv.osv) :
          ( _sel, 'Check Code Amount Sign'
          , help="""Use alternate Case Code if condition is met (beware of debit-credit balance, custom VAT=pos, supplier vat=neg).
                    Zahllast (MWSt - VSt) must be positive.
-                   All values in XML must be positive."""
+                   20170303 - changed - NOT All values in XML must be positive."""
          )
         , 'code_alternate'      : fields.char('Case Code Alternate', size=64)
+        , 'code_alternate_positiv'  : fields.boolean('Alternate Amount Positiv', help="U30 Make amount for Code Alternate positiv")        
         , 'code_alternate_proz' : fields.boolean('Alternate Code as %', help="Return value of alternate code as tax not as base amount")        
         }
+
+    _defaults = {
+      'code_alternate_positiv'     : lambda *a: True,
+}
 account_tax_code()
 
 class account_period(osv.osv) :
@@ -113,9 +119,19 @@ class account_period(osv.osv) :
                                 code_sum -= amount * code_orig.amount
                             else:
                                 code_sum += amount * code_orig.amount
-                                           
-        _logger.debug('FGF  tax code return %s %s' % (code, code_sum))
-        return "%0.2f" % abs(code_sum)
+        code_num = code.replace('KZ','')
+        _logger.info('FGF  tax code return %s %s %s' % (code,code_num, code_sum))
+        code_alt_positiv_ids = atc_obj.search \
+            (cr, uid, [("code_alternate", "like", code_num), ('code_alternate_positiv', '=', False), ("company_id", "=", period.company_id.id)])
+        if code_alt_positiv_ids :
+            _logger.info('FGF  alternate tax code return A %s %s' % (code, -code_sum))
+            return "%0.2f" % -code_sum
+        else:
+            _logger.info('FGF  alternate tax code return B %s %s' % (code, abs(code_sum)))
+            r = "%0.2f" % abs(code_sum)
+            _logger.info('FGF  alternate tax code return B r  %s' % (r))
+            return  r
+        
     # end def kz
 
     def generate_u30(self, cr , uid, ids, context=None) :
