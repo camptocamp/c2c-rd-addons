@@ -57,11 +57,11 @@
             </LIEFERUNGEN_LEISTUNGEN_EIGENVERBRAUCH>
             <INNERGEMEINSCHAFTLICHE_ERWERBE>
               <KZ008 attr-name1="type" attr-eval1="'kz'" text-eval="kz('KZ008')" seq-eval="[0] if kz('KZ008') != '0.00' else []" var="x"/>
-              <KZ070 attr-name1="type" attr-eval1="'kz'" text-eval="kz('KZ070')" seq-eval="[0] if kz('KZ070') != '0.00' else []" var="x"/>
+              <KZ070 attr-name1="type" attr-eval1="'kz'" text-eval="kz('KZ073')" seq-eval="[0] if kz('KZ073') != '0.00' else []" var="x"/>
               <KZ071 attr-name1="type" attr-eval1="'kz'" text-eval="kz('KZ071')" seq-eval="[0] if kz('KZ071') != '0.00' else []" var="x"/>
               <VERSTEUERT_IGE>
                 <KZ072 attr-name1="type" attr-eval1="'kz'" text-eval="kz('KZ072')" seq-eval="[0] if kz('KZ072') != '0.00' else []" var="x"/>
-                <KZ073 attr-name1="type" attr-eval1="'kz'" text-eval="kz('KZ073')" seq-eval="[0] if kz('KZ073') != '0.00' else []" var="x"/>
+                <KZ073 attr-name1="type" attr-eval1="'kz'" text-eval="kz('KZ070')" seq-eval="[0] if kz('KZ070') != '0.00' else []" var="x"/>
                 <KZ088 attr-name1="type" attr-eval1="'kz'" text-eval="kz('KZ088')" seq-eval="[0] if kz('KZ088') != '0.00' else []" var="x"/>
                 <KZ076 attr-name1="type" attr-eval1="'kz'" text-eval="kz('KZ076')" seq-eval="[0] if kz('KZ076') != '0.00' else []" var="x"/>
                 <KZ077 attr-name1="type" attr-eval1="'kz'" text-eval="kz('KZ077')" seq-eval="[0] if kz('KZ077') != '0.00' else []" var="x"/>
