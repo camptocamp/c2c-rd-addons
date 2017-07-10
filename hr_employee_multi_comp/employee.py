@@ -49,7 +49,21 @@ class hr_employee(osv.osv):
     _inherit = "hr.employee"
     _columns = {
         'employee_company_ids': one2many_sorted.one2many_sorted('hr.employee.company', 'employee_id', 'Company Data' , order = 'company_id.name')    
-                                
+       ,'product_id': fields.property(
+            'product.product',
+            type='many2one',
+            relation='product.product',
+            string ='Product',
+            view_load=True,
+            help="This product will be used in hr apps as default for employyes")
+       ,'journal_id': fields.property(
+            'account.analytic.journal',
+            type='many2one',
+            relation='account.analytic.journal',
+            string ='Analytic Journal',
+            view_load=True,
+            help="This journal will be used in hr apps as default for employyes")
         }
 
 hr_employee()
+
