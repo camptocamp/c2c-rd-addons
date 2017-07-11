@@ -32,7 +32,7 @@ Mails will use correct signature depending on company in object
 
     """,
     'website': 'http://www.camptocamp.com',
-    "depends" : ["hr","one2many_sorted","project"],
+    "depends" : ["hr","one2many_sorted","project","account","hr_timesheet"],
     'init_xml': [],
     'update_xml': ['employee_view.xml','security/ir.model.access.csv'],
     'demo_xml': [],

@@ -68,4 +68,3 @@ class hr_employee(osv.osv):
 hr_employee()
 
 
-
