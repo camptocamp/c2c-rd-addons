@@ -10,6 +10,7 @@
       <field name="priority">100</field>
       <field name="arch" type="xml">
         <field name="code" position="after">
+          <field name="parent_id" />
           <field name="check_sign" />
           <field name="code_alternate" />
           <field name="code_alternate_positiv" />
