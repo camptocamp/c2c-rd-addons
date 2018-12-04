@@ -100,6 +100,7 @@ class hr_timesheet_farm_line(osv.osv):
         'notes': fields.text ('Notes'),
         'work_ids': one2many_sorted.one2many_sorted('hr.timesheet.farm.line.detail', 'line_id', 'Work' , order = 'prodlot_id.name') ,
         'hours_detail': fields.function(_get_hours_detail, method=True, type='float', string='Sum Detail Hours'),
+        'company_id': fields.many2one('res.company', 'Company'),
         }
 
     _defaults = {

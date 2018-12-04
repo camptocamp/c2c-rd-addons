@@ -14,21 +14,19 @@
           <field name="fiscalyear_id" />
           <field name="hours_regular" sum="Hours"/>
           <field name="hours_cleaning" sum="Clean"/>
-          <field name="hours_overtime_25" sum="25 OT" invisible = "False"/>
-          <field name="hours_overtime_50" sum="50 OT" invisible = "False"/>
-          <field name="hours_overtime_100" sum="100 OT" invisible = "False"/>
-          <field name="hours_holiday_work" sum="Holiday Work" invisible = "False"/>
-          <field name="hours_holiday" sum="Holiday" invisible = "False"/>
-          <field name="hours_illnes" sum="Illness" invisible = "False"/>
-          <field name="hours_care" sum="Care" invisible = "False"/>
-          <field name="allowance" sum="Allow" invisible = "False"/>
-          <field name="bonus" sum="Bonus" invisible = "False"/>
-          <field name="other" sum="other" invisible = "False"/>
+          <field name="hours_overtime_25" sum="25 OT" invisible = "True"/>
+          <field name="hours_overtime_50" sum="50 OT" invisible = "True"/>
+          <field name="hours_overtime_100" sum="100 OT" invisible = "True"/>
+          <field name="hours_holiday_work" sum="Holiday Work" invisible = "True"/>
+          <field name="hours_holiday" sum="Holiday" invisible = "True"/>
+          <field name="hours_illnes" sum="Illness" invisible = "True"/>
+          <field name="hours_care" sum="Care" invisible = "True"/>
+          <field name="allowance" sum="Allow" invisible = "True"/>
+          <field name="bonus" sum="Bonus" invisible = "True"/>
+          <field name="other" sum="other" invisible = "True"/>
           <field name="notes"/>
           <field name="work_ids"/>
           <field name="hours_detail" sum="H Detail"/>
-          <field name="company_id" invisible = "True"/>
-           
         </tree>
       </field>
     </record>
@@ -45,20 +43,20 @@
           <field name="user_id"/>
           <field name="hours_regular" />
           <field name="hours_cleaning" />
-          <field name="hours_overtime_25" invisible = "False"/>
-          <field name="hours_overtime_50" invisible = "False"/>
-          <field name="hours_overtime_100" invisible = "False"/>
-          <field name="hours_holiday_work" invisible = "False"/>
+          <field name="hours_overtime_25" invisible = "True"/>
+          <field name="hours_overtime_50" invisible = "True"/>
+          <field name="hours_overtime_100" invisible = "True"/>
+          <field name="hours_holiday_work" invisible = "True"/>
           <field name="hours_detail" />
           </group>
           <group colspan="2" col="2">
           <field name="name"/>
-          <field name="hours_holiday" invisible = "False"/>
-          <field name="hours_illnes" invisible = "False"/>
-          <field name="hours_care" invisible = "False"/>
-          <field name="allowance" invisible = "False" />
-          <field name="bonus" invisible = "False"/>
-          <field name="other" invisible = "False"/>
+          <field name="hours_holiday" invisible = "True"/>
+          <field name="hours_illnes" invisible = "True"/>
+          <field name="hours_care" invisible = "True"/>
+          <field name="allowance" invisible = "True" />
+          <field name="bonus" invisible = "True"/>
+          <field name="other" invisible = "True"/>
           <field name="notes"/>
           </group>
           
@@ -74,8 +72,6 @@
       <field name="type">tree</field>
       <field name="arch" type="xml">
         <tree string="Work Lines" editable="top">
-          <field name="fiscalyear_id" />
-          <field name="period_id" />
           <field name="hours" sum="Hours"/>
           <field name="product_categ_id" domain="[('child_id','=',False)]"/>
           <field name="task_id"/>
@@ -120,12 +116,12 @@
               icon="terp-go-month"
               string="Last Mo"/>
             <filter
-              domain="[('name','&gt;=',  (datetime.date.today().strftime('%%Y-'+ str(int(round(1 + (datetime.date.today().month -1 )//3*3 ))).zfill(2) +'-01 00:00:00')))]"
+              domain="[('name','&gt;=',  (datetime.date.today().strftime('%%Y-'+ str(int(round(datetime.date.today().month / 3.0)*3+1)).zfill(2) +'-01 00:00:00')))]"
               help="This Quarter work"
               icon="terp-go-month"
               string="This Qu"/>
             <filter
-              domain="[('name','&lt;',  (datetime.date.today().strftime('%%Y-'+ str(int(round(1 + (datetime.date.today().month -1 )// 3*3))).zfill(2) +'-01 00:00:00'))), ('name','&gt;=', ((datetime.date.today() + relativedelta(months=-3)).strftime('%%Y-') + str(int(round(1 + ((datetime.date.today() + relativedelta(months=-3)).month -1) //3*3))).zfill(2)  +'-01 00:00:00')) ] "
+              domain="[('name','&lt;', (datetime.date.today().strftime('%%Y-'+ str(int(round(datetime.date.today().month / 3.0)*3+1)).zfill(2) +'-01 00:00:00'))), ('name','&gt;=', (datetime.date.today().strftime('%%Y-'+ str(int(round(datetime.date.today().month / 3.0)*3-2)).zfill(2) +'-01 00:00:00'))) ] "
               help="Last quarters work"
               icon="terp-go-month"
               string="Last Qu"/>
@@ -142,10 +138,6 @@
 
             <newline/>
             <field name="name"/>
-<!-- FGF 20160404
-            <field name="resource_tractor_id"/>
-            <field name="resource_machine_id"/>
--->
             <field name="period_id"/>
             <field name="fiscalyear_id"/>
             <field name="user_id">
@@ -195,10 +187,11 @@
         <field name="help">Farm Through this menu you can register and follow your workings hours by project every day.</field>
     </record>
 
+    
     <menuitem id="menu_hr_timesheet_farm_line" parent="hr_attendance.menu_hr_time_tracking" action="act_hr_timesheet_farm_line_form"/>
-
+ 
     <record id="hr_timesheet_farm_line_detail2_search" model="ir.ui.view">
-      <field name="name">hr.timesheet.farm.line.detail2.search</field>
+      <field name="name">hr.timesheet.farm.line.detail.search</field>
       <field name="model">hr.timesheet.farm.line.detail</field>
       <field name="type">search</field>
       <field eval="3" name="priority"/>
@@ -249,8 +242,6 @@
 
             <newline/>
             <field name="name"/>
-            <field name="resource_tractor_id"/>
-            <field name="resource_machine_id"/>
             <field name="period_id"/>
             <field name="fiscalyear_id"/>
             <field name="user_id">
