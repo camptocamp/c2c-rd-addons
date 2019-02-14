@@ -317,9 +317,15 @@ class account_move_line(osv.osv):
         lines_selected = []
         if context.get('active_ids'):
             lines_selected = list(context.get('active_ids'))
-        self._logger.debug('reconcile move_line lines_selected %s, context %s' % (lines_selected, context))
+        self._logger.info('reconcile move_line lines_selected %s, context %s' % (lines_selected, context))
 
-        res = super(account_move_line, self).reconcile(cr, uid, ids, type, writeoff_acc_id, writeoff_period_id, writeoff_journal_id, context)
+        # FGF 20190214 cancel invoice destroys workflow and causes an error in the following line res =  
+        # hack: reconclie must work in this case without workflow.
+        try:
+	    res = super(account_move_line, self).reconcile(cr, uid, ids, type, writeoff_acc_id, writeoff_period_id, writeoff_journal_id, context)
+        except:
+            res = ''
+            pass
         if not lines_selected:
             return res 
         lines_ids_returned = list(context.get('active_ids'))
