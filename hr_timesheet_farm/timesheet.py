@@ -29,12 +29,17 @@
 # 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 ###############################################
-import time
-from osv import fields,osv
-import netsvc
-import one2many_sorted
 from datetime import datetime
+import time
+from lxml import etree
+import decimal_precision as dp
 
+import netsvc
+import pooler
+from osv import fields, osv, orm
+from tools.translate import _
+
+import one2many_sorted
 import logging
 
 
@@ -42,6 +47,7 @@ class hr_timesheet_farm_line(osv.osv):
     _name = "hr.timesheet.farm.line"
     _table = "hr_timesheet_farm_line"
     _logger = logging.getLogger(_name)
+
 
     def _get_hours_detail(self, cr, uid, ids, name, args, context=None):
         res = {}
@@ -60,24 +66,17 @@ class hr_timesheet_farm_line(osv.osv):
             date = line.name
             _logger.info('FGF period_id date %s' % (date)) 
             _logger.info('FGF period_id context %s' % (context)) 
-            _logger.info('FGF period_id uid %s' % (uid)) 
+            _logger.info('FGF period_id uid %s' % (context['uid'])) 
+            uid = context['uid']
             company_id = self.pool.get('res.users').browse(cr, uid, uid, context).company_id.id
             context['company_id'] = company_id
             _logger.info('FGF period_id context %s' % (context)) 
-            #date = datetime.strptime(line.name, '%Y-%m-%d')
-            #_logger.info('FGF period_id date %s' % (date)) 
-            #res_ids = self.pool.get('account.period').search(cr,uid,[('date_start','<=',date), ('date_stop','>=',date), ('state','=','draft'), ('special', '!=', True) ], context)
-            #_logger.info('FGF period_ids %s' % (res_ids)) 
-            # standard returns missing period for fiscal year != calendar year
-            res_ids = self.pool.get('account.period').find(cr, uid, date, context=context)
-            if len(res_ids):
-                result[line.id] = res_ids[0]
-            else:
-                raise osv.except_osv(_('Error !'),'Missing period in hr.timesheet.farm.line %s %s.' %(line.date, line.user.id.name))
-
+            period_obj = self.pool.get('account.period')
+            period_ids = period_obj.find(cr, uid, date, context=context)
+            period_id = period_ids and period_ids[0] or False
+            result[line.id] = period_id
             _logger.info('FGF period_ids result %s' % (result)) 
         return result
-
 
 
     _columns = {
@@ -105,7 +104,9 @@ class hr_timesheet_farm_line(osv.osv):
 
     _defaults = {
         'user_id': lambda self, cr, uid, context: uid,
-        'name': lambda *a: time.strftime('%Y-%m-%d')
+        'name': lambda *a: time.strftime('%Y-%m-%d'),
+        'company_id': lambda self, cr, uid, c: self.pool.get('res.company')._company_default_get(cr, uid, 'hr.timesheet.farm.line', context=c)
+  
        }
 
     _order          = "name desc"    
@@ -121,7 +122,7 @@ class hr_timesheet_farm_line_detail(osv.osv):
         'line_id'     : fields.many2one('hr.timesheet.farm.line', 'Daily work', required = True),
         'date'        : fields.related ('line_id','name',type='date',string='Date',readonly=True, store=True),
         'period_id'   : fields.related ('line_id','period_id',type='many2one',string='Period', relation="account.period", readonly=True, store=True),
-        'fiscalyear_id' : fields.related('line_id', 'fiscalyear_id', string='Fiscal Year', type='many2one', relation='account.fiscalyear', store=True),
+        'fiscalyear_id' : fields.related('line_id', 'fiscalyear_id', string='Fiscal Year', type='many2one', relation='account.fiscalyear', readonly=True,store=True),
         'hours'       : fields.float  ('Hours', digits=(4,2), required=True),
         'task_id'     : fields.many2one('project.task', 'Task', ondelete='cascade', required=True),
         'product_categ_id':fields.many2one('product.category', 'Product Category', ),
