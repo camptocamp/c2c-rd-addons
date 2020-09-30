@@ -4,7 +4,7 @@
 Camptocamp R&D addons
 =====================
 
-
+some bugs but its an amazing project.
 Lots of things in there, which should progressively move to OCA.
 
 
