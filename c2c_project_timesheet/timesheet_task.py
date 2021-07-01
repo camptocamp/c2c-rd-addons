@@ -41,7 +41,7 @@ class project_work(osv.osv):
     
     def _update_project_id(self, cr, uid, ids, context=None):
         task_work_obj = self.pool.get('project.task.work')
-        task_work_ids = task_work_obj.search(cr, uid, [('task_id','in',ids)])
+        task_work_ids = task_work_obj.search(cr, uid, [('task_id','in',ids)], context)
         self._logger.debug('update project `%s` `%s`', ids, task_work_ids)
         return task_work_ids
 
@@ -61,18 +61,18 @@ class project_work(osv.osv):
     }
 
 
-    def get_product(self, cr, uid, task):
+    def get_product(self, cr, uid, task, context=None):
         
         product_id = ''
         grid_obj = self.pool.get('analytic.user.funct.grid')
         if grid_obj:
-            grid_ids = grid_obj.search(cr, uid, [('user_id','=', uid),('account_id','=',task.project_id.analytic_account_id.id)])
-            for grid_line in grid_obj.browse(cr, uid, grid_ids):
+            grid_ids = grid_obj.search(cr, uid, [('user_id','=', task.user_id.id),('account_id','=',task.project_id.analytic_account_id.id)], context)
+            for grid_line in grid_obj.browse(cr, uid, grid_ids, context):
                 product_id = grid_line.product_id.id
 
         if not product_id:
-            employee_id = self.pool.get('hr.employee').search(cr, uid, [('user_id','=',uid)])
-            for employee in self.pool.get('hr.employee').browse(cr, uid, employee_id):
+            employee_id = self.pool.get('hr.employee').search(cr, uid, [('user_id','=',task.project_id.user_id.id)], context)
+            for employee in self.pool.get('hr.employee').browse(cr, uid, employee_id, context):
                 if employee.product_id:
                     product_id = employee.product_id.id
         return product_id
@@ -82,10 +82,11 @@ class project_work(osv.osv):
         res = {} 
         if task_id:
             task_obj = self.pool.get('project.task')
-            for task in task_obj.browse(cr, uid, [task_id]): 
+            for task in task_obj.browse(cr, uid, [task_id], context): 
                 if task.project_id and task.project_id.to_invoice:
 	                value['to_invoice'] = task.project_id.to_invoice.id
-                product_id = self.get_product(cr, uid, task)
+	                value['project_id'] = task.project_id.id
+                product_id = self.get_product(cr, uid, task, context)
                 if product_id:
                     value['product_id']= product_id
         res['value']=value
@@ -93,13 +94,13 @@ class project_work(osv.osv):
 
 
 
-    def _get_product(self, cr, uid, work_id):
+    def _get_product(self, cr, uid, work_id, context=None):
         product_id = ''
-        for work in self.browse(cr, uid, [work_id] ):
+        for work in self.browse(cr, uid, [work_id], context ):
             if work.product_id:
                 product_id = work.product_id.id
             if not product_id:
-                self.get_product(cr, uid, work.task_id)
+                self.get_product(cr, uid, work.task_id, context)
                 
 
         return product_id
@@ -128,7 +129,7 @@ class project_work(osv.osv):
                    'name' : name,
                    'account_id' : work.task_id.project_id.analytic_account_id.id,
                    }
-                product_id = self._get_product(cr, uid, work.id)
+                product_id = self._get_product(cr, uid, work.id, context=context)
                 if product_id:
                     vals['product_id'] = product_id
                 self._logger.debug('FGF update analytic `%s` `%s`', work.hr_analytic_timesheet_id.line_id.id, vals)
@@ -143,7 +144,7 @@ class project_work(osv.osv):
         timeline_id = vals.get('hr_analytic_timesheet_id') and vals['hr_analytic_timesheet_id'] or ''
         if timeline_id:
             obj_timesheet = self.pool.get('hr.analytic.timesheet')
-            for work in self.browse(cr, uid, [res] ):
+            for work in self.browse(cr, uid, [res]  ):
                 vals = {}
                 if work.to_invoice:
                     vals['to_invoice'] = work.to_invoice.id
@@ -157,7 +158,7 @@ class project_work(osv.osv):
 
     def unlink(self, cr, uid, ids, *args, **kwargs):
         task_obj = self.pool.get('project.task')
-        for work in self.browse(cr, uid, ids ):
+        for work in self.browse(cr, uid, ids):
             task_id = work.task_id.id
         res = super(project_work, self).unlink(cr, uid, ids, *args, **kwargs)
         task_obj.write(cr, uid, [task_id], {'remaining_hours' : work.task_id.remaining_hours})
