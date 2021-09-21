@@ -10,6 +10,8 @@
             <field name="arch" type="xml">
                 <button name="action_cancel" position="after">
                     <button name="action_reopen" type="object" states="progress" string="Reset To Quotation" icon="gtk-convert" groups="base.group_extended" />
+                    <button name="action_done" type="object" states="progress" string="Set To Done" icon="gtk-convert" groups="base.group_extended" />
+                    <button name="action_unset_uninvoiced_lines" type="object" states="done" string="Clear Uninvoiced Lines" icon="gtk-convert" groups="base.group_extended" />
                 </button>
             </field>
         </record>

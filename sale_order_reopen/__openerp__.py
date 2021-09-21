@@ -29,8 +29,10 @@
 Allows reopening of sale orders.
 ================================
 
-This module allows to reopen (set to Quotation) Sale Orders in state progress and cancel
-as associated pickings or invoices are canceled if possible
+This module allows i
+* to reopen (set to Quotation) Sale Orders in state progress and cancel
+as associated pickings or invoices are canceled if possible.
+* to set hanging sales orders to done.
 
     """,
     'website': 'http://www.camptocamp.com',
