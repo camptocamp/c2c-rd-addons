@@ -11,6 +11,7 @@ generated 2009-07-09 16:17:22+02"""
     , "stock"
     , "chricar_partner_parent_companies"
     , "crm_helpdesk"
+    , "project_issue"
     ]
 , "init_xml"     : ["mig_top_init.xml"]
 , "demo_xml"     : []
