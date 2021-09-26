@@ -421,6 +421,7 @@ Modification of Parents (only for matching table prefixes)
       <field name="inherit_id" ref="project_issue.project_issue_tree_view"/>
       <field name="arch" type="xml">
          <field name="name" position="after">
+           <field name="company_id" sum="Cost"/>
            <field name="amount" sum="Cost"/>
          </field>
       </field>
@@ -435,6 +436,7 @@ Modification of Parents (only for matching table prefixes)
       src_model="chricar.top"
       view_mode="tree,form"
       view_type="form"/>
+
     <act_window
       domain="[('analytic_account_id','=',account_analytic_id)]"
       id="act_top_2_issue"
@@ -443,6 +445,18 @@ Modification of Parents (only for matching table prefixes)
       src_model="chricar.top"
       view_mode="tree,form"
       view_type="form"/>
+
+    <act_window
+      domain="[('account_analytic_id','=',analytic_account_id)]"
+      id="act_issue_2_top"
+      name="Referenced Top"
+      res_model="chricar.top"
+      src_model="project.issue"
+      view_mode="tree,form"
+      view_type="form"/>
+
+
+
     <menuitem
       action="stock.action_location_tree"
       id="menu_action_location_tree_chricar"
