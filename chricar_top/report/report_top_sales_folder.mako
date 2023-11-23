@@ -16,7 +16,7 @@
     </style>
 %for top in objects:
 <%setLang(top.partner_id.lang)%>
-<h1>${_("Info Folders")}</h1>
+<h1>${_("Info Folder")}</h1>
 
 <table>
     <tbody>
@@ -47,6 +47,13 @@
         <tr>
         <td>${_("Surface")}</td>
         <td>${top.surface or ''|entity}m²</td>
+        </tr>    
+        %endif
+
+        %if top.terrace:
+        <tr>
+        <td>${_("Terrace")}</td>
+        <td>${top.terrace or ''|entity}m²</td>
         </tr>    
         %endif
 
