@@ -402,6 +402,37 @@ Modification of Parents (only for matching table prefixes)
         </separator>
       </field>
     </record>
+
+
+    <record id="project_issue_amount_form_view" model="ir.ui.view">
+      <field name="name">project.issue.amount</field>
+      <field name="model">project.issue</field>
+      <field name="type">form</field>
+      <field name="inherit_id" ref="project_issue.project_issue_form_view"/>
+      <field name="arch" type="xml">
+         <field name="progress" position="after">
+           <field name="amount"/>
+         </field>
+      </field>
+    </record>
+
+    <record id="project_issue_amount_tree_view" model="ir.ui.view">
+      <field name="name">project.issue.amount.tree</field>
+      <field name="model">project.issue</field>
+      <field name="type">tree</field>
+      <field name="inherit_id" ref="project_issue.project_issue_tree_view"/>
+      <field name="arch" type="xml">
+         <field name="name" position="after">
+           <field name="company_id" sum="Cost"/>
+           <field name="amount" sum="Cost"/>
+         </field>
+      </field>
+    </record>
+
+
+
+
+
     <act_window
       domain="[('ref','=',ref_top)]"
       id="act_top_2_helpdesk"
@@ -416,6 +447,14 @@ Modification of Parents (only for matching table prefixes)
       name="Issues Top"
       res_model="project.issue"
       src_model="chricar.top"
+      view_mode="tree,form"
+      view_type="form"/>
+    <act_window
+      domain="[('account_analytic_id','=',analytic_account_id)]"
+      id="act_issue_2_top"
+      name="Referenced Top"
+      res_model="chricar.top"
+      src_model="project.issue"
       view_mode="tree,form"
       view_type="form"/>
     <menuitem

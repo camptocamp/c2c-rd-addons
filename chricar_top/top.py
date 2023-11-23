@@ -34,6 +34,24 @@
 ###############################################
 from osv import fields,osv
 import logging
+import decimal_precision as dp
+
+class crm_claim(osv.osv):
+     _inherit = "crm.claim"
+
+     _columns = {
+     'company_id': fields.many2one('res.company', 'Company', required=True),
+     }
+crm_claim()
+
+class project_issue(osv.osv):
+     _inherit = "project.issue"
+
+     _columns = {
+     'company_id': fields.many2one('res.company', 'Company', required=True),
+     'amount': fields.float('Estimated Cost', digits_compute=dp.get_precision('Payment Term'), )
+     }
+project_issue()
 
 class stock_location(osv.osv):
      _inherit = "stock.location"
